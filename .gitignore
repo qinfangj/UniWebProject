@@ -1,0 +1,10 @@
+
+backup
+node_modules
+.idea
+.DS_Store
+.editorconfig
+
+
+database*
+firebase*
