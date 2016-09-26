@@ -4,6 +4,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import Checkbox from 'react-bootstrap/lib/Checkbox';
+import Button from 'react-bootstrap/lib/Button';
 
 
 
@@ -28,15 +30,85 @@ class ProjectInsertForm extends React.Component {
                   controlId="formBasicText"
                   validationState={this.getValidationState()}
                 >
-                    <ControlLabel>Working example with validation</ControlLabel>
+                    {/* Project name */}
+
+                    <ControlLabel>Project name</ControlLabel>
                     <FormControl
                       type="text"
                       value={this.state.value}
-                      placeholder="Enter text"
+                      placeholder="Project name"
                       onChange={this.handleChange.bind(this)}
                     />
                     <FormControl.Feedback />
                     <HelpBlock>Validation is based on string length.</HelpBlock>
+
+                    {/* Person in charge */}
+
+                    <ControlLabel>Person in charge</ControlLabel>
+                    <FormControl componentClass="select" placeholder="Person in charge">
+                        <option value="select">select</option>
+                        <option value="other">...</option>
+                    </FormControl>
+
+                    {/* Code name */}
+
+                    <ControlLabel>Code name</ControlLabel>
+                    <FormControl
+                        type="text"
+                        value={this.state.value}
+                        placeholder="Code name"
+                        onChange={this.handleChange.bind(this)}
+                    />
+
+                    {/* Description */}
+
+                    <ControlLabel>Description</ControlLabel>
+                    <FormControl
+                        type="text"
+                        value={this.state.value}
+                        placeholder="Description"
+                        onChange={this.handleChange.bind(this)}
+                    />
+
+                    {/* Project state */}
+
+                    <ControlLabel>Project state</ControlLabel>
+                    <FormControl componentClass="select" placeholder="Project state">
+                        <option value="none">...</option>
+                        <option value="select">select</option>
+                        <option value="other">...</option>
+                    </FormControl>
+                    <Checkbox>
+                        Control Project
+                    </Checkbox>
+
+                    {/* User meeting date */}
+
+                    <ControlLabel>User meeting date</ControlLabel>
+                    <FormControl
+                        type="date"
+                        placeholder="User meeting date"
+                        onChange={this.handleChange.bind(this)}
+                    />
+
+                    {/* Project analysis */}
+
+                    <ControlLabel>Project analysis</ControlLabel>
+                    <FormControl componentClass="select" placeholder="Project analysis">
+                        <option value="none">...</option>
+                        <option value="select">select</option>
+                        <option value="other">...</option>
+                    </FormControl>
+
+                    {/* Comments */}
+
+                    <FormGroup controlId="formControlsTextarea">
+                        <ControlLabel>Comments</ControlLabel>
+                        <FormControl componentClass="textarea" placeholder="Comments" />
+                    </FormGroup>
+
+                    <Button action="submit" bsStyle="primary">Submit</Button>
+
                 </FormGroup>
             </form>
         );
