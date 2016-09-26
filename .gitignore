@@ -1,6 +1,9 @@
 
-backup
-node_modules
+backup/
+node_modules/
+public/index.html
+public/*
+public/dist/
 .idea
 .DS_Store
 .editorconfig
