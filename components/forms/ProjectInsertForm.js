@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './forms.css';
+import store from '../../core/store';
 
 import TextField from './TextField';
 import * as validators from './validators';
@@ -17,6 +18,7 @@ import Col from 'react-bootstrap/lib/Col';
 class ProjectInsertForm extends React.Component {
     constructor() {
         super();
+        this.name = "projectInsertForm";
         this.state = {
             projectName: null,
             personInCharge: null,
@@ -29,8 +31,20 @@ class ProjectInsertForm extends React.Component {
         };
     }
 
-    handleChange(e) {
-        this.setState({value: e.target.value});
+    stateFromStore() {
+        let storeState = store.forms.getState();
+        console.debug("pif:", storeState, storeState[this.name])
+        return storeState[this.name];
+    }
+
+    onChange(name, value) {
+        console.debug(JSON.stringify(this.state, null, 2))
+        this.setState({[name]: value});
+    }
+
+    onSubmit() {
+        let storeState = store.getState();
+        console.debug(JSON.stringify(storeState, null, 2));
     }
 
     render() {
@@ -41,17 +55,18 @@ class ProjectInsertForm extends React.Component {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                    <TextField name="projectName" visibleName="Project name" required />
+                    <TextField form={this.name} name="projectName" visibleName="Project name" required />
                     </Col>
 
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                    <FormGroup controlId="formBasicText" >
+                    <FormGroup controlId="personInCharge" >
                         <ControlLabel>Person in charge</ControlLabel>
-                        <FormControl componentClass="select" placeholder="Person in charge">
-                            <option value="select">select</option>
-                            <option value="other">...</option>
+                        <FormControl componentClass="select" placeholder="Person in charge"
+                                    onChange={this.onChange.bind(this, "personInCharge")}>
+                            <option value="me">select</option>
+                            <option value="him">...</option>
                         </FormControl>
                     </FormGroup>
                     </Col>
@@ -59,9 +74,9 @@ class ProjectInsertForm extends React.Component {
                     {/* Code name */}
 
                     <Col sm={4}>
-                    <TextField name="codeName" visibleName="Code name" required
-                               validator = {validators.codeNameValidator}
-                               helpMessage = "Code name must be one word followed by an underscore, followed by PI initials."
+                    <TextField form={this.name} name="codeName" visibleName="Code name" required
+                        validator = {validators.codeNameValidator}
+                        helpMessage = "Code name must be one word followed by an underscore, followed by PI initials."
                     />
                     </Col>
 
@@ -69,7 +84,7 @@ class ProjectInsertForm extends React.Component {
 
                 {/* Description */}
 
-                <TextField name="description" visibleName="Description" required />
+                <TextField form={this.name} name="description" visibleName="Description" />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -97,7 +112,7 @@ class ProjectInsertForm extends React.Component {
                         <FormControl
                             type="date"
                             placeholder="User meeting date"
-                            onChange={this.handleChange.bind(this)}
+                            onChange = {this.onChange.bind(this, "userMeetingDate")}
                         />
                     </FormGroup>
                     </Col>
@@ -107,7 +122,8 @@ class ProjectInsertForm extends React.Component {
                     <Col sm={4}>
                     <FormGroup controlId="projectAnalysis" >
                         <ControlLabel>Project analysis</ControlLabel>
-                        <FormControl componentClass="select" placeholder="Project analysis">
+                        <FormControl componentClass="select" placeholder="Project analysis"
+                                     onChange = {this.onChange.bind(this, "projectAnalysis")}>
                             <option value="none">...</option>
                             <option value="select">select</option>
                             <option value="other">...</option>
@@ -121,10 +137,11 @@ class ProjectInsertForm extends React.Component {
 
                 <FormGroup controlId="comments">
                     <ControlLabel>Comments</ControlLabel>
-                    <FormControl componentClass="textarea" placeholder="Comments" />
+                    <FormControl componentClass="textarea" placeholder="Comments"
+                                 onChange = {this.onChange.bind(this, "description")} />
                 </FormGroup>
 
-                <Button action="submit" bsStyle="primary">Submit</Button>
+                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)}>Submit</Button>
 
             </form>
         );

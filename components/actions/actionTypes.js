@@ -1,0 +1,6 @@
+
+const CHANGE_FORM_INPUT = "CHANGE_FORM_INPUT";
+
+export {
+    CHANGE_FORM_INPUT,
+};

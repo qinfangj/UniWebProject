@@ -1,11 +1,13 @@
-
 import React from 'react';
+import store from '../../core/store';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+
+import { changeFormInput } from '../actions/actionCreators/formActionCreators';
 
 
 class TextField extends React.Component {
@@ -44,6 +46,11 @@ class TextField extends React.Component {
         let value = e.target.value;
         let {valid, msg} = this.validate(value);
         this.setState({ value, valid, msg });
+        if (valid) {
+            store.dispatch(changeFormInput(this.props.form, this.props.name, value));
+        } else {
+            store.dispatch(changeFormInput(this.props.form, this.props.name, null));
+        }
     }
 
     getValidationState() {
@@ -80,6 +87,7 @@ class TextField extends React.Component {
     }
 }
 TextField.propTypes = {
+    form: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     visibleName: React.PropTypes.string.isRequired,
     validator: React.PropTypes.func,  // a func that returns `{valid: true|false, msg: errorMessage}`
