@@ -1,11 +1,16 @@
-
 import React from 'react';
+import css from './forms.css';
+
+import TextField from './TextField';
+import * as validators from './validators';
+
+import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 import Button from 'react-bootstrap/lib/Button';
+import Col from 'react-bootstrap/lib/Col';
 
 
 
@@ -24,63 +29,51 @@ class ProjectInsertForm extends React.Component {
         };
     }
 
-    getValidationState() {
-        return 'success'; // 'warning' | 'error'
-    }
-
     handleChange(e) {
         this.setState({value: e.target.value});
     }
 
     render() {
         return (
-            <form>
-                <FormGroup
-                  controlId="formBasicText"
-                  validationState={this.getValidationState()}
-                >
-                    {/* Project name */}
+            <form className={css.form}>
+                <Form componentClass="fieldset" horizontal>
 
-                    <ControlLabel>Project name</ControlLabel>
-                    <FormControl
-                      type="text"
-                      value={this.state.projectName}
-                      placeholder="Project name"
-                      onChange={this.handleChange.bind(this)}
-                    />
-                    <FormControl.Feedback />
-                    <HelpBlock>Validation is based on string length.</HelpBlock>
+                {/* Project name */}
+
+                    <Col sm={4} className={css.formCol}>
+                    <TextField name="projectName" visibleName="Project name" required />
+                    </Col>
 
                     {/* Person in charge */}
 
-                    <ControlLabel>Person in charge</ControlLabel>
-                    <FormControl componentClass="select" placeholder="Person in charge">
-                        <option value="select">select</option>
-                        <option value="other">...</option>
-                    </FormControl>
+                    <Col sm={4} className={css.formCol}>
+                    <FormGroup controlId="formBasicText" >
+                        <ControlLabel>Person in charge</ControlLabel>
+                        <FormControl componentClass="select" placeholder="Person in charge">
+                            <option value="select">select</option>
+                            <option value="other">...</option>
+                        </FormControl>
+                    </FormGroup>
+                    </Col>
 
                     {/* Code name */}
 
-                    <ControlLabel>Code name</ControlLabel>
-                    <FormControl
-                        type="text"
-                        value={this.state.value}
-                        placeholder="Code name"
-                        onChange={this.handleChange.bind(this)}
+                    <Col sm={4}>
+                    <TextField name="codeName" visibleName="Code name" required
+                               validator = {validators.codeNameValidator}
+                               helpMessage = "Code name must be one word followed by an underscore, followed by PI initials."
                     />
+                    </Col>
 
-                    {/* Description */}
+                </Form>
 
-                    <ControlLabel>Description</ControlLabel>
-                    <FormControl
-                        type="text"
-                        value={this.state.value}
-                        placeholder="Description"
-                        onChange={this.handleChange.bind(this)}
-                    />
+                {/* Description */}
 
-                    {/* Project state */}
+                <TextField name="description" visibleName="Description" required />
 
+                {/* Project state */}
+
+                <FormGroup controlId="projectState" >
                     <ControlLabel>Project state</ControlLabel>
                     <FormControl componentClass="select" placeholder="Project state">
                         <option value="none">...</option>
@@ -90,35 +83,39 @@ class ProjectInsertForm extends React.Component {
                     <Checkbox>
                         Control Project
                     </Checkbox>
+                </FormGroup>
 
-                    {/* User meeting date */}
+                {/* User meeting date */}
 
+                <FormGroup controlId="userMeetingDate" >
                     <ControlLabel>User meeting date</ControlLabel>
                     <FormControl
                         type="date"
                         placeholder="User meeting date"
                         onChange={this.handleChange.bind(this)}
                     />
+                </FormGroup>
 
-                    {/* Project analysis */}
+                {/* Project analysis */}
 
+                <FormGroup controlId="projectAnalysis" >
                     <ControlLabel>Project analysis</ControlLabel>
                     <FormControl componentClass="select" placeholder="Project analysis">
                         <option value="none">...</option>
                         <option value="select">select</option>
                         <option value="other">...</option>
                     </FormControl>
-
-                    {/* Comments */}
-
-                    <FormGroup controlId="formControlsTextarea">
-                        <ControlLabel>Comments</ControlLabel>
-                        <FormControl componentClass="textarea" placeholder="Comments" />
-                    </FormGroup>
-
-                    <Button action="submit" bsStyle="primary">Submit</Button>
-
                 </FormGroup>
+
+                {/* Comments */}
+
+                <FormGroup controlId="comments">
+                    <ControlLabel>Comments</ControlLabel>
+                    <FormControl componentClass="textarea" placeholder="Comments" />
+                </FormGroup>
+
+                <Button action="submit" bsStyle="primary">Submit</Button>
+
             </form>
         );
     }
