@@ -4,6 +4,7 @@ import store from '../../core/store';
 
 import TextField from './TextField';
 import * as validators from './validators';
+import { changeFormInput } from '../actions/actionCreators/formActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -18,7 +19,7 @@ import Col from 'react-bootstrap/lib/Col';
 class ProjectInsertForm extends React.Component {
     constructor() {
         super();
-        this.name = "projectInsertForm";
+        this.formName = "projectInsertForm";
         this.state = {
             projectName: null,
             personInCharge: null,
@@ -31,20 +32,14 @@ class ProjectInsertForm extends React.Component {
         };
     }
 
-    stateFromStore() {
-        let storeState = store.forms.getState();
-        console.debug("pif:", storeState, storeState[this.name])
-        return storeState[this.name];
-    }
-
-    onChange(name, value) {
-        console.debug(JSON.stringify(this.state, null, 2))
-        this.setState({[name]: value});
+    onChange(field, e) {
+        let value = e.target.value;
+        store.dispatch(changeFormInput(this.formName, field, value));
     }
 
     onSubmit() {
         let storeState = store.getState();
-        console.debug(JSON.stringify(storeState, null, 2));
+        console.debug(JSON.stringify(storeState.forms[this.formName], null, 2));
     }
 
     render() {
@@ -55,7 +50,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                    <TextField form={this.name} name="projectName" visibleName="Project name" required />
+                    <TextField form={this.formName} name="projectName" visibleName="Project name" required />
                     </Col>
 
                     {/* Person in charge */}
@@ -74,7 +69,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Code name */}
 
                     <Col sm={4}>
-                    <TextField form={this.name} name="codeName" visibleName="Code name" required
+                    <TextField form={this.formName} name="codeName" visibleName="Code name" required
                         validator = {validators.codeNameValidator}
                         helpMessage = "Code name must be one word followed by an underscore, followed by PI initials."
                     />
@@ -84,7 +79,7 @@ class ProjectInsertForm extends React.Component {
 
                 {/* Description */}
 
-                <TextField form={this.name} name="description" visibleName="Description" />
+                <TextField form={this.formName} name="description" visibleName="Description" />
 
                 <Form componentClass="fieldset" horizontal>
 
