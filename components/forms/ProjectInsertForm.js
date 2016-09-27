@@ -38,7 +38,7 @@ class ProjectInsertForm extends React.Component {
             <form className={css.form}>
                 <Form componentClass="fieldset" horizontal>
 
-                {/* Project name */}
+                    {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
                     <TextField name="projectName" visibleName="Project name" required />
@@ -71,41 +71,51 @@ class ProjectInsertForm extends React.Component {
 
                 <TextField name="description" visibleName="Description" required />
 
-                {/* Project state */}
+                <Form componentClass="fieldset" horizontal>
 
-                <FormGroup controlId="projectState" >
-                    <ControlLabel>Project state</ControlLabel>
-                    <FormControl componentClass="select" placeholder="Project state">
-                        <option value="none">...</option>
-                        <option value="select">select</option>
-                        <option value="other">...</option>
-                    </FormControl>
-                    <Checkbox>
-                        Control Project
-                    </Checkbox>
-                </FormGroup>
+                    {/* Project state */}
 
-                {/* User meeting date */}
+                    <Col sm={4} className={css.formCol}>
+                    <FormGroup controlId="projectState" >
+                        <ControlLabel>Project state</ControlLabel>
+                        <FormControl componentClass="select" placeholder="Project state">
+                            <option value="none">...</option>
+                            <option value="select">select</option>
+                            <option value="other">...</option>
+                        </FormControl>
+                        <Checkbox>
+                            Control Project
+                        </Checkbox>
+                    </FormGroup>
+                    </Col>
 
-                <FormGroup controlId="userMeetingDate" >
-                    <ControlLabel>User meeting date</ControlLabel>
-                    <FormControl
-                        type="date"
-                        placeholder="User meeting date"
-                        onChange={this.handleChange.bind(this)}
-                    />
-                </FormGroup>
+                    {/* User meeting date */}
 
-                {/* Project analysis */}
+                    <Col sm={4} className={css.formCol}>
+                    <FormGroup controlId="userMeetingDate" >
+                        <ControlLabel>User meeting date</ControlLabel>
+                        <FormControl
+                            type="date"
+                            placeholder="User meeting date"
+                            onChange={this.handleChange.bind(this)}
+                        />
+                    </FormGroup>
+                    </Col>
 
-                <FormGroup controlId="projectAnalysis" >
-                    <ControlLabel>Project analysis</ControlLabel>
-                    <FormControl componentClass="select" placeholder="Project analysis">
-                        <option value="none">...</option>
-                        <option value="select">select</option>
-                        <option value="other">...</option>
-                    </FormControl>
-                </FormGroup>
+                    {/* Project analysis */}
+
+                    <Col sm={4}>
+                    <FormGroup controlId="projectAnalysis" >
+                        <ControlLabel>Project analysis</ControlLabel>
+                        <FormControl componentClass="select" placeholder="Project analysis">
+                            <option value="none">...</option>
+                            <option value="select">select</option>
+                            <option value="other">...</option>
+                        </FormControl>
+                    </FormGroup>
+                    </Col>
+
+                </Form>
 
                 {/* Comments */}
 
