@@ -14,6 +14,9 @@ import Header from './Header';
 import Footer from '../Footer';
 import s from './Layout.css';
 
+import { Tabs, Tab, TabContainer, TabContent, TabPane } from 'react-bootstrap/lib';
+
+
 class Layout extends React.Component {
 
   static propTypes = {
@@ -34,9 +37,11 @@ class Layout extends React.Component {
         <div className="mdl-layout__inner-container">
           <Header />
           <main className="mdl-layout__content">
-          <p className="bg-success">TEST</p>
+
+            <p className="bg-success">TEST</p>
             <div {...this.props} className={cx(s.content, this.props.className)} />
             <Footer />
+
           </main>
         </div>
       </div>

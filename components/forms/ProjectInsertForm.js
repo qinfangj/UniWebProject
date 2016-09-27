@@ -12,7 +12,16 @@ import Button from 'react-bootstrap/lib/Button';
 class ProjectInsertForm extends React.Component {
     constructor() {
         super();
-        this.state = { value: 4 };
+        this.state = {
+            projectName: null,
+            personInCharge: null,
+            codeName: null,
+            description: null,
+            projectState: null,
+            userMeetingDate: null,
+            projectAnalysis: null,
+            comments: null,
+        };
     }
 
     getValidationState() {
@@ -35,7 +44,7 @@ class ProjectInsertForm extends React.Component {
                     <ControlLabel>Project name</ControlLabel>
                     <FormControl
                       type="text"
-                      value={this.state.value}
+                      value={this.state.projectName}
                       placeholder="Project name"
                       onChange={this.handleChange.bind(this)}
                     />
