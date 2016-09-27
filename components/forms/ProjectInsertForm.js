@@ -4,7 +4,7 @@ import store from '../../core/store';
 
 import TextField from './TextField';
 import * as validators from './validators';
-import { changeFormInput } from '../actions/actionCreators/formActionCreators';
+import { changeFormInput, insert } from '../actions/actionCreators/formActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -40,6 +40,7 @@ class ProjectInsertForm extends React.Component {
     onSubmit() {
         let storeState = store.getState();
         console.debug(JSON.stringify(storeState.forms[this.formName], null, 2));
+        store.dispatch(insert("projects", [], []));
     }
 
     render() {

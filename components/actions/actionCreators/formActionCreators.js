@@ -11,7 +11,17 @@ function changeFormInput(form, field, value) {
     };
 }
 
+function insert(table, fields, values) {
+    return {
+        type: constants.INSERT,
+        table: table,
+        fields: fields,
+        values: values,
+    };
+}
+
 
 export {
     changeFormInput,
+    insert,
 };

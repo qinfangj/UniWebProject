@@ -17,8 +17,13 @@ let formReducers = (state = defaultState, action) => {
                 throw "Unknown form name, should be the same as in `defaultState`";
             }
             newState[action.form][action.field] = action.value;
-            console.debug("Reducer:", newState.projectInsertForm);
             return newState;
+
+        case constants.INSERT:
+            if (! (action.fields.length === action.values.length)) {
+                throw "The number of fields must equal the number of values";
+            }
+            return state;
 
         default:
             return state;
