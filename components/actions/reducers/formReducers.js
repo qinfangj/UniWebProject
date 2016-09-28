@@ -20,9 +20,7 @@ let formReducers = (state = defaultState, action) => {
             return newState;
 
         case constants.INSERT:
-            if (! (action.fields.length === action.values.length)) {
-                throw "The number of fields must equal the number of values";
-            }
+            console.debug(action)
             return state;
 
         default:

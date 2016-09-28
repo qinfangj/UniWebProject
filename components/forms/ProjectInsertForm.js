@@ -1,10 +1,11 @@
 import React from 'react';
 import css from './forms.css';
 import store from '../../core/store';
+let ENV = window.ENV;
 
 import TextField from './TextField';
 import * as validators from './validators';
-import { changeFormInput, insert } from '../actions/actionCreators/formActionCreators';
+import { changeFormInput, insertAsync } from '../actions/actionCreators/formActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -34,13 +35,14 @@ class ProjectInsertForm extends React.Component {
 
     onChange(field, e) {
         let value = e.target.value;
+        console.debug(e.target)
         store.dispatch(changeFormInput(this.formName, field, value));
     }
 
     onSubmit() {
         let storeState = store.getState();
         console.debug(JSON.stringify(storeState.forms[this.formName], null, 2));
-        store.dispatch(insert("projects", [], []));
+        store.dispatch(insertAsync("projects", [], []));
     }
 
     render() {
@@ -94,9 +96,11 @@ class ProjectInsertForm extends React.Component {
                             <option value="select">select</option>
                             <option value="other">...</option>
                         </FormControl>
-                        <Checkbox>
+
+                        <Checkbox onChange={this.onChange.bind(this, "isControl")}>
                             Control Project
                         </Checkbox>
+
                     </FormGroup>
                     </Col>
 

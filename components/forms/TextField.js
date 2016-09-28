@@ -22,6 +22,10 @@ class TextField extends React.Component {
         };
     }
 
+    get value() {
+        return this.inputRef.props.value;
+    }
+
     /* Check different conditions on string `value`.
      */
     validate(value) {
@@ -70,9 +74,9 @@ class TextField extends React.Component {
             <FormGroup controlId={name} validationState={this.getValidationState()} >
                 <ControlLabel>{visibleName}</ControlLabel>
                 <FormControl
+                    ref={(c) => this.inputRef = c}
                     type="text"
                     value={this.state.value}
-                    placeholder={visibleName}
                     onChange={this.onChange.bind(this)}
                 />
                 <FormControl.Feedback />
@@ -90,7 +94,7 @@ TextField.propTypes = {
     form: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     visibleName: React.PropTypes.string.isRequired,
-    validator: React.PropTypes.func,  // a func that returns `{valid: true|false, msg: errorMessage}`
+    validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
     required: React.PropTypes.bool,
     helpMessage: React.PropTypes.string,
 };
