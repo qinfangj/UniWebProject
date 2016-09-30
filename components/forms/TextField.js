@@ -19,6 +19,7 @@ class TextField extends React.Component {
             value: value,
             valid: res.valid,
             msg: res.msg,
+            status: null,
         };
     }
 
@@ -28,7 +29,16 @@ class TextField extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.state.value === "" && nextProps.missing) {
-            this.setState({valid: false, msg: this.props.visibleName + " is required."});
+            this.setState({
+                valid: false,
+                msg: this.props.visibleName + " is required.",
+                status: "error",
+            });
+        } else if (nextProps.invalid) {
+            this.setState({
+                valid: false,
+                status: "error",
+            });
         }
     }
 
@@ -38,25 +48,23 @@ class TextField extends React.Component {
     validate(value) {
         let valid;
         let msg;
+        let status;
         if (!value) {
-            if (this.props.missing) {
-                valid = false;
-                msg = this.props.visibleName + " is required.";
-            } else {
-                valid = null;
-            }
+            valid = null;
+            status = null;
         } else {
             let res = this.props.validator(value);
             valid = res.valid;
-            msg = res.msg;
+            msg = valid ? "" : res.msg;
+            status = valid ? "success" : "warning";
         }
-        return {valid, msg};
+        return {valid, msg, status};
     }
 
     onChange(e) {
         let value = e.target.value;
-        let {valid, msg} = this.validate(value);
-        this.setState({ value, valid, msg });
+        let {valid, msg, status} = this.validate(value);
+        this.setState({ value, valid, msg, status });
         if (valid) {
             store.dispatch(changeFormInput(this.props.form, this.props.name, value));
         } else {
@@ -64,24 +72,12 @@ class TextField extends React.Component {
         }
     }
 
-    getValidationState() {
-        let validationString;
-        if (this.state.valid === true) {
-            validationString = "success";
-        } else if (this.props.invalid) {
-            validationString = "error";
-        } else if (this.state.valid === false) {
-            validationString = "warning";
-        }
-        return validationString;
-    }
-
     render() {
         let name = this.props.name;
         let visibleName = this.props.visibleName;
         let requireString = (this.props.required && !this.state.value) ? " (required)": "";
         return (
-            <FormGroup controlId={name} validationState={this.getValidationState()} >
+            <FormGroup controlId={name} validationState={this.state.status} >
                 <ControlLabel>{visibleName + requireString}</ControlLabel>
                 <FormControl
                     ref={(c) => this.inputRef = c}
@@ -91,9 +87,7 @@ class TextField extends React.Component {
                     placeholder={this.props.helpMessage}
                 />
                 <FormControl.Feedback />
-                { !this.state.valid || this.props.invalid ?
-                    <HelpBlock>{this.state.msg}</HelpBlock> : ""
-                }
+                <HelpBlock>{this.state.msg}</HelpBlock>
             </FormGroup>
         );
     }
