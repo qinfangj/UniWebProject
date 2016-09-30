@@ -1,6 +1,7 @@
 import React from 'react';
 import css from './forms.css';
 import store from '../../core/store';
+import _ from 'lodash';
 let ENV = window.ENV;
 
 import TextField from './TextField';
@@ -21,28 +22,32 @@ class ProjectInsertForm extends React.Component {
     constructor() {
         super();
         this.formName = "projectInsertForm";
+        this.required = ["projectName", "codeName"];
         this.state = {
-            projectName: null,
-            personInCharge: null,
-            codeName: null,
-            description: null,
-            projectState: null,
-            userMeetingDate: null,
-            projectAnalysis: null,
-            comments: null,
+            missing: {},
+            invalid: {},
         };
     }
 
     onChange(field, e) {
         let value = e.target.value;
-        console.debug(e.target)
         store.dispatch(changeFormInput(this.formName, field, value));
     }
 
     onSubmit() {
-        let storeState = store.getState();
-        console.debug(JSON.stringify(storeState.forms[this.formName], null, 2));
-        store.dispatch(insertAsync("projects", [], []));
+        let formData = store.getState().forms[this.formName];
+        console.info(JSON.stringify(formData, null, 2));
+        let fields = Object.keys(formData);
+        let values = Object.values(formData);
+        let nullFields = this.required.filter(k => formData[k] === null);
+        let invalidFields = fields.filter(k => formData[k] === null);
+        if (invalidFields.length !== 0) {
+            let missing = _.zipObject(nullFields, new Array(nullFields.length).fill(true));
+            let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
+            this.setState({missing, invalid});
+        } else {
+            store.dispatch(insertAsync("projects", fields, values));
+        }
     }
 
     render() {
@@ -53,7 +58,9 @@ class ProjectInsertForm extends React.Component {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                    <TextField form={this.formName} name="projectName" visibleName="Project name" required />
+                    <TextField form={this.formName} name="projectName" visibleName="Project name" required
+                        missing = {!!this.state.missing["projectName"]}
+                        invalid = {!!this.state.invalid["projectName"]}/>
                     </Col>
 
                     {/* Person in charge */}
@@ -62,7 +69,7 @@ class ProjectInsertForm extends React.Component {
                     <FormGroup controlId="personInCharge" >
                         <ControlLabel>Person in charge</ControlLabel>
                         <FormControl componentClass="select" placeholder="Person in charge"
-                                    onChange={this.onChange.bind(this, "personInCharge")}>
+                                     onChange={this.onChange.bind(this, "personInCharge")}>
                             <option value="me">select</option>
                             <option value="him">...</option>
                         </FormControl>
@@ -73,8 +80,10 @@ class ProjectInsertForm extends React.Component {
 
                     <Col sm={4}>
                     <TextField form={this.formName} name="codeName" visibleName="Code name" required
+                        missing = {!!this.state.missing["codeName"]}
+                        invalid = {!!this.state.invalid["codeName"]}
                         validator = {validators.codeNameValidator}
-                        helpMessage = "Code name must be one word followed by an underscore, followed by PI initials."
+                        helpMessage = "[name]_[initials] Ex: Tcells_EG."
                     />
                     </Col>
 

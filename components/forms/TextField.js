@@ -26,13 +26,20 @@ class TextField extends React.Component {
         return this.inputRef.props.value;
     }
 
-    /* Check different conditions on string `value`.
+    componentWillReceiveProps(nextProps) {
+        if (this.state.value === "" && nextProps.missing) {
+            this.setState({valid: false, msg: this.props.visibleName + " is required."});
+        }
+    }
+
+    /**
+     * Check different conditions on string `value` during the typing.
      */
     validate(value) {
         let valid;
         let msg;
-        if (value === "") {
-            if (this.props.required) {
+        if (!value) {
+            if (this.props.missing) {
                 valid = false;
                 msg = this.props.visibleName + " is required.";
             } else {
@@ -61,6 +68,8 @@ class TextField extends React.Component {
         let validationString;
         if (this.state.valid === true) {
             validationString = "success";
+        } else if (this.props.invalid) {
+            validationString = "error";
         } else if (this.state.valid === false) {
             validationString = "warning";
         }
@@ -70,21 +79,20 @@ class TextField extends React.Component {
     render() {
         let name = this.props.name;
         let visibleName = this.props.visibleName;
+        let requireString = (this.props.required && !this.state.value) ? " (required)": "";
         return (
             <FormGroup controlId={name} validationState={this.getValidationState()} >
-                <ControlLabel>{visibleName}</ControlLabel>
+                <ControlLabel>{visibleName + requireString}</ControlLabel>
                 <FormControl
                     ref={(c) => this.inputRef = c}
                     type="text"
                     value={this.state.value}
                     onChange={this.onChange.bind(this)}
+                    placeholder={this.props.helpMessage}
                 />
                 <FormControl.Feedback />
-                {this.state.valid === false ?
-                    <HelpBlock>{this.state.msg}</HelpBlock>
-              : (this.state.valid === null && this.props.helpMessage) ?
-                    <HelpBlock>{this.props.helpMessage}</HelpBlock>
-              : ""
+                { !this.state.valid || this.props.invalid ?
+                    <HelpBlock>{this.state.msg}</HelpBlock> : ""
                 }
             </FormGroup>
         );
@@ -96,12 +104,16 @@ TextField.propTypes = {
     visibleName: React.PropTypes.string.isRequired,
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
     required: React.PropTypes.bool,
+    missing: React.PropTypes.bool,  // field is required but was found empty when submitting
+    invalid: React.PropTypes.bool,  // field was found invalid when submitting
     helpMessage: React.PropTypes.string,
 };
 TextField.defaultProps = {
-    required: false,
-    helpMessage: "",
     validator: ((x) => {return {valid: true, msg: ""}}),
+    required: false,
+    missing: false,
+    invalid: false,
+    helpMessage: "",
 };
 
 

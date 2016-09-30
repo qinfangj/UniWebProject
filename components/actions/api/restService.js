@@ -1,11 +1,12 @@
 
 import $ from 'jquery';
+const BACKEND = window.ENV.BACKEND_URL;
 
 
 class RestService {
 
     insert(table, fields, values) {
-        let url = window.ENV.BACKEND_URL + "/table/"+table+"/insert/" + fields.join(",") +"/"+ values.join(",");
+        let url = BACKEND + "/table/"+table+"/insert/" + fields.join(",") +"/"+ values.join(",");
         return $.get(url);
     }
 

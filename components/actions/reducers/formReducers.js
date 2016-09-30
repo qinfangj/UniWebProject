@@ -3,7 +3,16 @@ import * as constants from '../actionTypes';
 
 
 const defaultState = {
-    projectInsertForm: {},
+    projectInsertForm: {
+        projectName: null,
+        personInCharge: null,
+        codeName: null,
+        description: null,
+        projectState: null,
+        userMeetingDate: null,
+        projectAnalysis: null,
+        comments: null,
+    },
 };
 
 
