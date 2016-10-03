@@ -128,7 +128,9 @@ class ProjectInsertForm extends React.Component {
                             <option value="other">other</option>
                         </FormControl>
 
-                        <Checkbox ref={(c) => this._isControl = c} >
+                    {/* Is control */}
+
+                        <Checkbox inputRef={(c) => this._isControl = c} >
                             Control Project
                         </Checkbox>
 
