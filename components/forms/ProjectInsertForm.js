@@ -5,8 +5,8 @@ import store from '../../core/store';
 import _ from 'lodash';
 
 import TextField from './TextField';
-import * as validators from './validators';
-import { changeFormInput, insertAsync } from '../actions/actionCreators/formActionCreators';
+import validators from './validators';
+import { insertAsync } from '../actions/actionCreators/formActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
