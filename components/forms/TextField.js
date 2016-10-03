@@ -13,21 +13,24 @@ class TextField extends React.Component {
         let value = "";
         let res = this.validate(value);
         this.state = {
-            value: value,
-            valid: res.valid,
-            msg: res.msg,
+            value: value,  // string
+            valid: res.valid,  // boolean, is the field valid
+            msg: res.msg,  // error message below the field
             status: null,  // "success", "warning", "error", null
         };
     }
 
     getValue() {
-        return this.state.valid ? this.state.value : null;
+        return this.state.valid ? this.state.value.trim() : null;
     }
 
     isValid() {
         return this.state.valid;
     }
 
+    /**
+     * When submitted, display more evidently if a required field is missing or invalid.
+     */
     componentWillReceiveProps(nextProps) {
         if (this.state.value === "" && nextProps.missing) {
             this.setState({
@@ -44,7 +47,7 @@ class TextField extends React.Component {
     }
 
     /**
-     * Check different conditions on string `value` during the typing.
+     * Check different conditions on string `value` **during the typing**.
      */
     validate(value) {
         let valid;

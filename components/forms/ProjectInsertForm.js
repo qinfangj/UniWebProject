@@ -50,7 +50,7 @@ class ProjectInsertForm extends React.Component {
 
     getFormValues() {
         let value = (ref) => {
-            let v = ReactDOM.findDOMNode(ref).value;
+            let v = ReactDOM.findDOMNode(ref).value.trim();
             return v === "none" ? null : v;
         };
         return {
