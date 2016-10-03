@@ -1,8 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import css from './forms.css';
 import store from '../../core/store';
 import _ from 'lodash';
-let ENV = window.ENV;
 
 import TextField from './TextField';
 import * as validators from './validators';
@@ -15,6 +15,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import Alert from 'react-bootstrap/lib/Alert';
 
 
 
@@ -26,16 +27,12 @@ class ProjectInsertForm extends React.Component {
         this.state = {
             missing: {},
             invalid: {},
+            submissionError: false,
         };
     }
 
-    onChange(field, e) {
-        let value = e.target.value;
-        store.dispatch(changeFormInput(this.formName, field, value));
-    }
-
     onSubmit() {
-        let formData = store.getState().forms[this.formName];
+        let formData = this.getFormValues();
         console.info(JSON.stringify(formData, null, 2));
         let fields = Object.keys(formData);
         let values = Object.values(formData);
@@ -44,10 +41,29 @@ class ProjectInsertForm extends React.Component {
         if (invalidFields.length !== 0) {
             let missing = _.zipObject(nullFields, new Array(nullFields.length).fill(true));
             let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
-            this.setState({missing, invalid});
+            this.setState({missing, invalid, submissionError: true});
         } else {
+            this.setState({missing: {}, invalid: {}, submissionError: false});
             store.dispatch(insertAsync("projects", fields, values));
         }
+    }
+
+    getFormValues() {
+        let value = (ref) => {
+            let v = ReactDOM.findDOMNode(ref).value;
+            return v === "none" ? null : v;
+        };
+        return {
+            projectName: this._projectName.getValue(),
+            personInCharge: value(this._personInCharge),
+            codeName: this._codeName.getValue(),
+            description: this._description.getValue(),
+            projectState: value(this._projectState),
+            isControl: value(this._isControl),
+            userMeetingDate: value(this._userMeetingDate),
+            projectAnalysis: value(this._projectAnalysis),
+            comments: value(this._comments),
+        };
     }
 
     render() {
@@ -60,7 +76,9 @@ class ProjectInsertForm extends React.Component {
                     <Col sm={4} className={css.formCol}>
                     <TextField form={this.formName} name="projectName" visibleName="Project name" required
                         missing = {!!this.state.missing["projectName"]}
-                        invalid = {!!this.state.invalid["projectName"]}/>
+                        invalid = {!!this.state.invalid["projectName"]}
+                        ref={(c) => this._projectName = c}
+                    />
                     </Col>
 
                     {/* Person in charge */}
@@ -69,9 +87,9 @@ class ProjectInsertForm extends React.Component {
                     <FormGroup controlId="personInCharge" >
                         <ControlLabel>Person in charge</ControlLabel>
                         <FormControl componentClass="select" placeholder="Person in charge"
-                                     onChange={this.onChange.bind(this, "personInCharge")}>
-                            <option value="me">select</option>
-                            <option value="him">...</option>
+                                     ref={(c) => this._personInCharge = c} >
+                            <option value="me">me</option>
+                            <option value="him">him</option>
                         </FormControl>
                     </FormGroup>
                     </Col>
@@ -84,6 +102,7 @@ class ProjectInsertForm extends React.Component {
                         invalid = {!!this.state.invalid["codeName"]}
                         validator = {validators.codeNameValidator}
                         helpMessage = "[name]_[initials] Ex: Tcells_EG."
+                        ref={(c) => this._codeName = c}
                     />
                     </Col>
 
@@ -91,7 +110,9 @@ class ProjectInsertForm extends React.Component {
 
                 {/* Description */}
 
-                <TextField form={this.formName} name="description" visibleName="Description" />
+                <TextField form={this.formName} name="description" visibleName="Description"
+                           ref={(c) => this._description = c}
+                />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -100,13 +121,14 @@ class ProjectInsertForm extends React.Component {
                     <Col sm={4} className={css.formCol}>
                     <FormGroup controlId="projectState" >
                         <ControlLabel>Project state</ControlLabel>
-                        <FormControl componentClass="select" placeholder="Project state">
-                            <option value="none">...</option>
+                        <FormControl componentClass="select" placeholder="Project state"
+                                     ref={(c) => this._projectState = c} >
+                            <option value="ffff">ffff</option>
                             <option value="select">select</option>
-                            <option value="other">...</option>
+                            <option value="other">other</option>
                         </FormControl>
 
-                        <Checkbox onChange={this.onChange.bind(this, "isControl")}>
+                        <Checkbox ref={(c) => this._isControl = c} >
                             Control Project
                         </Checkbox>
 
@@ -121,7 +143,7 @@ class ProjectInsertForm extends React.Component {
                         <FormControl
                             type="date"
                             placeholder="User meeting date"
-                            onChange = {this.onChange.bind(this, "userMeetingDate")}
+                            ref={(c) => this._userMeetingDate = c}
                         />
                     </FormGroup>
                     </Col>
@@ -132,10 +154,10 @@ class ProjectInsertForm extends React.Component {
                     <FormGroup controlId="projectAnalysis" >
                         <ControlLabel>Project analysis</ControlLabel>
                         <FormControl componentClass="select" placeholder="Project analysis"
-                                     onChange = {this.onChange.bind(this, "projectAnalysis")}>
-                            <option value="none">...</option>
+                                     ref={(c) => this._projectAnalysis = c} >
+                            <option value="naaa">naaa</option>
                             <option value="select">select</option>
-                            <option value="other">...</option>
+                            <option value="other">other</option>
                         </FormControl>
                     </FormGroup>
                     </Col>
@@ -147,10 +169,22 @@ class ProjectInsertForm extends React.Component {
                 <FormGroup controlId="comments">
                     <ControlLabel>Comments</ControlLabel>
                     <FormControl componentClass="textarea" placeholder="Comments"
-                                 onChange = {this.onChange.bind(this, "description")} />
+                                 ref={(c) => this._comments = c} />
                 </FormGroup>
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)}>Submit</Button>
+                {/* Submit */}
+
+                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                    Submit
+                </Button>
+
+                {/* Error message */}
+
+                {this.state.submissionError ?
+                    <Alert bsStyle="warning">
+                        Some required fields are missing or ill-formatted. Please review the form and submit again.
+                    </Alert>
+                 : null}
 
             </form>
         );

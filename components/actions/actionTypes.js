@@ -1,8 +1,6 @@
 
-const CHANGE_FORM_INPUT = "CHANGE_FORM_INPUT";
 const INSERT = "INSERT";
 
 export {
-    CHANGE_FORM_INPUT,
     INSERT,
 };

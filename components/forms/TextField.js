@@ -1,13 +1,10 @@
 import React from 'react';
-import store from '../../core/store';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-
-import { changeFormInput } from '../actions/actionCreators/formActionCreators';
 
 
 class TextField extends React.Component {
@@ -19,12 +16,16 @@ class TextField extends React.Component {
             value: value,
             valid: res.valid,
             msg: res.msg,
-            status: null,
+            status: null,  // "success", "warning", "error", null
         };
     }
 
-    get value() {
-        return this.inputRef.props.value;
+    getValue() {
+        return this.state.valid ? this.state.value : null;
+    }
+
+    isValid() {
+        return this.state.valid;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -50,7 +51,7 @@ class TextField extends React.Component {
         let msg;
         let status;
         if (!value) {
-            valid = null;
+            valid = !this.props.required;
             status = null;
         } else {
             let res = this.props.validator(value);
@@ -65,11 +66,6 @@ class TextField extends React.Component {
         let value = e.target.value;
         let {valid, msg, status} = this.validate(value);
         this.setState({ value, valid, msg, status });
-        if (valid) {
-            store.dispatch(changeFormInput(this.props.form, this.props.name, value));
-        } else {
-            store.dispatch(changeFormInput(this.props.form, this.props.name, null));
-        }
     }
 
     render() {

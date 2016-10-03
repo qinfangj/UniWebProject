@@ -3,17 +3,6 @@ import * as actions from '../actionTypes';
 import * as constants from '../../constants/constants';
 import restService from '../api/restService';
 
-import $ from 'jquery';
-
-
-function changeFormInput(form, field, value) {
-    return {
-        type: actions.CHANGE_FORM_INPUT,
-        form: form,
-        field: field,
-        value: value,
-    };
-}
 
 
 function insert(status, response) {
@@ -39,6 +28,5 @@ function insertAsync(table, fields, values) {
 
 
 export {
-    changeFormInput,
     insertAsync,
 };
