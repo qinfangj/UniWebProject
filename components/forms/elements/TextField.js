@@ -24,10 +24,6 @@ class TextField extends React.Component {
         return this.state.valid ? this.state.value.trim() : null;
     }
 
-    isValid() {
-        return this.state.valid;
-    }
-
     /**
      * When submitted, display more evidently if a required field is missing or invalid.
      */
@@ -77,7 +73,6 @@ class TextField extends React.Component {
             <FormGroup controlId={this.props.name} validationState={this.state.status} >
                 <ControlLabel>{this.props.visibleName + requireString}</ControlLabel>
                 <FormControl
-                    ref={(c) => this.inputRef = c}
                     type="text"
                     value={this.state.value}
                     onChange={this.onChange.bind(this)}
@@ -90,7 +85,6 @@ class TextField extends React.Component {
     }
 }
 TextField.propTypes = {
-    form: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     visibleName: React.PropTypes.string.isRequired,
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`

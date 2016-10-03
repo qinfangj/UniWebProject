@@ -4,7 +4,8 @@ import css from './forms.css';
 import store from '../../core/store';
 import _ from 'lodash';
 
-import TextField from './TextField';
+import TextField from './elements/TextField';
+import CheckBox from './elements/CheckBox';
 import validators from './validators';
 import { insertAsync } from '../actions/actionCreators/formActionCreators';
 
@@ -59,7 +60,7 @@ class ProjectInsertForm extends React.Component {
             codeName: this._codeName.getValue(),
             description: this._description.getValue(),
             projectState: value(this._projectState),
-            isControl: value(this._isControl),
+            isControl: this._isControl.getValue(),
             userMeetingDate: value(this._userMeetingDate),
             projectAnalysis: value(this._projectAnalysis),
             comments: value(this._comments),
@@ -74,6 +75,8 @@ class ProjectInsertForm extends React.Component {
         return values.map(v => {
             return <option value={v} key={v}>{v}</option>;
         });
+        // crossdisplaydbOrdered($table, $args, $where, $order): select * from table where .. order by ..
+
         // sub _getSelLabs {
         //     return DBIinsert::crossdisplaydbOrdered(
         //         ['id','last_name', 'first_name'],['people'],['people.isLaboratory = 1'],
@@ -89,6 +92,8 @@ class ProjectInsertForm extends React.Component {
         return values.map(v => {
             return <option value={v} key={v}>{v}</option>;
         });
+        // displaydb($table, $args): select * from table
+
         // sub _getProjectStates {
         //     my $table = DBIinsert::displaydb('project_states',['id','state_order','name']);
         //     my $table_mod;
@@ -107,8 +112,11 @@ class ProjectInsertForm extends React.Component {
         return values.map(v => {
             return <option value={v} key={v}>{v}</option>;
         });
+        // optiondisplaydbOrdered($table, $args, $order, $limit): select * from table order by ..
+
         // sub _getProjectAnalysis {
         //     return DBIinsert::optiondisplaydbOrdered('project_analysis',['id','name' ], ['id']);
+        //
         // }
     }
 
@@ -120,7 +128,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                    <TextField form={this.formName} name="projectName" visibleName="Project name" required
+                    <TextField name="projectName" visibleName="Project name" required
                         missing = {!!this.state.missing["projectName"]}
                         invalid = {!!this.state.invalid["projectName"]}
                         ref={(c) => this._projectName = c}
@@ -142,7 +150,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Code name */}
 
                     <Col sm={4}>
-                    <TextField form={this.formName} name="codeName" visibleName="Code name" required
+                    <TextField name="codeName" visibleName="Code name" required
                         missing = {!!this.state.missing["codeName"]}
                         invalid = {!!this.state.invalid["codeName"]}
                         validator = {validators.codeNameValidator}
@@ -155,7 +163,7 @@ class ProjectInsertForm extends React.Component {
 
                 {/* Description */}
 
-                <TextField form={this.formName} name="description" visibleName="Description"
+                <TextField name="description" visibleName="Description"
                            defaultValue = "Enter description here"
                            validator={validators.descriptionValidator}
                            ref={(c) => this._description = c}
@@ -175,9 +183,7 @@ class ProjectInsertForm extends React.Component {
 
                     {/* Is control */}
 
-                        <Checkbox inputRef={(c) => this._isControl = c} >
-                            Control Project
-                        </Checkbox>
+                    <CheckBox ref={(c) => this._isControl = c} label="Control Project" />
 
                     </FormGroup>
                     </Col>
