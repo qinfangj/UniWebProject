@@ -67,7 +67,7 @@ class Validators {
         let regex = /^[0-9]{10,}$/ ;
         let stripped = v.trim().replace(/[+()\- ]*/g, "");
         let valid = regex.test(stripped);
-        let msg = "Not a valid phone number (accepts +,-,(), and spaces)."
+        let msg = "Not a valid phone number (accepts +,-,(), and spaces).";
         return {valid, msg};
     }
 

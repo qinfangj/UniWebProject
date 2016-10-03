@@ -66,6 +66,52 @@ class ProjectInsertForm extends React.Component {
         };
     }
 
+    /**
+     * Available values for the person in charge dropdown.
+     */
+    getLabsList() {
+        let values = ["Me", "Him", "Other"];
+        return values.map(v => {
+            return <option value={v} key={v}>{v}</option>;
+        });
+        // sub _getSelLabs {
+        //     return DBIinsert::crossdisplaydbOrdered(
+        //         ['id','last_name', 'first_name'],['people'],['people.isLaboratory = 1'],
+        //         ['last_name', 'first_name']);
+        // }
+    }
+
+    /**
+     * VAvailable values for the project state dropdown.
+     */
+    getProjectStatesList() {
+        let values = ["Ongoing","Done","Todo"];
+        return values.map(v => {
+            return <option value={v} key={v}>{v}</option>;
+        });
+        // sub _getProjectStates {
+        //     my $table = DBIinsert::displaydb('project_states',['id','state_order','name']);
+        //     my $table_mod;
+        //     for my $i (0..$#{$table}) {
+        //         $table_mod->[$i] = [$table->[$i]->[0], "$table->[$i]->[1] - $table->[$i]->[2]" ];
+        //     }
+        //     return $table_mod;
+        // }
+    }
+
+    /**
+     * Available values for the project analysis dropdown.
+     */
+    getProjectAnalysesList() {
+        let values = ["Analysis1", "Analysis2", "Analysis3"];
+        return values.map(v => {
+            return <option value={v} key={v}>{v}</option>;
+        });
+        // sub _getProjectAnalysis {
+        //     return DBIinsert::optiondisplaydbOrdered('project_analysis',['id','name' ], ['id']);
+        // }
+    }
+
     render() {
         return (
             <form className={css.form}>
@@ -88,8 +134,7 @@ class ProjectInsertForm extends React.Component {
                         <ControlLabel>Person in charge</ControlLabel>
                         <FormControl componentClass="select" placeholder="Person in charge"
                                      ref={(c) => this._personInCharge = c} >
-                            <option value="me">me</option>
-                            <option value="him">him</option>
+                            {this.getLabsList()}
                         </FormControl>
                     </FormGroup>
                     </Col>
@@ -111,6 +156,8 @@ class ProjectInsertForm extends React.Component {
                 {/* Description */}
 
                 <TextField form={this.formName} name="description" visibleName="Description"
+                           defaultValue = "Enter description here"
+                           validator={validators.descriptionValidator}
                            ref={(c) => this._description = c}
                 />
 
@@ -123,9 +170,7 @@ class ProjectInsertForm extends React.Component {
                         <ControlLabel>Project state</ControlLabel>
                         <FormControl componentClass="select" placeholder="Project state"
                                      ref={(c) => this._projectState = c} >
-                            <option value="ffff">ffff</option>
-                            <option value="select">select</option>
-                            <option value="other">other</option>
+                            {this.getProjectStatesList()}
                         </FormControl>
 
                     {/* Is control */}
@@ -146,6 +191,7 @@ class ProjectInsertForm extends React.Component {
                             type="date"
                             placeholder="User meeting date"
                             ref={(c) => this._userMeetingDate = c}
+                            defaultValue="2000-01-01"
                         />
                     </FormGroup>
                     </Col>
@@ -157,9 +203,7 @@ class ProjectInsertForm extends React.Component {
                         <ControlLabel>Project analysis</ControlLabel>
                         <FormControl componentClass="select" placeholder="Project analysis"
                                      ref={(c) => this._projectAnalysis = c} >
-                            <option value="naaa">naaa</option>
-                            <option value="select">select</option>
-                            <option value="other">other</option>
+                            {this.getProjectAnalysesList()}
                         </FormControl>
                     </FormGroup>
                     </Col>
@@ -196,37 +240,3 @@ class ProjectInsertForm extends React.Component {
 
 export default ProjectInsertForm;
 
-
-// sub makeHtmlInsertForm {
-//   my $self = shift;
-//   my $project = shift;
-//
-//   my $select = _getSelLabs();
-//   my $selState = _getProjectStates();
-//   my $selAnalysis = _getProjectAnalysis();
-//
-//   my @args = @{$self->{_args}};
-//   my $codeValidation = "validate=\"not_empty\" msg=\"Code name is Required\"";
-//   if ($ENV{PROJECT_CODE_VALIDATION}) {
-//     $codeValidation = "validate=\"not_empty|project_code\" msg=\"Code name is Required|Code name must be one word followed by an underscore, followed by PI initials.\"";
-//   }
-//   my $html = UImodifs::makeFormOpenTag('/table', 'projects', $project->[0]->[0])."
-//   <tr>".
-//   UImodifs::makeTextInput(2,50,"Project name",$args[0],$project->[0]->[1], "validate=\"not_empty\" msg=\"Name is Required\"" ).
-//     UImodifs::makeSelectInput(1,30,"Person in charge",$args[1],$project->[0]->[2],$select,"validate=\"not_empty\" msg=\"Investigator is Required\"" ).
-//     UImodifs::makeTextInput(1,20,"Code name",$args[2],$project->[0]->[3],$codeValidation )."
-//   </tr><tr>".
-//   UImodifs::makeTextInput(4,100,"Description",$args[3],$project->[0]->[4], "validate=\"not_empty|description\" msg=\"Description is Required|Enter a meaningful description!\"" )."
-//   </tr><tr>".
-//   UImodifs::makeSelectInput(1,20,"Project state",$args[4],$project->[0]->[5],$selState,"validate=\"not_empty\" msg=\"Project State is Required\"" ).
-//     UImodifs::makeCheckBoxInput(1,25,"Control project",$args[5],$project->[0]->[6]);
-//   if (!defined $project->[0]->[0] || $project->[0]->[0] eq "") {
-//     $project->[0]->[7] = '0000-00-00';
-//   }
-//   $html .= UImodifs::makeDateInput(1,30,"User meeting date",$args[6], $project->[0]->[7]).
-//     UImodifs::makeSelectInput(1,25,"Project analysis",$args[7],$project->[0]->[8],$selAnalysis,"validate=\"not_empty\" msg=\"Project Analysis is Required\"" )."
-//   </tr><tr>".
-//   UImodifs::makeTextAreaInput(4,100,"Comment",$args[8],$project->[0]->[9], "",1)."
-//   </tr>\n";
-//   $html .= UImodifs::makeFormCloseTag(4, $project->[0]->[0]);
-//   return $html;

@@ -10,7 +10,7 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 class TextField extends React.Component {
     constructor(props) {
         super(props);
-        let value = "";
+        let value = this.props.defaultValue;
         let res = this.validate(value);
         this.state = {
             value: value,  // string
@@ -98,6 +98,7 @@ TextField.propTypes = {
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting
     invalid: React.PropTypes.bool,  // field was found invalid when submitting
     helpMessage: React.PropTypes.string,
+    defaultValue: React.PropTypes.string,
 };
 TextField.defaultProps = {
     validator: ((x) => {return {valid: true, msg: ""}}),
@@ -105,6 +106,7 @@ TextField.defaultProps = {
     missing: false,
     invalid: false,
     helpMessage: "",
+    defaultValue: "",
 };
 
 
