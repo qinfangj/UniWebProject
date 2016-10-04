@@ -5,6 +5,28 @@ import restService from '../api/restService';
 
 
 
+function select(status, response) {
+    return {
+        type: actions.SELECT,
+        status: status,
+        response: response,
+    };
+}
+function selectAsync(table, fields, conds) {
+    return dispatch => {
+        dispatch(select(constants.PENDING, null));
+        return restService.selectAll(table, fields, conds)
+        .done(response => {
+            dispatch(select(constants.SUCCESS, response));
+        })
+        .fail(error => {
+            dispatch(select(constants.ERROR, error));
+        })
+            ;
+    }
+}
+
+
 function insert(status, response) {
     return {
         type: actions.INSERT,
@@ -14,7 +36,7 @@ function insert(status, response) {
 }
 function insertAsync(table, fields, values) {
     return dispatch => {
-        dispatch(insert(constants.PENDING, {}));
+        dispatch(insert(constants.PENDING, null));
         return restService.insert(table, fields, values)
             .done(response => {
                 dispatch(insert(constants.SUCCESS, response));
@@ -28,5 +50,6 @@ function insertAsync(table, fields, values) {
 
 
 export {
+    selectAsync,
     insertAsync,
 };

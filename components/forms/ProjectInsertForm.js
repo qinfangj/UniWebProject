@@ -7,13 +7,12 @@ import _ from 'lodash';
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
 import validators from './validators';
-import { insertAsync } from '../actions/actionCreators/formActionCreators';
+import { selectAsync, insertAsync } from '../actions/actionCreators/formActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import Checkbox from 'react-bootstrap/lib/Checkbox';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Alert from 'react-bootstrap/lib/Alert';
@@ -23,13 +22,16 @@ import Alert from 'react-bootstrap/lib/Alert';
 class ProjectInsertForm extends React.Component {
     constructor() {
         super();
-        this.formName = "projectInsertForm";
-        this.required = ["projectName", "codeName"];
+        this.required = ["name", "code_name"];
         this.state = {
             missing: {},
             invalid: {},
             submissionError: false,
         };
+    }
+
+    discardErrorMessage() {
+        this.setState({submissionError: false});
     }
 
     onSubmit() {
@@ -55,15 +57,15 @@ class ProjectInsertForm extends React.Component {
             return v === "none" ? null : v;
         };
         return {
-            projectName: this._projectName.getValue(),
-            personInCharge: value(this._personInCharge),
-            codeName: this._codeName.getValue(),
+            name: this._projectName.getValue(),
+            person_id: parseInt(value(this._personInCharge)),
+            code_name: this._codeName.getValue(),
             description: this._description.getValue(),
-            projectState: value(this._projectState),
+            project_state_id: parseInt(value(this._projectState)),
             isControl: this._isControl.getValue(),
-            userMeetingDate: value(this._userMeetingDate),
-            projectAnalysis: value(this._projectAnalysis),
-            comments: value(this._comments),
+            user_meeting_date: value(this._userMeetingDate),
+            project_analysis_id: parseInt(value(this._projectAnalysis)),
+            comment: value(this._comments),
         };
     }
 
@@ -71,9 +73,10 @@ class ProjectInsertForm extends React.Component {
      * Available values for the person in charge dropdown.
      */
     getLabsList() {
-        let values = ["Me", "Him", "Other"];
+        let values = [[1,"Me"], [2,"Him"], [3,"Other"]];
+        selectAsync()
         return values.map(v => {
-            return <option value={v} key={v}>{v}</option>;
+            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
         });
         // crossdisplaydbOrdered($table, $args, $where, $order): select * from table where .. order by ..
 
@@ -88,9 +91,9 @@ class ProjectInsertForm extends React.Component {
      * VAvailable values for the project state dropdown.
      */
     getProjectStatesList() {
-        let values = ["Ongoing","Done","Todo"];
+        let values = [[1,"Ongoing"],[2,"Done"],[3,"Todo"]];
         return values.map(v => {
-            return <option value={v} key={v}>{v}</option>;
+            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
         });
         // displaydb($table, $args): select * from table
 
@@ -108,9 +111,9 @@ class ProjectInsertForm extends React.Component {
      * Available values for the project analysis dropdown.
      */
     getProjectAnalysesList() {
-        let values = ["Analysis1", "Analysis2", "Analysis3"];
+        let values = [[1,"Analysis1"], [2,"Analysis2"], [3,"Analysis3"]];
         return values.map(v => {
-            return <option value={v} key={v}>{v}</option>;
+            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
         });
         // optiondisplaydbOrdered($table, $args, $order, $limit): select * from table order by ..
 
@@ -123,15 +126,26 @@ class ProjectInsertForm extends React.Component {
     render() {
         return (
             <form className={css.form}>
+
+                {/* Error message */}
+
+                {this.state.submissionError ?
+                    <Alert bsStyle="warning" onClick={this.discardErrorMessage.bind(this)}>
+                        Some required fields are missing or ill-formatted. Please review the form and submit again.
+                        <span className={css.alertOk} onClick={this.discardErrorMessage.bind(this)}><a>OK</a></span>
+                    </Alert>
+                    : null}
+
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
                     <TextField name="projectName" visibleName="Project name" required
-                        missing = {!!this.state.missing["projectName"]}
-                        invalid = {!!this.state.invalid["projectName"]}
+                        missing = {!!this.state.missing["name"]}
+                        invalid = {!!this.state.invalid["name"]}
                         ref={(c) => this._projectName = c}
+                        defaultValue="Name"
                     />
                     </Col>
 
@@ -151,11 +165,12 @@ class ProjectInsertForm extends React.Component {
 
                     <Col sm={4}>
                     <TextField name="codeName" visibleName="Code name" required
-                        missing = {!!this.state.missing["codeName"]}
-                        invalid = {!!this.state.invalid["codeName"]}
+                        missing = {!!this.state.missing["code_name"]}
+                        invalid = {!!this.state.invalid["code_name"]}
                         validator = {validators.codeNameValidator}
                         helpMessage = "[name]_[initials] Ex: Tcells_EG."
                         ref={(c) => this._codeName = c}
+                        defaultValue="code_JD"
                     />
                     </Col>
 
@@ -166,6 +181,7 @@ class ProjectInsertForm extends React.Component {
                 <TextField name="description" visibleName="Description"
                            defaultValue = "Enter description here"
                            validator={validators.descriptionValidator}
+                           invalid = {!!this.state.invalid["description"]}
                            ref={(c) => this._description = c}
                 />
 
@@ -174,7 +190,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Project state */}
 
                     <Col sm={4} className={css.formCol}>
-                    <FormGroup controlId="projectState" >
+                    <FormGroup controlId="project_state_id" >
                         <ControlLabel>Project state</ControlLabel>
                         <FormControl componentClass="select" placeholder="Project state"
                                      ref={(c) => this._projectState = c} >
@@ -191,7 +207,7 @@ class ProjectInsertForm extends React.Component {
                     {/* User meeting date */}
 
                     <Col sm={4} className={css.formCol}>
-                    <FormGroup controlId="userMeetingDate" >
+                    <FormGroup controlId="user_meeting_date" >
                         <ControlLabel>User meeting date</ControlLabel>
                         <FormControl
                             type="date"
@@ -205,7 +221,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Project analysis */}
 
                     <Col sm={4}>
-                    <FormGroup controlId="projectAnalysis" >
+                    <FormGroup controlId="project_analysis_id" >
                         <ControlLabel>Project analysis</ControlLabel>
                         <FormControl componentClass="select" placeholder="Project analysis"
                                      ref={(c) => this._projectAnalysis = c} >
@@ -229,14 +245,6 @@ class ProjectInsertForm extends React.Component {
                 <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
                     Submit
                 </Button>
-
-                {/* Error message */}
-
-                {this.state.submissionError ?
-                    <Alert bsStyle="warning">
-                        Some required fields are missing or ill-formatted. Please review the form and submit again.
-                    </Alert>
-                 : null}
 
             </form>
         );

@@ -5,12 +5,16 @@ const BACKEND = window.ENV.BACKEND_URL;
 
 class RestService {
 
-    select(table, fields, values) {
-
+    selectAll(table, fields) {
+        let url = BACKEND + "/table/"+table+"/selall/" + fields.join(",");
+        return $.get(url);
     }
 
     insert(table, fields, values) {
         let url = BACKEND + "/table/"+table+"/insert/" + fields.join(",") +"/"+ values.join(",");
+        //console.debug(fields)
+        //console.debug(values)
+        //console.debug(url)
         return $.get(url);
     }
 

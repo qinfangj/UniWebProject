@@ -1,8 +1,5 @@
 import React from 'react';
-
-/* React-bootstrap */
 import Checkbox from 'react-bootstrap/lib/Checkbox';
-
 
 
 class CheckBox extends React.Component {
