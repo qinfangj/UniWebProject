@@ -1,11 +1,10 @@
 
-const PENDING = "PENDING";
-const SUCCESS = "SUCCESS";
-const ERROR = "ERROR";
+
+const Constants = {
+    PENDING: "PENDING",
+    SUCCESS: "SUCCESS",
+    ERROR: "ERROR",
+};
 
 
-export {
-    PENDING,
-    SUCCESS,
-    ERROR,
-}
+export default Constants;

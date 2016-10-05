@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ReactDOM from 'react-dom';
 import css from './forms.css';
 import store from '../../core/store';
@@ -6,8 +7,9 @@ import _ from 'lodash';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
+import LabsList from './subcomponents/LabsList';
 import validators from './validators';
-import { selectAsync, insertAsync } from '../actions/actionCreators/formActionCreators';
+import { getLabsListAsync, insertAsync } from '../actions/actionCreators/formActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -30,6 +32,9 @@ class ProjectInsertForm extends React.Component {
         };
     }
 
+    /**
+     * Close the error message window.
+     */
     discardErrorMessage() {
         this.setState({submissionError: false});
     }
@@ -51,14 +56,18 @@ class ProjectInsertForm extends React.Component {
         }
     }
 
+    /**
+     * Read the values of all inputs in the form.
+     */
     getFormValues() {
+        console.debug("ref::", this._personInCharge)
         let value = (ref) => {
             let v = ReactDOM.findDOMNode(ref).value.trim();
             return v === "none" ? null : v;
         };
         return {
             name: this._projectName.getValue(),
-            person_id: parseInt(value(this._personInCharge)),
+            person_id: this._personInCharge.getValue(),
             code_name: this._codeName.getValue(),
             description: this._description.getValue(),
             project_state_id: parseInt(value(this._projectState)),
@@ -67,24 +76,6 @@ class ProjectInsertForm extends React.Component {
             project_analysis_id: parseInt(value(this._projectAnalysis)),
             comment: value(this._comments),
         };
-    }
-
-    /**
-     * Available values for the person in charge dropdown.
-     */
-    getLabsList() {
-        let values = [[1,"Me"], [2,"Him"], [3,"Other"]];
-        selectAsync()
-        return values.map(v => {
-            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
-        });
-        // crossdisplaydbOrdered($table, $args, $where, $order): select * from table where .. order by ..
-
-        // sub _getSelLabs {
-        //     return DBIinsert::crossdisplaydbOrdered(
-        //         ['id','last_name', 'first_name'],['people'],['people.isLaboratory = 1'],
-        //         ['last_name', 'first_name']);
-        // }
     }
 
     /**
@@ -144,7 +135,7 @@ class ProjectInsertForm extends React.Component {
                     <TextField name="projectName" visibleName="Project name" required
                         missing = {!!this.state.missing["name"]}
                         invalid = {!!this.state.invalid["name"]}
-                        ref={(c) => this._projectName = c}
+                        ref = {(c) => this._projectName = c}
                         defaultValue="Name"
                     />
                     </Col>
@@ -152,13 +143,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                    <FormGroup controlId="personInCharge" >
-                        <ControlLabel>Person in charge</ControlLabel>
-                        <FormControl componentClass="select" placeholder="Person in charge"
-                                     ref={(c) => this._personInCharge = c} >
-                            {this.getLabsList()}
-                        </FormControl>
-                    </FormGroup>
+                    <LabsList ref={(c) => this._personInCharge = c} />
                     </Col>
 
                     {/* Code name */}
@@ -169,7 +154,7 @@ class ProjectInsertForm extends React.Component {
                         invalid = {!!this.state.invalid["code_name"]}
                         validator = {validators.codeNameValidator}
                         helpMessage = "[name]_[initials] Ex: Tcells_EG."
-                        ref={(c) => this._codeName = c}
+                        ref = {(c) => this._codeName = c}
                         defaultValue="code_JD"
                     />
                     </Col>
@@ -180,9 +165,9 @@ class ProjectInsertForm extends React.Component {
 
                 <TextField name="description" visibleName="Description"
                            defaultValue = "Enter description here"
-                           validator={validators.descriptionValidator}
+                           validator = {validators.descriptionValidator}
                            invalid = {!!this.state.invalid["description"]}
-                           ref={(c) => this._description = c}
+                           ref = {(c) => this._description = c}
                 />
 
                 <Form componentClass="fieldset" horizontal>
@@ -193,7 +178,7 @@ class ProjectInsertForm extends React.Component {
                     <FormGroup controlId="project_state_id" >
                         <ControlLabel>Project state</ControlLabel>
                         <FormControl componentClass="select" placeholder="Project state"
-                                     ref={(c) => this._projectState = c} >
+                                     ref = {(c) => this._projectState = c} >
                             {this.getProjectStatesList()}
                         </FormControl>
 

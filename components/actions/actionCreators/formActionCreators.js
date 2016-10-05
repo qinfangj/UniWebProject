@@ -1,28 +1,35 @@
 
-import * as actions from '../actionTypes';
-import * as constants from '../../constants/constants';
+import actions from '../actionTypes';
+import constants from '../../constants/constants';
 import restService from '../api/restService';
 
 
-
-function select(status, response) {
+function sendError(error) {
     return {
-        type: actions.SELECT,
+        type: actions.ERROR,
+        error: error,
+    };
+}
+
+
+function getLabsList(status, response) {
+    return {
+        type: actions.GET_LABS_LIST,
         status: status,
         response: response,
     };
 }
-function selectAsync(table, fields, conds) {
+function getLabsListAsync() {
     return dispatch => {
-        dispatch(select(constants.PENDING, null));
-        return restService.selectAll(table, fields, conds)
-        .done(response => {
-            dispatch(select(constants.SUCCESS, response));
-        })
-        .fail(error => {
-            dispatch(select(constants.ERROR, error));
-        })
-            ;
+        dispatch(getLabsList(constants.PENDING, null));
+        return restService.getLabsList()
+            .done(response => {
+                dispatch(getLabsList(constants.SUCCESS, response));
+            })
+            .fail(error => {
+                dispatch(sendError(error));
+            })
+        ;
     }
 }
 
@@ -50,6 +57,6 @@ function insertAsync(table, fields, values) {
 
 
 export {
-    selectAsync,
+    getLabsListAsync,
     insertAsync,
 };
