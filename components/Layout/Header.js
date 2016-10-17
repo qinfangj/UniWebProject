@@ -1,40 +1,34 @@
-/**
- * React Static Boilerplate
- * https://github.com/kriasoft/react-static-boilerplate
- *
- * Copyright © 2015-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
-import Navigation from './Navigation';
 import Link from '../Link';
-import s from './Header.css';
+import cx from 'classnames';
+import css from './Header.css';
+
+import { Nav, NavItem } from 'react-bootstrap/lib';
+
 
 
 class Header extends React.Component {
 
-  componentDidMount() {
-    window.componentHandler.upgradeElement(this.root);
-  }
-
-  componentWillUnmount() {
-    window.componentHandler.downgradeElements(this.root);
-  }
-
   render() {
     return (
-      <header className={`mdl-layout__header ${s.header}`} ref={node => (this.root = node)}>
-        <div className={`mdl-layout__header-row ${s.row}`}>
-          <Link className={`mdl-layout-title ${s.title}`} to="/">
-            UHTS LIMS Web
-          </Link>
-          <div className="mdl-layout-spacer"></div>
-          <Navigation />
+        <div className={cx("container", css.header)}>
+            <div className={cx("row", css.row)}>
+                <span className="col-sm-2 pull-left">
+                    <img src={require("../../public/images/gtf_logo.png")} height="60px" />
+                </span>
+                <span className="col-sm-2 col-sm-offset-3">
+                    <img src={require("../../public/images/uhts_logo2.png")} height="60px" />
+                </span>
+                <div className={cx("pull-right", css.nav)}>
+                    <span className={css.vcenter}>
+                        <Nav bsStyle="pills">
+                            <NavItem>Account</NavItem>
+                            <NavItem>Logout</NavItem>
+                        </Nav>
+                    </span>
+                </div>
+             </div>
         </div>
-      </header>
     );
   }
 

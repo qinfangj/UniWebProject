@@ -1,0 +1,29 @@
+
+.footer {
+    padding: 16px;
+    background-color: grey;
+}
+
+.row {
+    padding: 16px;
+    width: 100%;
+}
+
+.title {
+    text-decoration: none;
+    color: black;
+}
+
+
+@media screen and (max-width: 1024px) {
+
+    .footer {
+        display: flex;
+        width: 100%;
+    }
+
+    .row {
+        padding: 8px;
+    }
+
+}

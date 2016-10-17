@@ -1,40 +1,45 @@
-/**
- * React Static Boilerplate
- * https://github.com/kriasoft/react-static-boilerplate
- *
- * Copyright © 2015-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
-import React, { PropTypes } from 'react';
+import React from 'react';
 import cx from 'classnames';
-import Header from './Header';
-import Footer from '../Footer';
-import s from './Layout.css';
+import css from './Layout.css';
 
-import { Tabs, Tab, TabContainer, TabContent, TabPane } from 'react-bootstrap/lib';
+import Header from './Header';
+import Footer from './Footer';
+import LeftMenu from './LeftMenu';
+import TopMenu from './TopMenu';
 
 
 class Layout extends React.Component {
 
-  render() {
-    return (
-      <div className="mdl-layout mdl-js-layout" ref={node => (this.root = node)}>
-        <div className="mdl-layout__inner-container">
-          <Header />
-          <main className="mdl-layout__content">
+    render() {
+        return (
+            <div ref={node => (this.root = node)}>
+                <div>
+                    <Header />
 
-            <p className="bg-success">TEST</p>
-            <div {...this.props} className={cx(s.content, this.props.className)} />
-            <Footer />
+                    <div className="container">
+                    <div className={cx("row", css.row)}>
 
-          </main>
-        </div>
-      </div>
-    );
-  }
+                        <div className="col-sm-12">
+                            <TopMenu />
+                        </div>
+                        <div className="col-sm-2">
+                            <LeftMenu />
+                        </div>
+
+                        <div className="col-sm-10">
+                        {/* Here comes what a page puts between <Layout></Layout> */}
+                        <div {...this.props} className={cx(css.pageContent, this.props.className)} />
+                        {/* End of content */}
+                        </div>
+
+                    </div>
+                    </div>
+
+                    <Footer />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default Layout;
