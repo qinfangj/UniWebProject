@@ -2,7 +2,7 @@
 backup/
 node_modules/
 public/index.html
-public/*
+public/sitemap.xml
 public/dist/
 .idea
 .DS_Store
