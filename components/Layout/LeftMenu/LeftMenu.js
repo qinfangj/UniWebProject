@@ -7,11 +7,13 @@ class LeftMenu extends React.Component {
     render() {
         return (
             <div className={css.leftMenu}>
-                LEFT MENU
+                <div>
+                Tables
+                </div>
                 <ul>
-                    <li>A</li>
-                    <li>B</li>
-                    <li>C</li>
+                    <li>Laboratories</li>
+                    <li>Projects</li>
+                    <li>Samples</li>
                 </ul>
             </div>
         );

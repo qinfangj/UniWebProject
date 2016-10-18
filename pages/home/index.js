@@ -1,9 +1,10 @@
 
 import React from 'react';
-import Layout from '../../components/Layout';
-import s from './styles.css';
-import { title, html } from './index.md';
+import cx from 'classnames';
+import css from './index.css';
 
+import Layout from '../../components/Layout';
+import LeftMenu from '../../components/Layout/LeftMenu';
 import ProjectInsertForm from '../../components/forms/ProjectInsertForm';
 
 
@@ -15,8 +16,21 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <Layout className={s.content}>
-        <ProjectInsertForm />
+      <Layout className={css.content}>
+
+        <div className="container">
+          <div className={cx("row", css.row)}>
+
+            <div className="col-sm-2">
+              <LeftMenu />
+            </div>
+
+            <div className="col-sm-10">
+              <ProjectInsertForm />
+            </div>
+
+          </div>
+        </div>
       </Layout>
     );
   }

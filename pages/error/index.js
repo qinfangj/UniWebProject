@@ -11,7 +11,7 @@
 import React from 'react';
 import history from '../../core/history';
 import Link from '../../components/Link';
-import s from './styles.css';
+import s from './error.css';
 
 class ErrorPage extends React.Component {
 
