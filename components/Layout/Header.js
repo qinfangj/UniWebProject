@@ -11,21 +11,19 @@ class Header extends React.Component {
 
   render() {
     return (
-        <div className={cx("container", css.header)}>
-            <div className={cx("row", css.row)}>
-                <span className="col-sm-2 pull-left">
+        <div className={cx(css.header)}>
+            <div className={cx(css.row)}>
+                <span className={css.limsLogo}>
                     <img src={require("../../public/images/gtf_logo.png")} height="60px" />
                 </span>
-                <span className="col-sm-2 col-sm-offset-3">
+                <span className={css.uhtsLogo}>
                     <img src={require("../../public/images/uhts_logo2.png")} height="60px" />
                 </span>
                 <div className={cx("pull-right", css.nav)}>
-                    <span className={css.vcenter}>
-                        <Nav bsStyle="pills">
-                            <NavItem>Account</NavItem>
-                            <NavItem>Logout</NavItem>
-                        </Nav>
-                    </span>
+                    <Nav bsStyle="pills">
+                        <NavItem>Account</NavItem>
+                        <NavItem>Logout</NavItem>
+                    </Nav>
                 </div>
              </div>
         </div>

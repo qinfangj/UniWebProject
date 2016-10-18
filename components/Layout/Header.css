@@ -13,7 +13,7 @@
 }
 
 .row {
-  padding: 16px;
+  padding: 8px;
   width: 100%;
 }
 
@@ -23,12 +23,7 @@
 }
 
 .nav {
-    height: 100%;
-    display: table;
-}
-.vcenter {
-    display: table-cell;
-    vertical-align: middle;
+    line-height: 40px;
 }
 
 
@@ -37,10 +32,6 @@
   .header {
     display: flex;
     width: 100%;
-  }
-
-  .row {
-    padding: 8px;
   }
 
 }
