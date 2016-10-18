@@ -16,7 +16,7 @@ class Layout extends React.Component {
                     <Header />
 
                     <div className="container">
-                        <div className={cx("row", css.row)}>
+                        <div className={cx("row", css.topRow)}>
                             <div className="col-sm-12">
                                 <TopMenu />
                             </div>

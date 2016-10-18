@@ -13,18 +13,18 @@ class Header extends React.Component {
     return (
         <div className={cx(css.header)}>
             <div className={cx(css.row)}>
-                <span className={cx(css.logo, css.limsLogo)}>
-                    <img src={require("../../../public/images/gtf_logo.png")} height="60px" />
-                </span>
+
                 <span className={cx(css.logo, css.uhtsLogo)}>
                     <img src={require("../../../public/images/uhts_logo2.png")} height="60px" />
                 </span>
+
                 <div className={cx("pull-right", css.navBar)}>
                     <Nav bsStyle="pills">
                         <NavItem>Account</NavItem>
                         <NavItem>Logout</NavItem>
                     </Nav>
                 </div>
+
              </div>
         </div>
     );

@@ -8,7 +8,12 @@ import css from './Footer.css';
 function Footer() {
     return (
         <div className={css.footer}>
-            Lausanne Genomic Technologies Facility (LGTF), University of Lausanne
+            <span>Lausanne Genomic Technologies Facility (LGTF), University of Lausanne</span>
+
+            <span className={cx(css.logo, css.unilLogo)}>
+                <img src={require("../../../public/images/gtf_logo.png")} height="30px" />
+            </span>
+
         </div>
   );
 }

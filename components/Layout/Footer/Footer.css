@@ -4,14 +4,8 @@
     background-color: transparent;
 }
 
-.row {
-    padding: 16px;
-    width: 100%;
-}
-
-.title {
-    text-decoration: none;
-    color: black;
+.unilLogo {
+    margin-left: 20px;
 }
 
 
@@ -20,10 +14,6 @@
     .footer {
         display: flex;
         width: 100%;
-    }
-
-    .row {
-        padding: 8px;
     }
 
 }
