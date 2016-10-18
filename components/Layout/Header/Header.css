@@ -1,0 +1,50 @@
+
+@import '../colors.css';
+
+.header {
+    /*border-bottom: 5px solid var(--blue);*/
+    background-color: var(--blue);
+}
+
+.logo {
+    margin: 0px 15px;
+}
+
+.limsLogo {
+
+}
+.uhtsLogo {
+    display: inline-block;
+    height: 100%;
+    border-left: 25px solid var(--yellow);
+    border-right: 25px solid var(--yellow);
+}
+
+.navBar {
+    line-height: 40px;
+}
+.navBar li + li {
+    margin: 0;
+}
+.navBar li > a {
+    color: white;
+    border-radius: 0;
+}
+.navBar li > a:hover {
+    background-color: var(--yellow);
+    color: black;
+}
+.navBar li > a:focus {
+    background-color: var(--yellow);
+    color: black;
+}
+
+
+@media screen and (max-width: 1024px) {
+
+  .header {
+    display: flex;
+    width: 100%;
+  }
+
+}
