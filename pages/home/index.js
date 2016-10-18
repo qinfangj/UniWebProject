@@ -20,9 +20,10 @@ class HomePage extends React.Component {
 
         <div className="container">
           <div className={cx("row", css.row)}>
+            <LeftMenu />
 
             <div className="col-sm-2">
-              <LeftMenu />
+
             </div>
 
             <div className="col-sm-10">
