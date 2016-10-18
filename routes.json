@@ -13,11 +13,7 @@
   },
   {
     "path": "/projects/new",
-    "page": "./pages/projects/new"
-  },
-  {
-    "path": "/new",
-    "page": "./pages/projects/new"
+    "page": "./pages/projects/new.js"
   },
 
 
