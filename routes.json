@@ -1,16 +1,29 @@
 [
   {
     "path": "/",
-    "page": "./pages/home",
-    "chunk": "main",
-    "data": {
-      "articles": "GET https://gist.githubusercontent.com/koistya/a32919e847531320675764e7308b796a/raw/articles.json"
-    }
+    "page": "./pages/projects/index.js"
   },
   {
+    "path": "/projects",
+    "page": "./pages/projects/index.js"
+  },
+  {
+    "path": "/projects/list",
+    "page": "./pages/projects/index.js"
+  },
+  {
+    "path": "/projects/new",
+    "page": "./pages/projects/new"
+  },
+  {
+    "path": "/new",
+    "page": "./pages/projects/new"
+  },
+
+
+  {
     "path": "/error",
-    "page": "./pages/error",
-    "chunk": "main"
+    "page": "./pages/error"
   },
   {
     "path": "/about",
