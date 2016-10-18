@@ -1,9 +1,10 @@
 
-@import '../colors.css';
+@import '../../../styles/colors.css';
 
 .header {
     /*border-bottom: 5px solid var(--blue);*/
     background-color: var(--blue);
+    height: 60px;
 }
 
 .logo {

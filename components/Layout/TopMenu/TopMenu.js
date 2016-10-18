@@ -1,6 +1,7 @@
 
 import React from 'react';
 import css from './TopMenu.css';
+import Link from '../../Link';
 
 import { Nav, NavItem } from 'react-bootstrap/lib';
 

@@ -1,0 +1,23 @@
+
+.title {
+    font-size: 1.8em;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.navbar {
+    width: 100%;
+    margin: 15px 0;
+}
+
+.navbar ul {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+.navbar li {
+    display: inline-block;
+    text-align: center;
+    padding: 0 4px;
+}

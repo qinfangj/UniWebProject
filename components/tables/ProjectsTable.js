@@ -39,13 +39,24 @@ class ProjectsTable extends React.Component {
     render() {
         return (
             <div>
-                <div className={css.title}>
-                    Projects
-                </div>
-                <BootstrapTable data={this.getProjects()} striped={true} hover={true}>
-                <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>ID</TableHeaderColumn>
-                <TableHeaderColumn dataField="name" dataSort={true}>Name</TableHeaderColumn>
-                <TableHeaderColumn dataField="codeName">Code</TableHeaderColumn>
+                <BootstrapTable data={this.getProjects()}
+                                striped={true} hover={true} pagination={true} search={true}
+                                tableHeaderClass={css.tableHeader}>
+                <TableHeaderColumn dataField="id" width="60" isKey={true} dataAlign="center" dataSort={true}>
+                    ID
+                </TableHeaderColumn>
+                <TableHeaderColumn dataField="name" dataSort={true}>
+                    Name
+                </TableHeaderColumn>
+                <TableHeaderColumn dataField="codeName" dataSort={true}>
+                    Code
+                </TableHeaderColumn>
+                <TableHeaderColumn dataField="description" dataSort={true}>
+                    Description
+                </TableHeaderColumn>
+                <TableHeaderColumn dataField="author" dataSort={true}>
+                    Author
+                </TableHeaderColumn>
                 </BootstrapTable>
             </div>
         );
