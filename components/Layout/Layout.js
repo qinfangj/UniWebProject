@@ -8,6 +8,13 @@ import Footer from './Footer';
 import TopMenu from './TopMenu';
 
 
+/**
+ * Wrapper component that presents the content between a header, a top menu, and a footer.
+ * @example
+ * <Layout>
+ *   {content}
+ * </Layout>
+ */
 class Layout extends React.Component {
 
     constructor() {

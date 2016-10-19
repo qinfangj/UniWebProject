@@ -6,7 +6,6 @@ import commonCss from '../../styles/common.css';
 
 import LeftMenu from '../Layout/LeftMenu';
 import Link from '../../components/Link';
-import ResponsiveSidebar from '../Layout/Sidebar';
 
 
 class Projects extends React.Component {
@@ -21,14 +20,6 @@ class Projects extends React.Component {
 
                 <LeftMenu>
 
-                {/*
-                <div className="col-sm-3">
-                    <LeftMenu />
-                </div>
-
-                <div className="col-sm-9">
-                */}
-
                 <div className={commonCss.fullwidth}>
                     <div className={css.title}>
                         Projects
@@ -40,8 +31,6 @@ class Projects extends React.Component {
                             <li> · </li>
                             <li><Link to="/projects/list">Active projects</Link></li>
                             <li> · </li>
-                            <li><Link to="/projects/list">Find projects</Link></li>
-                            <li> · </li>
                             <li><Link to="/projects/new">Create new project</Link></li>
                         </ul>
                     </div>
@@ -49,8 +38,6 @@ class Projects extends React.Component {
                     {this.props.content}
 
                 </div>
-
-                
 
                 </LeftMenu>
 
