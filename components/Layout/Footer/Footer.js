@@ -11,7 +11,7 @@ function Footer() {
             <span>Lausanne Genomic Technologies Facility (LGTF), University of Lausanne</span>
 
             <span className={cx(css.logo, css.unilLogo)}>
-                <img src={require("../../../public/images/gtf_logo.png")} height="30px" />
+                <img src={require("../../../public/images/gtf_logo.png")} height="50px" />
             </span>
 
         </div>

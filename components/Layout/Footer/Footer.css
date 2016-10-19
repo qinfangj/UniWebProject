@@ -1,7 +1,7 @@
 
 .footer {
-    padding: 16px;
-    padding-left: 40px;
+    display: inline-block;
+    padding: 16px 40px;
     background-color: transparent;
 }
 
@@ -13,8 +13,6 @@
 @media screen and (max-width: 1024px) {
 
     .footer {
-        display: flex;
-        width: 100%;
     }
 
 }
