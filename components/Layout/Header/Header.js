@@ -15,7 +15,7 @@ class Header extends React.Component {
             <div className={cx(css.row)}>
 
                 <span className={cx(css.logo, css.uhtsLogo)}>
-                    <img src={require("../../../public/images/uhts_logo2.png")} height="60px" />
+                    <img src={require("../../../public/images/uhts_logo5.png")} height="60px" />
                 </span>
 
                 <div className={cx("pull-right", css.navBar)}>

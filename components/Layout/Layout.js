@@ -6,7 +6,6 @@ import commonCss from '../../styles/common.css';
 import Header from './Header';
 import Footer from './Footer';
 import TopMenu from './TopMenu';
-import ResponsiveSidebar from './Sidebar';
 
 
 class Layout extends React.Component {
@@ -18,29 +17,31 @@ class Layout extends React.Component {
     render() {
 
         return (
-            <ResponsiveSidebar>
             <div ref={node => (this.root = node)}>
-                    <Header />
+                <Header />
 
-                    <div className={css.pageContent}>
+                <div className={cx("container", css.pageContent)}>
 
-                    <div className={cx("container", commonCss.fullwidth)}>
-                        <div className={cx("row", css.topRow)}>
-                            <div className={cx("col-sm-12", css.topRowColumn)}>
-                                <TopMenu />
-                            </div>
+                    <div className={cx("row", css.topRow)}>
+                        <div className={cx("col-sm-12", css.column1)}>
+                            <TopMenu />
                         </div>
                     </div>
 
-                    {/* Here comes what a page puts between <Layout></Layout> */}
-                    <div {...this.props} className={cx(this.props.className)} />
-                    {/* End of content */}
+                    <div className={cx("row")}>
+                        <div className={cx("col-sm-12", css.column2, commonCss.fullheight)}>
 
+                            {/* Here comes what a page puts between <Layout></Layout> */}
+                            <div {...this.props} className={cx(this.props.className)} />
+                            {/* End of content */}
+
+                        </div>
                     </div>
 
-                    <Footer />
+                </div>
+
+                <Footer />
             </div>
-            </ResponsiveSidebar>
         );
     }
 }

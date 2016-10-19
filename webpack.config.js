@@ -43,6 +43,9 @@ const config = {
     /*'!!style!css!react-mdl/extra/material.min.css',*/
     /*'react-mdl/extra/material.min.js',*/
 
+    '!!style!css!react-bootstrap-table/css/react-bootstrap-table.css',
+    'react-bootstrap-table/css/react-bootstrap-table.css',
+
     /* The main entry point of your JavaScript application */
     './main.js',
   ],

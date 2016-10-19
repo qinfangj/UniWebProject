@@ -1,7 +1,18 @@
 
-.leftMenu {
-    background-color: #d6d6d6;
-    border-radius: 4px;
+.leftSide {
+    /*background-color: #d6d6d6;*/
+    /*border-radius: 4px;*/
+    width: 215px;
+    box-shadow: 10px 0px 10px -10px #ccc;
+    height: 100%;
+    margin-top: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.rightSide {
+    margin-left: 230px;
+    overflow: hidden; /* Otherwise it goes to the next line... */
 }
 
 .title {
@@ -12,10 +23,13 @@
     border-bottom: 2px solid black;
 }
 
+.items {
+}
 
-.leftMenu li {
+
+.items li {
     text-align: center;
 }
-.leftMenu li > a {
+.items li > a {
     border-radius: 0;
 }

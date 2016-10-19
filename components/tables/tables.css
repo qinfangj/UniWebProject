@@ -4,4 +4,10 @@
 
 .tableHeader th {
     background: #fc0;
+    width: auto;
+    min-width: auto;
+}
+
+.tableHeader span.caret {
+    color: black;
 }

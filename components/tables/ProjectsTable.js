@@ -43,6 +43,7 @@ class ProjectsTable extends React.Component {
                                 striped={true} hover={true} pagination={true} search={true}
                                 tableHeaderClass={css.tableHeader}
                                 tableContainerClass={css.tableContainer}
+                                headerStyle={{width: "auto", minWidth: "auto"}}
                 >
                 <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>
                     ID

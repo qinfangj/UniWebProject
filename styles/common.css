@@ -3,3 +3,17 @@
     margin: 0 auto;
     width: 100%;
 }
+.fullheight {
+    height: 100%;
+}
+
+.sharp {
+    margin: 0;
+    padding: 0;
+}
+.nopadding {
+    padding: 0;
+}
+.nomargin {
+    margin: 0;
+}
