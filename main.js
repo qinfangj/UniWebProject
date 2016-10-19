@@ -23,38 +23,45 @@ import history from './core/history';
 const container = document.getElementById('container');
 
 // React-router version
+
+import { Router, Route, Link, browserHistory } from 'react-router';
+
+import Home from './pages/home/index';
+import ProjectsList from './pages/projects/index';
+import ProjectsNew from './pages/projects/new';
+let routes = (
+    <Router history={browserHistory}>
+        <Route path="/" component={Home}>
+            <Route path="projects/list" component={ProjectsList}/>
+            <Route path="projects/new" component={ProjectsNew}/>
+        </Route>
+    </Router>
+);
+
+ReactDOM.render(
+    <Provider store={store}>
+        {routes}
+    </Provider>,
+    container
+);
+
+// let routes = require('./routes.json'); // Loaded with utils/routes-loader.js
+// function renderComponent(component) {
+//   ReactDOM.render(<Provider store={store}>{component}</Provider>, container);
+// }
 //
-// import { Router, Route, Link, browserHistory } from 'react-router'
+// // Find and render a web page matching the current URL path,
+// // if such page is not found then render an error page (see routes.json, core/router.js)
+// function render(location) {
+//   router.resolve(routes, location)
+//     .then(renderComponent)
+//     .catch(error => router.resolve(routes, { ...location, error }).then(renderComponent));
+// }
 //
-// import Home from '/pages/home/index';
-// import ProjectsList from '/pages/projects/index';
-// import ProjectsNew from '/pages/projects/new';
-// const routes = (
-//     <Router>
-//         <Route path="/" component={Home}>
-//             <Route path="projects/list" component={ProjectsList}/>
-//             <Route path="projects/new" component={ProjectsNew}/>
-//         </Route>
-//     </Router>
-// );
-
-let routes = require('./routes.json'); // Loaded with utils/routes-loader.js
-function renderComponent(component) {
-  ReactDOM.render(<Provider store={store}>{component}</Provider>, container);
-}
-
-// Find and render a web page matching the current URL path,
-// if such page is not found then render an error page (see routes.json, core/router.js)
-function render(location) {
-  router.resolve(routes, location)
-    .then(renderComponent)
-    .catch(error => router.resolve(routes, { ...location, error }).then(renderComponent));
-}
-
-// Handle client-side navigation by using HTML5 History API
-// For more information visit https://github.com/ReactJSTraining/history/tree/master/docs#readme
-history.listen(render);
-render(history.getCurrentLocation());
+// // Handle client-side navigation by using HTML5 History API
+// // For more information visit https://github.com/ReactJSTraining/history/tree/master/docs#readme
+// history.listen(render);
+// render(history.getCurrentLocation());
 
 // Eliminates the 300ms delay between a physical tap
 // and the firing of a click event on mobile browsers
