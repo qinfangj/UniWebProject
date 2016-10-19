@@ -3,7 +3,7 @@
 
 .header {
     /*border-bottom: 5px solid var(--blue);*/
-    background-color: var(--blue);
+    background-color: white;/*var(--blue);*/
     height: 60px;
 }
 
@@ -14,8 +14,8 @@
 .uhtsLogo {
     display: inline-block;
     height: 100%;
-    border-left: 25px solid var(--yellow);
-    border-right: 25px solid var(--yellow);
+    /*border-left: 25px solid var(--yellow);
+    border-right: 25px solid var(--yellow);*/
 }
 
 .navBar {

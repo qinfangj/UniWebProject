@@ -2,6 +2,7 @@
 import React from 'react';
 import cx from 'classnames';
 import css from './Projects.css';
+import commonCss from '../../styles/common.css';
 
 import LeftMenu from '../../components/Layout/LeftMenu';
 import Link from '../../components/Link';
@@ -27,7 +28,7 @@ class Projects extends React.Component {
                     {/*
                     <div className="col-sm-12">
                     */}
-                    <div className={css.row}>
+                    <div className={commonCss.fullwidth}>
                         <div className={css.title}>
                             Projects
                         </div>

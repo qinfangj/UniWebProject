@@ -1,10 +1,11 @@
 
 .topRow {
-    padding: 0 25px;
+    padding: 0;
     margin-top: 8px;
     margin-bottom: 15px;
 }
 .topRowColumn {
+    padding: 0;
 }
 
 .pageContent {

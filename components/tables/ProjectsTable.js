@@ -44,7 +44,7 @@ class ProjectsTable extends React.Component {
                                 tableHeaderClass={css.tableHeader}
                                 tableContainerClass={css.tableContainer}
                 >
-                <TableHeaderColumn dataField="id" width="60" isKey={true} dataAlign="center" dataSort={true}>
+                <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>
                     ID
                 </TableHeaderColumn>
                 <TableHeaderColumn dataField="name" dataSort={true}>

@@ -20,8 +20,9 @@ class Layout extends React.Component {
         return (
             <ResponsiveSidebar>
             <div ref={node => (this.root = node)}>
-                <div>
                     <Header />
+
+                    <div className={css.pageContent}>
 
                     <div className={cx("container", commonCss.fullwidth)}>
                         <div className={cx("row", css.topRow)}>
@@ -32,11 +33,12 @@ class Layout extends React.Component {
                     </div>
 
                     {/* Here comes what a page puts between <Layout></Layout> */}
-                    <div {...this.props} className={cx(css.pageContent, this.props.className)} />
+                    <div {...this.props} className={cx(this.props.className)} />
                     {/* End of content */}
 
+                    </div>
+
                     <Footer />
-                </div>
             </div>
             </ResponsiveSidebar>
         );
