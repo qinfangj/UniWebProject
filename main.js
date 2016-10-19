@@ -20,9 +20,25 @@ import store from './core/store';
 import router from './core/router';
 import history from './core/history';
 
-let routes = require('./routes.json'); // Loaded with utils/routes-loader.js
 const container = document.getElementById('container');
 
+// React-router version
+//
+// import { Router, Route, Link, browserHistory } from 'react-router'
+//
+// import Home from '/pages/home/index';
+// import ProjectsList from '/pages/projects/index';
+// import ProjectsNew from '/pages/projects/new';
+// const routes = (
+//     <Router>
+//         <Route path="/" component={Home}>
+//             <Route path="projects/list" component={ProjectsList}/>
+//             <Route path="projects/new" component={ProjectsNew}/>
+//         </Route>
+//     </Router>
+// );
+
+let routes = require('./routes.json'); // Loaded with utils/routes-loader.js
 function renderComponent(component) {
   ReactDOM.render(<Provider store={store}>{component}</Provider>, container);
 }

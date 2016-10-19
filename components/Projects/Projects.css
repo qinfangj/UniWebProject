@@ -1,4 +1,9 @@
 
+.row {
+    width: 100%;
+    margin: 0 auto;
+}
+
 .title {
     font-size: 1.8em;
     text-align: center;

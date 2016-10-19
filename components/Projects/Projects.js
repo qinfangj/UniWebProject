@@ -15,8 +15,8 @@ class Projects extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <div className={cx("row")}>
+            <div>
+                <div>
 
                     {/*
                     <div className="col-sm-3">
@@ -24,7 +24,10 @@ class Projects extends React.Component {
                     </div>
                     */}
 
-                    <div className="col-sm-9">
+                    {/*
+                    <div className="col-sm-12">
+                    */}
+                    <div className={css.row}>
                         <div className={css.title}>
                             Projects
                         </div>
@@ -42,6 +45,7 @@ class Projects extends React.Component {
                         </div>
 
                         {this.props.content}
+
                     </div>
 
                 </div>

@@ -41,7 +41,9 @@ class ProjectsTable extends React.Component {
             <div>
                 <BootstrapTable data={this.getProjects()}
                                 striped={true} hover={true} pagination={true} search={true}
-                                tableHeaderClass={css.tableHeader}>
+                                tableHeaderClass={css.tableHeader}
+                                tableContainerClass={css.tableContainer}
+                >
                 <TableHeaderColumn dataField="id" width="60" isKey={true} dataAlign="center" dataSort={true}>
                     ID
                 </TableHeaderColumn>
