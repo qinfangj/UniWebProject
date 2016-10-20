@@ -13,12 +13,12 @@ class TopMenu extends React.Component {
     constructor() {
         super();
         this.state = {
-            activeKey: window.location.pathname,
+            activeKey: "",
         };
     }
 
     componentDidMount() {
-        this.onSelect(this.state.activeKey);
+        this.onSelect(window.location.pathname);
     }
 
     onSelect(key) {

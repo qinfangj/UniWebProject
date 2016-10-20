@@ -18,20 +18,22 @@ class LeftMenu extends React.Component {
     constructor() {
         super();
         this.state = {
-            activeKey: window.location.pathname,
+            activeKey: "",
         };
     }
 
     componentDidMount() {
-        this.onSelect(this.state.activeKey);
+        this.onSelect(window.location.pathname);
     }
 
     onSelect(key) {
+        console.debug("LeftMenu.onSelect", key)
         this.setState({ activeKey: key });
     }
 
     render() {
         let activeKey = this.state.activeKey;
+        console.debug("activeKey:", activeKey)
         return (
             <div>
                 <div className={cx(css.leftSide, commonCss.sharp)}>

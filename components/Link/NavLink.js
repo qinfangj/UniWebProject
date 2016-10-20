@@ -15,8 +15,13 @@ class NavLink extends React.Component {
     };
 
     handleClick = (event) => {
+        console.debug("NavLink.handleClick", this.props.to, window.location.pathname)
         if (this.props.onClick) {
             this.props.onClick(event);
+        }
+
+        if (this.props.to === window.location.pathname) {
+            return;
         }
 
         if (event.button !== 0 /* left click */) {
@@ -31,7 +36,7 @@ class NavLink extends React.Component {
             return;
         }
 
-        //event.preventDefault();
+        event.preventDefault();
 
         if (this.props.to) {
             history.push(this.props.to);
