@@ -25,22 +25,19 @@ class Layout extends React.Component {
         super();
     }
 
-    openSidebar() {
-        store.dispatch(toggleSidebar(true));
-    }
-
     render() {
 
         return (
             <div>
-                <div className={css.mainLogoButton} onClick={this.openSidebar}>
+                {/*
+                <div className={css.mainLogoButton} onClick={() => store.dispatch(toggleSidebar(true))}>
                     <img src={require("../../public/images/uhts_logo5.png")} height="60px" />
                 </div>
+                */}
                 <ResponsiveSidebar>
 
-                <div ref={node => (this.root = node)}>
+                <div>
                     <Header />
-
 
                     <div className={cx("container", css.pageContent)}>
 

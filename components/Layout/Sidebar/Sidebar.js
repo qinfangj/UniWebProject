@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import css from './Sidebar.css';
 import store from '../../../core/store';
+import { toggleSidebar } from '../../actions/actionCreators/actionCreators';
 
 import Sidebar from 'react-sidebar';
 
@@ -48,57 +49,57 @@ class ResponsiveSidebar extends React.Component {
         this.setState({open: open});
     }
 
-    /**
-     * Toggle open/close when button is clicked manually.
-     * Should update the store, too, but this component is the only listener.
-     */
-    toggleOpen(e) {
-        this.setState({open: !this.state.open});
-        if (e) {
-            e.preventDefault();
-        }
-    }
-
     render() {
         console.debug("Render sidebar", this.state.open)
 
-        let toggleSpan = (className) => (
-            <span>
-                {!this.state.docked &&
-                 <a onClick={this.toggleOpen.bind(this)} href="#" className={className}>
-                     =
-                 </a>}
-            </span>
-        );
-
+        const styles = {
+            sidebarLink: {
+                display: 'block',
+                padding: '16px 0px',
+                color: '#757575',
+                textDecoration: 'none',
+            },
+            divider: {
+                margin: '8px 0',
+                height: 1,
+                backgroundColor: '#757575',
+            },
+            content: {
+                padding: '16px',
+                height: '100%',
+                backgroundColor: 'white',
+            },
+        };
         let sidebarContents = (
             <div className={css.sidebarContent}>
+                {/*
                 <div className={css.sidebarLogo}>
                     <img src={require("../../../public/images/uhts_logo5.png")} height="60px" />
                 </div>
-                <div className={css.sidebarItems}>
-                    <a href="index.html" className={css.sidebarLink}>
+                */}
+                <div style={styles.content}>
+                    <a href="index.html" style={styles.sidebarLink}>
                         Home
                     </a>
-                    <a href="#" className={css.sidebarLink}>
+                    <a href="#" style={styles.sidebarLink}>
                         Facility data
                     </a>
-                    <a href="#" className={css.sidebarLink}>
+                    <a href="#" style={styles.sidebarLink}>
                         User data
                     </a>
-                    <a href="#" className={css.sidebarLink}>
+                    <a href="#" style={styles.sidebarLink}>
                         Tracking
                     </a>
-                    <a href="#" className={css.sidebarLink}>
+                    <a href="#" style={styles.sidebarLink}>
                         Query projects
                     </a>
-                    <a href="#" className={css.sidebarLink}>
+                    <a href="#" style={styles.sidebarLink}>
                         Query runs
                     </a>
-                    <a href="#" className={css.sidebarLink}>
+                    <a href="#" style={styles.sidebarLink}>
                         Admin
                     </a>
-                    <div className={css.sidebarDivider} />
+                    <div style={styles.divider} />
                 </div>
             </div>
         );
@@ -109,7 +110,7 @@ class ResponsiveSidebar extends React.Component {
                 overlayClassName={css.overlay}
                 contentClassName={css.content}
                 sidebar={sidebarContents}
-                docked={this.state.docked}
+                docked={true}
                 open={this.state.open}
                 transitions={this.state.transitions}
                 onSetOpen={this.onSetOpen.bind(this)}
