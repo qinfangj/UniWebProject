@@ -47,10 +47,6 @@ const config = {
     '!!style!css!react-bootstrap-table/css/react-bootstrap-table.css',
     'react-bootstrap-table/css/react-bootstrap-table.css',
 
-    /* AG-Grid CSS */
-    '!!style!css!ag-grid/dist/styles/ag-grid.css',
-    '!!style!css!ag-grid/dist/styles/theme-bootstrap.css',
-
     /* The main entry point of your JavaScript application */
     './main.js',
   ],
