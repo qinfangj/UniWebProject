@@ -55,7 +55,7 @@ class ResponsiveSidebar extends React.Component {
         const styles = {
             sidebarLink: {
                 display: 'block',
-                padding: '16px 0px',
+                padding: '16px 20px',
                 color: '#757575',
                 textDecoration: 'none',
             },

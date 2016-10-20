@@ -38,12 +38,13 @@ class Layout extends React.Component {
                     <Header />
 
                     <div className={cx("container", css.pageContent)}>
-
+                        {/*
                         <div className={cx("row", css.topRow)}>
                             <div className={cx("col-sm-12", css.column1)}>
                                 <TopMenu />
                             </div>
                         </div>
+                        */}
 
                         <div className={cx("row")}>
                             <div className={cx("col-sm-12", css.column2, commonCss.fullheight)}>
