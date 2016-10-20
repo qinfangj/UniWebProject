@@ -3,6 +3,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import formReducers from '../components/actions/reducers/formReducers';
+import commonReducers from '../components/actions/reducers/commonReducers';
 
 
 /*
@@ -24,6 +25,7 @@ const logger = createLogger({
 
 let reducer = combineReducers({
     forms: formReducers,
+    common: commonReducers,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));

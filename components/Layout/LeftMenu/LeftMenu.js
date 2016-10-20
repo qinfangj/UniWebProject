@@ -35,8 +35,8 @@ class LeftMenu extends React.Component {
         let activeKey = this.state.activeKey;
         console.debug("activeKey:", activeKey)
         return (
-            <div>
-                <div className={cx(css.leftSide, commonCss.sharp)}>
+            <div className="row">
+                <div className={cx("col-md-3", css.leftSide, commonCss.sharp)}>
 
                     <div className={css.title}>
                         Tables
@@ -59,7 +59,7 @@ class LeftMenu extends React.Component {
 
                 </div>
 
-                <div className={cx(css.rightSide)}>
+                <div className={cx("col-md-9", css.rightSide)}>
                     {this.props.children}
                 </div>
 

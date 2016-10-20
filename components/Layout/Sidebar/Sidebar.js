@@ -1,29 +1,9 @@
 import React from 'react';
 import cx from 'classnames';
 import css from './Sidebar.css';
+import store from '../../../core/store';
 
 import Sidebar from 'react-sidebar';
-import Panel from 'react-bootstrap/lib/Panel';
-
-
-const contentStyles = {
-    sidebarLink: {
-        display: 'block',
-        padding: '16px 0px',
-        color: '#757575',
-        textDecoration: 'none',
-    },
-    divider: {
-        margin: '8px 0',
-        height: 1,
-        backgroundColor: '#757575',
-    },
-    content: {
-        padding: '16px',
-        height: '100%',
-        backgroundColor: 'white',
-    },
-};
 
 
 class ResponsiveSidebar extends React.Component {
@@ -41,12 +21,16 @@ class ResponsiveSidebar extends React.Component {
     /* Make it responsive */
 
     componentWillMount() {
+        this.unsubscribe = store.subscribe(() => {
+            this.setState({ open: store.getState().common.sidebarOpen });
+        });
         const mql = window.matchMedia(`(min-width: 800px)`);
         mql.addListener(this.mediaQueryChanged.bind(this));
         this.setState({mql: mql, docked: mql.matches});
     }
 
     componentWillUnmount() {
+        this.unsubscribe();
         this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
     }
 
@@ -57,7 +41,8 @@ class ResponsiveSidebar extends React.Component {
     /* End responsive */
 
     /**
-     * Toggle open/close through comppnent's onSetOpen special event.
+     * Toggle open/close through component's onSetOpen special event.
+     * Should update the store, too, but this component is the only listener.
      */
     onSetOpen(open) {
         this.setState({open: open});
@@ -65,6 +50,7 @@ class ResponsiveSidebar extends React.Component {
 
     /**
      * Toggle open/close when button is clicked manually.
+     * Should update the store, too, but this component is the only listener.
      */
     toggleOpen(e) {
         this.setState({open: !this.state.open});
@@ -74,6 +60,7 @@ class ResponsiveSidebar extends React.Component {
     }
 
     render() {
+        console.debug("Render sidebar", this.state.open)
 
         let toggleSpan = (className) => (
             <span>
@@ -85,22 +72,42 @@ class ResponsiveSidebar extends React.Component {
         );
 
         let sidebarContents = (
-            <Panel className={css.sidebarContents}>
-                <div style={contentStyles.content}>
-                    <a href="index.html" style={contentStyles.sidebarLink}>
+            <div className={css.sidebarContent}>
+                <div className={css.sidebarLogo}>
+                    <img src={require("../../../public/images/uhts_logo5.png")} height="60px" />
+                </div>
+                <div className={css.sidebarItems}>
+                    <a href="index.html" className={css.sidebarLink}>
                         Home
                     </a>
-                    <a href="responsive_example.html" style={contentStyles.sidebarLink}>
-                        Responsive Example
+                    <a href="#" className={css.sidebarLink}>
+                        Facility data
                     </a>
-                    <div style={contentStyles.divider} />
+                    <a href="#" className={css.sidebarLink}>
+                        User data
+                    </a>
+                    <a href="#" className={css.sidebarLink}>
+                        Tracking
+                    </a>
+                    <a href="#" className={css.sidebarLink}>
+                        Query projects
+                    </a>
+                    <a href="#" className={css.sidebarLink}>
+                        Query runs
+                    </a>
+                    <a href="#" className={css.sidebarLink}>
+                        Admin
+                    </a>
+                    <div className={css.sidebarDivider} />
                 </div>
-            </Panel>
+            </div>
         );
 
         return (
             <Sidebar
                 sidebarClassName={css.sidebar}
+                overlayClassName={css.overlay}
+                contentClassName={css.content}
                 sidebar={sidebarContents}
                 docked={this.state.docked}
                 open={this.state.open}

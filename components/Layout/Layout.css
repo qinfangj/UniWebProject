@@ -1,4 +1,12 @@
 
+.mainLogoButton {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000000;
+    float: left;
+}
+
 .topRow {
     padding: 0;
     margin-top: 8px;
@@ -13,4 +21,5 @@
 
 .pageContent {
     height: 100%;
+    width: auto;  /* Counteract BS "container" style */
 }
