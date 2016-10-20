@@ -3,11 +3,13 @@
 import React from 'react';
 import css from './tables.css';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import {AgGridReact} from 'ag-grid-react';
 
 
 class ProjectsTable extends React.Component {
     constructor() {
         super();
+        this.state = {};
     }
 
     getProjects() {
@@ -37,8 +39,42 @@ class ProjectsTable extends React.Component {
     }
 
     render() {
+        let rowData = this.getProjects();
         return (
             <div>
+                <div className="ag-bootstrap" style={{height: '400px'}}>
+                    <AgGridReact
+                        rowData={rowData}
+                        columnDefs={
+                            [{
+                                headerName: "ID",
+                                field: "id",
+                                width: 200,
+                            },{
+                                headerName: "Name",
+                                field: "name",
+                                width: 200,
+                            },{
+                                headerName: "Code",
+                                field: "codeName",
+                                width: 200,
+                            },{
+                                headerName: "Description",
+                                field: "description",
+                                width: 200,
+                            },{
+                                headerName: "Author",
+                                field: "author",
+                                width: 200,
+                            },
+                            ]
+                        }
+                    >
+                    </AgGridReact>
+                </div>
+
+                <hr/>
+
                 <BootstrapTable data={this.getProjects()}
                                 striped={true} hover={true} pagination={true} search={true}
                                 tableHeaderClass={css.tableHeader}

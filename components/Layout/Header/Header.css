@@ -3,8 +3,9 @@
 
 .header {
     /*border-bottom: 5px solid var(--blue);*/
-    background-color: var(--blue);
+    background-color: white; /*(var(--blue);*/
     height: 60px;
+    border-bottom: 1px solid #ccc;
 }
 
 .logo {
@@ -24,7 +25,7 @@
     margin: 0;
 }
 .navBar li > a {
-    color: white;
+    color: black;
     border-radius: 0;
 }
 .navBar li > a:hover {
