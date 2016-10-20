@@ -29,11 +29,9 @@ class Layout extends React.Component {
 
         return (
             <div>
-                {/*
                 <div className={css.mainLogoButton} onClick={() => store.dispatch(toggleSidebar(true))}>
                     <img src={require("../../public/images/uhts_logo5.png")} height="60px" />
                 </div>
-                */}
                 <ResponsiveSidebar>
 
                 <div>

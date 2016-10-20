@@ -67,40 +67,35 @@ class ResponsiveSidebar extends React.Component {
             content: {
                 padding: '16px',
                 height: '100%',
+                width: '215px',
                 backgroundColor: 'white',
+                marginTop: '50px',
             },
         };
         let sidebarContents = (
-            <div className={css.sidebarContent}>
-                {/*
-                <div className={css.sidebarLogo}>
-                    <img src={require("../../../public/images/uhts_logo5.png")} height="60px" />
-                </div>
-                */}
-                <div style={styles.content}>
-                    <a href="index.html" style={styles.sidebarLink}>
-                        Home
-                    </a>
-                    <a href="#" style={styles.sidebarLink}>
-                        Facility data
-                    </a>
-                    <a href="#" style={styles.sidebarLink}>
-                        User data
-                    </a>
-                    <a href="#" style={styles.sidebarLink}>
-                        Tracking
-                    </a>
-                    <a href="#" style={styles.sidebarLink}>
-                        Query projects
-                    </a>
-                    <a href="#" style={styles.sidebarLink}>
-                        Query runs
-                    </a>
-                    <a href="#" style={styles.sidebarLink}>
-                        Admin
-                    </a>
-                    <div style={styles.divider} />
-                </div>
+            <div style={styles.content}>
+                <a href="index.html" style={styles.sidebarLink}>
+                    Home
+                </a>
+                <a href="#" style={styles.sidebarLink}>
+                    Facility data
+                </a>
+                <a href="#" style={styles.sidebarLink}>
+                    User data
+                </a>
+                <a href="#" style={styles.sidebarLink}>
+                    Tracking
+                </a>
+                <a href="#" style={styles.sidebarLink}>
+                    Query projects
+                </a>
+                <a href="#" style={styles.sidebarLink}>
+                    Query runs
+                </a>
+                <a href="#" style={styles.sidebarLink}>
+                    Admin
+                </a>
+                <div style={styles.divider} />
             </div>
         );
 
@@ -110,7 +105,7 @@ class ResponsiveSidebar extends React.Component {
                 overlayClassName={css.overlay}
                 contentClassName={css.content}
                 sidebar={sidebarContents}
-                docked={true}
+                docked={this.state.docked}
                 open={this.state.open}
                 transitions={this.state.transitions}
                 onSetOpen={this.onSetOpen.bind(this)}
