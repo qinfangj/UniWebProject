@@ -20,10 +20,6 @@ class NavLink extends React.Component {
             this.props.onClick(event);
         }
 
-        if (this.props.to === window.location.pathname) {
-            return;
-        }
-
         if (event.button !== 0 /* left click */) {
             return;
         }

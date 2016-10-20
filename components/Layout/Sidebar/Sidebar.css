@@ -21,3 +21,14 @@
     padding: 16px;
 }
 
+.items li {
+    text-align: center;
+}
+.items li > a {
+    border-radius: 0;
+    padding: 20px 16px;
+}
+.items li + li {
+    margin: 0;
+}
+

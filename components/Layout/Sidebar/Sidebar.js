@@ -5,6 +5,8 @@ import store from '../../../core/store';
 import { toggleSidebar } from '../../actions/actionCreators/actionCreators';
 
 import Sidebar from 'react-sidebar';
+import NavLink from '../../Link/NavLink';
+import { Nav, NavItem } from 'react-bootstrap/lib';
 
 
 class ResponsiveSidebar extends React.Component {
@@ -16,6 +18,7 @@ class ResponsiveSidebar extends React.Component {
             docked: true,
             mql: {},
             transitions: false,
+            activeKey: "/",
         };
     }
 
@@ -27,7 +30,11 @@ class ResponsiveSidebar extends React.Component {
         });
         const mql = window.matchMedia(`(min-width: 800px)`);
         mql.addListener(this.mediaQueryChanged.bind(this));
-        this.setState({mql: mql, docked: mql.matches});
+        this.setState({
+            mql: mql,
+            docked: mql.matches,
+            activeKey: window.location.pathname,
+        });
     }
 
     componentWillUnmount() {
@@ -49,6 +56,10 @@ class ResponsiveSidebar extends React.Component {
         this.setState({open: open});
     }
 
+    onSelect(key) {
+        this.setState({ activeKey: key });
+    }
+
     render() {
         console.debug("Render sidebar", this.state.open)
 
@@ -60,41 +71,42 @@ class ResponsiveSidebar extends React.Component {
                 textDecoration: 'none',
             },
             divider: {
-                margin: '8px 0',
+                margin: '8px 16px',
                 height: 1,
                 backgroundColor: '#757575',
             },
             content: {
-                padding: '16px',
                 height: '100%',
-                width: '215px',
+                width: '214px',
                 backgroundColor: 'white',
-                marginTop: '50px',
+                marginTop: '60px',
             },
         };
+
+        let activeKey = this.state.activeKey;
+        let menuItems = [
+            { text: "Home", to: "/", },
+            { text: "Facility data", to: "/projects", },
+            { text: "User data", to: "/userData", disabled: true },
+            { text: "Tracking", to: "/tracking", disabled: true },
+            { text: "Query projects", to: "/queryProjects", disabled: true },
+            { text: "Query runs", to: "/queryRuns", disabled: true },
+            { text: "Admin", to: "/admin", disabled: true },
+        ];
+        let items = menuItems.map((items) => {
+            let {text, to, ...props} = items;
+            return (
+                <NavLink to={to} active={activeKey===to} {...props}>
+                    {text}
+                </NavLink>
+            );
+        });
+
         let sidebarContents = (
             <div style={styles.content}>
-                <a href="index.html" style={styles.sidebarLink}>
-                    Home
-                </a>
-                <a href="#" style={styles.sidebarLink}>
-                    Facility data
-                </a>
-                <a href="#" style={styles.sidebarLink}>
-                    User data
-                </a>
-                <a href="#" style={styles.sidebarLink}>
-                    Tracking
-                </a>
-                <a href="#" style={styles.sidebarLink}>
-                    Query projects
-                </a>
-                <a href="#" style={styles.sidebarLink}>
-                    Query runs
-                </a>
-                <a href="#" style={styles.sidebarLink}>
-                    Admin
-                </a>
+                <Nav bsStyle="pills" stacked onSelect={this.onSelect.bind(this)} className={css.items}>
+                    {items}
+                </Nav>
                 <div style={styles.divider} />
             </div>
         );
