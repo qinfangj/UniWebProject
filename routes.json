@@ -1,6 +1,32 @@
 [
   {
     "path": "/",
+    "page": "./pages/home/index.js"
+  },
+  {
+    "path": "/projects",
     "page": "./pages/projects/index.js"
+  },
+  {
+    "path": "/projects/list",
+    "page": "./pages/projects/index.js"
+  },
+  {
+    "path": "/projects/new",
+    "page": "./pages/projects/new.js"
+  },
+
+
+  {
+    "path": "/error",
+    "page": "./pages/error"
+  },
+  {
+    "path": "/about",
+    "page": "./pages/about"
+  },
+  {
+    "path": "/tasks/:status(pending|completed)?",
+    "page": "./pages/home"
   }
 ]

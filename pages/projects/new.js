@@ -4,23 +4,23 @@ import css from './styles.css';
 
 import Layout from '../../components/Layout';
 import Projects from '../../components/Projects/Projects';
-import ProjectsTable from '../../components/tables/ProjectsTable';
+import ProjectInsertForm from '../../components/forms/ProjectInsertForm';
 
 
-class ProjectsList extends React.Component {
+class ProjectsNew extends React.Component {
 
     componentDidMount() {
-        document.title = "UHTS LIMS Web /projects";
+        document.title = "UHTS LIMS Web /projects/new";
     }
 
     render() {
         return (
             <Layout className={css.content}>
-                <Projects content={<ProjectsTable />} />
+                <Projects content={<ProjectInsertForm />} />
             </Layout>
         );
     }
 
 }
 
-export default ProjectsList;
+export default ProjectsNew;

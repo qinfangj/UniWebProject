@@ -1,6 +1,8 @@
 import React from 'react';
+import cx from 'classnames';
 import css from './Sidebar.css';
 import store from '../../../core/store';
+import { toggleSidebar } from '../../actions/actionCreators/actionCreators';
 
 import Sidebar from 'react-sidebar';
 
@@ -84,6 +86,16 @@ class ResponsiveSidebar extends React.Component {
                 <a href="#" style={styles.sidebarLink}>
                     Tracking
                 </a>
+                <a href="#" style={styles.sidebarLink}>
+                    Query projects
+                </a>
+                <a href="#" style={styles.sidebarLink}>
+                    Query runs
+                </a>
+                <a href="#" style={styles.sidebarLink}>
+                    Admin
+                </a>
+                <div style={styles.divider} />
             </div>
         );
 

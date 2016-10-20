@@ -1,0 +1,18 @@
+
+.footer {
+    display: inline-block;
+    padding: 16px 40px;
+    background-color: transparent;
+}
+
+.unilLogo {
+    margin-left: 20px;
+}
+
+
+@media screen and (max-width: 1024px) {
+
+    .footer {
+    }
+
+}

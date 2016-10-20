@@ -1,0 +1,17 @@
+
+.form {
+    padding-bottom: 20px;
+}
+
+.formCol {
+    padding-right: 30px;
+}
+
+.submitButton {
+    margin-bottom: 15px;
+}
+
+.alertOk {
+    margin-left: 10px;
+    cursor: pointer;
+}
