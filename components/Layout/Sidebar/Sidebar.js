@@ -61,7 +61,7 @@ class ResponsiveSidebar extends React.Component {
     }
 
     render() {
-        console.debug("Render sidebar", this.state.open)
+        console.debug("Render sidebar", this.state.activeKey)
 
         const styles = {
             sidebarLink: {
@@ -83,7 +83,7 @@ class ResponsiveSidebar extends React.Component {
             },
         };
 
-        let activeKey = this.state.activeKey;
+        let activeKey = this.state.activeKey || window.location.pathname;
         let menuItems = [
             { text: "Home", to: "/", },
             { text: "Facility data", to: "/projects", },
@@ -93,10 +93,10 @@ class ResponsiveSidebar extends React.Component {
             { text: "Query runs", to: "/queryRuns", disabled: true },
             { text: "Admin", to: "/admin", disabled: true },
         ];
-        let items = menuItems.map((items) => {
+        let items = menuItems.map((items, i) => {
             let {text, to, ...props} = items;
             return (
-                <NavLink to={to} active={activeKey===to} {...props}>
+                <NavLink to={to} active={activeKey===to} {...props} key={i}>
                     {text}
                 </NavLink>
             );

@@ -18,7 +18,7 @@ class Projects extends React.Component {
         return (
             <div className={css.projectsWrapper}>
 
-                <LeftMenu>
+                {/*<LeftMenu>*/}
 
                 <div className={commonCss.fullwidth}>
                     <div className={css.title}>
@@ -39,7 +39,7 @@ class Projects extends React.Component {
 
                 </div>
 
-                </LeftMenu>
+                {/*</LeftMenu>*/}
 
             </div>
         );

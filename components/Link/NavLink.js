@@ -15,7 +15,6 @@ class NavLink extends React.Component {
     };
 
     handleClick = (event) => {
-        console.debug("NavLink.handleClick", this.props.to, window.location.pathname)
         if (this.props.onClick) {
             this.props.onClick(event);
         }
