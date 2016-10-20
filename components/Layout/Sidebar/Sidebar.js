@@ -2,11 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 import css from './Sidebar.css';
 import store from '../../../core/store';
-import { toggleSidebar } from '../../actions/actionCreators/actionCreators';
 
 import Sidebar from 'react-sidebar';
 import NavLink from '../../Link/NavLink';
-import { Nav, NavItem } from 'react-bootstrap/lib';
+import { Nav } from 'react-bootstrap/lib';
 
 
 class ResponsiveSidebar extends React.Component {
@@ -61,8 +60,6 @@ class ResponsiveSidebar extends React.Component {
     }
 
     render() {
-        console.debug("Render sidebar", this.state.activeKey)
-
         const styles = {
             sidebarLink: {
                 display: 'block',
@@ -86,7 +83,7 @@ class ResponsiveSidebar extends React.Component {
         let activeKey = this.state.activeKey || window.location.pathname;
         let menuItems = [
             { text: "Home", to: "/", },
-            { text: "Facility data", to: "/projects", },
+            { text: "Facility data", to: "/data", },
             { text: "User data", to: "/userData", disabled: true },
             { text: "Tracking", to: "/tracking", disabled: true },
             { text: "Query projects", to: "/queryProjects", disabled: true },

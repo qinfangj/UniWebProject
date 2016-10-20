@@ -5,12 +5,23 @@ const BACKEND = window.ENV.BACKEND_URL;
 
 class RestService {
 
-    getLabsList() {
+    getLabs() {
         let url = BACKEND + "/table/people/labsList";
         return $.get(url);
     }
 
-    getProjectStatesList() {
+    getProjects(activeOnly) {
+        let mode = activeOnly ? "selactive" : "selall";
+        let url = BACKEND + "/table/projects/" + mode;
+        return $.get(url);
+    }
+
+    getActiveProjects() {
+        let url = BACKEND + "/table/projects/selactive";
+        return $.get(url);
+    }
+
+    getProjectStates() {
         let url = BACKEND + "/table/people/projectStatesList";
         return $.get(url);
     }

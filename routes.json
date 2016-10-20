@@ -1,32 +1,40 @@
 [
-  {
-    "path": "/",
-    "page": "./pages/home/index.js"
-  },
-  {
-    "path": "/projects",
-    "page": "./pages/projects/index.js"
-  },
-  {
-    "path": "/projects/list",
-    "page": "./pages/projects/index.js"
-  },
-  {
-    "path": "/projects/new",
-    "page": "./pages/projects/new.js"
-  },
+    {
+        "path": "/",
+        "page": "./pages/home/index.js"
+    },
 
+    {
+        "path": "/data",
+        "page": "./pages/projects/index.js"
+    },
+    {
+        "path": "/data/projects",
+        "page": "./pages/projects/index.js"
+    },
+    {
+        "path": "/data/projects/list",
+        "page": "./pages/projects/index.js"
+    },
+    {
+        "path": "/data/projects/active",
+        "page": "./pages/projects/active.js"
+    },
+    {
+        "path": "/data/projects/new",
+        "page": "./pages/projects/new.js"
+    },
 
-  {
-    "path": "/error",
-    "page": "./pages/error"
-  },
-  {
-    "path": "/about",
-    "page": "./pages/about"
-  },
-  {
-    "path": "/tasks/:status(pending|completed)?",
-    "page": "./pages/home"
-  }
+    {
+        "path": "/error",
+        "page": "./pages/error"
+    },
+    {
+        "path": "/about",
+        "page": "./pages/about"
+    },
+    {
+        "path": "/tasks/:status(pending|completed)?",
+        "page": "./pages/home"
+    }
 ]

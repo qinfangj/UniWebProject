@@ -4,11 +4,10 @@ import css from './Layout.css';
 import commonCss from '../../styles/common.css';
 
 import store from '../../core/store';
-import { toggleSidebar } from '../actions/actionCreators/actionCreators';
+import { toggleSidebar } from '../actions/actionCreators/commonActionCreators';
 
 import Header from './Header';
 import Footer from './Footer';
-import TopMenu from './TopMenu';
 import ResponsiveSidebar from './Sidebar';
 
 

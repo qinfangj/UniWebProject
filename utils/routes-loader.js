@@ -57,8 +57,8 @@ module.exports = function routesLoader(source) {
     output.push(`    pattern: ${pattern.toString()},\n`);
     output.push(`    keys: ${JSON.stringify(keys)},\n`);
     output.push(`    page: '${escape(route.page)}',\n`);
-    if (route.data) {
-      output.push(`    data: ${JSON.stringify(route.data)},\n`);
+    if (route.props) {
+        output.push(`    props: '${JSON.stringify(route.props)}',\n`);
     }
     output.push(`    load() {\n      return ${require(route.page)};\n    },\n`);
     output.push('  },\n');

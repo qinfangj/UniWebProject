@@ -9,7 +9,7 @@ import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
 import LabsList from './subcomponents/LabsList';
 import validators from './validators';
-import { insertAsync } from '../actions/actionCreators/formActionCreators';
+import { insertAsync } from '../actions/actionCreators/asyncActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
