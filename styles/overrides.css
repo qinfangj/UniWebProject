@@ -1,0 +1,10 @@
+
+/**
+ * Use this to override external components' global CSS.
+ **/
+
+@import '../node_modules/react-bootstrap-table/css/react-bootstrap-table.css';
+
+:global .sort-column .caret {
+    color: black;
+}

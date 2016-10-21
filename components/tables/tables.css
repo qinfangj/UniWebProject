@@ -1,4 +1,7 @@
 
+@import '../../styles/overrides.css';
+
+
 .tableContainer > div {
     height: 36px;
 }
@@ -9,10 +12,10 @@
     background: #fc0;
     border-bottom: none;
 }
-.tableHeader span {
-    color: black;
-}
 
-.tableHeader span.caret {
-    color: black;
+.sort, .sortUp, .sortDown {
+    margin-left: 5px;
+}
+.sort {
+    color: #ccc;
 }

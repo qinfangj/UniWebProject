@@ -12,7 +12,7 @@ class ProjectsActiveRoute extends React.Component {
     render() {
         return (
             <Layout className={css.content}>
-                <Projects content={<ProjectsTable active={true}/>} />
+                <Projects content={<ProjectsTable activeOnly={true}/>} />
             </Layout>
         );
     }

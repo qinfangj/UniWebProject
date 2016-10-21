@@ -36,9 +36,6 @@ const config = {
     /* Bootstrap */
     'bootstrap-loader',
 
-    /* Attempt to make it work with Bootstrap 4 by specifying a config file */
-    //'bootstrap-loader/lib/bootstrap.loader?extractStyles&configFilePath='+__dirname+'/.bootstraprc!bootstrap-loader/no-op.js',
-
     /* Material Design Lite (https://getmdl.io) */
     /*'!!style!css!react-mdl/extra/material.min.css',*/
     /*'react-mdl/extra/material.min.js',*/
