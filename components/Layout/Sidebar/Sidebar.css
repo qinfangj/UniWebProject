@@ -24,11 +24,18 @@
 .items li {
     text-align: center;
 }
+.items li + li {
+    margin: 0;
+}
 .items li > a {
     border-radius: 0;
     padding: 20px 16px;
+    color: black;
 }
-.items li + li {
-    margin: 0;
+.items li.active > a,
+.items li.active > a:hover,
+.items li.active > a:focus {
+    background-color: var(--yellow);
+    color: black;
 }
 

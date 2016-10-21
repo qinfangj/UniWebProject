@@ -60,6 +60,7 @@ class ResponsiveSidebar extends React.Component {
     }
 
     render() {
+        let currentLocation = window.location.pathname;
         const styles = {
             sidebarLink: {
                 display: 'block',
@@ -74,7 +75,7 @@ class ResponsiveSidebar extends React.Component {
             },
             content: {
                 height: '100%',
-                width: '214px',
+                width: '151px',
                 backgroundColor: 'white',
                 marginTop: '60px',
             },
@@ -93,7 +94,8 @@ class ResponsiveSidebar extends React.Component {
         let items = menuItems.map((items, i) => {
             let {text, to, ...props} = items;
             return (
-                <NavLink to={to} active={activeKey===to} {...props} key={i}>
+                <NavLink to={to} active={activeKey===to} {...props} key={i}
+                         className={activeKey===to ? css.active : null}>
                     {text}
                 </NavLink>
             );
