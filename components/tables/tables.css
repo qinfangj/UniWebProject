@@ -1,11 +1,16 @@
 
-.tableContainer {
+.tableContainer > div {
+    height: 36px;
 }
 
+.tableHeader {
+}
 .tableHeader th {
     background: #fc0;
-    width: auto;
-    min-width: auto;
+    border-bottom: none;
+}
+.tableHeader span {
+    color: black;
 }
 
 .tableHeader span.caret {

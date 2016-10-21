@@ -8,14 +8,14 @@
     border-bottom: 1px solid #ccc;
 }
 
-.logo {
-}
-
-.uhtsLogo {
+.leftItem {
     display: inline-block;
     height: 100%;
-    /*border-left: 25px solid var(--yellow);
-    border-right: 25px solid var(--yellow);*/
+    margin-left: 75px;
+}
+.gtfLogo {
+    height: 100%;
+    padding-top: 5px;
 }
 
 .navBar {

@@ -15,6 +15,10 @@ class Header extends React.Component {
         <div className={cx(css.header)}>
             <div className={cx(css.row, commonCss.fullwidth)}>
 
+                <span className={cx(css.leftItem)}>
+                    <img className={css.gtfLogo} src={require("../../../public/images/gtf_logo.png")} height="55px" />
+                </span>
+
                 <div className={cx("pull-right", css.navBar)}>
                     <Nav bsStyle="pills">
                         <NavItem>Account</NavItem>
