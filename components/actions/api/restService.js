@@ -31,12 +31,13 @@ class RestService {
         return $.get(url);
     }
 
-    insert(table, fields, values) {
-        let url = BACKEND + "/table/"+table+"/insert/" + fields.join(",") +"/"+ values.join(",");
+    insert(table, formData) {
+        let url = BACKEND + "/table/"+table+"/insert";
+        console.info(url);
         //console.debug(fields)
         //console.debug(values)
         //console.debug(url)
-        return $.get(url);
+        return $.post(url, formData);
     }
 
 }

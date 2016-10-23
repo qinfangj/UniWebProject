@@ -25,7 +25,9 @@ class LabsList extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            this.setState({ list: store.getState().async.labsList });
+            let labsList = store.getState().async.labsList;
+            let value = labsList.length > 0 ? labsList[0].id : null;  // first one of the list
+            this.setState({ list: labsList, value: value });
         });
         store.dispatch(getLabsListAsync());
     }

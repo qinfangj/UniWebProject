@@ -56,10 +56,10 @@ function insert(status, response) {
         response: response,
     };
 }
-function insertAsync(table, fields, values) {
+function insertAsync(table, formData) {
     return dispatch => {
         dispatch(insert(constants.PENDING, null));
-        return restService.insert(table, fields, values)
+        return restService.insert(table, formData)
             .done(response => {
                 dispatch(insert(constants.SUCCESS, response));
             })

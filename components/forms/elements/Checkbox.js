@@ -9,7 +9,7 @@ class CheckBox extends React.Component {
     }
 
     getValue() {
-        return this.state.checked;
+        return this.state.checked ? 1 : 0;
     }
 
     onChange() {

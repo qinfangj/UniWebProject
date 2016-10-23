@@ -13,7 +13,7 @@ class Header extends React.Component {
   render() {
     return (
         <div className={cx(css.header)}>
-            <div className={cx(css.row, commonCss.fullwidth)}>
+            <div className={cx(css.headerRow, commonCss.fullwidth)}>
 
                 <span className={cx(css.leftItem)}>
                     <img className={css.gtfLogo} src={require("../../../public/images/gtf_logo.png")} height="55px" />

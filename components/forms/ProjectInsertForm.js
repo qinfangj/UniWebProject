@@ -52,7 +52,7 @@ class ProjectInsertForm extends React.Component {
             this.setState({missing, invalid, submissionError: true});
         } else {
             this.setState({missing: {}, invalid: {}, submissionError: false});
-            store.dispatch(insertAsync("projects", fields, values));
+            store.dispatch(insertAsync("projects", formData));
         }
     }
 

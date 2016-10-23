@@ -8,13 +8,16 @@
     border-bottom: 1px solid #ccc;
 }
 
+.headerRow {
+    height: 100%;
+}
+
 .leftItem {
     display: inline-block;
     height: 100%;
     margin-left: 70px;
 }
 .gtfLogo {
-    height: 100%;
     padding-top: 5px;
 }
 
