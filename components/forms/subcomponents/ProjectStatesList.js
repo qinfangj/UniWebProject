@@ -2,7 +2,7 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 
-import { getLabsListAsync } from '../../actions/actionCreators/formActionCreators';
+//import { getProjectStatesListAsync } from '../../actions/actionCreators/asyncActionCreators';
 
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -27,7 +27,7 @@ class ProjectStatesList extends React.Component {
         this.unsubscribe = store.subscribe(() => {
             this.setState({ list: store.getState().forms.projectStatesList });
         });
-        store.dispatch(getProjectStatesListAsync());
+        //store.dispatch(getProjectStatesListAsync());
     }
 
     componentWillUnmount() {

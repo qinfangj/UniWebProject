@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import pageCss from './pages.css';
+import pageCss from './FacilityData.css';
 import commonCss from '../../styles/common.css';
 
 import LeftMenu from '../Layout/LeftMenu';
