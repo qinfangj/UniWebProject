@@ -1,26 +1,26 @@
 
 import React from 'react';
-import store from '../../core/store';
 import cx from 'classnames';
 import css from './Projects.css';
-import commonCss from '../../styles/common.css';
+import pageCss from '../pages.css';
+import commonCss from '../../../styles/common.css';
 
-import LeftMenu from '../Layout/LeftMenu';
-import Link from '../../components/Link';
+import LeftMenu from '../../Layout/LeftMenu';
+import Link from '../../../components/Link';
 
 
 class Projects extends React.Component {
 
     render() {
         return (
-            <div className={css.projectsWrapper}>
+            <div className={commonCss.pageWrapper}>
 
                 {/*<LeftMenu>*/}
 
                 <div className={commonCss.fullwidth}>
-                    <div className={css.title}>Projects</div>
+                    <div className={pageCss.title}>Projects</div>
 
-                    <div className={css.navbar}>
+                    <div className={pageCss.navbar}>
                         <ul>
                             <li><Link to="/data/projects/list">All projects</Link></li>
                             <li> · </li>

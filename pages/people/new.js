@@ -3,20 +3,20 @@ import React from 'react';
 import css from './styles.css';
 
 import Layout from '../../components/Layout';
-import Projects from '../../components/pages/Projects/Projects';
+import People from '../../components/pages/People/People';
 import ProjectInsertForm from '../../components/forms/ProjectInsertForm';
 
 
-class ProjectsNew extends React.Component {
+class PeopleNew extends React.Component {
 
     render() {
         return (
             <Layout className={css.content}>
-                <Projects content={<ProjectInsertForm />} />
+                <People content={<ProjectInsertForm />} />
             </Layout>
         );
     }
 
 }
 
-export default ProjectsNew;
+export default PeopleNew;

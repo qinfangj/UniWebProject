@@ -11,18 +11,28 @@
     {
         "path": "/data/projects",
         "page": "./pages/projects/index.js"
-    },
-    {
+    },{
         "path": "/data/projects/list",
         "page": "./pages/projects/index.js"
-    },
-    {
+    },{
         "path": "/data/projects/active",
         "page": "./pages/projects/active.js"
-    },
-    {
+    },{
         "path": "/data/projects/new",
         "page": "./pages/projects/new.js"
+    },
+    {
+        "path": "/data/people",
+        "page": "./pages/people/index.js"
+    },{
+        "path": "/data/people/list",
+        "page": "./pages/people/index.js"
+    },{
+        "path": "/data/people/active",
+        "page": "./pages/people/active.js"
+    },{
+        "path": "/data/people/new",
+        "page": "./pages/people/new.js"
     },
 
     {

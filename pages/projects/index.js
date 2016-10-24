@@ -3,7 +3,7 @@ import React from 'react';
 import css from './styles.css';
 
 import Layout from '../../components/Layout';
-import Projects from '../../components/Projects/Projects';
+import Projects from '../../components/pages/Projects/Projects';
 import ProjectsTable from '../../components/tables/ProjectsTable';
 
 
