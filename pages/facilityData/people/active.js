@@ -3,7 +3,7 @@ import React from 'react';
 import css from './styles.css';
 
 import Layout from '../../../components/Layout';
-import People from '../../../components/pages/People/People';
+import FacilityData from '../../../components/pages/FacilityData';
 import PeopleTable from '../../../components/tables/PeopleTable';
 
 
@@ -12,7 +12,9 @@ class PeopleActiveRoute extends React.Component {
     render() {
         return (
             <Layout className={css.content}>
-                <People content={<PeopleTable activeOnly={true}/>} />
+                <FacilityData title="Laboratories" name="people" content={
+                    <PeopleTable activeOnly={true}/>
+                } />
             </Layout>
         );
     }
