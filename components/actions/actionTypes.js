@@ -7,6 +7,7 @@ const actionTypes = {
     GET_LABS_LIST: "GET_LABS_LIST",
     TOGGLE_SIDEBAR: "TOGGLE_SIDEBAR",
     GET_PROJECTS_LIST: "GET_PROJECTS_LIST",
+    GET_PEOPLE_LIST: "GET_PEOPLE_LIST",
 };
 
 export default actionTypes;

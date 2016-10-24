@@ -9,25 +9,27 @@ const defaultState = {
 
 let asyncReducers = (state = defaultState, action) => {
 
+    /**
+     * All kinds of special backend async GET responses are handled the same way.
+     * @param storeKey: key name in the store.
+     */
+    function returnList(storeKey) {
+        if (action.status === constants.PENDING) {
+            return Object.assign(state, {[storeKey]: []});
+        } else if (action.status === constants.SUCCESS) {
+            return Object.assign(state, {[storeKey]: action.response});
+        } else {
+            return state;
+        }
+    }
+
     switch (action.type) {
 
         case types.GET_LABS_LIST:
-            if (action.status === constants.PENDING) {
-                return Object.assign(state, {labsList: []});
-            } else if (action.status === constants.SUCCESS) {
-                return Object.assign(state, {labsList: action.response});
-            } else {
-                return state;
-            }
+            return returnList("labsList");
 
         case types.GET_PROJECTS_LIST:
-            if (action.status === constants.PENDING) {
-                return Object.assign(state, {projectsList: []});
-            } else if (action.status === constants.SUCCESS) {
-                return Object.assign(state, {projectsList: action.response});
-            } else {
-                return state;
-            }
+            return returnList("projectsList");
 
         case types.INSERT:
             return state;

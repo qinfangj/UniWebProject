@@ -9,11 +9,11 @@ import * as actions from '../actions/actionCreators/asyncActionCreators';
 
 
 
-class ProjectsTable extends React.Component {
+class PeopleTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {list: []};
-        this.storeKey = "projectsList";
+        this.storeKey = "peopleList";
     }
 
     static propTypes = {
@@ -24,15 +24,10 @@ class ProjectsTable extends React.Component {
         this.unsubscribe = store.subscribe(() => {
             this.setState({ list: store.getState().async[this.storeKey] });
         });
-        store.dispatch(actions.getProjectsListAsync(this.props.activeOnly));
+        store.dispatch(actions.getPeopleListAsync(this.props.activeOnly));
     }
     componentWillUnmount() {
         this.unsubscribe();
-    }
-
-    getFakeData() {
-        let data = require("./fakeProjects.json");
-        this.setState({ list: data });
     }
 
     render() {
@@ -45,16 +40,13 @@ class ProjectsTable extends React.Component {
                         ID
                     </TableHeaderColumn>
                     <TableHeaderColumn dataField="name" {...colProps}>
-                        Name
+                        PI name
                     </TableHeaderColumn>
-                    <TableHeaderColumn dataField="codeName" {...colProps}>
-                        Code
+                    <TableHeaderColumn dataField="address" {...colProps}>
+                        Address
                     </TableHeaderColumn>
-                    <TableHeaderColumn dataField="description" {...colProps}>
-                        Description
-                    </TableHeaderColumn>
-                    <TableHeaderColumn dataField="author" {...colProps}>
-                        Author
+                    <TableHeaderColumn dataField="email" {...colProps}>
+                        PI email
                     </TableHeaderColumn>
                 </BootstrapTable>
             </div>
@@ -63,4 +55,4 @@ class ProjectsTable extends React.Component {
 }
 
 
-export default ProjectsTable;
+export default PeopleTable;

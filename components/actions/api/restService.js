@@ -10,24 +10,14 @@ class RestService {
         return $.get(url);
     }
 
-    getProjects(activeOnly) {
+    specialSelect(tableName, activeOnly) {
         let mode = activeOnly ? "selactive" : "selall";
-        let url = BACKEND + "/table/projects/" + mode;
-        return $.get(url);
-    }
-
-    getActiveProjects() {
-        let url = BACKEND + "/table/projects/selactive";
+        let url = BACKEND + "/table/"+ tableName +"/"+ mode;
         return $.get(url);
     }
 
     getProjectStates() {
         let url = BACKEND + "/table/people/projectStatesList";
-        return $.get(url);
-    }
-
-    selectAll(table, fields) {
-        let url = BACKEND + "/table/"+table+"/selall/" + fields.join(",");
         return $.get(url);
     }
 

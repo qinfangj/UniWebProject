@@ -4,7 +4,7 @@ import css from './styles.css';
 
 import Layout from '../../components/Layout';
 import People from '../../components/pages/People/People';
-import ProjectsTable from '../../components/tables/ProjectsTable';
+import PeopleTable from '../../components/tables/PeopleTable';
 
 
 class PeopleActiveRoute extends React.Component {
@@ -12,7 +12,7 @@ class PeopleActiveRoute extends React.Component {
     render() {
         return (
             <Layout className={css.content}>
-                <People content={<ProjectsTable activeOnly={true}/>} />
+                <People content={<PeopleTable activeOnly={true}/>} />
             </Layout>
         );
     }
