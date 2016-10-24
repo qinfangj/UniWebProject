@@ -37,8 +37,8 @@ class ResponsiveSidebar extends React.Component {
     }
 
     componentWillUnmount() {
-        this.unsubscribe();
         this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
+        this.unsubscribe();
     }
 
     mediaQueryChanged() {

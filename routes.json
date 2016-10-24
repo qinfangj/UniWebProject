@@ -34,6 +34,19 @@
         "path": "/data/people/new",
         "page": "./pages/facilityData/people/new.js"
     },
+    {
+        "path": "/data/genomes",
+        "page": "./pages/facilityData/genomes/index.js"
+    },{
+        "path": "/data/genomes/list",
+        "page": "./pages/facilityData/genomes/index.js"
+    },{
+        "path": "/data/genomes/active",
+        "page": "./pages/facilityData/genomes/active.js"
+    },{
+        "path": "/data/genomes/new",
+        "page": "./pages/facilityData/genomes/new.js"
+    },
 
     {
         "path": "/error",

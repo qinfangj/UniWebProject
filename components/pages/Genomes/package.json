@@ -1,0 +1,6 @@
+{
+  "name": "Genomes",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./Genomes.js"
+}
