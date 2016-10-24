@@ -2,9 +2,9 @@
 import React from 'react';
 import css from './styles.css';
 
-import Layout from '../../components/Layout';
-import People from '../../components/pages/People/People';
-import PeopleTable from '../../components/tables/PeopleTable';
+import Layout from '../../../components/Layout';
+import People from '../../../components/pages/People/People';
+import PeopleTable from '../../../components/tables/PeopleTable';
 
 
 class PeopleListRoute extends React.Component {

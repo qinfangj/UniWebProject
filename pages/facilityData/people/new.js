@@ -2,9 +2,9 @@
 import React from 'react';
 import css from './styles.css';
 
-import Layout from '../../components/Layout';
-import People from '../../components/pages/People/People';
-import ProjectInsertForm from '../../components/forms/ProjectInsertForm';
+import Layout from '../../../components/Layout';
+import People from '../../../components/pages/People/People';
+import ProjectInsertForm from '../../../components/forms/ProjectInsertForm';
 
 
 class PeopleNew extends React.Component {

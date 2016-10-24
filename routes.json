@@ -6,33 +6,33 @@
 
     {
         "path": "/data",
-        "page": "./pages/projects/index.js"
+        "page": "./pages/facilityData/projects/index.js"
     },
     {
         "path": "/data/projects",
-        "page": "./pages/projects/index.js"
+        "page": "./pages/facilityData/projects/index.js"
     },{
         "path": "/data/projects/list",
-        "page": "./pages/projects/index.js"
+        "page": "./pages/facilityData/projects/index.js"
     },{
         "path": "/data/projects/active",
-        "page": "./pages/projects/active.js"
+        "page": "./pages/facilityData/projects/active.js"
     },{
         "path": "/data/projects/new",
-        "page": "./pages/projects/new.js"
+        "page": "./pages/facilityData/projects/new.js"
     },
     {
         "path": "/data/people",
-        "page": "./pages/people/index.js"
+        "page": "./pages/facilityData/people/index.js"
     },{
         "path": "/data/people/list",
-        "page": "./pages/people/index.js"
+        "page": "./pages/facilityData/people/index.js"
     },{
         "path": "/data/people/active",
-        "page": "./pages/people/active.js"
+        "page": "./pages/facilityData/people/active.js"
     },{
         "path": "/data/people/new",
-        "page": "./pages/people/new.js"
+        "page": "./pages/facilityData/people/new.js"
     },
 
     {
