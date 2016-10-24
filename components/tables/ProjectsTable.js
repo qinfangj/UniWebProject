@@ -12,7 +12,7 @@ import * as actions from '../actions/actionCreators/asyncActionCreators';
 class ProjectsTable extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {list: []};
+        this.state = {data: []};
         this.storeKey = "projectsList";
     }
 
@@ -22,7 +22,8 @@ class ProjectsTable extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            this.setState({ list: store.getState().async[this.storeKey] });
+            let data = store.getState().async[this.storeKey];
+            this.setState({ data });
         });
         store.dispatch(actions.getProjectsListAsync(this.props.activeOnly));
     }
@@ -32,15 +33,17 @@ class ProjectsTable extends React.Component {
 
     getFakeData() {
         let data = require("./fakeProjects.json");
-        this.setState({ list: data });
+        this.setState({ data });
     }
 
     render() {
+        let data = this.state.data;
         let colProps = tables.tableHeaderProps;
+        tables.checkData(data);
         return (
             <div>
-                <tables.Nrows data={this.state.list} />
-                <BootstrapTable data={this.state.list} {...tables.bootstrapTableProps}>
+                <tables.Nrows data={data} />
+                <BootstrapTable data={data} {...tables.bootstrapTableProps}>
                     <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" {...colProps}>
                         ID
                     </TableHeaderColumn>

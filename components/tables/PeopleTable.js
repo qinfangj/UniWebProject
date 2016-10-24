@@ -12,7 +12,7 @@ import * as actions from '../actions/actionCreators/asyncActionCreators';
 class PeopleTable extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {list: []};
+        this.state = {data: []};
         this.storeKey = "peopleList";
     }
 
@@ -22,7 +22,8 @@ class PeopleTable extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            this.setState({ list: store.getState().async[this.storeKey] });
+            let data = store.getState().async[this.storeKey];
+            this.setState({ data });
         });
         store.dispatch(actions.getPeopleListAsync(this.props.activeOnly));
     }
@@ -31,11 +32,13 @@ class PeopleTable extends React.Component {
     }
 
     render() {
+        let data = this.state.data;
         let colProps = tables.tableHeaderProps;
+        tables.checkData(data);
         return (
             <div>
-                <tables.Nrows data={this.state.list} />
-                <BootstrapTable data={this.state.list} {...tables.bootstrapTableProps}>
+                <tables.Nrows data={data} />
+                <BootstrapTable data={data} {...tables.bootstrapTableProps}>
                     <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" {...colProps}>
                         ID
                     </TableHeaderColumn>

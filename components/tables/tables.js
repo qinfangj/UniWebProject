@@ -33,6 +33,12 @@ const tableHeaderProps = {
     dataSort: true, caretRender: renderCaret,
 };
 
+function checkData(data) {
+    if (! (data instanceof Array)) {
+        throw("Received invalid data to display:" + Object.prototype.toString.call(data));
+    }
+}
+
 
 
 export {
@@ -40,4 +46,5 @@ export {
     Nrows,
     bootstrapTableProps,
     tableHeaderProps,
+    checkData,
 };
