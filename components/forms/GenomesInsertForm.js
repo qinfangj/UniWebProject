@@ -5,6 +5,7 @@ import css from './forms.css';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
+import Select from './elements/Select';
 import LabsList from './subcomponents/LabsList';
 import validators from './validators';
 import * as forms from './forms.js';
@@ -60,9 +61,10 @@ class GenomesInsertForm extends React.Component {
      */
     getOrganismsList() {
         let values = [[1,"Human"], [2,"Mouse"], [3,"Fly"]];
-        return values.map(v => {
-            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
-        });
+        return values;
+        //return values.map(v => {
+        //    return <option value={v[0]} key={v[0]}>{v[1]}</option>;
+        //});
         // DBIinsert::optiondisplaydbOrdered('taxonomies',['id','name'], ['name']);
     }
 
@@ -76,13 +78,10 @@ class GenomesInsertForm extends React.Component {
                     {/* Organism */}
 
                     <Col sm={4} className={css.formCol}>
-                        <FormGroup controlId="organism" >
-                            <ControlLabel>Project analysis</ControlLabel>
-                            <FormControl componentClass="select" placeholder="Organism"
-                                         ref={(c) => this._organism = c} >
-                                {this.getOrganismsList()}
-                            </FormControl>
-                        </FormGroup>
+                        <Select name="organism" visibleName="Organism"
+                            options={this.getOrganismsList()}
+                            ref={(c) => this._organism = c}
+                        />
                     </Col>
 
                     {/* Assembly */}
@@ -162,17 +161,14 @@ class GenomesInsertForm extends React.Component {
                     {/* Is masked */}
 
                     <Col sm={2} className={css.formCol}>
-                        <FormGroup controlId="isMasked" >
-                            <ControlLabel>Masked</ControlLabel>
-                            <FormControl componentClass="select" placeholder="Organism"
-                                         ref={(c) => this._isMasked = c} >
-                                <option>Yes</option>
-                                <option>No</option>
-                            </FormControl>
-                        </FormGroup>
+                        <Col sm={2}>
+                            <FormGroup controlId="isMasked" >
+                                <CheckBox ref={(c) => this._isMasked = c} label="Masked" />
+                            </FormGroup>
+                        </Col>
                     </Col>
 
-                        {/* Is achived */}
+                    {/* Is achived */}
 
                     <Col sm={2}>
                         <FormGroup controlId="isArchived" >
