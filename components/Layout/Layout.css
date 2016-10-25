@@ -6,6 +6,9 @@
     float: left;
     z-index: 1000;
 }
+.mainLogoButton:hover {
+    cursor: pointer;
+}
 
 .topRow {
     padding: 0;

@@ -6,13 +6,12 @@ import css from './forms.css';
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
 import Select from './elements/Select';
+import DatePicker from './elements/DatePicker';
 import validators from './validators';
 import * as forms from './forms.js';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 
@@ -23,7 +22,7 @@ class GenomesInsertForm extends React.Component {
         super();
         this.table = "genomes";
         this.required = ["organism", "assembly", "genome_folder", "url",
-            "download_date", "files", "comment", "isMasked", "isArchived"];
+            "downloaded_date", "files", "comment", "isMasked", "isArchived"];
         this.state = {
             missing: {},
             invalid: {},
@@ -38,16 +37,12 @@ class GenomesInsertForm extends React.Component {
     }
 
     getFormValues() {
-        let value = (ref) => {
-            let v = ReactDOM.findDOMNode(ref).value.trim();
-            return v === "none" ? null : v;
-        };
         return {
             taxo_id: this._organism.getValue(),
             assembly: this._assembly.getValue(),
             genome_folder: this._genomeFolder.getValue(),
             url: this._url.getValue(),
-            downloaded_date: value(this._downloadedDate),
+            downloaded_date: this._downloadedDate.getValue(),
             files: this._files.getValue(),
             comment: this._comment.getValue(),
             isMasked: this._isMasked.getValue(),
@@ -61,9 +56,7 @@ class GenomesInsertForm extends React.Component {
     getOrganismsList() {
         let values = [[1,"Human"], [2,"Mouse"], [3,"Fly"]];
         return values;
-        //return values.map(v => {
-        //    return <option value={v[0]} key={v[0]}>{v[1]}</option>;
-        //});
+
         // DBIinsert::optiondisplaydbOrdered('taxonomies',['id','name'], ['name']);
     }
 
@@ -98,10 +91,10 @@ class GenomesInsertForm extends React.Component {
 
                     <Col sm={4}>
                         <TextField name="genomeFolder" visibleName="Genome folder" required
-                            missing = {!!this.state.missing["genome_folder"]}
-                            invalid = {!!this.state.invalid["genome_folder"]}
-                            ref = {(c) => this._genomeFolder = c}
-                            defaultValue="/path/to"
+                                   missing = {!!this.state.missing["genome_folder"]}
+                                   invalid = {!!this.state.invalid["genome_folder"]}
+                                   ref = {(c) => this._genomeFolder = c}
+                                   defaultValue="/path/to"
                         />
                     </Col>
 
@@ -121,15 +114,9 @@ class GenomesInsertForm extends React.Component {
                     {/* Downloaded date */}
 
                     <Col sm={4}>
-                        <FormGroup controlId="downloaded_date" >
-                            <ControlLabel>Download date</ControlLabel>
-                            <FormControl
-                                type="date"
-                                placeholder="Download date"
-                                ref={(c) => this._downloadedDate = c}
-                                defaultValue="2000-01-01"
-                            />
-                        </FormGroup>
+                        <DatePicker name="downloaded_date" visibleName="Download date"
+                                    ref = {(c) => this._downloadedDate = c}
+                        />
                     </Col>
 
                 </Form>

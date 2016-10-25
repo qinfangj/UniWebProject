@@ -6,6 +6,7 @@ import css from './forms.css';
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
 import Select from './elements/Select';
+import DatePicker from './elements/DatePicker';
 import LabsList from './subcomponents/LabsList';
 import validators from './validators';
 import * as forms from './forms.js';
@@ -49,7 +50,7 @@ class ProjectInsertForm extends React.Component {
             description: this._description.getValue(),
             project_state_id: this._projectState.getValue(),
             isControl: this._isControl.getValue(),
-            user_meeting_date: value(this._userMeetingDate),
+            user_meeting_date: this._userMeetingDate.getValue(),
             project_analysis_id: this._projectAnalysis.getValue(),
             comment: value(this._comments),
         };
@@ -61,11 +62,8 @@ class ProjectInsertForm extends React.Component {
     getProjectStatesList() {
         let values = [[1,"Ongoing"],[2,"Done"],[3,"Todo"]];
         return values;
-        //return values.map(v => {
-        //    return <option value={v[0]} key={v[0]}>{v[1]}</option>;
-        //});
-        // displaydb($table, $args): select * from table
 
+        // displaydb($table, $args): select * from table
         // sub _getProjectStates {
         //     my $table = DBIinsert::displaydb('project_states',['id','state_order','name']);
         //     my $table_mod;
@@ -82,11 +80,8 @@ class ProjectInsertForm extends React.Component {
     getProjectAnalysesList() {
         let values = [[1,"Analysis1"], [2,"Analysis2"], [3,"Analysis3"]];
         return values;
-        //return values.map(v => {
-        //    return <option value={v[0]} key={v[0]}>{v[1]}</option>;
-        //});
-        // optiondisplaydbOrdered($table, $args, $order, $limit): select * from table order by ..
 
+        // optiondisplaydbOrdered($table, $args, $order, $limit): select * from table order by ..
         // sub _getProjectAnalysis {
         //     return DBIinsert::optiondisplaydbOrdered('project_analysis',['id','name' ], ['id']);
         //
@@ -159,15 +154,9 @@ class ProjectInsertForm extends React.Component {
                     {/* User meeting date */}
 
                     <Col sm={4} className={css.formCol}>
-                    <FormGroup controlId="user_meeting_date" >
-                        <ControlLabel>User meeting date</ControlLabel>
-                        <FormControl
-                            type="date"
-                            placeholder="User meeting date"
+                        <DatePicker name="user_meeting_date" visibleName="User meeting date"
                             ref={(c) => this._userMeetingDate = c}
-                            defaultValue="2000-01-01"
                         />
-                    </FormGroup>
                     </Col>
 
                     {/* Project analysis */}

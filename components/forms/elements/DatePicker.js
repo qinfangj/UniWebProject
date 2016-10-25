@@ -7,7 +7,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 
 
-class Select extends React.Component {
+class DatePicker extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,35 +24,30 @@ class Select extends React.Component {
     }
 
     render() {
-        let options = this.props.options ? this.props.options.map(v => {
-            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
-        }) : null;
         return (
             <FormGroup controlId={this.props.name} >
                 <ControlLabel>{this.props.visibleName}</ControlLabel>
-                <FormControl componentClass="select"
+                <FormControl
+                    type="date"
                     placeholder={this.props.visibleName}
-                    onChange={this.onChange.bind(this)}
                     value={this.state.value}
-                >
-                    {options}
-                </FormControl>
+                    onChange={this.onChange.bind(this)}
+                />
             </FormGroup>
         );
     }
 }
-Select.propTypes = {
+DatePicker.propTypes = {
     name: React.PropTypes.string.isRequired,
     visibleName: React.PropTypes.string.isRequired,
-    options: React.PropTypes.array.isRequired,  // an array of the type [[1,"yes"], [2,"no"], [3,"maybe"]]
-    defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+    defaultValue: React.PropTypes.string,
 // maybe use later:
     required: React.PropTypes.bool,
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting
     invalid: React.PropTypes.bool,  // field was found invalid when submitting
 };
-Select.defaultProps = {
-    defaultValue: 1,
+DatePicker.defaultProps = {
+    defaultValue: "1970-01-01",
 // maybe use later:
     required: false,
     missing: false,
@@ -60,5 +55,5 @@ Select.defaultProps = {
 };
 
 
-export default Select;
+export default DatePicker;
 
