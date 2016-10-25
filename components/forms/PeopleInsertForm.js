@@ -1,22 +1,14 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import ReactDOM from 'react-dom';
 import css from './forms.css';
-import store from '../../core/store';
-import _ from 'lodash';
 
 import TextField from './elements/TextField';
-import CheckBox from './elements/CheckBox';
 import validators from './validators';
-import { insertAsync } from '../actions/actionCreators/asyncActionCreators';
+import * as forms from './forms.js';
 
 import Form from 'react-bootstrap/lib/Form';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
-import Alert from 'react-bootstrap/lib/Alert';
 
 
 
@@ -32,13 +24,6 @@ class ProjectInsertForm extends React.Component {
         };
     }
 
-    /**
-     * Close the error message window.
-     */
-    discardErrorMessage() {
-        this.setState({submissionError: false});
-    }
-
     formatFormData(formData) {
         formData.isLaboratory = 1;
         formData.phone = parseInt(formData.phone);
@@ -47,24 +32,10 @@ class ProjectInsertForm extends React.Component {
 
     onSubmit() {
         let formData = this.getFormValues();
-        console.info(JSON.stringify(formData, null, 2));
-        let fields = Object.keys(formData);
-        let nullFields = this.required.filter(k => formData[k] === null);
-        let invalidFields = fields.filter(k => formData[k] === null);
-        if (invalidFields.length !== 0) {
-            let missing = _.zipObject(nullFields, new Array(nullFields.length).fill(true));
-            let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
-            this.setState({missing, invalid, submissionError: true});
-        } else {
-            this.setState({missing: {}, invalid: {}, submissionError: false});
-            formData = this.formatFormData(formData);
-            store.dispatch(insertAsync(this.table, formData));
-        }
+        let newState = forms.submit(this.table, formData, this.required, this.formatFormData);
+        this.setState(newState);
     }
 
-    /**
-     * Read the values of all inputs in the form.
-     */
     getFormValues() {
         return {
             first_name: this._firstName.getValue(),
@@ -78,15 +49,7 @@ class ProjectInsertForm extends React.Component {
     render() {
         return (
             <form className={css.form}>
-
-                {/* Error message */}
-
-                {this.state.submissionError ?
-                    <Alert bsStyle="warning" onClick={this.discardErrorMessage.bind(this)}>
-                        Some required fields are missing or ill-formatted. Please review the form and submit again.
-                        <span className={css.alertOk} onClick={this.discardErrorMessage.bind(this)}><a>OK</a></span>
-                    </Alert>
-                    : null}
+                <forms.SubmissionErrorMessage error={this.state.submissionError} />
 
                 <Form componentClass="fieldset" horizontal>
 

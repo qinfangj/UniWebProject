@@ -2,14 +2,12 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ReactDOM from 'react-dom';
 import css from './forms.css';
-import store from '../../core/store';
-import _ from 'lodash';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
 import LabsList from './subcomponents/LabsList';
 import validators from './validators';
-import { insertAsync } from '../actions/actionCreators/asyncActionCreators';
+import * as forms from './forms.js';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -17,7 +15,6 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
-import Alert from 'react-bootstrap/lib/Alert';
 
 
 
@@ -33,32 +30,12 @@ class ProjectInsertForm extends React.Component {
         };
     }
 
-    /**
-     * Close the error message window.
-     */
-    discardErrorMessage() {
-        this.setState({submissionError: false});
-    }
-
     onSubmit() {
         let formData = this.getFormValues();
-        console.info(JSON.stringify(formData, null, 2));
-        let fields = Object.keys(formData);
-        let nullFields = this.required.filter(k => formData[k] === null);
-        let invalidFields = fields.filter(k => formData[k] === null);
-        if (invalidFields.length !== 0) {
-            let missing = _.zipObject(nullFields, new Array(nullFields.length).fill(true));
-            let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
-            this.setState({missing, invalid, submissionError: true});
-        } else {
-            this.setState({missing: {}, invalid: {}, submissionError: false});
-            store.dispatch(insertAsync(this.table, formData));
-        }
+        let newState = forms.submit(this.table, formData, this.required, null);
+        this.setState(newState);
     }
 
-    /**
-     * Read the values of all inputs in the form.
-     */
     getFormValues() {
         let value = (ref) => {
             let v = ReactDOM.findDOMNode(ref).value.trim();
@@ -78,7 +55,7 @@ class ProjectInsertForm extends React.Component {
     }
 
     /**
-     * VAvailable values for the project state dropdown.
+     * Available values for the project state dropdown.
      */
     getProjectStatesList() {
         let values = [[1,"Ongoing"],[2,"Done"],[3,"Todo"]];
@@ -116,15 +93,7 @@ class ProjectInsertForm extends React.Component {
     render() {
         return (
             <form className={css.form}>
-
-                {/* Error message */}
-
-                {this.state.submissionError ?
-                    <Alert bsStyle="warning" onClick={this.discardErrorMessage.bind(this)}>
-                        Some required fields are missing or ill-formatted. Please review the form and submit again.
-                        <span className={css.alertOk} onClick={this.discardErrorMessage.bind(this)}><a>OK</a></span>
-                    </Alert>
-                    : null}
+                <forms.SubmissionErrorMessage error={this.state.submissionError} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -132,10 +101,10 @@ class ProjectInsertForm extends React.Component {
 
                     <Col sm={4} className={css.formCol}>
                     <TextField name="projectName" visibleName="Project name" required
-                        missing = {!!this.state.missing["name"]}
-                        invalid = {!!this.state.invalid["name"]}
-                        ref = {(c) => this._projectName = c}
-                        defaultValue="Name"
+                               missing = {!!this.state.missing["name"]}
+                               invalid = {!!this.state.invalid["name"]}
+                               ref = {(c) => this._projectName = c}
+                               defaultValue="Name"
                     />
                     </Col>
 
@@ -149,12 +118,12 @@ class ProjectInsertForm extends React.Component {
 
                     <Col sm={4}>
                     <TextField name="codeName" visibleName="Code name" required
-                        missing = {!!this.state.missing["code_name"]}
-                        invalid = {!!this.state.invalid["code_name"]}
-                        validator = {validators.codeNameValidator}
-                        helpMessage = "[name]_[initials] Ex: Tcells_EG."
-                        ref = {(c) => this._codeName = c}
-                        defaultValue="code_JD"
+                               missing = {!!this.state.missing["code_name"]}
+                               invalid = {!!this.state.invalid["code_name"]}
+                               validator = {validators.codeNameValidator}
+                               helpMessage = "[name]_[initials] Ex: Tcells_EG."
+                               ref = {(c) => this._codeName = c}
+                               defaultValue="code_JD"
                     />
                     </Col>
 
