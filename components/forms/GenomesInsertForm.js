@@ -43,14 +43,14 @@ class GenomesInsertForm extends React.Component {
             return v === "none" ? null : v;
         };
         return {
-            taxo_id: value(this._organism),
+            taxo_id: this._organism.getValue(),
             assembly: this._assembly.getValue(),
             genome_folder: this._genomeFolder.getValue(),
             url: this._url.getValue(),
             downloaded_date: value(this._downloadedDate),
             files: this._files.getValue(),
             comment: this._comment.getValue(),
-            isMasked: value(this._isMasked) === "Yes" ? 1 : 0,
+            isMasked: this._isMasked.getValue(),
             isArchived: this._isArchived.getValue(),
         };
     }
