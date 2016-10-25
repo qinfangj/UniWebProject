@@ -18,11 +18,12 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 
-class ProjectInsertForm extends React.Component {
+class GenomesInsertForm extends React.Component {
     constructor() {
         super();
         this.table = "genomes";
-        this.required = ["name", "code_name"];
+        this.required = ["organism", "assembly", "genome_folder", "url",
+            "download_date", "files", "comment", "isMasked", "isArchived"];
         this.state = {
             missing: {},
             invalid: {},
@@ -42,52 +43,27 @@ class ProjectInsertForm extends React.Component {
             return v === "none" ? null : v;
         };
         return {
-            name: this._projectName.getValue(),
-            person_id: this._personInCharge.getValue(),
-            code_name: this._codeName.getValue(),
-            description: this._description.getValue(),
-            project_state_id: parseInt(value(this._projectState)),
-            isControl: this._isControl.getValue(),
-            user_meeting_date: value(this._userMeetingDate),
-            project_analysis_id: parseInt(value(this._projectAnalysis)),
-            comment: value(this._comments),
+            taxo_id: value(this._organism),
+            assembly: this._assembly.getValue(),
+            genome_folder: this._genomeFolder.getValue(),
+            url: this._url.getValue(),
+            downloaded_date: value(this._downloadedDate),
+            files: this._files.getValue(),
+            comment: this._comment.getValue(),
+            isMasked: value(this._isMasked) === "Yes" ? 1 : 0,
+            isArchived: this._isArchived.getValue(),
         };
-    }
-
-    /**
-     * VAvailable values for the project state dropdown.
-     */
-    getProjectStatesList() {
-        let values = [[1,"Ongoing"],[2,"Done"],[3,"Todo"]];
-        return values.map(v => {
-            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
-        });
-        // displaydb($table, $args): select * from table
-
-        // sub _getProjectStates {
-        //     my $table = DBIinsert::displaydb('project_states',['id','state_order','name']);
-        //     my $table_mod;
-        //     for my $i (0..$#{$table}) {
-        //         $table_mod->[$i] = [$table->[$i]->[0], "$table->[$i]->[1] - $table->[$i]->[2]" ];
-        //     }
-        //     return $table_mod;
-        // }
     }
 
     /**
      * Available values for the project analysis dropdown.
      */
-    getProjectAnalysesList() {
-        let values = [[1,"Analysis1"], [2,"Analysis2"], [3,"Analysis3"]];
+    getOrganismsList() {
+        let values = [[1,"Human"], [2,"Mouse"], [3,"Fly"]];
         return values.map(v => {
             return <option value={v[0]} key={v[0]}>{v[1]}</option>;
         });
-        // optiondisplaydbOrdered($table, $args, $order, $limit): select * from table order by ..
-
-        // sub _getProjectAnalysis {
-        //     return DBIinsert::optiondisplaydbOrdered('project_analysis',['id','name' ], ['id']);
-        //
-        // }
+        // DBIinsert::optiondisplaydbOrdered('taxonomies',['id','name'], ['name']);
     }
 
     render() {
@@ -97,101 +73,114 @@ class ProjectInsertForm extends React.Component {
 
                 <Form componentClass="fieldset" horizontal>
 
-                    {/* Project name */}
+                    {/* Organism */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="projectName" visibleName="Project name" required
-                            missing = {!!this.state.missing["name"]}
-                            invalid = {!!this.state.invalid["name"]}
-                            ref = {(c) => this._projectName = c}
-                            defaultValue="Name"
+                        <FormGroup controlId="organism" >
+                            <ControlLabel>Project analysis</ControlLabel>
+                            <FormControl componentClass="select" placeholder="Organism"
+                                         ref={(c) => this._organism = c} >
+                                {this.getOrganismsList()}
+                            </FormControl>
+                        </FormGroup>
+                    </Col>
+
+                    {/* Assembly */}
+
+                    <Col sm={4} className={css.formCol}>
+                        <TextField name="assembly" visibleName="Assembly" required
+                                   missing = {!!this.state.missing["assembly"]}
+                                   invalid = {!!this.state.invalid["assembly"]}
+                                   ref = {(c) => this._assembly = c}
+                                   defaultValue="hg19"
                         />
                     </Col>
 
-                    {/* Person in charge */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <LabsList ref={(c) => this._personInCharge = c} />
-                    </Col>
-
-                    {/* Code name */}
+                    {/* Genome folder */}
 
                     <Col sm={4}>
-                        <TextField name="codeName" visibleName="Code name" required
-                            missing = {!!this.state.missing["code_name"]}
-                            invalid = {!!this.state.invalid["code_name"]}
-                            validator = {validators.codeNameValidator}
-                            helpMessage = "[name]_[initials] Ex: Tcells_EG."
-                            ref = {(c) => this._codeName = c}
-                            defaultValue="code_JD"
+                        <TextField name="genomeFolder" visibleName="Genome folder" required
+                            missing = {!!this.state.missing["genome_folder"]}
+                            invalid = {!!this.state.invalid["genome_folder"]}
+                            ref = {(c) => this._genomeFolder = c}
+                            defaultValue="/path/to"
                         />
                     </Col>
 
                 </Form>
-
-                {/* Description */}
-
-                <TextField name="description" visibleName="Description"
-                           defaultValue = "Enter description here"
-                           validator = {validators.descriptionValidator}
-                           invalid = {!!this.state.invalid["description"]}
-                           ref = {(c) => this._description = c}
-                />
-
                 <Form componentClass="fieldset" horizontal>
 
-                    {/* Project state */}
+                    {/* Url */}
 
-                    <Col sm={4} className={css.formCol}>
-                        <FormGroup controlId="project_state_id" >
-                            <ControlLabel>Project state</ControlLabel>
-                            <FormControl componentClass="select" placeholder="Project state"
-                                         ref = {(c) => this._projectState = c} >
-                                {this.getProjectStatesList()}
-                            </FormControl>
-
-                        {/* Is control */}
-
-                        <CheckBox ref={(c) => this._isControl = c} label="Control Project" />
-
-                        </FormGroup>
+                    <Col sm={8} className={css.formCol}>
+                        <TextField name="url" visibleName="URL"
+                                   invalid = {!!this.state.invalid["url"]}
+                                   ref = {(c) => this._url = c}
+                                   defaultValue = "http://"
+                        />
                     </Col>
 
-                    {/* User meeting date */}
+                    {/* Downloaded date */}
 
-                    <Col sm={4} className={css.formCol}>
-                        <FormGroup controlId="user_meeting_date" >
-                            <ControlLabel>User meeting date</ControlLabel>
+                    <Col sm={4}>
+                        <FormGroup controlId="downloaded_date" >
+                            <ControlLabel>Download date</ControlLabel>
                             <FormControl
                                 type="date"
-                                placeholder="User meeting date"
-                                ref={(c) => this._userMeetingDate = c}
+                                placeholder="Download date"
+                                ref={(c) => this._downloadedDate = c}
                                 defaultValue="2000-01-01"
                             />
                         </FormGroup>
                     </Col>
 
-                    {/* Project analysis */}
+                </Form>
+                <Form componentClass="fieldset">
 
-                    <Col sm={4}>
-                        <FormGroup controlId="project_analysis_id" >
-                            <ControlLabel>Project analysis</ControlLabel>
-                            <FormControl componentClass="select" placeholder="Project analysis"
-                                         ref={(c) => this._projectAnalysis = c} >
-                                {this.getProjectAnalysesList()}
+                    {/* File names */}
+
+                    <TextField name="files" visibleName="File names"
+                               invalid = {!!this.state.invalid["files"]}
+                               missing = {!!this.state.missing["files"]}
+                               ref = {(c) => this._files = c}
+                               defaultValue = "truc.txt, autre.txt"
+                    />
+
+                </Form>
+                <Form componentClass="fieldset" horizontal>
+
+                    {/* Comment */}
+
+                    <Col sm={8} className={css.formCol}>
+                        <TextField name="comment" visibleName="Comment"
+                                   invalid = {!!this.state.invalid["comment"]}
+                                   ref = {(c) => this._comment = c}
+                                   defaultValue = "!!"
+                        />
+                    </Col>
+
+                    {/* Is masked */}
+
+                    <Col sm={2} className={css.formCol}>
+                        <FormGroup controlId="isMasked" >
+                            <ControlLabel>Masked</ControlLabel>
+                            <FormControl componentClass="select" placeholder="Organism"
+                                         ref={(c) => this._isMasked = c} >
+                                <option>Yes</option>
+                                <option>No</option>
                             </FormControl>
                         </FormGroup>
                     </Col>
 
+                        {/* Is achived */}
+
+                    <Col sm={2}>
+                        <FormGroup controlId="isArchived" >
+                            <CheckBox ref={(c) => this._isArchived = c} label="Archived" />
+                        </FormGroup>
+                    </Col>
+
                 </Form>
-
-                {/* Comments */}
-
-                <FormGroup controlId="comments">
-                    <ControlLabel>Comments</ControlLabel>
-                    <FormControl componentClass="textarea" placeholder="Comments"
-                                 ref={(c) => this._comments = c} />
-                </FormGroup>
 
                 {/* Submit */}
 
@@ -205,5 +194,5 @@ class ProjectInsertForm extends React.Component {
 }
 
 
-export default ProjectInsertForm;
+export default GenomesInsertForm;
 
