@@ -8,7 +8,6 @@ import { sendError } from './commonActionCreators';
 function syncAction(type, status, response) {
     return { type, status, response };
 }
-
 function asyncAction(type, action, args) {
     return dispatch => {
         dispatch(syncAction(type, constants.PENDING, null));
@@ -35,6 +34,10 @@ function getPeopleListAsync(activeOnly) {
     return asyncAction(actions.GET_PEOPLE_LIST, restService.specialSelect, ["people", activeOnly]);
 }
 
+function getGenomesListAsync(activeOnly) {
+    return asyncAction(actions.GET_GENOMES_LIST, restService.specialSelect, ["genomes", activeOnly]);
+}
+
 function insertAsync(table, formData) {
     return asyncAction(actions.INSERT, restService.insert, [table, formData]);
 }
@@ -44,5 +47,6 @@ export {
     getLabsListAsync,
     getProjectsListAsync,
     getPeopleListAsync,
+    getGenomesListAsync,
     insertAsync,
 };

@@ -3,7 +3,7 @@ import css from './styles.css';
 import Layout from '../../../components/Layout';
 import FacilityData from '../../../components/pages/FacilityData';
 
-import ProjectInsertForm from '../../../components/forms/ProjectInsertForm';
+import GenomesInsertForm from '../../../components/forms/GenomesInsertForm';
 
 
 class GenomesNew extends React.Component {
@@ -12,7 +12,7 @@ class GenomesNew extends React.Component {
         return (
             <Layout className={css.content}>
                 <FacilityData title="Genomes" name="genomes" content={
-                    <ProjectInsertForm/>
+                    <GenomesInsertForm/>
                 } />
             </Layout>
         );

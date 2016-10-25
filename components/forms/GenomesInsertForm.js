@@ -24,7 +24,7 @@ import Alert from 'react-bootstrap/lib/Alert';
 class ProjectInsertForm extends React.Component {
     constructor() {
         super();
-        this.table = "projects";
+        this.table = "genomes";
         this.required = ["name", "code_name"];
         this.state = {
             missing: {},
@@ -52,7 +52,7 @@ class ProjectInsertForm extends React.Component {
             this.setState({missing, invalid, submissionError: true});
         } else {
             this.setState({missing: {}, invalid: {}, submissionError: false});
-            store.dispatch(insertAsync(this.table, formData));
+            store.dispatch(insertAsync("projects", formData));
         }
     }
 
@@ -60,6 +60,7 @@ class ProjectInsertForm extends React.Component {
      * Read the values of all inputs in the form.
      */
     getFormValues() {
+        console.debug("ref::", this._personInCharge)
         let value = (ref) => {
             let v = ReactDOM.findDOMNode(ref).value.trim();
             return v === "none" ? null : v;

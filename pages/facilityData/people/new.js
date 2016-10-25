@@ -4,7 +4,7 @@ import css from './styles.css';
 
 import Layout from '../../../components/Layout';
 import FacilityData from '../../../components/pages/FacilityData';
-import ProjectInsertForm from '../../../components/forms/ProjectInsertForm';
+import PeopleInsertForm from '../../../components/forms/PeopleInsertForm';
 
 
 class PeopleNew extends React.Component {
@@ -13,7 +13,7 @@ class PeopleNew extends React.Component {
         return (
             <Layout className={css.content}>
                 <FacilityData title="Laboratories" name="people" content={
-                    <ProjectInsertForm />
+                    <PeopleInsertForm />
                 } />
             </Layout>
         );

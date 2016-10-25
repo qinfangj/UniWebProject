@@ -34,6 +34,9 @@ let asyncReducers = (state = defaultState, action) => {
         case types.GET_PEOPLE_LIST:
             return returnList("peopleList");
 
+        case types.GET_GENOMES_LIST:
+            return returnList("genomesList");
+
         case types.INSERT:
             return state;
 

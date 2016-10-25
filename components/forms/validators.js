@@ -64,10 +64,10 @@ class Validators {
     }
 
     phoneValidator(v) {
-        let regex = /^[0-9]{10,}$/ ;
+        let regex = /^[0-9]{9,}$/ ;
         let stripped = v.trim().replace(/[+()\- ]*/g, "");
         let valid = regex.test(stripped);
-        let msg = "Not a valid phone number (accepts +,-,(), and spaces).";
+        let msg = "Not a valid phone number (9+ digits. Accepts +,-,(), and spaces).";
         return {valid, msg};
     }
 

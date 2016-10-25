@@ -5,7 +5,7 @@ import * as tables from './tables.js';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
-//import * as actions from '../actions/actionCreators/asyncActionCreators';
+import * as actions from '../actions/actionCreators/asyncActionCreators';
 
 
 
@@ -25,7 +25,7 @@ class GenomesTable extends React.Component {
             let data = store.getState().async[this.storeKey];
             this.setState({ data });
         });
-        //store.dispatch(actions.getGenomesListAsync(this.props.activeOnly));
+        store.dispatch(actions.getGenomesListAsync(this.props.activeOnly));
     }
     componentWillUnmount() {
         this.unsubscribe();
@@ -39,7 +39,7 @@ class GenomesTable extends React.Component {
             <div>
                 <tables.Nrows data={data} />
                 <BootstrapTable data={data} {...tables.bootstrapTableProps}>
-                    <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" {...colProps}>
+                    <TableHeaderColumn dataField="id" width="40" isKey={true} dataAlign="center" {...colProps}>
                         ID
                     </TableHeaderColumn>
                     <TableHeaderColumn dataField="organism" {...colProps}>

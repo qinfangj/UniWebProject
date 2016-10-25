@@ -1,4 +1,8 @@
 
+:global(.form-group) {
+    margin-bottom: 0;
+}
+
 .form {
     padding: 20px;
 }
@@ -8,10 +12,14 @@
 }
 
 .submitButton {
-    margin-bottom: 15px;
+    margin: 15px 0;
 }
 
 .alertOk {
     margin-left: 10px;
     cursor: pointer;
+}
+
+.formGroup {
+    margin-bottom: 0;  /* override Bootstrap's */
 }

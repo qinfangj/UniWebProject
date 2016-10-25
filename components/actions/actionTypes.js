@@ -8,6 +8,7 @@ const actionTypes = {
     TOGGLE_SIDEBAR: "TOGGLE_SIDEBAR",
     GET_PROJECTS_LIST: "GET_PROJECTS_LIST",
     GET_PEOPLE_LIST: "GET_PEOPLE_LIST",
+    GET_GENOMES_LIST: "GET_GENOMES_LIST",
 };
 
 export default actionTypes;

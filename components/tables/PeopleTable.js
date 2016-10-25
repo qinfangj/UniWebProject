@@ -39,7 +39,7 @@ class PeopleTable extends React.Component {
             <div>
                 <tables.Nrows data={data} />
                 <BootstrapTable data={data} {...tables.bootstrapTableProps}>
-                    <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" {...colProps}>
+                    <TableHeaderColumn dataField="id" width="40" isKey={true} dataAlign="center" {...colProps}>
                         ID
                     </TableHeaderColumn>
                     <TableHeaderColumn dataField="name" {...colProps}>
