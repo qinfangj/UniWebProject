@@ -6,7 +6,6 @@ import css from './forms.css';
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
 import Select from './elements/Select';
-import LabsList from './subcomponents/LabsList';
 import validators from './validators';
 import * as forms from './forms.js';
 

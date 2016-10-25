@@ -10,15 +10,13 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 class Select extends React.Component {
     constructor(props) {
         super(props);
-        let value = this.props.defaultValue;
         this.state = {
-            value: value,
+            value: this.props.defaultValue,
         };
     }
 
     getValue() {
-        let v = this.state.value.trim();
-        return v === "none" ? null : v;
+        return this.state.value;
     }
 
     onChange(e) {
@@ -35,6 +33,7 @@ class Select extends React.Component {
                 <FormControl componentClass="select"
                     placeholder={this.props.visibleName}
                     onChange={this.onChange.bind(this)}
+                    value={this.state.value}
                 >
                     {options}
                 </FormControl>
@@ -50,12 +49,13 @@ Select.propTypes = {
     required: React.PropTypes.bool,
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting
     invalid: React.PropTypes.bool,  // field was found invalid when submitting
-    defaultValue: React.PropTypes.string,
+    defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 };
 Select.defaultProps = {
     required: false,
     missing: false,
     invalid: false,
+    defaultValue: 1,
 };
 
 

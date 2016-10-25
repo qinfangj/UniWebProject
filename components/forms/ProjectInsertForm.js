@@ -5,6 +5,7 @@ import css from './forms.css';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
+import Select from './elements/Select';
 import LabsList from './subcomponents/LabsList';
 import validators from './validators';
 import * as forms from './forms.js';
@@ -46,10 +47,10 @@ class ProjectInsertForm extends React.Component {
             person_id: this._personInCharge.getValue(),
             code_name: this._codeName.getValue(),
             description: this._description.getValue(),
-            project_state_id: parseInt(value(this._projectState)),
+            project_state_id: this._projectState.getValue(),
             isControl: this._isControl.getValue(),
             user_meeting_date: value(this._userMeetingDate),
-            project_analysis_id: parseInt(value(this._projectAnalysis)),
+            project_analysis_id: this._projectAnalysis.getValue(),
             comment: value(this._comments),
         };
     }
@@ -59,9 +60,10 @@ class ProjectInsertForm extends React.Component {
      */
     getProjectStatesList() {
         let values = [[1,"Ongoing"],[2,"Done"],[3,"Todo"]];
-        return values.map(v => {
-            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
-        });
+        return values;
+        //return values.map(v => {
+        //    return <option value={v[0]} key={v[0]}>{v[1]}</option>;
+        //});
         // displaydb($table, $args): select * from table
 
         // sub _getProjectStates {
@@ -79,9 +81,10 @@ class ProjectInsertForm extends React.Component {
      */
     getProjectAnalysesList() {
         let values = [[1,"Analysis1"], [2,"Analysis2"], [3,"Analysis3"]];
-        return values.map(v => {
-            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
-        });
+        return values;
+        //return values.map(v => {
+        //    return <option value={v[0]} key={v[0]}>{v[1]}</option>;
+        //});
         // optiondisplaydbOrdered($table, $args, $order, $limit): select * from table order by ..
 
         // sub _getProjectAnalysis {
@@ -100,12 +103,12 @@ class ProjectInsertForm extends React.Component {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                    <TextField name="projectName" visibleName="Project name" required
-                               missing = {!!this.state.missing["name"]}
-                               invalid = {!!this.state.invalid["name"]}
-                               ref = {(c) => this._projectName = c}
-                               defaultValue="Name"
-                    />
+                        <TextField name="projectName" visibleName="Project name" required
+                                   missing = {!!this.state.missing["name"]}
+                                   invalid = {!!this.state.invalid["name"]}
+                                   ref = {(c) => this._projectName = c}
+                                   defaultValue="Name"
+                        />
                     </Col>
 
                     {/* Person in charge */}
@@ -143,18 +146,14 @@ class ProjectInsertForm extends React.Component {
                     {/* Project state */}
 
                     <Col sm={4} className={css.formCol}>
-                    <FormGroup controlId="project_state_id" >
-                        <ControlLabel>Project state</ControlLabel>
-                        <FormControl componentClass="select" placeholder="Project state"
-                                     ref = {(c) => this._projectState = c} >
-                            {this.getProjectStatesList()}
-                        </FormControl>
+                        <Select name="project_state_id" visibleName="Project state"
+                            options={this.getProjectStatesList()}
+                            ref = {(c) => this._projectState = c}
+                        />
 
-                    {/* Is control */}
+                        {/* Is control */}
 
-                    <CheckBox ref={(c) => this._isControl = c} label="Control Project" />
-
-                    </FormGroup>
+                        <CheckBox ref={(c) => this._isControl = c} label="Control Project" />
                     </Col>
 
                     {/* User meeting date */}
@@ -174,13 +173,10 @@ class ProjectInsertForm extends React.Component {
                     {/* Project analysis */}
 
                     <Col sm={4}>
-                    <FormGroup controlId="project_analysis_id" >
-                        <ControlLabel>Project analysis</ControlLabel>
-                        <FormControl componentClass="select" placeholder="Project analysis"
-                                     ref={(c) => this._projectAnalysis = c} >
-                            {this.getProjectAnalysesList()}
-                        </FormControl>
-                    </FormGroup>
+                        <Select name="project_analysis_id" visibleName="Project analysis"
+                            options={this.getProjectAnalysesList()}
+                            ref={(c) => this._projectAnalysis = c}
+                        />
                     </Col>
 
                 </Form>
