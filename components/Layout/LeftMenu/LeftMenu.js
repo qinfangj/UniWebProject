@@ -27,39 +27,55 @@ class LeftMenu extends React.Component {
     }
 
     onSelect(key) {
-        console.debug("LeftMenu.onSelect", key)
+        //console.debug("LeftMenu.onSelect", key)
         this.setState({ activeKey: key });
     }
 
     render() {
-        let activeKey = this.state.activeKey;
-        console.debug("activeKey:", activeKey)
+
+        let menuItems = [
+            { text: "Laboratories", to: "/data/people", },
+            { text: "Projects", to: "/data/projects", },
+            { text: "Samples", to: "/data/samples", disabled: true },
+            { text: "User requests", to: "/data/user_requests", disabled: true },
+            { text: "Libraries", to: "/data/genomes", disabled: true },
+            { text: "Bioanalysers", to: "/data/bioanalysers", disabled: true },
+            { text: "Runs", to: "/data/genomes", disabled: true },
+            { text: "Base callings / demultiplexings", to: "/data/base_callings", disabled: true },
+            { text: "Alignments / QC", to: "/data/alignments", disabled: true },
+            { text: "Genomes", to: "/data/genomes" },
+        ];
+
+        let activeKey = this.state.activeKey || window.location.pathname;
+        //console.debug("activeKey:", activeKey)
+
+        let items = menuItems.map((items, i) => {
+            let {text, to, ...props} = items;
+            return (
+                <NavLink to={to} active={activeKey===to} {...props} key={i} eventKey={i}
+                         className={activeKey===to ? css.active : null}>
+                    {text}
+                </NavLink>
+            );
+        });
+
         return (
-            <div className="row">
-                <div className={cx("col-md-2", css.leftSide)}>
+            <div className={css.leftMenu}>
+                <div className={cx(css.leftSide)}>
 
                     <div className={css.title}>
                         Tables
                     </div>
 
-                    <Nav bsStyle="pills" stacked className={css.items} onSelect={this.onSelect.bind(this)}>
-                        <NavItem eventKey={1}>
-                            Laboratories
-                        </NavItem>
-                        <NavLink to="/projects" active={activeKey==="/projects"}>
-                            Projects
-                        </NavLink>
-                        <NavItem eventKey={3}>
-                            Samples
-                        </NavItem>
-                        <NavItem eventKey={3}>
-                            More
-                        </NavItem>
+                    <div className={css.divider} />
+
+                    <Nav bsStyle="pills" stacked onSelect={this.onSelect.bind(this)} className={css.items} >
+                        {items}
                     </Nav>
 
                 </div>
 
-                <div className={cx("col-md-10", css.rightSide)}>
+                <div className={cx(css.rightSide)}>
                     {this.props.children}
                 </div>
 

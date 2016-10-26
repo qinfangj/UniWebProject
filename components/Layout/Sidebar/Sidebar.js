@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import css from './Sidebar.css';
 import store from '../../../core/store';
+import { toggleSidebar } from '../../actions/actionCreators/commonActionCreators';
 
 import Sidebar from 'react-sidebar';
 import NavLink from '../../Link/NavLink';
@@ -11,6 +12,7 @@ import { Nav } from 'react-bootstrap/lib';
 class ResponsiveSidebar extends React.Component {
 
     constructor() {
+        console.debug("Construct")
         super();
         this.state = {
             open: true,
@@ -21,15 +23,24 @@ class ResponsiveSidebar extends React.Component {
         };
     }
 
+    getStoreState() {
+        let open = store.getState().common.sidebarOpen;
+        open = open === undefined ? true : open;
+        return { open };
+    }
+
     /* Make it responsive */
 
     componentWillMount() {
+        console.debug("Mounting")
         this.unsubscribe = store.subscribe(() => {
-            this.setState({ open: store.getState().common.sidebarOpen });
+            console.debug(555, this.getStoreState())
+            this.setState(this.getStoreState());
         });
         const mql = window.matchMedia(`(min-width: 800px)`);
         mql.addListener(this.mediaQueryChanged.bind(this));
         this.setState({
+            open: this.getStoreState().open,
             mql: mql,
             docked: mql.matches,
             activeKey: window.location.pathname,
@@ -42,7 +53,11 @@ class ResponsiveSidebar extends React.Component {
     }
 
     mediaQueryChanged() {
-        this.setState({docked: this.state.mql.matches});
+        this.setState({docked: this.isWide()});
+    }
+
+    isWide() {
+        return this.state.mql.matches;
     }
 
     /* End responsive */
@@ -52,14 +67,23 @@ class ResponsiveSidebar extends React.Component {
      * Should update the store, too, but this component is the only listener.
      */
     onSetOpen(open) {
-        this.setState({open: open});
+        console.debug(999, open)
+        store.dispatch(toggleSidebar(open));
+        //this.setState({open: open});
     }
 
     onSelect(key) {
-        this.setState({ activeKey: key });
+        console.debug("onSelect", key, this.isWide(), this.state.open)
+        this.setState({
+            activeKey: key,
+        });
+        if (this.state.open && !this.isWide()) {
+            store.dispatch(toggleSidebar(false));
+        }
     }
 
     render() {
+        console.debug("open?", this.state.open)
         /* For some reason everything falls apart if I put this in CSS instead. */
         const contentStyle = {
             height: '100%',

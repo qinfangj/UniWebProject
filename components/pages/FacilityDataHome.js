@@ -2,6 +2,8 @@ import React from 'react';
 import Link from '../Link';
 import css from './FacilityDataHome.css';
 
+import LeftMenu from '../Layout/LeftMenu';
+
 
 class FacilityDataHome extends React.Component {
 
@@ -28,12 +30,12 @@ class FacilityDataHome extends React.Component {
         });
 
         return (
-            <div>
+            <LeftMenu>
                 <h1 className={css.h1}>Facility data</h1>
                 <ul>
                     {links}
                 </ul>
-            </div>
+            </LeftMenu>
         );
     }
 }

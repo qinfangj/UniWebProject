@@ -1,18 +1,31 @@
 
+@import '../../../styles/common.css';
+
 .leftSide {
     /*background-color: #d6d6d6;*/
     /*border-radius: 4px;*/
-    box-shadow: 10px 0px 10px -10px #ccc;
+    float: left;
+    width: var(--main-logo-width);
+    box-shadow: 10px 0 10px -10px #ccc;
     height: 100%;
-    margin-top: 15px;
+    padding-top: 15px;
+    padding-bottom: 50px;
+    margin: -20px 30px 30px -35px;
 }
 .rightSide {
+    float: left;
+}
+
+.divider {
+    margin: 8px 16px;
+    height: 1px;
+    background-color: #757575;
 }
 
 .title {
     font-size: 1.4em;
     text-align: center;
-    padding: 15px 0;
+    padding-top: 15px;
     margin: 0 15px 15px 15px;
 }
 
