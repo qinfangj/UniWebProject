@@ -10,7 +10,6 @@ import validators from './validators';
 import * as forms from './forms.js';
 
 import Form from 'react-bootstrap/lib/Form';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 

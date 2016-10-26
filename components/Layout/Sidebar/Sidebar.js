@@ -60,27 +60,13 @@ class ResponsiveSidebar extends React.Component {
     }
 
     render() {
-        let currentLocation = window.location.pathname;
-        const styles = {
-            sidebarLink: {
-                display: 'block',
-                padding: '16px 20px',
-                color: '#757575',
-                textDecoration: 'none',
-            },
-            divider: {
-                margin: '8px 16px',
-                height: 1,
-                backgroundColor: '#757575',
-            },
-            content: {
-                height: '100%',
-                width: '151px',
-                backgroundColor: 'white',
-                marginTop: '60px',
-            },
+        /* For some reason everything falls apart if I put this in CSS instead. */
+        const contentStyle = {
+            height: '100%',
+            width: '152px',
+            backgroundColor: 'white',
+            marginTop: '60px',
         };
-
         let activeKey = this.state.activeKey || window.location.pathname;
         let menuItems = [
             { text: "Home", to: "/", },
@@ -102,11 +88,11 @@ class ResponsiveSidebar extends React.Component {
         });
 
         let sidebarContents = (
-            <div style={styles.content}>
+            <div style={contentStyle} className={css.content}>
                 <Nav bsStyle="pills" stacked onSelect={this.onSelect.bind(this)} className={css.items}>
                     {items}
                 </Nav>
-                <div style={styles.divider} />
+                <div className={css.divider} />
             </div>
         );
 

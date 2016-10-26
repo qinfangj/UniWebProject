@@ -1,10 +1,12 @@
 
 @import '../../../styles/colors.css';
+@import '../../../styles/common.css';
+
 
 .header {
     /*border-bottom: 5px solid var(--blue);*/
     background-color: white; /*(var(--blue);*/
-    height: 60px;
+    height: var(--header-height);
     border-bottom: 1px solid #ccc;
 }
 
@@ -15,9 +17,19 @@
 .leftItem {
     display: inline-block;
     height: 100%;
-    margin-left: 70px;
+}
+
+.mainLogoFiller {
+    position: relative;
+    display: inline-block;
+    /*background: url("../../../public/images/uhts_logo5-min.png") red;*/
+    width: 70px;
+    height: var(--header-height);
+    /*z-index: 4;*/
+    margin-left: -152px;
 }
 .gtfLogo {
+    margin-left: 70px;
     padding-top: 5px;
 }
 
@@ -47,5 +59,13 @@
     display: flex;
     width: 100%;
   }
+
+}
+
+@media screen and (max-width: 800px) {
+
+    .header {
+        margin-left: var(--main-logo-width);
+    }
 
 }

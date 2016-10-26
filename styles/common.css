@@ -1,4 +1,9 @@
 
+:root {
+    --header-height: 60px;
+    --main-logo-width: 152px;
+}
+
 .fullwidth {
     margin: 0 auto;
     width: 100%;

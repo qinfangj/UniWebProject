@@ -16,6 +16,12 @@ class Header extends React.Component {
             <div className={cx(css.headerRow, commonCss.fullwidth)}>
 
                 <span className={cx(css.leftItem)}>
+                    <span className={css.mainLogoFiller}>
+                        <img src={require("../../../public/images/uhts_logo5-min.png")} height="60px" />
+                    </span>
+                </span>
+
+                <span className={cx(css.leftItem)}>
                     <img className={css.gtfLogo} src={require("../../../public/images/gtf_logo.png")} height="55px" />
                 </span>
 

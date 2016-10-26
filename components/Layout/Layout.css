@@ -1,10 +1,14 @@
 
+@import '../../styles/common.css';
+
 .mainLogoButton {
     position: fixed;
     top: 0;
     left: 0;
     float: left;
-    z-index: 1000;
+    z-index: 3; /* Sidebar has 2 */
+    width: var(--main-logo-width);
+    overflow: hidden;
 }
 .mainLogoButton:hover {
     cursor: pointer;
