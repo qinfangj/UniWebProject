@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import pageCss from './FacilityData.css';
+import css from './FacilityData.css';
 import commonCss from '../../styles/common.css';
 
 import LeftMenu from '../Layout/LeftMenu';
@@ -19,14 +19,14 @@ class FacilityData extends React.Component {
         let name = this.props.name;
         return (
             <LeftMenu>
-            <div className={pageCss.pageWrapper}>
+            <div className={css.pageWrapper}>
 
                 <div className={commonCss.fullwidth}>
-                    <div className={pageCss.title}>
+                    <div className={css.title}>
                         {this.props.title}
                     </div>
 
-                    <div className={pageCss.navbar}>
+                    <div className={css.navbar}>
                         <ul>
                             <li><Link to={`/data/${name}/list`}>{"All "+ name}</Link></li>
                             <li> · </li>

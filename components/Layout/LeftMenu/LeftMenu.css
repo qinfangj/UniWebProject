@@ -1,20 +1,25 @@
 
 @import '../../../styles/common.css';
 
+.leftMenu {
+    width: 100%;
+}
+
 .leftSide {
     float: left;
     width: var(--main-logo-width);
     height: 100%;
     padding-top: 15px;
     padding-bottom: 50px;
-    margin: -20px 30px 30px -32px;
+    margin: -20px 30px 30px -15px;
     box-shadow: 10px 0 10px -10px #ccc;
 }
 .rightSide {
     margin-left: var(--main-logo-width);
-    width: auto;
+    width: calc(100% - var(--main-logo-width));
 }
 .rightSideReset {
+    width: 100%;
 }
 
 .divider {

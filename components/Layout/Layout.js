@@ -27,19 +27,19 @@ class Layout extends React.Component {
     render() {
 
         return (
-            <div>
+            <div className={commonCss.fullwidth}>
                 <div className={css.mainLogoButton} onClick={() => store.dispatch(toggleSidebar(true))}>
                     <img src={require("../../public/images/uhts_logo5-min.png")} height="60px" />
                 </div>
                 <ResponsiveSidebar>
 
-                <div>
+                <div className={commonCss.fullwidth}>
                     <Header />
 
                     <div className={cx("container", css.pageContent)}>
 
-                        <div className={cx("row")}>
-                            <div className={cx("col-sm-12", css.column2, commonCss.fullheight)}>
+                        <div className={cx("row", commonCss.fullwidth)}>
+                            <div className={cx("col-sm-12", css.column2)}>
 
                                 {/* Here comes what a page puts between <Layout></Layout> */}
                                 <div {...this.props} className={cx(this.props.className)} />

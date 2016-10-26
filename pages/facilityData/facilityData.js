@@ -10,7 +10,7 @@ class ProjectsListRoute extends React.Component {
 
     render() {
         return (
-            <Layout className={pagesCss.content}>
+            <Layout>
                 <FacilityDataHome />
             </Layout>
         );
