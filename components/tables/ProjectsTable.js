@@ -44,6 +44,8 @@ class ProjectsTable extends React.Component {
      */
     componentWillUpdate() {
         this.api.doLayout();  // recalculate layout to fill the container div
+    }
+    componentDidUpdate() {
         this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
     }
 
