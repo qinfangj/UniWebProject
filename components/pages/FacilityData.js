@@ -18,7 +18,7 @@ class FacilityData extends React.Component {
     render() {
         let name = this.props.name;
         return (
-            <LeftMenu>
+            /*<LeftMenu>*/
             <div className={css.pageWrapper}>
 
                 <div className={commonCss.fullwidth}>
@@ -41,7 +41,7 @@ class FacilityData extends React.Component {
                 </div>
 
             </div>
-            </LeftMenu>
+            /*</LeftMenu>*/
         );
     }
 

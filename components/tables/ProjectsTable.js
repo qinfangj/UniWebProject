@@ -13,7 +13,7 @@ import Dimensions from 'react-dimensions';
 class ProjectsTable extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {data: []};
+        this.state = {data: [], renderme: false};
         this.storeKey = "projectsList";
     }
 
@@ -23,6 +23,7 @@ class ProjectsTable extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
+            console.debug("RECEIVE DATA")
             let data = store.getState().async[this.storeKey];
             this.setState({ data });
         });
@@ -32,13 +33,9 @@ class ProjectsTable extends React.Component {
         this.unsubscribe();
     }
     componentDidUpdate() {
-        console.debug(this.state.data.length)
         console.debug("GRID UPDATE")
-        this.api.sizeColumnsToFit();
-    }
-
-    componentDidMount() {
-        this.api.sizeColumnsToFit();
+        this.api.doLayout();  // recalculate layout to fill the container div
+        this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
     }
 
     getFakeData() {
@@ -46,10 +43,15 @@ class ProjectsTable extends React.Component {
         this.setState({ data });
     }
 
+    onResize() {
+
+    }
+
     onGridReady(params) {
+        console.debug("GRID READY")
         this.api = params.api;
         this.columnApi = params.columnApi;
-        this.api.sizeColumnsToFit();
+        //this.api.sizeColumnsToFit();
     }
 
     render() {
@@ -59,6 +61,7 @@ class ProjectsTable extends React.Component {
         let width = this.props.containerWidth;
         let height = this.props.containerHeight;
         console.debug(width, height)
+        if (!data) return null;
         return (
             <div style={{width: '100%'}}>
                 <div className="ag-bootstrap" style={{height: '400px', width: '100%'}}>
