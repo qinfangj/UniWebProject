@@ -1,20 +1,17 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import ReactDOM from 'react-dom';
 import css from './forms.css';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
 import Select from './elements/Select';
 import DatePicker from './elements/DatePicker';
+import TextArea from './elements/Textarea';
 import LabsList from './subcomponents/LabsList';
 import validators from './validators';
 import * as forms from './forms.js';
 
 import Form from 'react-bootstrap/lib/Form';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 
@@ -39,10 +36,6 @@ class ProjectInsertForm extends React.Component {
     }
 
     getFormValues() {
-        let value = (ref) => {
-            let v = ReactDOM.findDOMNode(ref).value.trim();
-            return v === "none" ? null : v;
-        };
         return {
             name: this._projectName.getValue(),
             person_id: this._personInCharge.getValue(),
@@ -52,7 +45,7 @@ class ProjectInsertForm extends React.Component {
             isControl: this._isControl.getValue(),
             user_meeting_date: this._userMeetingDate.getValue(),
             project_analysis_id: this._projectAnalysis.getValue(),
-            comment: value(this._comments),
+            comment: this._comment.getValue(),
         };
     }
 
@@ -98,7 +91,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="projectName" visibleName="Project name" required
+                        <TextField name="projectName" label="Project name" required
                                    missing = {!!this.state.missing["name"]}
                                    invalid = {!!this.state.invalid["name"]}
                                    ref = {(c) => this._projectName = c}
@@ -109,27 +102,27 @@ class ProjectInsertForm extends React.Component {
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                    <LabsList ref={(c) => this._personInCharge = c} />
+                        <LabsList ref={(c) => this._personInCharge = c} />
                     </Col>
 
                     {/* Code name */}
 
                     <Col sm={4}>
-                    <TextField name="codeName" visibleName="Code name" required
-                               missing = {!!this.state.missing["code_name"]}
-                               invalid = {!!this.state.invalid["code_name"]}
-                               validator = {validators.codeNameValidator}
-                               helpMessage = "[name]_[initials] Ex: Tcells_EG."
-                               ref = {(c) => this._codeName = c}
-                               defaultValue="code_JD"
-                    />
+                        <TextField name="codeName" label="Code name" required
+                                   missing = {!!this.state.missing["code_name"]}
+                                   invalid = {!!this.state.invalid["code_name"]}
+                                   validator = {validators.codeNameValidator}
+                                   helpMessage = "[name]_[initials] Ex: Tcells_EG."
+                                   ref = {(c) => this._codeName = c}
+                                   defaultValue="code_JD"
+                        />
                     </Col>
 
                 </Form>
 
                 {/* Description */}
 
-                <TextField name="description" visibleName="Description"
+                <TextField name="description" label="Description"
                            defaultValue = "Enter description here"
                            validator = {validators.descriptionValidator}
                            invalid = {!!this.state.invalid["description"]}
@@ -141,42 +134,39 @@ class ProjectInsertForm extends React.Component {
                     {/* Project state */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Select name="project_state_id" visibleName="Project state"
-                            options={this.getProjectStatesList()}
-                            ref = {(c) => this._projectState = c}
+                        <Select name="project_state_id" label="Project state"
+                                options={this.getProjectStatesList()}
+                                ref = {(c) => this._projectState = c}
                         />
 
                         {/* Is control */}
 
-                        <CheckBox ref={(c) => this._isControl = c} label="Control Project" />
+                        <CheckBox ref={(c) => this._isControl = c} name="isControl" label="Control Project" />
+
                     </Col>
 
                     {/* User meeting date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker name="user_meeting_date" visibleName="User meeting date"
-                            ref={(c) => this._userMeetingDate = c}
+                        <DatePicker name="user_meeting_date" label="User meeting date"
+                                    ref={(c) => this._userMeetingDate = c}
                         />
                     </Col>
 
                     {/* Project analysis */}
 
                     <Col sm={4}>
-                        <Select name="project_analysis_id" visibleName="Project analysis"
-                            options={this.getProjectAnalysesList()}
-                            ref={(c) => this._projectAnalysis = c}
+                        <Select name="project_analysis_id" label="Project analysis"
+                                options={this.getProjectAnalysesList()}
+                                ref={(c) => this._projectAnalysis = c}
                         />
                     </Col>
 
                 </Form>
 
-                {/* Comments */}
+                {/* Comment */}
 
-                <FormGroup controlId="comments">
-                    <ControlLabel>Comments</ControlLabel>
-                    <FormControl componentClass="textarea" placeholder="Comments"
-                                 ref={(c) => this._comments = c} />
-                </FormGroup>
+                <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
 
                 {/* Submit */}
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+
 
 
 class CheckBox extends React.Component {
@@ -18,9 +20,11 @@ class CheckBox extends React.Component {
 
     render() {
         return (
-            <Checkbox onChange={this.onChange.bind(this)} value={this.state.checked} >
-                {this.props.label}
-            </Checkbox>
+            <FormGroup controlId={this.props.name} >
+                <Checkbox onChange={this.onChange.bind(this)} value={this.state.checked} >
+                    {this.props.label}
+                </Checkbox>
+            </FormGroup>
         );
     }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import ReactDOM from 'react-dom';
 import css from './forms.css';
 
 import TextField from './elements/TextField';
@@ -70,16 +69,16 @@ class GenomesInsertForm extends React.Component {
                     {/* Organism */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Select name="organism" visibleName="Organism"
-                            options={this.getOrganismsList()}
-                            ref={(c) => this._organism = c}
+                        <Select name="organism" label="Organism"
+                                options={this.getOrganismsList()}
+                                ref={(c) => this._organism = c}
                         />
                     </Col>
 
                     {/* Assembly */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="assembly" visibleName="Assembly" required
+                        <TextField name="assembly" label="Assembly" required
                                    missing = {!!this.state.missing["assembly"]}
                                    invalid = {!!this.state.invalid["assembly"]}
                                    ref = {(c) => this._assembly = c}
@@ -90,7 +89,7 @@ class GenomesInsertForm extends React.Component {
                     {/* Genome folder */}
 
                     <Col sm={4}>
-                        <TextField name="genomeFolder" visibleName="Genome folder" required
+                        <TextField name="genomeFolder" label="Genome folder" required
                                    missing = {!!this.state.missing["genome_folder"]}
                                    invalid = {!!this.state.invalid["genome_folder"]}
                                    ref = {(c) => this._genomeFolder = c}
@@ -104,7 +103,7 @@ class GenomesInsertForm extends React.Component {
                     {/* Url */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField name="url" visibleName="URL"
+                        <TextField name="url" label="URL"
                                    invalid = {!!this.state.invalid["url"]}
                                    ref = {(c) => this._url = c}
                                    defaultValue = "http://"
@@ -114,7 +113,7 @@ class GenomesInsertForm extends React.Component {
                     {/* Downloaded date */}
 
                     <Col sm={4}>
-                        <DatePicker name="downloaded_date" visibleName="Download date"
+                        <DatePicker name="downloaded_date" label="Download date"
                                     ref = {(c) => this._downloadedDate = c}
                         />
                     </Col>
@@ -124,7 +123,7 @@ class GenomesInsertForm extends React.Component {
 
                     {/* File names */}
 
-                    <TextField name="files" visibleName="File names"
+                    <TextField name="files" label="File names"
                                invalid = {!!this.state.invalid["files"]}
                                missing = {!!this.state.missing["files"]}
                                ref = {(c) => this._files = c}
@@ -137,7 +136,7 @@ class GenomesInsertForm extends React.Component {
                     {/* Comment */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField name="comment" visibleName="Comment"
+                        <TextField name="comment" label="Comment"
                                    invalid = {!!this.state.invalid["comment"]}
                                    ref = {(c) => this._comment = c}
                                    defaultValue = "!!"
@@ -147,19 +146,13 @@ class GenomesInsertForm extends React.Component {
                     {/* Is masked */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Col sm={2}>
-                            <FormGroup controlId="isMasked" >
-                                <CheckBox ref={(c) => this._isMasked = c} label="Masked" />
-                            </FormGroup>
-                        </Col>
+                        <CheckBox ref={(c) => this._isMasked = c} name="isMasked" label="Masked" />
                     </Col>
 
                     {/* Is achived */}
 
                     <Col sm={2}>
-                        <FormGroup controlId="isArchived" >
-                            <CheckBox ref={(c) => this._isArchived = c} label="Archived" />
-                        </FormGroup>
+                        <CheckBox ref={(c) => this._isArchived = c} name="isArchived" label="Archived" />
                     </Col>
 
                 </Form>

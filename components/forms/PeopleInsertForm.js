@@ -56,7 +56,7 @@ class ProjectInsertForm extends React.Component {
                     {/* First name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="firstName" visibleName="PI first name" required
+                        <TextField name="firstName" label="PI first name" required
                                    missing = {!!this.state.missing["first_name"]}
                                    invalid = {!!this.state.invalid["first_name"]}
                                    ref = {(c) => this._firstName = c}
@@ -67,7 +67,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Last name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="lastName" visibleName="PI last name" required
+                        <TextField name="lastName" label="PI last name" required
                                    missing = {!!this.state.missing["last_name"]}
                                    invalid = {!!this.state.invalid["last_name"]}
                                    ref = {(c) => this._lastName = c}
@@ -78,7 +78,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Email */}
 
                     <Col sm={4}>
-                        <TextField name="email" visibleName="PI email" required
+                        <TextField name="email" label="PI email" required
                                    missing = {!!this.state.missing["email"]}
                                    invalid = {!!this.state.invalid["email"]}
                                    ref = {(c) => this._email = c}
@@ -88,13 +88,12 @@ class ProjectInsertForm extends React.Component {
                     </Col>
 
                 </Form>
-
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Address */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField name="address" visibleName="PI address" required
+                        <TextField name="address" label="PI address" required
                                    missing = {!!this.state.missing["address"]}
                                    invalid = {!!this.state.invalid["address"]}
                                    ref = {(c) => this._address = c}
@@ -105,7 +104,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Phone */}
 
                     <Col sm={4}>
-                        <TextField name="phone" visibleName="PI phone" required
+                        <TextField name="phone" label="PI phone" required
                                    missing = {!!this.state.missing["phone"]}
                                    invalid = {!!this.state.invalid["phone"]}
                                    ref = {(c) => this._phone = c}

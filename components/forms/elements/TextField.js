@@ -32,7 +32,7 @@ class TextField extends React.Component {
         if (this.state.value === "" && nextProps.missing) {
             this.setState({
                 valid: false,
-                msg: this.props.visibleName + " is required.",
+                msg: this.props.label + " is required.",
                 status: "error",
             });
         } else if (nextProps.invalid) {
@@ -72,7 +72,7 @@ class TextField extends React.Component {
         let requireString = (this.props.required && !this.state.value) ? " (required)": "";
         return (
             <FormGroup controlId={this.props.name} validationState={this.state.status} >
-                <ControlLabel>{this.props.visibleName + requireString}</ControlLabel>
+                <ControlLabel>{this.props.label + requireString}</ControlLabel>
                 <FormControl
                     type="text"
                     value={this.state.value}
@@ -87,7 +87,7 @@ class TextField extends React.Component {
 }
 TextField.propTypes = {
     name: React.PropTypes.string.isRequired,
-    visibleName: React.PropTypes.string.isRequired,
+    label: React.PropTypes.string.isRequired,
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
     required: React.PropTypes.bool,
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting

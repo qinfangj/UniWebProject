@@ -26,10 +26,10 @@ class DatePicker extends React.Component {
     render() {
         return (
             <FormGroup controlId={this.props.name} >
-                <ControlLabel>{this.props.visibleName}</ControlLabel>
+                <ControlLabel>{this.props.label}</ControlLabel>
                 <FormControl
                     type="date"
-                    placeholder={this.props.visibleName}
+                    placeholder={this.props.label}
                     value={this.state.value}
                     onChange={this.onChange.bind(this)}
                 />
@@ -39,7 +39,7 @@ class DatePicker extends React.Component {
 }
 DatePicker.propTypes = {
     name: React.PropTypes.string.isRequired,
-    visibleName: React.PropTypes.string.isRequired,
+    label: React.PropTypes.string.isRequired,
     defaultValue: React.PropTypes.string,
 // maybe use later:
     required: React.PropTypes.bool,
