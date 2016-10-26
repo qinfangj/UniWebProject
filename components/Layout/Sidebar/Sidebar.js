@@ -12,7 +12,6 @@ import { Nav } from 'react-bootstrap/lib';
 class ResponsiveSidebar extends React.Component {
 
     constructor() {
-        console.debug("Construct")
         super();
         this.state = {
             open: true,
@@ -32,9 +31,7 @@ class ResponsiveSidebar extends React.Component {
     /* Make it responsive */
 
     componentWillMount() {
-        console.debug("Mounting")
         this.unsubscribe = store.subscribe(() => {
-            console.debug(555, this.getStoreState())
             this.setState(this.getStoreState());
         });
         const mql = window.matchMedia(`(min-width: 800px)`);
@@ -67,13 +64,10 @@ class ResponsiveSidebar extends React.Component {
      * Should update the store, too, but this component is the only listener.
      */
     onSetOpen(open) {
-        console.debug(999, open)
         store.dispatch(toggleSidebar(open));
-        //this.setState({open: open});
     }
 
     onSelect(key) {
-        console.debug("onSelect", key, this.isWide(), this.state.open)
         this.setState({
             activeKey: key,
         });
@@ -83,7 +77,6 @@ class ResponsiveSidebar extends React.Component {
     }
 
     render() {
-        console.debug("open?", this.state.open)
         /* For some reason everything falls apart if I put this in CSS instead. */
         const contentStyle = {
             height: '100%',

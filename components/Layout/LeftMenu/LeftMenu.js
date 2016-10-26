@@ -62,23 +62,21 @@ class LeftMenu extends React.Component {
         return (
             <div className={css.leftMenu}>
                 <div className={cx(css.leftSide)}>
-
                     <div className={css.title}>
                         Tables
                     </div>
-
                     <div className={css.divider} />
-
                     <Nav bsStyle="pills" stacked onSelect={this.onSelect.bind(this)} className={css.items} >
                         {items}
                     </Nav>
-
                 </div>
-
                 <div className={cx(css.rightSide)}>
-                    {this.props.children}
-                </div>
+                    <div className={css.rightSideReset}>
 
+                    {this.props.children}
+
+                    </div>
+                </div>
             </div>
         );
     }

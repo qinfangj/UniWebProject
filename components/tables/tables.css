@@ -1,5 +1,7 @@
 
-
+.tableContainer {
+    float: right;
+}
 .tableContainer > div {
     height: 36px;
 }
@@ -21,5 +23,5 @@
 .nrows {
     position: absolute;
     top: 100px;
-    left: 40px;
+    left: 190px;
 }

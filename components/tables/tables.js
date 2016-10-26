@@ -16,7 +16,7 @@ function renderCaret(direction) {
 class Nrows extends React.Component {
     static propTypes = {data: React.PropTypes.arrayOf(React.PropTypes.object)};
     render() {
-        return <div style={{position: "absolute", top: 100, left: 40}}>
+        return <div className={css.nrows}>
             {this.props.data ? this.props.data.length + " rows" : null}
         </div>;
     }
@@ -24,7 +24,8 @@ class Nrows extends React.Component {
 
 const bootstrapTableProps = {
     striped: true, hover: true, pagination: true, search: true,
-    tableHeaderClass: css.tableHeader, tableContainerClass: css.tableContainer,
+    tableContainerClass: css.tableContainer,
+    tableHeaderClass: css.tableHeader,
     headerStyle: {width: "auto", minWidth: "auto"},
     options: {sortOrder: "asc"},
 };

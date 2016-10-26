@@ -2,18 +2,19 @@
 @import '../../../styles/common.css';
 
 .leftSide {
-    /*background-color: #d6d6d6;*/
-    /*border-radius: 4px;*/
     float: left;
     width: var(--main-logo-width);
-    box-shadow: 10px 0 10px -10px #ccc;
     height: 100%;
     padding-top: 15px;
     padding-bottom: 50px;
-    margin: -20px 30px 30px -35px;
+    margin: -20px 30px 30px -32px;
+    box-shadow: 10px 0 10px -10px #ccc;
 }
 .rightSide {
-    float: left;
+    margin-left: var(--main-logo-width);
+    width: auto;
+}
+.rightSideReset {
 }
 
 .divider {
