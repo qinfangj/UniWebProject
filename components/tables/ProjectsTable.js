@@ -6,7 +6,7 @@ import * as actions from '../actions/actionCreators/asyncActionCreators';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {AgGridReact} from 'ag-grid-react';
-
+import Dimensions from 'react-dimensions';
 
 
 
@@ -56,6 +56,9 @@ class ProjectsTable extends React.Component {
         console.debug("RENDER")
         let data = this.state.data;
         tables.checkData(data);
+        let width = this.props.containerWidth;
+        let height = this.props.containerHeight;
+        console.debug(width, height)
         return (
             <div style={{width: '100%'}}>
                 <div className="ag-bootstrap" style={{height: '400px', width: '100%'}}>
@@ -66,7 +69,7 @@ class ProjectsTable extends React.Component {
                             [{
                                 headerName: "ID",
                                 field: "id",
-                                width: 200,
+                                width: 40,
                             },{
                                 headerName: "Name",
                                 field: "name",
@@ -97,4 +100,4 @@ class ProjectsTable extends React.Component {
 }
 
 
-export default ProjectsTable;
+export default Dimensions()(ProjectsTable);

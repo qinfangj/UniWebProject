@@ -61,16 +61,12 @@ class ResponsiveSidebar extends React.Component {
 
     /**
      * Toggle open/close through component's onSetOpen special event.
-     * Should update the store, too, but this component is the only listener.
      */
     onSetOpen(open) {
         store.dispatch(toggleSidebar(open));
     }
 
-    onSelect(key) {
-        this.setState({
-            activeKey: key,
-        });
+    onSelect() {
         if (this.state.open && !this.isWide()) {
             store.dispatch(toggleSidebar(false));
         }
@@ -84,9 +80,9 @@ class ResponsiveSidebar extends React.Component {
             backgroundColor: 'white',
             marginTop: '60px',
         };
-        let activeKey = this.state.activeKey || window.location.pathname;
+        let path = window.location.pathname;
         let menuItems = [
-            { text: "Home", to: "/", },
+            { text: "Home", to: "/home", },
             { text: "Facility data", to: "/data", },
             { text: "User data", to: "/userData", disabled: true },
             { text: "Tracking", to: "/tracking", disabled: true },
@@ -96,9 +92,10 @@ class ResponsiveSidebar extends React.Component {
         ];
         let items = menuItems.map((items, i) => {
             let {text, to, ...props} = items;
+            let active = path.includes(to);
             return (
-                <NavLink to={to} active={activeKey===to} {...props} key={i}
-                         className={activeKey===to ? css.active : null}>
+                <NavLink to={to} active={active} {...props} key={i}
+                         className={active ? css.active : null}>
                     {text}
                 </NavLink>
             );

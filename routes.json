@@ -3,6 +3,10 @@
         "path": "/",
         "page": "./pages/home/index.js"
     },
+    {
+        "path": "/home",
+        "page": "./pages/home/index.js"
+    },
 
     {
         "path": "/data",
