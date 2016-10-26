@@ -2,6 +2,7 @@
 import React from 'react';
 import cx from 'classnames';
 import css from './index.css';
+import pagesCss from '../pages.css';
 
 import Layout from '../../components/Layout';
 
@@ -14,7 +15,7 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <Layout className={css.content}>
+      <Layout className={pagesCss.content}>
 
         <h1>Welcome to the Lausanne Genomic Technologies Facility!</h1>
 

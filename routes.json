@@ -6,7 +6,7 @@
 
     {
         "path": "/data",
-        "page": "./pages/facilityData/projects/index.js"
+        "page": "./pages/facilityData/home.js"
     },
     {
         "path": "/data/projects",
