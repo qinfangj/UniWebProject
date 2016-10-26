@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './tables.css';
+import cx from 'classnames';
 import store from '../../core/store';
 import * as tables from './tables.js';
 import * as actions from '../actions/actionCreators/asyncActionCreators';
@@ -7,13 +8,18 @@ import * as actions from '../actions/actionCreators/asyncActionCreators';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {AgGridReact} from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
+import FormControl from 'react-bootstrap/lib/FormControl';
 
 
 
 class ProjectsTable extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {data: [], renderme: false};
+        this.state = {
+            data: [],
+            searchValue: "",
+            renderme: false,
+        };
         this.storeKey = "projectsList";
     }
 
@@ -23,7 +29,6 @@ class ProjectsTable extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            console.debug("RECEIVE DATA")
             let data = store.getState().async[this.storeKey];
             this.setState({ data });
         });
@@ -38,15 +43,20 @@ class ProjectsTable extends React.Component {
      * and container sizes change in unpredictable manner.
      */
     componentWillUpdate() {
-        console.debug("GRID WILL UPDATE")
         this.api.doLayout();  // recalculate layout to fill the container div
         this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
     }
 
     onGridReady(params) {
-        console.debug("GRID READY")
         this.api = params.api;
         this.columnApi = params.columnApi;
+    }
+
+    onSearch(e) {
+        let value = e.target.value;
+        console.debug("Search for value", value);
+        this.api.setQuickFilter(value);
+        this.setState({searchValue: value});
     }
 
     getFakeData() {
@@ -55,21 +65,27 @@ class ProjectsTable extends React.Component {
     }
 
     render() {
-        console.debug("RENDER")
         let data = this.state.data;
         if (!data) return null;
         tables.checkData(data);
         return (
             <div style={{width: '100%'}}>
+                <FormControl type="text" placeholder="Search" className={css.searchField}
+                    value={this.state.searchValue}
+                    onChange={this.onSearch.bind(this)}
+                />
+                <div className="clearfix"/>
                 <div className="ag-bootstrap" style={{height: '400px', width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}
                         rowData={data}
+                        enableFilter={true}
+                        enableSorting={true}
                         columnDefs={
                             [{
                                 headerName: "ID",
                                 field: "id",
-                                width: 40,
+                                width: 60,
                             },{
                                 headerName: "Name",
                                 field: "name",

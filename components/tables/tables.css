@@ -1,4 +1,6 @@
 
+/* BS */
+
 .tableContainer {
 }
 .tableContainer > div {
@@ -19,8 +21,21 @@
     color: #ccc;
 }
 
+/* Ag-grid */
+
+.agTableContainer {
+}
+.clearfix {
+    clear: both;
+}
+
 .nrows {
     position: absolute;
     top: 100px;
     left: 30px;
+}
+
+.searchField {
+    float: right;
+    width: 250px;
 }
