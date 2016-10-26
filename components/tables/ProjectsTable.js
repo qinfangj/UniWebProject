@@ -32,10 +32,21 @@ class ProjectsTable extends React.Component {
     componentWillUnmount() {
         this.unsubscribe();
     }
-    componentDidUpdate() {
-        console.debug("GRID UPDATE")
+    /**
+     * Need to update columns width here, just before rendering, and not in `onGridReady`
+     * as the docs suggest, because `onGridReady` happens before data arrives
+     * and container sizes change in unpredictable manner.
+     */
+    componentWillUpdate() {
+        console.debug("GRID WILL UPDATE")
         this.api.doLayout();  // recalculate layout to fill the container div
         this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
+    }
+
+    onGridReady(params) {
+        console.debug("GRID READY")
+        this.api = params.api;
+        this.columnApi = params.columnApi;
     }
 
     getFakeData() {
@@ -43,25 +54,11 @@ class ProjectsTable extends React.Component {
         this.setState({ data });
     }
 
-    onResize() {
-
-    }
-
-    onGridReady(params) {
-        console.debug("GRID READY")
-        this.api = params.api;
-        this.columnApi = params.columnApi;
-        //this.api.sizeColumnsToFit();
-    }
-
     render() {
         console.debug("RENDER")
         let data = this.state.data;
-        tables.checkData(data);
-        let width = this.props.containerWidth;
-        let height = this.props.containerHeight;
-        console.debug(width, height)
         if (!data) return null;
+        tables.checkData(data);
         return (
             <div style={{width: '100%'}}>
                 <div className="ag-bootstrap" style={{height: '400px', width: '100%'}}>
@@ -96,7 +93,8 @@ class ProjectsTable extends React.Component {
                     </AgGridReact>
                 </div>
 
-                {/*<tables.Nrows data={data} />*/}
+                <tables.Nrows data={data} />
+
             </div>
         );
     }
