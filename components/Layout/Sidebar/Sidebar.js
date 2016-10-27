@@ -20,6 +20,7 @@ class ResponsiveSidebar extends React.Component {
             mql: {},
             transitions: false,
             activeKey: "/",
+            submenuOpen: true,
         };
     }
 
@@ -67,7 +68,9 @@ class ResponsiveSidebar extends React.Component {
         store.dispatch(toggleSidebar(open));
     }
 
-    onSelect() {
+    onSelect(active) {
+        console.debug("SIDEBAR ON SELECT", active)
+        this.setState({submenuOpen: active ? !this.state.submenuOpen : true});
         if (this.state.open && !this.isWide()) {
             store.dispatch(toggleSidebar(false));
         }
@@ -76,7 +79,6 @@ class ResponsiveSidebar extends React.Component {
     render() {
         let path = this.state.activeKey;
         if (!path) return null;
-        console.debug("Sidebar activeKey:", this.state.activeKey)
         /* For some reason everything falls apart if I put this in CSS instead. */
         const contentStyle = {
             height: '100%',
@@ -108,24 +110,22 @@ class ResponsiveSidebar extends React.Component {
         let items = menuItems.map((items, i) => {
             let {text, to, elements, disabled, ...props} = items;
             let active = path.includes(to);
-            let subitems = !elements ? null : (
-                elements.map((elt, j) => {
-                    let active = path.includes(elt.to);
-                    return (<ListGroupItem key={j}>
-                        <Link to={elt.to}
-                              className={cx(css.submenuLink, active ? css.active : null, elt.disabled ? css.disabled : null)}
-                        >{elt.text}</Link>
-                    </ListGroupItem>);
-                })
-            );
+            let subitems = !elements ? null : elements.map((elt, j) => {
+                let active = path.includes(elt.to);
+                return (<ListGroupItem key={j}>
+                            <Link to={elt.to}
+                                  className={cx(css.submenuLink, active ? css.active : null, elt.disabled ? css.disabled : null)}
+                            >{elt.text}</Link>
+                        </ListGroupItem>);
+            });
             return (
-                <ListGroup onSelect={this.onSelect.bind(this)} className={css.items}>
+                <ListGroup onClick={this.onSelect.bind(this, active)} className={css.items}>
                     <ListGroupItem key={i}>
                         <Link to={to} {...props}
                             className={cx(css.menuLink, active ? css.active : null, disabled ? css.disabled : null)}>
                             {text}
                         </Link>
-                        { elements ?
+                        { (elements && this.state.submenuOpen) ?
                             <Collapse in={path.includes("/data")}>
                                 <ListGroup className={css.subitems}>
                                     {subitems}
@@ -141,13 +141,6 @@ class ResponsiveSidebar extends React.Component {
             <div style={contentStyle} className={css.content}>
                     {items}
                 <div className={css.divider} />
-
-                <Collapse in={path.includes("/data")}>
-                    <ListGroup>
-                        <ListGroupItem><Link to="/data/projects">Projects</Link></ListGroupItem>
-                        <ListGroupItem><Link to="/data/genomes">Genomes</Link></ListGroupItem>
-                    </ListGroup>
-                </Collapse>
 
                 {/*
                 <Collapse in={path=="/data"}>
