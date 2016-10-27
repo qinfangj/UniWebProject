@@ -31,22 +31,85 @@
     padding: 16px;
 }
 
+.items, .subitems {
+    border-radius: 0;
+    margin: 0;
+}
+
 .items li {
     text-align: center;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    padding: 0;
 }
 .items li + li {
     margin: 0;
 }
 .items li > a {
+    display: block;
     border-radius: 0;
-    padding: 20px 16px;
     color: black;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
 }
-.items li.active > a,
-.items li.active > a:hover,
-.items li.active > a:focus {
+.items .disabled,
+.items .disabled:hover,
+.items .disabled:focus {
+    pointer-events: none;
+    cursor: default;
+    color: var(--disabledGrey);
+}
+
+
+/* Main menu only */
+
+.items {
+    margin: 0;
+}
+.menuLink {
+    padding: 20px 16px;
+}
+.menuLink:hover {
+    border-radius: 0;
+    background-color: var(--lightGrey);
+    box-shadow: 0 0 25px 15px white inset;
+}
+.menuLink.active,
+.menuLink.active:hover,
+.menuLink.active:focus {
     background-color: var(--yellow);
     box-shadow: 0 0 25px 15px white inset;
     color: black;
 }
 
+/* Submenu only */
+
+.subitems {
+    padding: 10px 0;
+    background-color: var(--lightGrey);
+    height: 100%;
+}
+.subitems li {
+    background-color: var(--lightGrey);
+}
+.submenuLink {
+    text-align: left;
+    padding: 10px 20px;
+}
+.submenuLink:hover {
+    background-color: var(--grey);
+    box-shadow: 0 0 25px 15px var(--lightGrey) inset;
+    color: black;
+}
+.submenuLink.active,
+.submenuLink.active:hover,
+.submenuLink.active:focus {
+    /*
+    background-color: var(--yellow);
+    box-shadow: 0 0 25px 15px var(--lightGrey) inset;
+    color: black;
+    */
+    font-weight: bold;
+}

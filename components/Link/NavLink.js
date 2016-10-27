@@ -31,11 +31,13 @@ class NavLink extends React.Component {
             return;
         }
 
-        event.preventDefault();
+        //event.preventDefault();
 
         if (this.props.to) {
+            console.debug(1)
             history.push(this.props.to);
         } else {
+            console.debug(2)
             history.push({
                 pathname: event.currentTarget.pathname,
                 search: event.currentTarget.search,

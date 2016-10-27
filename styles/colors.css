@@ -2,5 +2,7 @@
 :root{
     --blue: #2266AA;
     --yellow: #fc0;
-    --lightGrey: #ccc;
+    --grey: #ccc;
+    --lightGrey: #eee;
+    --disabledGrey: #777;
 }

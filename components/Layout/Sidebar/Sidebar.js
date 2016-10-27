@@ -6,7 +6,8 @@ import { toggleSidebar } from '../../actions/actionCreators/commonActionCreators
 
 import Sidebar from 'react-sidebar';
 import NavLink from '../../Link/NavLink';
-import { Nav } from 'react-bootstrap/lib';
+import Link from '../../Link/Link';
+import { Nav, Accordion, Panel, Collapse, ListGroup, ListGroupItem } from 'react-bootstrap/lib';
 
 
 class ResponsiveSidebar extends React.Component {
@@ -73,17 +74,31 @@ class ResponsiveSidebar extends React.Component {
     }
 
     render() {
+        let path = this.state.activeKey;
+        if (!path) return null;
+        console.debug("Sidebar activeKey:", this.state.activeKey)
         /* For some reason everything falls apart if I put this in CSS instead. */
         const contentStyle = {
             height: '100%',
             width: '152px',
             backgroundColor: 'white',
-            marginTop: '60px',
+            marginTop: '70px',
         };
-        let path = window.location.pathname;
+        let tables = [
+            { text: "Laboratories", to: "/data/people", },
+            { text: "Projects", to: "/data/projects", },
+            { text: "Samples", to: "/data/samples", disabled: true },
+            { text: "User requests", to: "/data/user_requests", disabled: true },
+            { text: "Libraries", to: "/data/libraries", disabled: true },
+            { text: "Bioanalysers", to: "/data/bioanalysers", disabled: true },
+            { text: "Runs", to: "/data/runs", disabled: true },
+            { text: "Base callings / demultiplexings", to: "/data/base_callings", disabled: true },
+            { text: "Alignments / QC", to: "/data/alignments", disabled: true },
+            { text: "Genomes", to: "/data/genomes" },
+        ];
         let menuItems = [
             { text: "Home", to: "/home", },
-            { text: "Facility data", to: "/data", },
+            { text: "Facility data", to: "/data", elements: tables },
             { text: "User data", to: "/userData", disabled: true },
             { text: "Tracking", to: "/tracking", disabled: true },
             { text: "Query projects", to: "/queryProjects", disabled: true },
@@ -91,22 +106,66 @@ class ResponsiveSidebar extends React.Component {
             { text: "Admin", to: "/admin", disabled: true },
         ];
         let items = menuItems.map((items, i) => {
-            let {text, to, ...props} = items;
+            let {text, to, elements, disabled, ...props} = items;
             let active = path.includes(to);
+            let subitems = !elements ? null : (
+                elements.map((elt, j) => {
+                    let active = path.includes(elt.to);
+                    return (<ListGroupItem key={j}>
+                        <Link to={elt.to}
+                              className={cx(css.submenuLink, active ? css.active : null, elt.disabled ? css.disabled : null)}
+                        >{elt.text}</Link>
+                    </ListGroupItem>);
+                })
+            );
             return (
-                <NavLink to={to} active={active} {...props} key={i}
-                         className={active ? css.active : null}>
-                    {text}
-                </NavLink>
+                <ListGroup onSelect={this.onSelect.bind(this)} className={css.items}>
+                    <ListGroupItem key={i}>
+                        <Link to={to} {...props}
+                            className={cx(css.menuLink, active ? css.active : null, disabled ? css.disabled : null)}>
+                            {text}
+                        </Link>
+                        { elements ?
+                            <Collapse in={path.includes("/data")}>
+                                <ListGroup className={css.subitems}>
+                                    {subitems}
+                                </ListGroup>
+                            </Collapse>
+                        : null}
+                    </ListGroupItem>
+                </ListGroup>
             );
         });
 
         let sidebarContents = (
             <div style={contentStyle} className={css.content}>
-                <Nav bsStyle="pills" stacked onSelect={this.onSelect.bind(this)} className={css.items}>
                     {items}
-                </Nav>
                 <div className={css.divider} />
+
+                <Collapse in={path.includes("/data")}>
+                    <ListGroup>
+                        <ListGroupItem><Link to="/data/projects">Projects</Link></ListGroupItem>
+                        <ListGroupItem><Link to="/data/genomes">Genomes</Link></ListGroupItem>
+                    </ListGroup>
+                </Collapse>
+
+                {/*
+                <Collapse in={path=="/data"}>
+                    <Nav className={css.items} onSelect={this.onSelect.bind(this)}>
+                        <NavLink to={"/data/genomes"} active={true}>AAA</NavLink>
+                        <NavLink to={"/data/projects"} active={true}>BBB</NavLink>
+                    </Nav>
+                </Collapse>
+
+                <Accordion >
+                    <Panel header="Facility data" eventKey="1">
+                        {items}
+                    </Panel>
+                    <Panel header="User data" eventKey="2">
+                        {items}
+                    </Panel>
+                </Accordion>
+                */}
             </div>
         );
 

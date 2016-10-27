@@ -10,7 +10,6 @@ function sendError(error) {
     };
 }
 
-
 function toggleSidebar(open) {
     return {
         type: actions.TOGGLE_SIDEBAR,
@@ -18,8 +17,22 @@ function toggleSidebar(open) {
     };
 }
 
+/**
+ * Navigate to new url
+ */
+function go_to(url) {
+    if (url) {
+        history.push(url);
+    }
+    return {
+        type: actions.GOTO,
+        url: url,
+    }
+}
+
 
 export {
     sendError,
     toggleSidebar,
+    go_to,
 };
