@@ -1,4 +1,6 @@
 
+@import '../../styles/override.css';
+
 /* BS */
 
 .tableContainer {
@@ -24,6 +26,7 @@
 /* Ag-grid */
 
 .agTableContainer {
+    padding-top: 15px;
 }
 .clearfix {
     clear: both;
@@ -31,7 +34,7 @@
 
 .nrows {
     position: absolute;
-    top: 100px;
+    top: 105px;
     left: 30px;
 }
 

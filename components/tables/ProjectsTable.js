@@ -11,7 +11,6 @@ import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
 
-
 class ProjectsTable extends React.Component {
     constructor(props) {
         super(props);
@@ -77,12 +76,14 @@ class ProjectsTable extends React.Component {
                     onChange={this.onSearch.bind(this)}
                 />
                 <div className="clearfix"/>
-                <div className="ag-bootstrap" style={{height: '400px', width: '100%'}}>
+                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '400px', width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}
                         rowData={data}
                         enableFilter={true}
                         enableSorting={true}
+                        //rowModelType='pagination'
+                        //paginationPageSize={50}
                         columnDefs={
                             [{
                                 headerName: "ID",

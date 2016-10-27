@@ -1,0 +1,12 @@
+
+:global(.ag-cell) {
+    outline: none;
+}
+:global(.ag-cell-focus) {
+    border: none;
+    outline: none;
+}
+:global(.ag-cell:focus) {
+    border: none;
+    outline: none;
+}
