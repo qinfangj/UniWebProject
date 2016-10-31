@@ -5,13 +5,13 @@ import FacilityData from '../../../components/pages/FacilityData';
 import CommonTable from '../../../components/tables/CommonTable';
 
 
-class ProjectsListRoute extends React.Component {
+class ProjectsActiveRoute extends React.Component {
 
     render() {
         return (
             <Layout className={css.fulldim}>
-                <FacilityData title="Projects" name="projects" content={
-                    <CommonTable activeOnly={false} name="projects" />
+                <FacilityData title="Samples" name="samples" content={
+                    <CommonTable activeOnly={true} name="samples" />
                 } />
             </Layout>
         );
@@ -19,4 +19,4 @@ class ProjectsListRoute extends React.Component {
 
 }
 
-export default ProjectsListRoute;
+export default ProjectsActiveRoute;

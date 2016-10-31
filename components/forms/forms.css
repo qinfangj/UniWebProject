@@ -1,7 +1,6 @@
 
-:global(.form-group) {
-    margin-bottom: 0;
-}
+@import '../../styles/override.css';
+
 
 .form {
     padding: 20px;

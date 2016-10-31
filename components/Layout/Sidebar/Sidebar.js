@@ -96,7 +96,7 @@ class ResponsiveSidebar extends React.Component {
         let tables = [
             { text: "Laboratories", to: "/data/people", },
             { text: "Projects", to: "/data/projects", },
-            { text: "Samples", to: "/data/samples", disabled: true },
+            { text: "Samples", to: "/data/samples", },
             { text: "User requests", to: "/data/user_requests", disabled: true },
             { text: "Libraries", to: "/data/libraries", disabled: true },
             { text: "Bioanalysers", to: "/data/bioanalysers", disabled: true },

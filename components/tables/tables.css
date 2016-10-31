@@ -1,32 +1,11 @@
 
 @import '../../styles/override.css';
 
-/* BS */
-
-.tableContainer {
-}
-.tableContainer > div {
-    height: 36px;
-}
-
-.tableHeader {
-}
-.tableHeader th {
-    background: #fc0;
-    border-bottom: none;
-}
-
-.sort, .sortUp, .sortDown {
-    margin-left: 5px;
-}
-.sort {
-    color: #ccc;
-}
 
 /* Ag-grid */
 
 .agTableContainer {
-    padding-top: 15px;
+    padding: 0 15px;
 }
 .clearfix {
     clear: both;
@@ -34,11 +13,37 @@
 
 .nrows {
     position: absolute;
-    top: 65px; /*105px;*/
-    left: 30px;
+    top: 90px;
+    left: 70px;
 }
 
 .searchField {
+    margin-top: -40px;
+    margin-bottom: 15px;
+    margin-right: 15px;
     float: right;
-    width: 250px;
+    width: 225px;
+}
+
+
+@media screen and (max-width: 1024px) {
+
+    .searchField {
+        margin-top: 0;
+    }
+    .nrows {
+        top: 135px;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+
+    .agTableContainer {
+        padding: 0;
+    }
+    .searchField {
+        margin-right: 0;
+    }
+
 }

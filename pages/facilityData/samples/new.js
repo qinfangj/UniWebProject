@@ -9,8 +9,8 @@ class ProjectsNew extends React.Component {
 
     render() {
         return (
-            <Layout className={css.fulldim}>
-                <FacilityData title="Projects" name="projects" content={
+            <Layout className={css.content}>
+                <FacilityData title="Samples" name="samples" content={
                     <ProjectInsertForm/>
                 } />
             </Layout>

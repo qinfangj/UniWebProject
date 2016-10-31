@@ -1,6 +1,16 @@
 
 @import './colors.css';
 
+
+/* BS */
+
+:global(.form-group) {
+    margin-bottom: 0;
+}
+
+
+/* Ag-grid */
+
 :global(.ag-cell) {
     outline: none;
 }

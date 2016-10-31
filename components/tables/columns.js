@@ -26,8 +26,8 @@ const columns = {
         },
     ],
     people: [
-        ID_COLUMN
-        ,{
+        ID_COLUMN,
+        {
             headerName: "PI name",
             field: "name",
         },{
@@ -39,8 +39,8 @@ const columns = {
         }
     ],
     genomes: [
-        ID_COLUMN
-        ,{
+        ID_COLUMN,
+        {
             headerName: "Organism",
             field: "organism",
         },{
@@ -55,6 +55,31 @@ const columns = {
         },{
             headerName: "Folder",
             field: "genome_folder",
+        },
+    ],
+    samples: [
+        ID_COLUMN,
+        {
+            headerName: "Short name",
+            field: "short_name",
+        },{
+            headerName: "Name",
+            field: "name",
+        },{
+            headerName: "Received date",
+            field: "received_date",
+        },{
+            headerName: "Type",
+            field: "sample_type",
+        },{
+            headerName: "Organism",
+            field: "organism",
+        },{
+            headerName: "Project",
+            field: "project",
+        },{
+            headerName: "Lab",
+            field: "laboratory",
         },
     ]
 };

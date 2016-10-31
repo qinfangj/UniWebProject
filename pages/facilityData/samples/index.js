@@ -9,9 +9,9 @@ class ProjectsListRoute extends React.Component {
 
     render() {
         return (
-            <Layout className={css.fulldim}>
-                <FacilityData title="Projects" name="projects" content={
-                    <CommonTable activeOnly={false} name="projects" />
+            <Layout className={css.content}>
+                <FacilityData title="Samples" name="samples" content={
+                    <CommonTable activeOnly={false} name="samples" />
                 } />
             </Layout>
         );

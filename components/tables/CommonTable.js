@@ -5,7 +5,7 @@ import store from '../../core/store';
 import * as tables from './tables.js';
 import * as actions from '../actions/actionCreators/asyncActionCreators';
 
-import {AgGridReact} from 'ag-grid-react';
+import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
@@ -62,6 +62,9 @@ class CommonTable extends React.Component {
     render() {
         let data = this.state.data;
         if (!data) return null;
+        if (!columns[this.props.name]) {
+            throw new ReferenceError("No columns definition found for table "+ this.props.name);
+        }
         tables.checkData(data);
         return (
             <div style={{width: '100%'}}>

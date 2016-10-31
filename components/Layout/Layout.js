@@ -40,7 +40,7 @@ class Layout extends React.Component {
                     <div className={cx("container", css.pageContent)}>
 
                         <div className={cx("row", commonCss.fullwidth)}>
-                            <div className={cx("col-sm-12", css.column2)}>
+                            <div className={cx(css.column2)}>
 
                                 {/* Here comes what a page puts between <Layout></Layout> */}
                                 <div {...this.props} className={cx(this.props.className)} />

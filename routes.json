@@ -51,6 +51,19 @@
         "path": "/data/genomes/new",
         "page": "./pages/facilityData/genomes/new.js"
     },
+    {
+        "path": "/data/samples",
+        "page": "./pages/facilityData/samples/index.js"
+    },{
+        "path": "/data/samples/list",
+        "page": "./pages/facilityData/samples/index.js"
+    },{
+        "path": "/data/samples/active",
+        "page": "./pages/facilityData/samples/active.js"
+    },{
+        "path": "/data/samples/new",
+        "page": "./pages/facilityData/samples/new.js"
+    },
 
     {
         "path": "/error",
