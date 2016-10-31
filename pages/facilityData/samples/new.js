@@ -2,7 +2,7 @@ import React from 'react';
 import css from '../../../styles/common.css';
 import Layout from '../../../components/Layout';
 import FacilityData from '../../../components/pages/FacilityData';
-import ProjectInsertForm from '../../../components/forms/ProjectInsertForm';
+import SamplesInsertForm from '../../../components/forms/SamplesInsertForm';
 
 
 class ProjectsNew extends React.Component {
@@ -11,7 +11,7 @@ class ProjectsNew extends React.Component {
         return (
             <Layout className={css.content}>
                 <FacilityData title="Samples" name="samples" content={
-                    <ProjectInsertForm/>
+                    <SamplesInsertForm/>
                 } />
             </Layout>
         );
