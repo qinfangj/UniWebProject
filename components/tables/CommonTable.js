@@ -49,7 +49,6 @@ class CommonTable extends React.Component {
     }
 
     onGridReady(params) {
-        console.warn(params)
         this.api = params.api;
         this.columnApi = params.columnApi;
     }
