@@ -1,8 +1,5 @@
 import React from 'react';
-import Link from '../Link';
 import css from './FacilityData.css';
-
-import LeftMenu from '../Layout/LeftMenu';
 
 
 class FacilityDataHome extends React.Component {
@@ -10,7 +7,7 @@ class FacilityDataHome extends React.Component {
     render() {
         return (
             <div>
-                <div className={css.title}>UHTS-LIMS database browser</div>
+                <div className={css.title}>Database browser</div>
                 <p>
                     This section allows you to browse the different table of the database and to enter new data into the database.
                     You can also:

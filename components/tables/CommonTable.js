@@ -5,13 +5,13 @@ import store from '../../core/store';
 import * as tables from './tables.js';
 import * as actions from '../actions/actionCreators/asyncActionCreators';
 
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {AgGridReact} from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import columns from './columns';
 
 
-class ProjectsTable extends React.Component {
+class CommonTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,19 +19,19 @@ class ProjectsTable extends React.Component {
             searchValue: "",
             renderme: false,
         };
-        this.storeKey = "projectsList";
     }
 
     static propTypes = {
+        name: React.PropTypes.string,  // columns key, store key, action key
         activeOnly: React.PropTypes.bool,
     };
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let data = store.getState().async[this.storeKey];
+            let data = store.getState().async[this.props.name];
             this.setState({ data });
         });
-        store.dispatch(actions.getProjectsListAsync(this.props.activeOnly));
+        store.dispatch(actions.getTableDataAsync(this.props.name, this.props.activeOnly));
     }
     componentWillUnmount() {
         this.unsubscribe();
@@ -49,20 +49,15 @@ class ProjectsTable extends React.Component {
     }
 
     onGridReady(params) {
+        console.warn(params)
         this.api = params.api;
         this.columnApi = params.columnApi;
     }
 
     onSearch(e) {
         let value = e.target.value;
-        console.debug("Search for value", value);
         this.api.setQuickFilter(value);
         this.setState({searchValue: value});
-    }
-
-    getFakeData() {
-        let data = require("./fakeProjects.json");
-        this.setState({ data });
     }
 
     render() {
@@ -76,38 +71,13 @@ class ProjectsTable extends React.Component {
                     onChange={this.onSearch.bind(this)}
                 />
                 <div className="clearfix"/>
-                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '400px', width: '100%'}}>
+                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}
                         rowData={data}
                         enableFilter={true}
                         enableSorting={true}
-                        //rowModelType='pagination'
-                        //paginationPageSize={50}
-                        columnDefs={
-                            [{
-                                headerName: "ID",
-                                field: "id",
-                                width: 60,
-                            },{
-                                headerName: "Name",
-                                field: "name",
-                                width: 200,
-                            },{
-                                headerName: "Code",
-                                field: "codeName",
-                                width: 200,
-                            },{
-                                headerName: "Description",
-                                field: "description",
-                                width: 200,
-                            },{
-                                headerName: "Author",
-                                field: "author",
-                                width: 200,
-                            },
-                            ]
-                        }
+                        columnDefs={columns[this.props.name]}
                     >
                     </AgGridReact>
                 </div>
@@ -120,4 +90,4 @@ class ProjectsTable extends React.Component {
 }
 
 
-export default Dimensions()(ProjectsTable);
+export default Dimensions()(CommonTable);

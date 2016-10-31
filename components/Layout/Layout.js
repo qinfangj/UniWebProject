@@ -21,6 +21,7 @@ import ResponsiveSidebar from './Sidebar';
 class Layout extends React.Component {
 
     constructor() {
+        console.debug("MAIN RECONSTRUCT")
         super();
     }
 

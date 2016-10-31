@@ -5,29 +5,41 @@ import store from '../../../core/store';
 import { toggleSidebar } from '../../actions/actionCreators/commonActionCreators';
 
 import Sidebar from 'react-sidebar';
-import NavLink from '../../Link/NavLink';
 import Link from '../../Link/Link';
-import { Nav, Accordion, Panel, Collapse, ListGroup, ListGroupItem } from 'react-bootstrap/lib';
+import { Collapse, ListGroup, ListGroupItem } from 'react-bootstrap/lib';
 
 
+/**
+ * Left menu sidebar.
+ * It is docked as long as the display is larger than 800px,
+ * and gets overlaid when the display is narrower.
+ * Since its elements are links that trigger route changes,
+ * they trigger actions instead of just updating the state:
+ * a route change will reconstruct the conponents.
+ */
 class ResponsiveSidebar extends React.Component {
 
     constructor() {
+        console.debug("CONSTRUCT SIDEBAR")
         super();
         this.state = {
             open: true,
             docked: true,
             mql: {},
             transitions: false,
-            activeKey: "/",
+            route: null,
             submenuOpen: true,
         };
     }
 
     getStoreState() {
-        let open = store.getState().common.sidebarOpen;
+        let storeState = store.getState().common;
+        let open = storeState.sidebarOpen;
         open = open === undefined ? true : open;
-        return { open };
+        let submenuOpen = storeState.sidebarSubmenuOpen;
+        let route = storeState.route;
+        route = route === undefined ? window.location.pathname : route;
+        return { open, submenuOpen, route };
     }
 
     /* Make it responsive */
@@ -38,11 +50,12 @@ class ResponsiveSidebar extends React.Component {
         });
         const mql = window.matchMedia(`(min-width: 800px)`);
         mql.addListener(this.mediaQueryChanged.bind(this));
+        let storeState = this.getStoreState();
         this.setState({
-            open: this.getStoreState().open,
+            open: storeState.open,
             mql: mql,
             docked: mql.matches,
-            activeKey: window.location.pathname,
+            route: storeState.route,
         });
     }
 
@@ -69,15 +82,17 @@ class ResponsiveSidebar extends React.Component {
     }
 
     onSelect(active) {
-        console.debug("SIDEBAR ON SELECT", active)
+        let open = active ? !this.state.submenuOpen : true;
         this.setState({submenuOpen: active ? !this.state.submenuOpen : true});
+        console.debug("SIDEBAR ON SELECT", {active: active, wasOpen: this.state.submenuOpen, willOpen: open})
         if (this.state.open && !this.isWide()) {
             store.dispatch(toggleSidebar(false));
         }
     }
 
     render() {
-        let path = this.state.activeKey;
+        console.debug(this.state.submenuOpen ? "OPEN" : "CLOSED")
+        let path = this.state.route;
         if (!path) return null;
         /* For some reason everything falls apart if I put this in CSS instead. */
         const contentStyle = {
@@ -119,9 +134,8 @@ class ResponsiveSidebar extends React.Component {
                         </ListGroupItem>);
             });
             return (
-                <ListGroup onClick={this.onSelect.bind(this, active)} className={css.items}>
                     <ListGroupItem key={i}>
-                        <Link to={to} {...props}
+                        <Link to={to} onClick={this.onSelect.bind(this, active)} {...props}
                             className={cx(css.menuLink, active ? css.active : null, disabled ? css.disabled : null)}>
                             {text}
                         </Link>
@@ -133,32 +147,15 @@ class ResponsiveSidebar extends React.Component {
                             </Collapse>
                         : null}
                     </ListGroupItem>
-                </ListGroup>
             );
         });
 
         let sidebarContents = (
             <div style={contentStyle} className={css.content}>
+                <ListGroup className={css.items}>
                     {items}
+                </ListGroup>
                 <div className={css.divider} />
-
-                {/*
-                <Collapse in={path=="/data"}>
-                    <Nav className={css.items} onSelect={this.onSelect.bind(this)}>
-                        <NavLink to={"/data/genomes"} active={true}>AAA</NavLink>
-                        <NavLink to={"/data/projects"} active={true}>BBB</NavLink>
-                    </Nav>
-                </Collapse>
-
-                <Accordion >
-                    <Panel header="Facility data" eventKey="1">
-                        {items}
-                    </Panel>
-                    <Panel header="User data" eventKey="2">
-                        {items}
-                    </Panel>
-                </Accordion>
-                */}
             </div>
         );
 

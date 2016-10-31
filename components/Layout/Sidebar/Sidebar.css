@@ -69,7 +69,7 @@
     margin: 0;
 }
 .menuLink {
-    padding: 20px 16px;
+    padding: 15px 16px;
 }
 .menuLink:hover {
     border-radius: 0;
@@ -96,7 +96,7 @@
 }
 .submenuLink {
     text-align: left;
-    padding: 10px 20px;
+    padding: 8px 20px;
 }
 .submenuLink:hover {
     background-color: var(--grey);

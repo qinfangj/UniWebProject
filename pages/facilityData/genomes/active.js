@@ -2,8 +2,7 @@ import React from 'react';
 import css from './styles.css';
 import Layout from '../../../components/Layout';
 import FacilityData from '../../../components/pages/FacilityData';
-
-import GenomesTable from '../../../components/tables/GenomesTable';
+import CommonTable from '../../../components/tables/CommonTable';
 
 
 class GenomesActiveRoute extends React.Component {
@@ -12,7 +11,7 @@ class GenomesActiveRoute extends React.Component {
         return (
             <Layout className={css.content}>
                 <FacilityData title="Genomes" name="genomes" content={
-                    <GenomesTable activeOnly={true}/>
+                    <CommonTable activeOnly={true} name="genomes" />
                 } />
             </Layout>
         );

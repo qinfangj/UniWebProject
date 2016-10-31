@@ -3,8 +3,7 @@ import React from 'react';
 import css from './styles.css';
 import Layout from '../../../components/Layout';
 import FacilityData from '../../../components/pages/FacilityData';
-
-import ProjectsTable from '../../../components/tables/ProjectsTable';
+import CommonTable from '../../../components/tables/CommonTable';
 
 
 class ProjectsActiveRoute extends React.Component {
@@ -13,7 +12,7 @@ class ProjectsActiveRoute extends React.Component {
         return (
             <Layout className={css.content}>
                 <FacilityData title="Projects" name="projects" content={
-                    <ProjectsTable activeOnly={true}/>
+                    <CommonTable activeOnly={true} name="projects" />
                 } />
             </Layout>
         );

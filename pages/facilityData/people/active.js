@@ -1,10 +1,8 @@
-
 import React from 'react';
 import css from './styles.css';
-
 import Layout from '../../../components/Layout';
 import FacilityData from '../../../components/pages/FacilityData';
-import PeopleTable from '../../../components/tables/PeopleTable';
+import CommonTable from '../../../components/tables/CommonTable';
 
 
 class PeopleActiveRoute extends React.Component {
@@ -13,7 +11,7 @@ class PeopleActiveRoute extends React.Component {
         return (
             <Layout className={css.content}>
                 <FacilityData title="Laboratories" name="people" content={
-                    <PeopleTable activeOnly={true}/>
+                    <CommonTable activeOnly={true} name="people" />
                 } />
             </Layout>
         );

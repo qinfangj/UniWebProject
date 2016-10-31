@@ -5,18 +5,18 @@ import restService from '../api/restService';
 import { sendError } from './commonActionCreators';
 
 
-function syncAction(type, status, response) {
-    return { type, status, response };
+function syncAction(type, status, response, args) {
+    return { type, status, response, args };
 }
 function asyncAction(type, action, args) {
     return dispatch => {
-        dispatch(syncAction(type, constants.PENDING, null));
+        dispatch(syncAction(type, constants.PENDING, null, args));
         return action(...args)
             .done(response => {
-                dispatch(syncAction(type, constants.SUCCESS, response));
+                dispatch(syncAction(type, constants.SUCCESS, response, args));
             })
             .fail(error => {
-                dispatch(syncAction(type, constants.ERROR, error))
+                dispatch(syncAction(type, constants.ERROR, error, args))
             })
         ;
     }
@@ -26,16 +26,8 @@ function getLabsListAsync() {
     return asyncAction(actions.GET_LABS_LIST, restService.getLabs, []);
 }
 
-function getProjectsListAsync(activeOnly) {
-    return asyncAction(actions.GET_PROJECTS_LIST, restService.specialSelect, ["projects", activeOnly]);
-}
-
-function getPeopleListAsync(activeOnly) {
-    return asyncAction(actions.GET_PEOPLE_LIST, restService.specialSelect, ["people", activeOnly]);
-}
-
-function getGenomesListAsync(activeOnly) {
-    return asyncAction(actions.GET_GENOMES_LIST, restService.specialSelect, ["genomes", activeOnly]);
+function getTableDataAsync(name, activeOnly) {
+    return asyncAction(actions.GET_TABLE_DATA, restService.specialSelect, [name, activeOnly]);
 }
 
 function insertAsync(table, formData) {
@@ -45,8 +37,6 @@ function insertAsync(table, formData) {
 
 export {
     getLabsListAsync,
-    getProjectsListAsync,
-    getPeopleListAsync,
-    getGenomesListAsync,
+    getTableDataAsync,
     insertAsync,
 };

@@ -10,6 +10,8 @@
 
 import React, { PropTypes } from 'react';
 import history from '../../core/history';
+import store from '../../core/store';
+import { go_to } from '../actions/actionCreators/commonActionCreators';
 
 
 class Link extends React.Component {
@@ -40,6 +42,7 @@ class Link extends React.Component {
 
     if (this.props.to) {
       history.push(this.props.to);
+      store.dispatch(go_to(this.props.to));
     } else {
       history.push({
         pathname: event.currentTarget.pathname,

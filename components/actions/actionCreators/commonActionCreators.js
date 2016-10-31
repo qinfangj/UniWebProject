@@ -17,13 +17,17 @@ function toggleSidebar(open) {
     };
 }
 
+function toggleSidebarSubmenu(open) {
+    return {
+        type: actions.TOGGLE_SIDEBAR_SUBMENU,
+        open: open,
+    };
+}
+
 /**
  * Navigate to new url
  */
 function go_to(url) {
-    if (url) {
-        history.push(url);
-    }
     return {
         type: actions.GOTO,
         url: url,
@@ -34,5 +38,6 @@ function go_to(url) {
 export {
     sendError,
     toggleSidebar,
+    toggleSidebarSubmenu,
     go_to,
 };
