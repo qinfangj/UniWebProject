@@ -20,7 +20,6 @@ import { Collapse, ListGroup, ListGroupItem } from 'react-bootstrap/lib';
 class ResponsiveSidebar extends React.Component {
 
     constructor() {
-        console.debug("CONSTRUCT SIDEBAR")
         super();
         this.state = {
             open: true,
@@ -91,7 +90,7 @@ class ResponsiveSidebar extends React.Component {
     }
 
     render() {
-        console.debug(this.state.submenuOpen ? "OPEN" : "CLOSED")
+        console.debug("submenu", this.state.submenuOpen ? "OPEN" : "CLOSED")
         let path = this.state.route;
         if (!path) return null;
         let tables = [

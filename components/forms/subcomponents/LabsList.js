@@ -38,7 +38,7 @@ class LabsList extends React.Component {
 
     getList() {
         return this.state.list.map(v => {
-            return <option value={v.id} key={v.id}>{v.first_name +""+ v.last_name}</option>;
+            return <option value={v.id} key={v.id}>{v.first_name +" "+ v.last_name}</option>;
         });
     }
 
