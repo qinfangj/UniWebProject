@@ -94,13 +94,6 @@ class ResponsiveSidebar extends React.Component {
         console.debug(this.state.submenuOpen ? "OPEN" : "CLOSED")
         let path = this.state.route;
         if (!path) return null;
-        /* For some reason everything falls apart if I put this in CSS instead. */
-        const contentStyle = {
-            height: '100%',
-            width: '152px',
-            backgroundColor: 'white',
-            marginTop: '70px',
-        };
         let tables = [
             { text: "Laboratories", to: "/data/people", },
             { text: "Projects", to: "/data/projects", },
@@ -150,8 +143,24 @@ class ResponsiveSidebar extends React.Component {
             );
         });
 
+        /* Styles are written in element.style so they need to be overwritten in JS, not CSS
+         * Here is what we can pass to Sidebar: https://github.com/balloob/react-sidebar#styles
+         */
+        const sidebarStyles = {
+            sidebar: {
+                //overflowY: 'visible',
+            },
+            content: {} // this one is the right side
+        };
+        /* Content of the sidebar (left side) */
+        const contentStyle = {
+            height: '100%',
+            width: '152px',
+            backgroundColor: 'white',
+            marginTop: '70px',
+        };
         let sidebarContents = (
-            <div style={contentStyle} className={css.content}>
+            <div style={contentStyle}>
                 <ListGroup className={css.items}>
                     {items}
                 </ListGroup>
@@ -162,8 +171,7 @@ class ResponsiveSidebar extends React.Component {
         return (
             <Sidebar
                 sidebarClassName={css.sidebar}
-                overlayClassName={css.overlay}
-                contentClassName={css.content}
+                styles={sidebarStyles}
                 sidebar={sidebarContents}
                 docked={this.state.docked}
                 open={this.state.open}
