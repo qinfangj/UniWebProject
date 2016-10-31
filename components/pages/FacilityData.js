@@ -2,8 +2,6 @@ import React from 'react';
 import cx from 'classnames';
 import css from './FacilityData.css';
 import commonCss from '../../styles/common.css';
-
-import LeftMenu from '../Layout/LeftMenu';
 import Link from '../../components/Link';
 
 

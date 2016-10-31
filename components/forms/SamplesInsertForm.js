@@ -85,23 +85,23 @@ class GenomesInsertForm extends React.Component {
 
                     {/* Name */}
 
-                    <Col sm={5} className={css.formCol}>
-                        <Select name="name" label="Name"
-                                ref={(c) => this._name = c}
+                    <Col sm={4} className={css.formCol}>
+                        <TextField name="name" label="Name"
+                                   ref={(c) => this._name = c}
                         />
                     </Col>
 
                     {/* Short name */}
 
-                    <Col sm={3} className={css.formCol}>
-                        <Select name="short_name" label="Short name"
-                                ref={(c) => this._shortName = c}
+                    <Col sm={2} className={css.formCol}>
+                        <TextField name="short_name" label="Short name"
+                                   ref={(c) => this._shortName = c}
                         />
                     </Col>
 
                     {/* Project */}
 
-                    <Col sm={4}>
+                    <Col sm={6}>
                         <Select name="project_id" label="Project"
                                 options={this.getProjectsList()}
                                 ref={(c) => this._project = c}
