@@ -1,6 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
+import _ from 'lodash';
 
 import { getLabsListAsync } from '../../actions/actionCreators/asyncActionCreators';
 
@@ -37,8 +38,8 @@ class LabsList extends React.Component {
     }
 
     getList() {
-        return this.state.list.map(v => {
-            return <option value={v.id} key={v.id}>{v.first_name +" "+ v.last_name}</option>;
+        return _.sortBy(this.state.list, (x) => {return x[1];}).map(v => {
+            return <option value={v.id} key={v.id}>{v.last_name +" "+ v.first_name}</option>;
         });
     }
 

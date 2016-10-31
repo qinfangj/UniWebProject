@@ -16,10 +16,10 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 
-class GenomesInsertForm extends React.Component {
+class SamplesInsertForm extends React.Component {
     constructor() {
         super();
-        this.table = "genomes";
+        this.table = "samples";
         this.required = ["name", "project_id", "organism", "taxo_id"];
         this.state = {
             missing: {},
@@ -39,8 +39,8 @@ class GenomesInsertForm extends React.Component {
             name: this._name.getValue(),
             short_name: this._shortName.getValue(),
             project_id: this._project.getValue(),
-            organism: this._organism.getValue(),
-            sample_type: this._sampleType.getValue(),
+            taxo_id: this._organism.getValue(),
+            sample_type_id: this._sampleType.getValue(),
             received_date: this._receivedDate.getValue(),
             quantif_method_id: this._quantification.getValue(),
             concentration: this._concentration.getValue(),
@@ -244,5 +244,5 @@ class GenomesInsertForm extends React.Component {
 }
 
 
-export default GenomesInsertForm;
+export default SamplesInsertForm;
 
