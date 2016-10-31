@@ -36,10 +36,10 @@ class ResponsiveSidebar extends React.Component {
         let storeState = store.getState().common;
         let open = storeState.sidebarOpen;
         open = open === undefined ? true : open;
-        let submenuOpen = storeState.sidebarSubmenuOpen;
+        //let submenuOpen = storeState.sidebarSubmenuOpen;
         let route = storeState.route;
         route = route === undefined ? window.location.pathname : route;
-        return { open, submenuOpen, route };
+        return { open, route };
     }
 
     /* Make it responsive */
