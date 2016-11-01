@@ -21,6 +21,8 @@ class ProjectInsertForm extends React.Component {
             missing: {},
             invalid: {},
             submissionError: false,
+            submissionSuccess: false,
+            submissionId: null,
         };
     }
 
@@ -34,6 +36,9 @@ class ProjectInsertForm extends React.Component {
         let formData = this.getFormValues();
         let newState = forms.submit(this.table, formData, this.required, this.formatFormData);
         this.setState(newState);
+        newState.submissionFuture.done((insertId) => {
+            this.setState({ submissionSuccess: true, submissionId: insertId });
+        });
     }
 
     getFormValues() {
@@ -50,6 +55,7 @@ class ProjectInsertForm extends React.Component {
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />
+                <forms.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
 
                 <Form componentClass="fieldset" horizontal>
 

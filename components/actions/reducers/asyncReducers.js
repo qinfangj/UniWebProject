@@ -18,6 +18,8 @@ let asyncReducers = (state = defaultState, action) => {
             return Object.assign(state, {[storeKey]: []});
         } else if (action.status === constants.SUCCESS) {
             return Object.assign(state, {[storeKey]: action.response});
+        } else if (action.status === constants.ERROR) {
+            return Object.assign(state, {[storeKey]: action.error});
         } else {
             return state;
         }
@@ -32,7 +34,7 @@ let asyncReducers = (state = defaultState, action) => {
             return returnList(action.args[0]);
 
         case types.INSERT:
-            return state;
+            return returnList(action.args[0]);
 
         default:
             return state;

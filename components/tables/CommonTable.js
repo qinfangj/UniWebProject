@@ -31,7 +31,8 @@ class CommonTable extends React.Component {
             let data = store.getState().async[this.props.name];
             this.setState({ data });
         });
-        store.dispatch(actions.getTableDataAsync(this.props.name, this.props.activeOnly));
+        store.dispatch(actions.getTableDataAsync(this.props.name, this.props.activeOnly))
+        .fail(() => console.error("getTableDataAsync() failed to load data."));
     }
     componentWillUnmount() {
         this.unsubscribe();

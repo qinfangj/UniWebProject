@@ -18,6 +18,7 @@ class GenericForm extends React.Component {
             missing: {},
             invalid: {},
             submissionError: false,
+            submissionSuccessful: false,
         };
     }
 
@@ -28,11 +29,17 @@ class GenericForm extends React.Component {
         getFormValues: React.PropTypes.func.isRequired,
     };
 
+    // componentWillMount() {
+    //     this.unsubscribe = store.subscribe(() => {
+    //         let data = store.getState().async[this.props.table];
+    //     });
+    // }
+
     /**
-     * Close the error message window.
+     * Close the error/success message window.
      */
     discardErrorMessage() {
-        this.setState({submissionError: false});
+        this.setState({submissionError: false, submissionSuccessful: false});
     }
 
     onSubmit() {
@@ -44,10 +51,12 @@ class GenericForm extends React.Component {
         if (invalidFields.length !== 0) {
             let missing = _.zipObject(nullFields, new Array(nullFields.length).fill(true));
             let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
-            this.setState({missing, invalid, submissionError: true});
+            this.setState({missing, invalid, submissionError: true, submissionSuccessful: false});
         } else {
+            console.debug(22)
             this.setState({missing: {}, invalid: {}, submissionError: false});
-            store.dispatch(insertAsync(this.props.table, formData));
+            let r = store.dispatch(insertAsync(this.props.table, formData));
+            console.debug(r)
         }
     }
 
@@ -60,6 +69,13 @@ class GenericForm extends React.Component {
                 {this.state.submissionError ?
                     <Alert bsStyle="warning" onClick={this.discardErrorMessage.bind(this)}>
                         Some required fields are missing or ill-formatted. Please review the form and submit again.
+                        <span className={css.alertOk} onClick={this.discardErrorMessage.bind(this)}><a>OK</a></span>
+                    </Alert>
+                    : null}
+
+                {this.state.submissionSuccessful ?
+                    <Alert bsStyle="success" onClick={this.discardErrorMessage.bind(this)}>
+                        Submission successful.
                         <span className={css.alertOk} onClick={this.discardErrorMessage.bind(this)}><a>OK</a></span>
                     </Alert>
                     : null}

@@ -25,6 +25,8 @@ class GenomesInsertForm extends React.Component {
             missing: {},
             invalid: {},
             submissionError: false,
+            submissionSuccess: false,
+            submissionId: null,
         };
     }
 
@@ -32,6 +34,9 @@ class GenomesInsertForm extends React.Component {
         let formData = this.getFormValues();
         let newState = forms.submit(this.table, formData, this.required, null);
         this.setState(newState);
+        newState.submissionFuture.done((insertId) => {
+            this.setState({ submissionSuccess: true, submissionId: insertId });
+        });
     }
 
     getFormValues() {
@@ -62,6 +67,7 @@ class GenomesInsertForm extends React.Component {
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />
+                <forms.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
 
                 <Form componentClass="fieldset" horizontal>
 

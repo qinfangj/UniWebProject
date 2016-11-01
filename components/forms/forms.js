@@ -17,11 +17,11 @@ function submit(tableName, formData, required, formatFormData) {
         let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
         state = {missing, invalid, submissionError: true};
     } else {
-        state = {missing: {}, invalid: {}, submissionError: false};
         if (formatFormData) {
             formData = formatFormData(formData);
         }
-        store.dispatch(insertAsync(tableName, formData));
+        let future = store.dispatch(insertAsync(tableName, formData));
+        state = {missing: {}, invalid: {}, submissionError: false, submissionFuture: future};
     }
     return state;
 }
@@ -29,8 +29,9 @@ function submit(tableName, formData, required, formatFormData) {
 
 class SubmissionErrorMessage extends React.Component {
     state = { visible: this.props.error };
-    static propTypes = { error: React.PropTypes.bool };
-
+    static propTypes = {
+        error: React.PropTypes.bool.isRequired
+    };
     componentWillReceiveProps(newProps) {
         this.setState({visible: newProps.error});
     }
@@ -49,8 +50,33 @@ class SubmissionErrorMessage extends React.Component {
     }
 }
 
+class SubmissionSuccessfulMessage extends React.Component {
+    state = { visible: this.props.success };
+    static propTypes = {
+        success: React.PropTypes.bool.isRequired,
+        id: React.PropTypes.number,
+    };
+    componentWillReceiveProps(newProps) {
+        this.setState({visible: newProps.success});
+    }
+    discardErrorMessage() {
+        this.setState({visible: false});
+    }
+    render() {
+        if (this.state.visible) {
+            return (
+                <Alert bsStyle="success" onClick={this.discardErrorMessage.bind(this)}>
+                    {"Submission successful" + (this.props.id ? ` (#${this.props.id})` : '')}
+                    <span className={css.alertOk} onClick={this.discardErrorMessage.bind(this)}><a>OK</a></span>
+                </Alert>
+            );
+        } else return null;
+    }
+}
+
 
 export {
     submit,
     SubmissionErrorMessage,
+    SubmissionSuccessfulMessage,
 }

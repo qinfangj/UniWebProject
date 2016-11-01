@@ -20,11 +20,13 @@ class SamplesInsertForm extends React.Component {
     constructor() {
         super();
         this.table = "samples";
-        this.required = ["name", "project_id", "organism", "taxo_id"];
+        this.required = ["name", "short_name", "project_id", "organism", "taxo_id"];
         this.state = {
             missing: {},
             invalid: {},
             submissionError: false,
+            submissionSuccess: false,
+            submissionId: null,
         };
     }
 
@@ -32,6 +34,12 @@ class SamplesInsertForm extends React.Component {
         let formData = this.getFormValues();
         let newState = forms.submit(this.table, formData, this.required, null);
         this.setState(newState);
+        newState.submissionFuture.done((insertId) => {
+            this.setState({ submissionSuccess: true, submissionId: insertId });
+        }).fail(() =>{
+            console.warn("Uncaught form validation error");
+            this.setState({ submissionError: true });
+        });
     }
 
     getFormValues() {
@@ -80,28 +88,35 @@ class SamplesInsertForm extends React.Component {
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />
+                <forms.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
 
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="name" label="Name"
+                        <TextField name="name" label="Name" required
+                                   missing = {!!this.state.missing["name"]}
+                                   invalid = {!!this.state.invalid["name"]}
+                                   validator = {validators.mediumStringValidator}
                                    ref={(c) => this._name = c}
                         />
                     </Col>
 
                     {/* Short name */}
 
-                    <Col sm={2} className={css.formCol}>
-                        <TextField name="short_name" label="Short name"
+                    <Col sm={3} className={css.formCol}>
+                        <TextField name="short_name" label="Short name" required
+                                   missing = {!!this.state.missing["short_name"]}
+                                   invalid = {!!this.state.invalid["short_name"]}
+                                   validator = {validators.shortStringValidator}
                                    ref={(c) => this._shortName = c}
                         />
                     </Col>
 
                     {/* Project */}
 
-                    <Col sm={6}>
+                    <Col sm={5}>
                         <Select name="project_id" label="Project"
                                 options={this.getProjectsList()}
                                 ref={(c) => this._project = c}
@@ -152,7 +167,10 @@ class SamplesInsertForm extends React.Component {
                     {/* Concentration */}
 
                     <Col sm={3} className={css.formCol}>
-                        <TextField name="url" label="Concentration"
+                        <TextField name="url" label="Concentration" required
+                                   missing = {!!this.state.missing["concentration"]}
+                                   invalid = {!!this.state.invalid["concentration"]}
+                                   validator = {validators.numberValidator}
                                    ref = {(c) => this._concentration = c}
                         />
                     </Col>
@@ -160,7 +178,10 @@ class SamplesInsertForm extends React.Component {
                     {/* Volume */}
 
                     <Col sm={3} className={css.formCol}>
-                        <TextField name="url" label="Volume"
+                        <TextField name="url" label="Volume" required
+                                   missing = {!!this.state.missing["volume"]}
+                                   invalid = {!!this.state.invalid["volume"]}
+                                   validator = {validators.numberValidator}
                                    ref = {(c) => this._volume = c}
                         />
                     </Col>
@@ -168,7 +189,10 @@ class SamplesInsertForm extends React.Component {
                     {/* RIN */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="url" label="RIN"
+                        <TextField name="url" label="RIN" required
+                                   missing = {!!this.state.missing["rin"]}
+                                   invalid = {!!this.state.invalid["rin"]}
+                                   validator = {validators.numberValidator}
                                    ref = {(c) => this._rin = c}
                         />
                     </Col>
