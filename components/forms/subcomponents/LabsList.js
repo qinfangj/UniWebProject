@@ -4,11 +4,7 @@ import store from '../../../core/store';
 import _ from 'lodash';
 
 import { getLabsListAsync } from '../../actions/actionCreators/asyncActionCreators';
-
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-
+import Select from '../elements/Select';
 
 /**
  * Dropdown with available values for the person in charge.
@@ -21,42 +17,33 @@ class LabsList extends React.Component {
     }
 
     getValue() {
-        return parseInt(this.state.value);
+        console.debug("lab:", this._select.getValue())
+        return this._select.getValue();
     }
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let labsList = store.getState().async.labsList;
-            let value = labsList.length > 0 ? labsList[0].id : null;  // first one of the list
-            this.setState({ list: labsList, value: value });
+            let list = store.getState().async["labsList"];
+            let value = list.length > 0 ? list[0].id : null;  // first one of the list
+            this.setState({ list: list, value: value });
         });
         store.dispatch(getLabsListAsync());
     }
-
     componentWillUnmount() {
         this.unsubscribe();
     }
 
     getList() {
-        return _.sortBy(this.state.list, (x) => {return x[1];}).map(v => {
-            return <option value={v.id} key={v.id}>{v.last_name +" "+ v.first_name}</option>;
+        return _.sortBy(this.state.list, ["last_name", "first_name"]).map(v => {
+            return [v.id, v.last_name +" "+ v.first_name];
         });
-    }
-
-    onChange(e) {
-        this.setState({value: e.target.value});
     }
 
     render() {
         return (
-            <FormGroup controlId="personInCharge" >
-                <ControlLabel>Person in charge</ControlLabel>
-                <FormControl componentClass="select" placeholder="Person in charge"
-                             onChange={this.onChange.bind(this)}
-                >
-                    {this.getList()}
-                </FormControl>
-            </FormGroup>
+            <Select name="personInCharge" label="Laboratory" ref={(c) => {this._select = c;}}
+                options={this.getList()}
+            />
         );
     }
 

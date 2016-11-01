@@ -8,6 +8,7 @@ import Select from './elements/Select';
 import DatePicker from './elements/DatePicker';
 import TextArea from './elements/Textarea';
 import LabsList from './subcomponents/LabsList';
+import ProjectStatesList from './subcomponents/ProjectStatesList';
 import validators from './validators';
 import * as forms from './forms.js';
 
@@ -37,6 +38,9 @@ class ProjectInsertForm extends React.Component {
         this.setState(newState);
         newState.submissionFuture.done((insertId) => {
             this.setState({ submissionSuccess: true, submissionId: insertId });
+        }).fail(() =>{
+            console.warn("Uncaught form validation error");
+            this.setState({ submissionError: true });
         });
     }
 
@@ -52,24 +56,6 @@ class ProjectInsertForm extends React.Component {
             project_analysis_id: this._projectAnalysis.getValue(),
             comment: this._comment.getValue(),
         };
-    }
-
-    /**
-     * Available values for the project state dropdown.
-     */
-    getProjectStatesList() {
-        let values = [[1,"Ongoing"],[2,"Done"],[3,"Todo"]];
-        return values;
-
-        // displaydb($table, $args): select * from table
-        // sub _getProjectStates {
-        //     my $table = DBIinsert::displaydb('project_states',['id','state_order','name']);
-        //     my $table_mod;
-        //     for my $i (0..$#{$table}) {
-        //         $table_mod->[$i] = [$table->[$i]->[0], "$table->[$i]->[1] - $table->[$i]->[2]" ];
-        //     }
-        //     return $table_mod;
-        // }
     }
 
     /**
@@ -136,14 +122,11 @@ class ProjectInsertForm extends React.Component {
                 />
 
                 <Form componentClass="fieldset" horizontal>
-
-                    {/* Project state */}
-
                     <Col sm={4} className={css.formCol}>
-                        <Select name="project_state_id" label="Project state"
-                                options={this.getProjectStatesList()}
-                                ref = {(c) => this._projectState = c}
-                        />
+
+                        {/* Project state */}
+
+                        <ProjectStatesList ref={(c) => this._projectState = c} />
 
                         {/* Is control */}
 

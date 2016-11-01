@@ -22,14 +22,20 @@ function asyncAction(type, action, args) {
     }
 }
 
+/* Select options */
 function getLabsListAsync() {
     return asyncAction(actions.GET_LABS_LIST, restService.getLabs, []);
 }
+function getProjectStatesListAsync() {
+    return asyncAction(actions.GET_PROJECT_STATES_LIST, restService.getProjectStates, []);
+}
 
+/* Table data */
 function getTableDataAsync(name, activeOnly) {
     return asyncAction(actions.GET_TABLE_DATA, restService.specialSelect, [name, activeOnly]);
 }
 
+/* Inserts */
 function insertAsync(table, formData) {
     return asyncAction(actions.INSERT, restService.insert, [table, formData]);
 }
@@ -37,6 +43,8 @@ function insertAsync(table, formData) {
 
 export {
     getLabsListAsync,
+    getProjectStatesListAsync,
+
     getTableDataAsync,
     insertAsync,
 };

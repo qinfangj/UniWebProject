@@ -67,8 +67,7 @@ class SamplesInsertForm extends React.Component {
      * Available values for the project analysis dropdown.
      */
     getOrganismsList() {
-        let values = [[1,"Human"], [2,"Mouse"], [3,"Fly"]];
-        return values;
+        return [[1,"Human"], [2,"Mouse"], [3,"Fly"]];
         // DBIinsert::optiondisplaydbOrdered('taxonomies',['id','name'], ['name']);
     }
 

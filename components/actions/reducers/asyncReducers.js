@@ -1,13 +1,8 @@
-
 import types from '../actionTypes';
 import constants from '../../constants/constants';
 
 
-const defaultState = {
-};
-
-
-let asyncReducers = (state = defaultState, action) => {
+let asyncReducers = (state = {}, action) => {
 
     /**
      * All kinds of special backend async GET responses are handled the same way.
@@ -27,11 +22,19 @@ let asyncReducers = (state = defaultState, action) => {
 
     switch (action.type) {
 
+        /* Select options list */
         case types.GET_LABS_LIST:
             return returnList("labsList");
 
+        case types.GET_PROJECT_STATES_LIST:
+            return returnList("projectStatesList");
+
+        /* Table data */
+
         case types.GET_TABLE_DATA:
             return returnList(action.args[0]);
+
+        /* Inserts */
 
         case types.INSERT:
             return returnList(action.args[0]);

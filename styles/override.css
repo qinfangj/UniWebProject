@@ -4,10 +4,15 @@
 
 /* BS */
 
+/* Make forms more compact by removing margin between lines */
 :global(.form-group) {
     margin-bottom: 0;
 }
-
+/* For some reason different form components have different label margins */
+:global(.control-label) {
+    margin: 0;
+    padding-top: 7px;
+}
 
 /* Ag-grid */
 

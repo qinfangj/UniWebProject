@@ -2,15 +2,12 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 
-//import { getProjectStatesListAsync } from '../../actions/actionCreators/asyncActionCreators';
-
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import { getProjectStatesListAsync } from '../../actions/actionCreators/asyncActionCreators';
+import Select from '../elements/Select';
 
 
 /**
- * Dropdown with available values for the person in charge.
+ * Dropdown with available values for the project states.
  */
 class ProjectStatesList extends React.Component {
     constructor() {
@@ -20,14 +17,16 @@ class ProjectStatesList extends React.Component {
     }
 
     getValue() {
-        return parseInt(this.state.value);
+        return this._select.getValue();
     }
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            this.setState({ list: store.getState().forms.projectStatesList });
+            let list = store.getState().async["projectStatesList"];
+            let value = list.length > 0 ? list[0].id : null;  // first one of the list
+            this.setState({ list, value });
         });
-        //store.dispatch(getProjectStatesListAsync());
+        store.dispatch(getProjectStatesListAsync());
     }
 
     componentWillUnmount() {
@@ -36,24 +35,15 @@ class ProjectStatesList extends React.Component {
 
     getList() {
         return this.state.list.map(v => {
-            return <option value={v.id} key={v.id}>{v.name}</option>;
+            return [v.id, v.name];
         });
-    }
-
-    onChange(e) {
-        this.setState({value: e.target.value});
     }
 
     render() {
         return (
-            <FormGroup controlId="projectState" >
-                <ControlLabel>Project state</ControlLabel>
-                <FormControl componentClass="select" placeholder="Project state"
-                             onChange={this.onChange.bind(this)}
-                >
-                    {this.getList()}
-                </FormControl>
-            </FormGroup>
+            <Select name="projectState" label="Project state" ref={(c) => {this._select = c;}}
+                options={this.getList()}
+            />
         );
     }
 

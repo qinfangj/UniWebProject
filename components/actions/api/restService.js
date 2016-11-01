@@ -1,9 +1,10 @@
-
 import $ from 'jquery';
 const BACKEND = window.ENV.BACKEND_URL;
 
 
 class RestService {
+
+    /* Select options list */
 
     getLabs() {
         let url = BACKEND + "/table/people/labsList";
@@ -11,15 +12,19 @@ class RestService {
     }
 
     getProjectStates() {
-        let url = BACKEND + "/table/people/projectStatesList";
+        let url = BACKEND + "/table/project_states/projectStatesList";
         return $.get(url);
     }
+
+    /* Table data */
 
     specialSelect(tableName, activeOnly) {
         let mode = activeOnly ? "selactive" : "selall";
         let url = BACKEND + "/table/"+ tableName +"/"+ mode;
         return $.get(url);
     }
+
+    /* Inserts */
 
     insert(table, formData) {
         let url = BACKEND + "/table/"+table+"/insert";

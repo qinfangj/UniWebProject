@@ -80,7 +80,7 @@ class TextField extends React.Component {
                     placeholder={this.props.helpMessage}
                 />
                 <FormControl.Feedback />
-                <HelpBlock>{this.state.msg}</HelpBlock>
+                <HelpBlock bsClass={css.feedback}>{this.state.msg}</HelpBlock>
             </FormGroup>
         );
     }

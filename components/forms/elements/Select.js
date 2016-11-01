@@ -1,5 +1,5 @@
 import React from 'react';
-import css from '../forms.css';
+import _ from 'lodash';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -11,8 +11,25 @@ class Select extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.defaultValue,
+            value: this.defaultOption(props.options, props.defaultValue),
         };
+    }
+
+    /* Update the defaultValue option when new options are sent (after REST call). */
+    componentWillReceiveProps(newProps) {
+        this.setState({value: this.defaultOption(newProps.options, newProps.defaultValue)});
+    }
+
+    /* Return the n-th (first by defaultValue prop) option index to pass as input value. */
+    defaultOption(options, defaultValue) {
+        if (options.length == 0) {
+            return -1;  // bad value, but should never happen
+        } else if (Number.isInteger(defaultValue)) {
+            return options[defaultValue][0];
+        } else {
+            let res = options.filter((x) => { return x[1] === defaultValue; });
+            return res ? res[0][0] : -1;
+        }
     }
 
     getValue() {
@@ -20,7 +37,7 @@ class Select extends React.Component {
     }
 
     onChange(e) {
-        this.setState({value: e.target.value});
+        this.setState({value: parseInt(e.target.value)});
     }
 
     render() {
@@ -41,18 +58,20 @@ class Select extends React.Component {
         );
     }
 }
+
 Select.propTypes = {
-    name: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired,  // controlId
     label: React.PropTypes.string.isRequired,
     options: React.PropTypes.array.isRequired,  // an array of the type [[1,"yes"], [2,"no"], [3,"maybe"]]
-    defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+    defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),  // Id or name (not option index)
 // maybe use later:
     required: React.PropTypes.bool,
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting
     invalid: React.PropTypes.bool,  // field was found invalid when submitting
 };
+
 Select.defaultProps = {
-    defaultValue: 1,
+    defaultValue: 0,
 // maybe use later:
     required: false,
     missing: false,
