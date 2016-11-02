@@ -1,13 +1,7 @@
 
-backup/
 node_modules/
 public/index.html
 public/sitemap.xml
 public/dist/
 .idea
 .DS_Store
-.editorconfig
-
-
-database*
-firebase*
