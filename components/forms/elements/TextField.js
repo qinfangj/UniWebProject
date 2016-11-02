@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 
 /* React-bootstrap */
@@ -11,6 +12,7 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 class TextField extends React.Component {
     constructor(props) {
         super(props);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         let value = this.props.defaultValue;
         let res = this.validate(value);
         this.state = {

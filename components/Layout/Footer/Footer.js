@@ -1,6 +1,5 @@
-
 import React from 'react';
-import Link from '../../Link';
+import { Link } from 'react-router';
 import cx from 'classnames';
 import css from './Footer.css';
 

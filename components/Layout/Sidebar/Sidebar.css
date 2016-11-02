@@ -81,7 +81,7 @@
 /* Submenu only */
 
 .subitems {
-    padding: 10px 0;
+    margin: 10px 0;
     background-color: var(--lightGrey);
     height: 100%;
 }

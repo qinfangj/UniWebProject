@@ -19,6 +19,7 @@ import Col from 'react-bootstrap/lib/Col';
 class SamplesInsertForm extends React.Component {
     constructor() {
         super();
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "samples";
         this.required = ["name", "short_name", "project_id", "organism", "taxo_id"];
         this.state = {

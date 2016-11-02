@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import cx from 'classnames';
 import css from './Sidebar.css';
 import store from '../../../core/store';
@@ -21,6 +22,7 @@ class ResponsiveSidebar extends React.Component {
 
     constructor() {
         super();
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             open: true,
             docked: true,
@@ -86,7 +88,7 @@ class ResponsiveSidebar extends React.Component {
     }
 
     render() {
-        console.debug("submenu", this.state.submenuOpen ? "OPEN" : "CLOSED")
+        //console.debug("submenu", this.state.submenuOpen ? "OPEN" : "CLOSED")
         let path = window.location.pathname;
         if (!path) return null;
         let tables = [

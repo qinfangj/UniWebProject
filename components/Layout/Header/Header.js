@@ -1,9 +1,9 @@
 import React from 'react';
-import Link from '../../Link';
 import cx from 'classnames';
 import css from './Header.css';
 import commonCss from '../../../styles/common.css';
 
+import { Link } from 'react-router';
 import { Nav, NavItem } from 'react-bootstrap/lib';
 
 

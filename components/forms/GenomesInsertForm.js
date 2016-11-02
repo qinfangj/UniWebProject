@@ -18,6 +18,7 @@ import Col from 'react-bootstrap/lib/Col';
 class GenomesInsertForm extends React.Component {
     constructor() {
         super();
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "genomes";
         this.required = ["organism", "assembly", "genome_folder", "url",
             "downloaded_date", "files", "comment", "isMasked", "isArchived"];

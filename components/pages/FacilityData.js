@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import cx from 'classnames';
 import css from './FacilityData.css';
 import commonCss from '../../styles/common.css';
@@ -6,6 +7,10 @@ import { Link } from 'react-router';
 
 
 class FacilityData extends React.Component {
+    constructor() {
+        super();
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+    }
 
     static propTypes = {
         title: React.PropTypes.string.isRequired,  // the text displayed in the menu.

@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -10,6 +10,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 class Select extends React.Component {
     constructor(props) {
         super(props);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             value: this.defaultOption(props.options, props.defaultValue),
         };
