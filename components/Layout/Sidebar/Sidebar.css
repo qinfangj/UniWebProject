@@ -5,10 +5,8 @@
 .sidebar {
     background-color: white;
 }
-.overlay {
-}
-.content {
-}
+.overlay {}
+.content {}
 .divider {
     margin: 8px 16px;
     height: 1px;
@@ -25,11 +23,12 @@
     padding: 16px;
 }
 
+/* ListGroup */
 .items, .subitems {
     border-radius: 0;
     margin: 0;
 }
-
+/* ListGroupItem */
 .items li {
     text-align: center;
     border: none;
@@ -80,11 +79,17 @@
 
 /* Submenu only */
 
-.subitems {
-    margin: 10px 0;
-    background-color: var(--lightGrey);
+/* Because of <Collapse/> not liking paddings */
+.subitemsWrapper {
     height: 100%;
+    background-color: var(--lightGrey);
 }
+/* ListGroup */
+.subitems {
+    height: 100%;
+    padding: 10px 0;
+}
+/* ListGroupItem */
 .subitems li {
     background-color: var(--lightGrey);
 }

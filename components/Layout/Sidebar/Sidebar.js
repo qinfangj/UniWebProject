@@ -136,9 +136,11 @@ class ResponsiveSidebar extends React.Component {
                     </Link>
                     { elements ?
                         <Collapse in={active && this.state.submenuOpen}>
-                            <ListGroup className={css.subitems}>
-                                {subitems}
-                            </ListGroup>
+                            <div className={css.subitemsWrapper}>
+                                <ListGroup className={css.subitems}>
+                                    {subitems}
+                                </ListGroup>
+                            </div>
                         </Collapse>
                     : null}
                 </ListGroupItem>
