@@ -5,7 +5,7 @@ import store from '../../../core/store';
 import { toggleSidebar } from '../../actions/actionCreators/commonActionCreators';
 
 import Sidebar from 'react-sidebar';
-import Link from '../../Link/Link';
+import { Link } from 'react-router'
 import { Collapse, ListGroup, ListGroupItem } from 'react-bootstrap/lib';
 
 
@@ -25,8 +25,7 @@ class ResponsiveSidebar extends React.Component {
             open: true,
             docked: true,
             mql: {},
-            transitions: false,
-            route: null,
+            transitions: true,
             submenuOpen: true,
         };
     }
@@ -35,10 +34,7 @@ class ResponsiveSidebar extends React.Component {
         let storeState = store.getState().common;
         let open = storeState.sidebarOpen;
         open = open === undefined ? true : open;
-        //let submenuOpen = storeState.sidebarSubmenuOpen;
-        let route = storeState.route;
-        route = route === undefined ? window.location.pathname : route;
-        return { open, route };
+        return { open };
     }
 
     /* Make it responsive */
@@ -49,12 +45,10 @@ class ResponsiveSidebar extends React.Component {
         });
         const mql = window.matchMedia(`(min-width: 800px)`);
         mql.addListener(this.mediaQueryChanged.bind(this));
-        let storeState = this.getStoreState();
         this.setState({
-            open: storeState.open,
+            open: this.getStoreState().open,
             mql: mql,
             docked: mql.matches,
-            route: storeState.route,
         });
     }
 
@@ -75,23 +69,25 @@ class ResponsiveSidebar extends React.Component {
 
     /**
      * Toggle open/close through component's onSetOpen special event.
+     * It must use the store instead of state directly because there must be an
+     * external component to reopen the sidebar when closed.
      */
     onSetOpen(open) {
         store.dispatch(toggleSidebar(open));
     }
 
     onSelect(active) {
-        let open = active ? !this.state.submenuOpen : true;
-        this.setState({submenuOpen: active ? !this.state.submenuOpen : true});
-        console.debug("SIDEBAR ON SELECT", {active: active, wasOpen: this.state.submenuOpen, willOpen: open})
+        let newState = {submenuOpen: active ? !this.state.submenuOpen : true};
+        //console.debug("SIDEBAR ON SELECT", {active: active, wasOpen: this.state.submenuOpen, willOpen: open})
         if (this.state.open && !this.isWide()) {
-            store.dispatch(toggleSidebar(false));
+            this.onSetOpen(false);
         }
+        this.setState(newState);
     }
 
     render() {
         console.debug("submenu", this.state.submenuOpen ? "OPEN" : "CLOSED")
-        let path = this.state.route;
+        let path = window.location.pathname;
         if (!path) return null;
         let tables = [
             { text: "Laboratories", to: "/data/people", },
@@ -116,29 +112,34 @@ class ResponsiveSidebar extends React.Component {
         ];
         let items = menuItems.map((items, i) => {
             let {text, to, elements, disabled, ...props} = items;
+            //console.log(path, to, path.includes(to))
             let active = path.includes(to);
             let subitems = !elements ? null : elements.map((elt, j) => {
                 let active = path.includes(elt.to);
-                return (<ListGroupItem key={j}>
-                            <Link to={elt.to}
-                                  className={cx(css.submenuLink, active ? css.active : null, elt.disabled ? css.disabled : null)}
-                            >{elt.text}</Link>
-                        </ListGroupItem>);
+                return (
+                    <ListGroupItem key={j}>
+                        <Link to={elt.to}
+                              className={cx(css.submenuLink, active ? css.active : null,
+                                                             elt.disabled ? css.disabled : null)}
+                        >{elt.text}</Link>
+                    </ListGroupItem>
+                );
             });
             return (
-                    <ListGroupItem key={i}>
-                        <Link to={to} onClick={this.onSelect.bind(this, active)} {...props}
-                            className={cx(css.menuLink, active ? css.active : null, disabled ? css.disabled : null)}>
-                            {text}
-                        </Link>
-                        { (elements && this.state.submenuOpen) ?
-                            <Collapse in={path.includes("/data")}>
-                                <ListGroup className={css.subitems}>
-                                    {subitems}
-                                </ListGroup>
-                            </Collapse>
-                        : null}
-                    </ListGroupItem>
+                <ListGroupItem key={i}>
+                    <Link to={to} onClick={this.onSelect.bind(this, active)} {...props}
+                        className={cx(css.menuLink, active ? css.active : null,
+                                                    disabled ? css.disabled : null)}>
+                        {text}
+                    </Link>
+                    { elements ?
+                        <Collapse in={active && this.state.submenuOpen}>
+                            <ListGroup className={css.subitems}>
+                                {subitems}
+                            </ListGroup>
+                        </Collapse>
+                    : null}
+                </ListGroupItem>
             );
         });
 

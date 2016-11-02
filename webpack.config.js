@@ -17,7 +17,7 @@ const pkg = require('./package.json');
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
-const useHMR = !!global.HMR; // Hot Module Replacement (HMR)
+const useHMR = false; //!!global.HMR; // Hot Module Replacement (HMR)
 const babelConfig = Object.assign({}, pkg.babel, {
   babelrc: false,
   cacheDirectory: useHMR,
@@ -39,10 +39,6 @@ const config = {
     /* Material Design Lite (https://getmdl.io) */
     /*'!!style!css!react-mdl/extra/material.min.css',*/
     /*'react-mdl/extra/material.min.js',*/
-
-    /* Rect-bootstrap-table CSS */
-    '!!style!css!react-bootstrap-table/css/react-bootstrap-table.css',
-    'react-bootstrap-table/css/react-bootstrap-table.css',
 
     /* Ag-grid */
     '!!style!css!ag-grid/dist/styles/ag-grid.css',
@@ -111,7 +107,7 @@ const config = {
           path.resolve(__dirname, './pages'),
           path.resolve(__dirname, './main.js'),
         ],
-        loader: `babel-loader?${JSON.stringify(babelConfig)}`,
+        loaders: [`babel-loader?${JSON.stringify(babelConfig)}`,],
       },
       {
         test: /\.css/,
@@ -132,20 +128,7 @@ const config = {
       },
       {
         test: /\.json$/,
-        exclude: [
-          path.resolve(__dirname, './routes.json'),
-        ],
         loader: 'json-loader',
-      },
-      {
-        test: /\.json$/,
-        include: [
-          path.resolve(__dirname, './routes.json'),
-        ],
-        loaders: [
-          `babel-loader?${JSON.stringify(babelConfig)}`,
-          path.resolve(__dirname, './utils/routes-loader.js'),
-        ],
       },
       {
         test: /\.md$/,
@@ -221,7 +204,7 @@ if (!isDebug) {
 // Hot Module Replacement (HMR) + React Hot Reload
 if (isDebug && useHMR) {
   babelConfig.plugins.unshift('react-hot-loader/babel');
-  config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client');
+  config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true');
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
   config.plugins.push(new webpack.NoErrorsPlugin());
 }

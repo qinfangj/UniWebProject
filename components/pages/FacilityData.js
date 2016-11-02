@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import css from './FacilityData.css';
 import commonCss from '../../styles/common.css';
-import Link from '../../components/Link';
+import { Link } from 'react-router';
 
 
 class FacilityData extends React.Component {
@@ -16,7 +16,6 @@ class FacilityData extends React.Component {
     render() {
         let name = this.props.name;
         return (
-            /*<LeftMenu>*/
             <div className={css.pageWrapper}>
 
                 <div className={commonCss.fullwidth}>
@@ -39,7 +38,6 @@ class FacilityData extends React.Component {
                 </div>
 
             </div>
-            /*</LeftMenu>*/
         );
     }
 
