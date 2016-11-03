@@ -167,7 +167,7 @@ class SamplesInsertForm extends React.Component {
                     {/* Concentration */}
 
                     <Col sm={3} className={css.formCol}>
-                        <TextField name="url" label="Concentration" required
+                        <TextField name="concentration" label="Concentration" required
                                    missing = {!!this.state.missing["concentration"]}
                                    invalid = {!!this.state.invalid["concentration"]}
                                    validator = {validators.numberValidator}
@@ -178,7 +178,7 @@ class SamplesInsertForm extends React.Component {
                     {/* Volume */}
 
                     <Col sm={3} className={css.formCol}>
-                        <TextField name="url" label="Volume" required
+                        <TextField name="volume" label="Volume" required
                                    missing = {!!this.state.missing["volume"]}
                                    invalid = {!!this.state.invalid["volume"]}
                                    validator = {validators.numberValidator}
@@ -189,7 +189,7 @@ class SamplesInsertForm extends React.Component {
                     {/* RIN */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="url" label="RIN" required
+                        <TextField name="rin" label="RIN" required
                                    missing = {!!this.state.missing["rin"]}
                                    invalid = {!!this.state.invalid["rin"]}
                                    validator = {validators.numberValidator}

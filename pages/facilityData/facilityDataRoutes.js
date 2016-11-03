@@ -7,6 +7,7 @@ import ProjectInsertForm from '../../components/forms/ProjectInsertForm';
 import PeopleInsertForm from '../../components/forms/PeopleInsertForm';
 import GenomesInsertForm from '../../components/forms/GenomesInsertForm';
 import SamplesInsertForm from '../../components/forms/SamplesInsertForm';
+import LibrariesInsertForm from '../../components/forms/LibrariesInsertForm';
 
 
 class FacilityDataRoute extends React.Component {
@@ -115,6 +116,31 @@ class SamplesNewRoute extends React.Component {
 }
 
 
+class LibrariesListRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Libraries" name="libraries" content={
+            <CommonTable activeOnly={false} name="libraries" />
+        } />
+    );}
+}
+
+class LibrariesActiveRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Libraries" name="libraries" content={
+            <CommonTable activeOnly={true} name="libraries" />
+        } />
+    );}
+}
+
+class LibrariesNewRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Libraries" name="libraries" content={
+            <LibrariesInsertForm/>
+        } />
+    );}
+}
+
+
 
 export {
     FacilityDataRoute,
@@ -130,4 +156,7 @@ export {
     SamplesListRoute,
     SamplesActiveRoute,
     SamplesNewRoute,
+    LibrariesListRoute,
+    LibrariesActiveRoute,
+    LibrariesNewRoute,
 }

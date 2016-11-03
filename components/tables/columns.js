@@ -81,7 +81,35 @@ const columns = {
             headerName: "Lab",
             field: "laboratory",
         },
-    ]
+    ],
+    libraries: [
+        ID_COLUMN,
+        {
+            headerName: "Name",
+            field: "name",
+        },{
+            headerName: "Protocol",
+            field: "protocol",
+        },{
+            headerName: "Date",
+            field: "library_date",
+        },{
+            headerName: "Index",
+            field: "multiplex_index",
+        },{
+            headerName: "Submitted as library",
+            field: "isCustomer_made",
+        },{
+            headerName: "Project",
+            field: "project",
+        },{
+            headerName: "Laboratory",
+            field: "laboratory",
+        },{
+            headerName: "Made on robot",
+            field: "isRobot_made",
+        },
+    ],
 };
 
 

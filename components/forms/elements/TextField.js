@@ -71,10 +71,11 @@ class TextField extends React.Component {
     }
 
     render() {
-        let requireString = (this.props.required && !this.state.value) ? " (required)": "";
+        let requireString = (this.props.required && !this.state.value) ?
+            <span className={css.requiredString}>{" *"}</span>: null;
         return (
             <FormGroup controlId={this.props.name} validationState={this.state.status} >
-                <ControlLabel>{this.props.label + requireString}</ControlLabel>
+                <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel>
                 <FormControl
                     type="text"
                     value={this.state.value}

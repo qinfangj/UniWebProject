@@ -28,3 +28,15 @@
 .feedback {
     margin: 0;  /* override Bootstrap's through bsClass */
 }
+
+/* The sign that a field is required
+ * Make the star red, bigger, and still keep the same line height. */
+.requiredString {
+    color: red;
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 75%;
+    display: inline-block;
+    position: relative;
+    top: 7px;
+}
