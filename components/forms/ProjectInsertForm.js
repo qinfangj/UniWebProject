@@ -11,6 +11,7 @@ import LabsList from './subcomponents/LabsList';
 import ProjectStatesList from './subcomponents/ProjectStatesList';
 import validators from './validators';
 import * as forms from './forms.js';
+import * as options from './options.js';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -24,25 +25,21 @@ class ProjectInsertForm extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "projects";
         this.required = ["name", "code_name"];
-        this.state = {
-            missing: {},
-            invalid: {},
-            submissionError: false,
-            submissionSuccess: false,
-            submissionId: null,
-        };
+        this.state = forms.defaultFormState;
     }
 
     onSubmit() {
         let formData = this.getFormValues();
         let newState = forms.submit(this.table, formData, this.required, null);
         this.setState(newState);
-        newState.submissionFuture.done((insertId) => {
-            this.setState({ submissionSuccess: true, submissionId: insertId });
-        }).fail(() =>{
-            console.warn("Uncaught form validation error");
-            this.setState({ submissionError: true });
-        });
+        if (!newState.submissionError) {
+            newState.submissionFuture.done((insertId) => {
+                this.setState({ submissionSuccess: true, submissionId: insertId });
+            }).fail(() =>{
+                console.warn("Uncaught form validation error");
+                this.setState({ submissionError: true });
+            });
+            }
     }
 
     getFormValues() {
@@ -57,20 +54,6 @@ class ProjectInsertForm extends React.Component {
             project_analysis_id: this._projectAnalysis.getValue(),
             comment: this._comment.getValue(),
         };
-    }
-
-    /**
-     * Available values for the project analysis dropdown.
-     */
-    getProjectAnalysesList() {
-        let values = [[1,"Analysis1"], [2,"Analysis2"], [3,"Analysis3"]];
-        return values;
-
-        // optiondisplaydbOrdered($table, $args, $order, $limit): select * from table order by ..
-        // sub _getProjectAnalysis {
-        //     return DBIinsert::optiondisplaydbOrdered('project_analysis',['id','name' ], ['id']);
-        //
-        // }
     }
 
     render() {
@@ -147,7 +130,7 @@ class ProjectInsertForm extends React.Component {
 
                     <Col sm={4}>
                         <Select name="project_analysis_id" label="Project analysis"
-                                options={this.getProjectAnalysesList()}
+                                options={options.getProjectAnalysesList()}
                                 ref={(c) => this._projectAnalysis = c}
                         />
                     </Col>

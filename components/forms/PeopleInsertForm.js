@@ -18,13 +18,7 @@ class ProjectInsertForm extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "people";
         this.required = ["first_name", "last_name", "email", "address", "phone"];
-        this.state = {
-            missing: {},
-            invalid: {},
-            submissionError: false,
-            submissionSuccess: false,
-            submissionId: null,
-        };
+        this.state = forms.defaultFormState;
     }
 
     formatFormData(formData) {
@@ -37,12 +31,14 @@ class ProjectInsertForm extends React.Component {
         let formData = this.getFormValues();
         let newState = forms.submit(this.table, formData, this.required, this.formatFormData);
         this.setState(newState);
-        newState.submissionFuture.done((insertId) => {
-            this.setState({ submissionSuccess: true, submissionId: insertId });
-        }).fail(() =>{
-            console.warn("Uncaught form validation error");
-            this.setState({ submissionError: true });
-        });
+        if (!newState.submissionError) {
+            newState.submissionFuture.done((insertId) => {
+                this.setState({ submissionSuccess: true, submissionId: insertId });
+            }).fail(() =>{
+                console.warn("Uncaught form validation error");
+                this.setState({ submissionError: true });
+            });
+        }
     }
 
     getFormValues() {

@@ -6,13 +6,8 @@ class RestService {
 
     /* Select options list */
 
-    getLabs() {
-        let url = BACKEND + "/table/people/labsList";
-        return $.get(url);
-    }
-
-    getProjectStates() {
-        let url = BACKEND + "/table/project_states/projectStatesList";
+    getOptionsList(tableName, suffix) {
+        let url = BACKEND + "/table/"+ tableName +"/"+ suffix;
         return $.get(url);
     }
 
@@ -26,8 +21,8 @@ class RestService {
 
     /* Inserts */
 
-    insert(table, formData) {
-        let url = BACKEND + "/table/"+table+"/insert";
+    insert(tableName, formData) {
+        let url = BACKEND + "/table/"+tableName+"/insert";
         console.info(url);
         //console.debug(fields)
         //console.debug(values)

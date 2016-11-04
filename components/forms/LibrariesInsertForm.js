@@ -9,6 +9,7 @@ import Select from './elements/Select';
 import DatePicker from './elements/DatePicker';
 import validators from './validators';
 import * as forms from './forms.js';
+import * as options from './options';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -23,25 +24,21 @@ class LibrariesInsertForm extends React.Component {
         this.table = "libraries";
         this.required = ["sample_id", "name", "lib_protocol_id", "library_date", "starting_material",
                          "frag_size_min", "frag_size_max", "multiplex_index_id"];
-        this.state = {
-            missing: {},
-            invalid: {},
-            submissionError: false,
-            submissionSuccess: false,
-            submissionId: null,
-        };
+        this.state = forms.defaultFormState;
     }
 
     onSubmit() {
         let formData = this.getFormValues();
         let newState = forms.submit(this.table, formData, this.required, null);
         this.setState(newState);
-        newState.submissionFuture.done((insertId) => {
-            this.setState({ submissionSuccess: true, submissionId: insertId });
-        }).fail(() =>{
-            console.warn("Uncaught form validation error");
-            this.setState({ submissionError: true });
-        });
+        if (!newState.submissionError) {
+            newState.submissionFuture.done((insertId) => {
+                this.setState({ submissionSuccess: true, submissionId: insertId });
+            }).fail(() =>{
+                console.warn("Uncaught form validation error");
+                this.setState({ submissionError: true });
+            });
+        }
     }
 
     getFormValues() {
@@ -71,34 +68,6 @@ class LibrariesInsertForm extends React.Component {
         };
     }
 
-    getLibraryStates() {
-        return [];
-    }
-
-    getProjectsList() {
-        return[];
-    }
-
-    getSamplesList() {
-        return [];
-    }
-
-    getLibProtocols() {
-        return [];
-    }
-
-    getMultiplexIndexes() {
-        return[];
-    }
-
-    getAdapters() {
-        return [];
-    }
-
-    getQuantifTypesList() {
-        return [];
-    }
-
     render() {
         return (
             <form className={css.form}>
@@ -111,7 +80,7 @@ class LibrariesInsertForm extends React.Component {
 
                     <Col sm={4} className={css.formCol}>
                         <Select name="project_id" label="Project"
-                                options={this.getProjectsList()}
+                                options={options.getProjectsList()}
                                 ref={(c) => this._project = c}
                         />
                     </Col>
@@ -120,7 +89,7 @@ class LibrariesInsertForm extends React.Component {
 
                     <Col sm={2} className={css.formCol}>
                         <Select name="sample_id" label="Sample"
-                                options={this.getSamplesList()}
+                                options={options.getSamplesList()}
                                 ref={(c) => this._sample = c}
                         />
                     </Col>
@@ -140,7 +109,7 @@ class LibrariesInsertForm extends React.Component {
 
                     <Col sm={2} className={css.formCol}>
                         <Select name="lib_protocol_id" label="Protocol"
-                                options={this.getLibProtocols()}
+                                options={options.getLibProtocols()}
                                 ref={(c) => this._protocol = c}
                         />
                     </Col>
@@ -207,7 +176,7 @@ class LibrariesInsertForm extends React.Component {
 
                     <Col sm={2}>
                         <Select name="quantif_type_id" label="Quantification"
-                                options={this.getQuantifTypesList()}
+                                options={options.getQuantifTypesList()}
                                 ref={(c) => this._quantification = c}
                         />
                     </Col>
@@ -219,7 +188,7 @@ class LibrariesInsertForm extends React.Component {
 
                     <Col sm={2} className={css.formCol}>
                         <Select name="multiplex_index_id" label="Multiplex index"
-                                options={this.getMultiplexIndexes()}
+                                options={options.getMultiplexIndexes()}
                                 ref={(c) => this._multiplexIndex = c}
                         />
                     </Col>
@@ -228,7 +197,7 @@ class LibrariesInsertForm extends React.Component {
 
                     <Col sm={2} className={css.formCol}>
                         <Select name="index_5prime_id" label="Second index"
-                                options={this.getMultiplexIndexes()}
+                                options={options.getMultiplexIndexes()}
                                 ref={(c) => this._secondIndex = c}
                         />
                     </Col>
@@ -246,7 +215,7 @@ class LibrariesInsertForm extends React.Component {
 
                     <Col sm={2} className={css.formCol}>
                         <Select name="adapter_id" label="Adapter"
-                                options={this.getAdapters()}
+                                options={options.getAdapters()}
                                 ref={(c) => this._adapter = c}
                         />
                     </Col>
@@ -274,7 +243,7 @@ class LibrariesInsertForm extends React.Component {
 
                     <Col sm={2}>
                         <Select name="library_state_id" label="Library state"
-                                options={this.getLibraryStates()}
+                                options={options.getLibraryStates()}
                                 ref={(c) => this._libraryState = c}
                         />
                     </Col>

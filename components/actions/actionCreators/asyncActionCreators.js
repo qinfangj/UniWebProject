@@ -4,14 +4,19 @@ import constants from '../../constants/constants';
 import restService from '../api/restService';
 import { sendError } from './commonActionCreators';
 
-
+/**
+ * @param type: action type.
+ * @param status: constants.[SUCCESS|ERROR|PENDING]
+ * @param response: http response.
+ * @param args: an object of parameters to pass to the reducers.
+ */
 function syncAction(type, status, response, args) {
     return { type, status, response, args };
 }
 function asyncAction(type, action, args) {
     return dispatch => {
         dispatch(syncAction(type, constants.PENDING, null, args));
-        return action(...args)
+        return action(args)
             .done(response => {
                 dispatch(syncAction(type, constants.SUCCESS, response, args));
             })
@@ -22,29 +27,27 @@ function asyncAction(type, action, args) {
     }
 }
 
-/* Select options */
-function getLabsListAsync() {
-    return asyncAction(actions.GET_LABS_LIST, restService.getLabs, []);
-}
-function getProjectStatesListAsync() {
-    return asyncAction(actions.GET_PROJECT_STATES_LIST, restService.getProjectStates, []);
+/* Select options. `suffix` is something like "labsList" in "/table/<tableName>/<suffix>". */
+function getOptionsListAsync(tableName, suffix) {
+    let args = {suffix,};
+    return asyncAction(actions.GET_OPTIONS_LIST, restService.getOptionsList.bind(null, tableName, suffix), args)
 }
 
 /* Table data */
-function getTableDataAsync(name, activeOnly) {
-    return asyncAction(actions.GET_TABLE_DATA, restService.specialSelect, [name, activeOnly]);
+function getTableDataAsync(tableName, activeOnly) {
+    let args = {tableName,};
+    return asyncAction(actions.GET_TABLE_DATA, restService.specialSelect.bind(null, tableName, activeOnly), args);
 }
 
 /* Inserts */
-function insertAsync(table, formData) {
-    return asyncAction(actions.INSERT, restService.insert, [table, formData]);
+function insertAsync(tableName, formData) {
+    let args = {tableName,};
+    return asyncAction(actions.INSERT, restService.insert.bind(null, tableName, formData), args);
 }
 
 
 export {
-    getLabsListAsync,
-    getProjectStatesListAsync,
-
+    getOptionsListAsync,
     getTableDataAsync,
     insertAsync,
 };

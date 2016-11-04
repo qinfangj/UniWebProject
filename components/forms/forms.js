@@ -6,6 +6,14 @@ import { insertAsync } from '../actions/actionCreators/asyncActionCreators';
 import Alert from 'react-bootstrap/lib/Alert';
 
 
+const defaultFormState = {
+    missing: {},
+    invalid: {},
+    submissionError: false,
+    submissionSuccess: false,
+    submissionId: null,
+};
+
 function submit(tableName, formData, required, formatFormData) {
     console.info(JSON.stringify(formData, null, 2));
     let fields = Object.keys(formData);
@@ -76,6 +84,7 @@ class SubmissionSuccessfulMessage extends React.Component {
 
 
 export {
+    defaultFormState,
     submit,
     SubmissionErrorMessage,
     SubmissionSuccessfulMessage,

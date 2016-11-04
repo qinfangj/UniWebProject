@@ -3,11 +3,11 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 import _ from 'lodash';
 
-import { getLabsListAsync } from '../../actions/actionCreators/asyncActionCreators';
+import { getOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
 import Select from '../elements/Select';
 
 /**
- * Dropdown with available values for the person in charge.
+ * Dropdown with available values for the laboratory.
  */
 class LabsList extends React.Component {
     constructor() {
@@ -17,7 +17,6 @@ class LabsList extends React.Component {
     }
 
     getValue() {
-        console.debug("lab:", this._select.getValue())
         return this._select.getValue();
     }
 
@@ -27,7 +26,7 @@ class LabsList extends React.Component {
             let value = list.length > 0 ? list[0].id : null;  // first one of the list
             this.setState({ list: list, value: value });
         });
-        store.dispatch(getLabsListAsync());
+        store.dispatch(getOptionsListAsync("people", "labsList"));
     }
     componentWillUnmount() {
         this.unsubscribe();

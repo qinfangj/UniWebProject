@@ -2,7 +2,7 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 
-import { getProjectStatesListAsync } from '../../actions/actionCreators/asyncActionCreators';
+import { getOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
 import Select from '../elements/Select';
 
 
@@ -26,7 +26,7 @@ class ProjectStatesList extends React.Component {
             let value = list.length > 0 ? list[0].id : null;  // first one of the list
             this.setState({ list, value });
         });
-        store.dispatch(getProjectStatesListAsync());
+        store.dispatch(getOptionsListAsync("project_states", "projectStatesList"));
     }
 
     componentWillUnmount() {

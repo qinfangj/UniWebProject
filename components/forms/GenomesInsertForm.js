@@ -8,6 +8,7 @@ import Select from './elements/Select';
 import DatePicker from './elements/DatePicker';
 import validators from './validators';
 import * as forms from './forms.js';
+import * as options from './options';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -22,25 +23,21 @@ class GenomesInsertForm extends React.Component {
         this.table = "genomes";
         this.required = ["organism", "assembly", "genome_folder", "url",
             "downloaded_date", "files", "comment", "isMasked", "isArchived"];
-        this.state = {
-            missing: {},
-            invalid: {},
-            submissionError: false,
-            submissionSuccess: false,
-            submissionId: null,
-        };
+        this.state = forms.defaultFormState;
     }
 
     onSubmit() {
         let formData = this.getFormValues();
         let newState = forms.submit(this.table, formData, this.required, null);
         this.setState(newState);
-        newState.submissionFuture.done((insertId) => {
-            this.setState({ submissionSuccess: true, submissionId: insertId });
-        }).fail(() =>{
-            console.warn("Uncaught form validation error");
-            this.setState({ submissionError: true });
-        });
+        if (!newState.submissionError) {
+            newState.submissionFuture.done((insertId) => {
+                this.setState({ submissionSuccess: true, submissionId: insertId });
+            }).fail(() =>{
+                console.warn("Uncaught form validation error");
+                this.setState({ submissionError: true });
+            });
+        }
     }
 
     getFormValues() {
@@ -57,16 +54,6 @@ class GenomesInsertForm extends React.Component {
         };
     }
 
-    /**
-     * Available values for the project analysis dropdown.
-     */
-    getOrganismsList() {
-        let values = [[1,"Human"], [2,"Mouse"], [3,"Fly"]];
-        return values;
-
-        // DBIinsert::optiondisplaydbOrdered('taxonomies',['id','name'], ['name']);
-    }
-
     render() {
         return (
             <form className={css.form}>
@@ -79,7 +66,7 @@ class GenomesInsertForm extends React.Component {
 
                     <Col sm={4} className={css.formCol}>
                         <Select name="organism" label="Organism"
-                                options={this.getOrganismsList()}
+                                options={options.getOrganismsList()}
                                 ref={(c) => this._organism = c}
                         />
                     </Col>

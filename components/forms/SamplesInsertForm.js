@@ -9,6 +9,7 @@ import Select from './elements/Select';
 import DatePicker from './elements/DatePicker';
 import validators from './validators';
 import * as forms from './forms.js';
+import * as options from './options';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -22,25 +23,21 @@ class SamplesInsertForm extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "samples";
         this.required = ["name", "short_name", "project_id", "organism", "taxo_id"];
-        this.state = {
-            missing: {},
-            invalid: {},
-            submissionError: false,
-            submissionSuccess: false,
-            submissionId: null,
-        };
+        this.state = forms.defaultFormState;
     }
 
     onSubmit() {
         let formData = this.getFormValues();
         let newState = forms.submit(this.table, formData, this.required, null);
         this.setState(newState);
-        newState.submissionFuture.done((insertId) => {
-            this.setState({ submissionSuccess: true, submissionId: insertId });
-        }).fail(() =>{
-            console.warn("Uncaught form validation error");
-            this.setState({ submissionError: true });
-        });
+        if (!newState.submissionError) {
+            newState.submissionFuture.done((insertId) => {
+                this.setState({ submissionSuccess: true, submissionId: insertId });
+            }).fail(() =>{
+                console.warn("Uncaught form validation error");
+                this.setState({ submissionError: true });
+            });
+        }
     }
 
     getFormValues() {
@@ -62,26 +59,6 @@ class SamplesInsertForm extends React.Component {
             comment: this._internalComment.getValue(),
             isTrashed: this._isDiscarded.getValue(),
         };
-    }
-
-    /**
-     * Available values for the project analysis dropdown.
-     */
-    getOrganismsList() {
-        return [[1,"Human"], [2,"Mouse"], [3,"Fly"]];
-        // DBIinsert::optiondisplaydbOrdered('taxonomies',['id','name'], ['name']);
-    }
-
-    getProjectsList() {
-        return [[1, "Project1"], [2, "Project2"]];
-    }
-
-    getSampleTypesList() {
-        return [[1, "type1"], [2, "type2"]];
-    }
-
-    getQuantifTypesList() {
-        return [[1, "qtype1"], [2, "qtype2"],];
     }
 
     render() {
@@ -118,7 +95,7 @@ class SamplesInsertForm extends React.Component {
 
                     <Col sm={5}>
                         <Select name="project_id" label="Project"
-                                options={this.getProjectsList()}
+                                options={options.getProjectsList()}
                                 ref={(c) => this._project = c}
                         />
                     </Col>
@@ -130,7 +107,7 @@ class SamplesInsertForm extends React.Component {
 
                     <Col sm={3} className={css.formCol}>
                         <Select name="organism" label="Organism"
-                                options={this.getOrganismsList()}
+                                options={options.getOrganismsList()}
                                 ref={(c) => this._organism = c}
                         />
                     </Col>
@@ -139,7 +116,7 @@ class SamplesInsertForm extends React.Component {
 
                     <Col sm={3} className={css.formCol}>
                         <Select name="sample_type" label="Sample_type"
-                                options={this.getSampleTypesList()}
+                                options={options.getSampleTypesList()}
                                 ref={(c) => this._sampleType = c}
                         />
                     </Col>
@@ -156,7 +133,7 @@ class SamplesInsertForm extends React.Component {
 
                     <Col sm={3}>
                         <Select name="quantif_type_id" label="Quantification"
-                                options={this.getQuantifTypesList()}
+                                options={options.getQuantifTypesList()}
                                 ref={(c) => this._quantification = c}
                         />
                     </Col>

@@ -20,24 +20,27 @@ let asyncReducers = (state = {}, action) => {
         }
     }
 
+    let storeKey;
+
     switch (action.type) {
 
         /* Select options list */
-        case types.GET_LABS_LIST:
-            return returnList("labsList");
 
-        case types.GET_PROJECT_STATES_LIST:
-            return returnList("projectStatesList");
+        case types.GET_OPTIONS_LIST:
+            storeKey = action.args.suffix;
+            return returnList(storeKey);
 
         /* Table data */
 
         case types.GET_TABLE_DATA:
-            return returnList(action.args[0]);
+            storeKey = action.args.tableName;
+            return returnList(storeKey);
 
         /* Inserts */
 
         case types.INSERT:
-            return returnList(action.args[0]);
+            storeKey = action.args.tableName;
+            return returnList(storeKey);
 
         default:
             return state;
