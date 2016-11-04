@@ -41,6 +41,7 @@ class LibrariesInsertForm extends React.Component {
         }
     }
 
+    /* Group fields to not exceed 22 scala tuple size limit */
     getFormValues() {
         return {
             project_id: this._project.getValue(),
@@ -52,11 +53,8 @@ class LibrariesInsertForm extends React.Component {
             bioanalyser_peak: this._bioanalyserPeak.getValue(),
             frag_size_min: this._fragSizeMin.getValue(),
             frag_size_max: this._fragSizeMax.getValue(),
-            concentration: this._concentration.getValue(),
-            quantif_method_id: this._quantification.getValue(),
             multiplex_index_id: this._multiplexIndex.getValue(),
             index_5prime_id: this._secondIndex.getValue(),
-            volume: this._volume.getValue(),
             adapter_id: this._adapter.getValue(),
             kits_lots: this._illuminaKits.getValue(),
             comment_customer: this._customerComment.getValue(),
@@ -65,6 +63,11 @@ class LibrariesInsertForm extends React.Component {
             isCustomer_made: this._isCustomerMade.getValue(),
             isRobot_made: this._isRobotMade.getValue(),
             isTrashed: this._isTrashed.getValue(),
+            quantification: {
+                quantif_method_id: this._quantification.getValue(),
+                concentration: this._concentration.getValue(),
+                volume: this._volume.getValue(),
+            },
         };
     }
 
