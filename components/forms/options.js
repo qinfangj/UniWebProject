@@ -58,4 +58,4 @@ export {
     getQuantifTypesList,
     getSamplesList,
     getSampleTypesList,
-}
+};

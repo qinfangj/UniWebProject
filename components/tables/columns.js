@@ -1,3 +1,5 @@
+import * as format from './formatters';
+
 
 const ID_COLUMN = {
     headerName: "ID",
@@ -49,9 +51,12 @@ const columns = {
         },{
             headerName: "Masked",
             field: "is_masked",
+            cellRenderer: format.boolean,
+            cellStyle: {textAlign: "center"},
         },{
             headerName: "Download date",
             field: "downloaded_date",
+            cellRenderer: format.date,
         },{
             headerName: "Folder",
             field: "genome_folder",
@@ -68,6 +73,7 @@ const columns = {
         },{
             headerName: "Received date",
             field: "received_date",
+            cellRenderer: format.date,
         },{
             headerName: "Type",
             field: "sample_type",
@@ -93,12 +99,15 @@ const columns = {
         },{
             headerName: "Date",
             field: "library_date",
+            cellRenderer: format.date,
         },{
             headerName: "Index",
             field: "multiplex_index",
         },{
             headerName: "Submitted as library",
             field: "isCustomer_made",
+            cellRenderer: format.boolean,
+            cellStyle: {textAlign: "center"},
         },{
             headerName: "Project",
             field: "project",
@@ -108,6 +117,8 @@ const columns = {
         },{
             headerName: "Made on robot",
             field: "isRobot_made",
+            cellRenderer: format.boolean,
+            cellStyle: {textAlign: "center"},
         },
     ],
 };
