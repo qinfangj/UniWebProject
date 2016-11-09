@@ -43,7 +43,7 @@ class Select extends React.Component {
 
     render() {
         let options = this.props.options ? this.props.options.map(v => {
-            return <option value={v[0]} key={v[0]}>{v[1]}</option>;
+            return <option value={v[0]} key={v[0]+v[1]}>{v[1]}</option>;
         }) : null;
         return (
             <FormGroup controlId={this.props.name} >

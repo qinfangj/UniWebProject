@@ -24,10 +24,14 @@ class RestService {
     insert(tableName, formData) {
         let url = BACKEND + "/table/"+tableName+"/insert";
         console.info(url);
-        //console.debug(fields)
-        //console.debug(values)
-        //console.debug(url)
-        return $.post(url, formData);
+        return $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(formData),
+            //success: callback,
+            contentType: "application/json",
+            dataType: "json"
+        });
     }
 
 }

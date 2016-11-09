@@ -11,7 +11,7 @@ const defaultFormState = {
     invalid: {},
     submissionError: false,
     submissionSuccess: false,
-    submissionId: null,
+    submissionId: undefined,
 };
 
 function submit(tableName, formData, required, formatFormData) {
@@ -71,7 +71,7 @@ class SubmissionSuccessfulMessage extends React.Component {
         this.setState({visible: false});
     }
     render() {
-        if (this.state.visible) {
+        if (this.props.id && this.state.visible) {
             return (
                 <Alert bsStyle="success" onClick={this.discardErrorMessage.bind(this)}>
                     {"Submission successful" + (this.props.id ? ` (#${this.props.id})` : '')}

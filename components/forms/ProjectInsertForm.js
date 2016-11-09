@@ -34,6 +34,7 @@ class ProjectInsertForm extends React.Component {
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
+                console.debug(555, insertId)
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
                 console.warn("Uncaught form validation error");
@@ -57,6 +58,7 @@ class ProjectInsertForm extends React.Component {
     }
 
     render() {
+        console.debug('id ->', this.state.submissionId)
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />
