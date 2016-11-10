@@ -9,10 +9,10 @@ import constants from '../../constants/constants';
 /**
  * Dropdown with available values for the project states.
  */
-class ProjectStatesList extends React.Component {
+class ProjectAnalysesList extends React.Component {
     constructor() {
         super();
-        this.table = "project_states";
+        this.table = "project_analysis";
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {list: [], value: null};
     }
@@ -44,7 +44,7 @@ class ProjectStatesList extends React.Component {
 
     render() {
         return (
-            <Select name="projectState" label="Project state" ref={(c) => {this._select = c;}}
+            <Select name="projectAnalysis" label="Project analysis" ref={(c) => {this._select = c;}}
                 options={this.getList()}
             />
         );
@@ -53,4 +53,4 @@ class ProjectStatesList extends React.Component {
 }
 
 
-export default ProjectStatesList;
+export default ProjectAnalysesList;

@@ -1,17 +1,18 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
-import _ from 'lodash';
 
 import { getOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
 import Select from '../elements/Select';
+import constants from '../../constants/constants';
 
 /**
  * Dropdown with available values for the laboratory.
  */
-class LabsList extends React.Component {
+class PeopleList extends React.Component {
     constructor() {
         super();
+        this.table = "people";
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {list: [], value: null};
     }
@@ -22,18 +23,21 @@ class LabsList extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let list = store.getState().async["labsList"];
-            let value = list.length > 0 ? list[0].id : null;  // first one of the list
-            this.setState({ list: list, value: value });
+            let list = store.getState().async[constants.OPTIONS + this.table];
+            if (list) {
+                let value = list.length > 0 ? list[0].id : null;  // first one of the list
+                this.setState({ list: list, value: value });
+            }
         });
-        store.dispatch(getOptionsListAsync("people", "labsList"));
+        store.dispatch(getOptionsListAsync(this.table));
     }
+
     componentWillUnmount() {
         this.unsubscribe();
     }
 
     getList() {
-        return _.sortBy(this.state.list, ["last_name", "first_name"]).map(v => {
+        return this.state.list.map(v => {
             return [v.id, v.last_name +" "+ v.first_name];
         });
     }
@@ -49,4 +53,4 @@ class LabsList extends React.Component {
 }
 
 
-export default LabsList;
+export default PeopleList;

@@ -27,7 +27,7 @@ let asyncReducers = (state = {}, action) => {
         /* Select options list */
 
         case types.GET_OPTIONS_LIST:
-            storeKey = action.args.suffix;
+            storeKey = constants.OPTIONS + action.args.tableName;
             return returnList(storeKey);
 
         /* Table data */

@@ -6,8 +6,8 @@ class RestService {
 
     /* Select options list */
 
-    getOptionsList(tableName, suffix) {
-        let url = BACKEND + "/table/"+ tableName +"/"+ suffix;
+    getOptionsList(tableName) {
+        let url = BACKEND + "/table/"+ tableName +"/list";
         return $.get(url);
     }
 
@@ -28,7 +28,6 @@ class RestService {
             type: "POST",
             url: url,
             data: JSON.stringify(formData),
-            //success: callback,
             contentType: "application/json",
             dataType: "json"
         });

@@ -7,15 +7,20 @@ import Select from '../elements/Select';
 import constants from '../../constants/constants';
 
 /**
- * Dropdown with available values for the project states.
+ * Dropdown with available options
  */
-class ProjectStatesList extends React.Component {
+class AsyncOptionsList extends React.Component {
     constructor() {
         super();
-        this.table = "project_states";
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {list: [], value: null};
     }
+
+    static propTypes = {
+        table: React.PropTypes.string,
+        label: React.PropTypes.string,
+        formatter: React.PropTypes.func,  // object => [id, name]
+    };
 
     getValue() {
         return this._select.getValue();
@@ -23,13 +28,13 @@ class ProjectStatesList extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let list = store.getState().async[constants.OPTIONS + this.table];
+            let list = store.getState().async[constants.OPTIONS + this.props.table];
             if (list) {
                 let value = list.length > 0 ? list[0].id : null;  // first one of the list
                 this.setState({ list, value });
             }
         });
-        store.dispatch(getOptionsListAsync(this.table));
+        store.dispatch(getOptionsListAsync(this.props.table));
     }
 
     componentWillUnmount() {
@@ -44,8 +49,8 @@ class ProjectStatesList extends React.Component {
 
     render() {
         return (
-            <Select name="projectState" label="Project state" ref={(c) => {this._select = c;}}
-                options={this.getList()}
+            <Select name={this.props.table} label={this.props.label} ref={(c) => {this._select = c;}}
+                    options={this.getList()}
             />
         );
     }
@@ -53,4 +58,4 @@ class ProjectStatesList extends React.Component {
 }
 
 
-export default ProjectStatesList;
+export default AsyncOptionsList;

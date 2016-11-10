@@ -28,9 +28,9 @@ function asyncAction(type, action, args) {
 }
 
 /* Select options. `suffix` is something like "labsList" in "/table/<tableName>/<suffix>". */
-function getOptionsListAsync(tableName, suffix) {
-    let args = {suffix,};
-    return asyncAction(actions.GET_OPTIONS_LIST, restService.getOptionsList.bind(null, tableName, suffix), args)
+function getOptionsListAsync(tableName) {
+    let args = {tableName,};
+    return asyncAction(actions.GET_OPTIONS_LIST, restService.getOptionsList.bind(null, tableName), args)
 }
 
 /* Table data */

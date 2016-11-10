@@ -7,8 +7,9 @@ import CheckBox from './elements/CheckBox';
 import Select from './elements/Select';
 import DatePicker from './elements/DatePicker';
 import TextArea from './elements/Textarea';
-import LabsList from './subcomponents/LabsList';
+import PeopleList from './subcomponents/PeopleList';
 import ProjectStatesList from './subcomponents/ProjectStatesList';
+import ProjectAnalysesList from './subcomponents/ProjectAnalysesList'
 import validators from './validators';
 import * as forms from './forms.js';
 import * as options from './options.js';
@@ -80,7 +81,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                        <LabsList ref={(c) => this._personInCharge = c} />
+                        <PeopleList ref={(c) => this._personInCharge = c} />
                     </Col>
 
                     {/* Code name */}
@@ -131,10 +132,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Project analysis */}
 
                     <Col sm={4}>
-                        <Select name="project_analysis_id" label="Project analysis"
-                                options={options.getProjectAnalysesList()}
-                                ref={(c) => this._projectAnalysis = c}
-                        />
+                        <ProjectAnalysesList ref={(c) => this._projectAnalysis = c} />
                     </Col>
 
                 </Form>
