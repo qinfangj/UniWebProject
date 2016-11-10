@@ -42,9 +42,7 @@ class AsyncOptionsList extends React.Component {
     }
 
     getList() {
-        return this.state.list.map(v => {
-            return [v.id, v.name];
-        });
+        return this.state.list.map(v => this.props.formatter(v));
     }
 
     render() {

@@ -4,15 +4,11 @@ import css from './forms.css';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
-import Select from './elements/Select';
 import DatePicker from './elements/DatePicker';
 import TextArea from './elements/Textarea';
-import PeopleList from './subcomponents/PeopleList';
-import ProjectStatesList from './subcomponents/ProjectStatesList';
-import ProjectAnalysesList from './subcomponents/ProjectAnalysesList'
+import * as Options from './subcomponents/Options';
 import validators from './validators';
 import * as forms from './forms.js';
-import * as options from './options.js';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -81,7 +77,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                        <PeopleList ref={(c) => this._personInCharge = c} />
+                        <Options.PeopleList ref={(c) => this._personInCharge = c} />
                     </Col>
 
                     {/* Code name */}
@@ -113,7 +109,7 @@ class ProjectInsertForm extends React.Component {
 
                         {/* Project state */}
 
-                        <ProjectStatesList ref={(c) => this._projectState = c} />
+                        <Options.ProjectStatesList ref={(c) => this._projectState = c} />
 
                         {/* Is control */}
 
@@ -132,7 +128,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Project analysis */}
 
                     <Col sm={4}>
-                        <ProjectAnalysesList ref={(c) => this._projectAnalysis = c} />
+                        <Options.ProjectAnalysesList ref={(c) => this._projectAnalysis = c} />
                     </Col>
 
                 </Form>
