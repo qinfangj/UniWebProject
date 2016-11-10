@@ -18,7 +18,7 @@ const columns = {
             field: "name",
         },{
             headerName: "Code",
-            field: "codeName",
+            field: "code_name",
         },{
             headerName: "Description",
             field: "description",
