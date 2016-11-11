@@ -56,7 +56,7 @@ const columns = {
         },{
             headerName: "Download date",
             field: "downloaded_date",
-            cellRenderer: format.date,
+            //cellRenderer: format.date,
         },{
             headerName: "Folder",
             field: "genome_folder",
@@ -73,7 +73,7 @@ const columns = {
         },{
             headerName: "Received date",
             field: "received_date",
-            cellRenderer: format.date,
+            //cellRenderer: format.date,
         },{
             headerName: "Type",
             field: "sample_type",
@@ -99,7 +99,7 @@ const columns = {
         },{
             headerName: "Date",
             field: "library_date",
-            cellRenderer: format.date,
+            //cellRenderer: format.date,
         },{
             headerName: "Index",
             field: "multiplex_index",
