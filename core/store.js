@@ -4,6 +4,7 @@ import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import asyncReducers from '../components/actions/reducers/asyncReducers';
 import commonReducers from '../components/actions/reducers/commonReducers';
+import authReducers from '../components/actions/reducers/authReducers';
 
 
 /*
@@ -26,6 +27,7 @@ const logger = createLogger({
 let reducer = combineReducers({
     async: asyncReducers,
     common: commonReducers,
+    auth: authReducers,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
