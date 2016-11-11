@@ -140,6 +140,30 @@ class LibrariesNewRoute extends React.Component {
     );}
 }
 
+class RunsListRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Runs" name="runs" content={
+            <CommonTable activeOnly={false} name="runs" />
+        } />
+    );}
+}
+
+class RunsActiveRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Runs" name="runs" content={
+            <CommonTable activeOnly={true} name="runs" />
+        } />
+    );}
+}
+
+class RunsNewRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Runs" name="runs" content={
+            <LibrariesInsertForm/>
+        } />
+    );}
+}
+
 
 
 export {
@@ -159,4 +183,7 @@ export {
     LibrariesListRoute,
     LibrariesActiveRoute,
     LibrariesNewRoute,
+    RunsListRoute,
+    RunsActiveRoute,
+    RunsNewRoute,
 }

@@ -1,13 +1,15 @@
 import * as format from './formatters';
 
 
+const CENTER = {textAlign: "center"};
+
 const ID_COLUMN = {
     headerName: "ID",
     field: "id",
     width: 40,
     suppressSizeToFit: true,
     suppressMenu: true,
-    cellStyle: {textAlign: "center"},
+    cellStyle: CENTER,
 };
 
 const columns = {
@@ -52,7 +54,7 @@ const columns = {
             headerName: "Masked",
             field: "is_masked",
             cellRenderer: format.boolean,
-            cellStyle: {textAlign: "center"},
+            cellStyle: CENTER,
         },{
             headerName: "Download date",
             field: "downloaded_date",
@@ -107,7 +109,7 @@ const columns = {
             headerName: "Submitted as library",
             field: "isCustomer_made",
             cellRenderer: format.boolean,
-            cellStyle: {textAlign: "center"},
+            cellStyle: CENTER,
         },{
             headerName: "Project",
             field: "project",
@@ -118,7 +120,34 @@ const columns = {
             headerName: "Made on robot",
             field: "isRobot_made",
             cellRenderer: format.boolean,
+            cellStyle: CENTER,
+        },
+    ],
+    runs: [
+        ID_COLUMN,
+        {
+            headerName: "Run folder",
+            field: "run_folder",
+        },{
+            headerName: "Cycle Nb",
+            field: "cycle_nb",
             cellStyle: {textAlign: "center"},
+        },{
+            headerName: "Run type",
+            field: "run_type",
+            cellStyle: CENTER,
+        },{
+            headerName: "Run date",
+            field: "run_date",
+        },{
+            headerName: "Release date",
+            field: "release_date",
+            //cellRenderer: format.date,
+        },{
+            headerName: "Status",
+            field: "status",
+            cellRenderer: (v) => v.value ? "Active" : "Released",
+            cellStyle: CENTER,
         },
     ],
 };

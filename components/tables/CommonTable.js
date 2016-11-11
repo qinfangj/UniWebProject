@@ -33,8 +33,14 @@ class CommonTable extends React.Component {
             let data = store.getState().async[this.props.name];
             this.setState({ data });
         });
-        store.dispatch(actions.getTableDataAsync(this.props.name, this.props.activeOnly))
-        .fail(() => console.error("getTableDataAsync() failed to load data."));
+        /* If data is already in store, use that one. Otherwise, call backend API. */
+        let data = store.getState().async[this.props.name];
+        if (data && data.length > 0) {
+            this.setState({ data });
+        } else {
+            store.dispatch(actions.getTableDataAsync(this.props.name, this.props.activeOnly))
+            .fail(() => console.error("getTableDataAsync() failed to load data."));
+        }
     }
     componentWillUnmount() {
         this.unsubscribe();
@@ -45,10 +51,10 @@ class CommonTable extends React.Component {
      * and container sizes change in unpredictable manner.
      */
     componentWillUpdate() {
-        this.api.doLayout();  // recalculate layout to fill the container div
+        this.api && this.api.doLayout();  // recalculate layout to fill the container div
     }
     componentDidUpdate() {
-        this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
+        this.api && this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
     }
 
     onGridReady(params) {
@@ -64,30 +70,43 @@ class CommonTable extends React.Component {
 
     render() {
         let data = this.state.data;
-        if (!data) return null;
+        if (!data) {
+            throw new TypeError("Data cannot be null or undefined");
+        }
         if (!columns[this.props.name]) {
             throw new ReferenceError("No columns definition found for table "+ this.props.name);
         }
         tables.checkData(data);
         return (
-            <div style={{width: '100%'}}>
+            <div style={{width: '100%', height: '100%'}}>
                 <FormControl type="text" placeholder="Search" className={css.searchField}
                     value={this.state.searchValue}
                     onChange={this.onSearch.bind(this)}
                 />
                 <div className="clearfix"/>
-                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>
-                    <AgGridReact
-                        onGridReady={this.onGridReady.bind(this)}
-                        rowData={data}
-                        enableFilter={true}
-                        enableSorting={true}
-                        columnDefs={columns[this.props.name]}
-                    >
-                    </AgGridReact>
-                </div>
 
-                <tables.Nrows data={data} />
+                {/* If no data, no table but fill the space */}
+
+                { data.length > 0 ?
+                    <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>
+                        <AgGridReact
+                            onGridReady={this.onGridReady.bind(this)}
+                            rowData={data}
+                            enableFilter={true}
+                            enableSorting={true}
+                            columnDefs={columns[this.props.name]}
+                        >
+                        </AgGridReact>
+                    </div>
+                :
+                    <div style={{height: '1200px', width: '100%'}}/>
+                }
+
+                {/* Show nunber of rows in result */}
+
+                { data.length === 0 ? null :
+                    <tables.Nrows data={data} />
+                }
 
             </div>
         );

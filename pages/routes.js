@@ -57,6 +57,12 @@ const routes = (
             <Route path="data/libraries/list" component={fdata.LibrariesListRoute}/>
             <Route path="data/libraries/active" component={fdata.LibrariesActiveRoute}/>
             <Route path="data/libraries/new" component={fdata.LibrariesNewRoute}/>
+
+            <Route path="data/runs" component={fdata.RunsListRoute}/>
+            <Route path="data/runs/list" component={fdata.RunsListRoute}/>
+            <Route path="data/runs/active" component={fdata.RunsActiveRoute}/>
+            <Route path="data/runs/new" component={fdata.RunsNewRoute}/>
+
         </Route>
     </Router>
 );

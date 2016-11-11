@@ -30,3 +30,7 @@
 :global(.ag-header-cell) {
     background-color: var(--yellow);
 }
+/* Hide the dropdown menu in header */
+:global(.ag-header-cell-menu-button) {
+    display: none;
+}
