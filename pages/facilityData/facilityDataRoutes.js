@@ -9,6 +9,7 @@ import GenomesInsertForm from '../../components/forms/GenomesInsertForm';
 import SamplesInsertForm from '../../components/forms/SamplesInsertForm';
 import LibrariesInsertForm from '../../components/forms/LibrariesInsertForm';
 import RunsInsertForm from '../../components/forms/RunsInsertForm';
+import UserRequestsInsertForm from '../../components/forms/UserRequestsInsertForm';
 
 
 export class FacilityDataRoute extends React.Component {
@@ -162,6 +163,31 @@ export class RunsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
             <RunsInsertForm/>
+        } />
+    );}
+}
+
+
+export class UserRequestsListRoute extends React.Component {
+    render() {return (
+        <FacilityData title="User requests" name="user_requests" content={
+            <CommonTable activeOnly={false} name="user_requests" />
+        } />
+    );}
+}
+
+export class UserRequestsActiveRoute extends React.Component {
+    render() {return (
+        <FacilityData title="User requests" name="user_requests" content={
+            <CommonTable activeOnly={true} name="user_requests" />
+        } />
+    );}
+}
+
+export class UserRequestsNewRoute extends React.Component {
+    render() {return (
+        <FacilityData title="User requests" name="user_requests" content={
+            <UserRequestsInsertForm/>
         } />
     );}
 }

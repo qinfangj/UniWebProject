@@ -23,6 +23,10 @@ export function getLibraryStates() {
     return [];
 }
 
+export function getLibraryTypes() {
+    return [];
+}
+
 export function getMultiplexIndexes() {
     return[];
 }
@@ -37,6 +41,10 @@ export function getProjectsList() {
 }
 
 export function getQuantifTypesList() {
+    return [];
+}
+
+export function getRunRequests() {
     return [];
 }
 

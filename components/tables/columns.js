@@ -150,6 +150,37 @@ const columns = {
             cellStyle: CENTER,
         },
     ],
+    user_requests: [
+        ID_COLUMN,
+        {
+            headerName: "Sample",
+            field: "sample",
+        },{
+            headerName: "Laboratory",
+            field: "laboratory",
+        },{
+            headerName: "Library",
+            field: "library",
+        },{
+            headerName: "Run type",
+            field: "run_type",
+        },{
+            headerName: "Read length",
+            field: "read_length",
+        },{
+            headerName: "Nb lanes",
+            field: "nb_lanes",
+        },{
+            headerName: "Multiplex#",
+            field: "multiplex_nb",
+        },{
+            headerName: "Group",
+            field: "group",
+        },{
+            headerName: "Submitter",
+            field: "submitter",
+        },
+    ]
 };
 
 

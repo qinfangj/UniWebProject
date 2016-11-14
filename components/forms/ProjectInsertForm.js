@@ -55,7 +55,6 @@ class ProjectInsertForm extends React.Component {
     }
 
     render() {
-        console.debug('id ->', this.state.submissionId)
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />
