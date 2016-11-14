@@ -8,15 +8,16 @@ import PeopleInsertForm from '../../components/forms/PeopleInsertForm';
 import GenomesInsertForm from '../../components/forms/GenomesInsertForm';
 import SamplesInsertForm from '../../components/forms/SamplesInsertForm';
 import LibrariesInsertForm from '../../components/forms/LibrariesInsertForm';
+import RunsInsertForm from '../../components/forms/RunsInsertForm';
 
 
-class FacilityDataRoute extends React.Component {
+export class FacilityDataRoute extends React.Component {
     render() {return (
         <FacilityDataHome />
     );}
 }
 
-class ProjectsListRoute extends React.Component {
+export class ProjectsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
             <CommonTable activeOnly={false} name="projects" />
@@ -24,7 +25,7 @@ class ProjectsListRoute extends React.Component {
     );}
 }
 
-class ProjectsActiveRoute extends React.Component {
+export class ProjectsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
             <CommonTable activeOnly={true} name="projects" />
@@ -32,7 +33,7 @@ class ProjectsActiveRoute extends React.Component {
     );}
 }
 
-class ProjectsNewRoute extends React.Component {
+export class ProjectsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
             <ProjectInsertForm/>
@@ -41,7 +42,7 @@ class ProjectsNewRoute extends React.Component {
 }
 
 
-class PeopleListRoute extends React.Component {
+export class PeopleListRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
             <CommonTable activeOnly={false} name="people" />
@@ -49,7 +50,7 @@ class PeopleListRoute extends React.Component {
     );}
 }
 
-class PeopleActiveRoute extends React.Component {
+export class PeopleActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
             <CommonTable activeOnly={true} name="people" />
@@ -57,7 +58,7 @@ class PeopleActiveRoute extends React.Component {
     );}
 }
 
-class PeopleNewRoute extends React.Component {
+export class PeopleNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
             <PeopleInsertForm />
@@ -66,7 +67,7 @@ class PeopleNewRoute extends React.Component {
 }
 
 
-class GenomesListRoute extends React.Component {
+export class GenomesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
             <CommonTable activeOnly={false} name="genomes" />
@@ -74,7 +75,7 @@ class GenomesListRoute extends React.Component {
     );}
 }
 
-class GenomesActiveRoute extends React.Component {
+export class GenomesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
             <CommonTable activeOnly={true} name="genomes" />
@@ -82,7 +83,7 @@ class GenomesActiveRoute extends React.Component {
     );}
 }
 
-class GenomesNewRoute extends React.Component {
+export class GenomesNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
             <GenomesInsertForm/>
@@ -91,7 +92,7 @@ class GenomesNewRoute extends React.Component {
 }
 
 
-class SamplesListRoute extends React.Component {
+export class SamplesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
             <CommonTable activeOnly={false} name="samples" />
@@ -99,7 +100,7 @@ class SamplesListRoute extends React.Component {
     );}
 }
 
-class SamplesActiveRoute extends React.Component {
+export class SamplesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
             <CommonTable activeOnly={true} name="samples" />
@@ -107,7 +108,7 @@ class SamplesActiveRoute extends React.Component {
     );}
 }
 
-class SamplesNewRoute extends React.Component {
+export class SamplesNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
             <SamplesInsertForm/>
@@ -116,7 +117,7 @@ class SamplesNewRoute extends React.Component {
 }
 
 
-class LibrariesListRoute extends React.Component {
+export class LibrariesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
             <CommonTable activeOnly={false} name="libraries" />
@@ -124,7 +125,7 @@ class LibrariesListRoute extends React.Component {
     );}
 }
 
-class LibrariesActiveRoute extends React.Component {
+export class LibrariesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
             <CommonTable activeOnly={true} name="libraries" />
@@ -132,7 +133,7 @@ class LibrariesActiveRoute extends React.Component {
     );}
 }
 
-class LibrariesNewRoute extends React.Component {
+export class LibrariesNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
             <LibrariesInsertForm/>
@@ -140,7 +141,8 @@ class LibrariesNewRoute extends React.Component {
     );}
 }
 
-class RunsListRoute extends React.Component {
+
+export class RunsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
             <CommonTable activeOnly={false} name="runs" />
@@ -148,7 +150,7 @@ class RunsListRoute extends React.Component {
     );}
 }
 
-class RunsActiveRoute extends React.Component {
+export class RunsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
             <CommonTable activeOnly={true} name="runs" />
@@ -156,34 +158,11 @@ class RunsActiveRoute extends React.Component {
     );}
 }
 
-class RunsNewRoute extends React.Component {
+export class RunsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
-            <LibrariesInsertForm/>
+            <RunsInsertForm/>
         } />
     );}
 }
 
-
-
-export {
-    FacilityDataRoute,
-    ProjectsListRoute,
-    ProjectsActiveRoute,
-    ProjectsNewRoute,
-    PeopleListRoute,
-    PeopleActiveRoute,
-    PeopleNewRoute,
-    GenomesListRoute,
-    GenomesActiveRoute,
-    GenomesNewRoute,
-    SamplesListRoute,
-    SamplesActiveRoute,
-    SamplesNewRoute,
-    LibrariesListRoute,
-    LibrariesActiveRoute,
-    LibrariesNewRoute,
-    RunsListRoute,
-    RunsActiveRoute,
-    RunsNewRoute,
-}

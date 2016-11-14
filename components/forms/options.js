@@ -3,59 +3,61 @@
  * */
 
 
-function getAdapters() {
+export function getAdapters() {
     return [];
 }
 
-function getLibProtocols() {
+export function getFlowcellVersions() {
     return [];
 }
 
-function getLibraryStates() {
+export function getInstruments() {
     return [];
 }
 
-function getMultiplexIndexes() {
+export function getLibProtocols() {
+    return [];
+}
+
+export function getLibraryStates() {
+    return [];
+}
+
+export function getMultiplexIndexes() {
     return[];
 }
 
-function getOrganismsList() {
+export function getOrganismsList() {
     return [[1,"Human"], [2,"Mouse"], [3,"Fly"]];
     // DBIinsert::optiondisplaydbOrdered('taxonomies',['id','name'], ['name']);
 }
 
-function getProjectsList() {
+export function getProjectsList() {
     return[];
 }
 
-function getProjectAnalysesList() {
-    return [[1,"Analysis1"], [2,"Analysis2"], [3,"Analysis3"]];
-    // optiondisplaydbOrdered($table, $args, $order, $limit): select * from table order by ..
-    // DBIinsert::optiondisplaydbOrdered('project_analysis',['id','name' ], ['id']);
-}
-
-function getQuantifTypesList() {
+export function getQuantifTypesList() {
     return [];
 }
 
-function getSamplesList() {
+export function getRunTypesLengths() {
     return [];
 }
 
-function getSampleTypesList() {
+export function getSamplesList() {
+    return [];
+}
+
+export function getSampleTypesList() {
     return [[1, "type1"], [2, "type2"]];
 }
 
+export function getSequencingKits() {
+    return [];
+}
 
-export {
-    getAdapters,
-    getLibProtocols,
-    getLibraryStates,
-    getMultiplexIndexes,
-    getOrganismsList,
-    getProjectAnalysesList,
-    getProjectsList,
-    getQuantifTypesList,
-    getSamplesList,
-    getSampleTypesList,
-};
+export function getRunStages() {
+    return [[1,'--'], [2,'A'], [3,'B']];
+}
+
+

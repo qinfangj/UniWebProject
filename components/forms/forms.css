@@ -29,6 +29,10 @@
     margin: 0;  /* override Bootstrap's through bsClass */
 }
 
+.checkbox {
+    padding-right: 15px;
+}
+
 /* The sign that a field is required
  * Make the star red, bigger, and still keep the same line height. */
 .requiredString {

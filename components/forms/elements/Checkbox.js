@@ -1,5 +1,6 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import css from '../forms.css';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 
@@ -23,7 +24,7 @@ class CheckBox extends React.Component {
     render() {
         return (
             <FormGroup controlId={this.props.name} >
-                <Checkbox onChange={this.onChange.bind(this)} value={this.state.checked} >
+                <Checkbox onChange={this.onChange.bind(this)} value={this.state.checked} className={css.checkbox}>
                     {this.props.label}
                 </Checkbox>
             </FormGroup>
