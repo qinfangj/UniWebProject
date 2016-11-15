@@ -1,6 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './forms.css';
+import cx from 'classnames';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
@@ -84,7 +85,7 @@ class GenomesInsertForm extends React.Component {
 
                     {/* Genome folder */}
 
-                    <Col sm={4}>
+                    <Col sm={4} className={css.formCol}>
                         <TextField name="genomeFolder" label="Genome folder" required
                                    missing = {!!this.state.missing["genome_folder"]}
                                    invalid = {!!this.state.invalid["genome_folder"]}
@@ -108,7 +109,7 @@ class GenomesInsertForm extends React.Component {
 
                     {/* Downloaded date */}
 
-                    <Col sm={4}>
+                    <Col sm={4} className={css.formCol}>
                         <DatePicker name="downloaded_date" label="Download date"
                                     ref = {(c) => this._downloadedDate = c}
                         />
@@ -119,19 +120,21 @@ class GenomesInsertForm extends React.Component {
 
                     {/* File names */}
 
-                    <TextField name="files" label="File names"
-                               invalid = {!!this.state.invalid["files"]}
-                               missing = {!!this.state.missing["files"]}
-                               ref = {(c) => this._files = c}
-                               defaultValue = "truc.txt, autre.txt"
-                    />
+                    <div className={css.soloField}>
+                        <TextField name="files" label="File names"
+                                   invalid = {!!this.state.invalid["files"]}
+                                   missing = {!!this.state.missing["files"]}
+                                   ref = {(c) => this._files = c}
+                                   defaultValue = "truc.txt, autre.txt"
+                        />
+                    </div>
 
                 </Form>
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Comment */}
 
-                    <Col sm={8} className={css.formCol}>
+                    <Col sm={10} className={css.formCol}>
                         <TextField name="comment" label="Comment"
                                    invalid = {!!this.state.invalid["comment"]}
                                    ref = {(c) => this._comment = c}
@@ -139,15 +142,10 @@ class GenomesInsertForm extends React.Component {
                         />
                     </Col>
 
-                    {/* Is masked */}
+                    {/* Is masked / is archived */}
 
                     <Col sm={2} className={css.formCol}>
                         <CheckBox ref={(c) => this._isMasked = c} name="isMasked" label="Masked" />
-                    </Col>
-
-                    {/* Is achived */}
-
-                    <Col sm={2}>
                         <CheckBox ref={(c) => this._isArchived = c} name="isArchived" label="Archived" />
                     </Col>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './forms.css';
+import cx from 'classnames';
 
 import TextField from './elements/TextField';
 import Textarea from './elements/TextField';
@@ -93,7 +94,7 @@ class SamplesInsertForm extends React.Component {
 
                     {/* Project */}
 
-                    <Col sm={5}>
+                    <Col sm={5} className={css.formCol}>
                         <Select name="project_id" label="Project"
                                 options={options.getProjectsList()}
                                 ref={(c) => this._project = c}
@@ -131,7 +132,7 @@ class SamplesInsertForm extends React.Component {
 
                     {/* Quantification */}
 
-                    <Col sm={3}>
+                    <Col sm={3} className={css.formCol}>
                         <Select name="quantif_type_id" label="Quantification"
                                 options={options.getQuantifTypesList()}
                                 ref={(c) => this._quantification = c}
@@ -184,7 +185,7 @@ class SamplesInsertForm extends React.Component {
 
                     {/* Ratio 260/230 */}
 
-                    <Col sm={2}>
+                    <Col sm={2} className={css.formCol}>
                         <TextField name="ratio_260_230" label="Ratio 260/230"
                                    ref = {(c) => this._ratio_260_230 = c}
                         />
@@ -195,7 +196,7 @@ class SamplesInsertForm extends React.Component {
 
                     {/* Description */}
 
-                    <Col sm={12}>
+                    <Col sm={12} className={css.formCol}>
                         <TextField name="description" label="Description"
                                    ref = {(c) => this._description = c}
                         />
@@ -206,7 +207,7 @@ class SamplesInsertForm extends React.Component {
 
                     {/* Customer's comment */}
 
-                    <Col sm={12}>
+                    <Col sm={12} className={css.formCol}>
                         <TextField name="comment" label="Comment"
                                    ref = {(c) => this._customerComment = c}
                         />
@@ -217,7 +218,7 @@ class SamplesInsertForm extends React.Component {
 
                     {/* Internal comment */}
 
-                    <Col sm={10}>
+                    <Col sm={10} className={css.formCol}>
                         <Textarea name="comment_customer" label="Internal comment"
                                   ref = {(c) => this._internalComment = c}
                         />
@@ -225,7 +226,7 @@ class SamplesInsertForm extends React.Component {
 
                     {/* Is trashed */}
 
-                    <Col sm={2}>
+                    <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
                         <CheckBox name="is_discarded" label="Discarded"
                                   ref = {(c) => this._isDiscarded = c}
                         />

@@ -1,6 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './forms.css';
+import cx from 'classnames';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
@@ -88,7 +89,7 @@ class UserRequestsInsertForm extends React.Component {
                                    ref = {(c) => this._insertSizeMin = c}
                         />
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={2} className={css.formCol}>
                         <TextField name="insertSizeMax" label="Insert size max" required
                                    ref = {(c) => this._insertSizeMax = c}
                         />
@@ -141,7 +142,7 @@ class UserRequestsInsertForm extends React.Component {
 
                     {/* Multiplex# */}
 
-                    <Col sm={2}>
+                    <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
                         <CheckBox ref = {(c) => this._isQC = c} name="isQC" label="is QC"/>
                     </Col>
 
@@ -156,7 +157,7 @@ class UserRequestsInsertForm extends React.Component {
 
                     {/* Is discarded / is done */}
 
-                    <Col sm={2}>
+                    <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
                         <CheckBox ref = {(c) => this._isDiscarded = c} name="isDiscarded" label="Discarded"/>
                         <CheckBox ref = {(c) => this._isDone = c} name="isDone" label="DONE"/>
                     </Col>

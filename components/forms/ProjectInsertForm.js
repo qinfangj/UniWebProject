@@ -81,7 +81,7 @@ class ProjectInsertForm extends React.Component {
 
                     {/* Code name */}
 
-                    <Col sm={4}>
+                    <Col sm={4} className={css.formCol}>
                         <TextField name="codeName" label="Code name" required
                                    missing = {!!this.state.missing["code_name"]}
                                    invalid = {!!this.state.invalid["code_name"]}
@@ -93,16 +93,20 @@ class ProjectInsertForm extends React.Component {
                     </Col>
 
                 </Form>
+                <Form componentClass="fieldset">
 
-                {/* Description */}
+                    {/* Description */}
 
-                <TextField name="description" label="Description"
-                           defaultValue = "Enter description here"
-                           validator = {validators.descriptionValidator}
-                           invalid = {!!this.state.invalid["description"]}
-                           ref = {(c) => this._description = c}
-                />
+                    <div className={css.soloField}>
+                        <TextField name="description" label="Description"
+                                   defaultValue = "Enter description here"
+                                   validator = {validators.descriptionValidator}
+                                   invalid = {!!this.state.invalid["description"]}
+                                   ref = {(c) => this._description = c}
+                        />
+                    </div>
 
+                </Form>
                 <Form componentClass="fieldset" horizontal>
                     <Col sm={4} className={css.formCol}>
 
@@ -126,15 +130,20 @@ class ProjectInsertForm extends React.Component {
 
                     {/* Project analysis */}
 
-                    <Col sm={4}>
+                    <Col sm={4} className={css.formCol}>
                         <Options.ProjectAnalysesList ref={(c) => this._projectAnalysis = c} />
                     </Col>
 
                 </Form>
+                <Form componentClass="fieldset">
 
-                {/* Comment */}
+                    {/* Comment */}
 
-                <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
+                    <div className={css.soloField}>
+                        <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
+                    </div>
+
+                </Form>
 
                 {/* Submit */}
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './forms.css';
+import cx from 'classnames';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
@@ -106,7 +107,7 @@ class RunsInsertForm extends React.Component {
 
                     {/* Run date (aka "?") */}
 
-                    <Col sm={3}>
+                    <Col sm={3} className={css.formCol}>
                         <DatePicker name="run_date" label="Run date"
                                     ref = {(c) => this._runDate = c}
                         />
@@ -148,14 +149,14 @@ class RunsInsertForm extends React.Component {
 
                             {/* Is failed */}
 
-                            <Col sm={4}>
+                            <Col sm={3} className={css.formCol}>
                                 <CheckBox ref={(c) => this._isFailed = c} name="isFailed" label="Run failed" />
                             </Col>
 
                         </Form>
 
                     </Col>
-                    <Col sm={8}>
+                    <Col sm={8} className={css.formCol}>
                         <TextArea name="comment" label="Comment"
                                   ref = {(c) => this._comment = c}
                         />
@@ -177,7 +178,7 @@ class RunsInsertForm extends React.Component {
 
                         </Form>
                     </Col>
-                    <Col sm={5}>
+                    <Col sm={5} className={css.formCol}>
 
                         {/* Comment */}
 

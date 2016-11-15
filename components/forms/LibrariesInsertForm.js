@@ -119,7 +119,7 @@ class LibrariesInsertForm extends React.Component {
 
                     {/* Starting material */}
 
-                    <Col sm={2}>
+                    <Col sm={2} className={css.formCol}>
                         <TextField name="starting_material" label="Starting material" required
                                    missing = {!!this.state.missing["starting_material"]}
                                    invalid = {!!this.state.invalid["starting_material"]}
@@ -177,7 +177,7 @@ class LibrariesInsertForm extends React.Component {
 
                     {/* Quantification */}
 
-                    <Col sm={2}>
+                    <Col sm={2} className={css.formCol}>
                         <Select name="quantif_type_id" label="Quantification"
                                 options={options.getQuantifTypesList()}
                                 ref={(c) => this._quantification = c}
@@ -225,7 +225,7 @@ class LibrariesInsertForm extends React.Component {
 
                     {/* Illumina kits and lots */}
 
-                    <Col sm={4}>
+                    <Col sm={4} className={css.formCol}>
                         <TextField name="kits_lots" label="Illumina kits and lots"
                                    ref = {(c) => this._illuminaKits = c}
                         />
@@ -244,7 +244,7 @@ class LibrariesInsertForm extends React.Component {
 
                     {/* Library state */}
 
-                    <Col sm={2}>
+                    <Col sm={2} className={css.formCol}>
                         <Select name="library_state_id" label="Library state"
                                 options={options.getLibraryStates()}
                                 ref={(c) => this._libraryState = c}
@@ -264,7 +264,7 @@ class LibrariesInsertForm extends React.Component {
 
                     {/* Is made by user / by robot / trashed */}
 
-                    <Col sm={2}>
+                    <Col sm={2} className={css.formCol}>
                         <CheckBox name="isCustomer_made" label="Made by user"
                                   ref = {(c) => this._isCustomerMade = c}
                         />

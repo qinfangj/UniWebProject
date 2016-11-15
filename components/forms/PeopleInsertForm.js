@@ -83,7 +83,7 @@ class ProjectInsertForm extends React.Component {
 
                     {/* Email */}
 
-                    <Col sm={4}>
+                    <Col sm={4} className={css.formCol}>
                         <TextField name="email" label="PI email" required
                                    missing = {!!this.state.missing["email"]}
                                    invalid = {!!this.state.invalid["email"]}
@@ -109,7 +109,7 @@ class ProjectInsertForm extends React.Component {
 
                     {/* Phone */}
 
-                    <Col sm={4}>
+                    <Col sm={4} className={css.formCol}>
                         <TextField name="phone" label="PI phone" required
                                    missing = {!!this.state.missing["phone"]}
                                    invalid = {!!this.state.invalid["phone"]}

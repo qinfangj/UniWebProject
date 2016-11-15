@@ -46,7 +46,7 @@ class Select extends React.Component {
             return <option value={v[0]} key={v[0]+v[1]}>{v[1]}</option>;
         }) : null;
         return (
-            <FormGroup controlId={this.props.name} >
+            <FormGroup controlId={this.props.name} bsSize="small" >
                 <ControlLabel>{this.props.label}</ControlLabel>
                 <FormControl componentClass="select"
                     placeholder={this.props.label}

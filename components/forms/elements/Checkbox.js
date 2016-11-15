@@ -23,9 +23,9 @@ class CheckBox extends React.Component {
 
     render() {
         return (
-            <FormGroup controlId={this.props.name} >
+            <FormGroup controlId={this.props.name} bsSize="small" >
                 <Checkbox onChange={this.onChange.bind(this)} value={this.state.checked} className={css.checkbox}>
-                    {this.props.label}
+                    <div className={css.checkboxLabel}>{this.props.label}</div>
                 </Checkbox>
             </FormGroup>
         );

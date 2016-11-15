@@ -26,7 +26,7 @@ class DatePicker extends React.Component {
 
     render() {
         return (
-            <FormGroup controlId={this.props.name} >
+            <FormGroup controlId={this.props.name} bsSize="small" >
                 <ControlLabel>{this.props.label}</ControlLabel>
                 <FormControl
                     type="date"
