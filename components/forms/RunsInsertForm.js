@@ -2,6 +2,7 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './forms.css';
 import cx from 'classnames';
+import store from '../../core/store';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/CheckBox';
@@ -25,6 +26,18 @@ class RunsInsertForm extends React.Component {
         this.table = "runs";
         this.required = [];
         this.state = forms.defaultFormState;
+        this.state.libraries = store.getState().common.route.data;
+    }
+
+    componentWillMount() {
+        this.unsubscribe = store.subscribe(() => {
+            this.setState({
+                libraries: store.getState().common.route.data,
+            });
+        });
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     onSubmit() {
@@ -56,6 +69,7 @@ class RunsInsertForm extends React.Component {
     }
 
     render() {
+        console.debug(this.state.libraries);
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />

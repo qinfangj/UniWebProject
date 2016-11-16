@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 
 
 const defaultState = {
-    route: {}
+    route: {},
 };
 
 
@@ -18,8 +18,8 @@ let commonReducers = (state = defaultState, action) => {
         case types.GOTO:
             browserHistory.push(action.url, action.query, action.state);
             console.debug("reducer:", action.data)
-            return Object.assign(state, {route:
-                {
+            return Object.assign(state, {
+                route: {
                     url: action.url,
                     query: action.query,
                     state: action.state,
