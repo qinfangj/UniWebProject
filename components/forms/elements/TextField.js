@@ -59,7 +59,7 @@ class TextField extends React.Component {
             let res = this.props.validator(value);
             valid = res.valid;
             msg = valid ? "" : res.msg;
-            status = valid ? "success" : "warning";
+            status = valid ? null : "warning";
         }
         return {valid, msg, status};
     }
@@ -73,14 +73,15 @@ class TextField extends React.Component {
     render() {
         let requireString = (this.props.required && !this.state.value) ?
             <span className={css.requiredString}>{" *"}</span>: null;
+        let label = this.props.label ? <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel> : null;
         return (
             <FormGroup controlId={this.props.name} validationState={this.state.status} bsSize="small" >
-                <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel>
+                {label}
                 <FormControl
                     type="text"
                     value={this.state.value}
                     onChange={this.onChange.bind(this)}
-                    placeholder={this.props.helpMessage}
+                    placeholder={this.props.placeholder}
                 />
                 <FormControl.Feedback />
                 <HelpBlock bsClass={css.feedback}>{this.state.msg}</HelpBlock>
@@ -90,12 +91,12 @@ class TextField extends React.Component {
 }
 TextField.propTypes = {
     name: React.PropTypes.string.isRequired,
-    label: React.PropTypes.string.isRequired,
+    label: React.PropTypes.string,  // title - visible
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
     required: React.PropTypes.bool,
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting
     invalid: React.PropTypes.bool,  // field was found invalid when submitting
-    helpMessage: React.PropTypes.string,
+    placeholder: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
 };
 TextField.defaultProps = {
@@ -103,7 +104,7 @@ TextField.defaultProps = {
     required: false,
     missing: false,
     invalid: false,
-    helpMessage: "",
+    placeholder: "",
     defaultValue: "",
 };
 

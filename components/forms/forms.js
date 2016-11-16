@@ -14,7 +14,7 @@ const defaultFormState = {
     submissionId: undefined,
 };
 
-function submit(tableName, formData, required, formatFormData) {
+function submit(tableName, formData, required=[], formatFormData=null) {
     console.info(JSON.stringify(formData, null, 2));
     let fields = Object.keys(formData);
     let nullFields = required.filter(k => formData[k] === null);

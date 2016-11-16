@@ -8,6 +8,7 @@ import PeopleInsertForm from '../../components/forms/PeopleInsertForm';
 import GenomesInsertForm from '../../components/forms/GenomesInsertForm';
 import SamplesInsertForm from '../../components/forms/SamplesInsertForm';
 import LibrariesInsertForm from '../../components/forms/LibrariesInsertForm';
+import RunsPreInsertForm from '../../components/forms/RunsPreInsertForm';
 import RunsInsertForm from '../../components/forms/RunsInsertForm';
 import UserRequestsInsertForm from '../../components/forms/UserRequestsInsertForm';
 
@@ -159,6 +160,13 @@ export class RunsActiveRoute extends React.Component {
     );}
 }
 
+export class RunsPreNewRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Runs" name="runs" content={
+            <RunsPreInsertForm/>
+        } />
+    );}
+}
 export class RunsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={

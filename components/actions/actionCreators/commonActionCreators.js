@@ -20,10 +20,13 @@ export function toggleSidebar(open) {
 /**
  * Navigate to new url
  */
-export function go_to(url) {
+export function goTo(url, query={}, state={}, data={}) {
     return {
         type: actions.GOTO,
         url: url,
+        query: query,  // "...?option=that"
+        state: state,
+        data: data,    // data to pass to the next page using the store
     }
 }
 

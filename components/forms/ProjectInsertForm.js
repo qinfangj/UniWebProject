@@ -86,7 +86,7 @@ class ProjectInsertForm extends React.Component {
                                    missing = {!!this.state.missing["code_name"]}
                                    invalid = {!!this.state.invalid["code_name"]}
                                    validator = {validators.codeNameValidator}
-                                   helpMessage = "[name]_[initials] Ex: Tcells_EG."
+                                   placeholder = "[name]_[initials] Ex: Tcells_EG."
                                    ref = {(c) => this._codeName = c}
                                    defaultValue="code_JD"
                         />

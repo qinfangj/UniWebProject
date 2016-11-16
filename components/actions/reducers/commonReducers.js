@@ -1,9 +1,11 @@
 
 import types from '../actionTypes';
-import constants from '../../constants/constants';
+import { browserHistory } from 'react-router';
 
 
-const defaultState = {};
+const defaultState = {
+    route: {}
+};
 
 
 let commonReducers = (state = defaultState, action) => {
@@ -14,7 +16,16 @@ let commonReducers = (state = defaultState, action) => {
             return Object.assign(state, {sidebarOpen: action.open});
 
         case types.GOTO:
-            return Object.assign(state, {route: action.url});
+            browserHistory.push(action.url, action.query, action.state);
+            console.debug("reducer:", action.data)
+            return Object.assign(state, {route:
+                {
+                    url: action.url,
+                    query: action.query,
+                    state: action.state,
+                    data: action.data,
+                }
+            });
 
         default:
             return state;

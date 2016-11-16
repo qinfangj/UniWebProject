@@ -61,7 +61,8 @@ const routes = (
             <Route path="data/runs" component={fdata.RunsListRoute}/>
             <Route path="data/runs/list" component={fdata.RunsListRoute}/>
             <Route path="data/runs/active" component={fdata.RunsActiveRoute}/>
-            <Route path="data/runs/new" component={fdata.RunsNewRoute}/>
+            <Route path="data/runs/new" component={fdata.RunsPreNewRoute}/>
+            <Route path="data/runs/postnew" component={fdata.RunsNewRoute}/>
 
             <Route path="data/user_requests" component={fdata.UserRequestsListRoute}/>
             <Route path="data/user_requests/list" component={fdata.UserRequestsListRoute}/>

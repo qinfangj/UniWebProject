@@ -22,7 +22,7 @@ class ProjectInsertForm extends React.Component {
     }
 
     formatFormData(formData) {
-        formData.isLaboratory = 1;
+        formData.isLaboratory = true;
         formData.phone = parseInt(formData.phone);
         return formData;
     }
