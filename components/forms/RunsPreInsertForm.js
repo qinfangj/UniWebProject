@@ -4,7 +4,6 @@ import css from './runs.css';
 import formsCss from './forms.css';
 import commonCss from '../../styles/common.css';
 import cx from 'classnames';
-import _ from 'lodash';
 import store from '../../core/store';
 import { goTo } from '../actions/actionCreators/commonActionCreators';
 
@@ -13,14 +12,14 @@ import Select from './elements/Select';
 import validators from './validators';
 import * as forms from './forms.js';
 
-import Form from 'react-bootstrap/lib/Form';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
 
 const range8 = Array.from(new Array(8).keys());  // idiotic JS - range(8)
 
 
+/**
+ * The table-shaped form where we select how many libraries to add
+ */
 class RunsPreInsertForm extends React.Component {
     constructor() {
         super();
@@ -30,7 +29,7 @@ class RunsPreInsertForm extends React.Component {
         this.state = forms.defaultFormState;
         this.lanes = range8.map((laneId) => {
             return {
-                id: laneId + 1,
+                id: laneId,
                 nlibs: null,
                 nqc: null,
                 project: null,
@@ -41,23 +40,42 @@ class RunsPreInsertForm extends React.Component {
 
     onSubmit() {
         let formData = this.getFormValues();
-        console.info(JSON.stringify(formData, null, 2));
-        store.dispatch(goTo("/data/runs/postnew", {}, {}, formData));
-        // if (!newState.submissionError) {
-        //     newState.submissionFuture.done((insertId) => {
-        //         this.setState({ submissionSuccess: true, submissionId: insertId });
-        //     }).fail(() =>{
-        //         console.warn("Uncaught form validation error");
-        //         this.setState({ submissionError: true });
-        //     });
-        // }
+        let validation = this.validateFormData(formData);
+        if (validation.isValid) {
+            let data = this.formatFormData(formData);
+            console.info(JSON.stringify(data, null, 2));
+            store.dispatch(goTo("/data/runs/postnew", {}, {}, data));
+        }
+        this.setState({submissionError: validation.isValid, invalid: validation.invalid});
+    }
+
+    validateFormData(formData) {
+        let invalid = {};
+        for (let lane of formData) {
+            if (lane.nlibs === null) { invalid[lane.id] = {}; invalid[lane.id].nlibs = true; }
+            if (lane.nqc === null) { invalid[lane.id] = {}; invalid[lane.id].nqc = true; }
+        }
+        return {isValid: Object.keys(invalid).length === 0, invalid};
+    }
+
+    formatFormData(formData) {
+        // Filter out lanes with 0 libraries to insert
+        let data = formData.filter((lane) => { return lane.nlibs > 0; });
+        // Cast numeric strings to int
+        data = data.map((lane) => {
+            lane.nlibs = parseInt(lane.nlibs);
+            lane.nqc = parseInt(lane.nqc);
+            return lane;
+        });
+        return data;
     }
 
     getFormValues() {
         return this.lanes.map((lane) => {
             return {
-                nlibs: parseInt(lane.nlibs.getValue()),
-                nqc: parseInt(lane.nqc.getValue()),
+                id: lane.id,
+                nlibs: lane.nlibs.getValue(),
+                nqc: lane.nqc.getValue(),
                 projectId: lane.project.getValue(),
                 libraryPoolId: lane.pool.getValue(),
             };
@@ -66,16 +84,19 @@ class RunsPreInsertForm extends React.Component {
 
     render() {
         let makeRow = (laneId) => {
+            let invalid = this.state.invalid[laneId];
             return <tr key={laneId} className={css.preRunsInsertRow}>
                 <td key="id" className={css.laneId}>{laneId + 1}</td>
                 <td key="nlibs" className={css.numeric}>
-                    <TextField name="nlibs" defaultValue="0"
-                               validator={validators.integerValidator}
+                    <TextField name="nlibs" defaultValue="0" required
+                               validator = {validators.integerValidator}
+                               invalid = {invalid && invalid.nlibs}
                                ref={(c) => this.lanes[laneId]["nlibs"] = c} />
                 </td>
                 <td key="nqc" className={css.numeric}>
-                    <TextField name="nqc" defaultValue="0"
-                               validator={validators.integerValidator}
+                    <TextField name="nqc" defaultValue="0" required
+                               validator = {validators.integerValidator}
+                               invalid = {invalid && invalid.nqc}
                                ref={(c) => this.lanes[laneId]["nqc"] = c} />
                 </td>
                 <td key="project">
@@ -98,7 +119,6 @@ class RunsPreInsertForm extends React.Component {
         return (
             <form className={formsCss.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />
-                <forms.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
 
                 <table className={css.preRunsInsertTable}>
                     <thead><tr>
