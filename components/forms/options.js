@@ -19,6 +19,10 @@ export function getLibProtocols() {
     return [];
 }
 
+export function getLibraryPools() {  // should depend on project
+    return [[1, "p1"], [2, "p2"]];
+}
+
 export function getLibraryStates() {
     return [];
 }
@@ -37,7 +41,7 @@ export function getOrganismsList() {
 }
 
 export function getProjectsList() {
-    return[];
+    return[[1, "Project1"], [2, "Project2"]];
 }
 
 export function getQuantifTypesList() {

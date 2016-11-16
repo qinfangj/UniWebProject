@@ -11,6 +11,7 @@ import TextField from './elements/TextField';
 import Select from './elements/Select';
 import validators from './validators';
 import * as forms from './forms.js';
+import * as options from './options';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -101,13 +102,13 @@ class RunsPreInsertForm extends React.Component {
                 </td>
                 <td key="project">
                     <Select name="project"
-                            options={[[1, "A"], [2, "B"]]}
+                            options={options.getProjectsList()}
                             ref={(c) => this.lanes[laneId]["project"] = c}
                     />
                 </td>
                 <td key="pool">
                     <Select name="pool"
-                            options={[[1, "P1"], [2, "P2"]]}
+                            options={options.getLibraryPools()}
                             ref={(c) => this.lanes[laneId]["pool"] = c}
                     />
                 </td>
