@@ -71,7 +71,6 @@ class RunsInsertForm extends React.Component {
     }
 
     render() {
-        console.debug(this.state.lanes);
         return (
             <form className={formsCss.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />

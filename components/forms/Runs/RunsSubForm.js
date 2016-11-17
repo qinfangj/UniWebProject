@@ -12,38 +12,38 @@ import * as options from '../options';
 /**
  * The Project-library-[pM]-QC mini form of variable length
  * where the user enters the libraries to add.
+ * It is part of `RunsInsertForm`.
+ * Each lane is a group of rows with 4 inputs, soaced and surrounded by a border.
  */
 class RunsSubForm extends React.Component {
     constructor(props) {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // Test
-        console.debug(this.props)
-        this.lanes = [
-            {
-                "id": 2,
-                "nlibs": 2,
-                "nqc": 0,
-                "projectId": 1,
-                "libraryPoolId": 1
-            },
-            {
-                "id": 5,
-                "nlibs": 4,
-                "nqc": 0,
-                "projectId": 1,
-                "libraryPoolId": 1
-            }
-        ];
+        // this.lanes = [
+        //     {
+        //         "id": 2,
+        //         "nlibs": 2,
+        //         "nqc": 0,
+        //         "projectId": 1,
+        //         "libraryPoolId": 1
+        //     },
+        //     {
+        //         "id": 5,
+        //         "nlibs": 4,
+        //         "nqc": 0,
+        //         "projectId": 1,
+        //         "libraryPoolId": 1
+        //     }
+        // ];
         this.librariesRefs = {};
     }
 
-    static propTypes() {
-        return {
-            lanes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-        };
-    }
-
+    /**
+     * One row of 4 fields (project, lib, pM, QC).
+     * @param lane: lane object, as in this.lanes.
+     * @param lib: row index inside a lane ("library").
+     */
     makeLibRow(lane, lib) {
         return (<tr key={lane.id +'-'+ lib}
                     className={lib===0 ? css.topRow : (lib===lane.nlibs-1 ? css.bottomRow : null)}>
@@ -81,7 +81,7 @@ class RunsSubForm extends React.Component {
     }
 
     render() {
-        let lanes = this.lanes.map((lane) => {
+        let lanes = this.props.lanes.map((lane) => {
             this.librariesRefs[lane.id] = [];
             let laneRows = [];
             for (let j=0; j<lane.nlibs; j++) {
@@ -103,6 +103,13 @@ class RunsSubForm extends React.Component {
         </table>;
     }
 }
+
+RunsSubForm.propTypes = {
+    lanes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+};
+RunsSubForm.defaultProps = {
+    lanes: [],
+};
 
 
 export default RunsSubForm;
