@@ -1,0 +1,108 @@
+
+@import '../../../styles/colors.css';
+
+:root {
+    --mar: 4px;
+    --border: 1px solid var(--blue);
+}
+
+
+.preRunsInsertTable {
+    width: 100%;
+}
+.preRunsInsertTable thead:after {
+    margin-bottom: 3px;
+}
+.preRunsInsertTable th {
+    height: 30px;
+    padding: 5px;
+    background-color: var(--yellow);
+}
+.preRunsInsertTable td {
+    padding: 5px 5px 0 0;
+}
+
+.preRunsInsertRow {
+
+}
+
+/* Column types*/
+
+.laneId {
+    width: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+.numeric {
+    width: 120px;
+    max-width: 120px;
+}
+
+
+.submitButton {
+    margin-top: 15px;
+}
+
+/* Lanes sub-form */
+
+.subformCol {
+    padding-left: 0;
+    margin-top: 6px;
+}
+.lanesTable {
+    width: 100%;
+}
+.lanesTable th {
+    font-size: 12px;
+    padding-left: var(--mar);
+}
+.lanesGroup {
+}
+.lanesGroup::before
+{
+    content: '';
+    display: block;
+    height: 5px;
+}
+.lanesGroup::after
+{
+    content: '';
+    display: block;
+    height: 5px;
+}
+
+/* Generic cell */
+.libCell {
+}
+.libCell > div {
+    margin: 0;
+    padding: 0 calc(15px + var(--mar));  /* compensate the -15px left/right-margin in BS .form-horizontal .form-group */
+}
+
+/* Particular cells */
+.laneCell {
+    width: 20px;
+}
+.projectCell {
+    width: 40%;
+}
+td.projectCell {
+    border-left: var(--border);
+}
+.libraryCell {
+    width: 25%;
+}
+.quantityCell {
+    width: 1px;  /* BS padding is enough... */
+}
+td.qualityCell {
+    border-right: var(--border);
+}
+.topRow td:not(:first-child) {
+    border-top: var(--border);
+    padding-top: var(--mar);
+}
+.bottomRow td {
+    border-bottom: var(--border);
+    padding-bottom: var(--mar);
+}

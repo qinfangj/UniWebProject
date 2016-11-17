@@ -13,6 +13,13 @@
     margin: 0;
     padding-top: 7px;
 }
+/* Idiotic negative margin of form components */
+/*
+:global(.form-horizontal .form-group) {
+    margin-left: 0;
+    margin-right: 0;
+}
+*/
 
 /* Ag-grid */
 

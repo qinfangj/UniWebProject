@@ -4,7 +4,7 @@ import css from './forms.css';
 
 import TextField from './elements/TextField';
 import Textarea from './elements/TextField';
-import CheckBox from './elements/CheckBox';
+import CheckBox from './elements/MyCheckbox';
 import Select from './elements/Select';
 import DatePicker from './elements/DatePicker';
 import validators from './validators';

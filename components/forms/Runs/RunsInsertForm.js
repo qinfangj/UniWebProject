@@ -1,17 +1,19 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from './forms.css';
+import formsCss from '../forms.css';
+import css from './runs.css';
 import cx from 'classnames';
-import store from '../../core/store';
+import store from '../../../core/store';
 
-import TextField from './elements/TextField';
-import CheckBox from './elements/CheckBox';
-import Select from './elements/Select';
-import TextArea from './elements/Textarea';
-import DatePicker from './elements/DatePicker';
-import validators from './validators';
-import * as forms from './forms.js';
-import * as options from './options';
+import TextField from '../elements/TextField';
+import CheckBox from '../elements/MyCheckbox';
+import Select from '../elements/Select';
+import TextArea from '../elements/Textarea';
+import DatePicker from '../elements/DatePicker';
+import validators from '../validators';
+import * as forms from '../forms.js';
+import * as options from '../options';
+import RunsSubForm from './RunsSubForm';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -26,13 +28,13 @@ class RunsInsertForm extends React.Component {
         this.table = "runs";
         this.required = [];
         this.state = forms.defaultFormState;
-        this.state.libraries = store.getState().common.route.data;
+        this.state.lanes = store.getState().common.route.data || [];
     }
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
             this.setState({
-                libraries: store.getState().common.route.data,
+                lanes: store.getState().common.route.data,   // NOT SAFE
             });
         });
     }
@@ -69,9 +71,9 @@ class RunsInsertForm extends React.Component {
     }
 
     render() {
-        console.debug(this.state.libraries);
+        console.debug(this.state.lanes);
         return (
-            <form className={css.form}>
+            <form className={formsCss.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />
                 <forms.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
 
@@ -79,7 +81,7 @@ class RunsInsertForm extends React.Component {
 
                     {/* Run# */}
 
-                    <Col sm={1} className={css.formCol}>
+                    <Col sm={1} className={formsCss.formCol}>
                         <TextField name="run" label="Run#" required
                                    ref = {(c) => this._run = c}
                         />
@@ -87,7 +89,7 @@ class RunsInsertForm extends React.Component {
 
                     {/* Flowcell ID */}
 
-                    <Col sm={2} className={css.formCol}>
+                    <Col sm={2} className={formsCss.formCol}>
                         <TextField name="flowcell" label="Flowcell ID" required
                                    ref = {(c) => this._flowcellId = c}
                         />
@@ -95,7 +97,7 @@ class RunsInsertForm extends React.Component {
 
                     {/* Version */}
 
-                    <Col sm={1} className={css.formCol}>
+                    <Col sm={1} className={formsCss.formCol}>
                         <Select name="version" label="Version"
                                 options={options.getFlowcellVersions()}
                                 ref={(c) => this._version = c}
@@ -104,7 +106,7 @@ class RunsInsertForm extends React.Component {
 
                     {/* Cluster date (aka "?") */}
 
-                    <Col sm={3} className={css.formCol}>
+                    <Col sm={3} className={formsCss.formCol}>
                         <DatePicker name="cluster_date" label="Cluster date"
                                     ref = {(c) => this._clusterDate = c}
                         />
@@ -112,7 +114,7 @@ class RunsInsertForm extends React.Component {
 
                     {/* Machine (aka "Instrument") */}
 
-                    <Col sm={2} className={css.formCol}>
+                    <Col sm={2} className={formsCss.formCol}>
                         <Select name="machine" label="Machine"
                                 options={options.getInstruments()}
                                 ref={(c) => this._instrument = c}
@@ -121,7 +123,7 @@ class RunsInsertForm extends React.Component {
 
                     {/* Run date (aka "?") */}
 
-                    <Col sm={3} className={css.formCol}>
+                    <Col sm={3} className={formsCss.formCol}>
                         <DatePicker name="run_date" label="Run date"
                                     ref = {(c) => this._runDate = c}
                         />
@@ -136,7 +138,7 @@ class RunsInsertForm extends React.Component {
 
                             {/* Reads type + length */}
 
-                            <Col sm={12} className={css.formCol}>
+                            <Col sm={12} className={formsCss.formCol}>
                                 <Select name="run_type" label="Run type"
                                         options={options.getRunTypesLengths()}
                                         ref={(c) => this._runTypesLengths = c}
@@ -145,7 +147,7 @@ class RunsInsertForm extends React.Component {
 
                             {/* Run stage */}
 
-                            <Col sm={4} className={css.formCol}>
+                            <Col sm={4} className={formsCss.formCol}>
                                 <Select name="stage" label="Stage"
                                         options={options.getRunStages()}
                                         ref={(c) => this._stage = c}
@@ -154,7 +156,7 @@ class RunsInsertForm extends React.Component {
 
                             {/* Kit */}
 
-                            <Col sm={4} className={css.formCol}>
+                            <Col sm={4} className={formsCss.formCol}>
                                 <Select name="kit" label="Kit"
                                         options={options.getSequencingKits()}
                                         ref={(c) => this._kit = c}
@@ -163,14 +165,14 @@ class RunsInsertForm extends React.Component {
 
                             {/* Is failed */}
 
-                            <Col sm={3} className={css.formCol}>
+                            <Col sm={3} className={cx(formsCss.formCol)}>
                                 <CheckBox ref={(c) => this._isFailed = c} name="isFailed" label="Run failed" />
                             </Col>
 
                         </Form>
 
                     </Col>
-                    <Col sm={8} className={css.formCol}>
+                    <Col sm={8} className={formsCss.formCol}>
                         <TextArea name="comment" label="Comment"
                                   ref = {(c) => this._comment = c}
                         />
@@ -182,17 +184,15 @@ class RunsInsertForm extends React.Component {
                     <Col sm={7} style={{padding: 0}}>
                         <Form componentClass="fieldset" horizontal>
 
-                            {/* Library */}
+                            {/* Lanes sub form */}
 
-                            <Col sm={12} className={css.formCol}>
-                                <TextField name="_" label="<Project-Library-[pM]-QC form>"
-                                           ref = {(c) => this.___ = c}
-                                />
+                            <Col sm={12} className={cx(formsCss.formCol, css.subformCol)}>
+                                <RunsSubForm lanes={this.state.lanes} />
                             </Col>
 
                         </Form>
                     </Col>
-                    <Col sm={5} className={css.formCol}>
+                    <Col sm={5} className={formsCss.formCol}>
 
                         {/* Comment */}
 
@@ -206,7 +206,7 @@ class RunsInsertForm extends React.Component {
 
                 {/* Submit */}
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={formsCss.submitButton}>
                     Submit
                 </Button>
 

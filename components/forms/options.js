@@ -19,6 +19,10 @@ export function getLibProtocols() {
     return [];
 }
 
+export function getLibrariesList() {  // should depend on project // _getSelLib / _getSelLibOpenProjects
+    return [];
+}
+
 export function getLibraryPools() {  // should depend on project
     return [[1, "p1"], [2, "p2"]];
 }
@@ -62,6 +66,10 @@ export function getSamplesList() {
 
 export function getSampleTypesList() {
     return [[1, "type1"], [2, "type2"]];
+}
+
+export function getQualitiesList() {   // getSelQualities
+    return [];
 }
 
 export function getSequencingKits() {

@@ -8,8 +8,8 @@ import PeopleInsertForm from '../../components/forms/PeopleInsertForm';
 import GenomesInsertForm from '../../components/forms/GenomesInsertForm';
 import SamplesInsertForm from '../../components/forms/SamplesInsertForm';
 import LibrariesInsertForm from '../../components/forms/LibrariesInsertForm';
-import RunsPreInsertForm from '../../components/forms/RunsPreInsertForm';
-import RunsInsertForm from '../../components/forms/RunsInsertForm';
+import RunsPreInsertForm from '../../components/forms/Runs/RunsPreInsertForm';
+import RunsInsertForm from '../../components/forms/Runs/RunsInsertForm';
 import UserRequestsInsertForm from '../../components/forms/UserRequestsInsertForm';
 
 

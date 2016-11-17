@@ -5,8 +5,10 @@ import Checkbox from 'react-bootstrap/lib/Checkbox';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 
 
-
-class CheckBox extends React.Component {
+/**
+ * This name so that it does not conflict with the React-BS one.
+ */
+class MyCheckbox extends React.Component {
     constructor(props) {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -31,15 +33,15 @@ class CheckBox extends React.Component {
         );
     }
 }
-CheckBox.propTypes = {
+MyCheckbox.propTypes = {
     label: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
 };
-CheckBox.defaultProps = {
+MyCheckbox.defaultProps = {
     label: "",
     defaultValue: "",
 };
 
 
-export default CheckBox;
+export default MyCheckbox;
 

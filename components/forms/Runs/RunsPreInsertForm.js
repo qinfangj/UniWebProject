@@ -1,17 +1,17 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './runs.css';
-import formsCss from './forms.css';
-import commonCss from '../../styles/common.css';
+import formsCss from '../forms.css';
+import commonCss from '../../../styles/common.css';
 import cx from 'classnames';
-import store from '../../core/store';
-import { goTo } from '../actions/actionCreators/commonActionCreators';
+import store from '../../../core/store';
+import { goTo } from '../../actions/actionCreators/commonActionCreators';
 
-import TextField from './elements/TextField';
-import Select from './elements/Select';
-import validators from './validators';
-import * as forms from './forms.js';
-import * as options from './options';
+import TextField from '../elements/TextField';
+import Select from '../elements/Select';
+import validators from '../validators';
+import * as forms from '../forms.js';
+import * as options from '../options';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -28,7 +28,7 @@ class RunsPreInsertForm extends React.Component {
         this.table = "runs";
         this.required = [""];
         this.state = forms.defaultFormState;
-        this.lanes = range8.map((laneId) => {
+        this.lanesRefs = range8.map((laneId) => {
             return {
                 id: laneId,
                 nlibs: null,
@@ -72,7 +72,7 @@ class RunsPreInsertForm extends React.Component {
     }
 
     getFormValues() {
-        return this.lanes.map((lane) => {
+        return this.lanesRefs.map((lane) => {
             return {
                 id: lane.id,
                 nlibs: lane.nlibs.getValue(),
@@ -92,24 +92,26 @@ class RunsPreInsertForm extends React.Component {
                     <TextField name="nlibs" defaultValue="0" required
                                validator = {validators.integerValidator}
                                invalid = {invalid && invalid.nlibs}
-                               ref={(c) => this.lanes[laneId]["nlibs"] = c} />
+                               ref={(c) => this.lanesRefs[laneId]["nlibs"] = c}
+                    />
                 </td>
                 <td key="nqc" className={css.numeric}>
                     <TextField name="nqc" defaultValue="0" required
                                validator = {validators.integerValidator}
                                invalid = {invalid && invalid.nqc}
-                               ref={(c) => this.lanes[laneId]["nqc"] = c} />
+                               ref={(c) => this.lanesRefs[laneId]["nqc"] = c}
+                    />
                 </td>
                 <td key="project">
                     <Select name="project"
                             options={options.getProjectsList()}
-                            ref={(c) => this.lanes[laneId]["project"] = c}
+                            ref={(c) => this.lanesRefs[laneId]["project"] = c}
                     />
                 </td>
                 <td key="pool">
                     <Select name="pool"
                             options={options.getLibraryPools()}
-                            ref={(c) => this.lanes[laneId]["pool"] = c}
+                            ref={(c) => this.lanesRefs[laneId]["pool"] = c}
                     />
                 </td>
             </tr>;

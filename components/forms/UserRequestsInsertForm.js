@@ -4,7 +4,7 @@ import css from './forms.css';
 import cx from 'classnames';
 
 import TextField from './elements/TextField';
-import CheckBox from './elements/CheckBox';
+import CheckBox from './elements/MyCheckbox';
 import Select from './elements/Select';
 import TextArea from './elements/Textarea';
 import * as Options from './subcomponents/Options';

@@ -3,7 +3,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './forms.css';
 
 import TextField from './elements/TextField';
-import CheckBox from './elements/CheckBox';
+import CheckBox from './elements/MyCheckbox';
 import DatePicker from './elements/DatePicker';
 import TextArea from './elements/Textarea';
 import * as Options from './subcomponents/Options';
