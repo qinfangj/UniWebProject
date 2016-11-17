@@ -196,8 +196,8 @@ class RunsInsertForm extends React.Component {
 
                         {/* Comment */}
 
-                        <TextField name="comment" label="Comment"
-                                   ref = {(c) => this._comment = c}
+                        <TextArea name="comment" label="Comment"
+                                  ref = {(c) => this._comment = c}
                         />
 
                     </Col>

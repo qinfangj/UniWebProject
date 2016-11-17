@@ -1,18 +1,12 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './runs.css';
-import formsCss from '../forms.css';
 import cx from 'classnames';
 
 import TextField from '../elements/TextField';
 import Select from '../elements/Select';
 import validators from '../validators';
-import * as forms from '../forms.js';
 import * as options from '../options';
-
-import Form from 'react-bootstrap/lib/Form';
-import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
 
 
 /**
@@ -22,6 +16,7 @@ import Col from 'react-bootstrap/lib/Col';
 class RunsSubForm extends React.Component {
     constructor(props) {
         super(props);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // Test
         console.debug(this.props)
         this.lanes = [

@@ -139,7 +139,7 @@ class RunsPreInsertForm extends React.Component {
                 {/* Submit */}
 
                 <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)}
-                        className={cx(commonCss.centerH, css.submitButton)}>
+                        className={cx(css.submitButton)}>
                     Submit
                 </Button>
 
