@@ -19,7 +19,10 @@ const range8 = Array.from(new Array(8).keys());  // idiotic JS - range(8)
 
 
 /**
- * The table-shaped form where we select how many libraries to add
+ * The table-shaped form where we select how many libraries to add.
+ * Either you select a Project and a Library,
+ * or you give a number of libraries and QC libraries to fill manually.
+ * It passes this data to `RunsInsertForm` -> `RunsSubForm` to build a table of the lanes.
  */
 class RunsPreInsertForm extends React.Component {
     constructor() {
@@ -43,9 +46,9 @@ class RunsPreInsertForm extends React.Component {
         let formData = this.getFormValues();
         let validation = this.validateFormData(formData);
         if (validation.isValid) {
-            let data = this.formatFormData(formData);
-            console.info(JSON.stringify(data, null, 2));
-            store.dispatch(goTo("/data/runs/postnew", {}, {}, data));
+            let dataObj = this.formatFormData(formData);
+            console.info(JSON.stringify(dataObj, null, 2));
+            store.dispatch(goTo("/data/runs/postnew", {}, {}, dataObj));
         }
         this.setState({submissionError: validation.isValid, invalid: validation.invalid});
     }
@@ -68,13 +71,19 @@ class RunsPreInsertForm extends React.Component {
             lane.nqc = parseInt(lane.nqc);
             return lane;
         });
-        return data;
+        // Turn the sublist into an indexed object
+        let dataObj = {};
+        data.forEach((lane) => {
+            dataObj[lane.id] = lane;
+        });
+        return dataObj;
     }
 
     getFormValues() {
         return this.lanesRefs.map((lane) => {
             return {
                 id: lane.id,
+                lane_nb: lane.id + 1,
                 nlibs: lane.nlibs.getValue(),
                 nqc: lane.nqc.getValue(),
                 projectId: lane.project.getValue(),

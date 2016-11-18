@@ -93,10 +93,11 @@ td.projectCell {
     width: 25%;
 }
 .quantityCell {
-    width: 1px;  /* BS padding is enough... */
+    /*width: 1px;*/  /* BS padding is enough... */
 }
 td.qualityCell {
     border-right: var(--border);
+    width: 15%;
 }
 .topRow td:not(:first-child) {
     border-top: var(--border);

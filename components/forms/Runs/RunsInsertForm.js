@@ -28,7 +28,7 @@ class RunsInsertForm extends React.Component {
         this.table = "runs";
         this.required = [];
         this.state = forms.defaultFormState;
-        this.state.lanes = store.getState().common.route.data || [];
+        this.state.lanes = store.getState().common.route.data || {};
     }
 
     componentWillMount() {
@@ -57,16 +57,21 @@ class RunsInsertForm extends React.Component {
     }
 
     getFormValues() {
+        let {lanes, invalid} = this._lanes.getFormValues();
         return {
-            // taxo_id: this._organism.getValue(),
-            // assembly: this._assembly.getValue(),
-            // genome_folder: this._genomeFolder.getValue(),
-            // url: this._url.getValue(),
-            // downloaded_date: this._downloadedDate.getValue(),
-            // files: this._files.getValue(),
-            // comment: this._comment.getValue(),
-            // isMasked: this._isMasked.getValue(),
-            // isArchived: this._isArchived.getValue(),
+            ga_run_nb: this._runNb.getValue(),
+            flowcell_ref_name: this._flowcell.getValue(),
+            flowcell_type_id: this._flowcell_type_id.getValue(),
+            flowcell_loading_date: this._clusterDate.getValue(),
+            instrument_id: this._instrument.getValue(),
+            ga_run_date: this._runDate.getValue(),
+            run_types_length_id: this._runTypesLengths.getValue(),
+            fc_stage: this._stage.getValue(),
+            sequencing_kit_version_id: this._kit.getValue(),
+            isFailed: this._isFailed.getValue(),
+            comment: this._comment.getValue(),
+            lanesComment: this._lanesComment.getValue(),
+            lanes,
         };
     }
 
@@ -82,15 +87,15 @@ class RunsInsertForm extends React.Component {
 
                     <Col sm={1} className={formsCss.formCol}>
                         <TextField name="run" label="Run#" required
-                                   ref = {(c) => this._run = c}
+                                   ref = {(c) => this._runNb = c}
                         />
                     </Col>
 
                     {/* Flowcell ID */}
 
                     <Col sm={2} className={formsCss.formCol}>
-                        <TextField name="flowcell" label="Flowcell ID" required
-                                   ref = {(c) => this._flowcellId = c}
+                        <TextField name="flowcell_refName" label="Flowcell ID" required
+                                   ref = {(c) => this._flowcell = c}
                         />
                     </Col>
 
@@ -99,7 +104,7 @@ class RunsInsertForm extends React.Component {
                     <Col sm={1} className={formsCss.formCol}>
                         <Select name="version" label="Version"
                                 options={options.getFlowcellVersions()}
-                                ref={(c) => this._version = c}
+                                ref={(c) => this._flowcell_type_id = c}
                         />
                     </Col>
 
@@ -186,7 +191,8 @@ class RunsInsertForm extends React.Component {
                             {/* Lanes sub form */}
 
                             <Col sm={12} className={cx(formsCss.formCol, css.subformCol)}>
-                                <RunsSubForm lanes={this.state.lanes} />
+                                <RunsSubForm lanes={this.state.lanes}
+                                    ref = {(c) => this._lanes = c} />
                             </Col>
 
                         </Form>
@@ -195,8 +201,8 @@ class RunsInsertForm extends React.Component {
 
                         {/* Comment */}
 
-                        <TextArea name="comment" label="Comment"
-                                  ref = {(c) => this._comment = c}
+                        <TextArea name="lanes_comment" label="Comment"
+                                  ref = {(c) => this._lanesComment = c}
                         />
 
                     </Col>

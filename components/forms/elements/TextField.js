@@ -83,7 +83,7 @@ class TextField extends React.Component {
                     onChange={this.onChange.bind(this)}
                     placeholder={this.props.placeholder}
                 />
-                <FormControl.Feedback />
+                {this.state.status !== null ? <FormControl.Feedback /> : null}
                 <HelpBlock bsClass={css.feedback}>{this.state.msg}</HelpBlock>
             </FormGroup>
         );
