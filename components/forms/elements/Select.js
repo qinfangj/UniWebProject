@@ -46,15 +46,15 @@ class Select extends React.Component {
         let opts = options ? options.map(v => {
             return <option value={v[0]} key={v[0]+v[1]}>{v[1]}</option>;
         }) : null;
-        let placeholder = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let lab = label ? <ControlLabel>{label}</ControlLabel> : null;
         return (
             <FormGroup controlId={name} bsSize="small" >
-                {label}
+                {lab}
                 <FormControl componentClass="select"
-                    placeholder={placeholder}
+                    placeholder={lab}
                     onChange={this.onChange.bind(this)}
                     value={this.state.value}
-                    {...otherProps}
+                    //{...otherProps}
                 >
                     {opts}
                 </FormControl>
