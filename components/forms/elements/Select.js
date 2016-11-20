@@ -42,19 +42,18 @@ class Select extends React.Component {
     }
 
     render() {
-        let {label, options, name, defaultValue, required, missing, invalid, ...otherProps} = this.props;
-        let opts = options ? options.map(v => {
+        let opts = this.props.options ? this.props.options.map(v => {
             return <option value={v[0]} key={v[0]+v[1]}>{v[1]}</option>;
         }) : null;
-        let lab = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let lab = this.props.label ? <ControlLabel>{this.props.label}</ControlLabel> : null;
         return (
-            <FormGroup controlId={name} bsSize="small" >
+            <FormGroup controlId={this.props.name} bsSize="small" >
                 {lab}
                 <FormControl componentClass="select"
                     placeholder={lab}
                     onChange={this.onChange.bind(this)}
                     value={this.state.value}
-                    //{...otherProps}
+                    {...this.props.inputProps}
                 >
                     {opts}
                 </FormControl>
@@ -68,6 +67,7 @@ Select.propTypes = {
     options: React.PropTypes.array.isRequired,  // an array of the type [[1,"yes"], [2,"no"], [3,"maybe"]]
     label: React.PropTypes.string,  // title - visible
     defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),  // Id or name (not option index)
+    inputProps: React.PropTypes.object,  // additional input field props
 // maybe use later:
     required: React.PropTypes.bool,
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting

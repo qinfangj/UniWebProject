@@ -2,7 +2,6 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './runs.css';
 import cx from 'classnames';
-import _ from 'lodash';
 
 import TextField from '../elements/TextField';
 import Select from '../elements/Select';
@@ -23,16 +22,16 @@ class RunsSubForm extends React.Component {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // Test
-        this.lanes = { 2:
+        this.lanes = { 3:
             {
-                "id": 2,
+                "lane_nb": 3,
                 "nlibs": 2,
                 "nqc": 0,
                 "projectId": 1,
                 "libraryPoolId": 1
             },
-            5: {
-                "id": 5,
+            6: {
+                "lane_nb": 6,
                 "nlibs": 4,
                 "nqc": 0,
                 "projectId": 1,
@@ -40,7 +39,7 @@ class RunsSubForm extends React.Component {
             }
         };
         this.librariesRefs = {};
-        this.state = {invalid: {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}}};
+        this.state = {invalid: {1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}}};
     }
 
     /**
@@ -52,25 +51,27 @@ class RunsSubForm extends React.Component {
         let lanes = this.lanes;
         let invalid = {};
         // Fill the `lanes` with a `libs` array attribute.
-        _.forOwn(this.librariesRefs, (libsArray, laneId) => {
-            lanes[laneId].libs = [];
-            invalid[laneId] = {};
+        for (let laneNb of Object.keys(this.librariesRefs)) {
+            let N = parseInt(laneNb);  // or keys are read as strings in for loops
+            let libsArray = this.librariesRefs[N];
+            lanes[N].libs = [];
+            invalid[N] = {};
             libsArray.map((lib, libIdx) => {
                 let project = lib.project.getValue();
                 let library = lib.library.getValue();
                 let quantity = lib.quantity.getValue();
                 let quality = lib.quality.getValue();
-                lanes[laneId].libs.push({
+                lanes[N].libs.push({
                     idx: libIdx,
-                    lane_nb: laneId + 1,
+                    lane_nb: N,
                     project_id: project,
                     library_id: library,
                     quantity_loaded: parseFloat(quantity),
                     quality_id: quality,
                 });
-                invalid[laneId][libIdx] = quantity === null;
+                invalid[laneNb][libIdx] = quantity === null;
             });
-        });
+        }
         //console.info(JSON.stringify(lanes, null, 2));
         this.setState({invalid});
         return {lanes, invalid};
@@ -82,37 +83,39 @@ class RunsSubForm extends React.Component {
      * @param libIdx: row index inside a lane ("library").
      */
     makeLibRow(lane, libIdx) {
-        return (<tr key={lane.id +'-'+ libIdx}
+        let N = lane.lane_nb;
+        return (<tr key={N +'-'+ libIdx}
                     className={libIdx===0 ? css.topRow : (libIdx===lane.nlibs-1 ? css.bottomRow : null)}>
 
             { /* The lane number spans nlibs rows */
                 libIdx === 0 ?
-                <td className={css.laneCell} rowSpan={lane.nlibs}>{'L'+ (lane.id + 1)}</td>
+                <td className={css.laneCell} rowSpan={lane.nlibs}>{'L'+ N}</td>
             : null}
 
             <td className={cx(css.libCell, css.projectCell)}>
                 <Select name="project"
                         options={options.getProjectsList()}
-                        ref={(c) => this.librariesRefs[lane.id][libIdx]["project"] = c}
+                        ref={(c) => this.librariesRefs[N][libIdx]["project"] = c}
                 />
             </td>
             <td className={cx(css.libCell, css.libraryCell)}>
                 <Select name="library"
                         options={options.getLibrariesList()}
-                        ref={(c) => this.librariesRefs[lane.id][libIdx]["library"] = c}
+                        ref={(c) => this.librariesRefs[N][libIdx]["library"] = c}
                 />
             </td>
             <td className={cx(css.libCell, css.quantityCell)}>
                 <TextField name="pM" required
                            validator = {validators.numberValidator}
-                           invalid = {this.state.invalid[lane.id][libIdx]}
-                           ref={(c) => this.librariesRefs[lane.id][libIdx]["quantity"] = c}
+                           invalid = {this.state.invalid[N][libIdx]}
+                           ref={(c) => this.librariesRefs[N][libIdx]["quantity"] = c}
+                           inputProps={{autoComplete: "off"}}
                 />
             </td>
             <td className={cx(css.libCell, css.qualityCell)}>
                 <Select name="QC"
                         options={options.getQualitiesList()}
-                        ref={(c) => this.librariesRefs[lane.id][libIdx]["quality"] = c}
+                        ref={(c) => this.librariesRefs[N][libIdx]["quality"] = c}
                 />
             </td>
         </tr>);
@@ -121,17 +124,18 @@ class RunsSubForm extends React.Component {
     render() {
         let lanes = this.lanes;
         let laneRows = [];
-        for (let laneId in lanes) {
-            let lane = lanes[laneId];
-            this.librariesRefs[lane.id] = [];
+        for (let laneNb of Object.keys(lanes)) {
+            let lane = lanes[laneNb];
+            let N = lane.lane_nb;
+            this.librariesRefs[N] = [];
             let libRows = [];
             for (let j=0; j<lane.nlibs; j++) {
-                this.librariesRefs[lane.id].push({});
+                this.librariesRefs[N].push({});
                 let row = this.makeLibRow(lane, j);
                 libRows.push(row);
             }
-            laneRows.push(<tbody key={lane.id} className={css.lanesGroup}>{libRows}</tbody>);
-        };
+            laneRows.push(<tbody key={N} className={css.lanesGroup}>{libRows}</tbody>);
+        }
         return <table className={css.lanesTable}>
             <thead><tr>
                 <th className={css.laneCell}>{null}</th>

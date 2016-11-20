@@ -82,6 +82,7 @@ class TextField extends React.Component {
                     value={this.state.value}
                     onChange={this.onChange.bind(this)}
                     placeholder={this.props.placeholder}
+                    {...this.props.inputProps}
                 />
                 {this.state.status !== null ? <FormControl.Feedback /> : null}
                 <HelpBlock bsClass={css.feedback}>{this.state.msg}</HelpBlock>
@@ -98,6 +99,7 @@ TextField.propTypes = {
     invalid: React.PropTypes.bool,  // field was found invalid when submitting
     placeholder: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
+    inputProps: React.PropTypes.object,  // additional input field props
 };
 TextField.defaultProps = {
     validator: ((x) => {return {valid: true, msg: ""}}),

@@ -31,9 +31,10 @@ class RunsPreInsertForm extends React.Component {
         this.table = "runs";
         this.required = [""];
         this.state = forms.defaultFormState;
-        this.lanesRefs = range8.map((laneId) => {
+        this.lanesRefs = range8.map((i) => {
             return {
-                id: laneId,
+                //id: laneId,
+                lane_nb: i + 1,
                 nlibs: null,
                 nqc: null,
                 project: null,
@@ -74,7 +75,7 @@ class RunsPreInsertForm extends React.Component {
         // Turn the sublist into an indexed object
         let dataObj = {};
         data.forEach((lane) => {
-            dataObj[lane.id] = lane;
+            dataObj[lane.lane_nb] = lane;
         });
         return dataObj;
     }
@@ -82,8 +83,8 @@ class RunsPreInsertForm extends React.Component {
     getFormValues() {
         return this.lanesRefs.map((lane) => {
             return {
-                id: lane.id,
-                lane_nb: lane.id + 1,
+                //id: lane.id,
+                lane_nb: lane.lane_nb,
                 nlibs: lane.nlibs.getValue(),
                 nqc: lane.nqc.getValue(),
                 projectId: lane.project.getValue(),
@@ -93,34 +94,34 @@ class RunsPreInsertForm extends React.Component {
     }
 
     render() {
-        let makeRow = (laneId) => {
-            let invalid = this.state.invalid[laneId];
-            return <tr key={laneId} className={css.preRunsInsertRow}>
-                <td key="id" className={css.laneId}>{laneId + 1}</td>
+        let makeRow = (N) => {
+            let invalid = this.state.invalid[N];
+            return <tr key={N} className={css.preRunsInsertRow}>
+                <td key="id" className={css.laneId}>{N}</td>
                 <td key="nlibs" className={css.numeric}>
                     <TextField name="nlibs" defaultValue="0" required
                                validator = {validators.integerValidator}
                                invalid = {invalid && invalid.nlibs}
-                               ref={(c) => this.lanesRefs[laneId]["nlibs"] = c}
+                               ref={(c) => this.lanesRefs[N]["nlibs"] = c}
                     />
                 </td>
                 <td key="nqc" className={css.numeric}>
                     <TextField name="nqc" defaultValue="0" required
                                validator = {validators.integerValidator}
                                invalid = {invalid && invalid.nqc}
-                               ref={(c) => this.lanesRefs[laneId]["nqc"] = c}
+                               ref={(c) => this.lanesRefs[N]["nqc"] = c}
                     />
                 </td>
                 <td key="project">
                     <Select name="project"
                             options={options.getProjectsList()}
-                            ref={(c) => this.lanesRefs[laneId]["project"] = c}
+                            ref={(c) => this.lanesRefs[N]["project"] = c}
                     />
                 </td>
                 <td key="pool">
                     <Select name="pool"
                             options={options.getLibraryPools()}
-                            ref={(c) => this.lanesRefs[laneId]["pool"] = c}
+                            ref={(c) => this.lanesRefs[N]["pool"] = c}
                     />
                 </td>
             </tr>;
