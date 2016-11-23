@@ -71,7 +71,7 @@ class RunsInsertForm extends React.Component {
             isFailed: this._isFailed.getValue(),
             comment: this._comment.getValue(),
             lanesComment: this._lanesComment.getValue(),
-            lanes,
+            lanes: Object.values(lanes),
         };
     }
 

@@ -63,6 +63,11 @@ class RunsPreInsertForm extends React.Component {
         return {isValid: Object.keys(invalid).length === 0, invalid};
     }
 
+    /**
+     * Turn form data into an object ```
+     *  {lane_nb: {lane_nb, nlibs, nqc, project, pool}, ...}
+     * ```
+     */
     formatFormData(formData) {
         // Filter out lanes with 0 libraries to insert
         let data = formData.filter((lane) => { return lane.nlibs > 0; });

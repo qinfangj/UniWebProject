@@ -50,18 +50,18 @@ class RunsSubForm extends React.Component {
     getFormValues() {
         let lanes = this.lanes;
         let invalid = {};
-        // Fill the `lanes` with a `libs` array attribute.
+        // Fill the `lanes` with a `libraries` array attribute.
         for (let laneNb of Object.keys(this.librariesRefs)) {
             let N = parseInt(laneNb);  // or keys are read as strings in for loops
             let libsArray = this.librariesRefs[N];
-            lanes[N].libs = [];
+            lanes[N].libraries = [];
             invalid[N] = {};
             libsArray.map((lib, libIdx) => {
                 let project = lib.project.getValue();
                 let library = lib.library.getValue();
                 let quantity = lib.quantity.getValue();
                 let quality = lib.quality.getValue();
-                lanes[N].libs.push({
+                lanes[N].libraries.push({
                     idx: libIdx,
                     lane_nb: N,
                     project_id: project,
