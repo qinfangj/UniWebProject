@@ -13,6 +13,7 @@ import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as forms from '../forms.js';
 import * as options from '../options';
+import * as Options from '../subcomponents/Options';
 import RunsSubForm from './RunsSubForm';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -102,10 +103,7 @@ class RunsInsertForm extends React.Component {
                     {/* Version */}
 
                     <Col sm={1} className={formsCss.formCol}>
-                        <Select name="version" label="Version"
-                                options={options.getFlowcellVersions()}
-                                ref={(c) => this._flowcell_type_id = c}
-                        />
+                        <Options.FlowcellTypes ref={(c) => this._flowcell_type_id = c} />
                     </Col>
 
                     {/* Cluster date (aka "?") */}
@@ -119,10 +117,7 @@ class RunsInsertForm extends React.Component {
                     {/* Machine (aka "Instrument") */}
 
                     <Col sm={2} className={formsCss.formCol}>
-                        <Select name="machine" label="Machine"
-                                options={options.getInstruments()}
-                                ref={(c) => this._instrument = c}
-                        />
+                        <Options.InstrumentsList ref={(c) => this._instrument = c} />
                     </Col>
 
                     {/* Run date (aka "?") */}
@@ -161,10 +156,7 @@ class RunsInsertForm extends React.Component {
                             {/* Kit */}
 
                             <Col sm={4} className={formsCss.formCol}>
-                                <Select name="kit" label="Kit"
-                                        options={options.getSequencingKits()}
-                                        ref={(c) => this._kit = c}
-                                />
+                                <Options.SequencingKitVersions ref={(c) => this._kit = c} />
                             </Col>
 
                             {/* Is failed */}
@@ -192,7 +184,7 @@ class RunsInsertForm extends React.Component {
 
                             <Col sm={12} className={cx(formsCss.formCol, css.subformCol)}>
                                 <RunsSubForm lanes={this.state.lanes}
-                                    ref = {(c) => this._lanes = c} />
+                                             ref = {(c) => this._lanes = c} />
                             </Col>
 
                         </Form>

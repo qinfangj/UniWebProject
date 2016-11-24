@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 
 
 const defaultState = {
-    route: {},
+    route: {data: {}},
 };
 
 

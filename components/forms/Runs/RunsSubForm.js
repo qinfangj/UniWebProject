@@ -7,6 +7,7 @@ import TextField from '../elements/TextField';
 import Select from '../elements/Select';
 import validators from '../validators';
 import * as options from '../options';
+import * as Options from '../subcomponents/Options';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -22,6 +23,8 @@ class RunsSubForm extends React.Component {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // Test
+        //console.debug(props)
+        //console.debug(this.props.lanes)
         this.lanes = { 3:
             {
                 "lane_nb": 3,
@@ -113,10 +116,7 @@ class RunsSubForm extends React.Component {
                 />
             </td>
             <td className={cx(css.libCell, css.qualityCell)}>
-                <Select name="QC"
-                        options={options.getQualitiesList()}
-                        ref={(c) => this.librariesRefs[N][libIdx]["quality"] = c}
-                />
+                <Options.SequencingQualities ref={(c) => this.librariesRefs[N][libIdx]["quality"] = c} />
             </td>
         </tr>);
     }

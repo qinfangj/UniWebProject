@@ -2,7 +2,7 @@ import React from 'react';
 import AsyncOptionsList from './AsyncOptionsList';
 
 
-class PeopleList extends React.Component {
+export class PeopleList extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.last_name +" "+ v.first_name]; }
     render() {
@@ -11,16 +11,16 @@ class PeopleList extends React.Component {
     }
 }
 
-class ProjectAnalysesList extends React.Component {
+export class ProjectAnalysesList extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="project_analysis" label="Project analysis"
-                                formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
 
-class ProjectStatesList extends React.Component {
+export class ProjectStatesList extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
     render() {
@@ -29,9 +29,38 @@ class ProjectStatesList extends React.Component {
     }
 }
 
+export class InstrumentsList extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name]; }
+    render() {
+        return <AsyncOptionsList table="instruments" label="Machine"
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
 
-export {
-    PeopleList,
-    ProjectAnalysesList,
-    ProjectStatesList,
+export class FlowcellTypes extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.version]; }
+    render() {
+        return <AsyncOptionsList table="flowcell_types" label="Version"
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
+export class SequencingKitVersions extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.version]; }
+    render() {
+        return <AsyncOptionsList table="sequencing_kit_versions" label="Kit"
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
+export class SequencingQualities extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name]; }
+    render() {
+        return <AsyncOptionsList table="sequencing_qualities"
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
 }
