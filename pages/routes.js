@@ -69,6 +69,16 @@ const routes = (
             <Route path="data/user_requests/active" component={fdata.UserRequestsActiveRoute}/>
             <Route path="data/user_requests/new" component={fdata.UserRequestsNewRoute}/>
 
+            <Route path="data/bioanalysers" component={fdata.BioanalysersListRoute}/>
+            <Route path="data/bioanalysers/list" component={fdata.BioanalysersListRoute}/>
+            <Route path="data/bioanalysers/active" component={fdata.BioanalysersActiveRoute}/>
+            <Route path="data/bioanalysers/new" component={fdata.BioanalysersNewRoute}/>
+
+            <Route path="data/basecallings" component={fdata.BasecallingsListRoute}/>
+            <Route path="data/basecallings/list" component={fdata.BasecallingsListRoute}/>
+            <Route path="data/basecallings/active" component={fdata.BasecallingsActiveRoute}/>
+            <Route path="data/basecallings/new" component={fdata.BasecallingsNewRoute}/>
+
         </Route>
     </Router>
 );

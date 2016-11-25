@@ -11,6 +11,8 @@ import LibrariesInsertForm from '../../components/forms/LibrariesInsertForm';
 import RunsPreInsertForm from '../../components/forms/Runs/RunsPreInsertForm';
 import RunsInsertForm from '../../components/forms/Runs/RunsInsertForm';
 import UserRequestsInsertForm from '../../components/forms/UserRequestsInsertForm';
+import BioanalysersInsertForm from '../../components/forms/BioanalysersInsertForm';
+import BasecallingsInsertForm from '../../components/forms/BasecallingsInsertForm';
 
 
 export class FacilityDataRoute extends React.Component {
@@ -200,3 +202,52 @@ export class UserRequestsNewRoute extends React.Component {
     );}
 }
 
+
+export class BioanalysersListRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Bioanalysers" name="bioanalysers" content={
+            <CommonTable activeOnly={false} name="bioanalysers" />
+        } />
+    );}
+}
+
+export class BioanalysersActiveRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Bioanalysers" name="bioanalysers" content={
+            <CommonTable activeOnly={true} name="bioanalysers" />
+        } />
+    );}
+}
+
+export class BioanalysersNewRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Bioanalysers" name="bioanalysers" content={
+            <BioanalysersInsertForm/>
+        } />
+    );}
+}
+
+
+export class BasecallingsListRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Basecallings" name="basecallings" content={
+            <CommonTable activeOnly={false} name="basecallings" />
+        } />
+    );}
+}
+
+export class BasecallingsActiveRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Basecallings" name="basecallings" content={
+            <CommonTable activeOnly={true} name="basecallings" />
+        } />
+    );}
+}
+
+export class BasecallingsNewRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Basecallings" name="basecallings" content={
+            <BasecallingsInsertForm/>
+        } />
+    );}
+}

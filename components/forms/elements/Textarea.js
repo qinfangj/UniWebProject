@@ -32,6 +32,7 @@ class Textarea extends React.Component {
                     placeholder={this.props.label}
                     onChange={this.onChange.bind(this)}
                     value={this.state.value}
+                    {...this.props.inputProps}
                 />
             </FormGroup>
         );
@@ -45,6 +46,7 @@ Textarea.propTypes = {
     required: React.PropTypes.bool,
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting
     invalid: React.PropTypes.bool,  // field was found invalid when submitting
+    inputProps: React.PropTypes.object,  // additional input field props
 };
 Textarea.defaultProps = {
     defaultValue: "",

@@ -7,6 +7,14 @@ export function getAdapters() {
     return [];
 }
 
+export function getAnalysisTypes() {
+    return [];
+}
+
+export function getControlLane() {
+    return [[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']];
+}
+
 export function getFlowcellVersions() {
     return [];
 }
@@ -24,7 +32,7 @@ export function getLibrariesList() {  // should depend on project // _getSelLib 
 }
 
 export function getLibraryPools() {  // should depend on project
-    return [[1, "p1"], [2, "p2"]];
+    return [];
 }
 
 export function getLibraryStates() {
@@ -40,12 +48,15 @@ export function getMultiplexIndexes() {
 }
 
 export function getOrganismsList() {
-    return [[1,"Human"], [2,"Mouse"], [3,"Fly"]];
-    // DBIinsert::optiondisplaydbOrdered('taxonomies',['id','name'], ['name']);
+    return [];
+}
+
+export function getPipelineVersions() {
+    return [];
 }
 
 export function getProjectsList() {
-    return[[1, "Project1"], [2, "Project2"]];
+    return [];
 }
 
 export function getQuantifTypesList() {
@@ -65,7 +76,7 @@ export function getSamplesList() {
 }
 
 export function getSampleTypesList() {
-    return [[1, "type1"], [2, "type2"]];
+    return [];
 }
 
 export function getQualitiesList() {   // getSelQualities
@@ -73,6 +84,10 @@ export function getQualitiesList() {   // getSelQualities
 }
 
 export function getSequencingKits() {
+    return [];
+}
+
+export function getRuns() {
     return [];
 }
 

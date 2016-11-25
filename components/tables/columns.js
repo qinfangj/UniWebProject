@@ -131,7 +131,7 @@ const columns = {
         },{
             headerName: "Cycle Nb",
             field: "cycle_nb",
-            cellStyle: {textAlign: "center"},
+            cellStyle: CENTER,
         },{
             headerName: "Run type",
             field: "run_type",
@@ -180,7 +180,39 @@ const columns = {
             headerName: "Submitter",
             field: "submitter",
         },
-    ]
+    ],
+    bioanalysers: [
+        ID_COLUMN,
+        {
+            headerName: "Date",
+            field: "bioanalyser_date",
+        },
+        {
+            headerName: "File name",
+            field: "filename",
+        },
+    ],
+    basecallings: [
+        ID_COLUMN,
+        {
+            headerName: "Run folder",
+            field: "run_folder",
+        },{
+            headerName: "FASTQ path",
+            field: "fastq_path",
+        },{
+            headerName: "Software",
+            field: "software",
+        },{
+            headerName: "Version",
+            field: "version",
+            cellStyle: CENTER,
+            width: 90,
+        },{
+            headerName: "Analysis type",
+            field: "analysis_type",
+        },
+    ],
 };
 
 

@@ -96,10 +96,10 @@ class ResponsiveSidebar extends React.Component {
             { text: "Projects", to: "/data/projects", },
             { text: "Samples", to: "/data/samples", },
             { text: "User requests", to: "/data/user_requests", },
-            { text: "Libraries", to: "/data/libraries" },
-            { text: "Bioanalysers", to: "/data/bioanalysers", disabled: true },
+            { text: "Libraries", to: "/data/libraries", },
+            { text: "Bioanalysers", to: "/data/bioanalysers", },
             { text: "Runs", to: "/data/runs" },
-            { text: "Base callings / demultiplexings", to: "/data/base_callings", disabled: true },
+            { text: "Base callings / demultiplexings", to: "/data/basecallings", },
             { text: "Alignments / QC", to: "/data/alignments", disabled: true },
             { text: "Genomes", to: "/data/genomes" },
         ];
