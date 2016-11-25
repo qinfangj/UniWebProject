@@ -13,6 +13,7 @@ import RunsInsertForm from '../../components/forms/Runs/RunsInsertForm';
 import UserRequestsInsertForm from '../../components/forms/UserRequestsInsertForm';
 import BioanalysersInsertForm from '../../components/forms/BioanalysersInsertForm';
 import BasecallingsInsertForm from '../../components/forms/BasecallingsInsertForm';
+import AlignmentsInsertForm from '../../components/forms/AlignmentsInsertForm';
 
 
 export class FacilityDataRoute extends React.Component {
@@ -251,3 +252,30 @@ export class BasecallingsNewRoute extends React.Component {
         } />
     );}
 }
+
+
+export class AlignmentsListRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Alignments" name="alignments" content={
+            <CommonTable activeOnly={false} name="alignments" />
+        } />
+    );}
+}
+
+export class AlignmentsActiveRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Alignments" name="alignments" content={
+            <CommonTable activeOnly={true} name="alignments" />
+        } />
+    );}
+}
+
+export class AlignmentsNewRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Alignments" name="alignments" content={
+            <AlignmentsInsertForm/>
+        } />
+    );}
+}
+
+

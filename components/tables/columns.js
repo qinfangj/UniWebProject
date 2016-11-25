@@ -213,6 +213,22 @@ const columns = {
             field: "analysis_type",
         },
     ],
+    alignments: [
+        ID_COLUMN,
+        {
+            headerName: "Run folder",
+            field: "run_folder",
+        },{
+            headerName: "Alignment path",
+            field: "alignment_path",
+        },{
+            headerName: "Analysis type",
+            field: "analysis_type",
+        },{
+            headerName: "Eland version",
+            field: "eland_version",
+        },
+    ],
 };
 
 

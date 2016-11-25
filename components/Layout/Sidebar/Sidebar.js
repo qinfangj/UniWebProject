@@ -100,8 +100,8 @@ class ResponsiveSidebar extends React.Component {
             { text: "Bioanalysers", to: "/data/bioanalysers", },
             { text: "Runs", to: "/data/runs" },
             { text: "Base callings / demultiplexings", to: "/data/basecallings", },
-            { text: "Alignments / QC", to: "/data/alignments", disabled: true },
-            { text: "Genomes", to: "/data/genomes" },
+            { text: "Alignments / QC", to: "/data/alignments", },
+            { text: "Genomes", to: "/data/genomes", },
         ];
         let menuItems = [
             { text: "Home", to: "/home", },

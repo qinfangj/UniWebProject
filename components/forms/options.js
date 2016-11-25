@@ -15,14 +15,6 @@ export function getControlLane() {
     return [[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']];
 }
 
-export function getFlowcellVersions() {
-    return [];
-}
-
-export function getInstruments() {
-    return [];
-}
-
 export function getLibProtocols() {
     return [];
 }
@@ -40,6 +32,10 @@ export function getLibraryStates() {
 }
 
 export function getLibraryTypes() {
+    return [];
+}
+
+export function getMappingTools() {
     return [];
 }
 
@@ -67,23 +63,11 @@ export function getRunRequests() {
     return [];
 }
 
-export function getRunTypesLengths() {
-    return [];
-}
-
 export function getSamplesList() {
     return [];
 }
 
 export function getSampleTypesList() {
-    return [];
-}
-
-export function getQualitiesList() {   // getSelQualities
-    return [];
-}
-
-export function getSequencingKits() {
     return [];
 }
 

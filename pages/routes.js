@@ -79,6 +79,11 @@ const routes = (
             <Route path="data/basecallings/active" component={fdata.BasecallingsActiveRoute}/>
             <Route path="data/basecallings/new" component={fdata.BasecallingsNewRoute}/>
 
+            <Route path="data/alignments" component={fdata.AlignmentsListRoute}/>
+            <Route path="data/alignments/list" component={fdata.AlignmentsListRoute}/>
+            <Route path="data/alignments/active" component={fdata.AlignmentsActiveRoute}/>
+            <Route path="data/alignments/new" component={fdata.AlignmentsNewRoute}/>
+
         </Route>
     </Router>
 );
