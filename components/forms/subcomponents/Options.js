@@ -64,3 +64,14 @@ export class SequencingQualities extends React.Component {
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
+
+export class RunTypesLengths extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name +' '+ v.length]; }
+    render() {
+        return <AsyncOptionsList table="run_types_lengths" label="Run type"
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
+
