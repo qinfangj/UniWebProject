@@ -66,10 +66,7 @@ class AlignmentsInsertForm extends React.Component {
                     {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="analysis_type" label="Analysis type"
-                                options={options.getAnalysisTypes()}
-                                ref={(c) => this._analysis_type = c}
-                        />
+                        <Options.PipelineAnalysisTypes ref={(c) => this._analysis_type = c} />
                     </Col>
 
                     {/* Run */}
@@ -85,7 +82,7 @@ class AlignmentsInsertForm extends React.Component {
 
                     <Col sm={7} className={css.formCol}>
                         <Select name="unaligned_output_folder" label="Unaligned data output folder"
-                                options={[]}  // "double select", depends on Run selection
+                                options={[]}  // "double select", depends on Run selection --> "select_calling", "_getBasecalling"
                                 ref={(c) => this._unaligned_output_folder = c}
                         />
                     </Col>
@@ -96,10 +93,7 @@ class AlignmentsInsertForm extends React.Component {
                     {/* Mapping tool */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="mapping_tool" label="Mapping tool"
-                                options={options.getMappingTools()}
-                                ref={(c) => this._mapping_tool = c}
-                        />
+                        <Options.MappingTools ref={(c) => this._mapping_tool = c} />
                     </Col>
 
                     {/* Alignment output folder */}

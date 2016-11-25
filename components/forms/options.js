@@ -35,10 +35,6 @@ export function getLibraryTypes() {
     return [];
 }
 
-export function getMappingTools() {
-    return [];
-}
-
 export function getMultiplexIndexes() {
     return[];
 }
