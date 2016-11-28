@@ -3,7 +3,7 @@ import FacilityDataHome from '../../components/pages/FacilityDataHome';
 import FacilityData from '../../components/pages/FacilityData';
 import CommonTable from '../../components/tables/CommonTable';
 
-import ProjectInsertForm from '../../components/forms/ProjectInsertForm';
+import ProjectsInsertForm from '../../components/forms/ProjectsInsertForm';
 import PeopleInsertForm from '../../components/forms/PeopleInsertForm';
 import GenomesInsertForm from '../../components/forms/GenomesInsertForm';
 import SamplesInsertForm from '../../components/forms/SamplesInsertForm';
@@ -41,7 +41,7 @@ export class ProjectsActiveRoute extends React.Component {
 export class ProjectsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
-            <ProjectInsertForm/>
+            <ProjectsInsertForm/>
         } />
     );}
 }

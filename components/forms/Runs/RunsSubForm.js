@@ -75,7 +75,6 @@ class RunsSubForm extends React.Component {
                 invalid[laneNb][libIdx] = quantity === null;
             });
         }
-        //console.info(JSON.stringify(lanes, null, 2));
         this.setState({invalid});
         return {lanes, invalid};
     }

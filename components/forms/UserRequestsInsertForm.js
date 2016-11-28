@@ -24,7 +24,7 @@ class UserRequestsInsertForm extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "user_requests";
         this.form = "user_requests";
-        this.required = [""];
+        this.required = ["multiplexing_group", "multiplex_nb"];
         this.state = forms.defaultFormState;
     }
 
@@ -34,7 +34,6 @@ class UserRequestsInsertForm extends React.Component {
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
-                console.debug(555, insertId)
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
                 console.warn("Uncaught form validation error");
@@ -45,15 +44,19 @@ class UserRequestsInsertForm extends React.Component {
 
     getFormValues() {
         return {
-            // name: this._projectName.getValue(),
-            // person_id: this._personInCharge.getValue(),
-            // code_name: this._codeName.getValue(),
-            // description: this._description.getValue(),
-            // project_state_id: this._projectState.getValue(),
-            // isControl: this._isControl.getValue(),
-            // user_meeting_date: this._userMeetingDate.getValue(),
-            // project_analysis_id: this._projectAnalysis.getValue(),
-            // comment: this._comment.getValue(),
+            project_id: this._project.getValue(),
+            sample_id: this._sample.getValue(),
+            insert_size_min: this._insertSizeMin.getValue(),
+            insert_size_max: this._insertSizeMax.getValue(),
+            library_type_id: this._library_type.getValue(),
+            multiplexing_group: this._multiplexingGroup.getValue(),
+            run_request_id: this._run_request.getValue(),
+            lane_nb: this._laneNb.getValue(),
+            multiplex_nb: this._multiplexNb.getValue(),
+            isQClib: this._isQC.getValue(),
+            comment: this._comment.getValue(),
+            isDiscarded: this._isDiscarded.getValue(),
+            isDone: this._isDone.getValue(),
         };
     }
 
@@ -86,12 +89,16 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Insert size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="insertSizeMin" label="Insert size min" required
+                        <TextField name="insert_size_min" label="Insert size min"
+                                   validator = {validators.integerValidator}
+                                   invalid = {!! this.state.invalid["insert_size_min"]}
                                    ref = {(c) => this._insertSizeMin = c}
                         />
                     </Col>
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="insertSizeMax" label="Insert size max" required
+                        <TextField name="insert_size_max" label="Insert size max"
+                                   validator = {validators.integerValidator}
+                                   invalid = {!! this.state.invalid["insert_size_max"]}
                                    ref = {(c) => this._insertSizeMax = c}
                         />
                     </Col>
@@ -102,16 +109,19 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Library type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="libraryType" label="Library type" form={this.form}
+                        <Select name="library_type" label="Library type" form={this.form}
                                 options={options.getLibraryTypes()}
-                                ref={(c) => this._sample = c}
+                                ref={(c) => this._library_type = c}
                         />
                     </Col>
 
                     {/* Multiplexing group */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="multiplexingGroup" label="Multiplexing group" required
+                        <TextField name="multiplexing_group" label="Multiplexing group" required
+                                   validator = {validators.shortStringValidator}
+                                   invalid = {!! this.state.invalid["multiplexing_group"]}
+                                   missing = {!! this.state.missing["multiplexing_group"]}
                                    ref = {(c) => this._multiplexingGroup = c}
                         />
                     </Col>
@@ -119,16 +129,16 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Run request */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="runRequest" label="Run request" form={this.form}
+                        <Select name="run_request" label="Run request" form={this.form}
                                 options={options.getRunRequests()}
-                                ref={(c) => this._runRequest = c}
+                                ref={(c) => this._run_request = c}
                         />
                     </Col>
 
                     {/* Number of lanes */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="nbLanes" label="Nb of lanes" required
+                        <TextField name="nn_lanes" label="Nb of lanes" required
                                    ref = {(c) => this._laneNb = c}
                         />
                     </Col>
@@ -136,12 +146,15 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Multiplex# */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="multiplexNb" label="Multiplex#" required
+                        <TextField name="multiplex_nb" label="Multiplex#" required
+                                   validator={validators.integerValidator}
+                                   invalid = {!! this.state.invalid["multiplex_nb"]}
+                                   missing = {!! this.state.missing["multiplex_nb"]}
                                    ref = {(c) => this._multiplexNb = c}
                         />
                     </Col>
 
-                    {/* Multiplex# */}
+                    {/* Is QC lib */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
                         <CheckBox ref = {(c) => this._isQC = c} name="isQC" label="is QC"/>

@@ -36,7 +36,7 @@ class Validators {
     }
 
     integerValidator(v) {
-        let valid = /^[0-9]+$/.test(v.trim());
+        let valid = /^[0-9]*$/.test(v.trim());
         let msg = "Must be an integer.";
         return {valid, msg};
     }
