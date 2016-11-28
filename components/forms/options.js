@@ -7,10 +7,6 @@ export function getAdapters() {
     return [];
 }
 
-export function getAnalysisTypes() {
-    return [];
-}
-
 export function getControlLane() {
     return [[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']];
 }
@@ -23,7 +19,7 @@ export function getLibrariesList() {  // should depend on project // _getSelLib 
     return [];
 }
 
-export function getLibraryPools() {  // should depend on project
+export function getLibraryPools() {  // should depend on project  // _getSelLibPool
     return [];
 }
 
@@ -40,10 +36,6 @@ export function getMultiplexIndexes() {
 }
 
 export function getOrganismsList() {
-    return [];
-}
-
-export function getPipelineVersions() {
     return [];
 }
 
@@ -64,10 +56,6 @@ export function getSamplesList() {
 }
 
 export function getSampleTypesList() {
-    return [];
-}
-
-export function getRuns() {
     return [];
 }
 

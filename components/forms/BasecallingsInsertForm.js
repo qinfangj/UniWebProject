@@ -78,10 +78,7 @@ class BasecallingsInsertForm extends React.Component {
                     {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="analysis_type" label="Analysis type" form={this.form}
-                                options={options.getAnalysisTypes()}
-                                ref={(c) => this._analysis_type = c}
-                        />
+                        <Options.PipelineAnalysisTypes form={this.form} ref={(c) => this._analysis_type = c} />
                     </Col>
 
                     {/* Control lane nb */}

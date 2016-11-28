@@ -3,7 +3,7 @@ import AsyncOptionsList from './AsyncOptionsList';
 
 
 
-export class InstrumentsList extends React.Component {
+export class Instruments extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
     render() {
@@ -30,7 +30,7 @@ export class MappingTools extends React.Component {
     }
 }
 
-export class PeopleList extends React.Component {
+export class People extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.last_name +" "+ v.first_name]; }
     render() {

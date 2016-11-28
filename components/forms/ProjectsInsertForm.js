@@ -77,7 +77,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.PeopleList form={this.form} ref={(c) => this._personInCharge = c} />
+                        <Options.People form={this.form} ref={(c) => this._personInCharge = c} />
                     </Col>
 
                     {/* Code name */}

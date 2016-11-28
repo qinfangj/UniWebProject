@@ -131,7 +131,7 @@ class RunsInsertForm extends React.Component {
                     {/* Machine (aka "Instrument") */}
 
                     <Col sm={2} className={formsCss.formCol}>
-                        <Options.InstrumentsList ref={(c) => this._instrument = c} />
+                        <Options.Instruments ref={(c) => this._instrument = c} />
                     </Col>
 
                     {/* Run date (aka "?") */}
