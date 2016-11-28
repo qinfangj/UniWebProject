@@ -48,6 +48,15 @@ export class PipelineAnalysisTypes extends React.Component {
     }
 }
 
+export class PipelineVersions extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.software_name +" - "+ v.number]; }
+    render() {
+        return <AsyncOptionsList table="pipeline_versions" label="Pipeline version" form={this.props.form}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
 export class ProjectAnalysesList extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }

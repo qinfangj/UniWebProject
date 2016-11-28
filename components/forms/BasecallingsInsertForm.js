@@ -66,19 +66,13 @@ class BasecallingsInsertForm extends React.Component {
                     {/* Run */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="run" label="Run" form={this.form}
-                                options={options.getRuns()}
-                                ref={(c) => this._run = c}
-                        />
+                        <Options.RunsOutputFolders form={this.form} ref={(c) => this._run = c} />
                     </Col>
 
                     {/* Version */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="pipeline_version" label="Pipeline version" form={this.form}
-                                options={options.getPipelineVersions()}
-                                ref={(c) => this._pipeline_version = c}
-                        />
+                        <Options.PipelineVersions form={this.form} ref={(c) => this._pipeline_version = c} />
                     </Col>
 
                     {/* Analysis type */}
