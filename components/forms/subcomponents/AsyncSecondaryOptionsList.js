@@ -45,7 +45,7 @@ class AsyncSecondaryOptionsList extends React.Component {
             if (formValues !== undefined) {
                 let dependsOnValue = formValues[this.props.dependsOnField];
                 // The value it dends on changed, ask for new data
-                if (dependsOnValue !== this.dependsOnValue) {
+                if (dependsOnValue && dependsOnValue !== this.dependsOnValue) {
                     this.dependsOnValue = dependsOnValue;  // avoids infinite callback loop
                     store.dispatch(getSecondaryOptionsListAsync(this.props.table, dependsOnValue));
                 }
