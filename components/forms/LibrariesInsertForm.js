@@ -64,11 +64,9 @@ class LibrariesInsertForm extends React.Component {
             isCustomer_made: this._isCustomerMade.getValue(),
             isRobot_made: this._isRobotMade.getValue(),
             isTrashed: this._isTrashed.getValue(),
-            quantification: {
-                quantif_method_id: this._quantification.getValue(),
-                concentration: this._concentration.getValue(),
-                volume: this._volume.getValue(),
-            },
+            quantif_method_id: this._quantification.getValue(),
+            concentration: this._concentration.getValue(),
+            volume: this._volume.getValue(),
         };
     }
 
@@ -93,7 +91,7 @@ class LibrariesInsertForm extends React.Component {
 
                     <Col sm={2} className={css.formCol}>
                         <Select name="sample_id" label="Sample" form={this.form}
-                                options={options.getSamplesList()}
+                                options={options.getSamplesList()}   // will depend on the project
                                 ref={(c) => this._sample = c}
                         />
                     </Col>
@@ -145,6 +143,7 @@ class LibrariesInsertForm extends React.Component {
                     <Col sm={2} className={css.formCol}>
                         <TextField name="bioanalyser_peak" label="Bioanalyser peak"
                                    validator = {validators.numberValidator}
+                                   invalid = {!!this.state.invalid["bioanalyser_peak"]}
                                    ref = {(c) => this._bioanalyserPeak = c}
                         />
                     </Col>
@@ -154,6 +153,7 @@ class LibrariesInsertForm extends React.Component {
                     <Col sm={2} className={css.formCol}>
                         <TextField name="min_frag_size" label="Frag.size(min)" required
                                    validator = {validators.numberValidator}
+                                   invalid = {!!this.state.invalid["min_frag_size"]}
                                    ref = {(c) => this._fragSizeMin = c}
                         />
                     </Col>
@@ -163,6 +163,7 @@ class LibrariesInsertForm extends React.Component {
                     <Col sm={2} className={css.formCol}>
                         <TextField name="max_frag_size" label="Frag.size(max)" required
                                    validator = {validators.numberValidator}
+                                   invalid = {!!this.state.invalid["max_frag_size"]}
                                    ref = {(c) => this._fragSizeMax = c}
                         />
                     </Col>
@@ -209,8 +210,9 @@ class LibrariesInsertForm extends React.Component {
                     {/* Volume */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="url" label="Volume"
+                        <TextField name="volume" label="Volume"
                                    validator = {validators.numberValidator}
+                                   invalid={!! this.state.invalid["volume"]}
                                    ref = {(c) => this._volume = c}
                         />
                     </Col>
