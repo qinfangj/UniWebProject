@@ -10,6 +10,7 @@ import DatePicker from './elements/DatePicker';
 import validators from './validators';
 import * as forms from './forms.js';
 import * as options from './options';
+import * as Options from './subcomponents/Options';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -67,10 +68,7 @@ class GenomesInsertForm extends React.Component {
                     {/* Organism */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Select name="organism" label="Organism" form={this.form}
-                                options={options.getOrganismsList()}
-                                ref={(c) => this._organism = c}
-                        />
+                        <Options.Taxonomies form={this.form} ref={(c) => this._organism = c} />
                     </Col>
 
                     {/* Assembly */}

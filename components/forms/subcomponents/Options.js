@@ -93,6 +93,15 @@ export class RunTypesLengths extends React.Component {
     }
 }
 
+export class SampleTypes extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name]; }
+    render() {
+        return <AsyncOptionsList table="sample_types" label="Sample type" form={this.props.form}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
 export class SequencingKitVersions extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.version]; }
@@ -107,6 +116,15 @@ export class SequencingQualities extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="sequencing_qualities" form={this.props.form}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
+export class Taxonomies extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name]; }
+    render() {
+        return <AsyncOptionsList table="taxonomies" label="Organism" form={this.props.form}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
