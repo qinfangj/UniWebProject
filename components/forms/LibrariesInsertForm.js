@@ -151,10 +151,10 @@ class LibrariesInsertForm extends React.Component {
                     {/* Min frag size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="min_frag_size" label="Frag.size(min)" required
+                        <TextField name="frag_size_min" label="Frag.size(min)" required
                                    validator = {validators.numberValidator}
-                                   invalid = {!!this.state.invalid["min_frag_size"]}
-                                   missing = {!!this.state.missing["min_frag_size"]}
+                                   invalid = {!!this.state.invalid["frag_size_min"]}
+                                   missing = {!!this.state.missing["frag_size_min"]}
                                    ref = {(c) => this._fragSizeMin = c}
                         />
                     </Col>
@@ -162,10 +162,10 @@ class LibrariesInsertForm extends React.Component {
                     {/* Max frag size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="max_frag_size" label="Frag.size(max)" required
+                        <TextField name="frag_size_max" label="Frag.size(max)" required
                                    validator = {validators.numberValidator}
-                                   invalid = {!!this.state.invalid["max_frag_size"]}
-                                   missing = {!!this.state.missing["max_frag_size"]}
+                                   invalid = {!!this.state.invalid["frag_size_max"]}
+                                   missing = {!!this.state.missing["frag_size_max"]}
                                    ref = {(c) => this._fragSizeMax = c}
                         />
                     </Col>

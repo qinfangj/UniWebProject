@@ -33,7 +33,13 @@ class RestService {
             url: url,
             data: JSON.stringify(formData),
             contentType: "application/json",
-            dataType: "json"
+            dataType: "json",
+            error: (jqXHR, textStatus, error) => {
+                // `jqXHR` is a kind of Future or the response, with other methods and attributes.
+                // `textStatus` can be "timeout", "error", "abort", or "parsererror".
+                // `error` is the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error".
+                console.debug(error, ':', jqXHR.responseText);
+            }
         });
     }
 
