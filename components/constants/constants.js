@@ -6,6 +6,7 @@ const Constants = {
     ERROR: "ERROR",
 
     OPTIONS: "options_",
+    SECONDARY_OPTIONS: "secondary_options_",
 };
 
 

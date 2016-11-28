@@ -23,6 +23,7 @@ class UserRequestsInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "user_requests";
+        this.form = "user_requests";
         this.required = [""];
         this.state = forms.defaultFormState;
     }
@@ -67,7 +68,7 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        <Select name="project" label="Project"
+                        <Select name="project" label="Project" form={this.form}
                                 options={options.getProjectsList()}
                                 ref={(c) => this._project = c}
                         />
@@ -76,7 +77,7 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="sample" label="Sample"
+                        <Select name="sample" label="Sample" form={this.form}
                                 options={options.getSamplesList()}
                                 ref={(c) => this._sample = c}
                         />
@@ -101,7 +102,7 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Library type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="libraryType" label="Library type"
+                        <Select name="libraryType" label="Library type" form={this.form}
                                 options={options.getLibraryTypes()}
                                 ref={(c) => this._sample = c}
                         />
@@ -118,7 +119,7 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Run request */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="runRequest" label="Run request"
+                        <Select name="runRequest" label="Run request" form={this.form}
                                 options={options.getRunRequests()}
                                 ref={(c) => this._runRequest = c}
                         />

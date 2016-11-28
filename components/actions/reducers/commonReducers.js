@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 
 const defaultState = {
     route: {data: {}},
+    forms: {},
 };
 
 
@@ -25,6 +26,17 @@ let commonReducers = (state = defaultState, action) => {
                     data: action.data,
                 }
             });
+
+        case types.CHANGE_FORM_VALUE:
+            let form = action.form;
+            let field = action.field;
+            let value = action.value;
+            let newState = Object.assign({}, state);
+            if (! (form in state.forms)) {
+                newState.forms[form] = {};
+            }
+            newState.forms[form][field] = value;
+            return newState;
 
         default:
             return state;

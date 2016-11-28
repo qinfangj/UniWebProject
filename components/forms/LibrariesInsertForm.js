@@ -22,6 +22,7 @@ class LibrariesInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "libraries";
+        this.form = "libraries";
         this.required = ["sample_id", "name", "lib_protocol_id", "library_date", "starting_material",
                          "frag_size_min", "frag_size_max", "multiplex_index_id"];
         this.state = forms.defaultFormState;
@@ -82,7 +83,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Project */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Select name="project_id" label="Project"
+                        <Select name="project_id" label="Project" form={this.form}
                                 options={options.getProjectsList()}
                                 ref={(c) => this._project = c}
                         />
@@ -91,7 +92,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Sample */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="sample_id" label="Sample"
+                        <Select name="sample_id" label="Sample" form={this.form}
                                 options={options.getSamplesList()}
                                 ref={(c) => this._sample = c}
                         />
@@ -111,7 +112,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Protocol */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="lib_protocol_id" label="Protocol"
+                        <Select name="lib_protocol_id" label="Protocol" form={this.form}
                                 options={options.getLibProtocols()}
                                 ref={(c) => this._protocol = c}
                         />
@@ -178,7 +179,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Quantification */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="quantif_type_id" label="Quantification"
+                        <Select name="quantif_type_id" label="Quantification" form={this.form}
                                 options={options.getQuantifTypesList()}
                                 ref={(c) => this._quantification = c}
                         />
@@ -190,7 +191,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Multiplex index */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="multiplex_index_id" label="Multiplex index"
+                        <Select name="multiplex_index_id" label="Multiplex index" form={this.form}
                                 options={options.getMultiplexIndexes()}
                                 ref={(c) => this._multiplexIndex = c}
                         />
@@ -199,7 +200,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Second (multiplex) index */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="index_5prime_id" label="Second index"
+                        <Select name="index_5prime_id" label="Second index" form={this.form}
                                 options={options.getMultiplexIndexes()}
                                 ref={(c) => this._secondIndex = c}
                         />
@@ -217,7 +218,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Adapters */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="adapter_id" label="Adapter"
+                        <Select name="adapter_id" label="Adapter" form={this.form}
                                 options={options.getAdapters()}
                                 ref={(c) => this._adapter = c}
                         />
@@ -245,7 +246,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Library state */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="library_state_id" label="Library state"
+                        <Select name="library_state_id" label="Library state" form={this.form}
                                 options={options.getLibraryStates()}
                                 ref={(c) => this._libraryState = c}
                         />

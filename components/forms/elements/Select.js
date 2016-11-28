@@ -1,5 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import store from '../../../core/store';
+import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -39,6 +41,9 @@ class Select extends React.Component {
 
     onChange(e) {
         this.setState({value: parseInt(e.target.value)});
+        if (this.props.form !== undefined) {
+            store.dispatch(changeFormValue(this.props.form, this.props.name, this.state.value));
+        }
     }
 
     render() {
@@ -63,8 +68,9 @@ class Select extends React.Component {
 }
 
 Select.propTypes = {
-    name: React.PropTypes.string.isRequired,  // controlId - not visible
+    name: React.PropTypes.string.isRequired,  // FormGroup controlId + name of the field in store
     options: React.PropTypes.array.isRequired,  // an array of the type [[1,"yes"], [2,"no"], [3,"maybe"]]
+    form: React.PropTypes.string,  // form name
     label: React.PropTypes.string,  // title - visible
     defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),  // Id or name (not option index)
     inputProps: React.PropTypes.object,  // additional input field props

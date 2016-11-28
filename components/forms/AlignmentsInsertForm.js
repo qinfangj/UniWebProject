@@ -7,6 +7,7 @@ import TextField from './elements/TextField';
 import CheckBox from './elements/MyCheckbox';
 import TextArea from './elements/Textarea';
 import Select from './elements/Select';
+import * as SecondaryOptions from './subcomponents/SecondaryOptions';
 import * as Options from './subcomponents/Options';
 import * as options from './options';
 import * as forms from './forms.js';
@@ -23,6 +24,7 @@ class AlignmentsInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "alignments";
+        this.form = "alignments";
         this.required = ["eland_output_folder"];
         this.state = forms.defaultFormState;
     }
@@ -33,7 +35,6 @@ class AlignmentsInsertForm extends React.Component {
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
-                console.debug(555, insertId);
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
                 console.warn("Uncaught form validation error");
@@ -66,25 +67,19 @@ class AlignmentsInsertForm extends React.Component {
                     {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.PipelineAnalysisTypes ref={(c) => this._analysis_type = c} />
+                        <Options.PipelineAnalysisTypes form={this.form} ref={(c) => this._analysis_type = c} />
                     </Col>
 
                     {/* Run */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="run" label="Run"
-                                options={options.getRuns()}
-                                ref={(c) => this._run = c}
-                        />
+                        <Options.RunsOutputFolders form={this.form} ref={(c) => this._run = c} />
                     </Col>
 
                     {/* Unaligned data output folder */}
 
                     <Col sm={7} className={css.formCol}>
-                        <Select name="unaligned_output_folder" label="Unaligned data output folder"
-                                options={[]}  // "double select", depends on Run selection --> "select_calling", "_getBasecalling"
-                                ref={(c) => this._unaligned_output_folder = c}
-                        />
+                        <SecondaryOptions.BasecallingsOutputFolders form={this.form} ref={(c) => this._unaligned_output_folder = c} />
                     </Col>
 
                 </Form>
@@ -93,7 +88,7 @@ class AlignmentsInsertForm extends React.Component {
                     {/* Mapping tool */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.MappingTools ref={(c) => this._mapping_tool = c} />
+                        <Options.MappingTools form={this.form} ref={(c) => this._mapping_tool = c} />
                     </Col>
 
                     {/* Alignment output folder */}

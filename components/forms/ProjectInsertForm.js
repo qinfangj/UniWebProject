@@ -21,6 +21,7 @@ class ProjectInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "projects";
+        this.form = "projects";
         this.required = ["name", "code_name"];
         this.state = forms.defaultFormState;
     }
@@ -76,7 +77,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.PeopleList ref={(c) => this._personInCharge = c} />
+                        <Options.PeopleList form={this.form} ref={(c) => this._personInCharge = c} />
                     </Col>
 
                     {/* Code name */}
@@ -112,7 +113,7 @@ class ProjectInsertForm extends React.Component {
 
                         {/* Project state */}
 
-                        <Options.ProjectStatesList ref={(c) => this._projectState = c} />
+                        <Options.ProjectStatesList form={this.form} ref={(c) => this._projectState = c} />
 
                         {/* Is control */}
 
@@ -131,7 +132,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Project analysis */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.ProjectAnalysesList ref={(c) => this._projectAnalysis = c} />
+                        <Options.ProjectAnalysesList form={this.form} ref={(c) => this._projectAnalysis = c} />
                     </Col>
 
                 </Form>

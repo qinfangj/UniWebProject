@@ -23,6 +23,7 @@ class SamplesInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "samples";
+        this.form = "samples";
         this.required = ["name", "short_name", "project_id", "organism", "taxo_id"];
         this.state = forms.defaultFormState;
     }
@@ -95,7 +96,7 @@ class SamplesInsertForm extends React.Component {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        <Select name="project_id" label="Project"
+                        <Select name="project_id" label="Project" form={this.form}
                                 options={options.getProjectsList()}
                                 ref={(c) => this._project = c}
                         />
@@ -107,7 +108,7 @@ class SamplesInsertForm extends React.Component {
                     {/* Organism */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="organism" label="Organism"
+                        <Select name="organism" label="Organism" form={this.form}
                                 options={options.getOrganismsList()}
                                 ref={(c) => this._organism = c}
                         />
@@ -116,7 +117,7 @@ class SamplesInsertForm extends React.Component {
                     {/* Sample type */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="sample_type" label="Sample_type"
+                        <Select name="sample_type" label="Sample_type" form={this.form}
                                 options={options.getSampleTypesList()}
                                 ref={(c) => this._sampleType = c}
                         />
@@ -133,7 +134,7 @@ class SamplesInsertForm extends React.Component {
                     {/* Quantification */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="quantif_type_id" label="Quantification"
+                        <Select name="quantif_type_id" label="Quantification" form={this.form}
                                 options={options.getQuantifTypesList()}
                                 ref={(c) => this._quantification = c}
                         />

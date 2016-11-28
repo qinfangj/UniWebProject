@@ -17,8 +17,9 @@ class AsyncOptionsList extends React.Component {
     }
 
     static propTypes = {
-        table: React.PropTypes.string,
+        table: React.PropTypes.string.isRequired,
         label: React.PropTypes.string,
+        form: React.PropTypes.string,
         formatter: React.PropTypes.func,  // object => [id, name]
     };
 
@@ -47,7 +48,8 @@ class AsyncOptionsList extends React.Component {
 
     render() {
         return (
-            <Select name={this.props.table} label={this.props.label} ref={(c) => {this._select = c;}}
+            <Select name={this.props.table} label={this.props.label} form={this.props.form}
+                    ref={(c) => {this._select = c;}}
                     options={this.getList()}
             />
         );

@@ -23,6 +23,7 @@ class BasecallingsInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "basecallings";
+        this.form = "basecallings";
         this.required = ["output_folder"];
         this.state = forms.defaultFormState;
     }
@@ -65,7 +66,7 @@ class BasecallingsInsertForm extends React.Component {
                     {/* Run */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="run" label="Run"
+                        <Select name="run" label="Run" form={this.form}
                                 options={options.getRuns()}
                                 ref={(c) => this._run = c}
                         />
@@ -74,7 +75,7 @@ class BasecallingsInsertForm extends React.Component {
                     {/* Version */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="pipeline_version" label="Pipeline version"
+                        <Select name="pipeline_version" label="Pipeline version" form={this.form}
                                 options={options.getPipelineVersions()}
                                 ref={(c) => this._pipeline_version = c}
                         />
@@ -83,7 +84,7 @@ class BasecallingsInsertForm extends React.Component {
                     {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="analysis_type" label="Analysis type"
+                        <Select name="analysis_type" label="Analysis type" form={this.form}
                                 options={options.getAnalysisTypes()}
                                 ref={(c) => this._analysis_type = c}
                         />
@@ -92,7 +93,7 @@ class BasecallingsInsertForm extends React.Component {
                     {/* Control lane nb */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="control_lane" label="Control lane"
+                        <Select name="control_lane" label="Control lane" form={this.form}
                                 options={options.getControlLane()}
                                 ref={(c) => this._control_lane = c}
                         />

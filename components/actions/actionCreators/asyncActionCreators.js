@@ -28,26 +28,26 @@ function asyncAction(type, action, args) {
 }
 
 /* Select options. `suffix` is something like "labsList" in "/table/<tableName>/<suffix>". */
-function getOptionsListAsync(tableName) {
+export function getOptionsListAsync(tableName) {
     let args = {tableName,};
     return asyncAction(actions.GET_OPTIONS_LIST, restService.getOptionsList.bind(null, tableName), args)
 }
+export function getSecondaryOptionsListAsync(tableName, id) {
+    let args = {tableName,};
+    return asyncAction(actions.GET_SECONDARY_OPTIONS_LIST, restService.getSecondaryOptionsList.bind(null, tableName, id), args)
+}
+
 
 /* Table data */
-function getTableDataAsync(tableName, activeOnly) {
+export function getTableDataAsync(tableName, activeOnly) {
     let args = {tableName,};
     return asyncAction(actions.GET_TABLE_DATA, restService.specialSelect.bind(null, tableName, activeOnly), args);
 }
 
 /* Inserts */
-function insertAsync(tableName, formData) {
+export function insertAsync(tableName, formData) {
     let args = {tableName,};
     return asyncAction(actions.INSERT, restService.insert.bind(null, tableName, formData), args);
 }
 
 
-export {
-    getOptionsListAsync,
-    getTableDataAsync,
-    insertAsync,
-};

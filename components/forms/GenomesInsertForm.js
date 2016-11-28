@@ -22,6 +22,7 @@ class GenomesInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "genomes";
+        this.form = "genomes";
         this.required = ["organism", "assembly", "genome_folder", "url",
             "downloaded_date", "files", "comment", "isMasked", "isArchived"];
         this.state = forms.defaultFormState;
@@ -66,7 +67,7 @@ class GenomesInsertForm extends React.Component {
                     {/* Organism */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Select name="organism" label="Organism"
+                        <Select name="organism" label="Organism" form={this.form}
                                 options={options.getOrganismsList()}
                                 ref={(c) => this._organism = c}
                         />
