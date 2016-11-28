@@ -29,11 +29,11 @@ class RunsPreInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "runs";
+        this.form = "pre-runs";
         this.required = [""];
         this.state = forms.defaultFormState;
         this.lanesRefs = range8.map((i) => {
             return {
-                //id: laneId,
                 lane_nb: i + 1,
                 nlibs: null,
                 nqc: null,
@@ -57,8 +57,9 @@ class RunsPreInsertForm extends React.Component {
     validateFormData(formData) {
         let invalid = {};
         for (let lane of formData) {
-            if (lane.nlibs === null) { invalid[lane.id] = {}; invalid[lane.id].nlibs = true; }
-            if (lane.nqc === null) { invalid[lane.id] = {}; invalid[lane.id].nqc = true; }
+            let N = lane.lane_nb - 1;
+            if (lane.nlibs === null) { invalid[N] = {}; invalid[N].nlibs = true; }
+            if (lane.nqc === null) { invalid[N] = {}; invalid[N].nqc = true; }
         }
         return {isValid: Object.keys(invalid).length === 0, invalid};
     }
@@ -88,7 +89,6 @@ class RunsPreInsertForm extends React.Component {
     getFormValues() {
         return this.lanesRefs.map((lane) => {
             return {
-                //id: lane.id,
                 lane_nb: lane.lane_nb,
                 nlibs: lane.nlibs.getValue(),
                 nqc: lane.nqc.getValue(),
@@ -102,7 +102,7 @@ class RunsPreInsertForm extends React.Component {
         let makeRow = (N) => {
             let invalid = this.state.invalid[N];
             return <tr key={N} className={css.preRunsInsertRow}>
-                <td key="id" className={css.laneId}>{N}</td>
+                <td key="id" className={css.laneId}>{N+1}</td>
                 <td key="nlibs" className={css.numeric}>
                     <TextField name="nlibs" defaultValue="0" required
                                validator = {validators.integerValidator}
@@ -118,14 +118,14 @@ class RunsPreInsertForm extends React.Component {
                     />
                 </td>
                 <td key="project">
-                    <Select name="project"
+                    <Select name="project" form={this.form}
                             options={options.getProjectsList()}
                             ref={(c) => this.lanesRefs[N]["project"] = c}
                     />
                 </td>
                 <td key="pool">
-                    <Select name="pool"
-                            options={options.getLibraryPools()}
+                    <Select name="pool" form={this.form}
+                            options={options.getLibraryPools()}   // depends on the above ("double select")
                             ref={(c) => this.lanesRefs[N]["pool"] = c}
                     />
                 </td>

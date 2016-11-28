@@ -27,7 +27,7 @@ class RunsInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "runs";
-        this.required = [];
+        this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];
         this.state = forms.defaultFormState;
         this.state.lanes = store.getState().common.route.data || {};
     }
@@ -59,6 +59,15 @@ class RunsInsertForm extends React.Component {
 
     getFormValues() {
         let {lanes, invalid} = this._lanes.getFormValues();
+        for (let laneNb of Object.keys(invalid)) {
+            if (Object.keys(invalid[laneNb]).length > 0) {
+                lanes = null;
+                break;
+            }
+        }
+        if (lanes !== null) {
+            lanes = Object.values(lanes);
+        }
         return {
             ga_run_nb: this._runNb.getValue(),
             flowcell_ref_name: this._flowcell.getValue(),
@@ -72,7 +81,7 @@ class RunsInsertForm extends React.Component {
             isFailed: this._isFailed.getValue(),
             comment: this._comment.getValue(),
             lanesComment: this._lanesComment.getValue(),
-            lanes: Object.values(lanes),
+            lanes: lanes,
         };
     }
 
@@ -87,7 +96,10 @@ class RunsInsertForm extends React.Component {
                     {/* Run# */}
 
                     <Col sm={1} className={formsCss.formCol}>
-                        <TextField name="run" label="Run#" required
+                        <TextField name="ga_run_nb" label="Run#" required
+                                   missing = {!!this.state.missing["ga_run_nb"]}
+                                   invalid = {!!this.state.invalid["ga_run_nb"]}
+                                   validator = {validators.integerValidator}
                                    ref = {(c) => this._runNb = c}
                         />
                     </Col>
@@ -95,7 +107,9 @@ class RunsInsertForm extends React.Component {
                     {/* Flowcell ID */}
 
                     <Col sm={2} className={formsCss.formCol}>
-                        <TextField name="flowcell_refName" label="Flowcell ID" required
+                        <TextField name="flowcell_ref_name" label="Flowcell ID" required
+                                   missing = {!!this.state.missing["flowcell_ref_name"]}
+                                   invalid = {!!this.state.invalid["flowcell_ref_name"]}
                                    ref = {(c) => this._flowcell = c}
                         />
                     </Col>
