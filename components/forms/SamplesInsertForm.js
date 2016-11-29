@@ -126,10 +126,7 @@ class SamplesInsertForm extends React.Component {
                     {/* Quantification */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="quantif_type_id" label="Quantification" form={this.form}
-                                options={options.getQuantifTypesList()}
-                                ref={(c) => this._quantification = c}
-                        />
+                        <Options.QuantifMethods form={this.form} ref={(c) => this._quantification = c} />
                     </Col>
 
                 </Form>

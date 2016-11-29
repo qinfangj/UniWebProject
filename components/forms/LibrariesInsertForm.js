@@ -10,6 +10,7 @@ import DatePicker from './elements/DatePicker';
 import validators from './validators';
 import * as forms from './forms.js';
 import * as options from './options';
+import * as Options from './subcomponents/Options';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -182,10 +183,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Quantification */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="quantif_type_id" label="Quantification" form={this.form}
-                                options={options.getQuantifTypesList()}
-                                ref={(c) => this._quantification = c}
-                        />
+                        <Options.QuantifMethods form={this.form} ref={(c) => this._quantification = c} />
                     </Col>
 
                 </Form>

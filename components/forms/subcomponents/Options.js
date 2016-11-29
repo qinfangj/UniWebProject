@@ -84,6 +84,15 @@ export class ProjectStatesList extends React.Component {
     }
 }
 
+export class QuantifMethods extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name]; }
+    render() {
+        return <AsyncOptionsList table="quantif_methods" label="Quantification" form={this.props.form}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
 export class RunsOutputFolders extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.run_folder]; }
