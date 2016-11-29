@@ -47,8 +47,8 @@ class Select extends React.Component {
     }
 
     render() {
-        let opts = this.props.options ? this.props.options.map(v => {
-            return <option value={v[0]} key={v[0]+v[1]}>{v[1]}</option>;
+        let opts = this.props.options ? this.props.options.map((v,i) => {
+            return <option value={v[0]} key={v[0]+v[1]+i}>{v[1]}</option>;
         }) : null;
         let lab = this.props.label ? <ControlLabel>{this.props.label}</ControlLabel> : null;
         return (

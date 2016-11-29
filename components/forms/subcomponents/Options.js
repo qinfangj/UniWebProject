@@ -12,6 +12,15 @@ export class Instruments extends React.Component {
     }
 }
 
+export class LibProtocols extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.short_name]; }
+    render() {
+        return <AsyncOptionsList table="lib_protocols" label="Library type" form={this.props.form}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
 export class FlowcellTypes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.version]; }

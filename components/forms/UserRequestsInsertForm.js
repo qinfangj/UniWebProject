@@ -106,10 +106,7 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Library type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="library_type" label="Library type" form={this.form}
-                                options={options.getLibraryTypes()}
-                                ref={(c) => this._library_type = c}
-                        />
+                        <Options.LibProtocols form={this.form} ref={(c) => this._library_type = c} />
                     </Col>
 
                     {/* Multiplexing group */}

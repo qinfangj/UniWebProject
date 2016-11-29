@@ -82,10 +82,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Project */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Select name="project_id" label="Project" form={this.form}
-                                options={options.getProjectsList()}
-                                ref={(c) => this._project = c}
-                        />
+                        <Options.Projects form={this.form} ref={(c) => this._project = c} />
                     </Col>
 
                     {/* Sample */}
