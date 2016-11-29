@@ -5,10 +5,9 @@ import cx from 'classnames';
 
 import TextField from './elements/TextField';
 import CheckBox from './elements/MyCheckbox';
-import Select from './elements/Select';
 import TextArea from './elements/Textarea';
 import * as Options from './subcomponents/Options';
-import * as options from './options';
+import * as SecondaryOptions from './subcomponents/SecondaryOptions';
 import * as forms from './forms.js';
 import validators from './validators';
 
@@ -77,10 +76,7 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Select name="sample" label="Sample" form={this.form}
-                                options={options.getSamplesList()}
-                                ref={(c) => this._sample = c}
-                        />
+                        <SecondaryOptions.ProjectSamples form={this.form} ref={(c) => this._sample = c} />
                     </Col>
 
                     {/* Insert size */}

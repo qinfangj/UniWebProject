@@ -11,6 +11,7 @@ import validators from './validators';
 import * as forms from './forms.js';
 import * as options from './options';
 import * as Options from './subcomponents/Options';
+import * as SecondaryOptions from './subcomponents/SecondaryOptions';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -81,17 +82,14 @@ class LibrariesInsertForm extends React.Component {
 
                     {/* Project */}
 
-                    <Col sm={4} className={css.formCol}>
+                    <Col sm={5} className={css.formCol}>
                         <Options.Projects form={this.form} ref={(c) => this._project = c} />
                     </Col>
 
                     {/* Sample */}
 
-                    <Col sm={2} className={css.formCol}>
-                        <Select name="sample_id" label="Sample" form={this.form}
-                                options={options.getSamplesList()}   // will depend on the project
-                                ref={(c) => this._sample = c}
-                        />
+                    <Col sm={3} className={css.formCol}>
+                        <SecondaryOptions.ProjectSamples form={this.form} ref={(c) => this._sample = c} />
                     </Col>
 
                     {/* Name */}
