@@ -28,29 +28,29 @@ function asyncAction(type, action, args) {
 }
 
 /* Select options. */
-export function getOptionsListAsync(tableName) {
-    let args = {tableName,};
+export function getOptionsListAsync(tableName, storeKey) {
+    let args = {tableName, storeKey};
     return asyncAction(actions.GET_OPTIONS_LIST, restService.getOptionsList.bind(null, tableName), args)
 }
-export function getConditionalOptionsListAsync(tableName, all) {
-    let args = {tableName,};
+export function getConditionalOptionsListAsync(tableName, all, storeKey) {
+    let args = {tableName, storeKey};
     return asyncAction(actions.GET_OPTIONS_LIST, restService.getConditionalOptionsList.bind(null, tableName, all), args)
 }
-export function getSecondaryOptionsListAsync(tableName, id) {
-    let args = {tableName,};
+export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
+    let args = {tableName, storeKey};
     return asyncAction(actions.GET_SECONDARY_OPTIONS_LIST, restService.getSecondaryOptionsList.bind(null, tableName, id), args)
 }
 
 
 /* Table data */
-export function getTableDataAsync(tableName, activeOnly) {
-    let args = {tableName,};
+export function getTableDataAsync(tableName, activeOnly, storeKey) {
+    let args = {tableName, storeKey};
     return asyncAction(actions.GET_TABLE_DATA, restService.specialSelect.bind(null, tableName, activeOnly), args);
 }
 
 /* Inserts */
-export function insertAsync(tableName, formData) {
-    let args = {tableName,};
+export function insertAsync(tableName, formData, storeKey) {
+    let args = {tableName, storeKey};
     return asyncAction(actions.INSERT, restService.insert.bind(null, tableName, formData), args);
 }
 

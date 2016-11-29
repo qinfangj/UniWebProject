@@ -107,10 +107,17 @@ export class Projects extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.last_name +" - "+ v.name]; }
     render() {
-        return <AsyncOptionsList table="projects" label="Project" form={this.props.form}
-                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+        return <AsyncOptionsList table="projects"
+            label={this.props.label === undefined ? "Project" : this.props.label}
+            form={this.props.form}
+            all={this.props.all}
+            storeKey={this.props.storeKey}
+            formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
+Projects.propTypes = {
+    all: React.PropTypes.bool.isRequired,
+};
 
 export class ProjectStates extends React.Component {
     getValue() { return this._select.getValue(); }
@@ -148,6 +155,9 @@ export class RunTypesLengths extends React.Component {
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
+Projects.propTypes = {
+    all: React.PropTypes.bool.isRequired,
+};
 
 export class SampleTypes extends React.Component {
     getValue() { return this._select.getValue(); }

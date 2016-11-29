@@ -11,8 +11,8 @@ import constants from '../../constants/constants';
  * in another input field `dependsOnField`.
  */
 class AsyncSecondaryOptionsList extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.dependsOnValue = null; // not in state because not used for display. Only the callback updated the component.
         this.state = {list: [], value: null};
@@ -24,11 +24,12 @@ class AsyncSecondaryOptionsList extends React.Component {
      *  and the key used in the store for the selected item.
      */
     static propTypes = {
-        dependsOnField: React.PropTypes.string.isRequired,
+        dependsOnField: React.PropTypes.string.isRequired,  // the store key for the other input's form value
         table: React.PropTypes.string.isRequired,
         label: React.PropTypes.string,
         form: React.PropTypes.string,
         formatter: React.PropTypes.func,  // ex: object => [id, name]
+        storeKey: React.PropTypes.string,  // the store key for the result list - defaults to `table` prop
     };
 
     getValue() {
@@ -36,9 +37,10 @@ class AsyncSecondaryOptionsList extends React.Component {
     }
 
     componentWillMount() {
+        this.storeKey = this.props.storeKey || this.props.table;
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
-            let list = storeState.async[constants.SECONDARY_OPTIONS + this.props.table];
+            let list = storeState.async[constants.SECONDARY_OPTIONS + this.storeKey];
             let formValues = storeState.common.forms[this.props.form];
             // Since it depends on another field of the same form, no need to
             //  do anything if the other field has not yet sent its value to the store.
@@ -47,7 +49,7 @@ class AsyncSecondaryOptionsList extends React.Component {
                 // The value it dends on changed, ask for new data
                 if (dependsOnValue && dependsOnValue !== this.dependsOnValue) {
                     this.dependsOnValue = dependsOnValue;  // avoids infinite callback loop
-                    store.dispatch(getSecondaryOptionsListAsync(this.props.table, dependsOnValue));
+                    store.dispatch(getSecondaryOptionsListAsync(this.props.table, dependsOnValue, this.storeKey));
                 }
                 // New data received, update options list
                 if (list) {

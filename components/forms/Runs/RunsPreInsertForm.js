@@ -8,10 +8,10 @@ import store from '../../../core/store';
 import { goTo } from '../../actions/actionCreators/commonActionCreators';
 
 import TextField from '../elements/TextField';
-import Select from '../elements/Select';
 import validators from '../validators';
 import * as forms from '../forms.js';
-import * as options from '../options';
+import * as Options from '../subcomponents/Options';
+import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -118,16 +118,17 @@ class RunsPreInsertForm extends React.Component {
                     />
                 </td>
                 <td key="project">
-                    <Select name="project" form={this.form}
-                            options={options.getProjectsList()}
+                    <Options.Projects form={this.form}
+                            all={true} label={null}
+                            storeKey={this.form + N +"_project"}
                             ref={(c) => this.lanesRefs[N]["project"] = c}
                     />
                 </td>
                 <td key="pool">
-                    <Select name="pool" form={this.form}
-                            options={options.getLibraryPools()}   // depends on the above ("double select")
-                            ref={(c) => this.lanesRefs[N]["pool"] = c}
-                    />
+                    <SecondaryOptions.ProjectPools form={this.form}
+                            dependsOnField={this.form + N +"_project"}  // the store key to the form value
+                            storeKey={this.form + N +"_pool"}           // the store key for the result list
+                            ref={(c) => this.lanesRefs[N]["pool"] = c} />
                 </td>
             </tr>;
         };

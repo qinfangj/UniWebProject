@@ -17,7 +17,6 @@ export class BasecallingsOutputFolders extends React.Component {
     }
 }
 
-
 /**
  * List available samples for a given project ID.
  */
@@ -32,4 +31,25 @@ export class ProjectSamples extends React.Component {
         />);
     }
 }
+
+/**
+ * List available library pools for a given project ID.
+ * Used in Pre-Runs insert.
+ */
+export class ProjectPools extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.pool]; }
+    render() {
+        return (<AsyncSecondaryOptionsList
+            table="user_requests" label={null} form={this.props.form}
+            dependsOnField={this.props.dependsOnField}
+            storeKey={this.props.storeKey}
+            formatter={this.formatter} ref={(c) => {this._select = c;}}
+        />);
+    }
+}
+ProjectPools.propTypes = {
+    dependsOnField: React.PropTypes.string.isRequired,
+    storeKey: React.PropTypes.string,
+};
 

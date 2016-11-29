@@ -152,7 +152,7 @@ class RunsInsertForm extends React.Component {
                             {/* Reads type + length */}
 
                             <Col sm={12} className={formsCss.formCol}>
-                                <Options.RunTypesLengths ref={(c) => this._runTypesLengths = c} />
+                                <Options.RunTypesLengths all={false} ref={(c) => this._runTypesLengths = c} />
                             </Col>
 
                             {/* Run stage */}

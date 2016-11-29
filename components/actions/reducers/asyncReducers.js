@@ -27,23 +27,23 @@ let asyncReducers = (state = {}, action) => {
         /* Select options list */
 
         case types.GET_OPTIONS_LIST:
-            storeKey = constants.OPTIONS + action.args.tableName;
+            storeKey = constants.OPTIONS + (action.args.storeKey || action.args.tableName);
             return returnList(storeKey);
 
         case types.GET_SECONDARY_OPTIONS_LIST:
-            storeKey = constants.SECONDARY_OPTIONS + action.args.tableName;
+            storeKey = constants.SECONDARY_OPTIONS + (action.args.storeKey || action.args.tableName);
             return returnList(storeKey);
 
         /* Table data */
 
         case types.GET_TABLE_DATA:
-            storeKey = action.args.tableName;
+            storeKey = (action.args.storeKey || action.args.tableName);
             return returnList(storeKey);
 
         /* Inserts */
 
         case types.INSERT:
-            storeKey = action.args.tableName;
+            storeKey = (action.args.storeKey || action.args.tableName);
             return returnList(storeKey);
 
         default:
