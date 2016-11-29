@@ -103,13 +103,10 @@ class LibrariesInsertForm extends React.Component {
                         />
                     </Col>
 
-                    {/* Protocol */}
+                    {/* Library type - aka protocol */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="lib_protocol_id" label="Protocol" form={this.form}
-                                options={options.getLibProtocols()}
-                                ref={(c) => this._protocol = c}
-                        />
+                        <Options.LibProtocols form={this.form} ref={(c) => this._protocol = c} />
                     </Col>
 
                     {/* Starting material */}
@@ -187,10 +184,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Multiplex index */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="multiplex_index_id" label="Multiplex index" form={this.form}
-                                options={options.getMultiplexIndexes()}
-                                ref={(c) => this._multiplexIndex = c}
-                        />
+                        <Options.MutliplexIndexes all={true} form={this.form} ref={(c) => this._multiplexIndex = c} />
                     </Col>
 
                     {/* Second (multiplex) index */}

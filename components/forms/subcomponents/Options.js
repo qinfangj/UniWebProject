@@ -57,6 +57,16 @@ export class MappingTools extends React.Component {
     }
 }
 
+export class MutliplexIndexes extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name +" - "+ v.sequence]; }
+    render() {
+        return <AsyncOptionsList table="multiplex_indexes" label="Multiplex index (I7)" form={this.props.form}
+                                 all = {this.props.all}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
 export class People extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.last_name +" "+ v.first_name]; }
