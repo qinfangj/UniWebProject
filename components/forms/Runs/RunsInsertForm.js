@@ -27,6 +27,7 @@ class RunsInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "runs";
+        this.form = "runs";
         this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];
         this.state = forms.defaultFormState;
         this.state.lanes = store.getState().common.route.data || {};
@@ -100,6 +101,7 @@ class RunsInsertForm extends React.Component {
                                    missing = {!!this.state.missing["ga_run_nb"]}
                                    invalid = {!!this.state.invalid["ga_run_nb"]}
                                    validator = {validators.integerValidator}
+                                   form = {this.form}  // so that it sends its value to store
                                    ref = {(c) => this._runNb = c}
                         />
                     </Col>

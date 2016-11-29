@@ -54,6 +54,7 @@ Textarea.propTypes = {
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting
     invalid: React.PropTypes.bool,  // field was found invalid when submitting
     inputProps: React.PropTypes.object,  // additional input field props
+    storeKey: React.PropTypes.string,  // key to get the form value from store. Otherwise, `name` is used instead.
 };
 Textarea.defaultProps = {
     defaultValue: "",

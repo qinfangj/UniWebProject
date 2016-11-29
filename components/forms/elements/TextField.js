@@ -1,6 +1,8 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
+import store from '../../../core/store';
+import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -68,6 +70,9 @@ class TextField extends React.Component {
         let value = e.target.value;
         let {valid, msg, status} = this.validate(value);
         this.setState({ value, valid, msg, status });
+        if (this.props.form !== undefined) {
+            store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.name, value));
+        }
     }
 
     render() {
@@ -98,8 +103,10 @@ TextField.propTypes = {
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting
     invalid: React.PropTypes.bool,  // field was found invalid when submitting - only if a `validator` prop is given.
     placeholder: React.PropTypes.string,
+    form: React.PropTypes.string,  // form name
     defaultValue: React.PropTypes.string,
     inputProps: React.PropTypes.object,  // additional input field props
+    storeKey: React.PropTypes.string,  // key to get the form value from store. Otherwise, `name` is used instead.
 };
 TextField.defaultProps = {
     validator: ((x) => {return {valid: true, msg: ""}}),
