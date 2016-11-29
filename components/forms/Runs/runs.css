@@ -78,6 +78,9 @@
     margin: 0;
     padding: 0 calc(15px + var(--mar));  /* compensate the -15px left/right-margin in BS .form-horizontal .form-group */
 }
+.qcCell {
+    background-color: #E5F2FF;
+}
 
 /* Particular cells */
 .laneCell {

@@ -112,11 +112,14 @@ export class Projects extends React.Component {
             form={this.props.form}
             all={this.props.all}
             storeKey={this.props.storeKey}
+            selectProps={this.props.selectProps}
             formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
 Projects.propTypes = {
     all: React.PropTypes.bool.isRequired,
+    storeKey: React.PropTypes.string,  // store key for the result list
+    selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
 };
 
 export class ProjectStates extends React.Component {
@@ -182,9 +185,13 @@ export class SequencingQualities extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="sequencing_qualities" form={this.props.form}
+                                 selectProps={this.props.selectProps}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
+Projects.propTypes = {
+    selectProps: React.PropTypes.object,
+};
 
 export class Taxonomies extends React.Component {
     getValue() { return this._select.getValue(); }
