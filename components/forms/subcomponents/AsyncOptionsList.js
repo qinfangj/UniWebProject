@@ -23,6 +23,7 @@ class AsyncOptionsList extends React.Component {
         formatter: React.PropTypes.func,  // ex: object => [id, name]
         all: React.PropTypes.bool,  // for conditional lists (all/activeOnly etc.)
         storeKey: React.PropTypes.string,  // the store key for the result list - defaults to `table` prop
+        selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
 
     getValue() {
@@ -67,6 +68,7 @@ class AsyncOptionsList extends React.Component {
                     storeKey={this.storeKey}
                     ref={(c) => {this._select = c;}}
                     options={this.getList()}
+                    {...this.props.selectProps}
             />
         );
     }

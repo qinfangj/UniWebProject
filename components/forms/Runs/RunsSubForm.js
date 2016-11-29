@@ -95,9 +95,10 @@ class RunsSubForm extends React.Component {
             : null}
 
             <td className={cx(css.libCell, css.projectCell)}>
-                <Select name="project"
-                        options={options.getProjectsList()}
-                        ref={(c) => this.librariesRefs[N][libIdx]["project"] = c}
+                <Options.Projects form={this.form}
+                                  all={true} label={null}
+                                  storeKey={this.form + libIdx +"_project"}
+                                  ref={(c) => this.librariesRefs[N][libIdx]["project"] = c}
                 />
             </td>
             <td className={cx(css.libCell, css.libraryCell)}>

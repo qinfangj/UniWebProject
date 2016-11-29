@@ -30,6 +30,7 @@ class AsyncSecondaryOptionsList extends React.Component {
         form: React.PropTypes.string,
         formatter: React.PropTypes.func,  // ex: object => [id, name]
         storeKey: React.PropTypes.string,  // the store key for the result list - defaults to `table` prop
+        selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
 
     getValue() {
@@ -73,6 +74,7 @@ class AsyncSecondaryOptionsList extends React.Component {
             <Select name={this.props.table} label={this.props.label} form={this.props.form}
                     ref={(c) => {this._select = c;}}
                     options={this.getList()}
+                    {...this.props.selectProps}
             />
         );
     }
