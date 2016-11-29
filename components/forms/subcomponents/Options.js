@@ -57,7 +57,7 @@ export class PipelineVersions extends React.Component {
     }
 }
 
-export class ProjectAnalysesList extends React.Component {
+export class ProjectAnalyses extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
     render() {
@@ -75,7 +75,7 @@ export class Projects extends React.Component {
     }
 }
 
-export class ProjectStatesList extends React.Component {
+export class ProjectStates extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
     render() {

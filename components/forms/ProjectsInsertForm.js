@@ -113,7 +113,7 @@ class ProjectInsertForm extends React.Component {
 
                         {/* Project state */}
 
-                        <Options.ProjectStatesList form={this.form} ref={(c) => this._projectState = c} />
+                        <Options.ProjectStates form={this.form} ref={(c) => this._projectState = c} />
 
                         {/* Is control */}
 
@@ -132,7 +132,7 @@ class ProjectInsertForm extends React.Component {
                     {/* Project analysis */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.ProjectAnalysesList form={this.form} ref={(c) => this._projectAnalysis = c} />
+                        <Options.ProjectAnalyses form={this.form} ref={(c) => this._projectAnalysis = c} />
                     </Col>
 
                 </Form>

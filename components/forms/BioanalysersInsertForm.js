@@ -112,7 +112,7 @@ class BioanalysersInsertForm extends React.Component {
 
                         {/* Project state */}
 
-                        <Options.ProjectStatesList ref={(c) => this._projectState = c} />
+                        <Options.ProjectStates ref={(c) => this._projectState = c} />
 
                         {/* Is control */}
 
@@ -131,7 +131,7 @@ class BioanalysersInsertForm extends React.Component {
                     {/* Project analysis */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.ProjectAnalysesList ref={(c) => this._projectAnalysis = c} />
+                        <Options.ProjectAnalyses ref={(c) => this._projectAnalysis = c} />
                     </Col>
 
                 </Form>
