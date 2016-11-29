@@ -215,10 +215,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Adapters */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="adapter_id" label="Adapter" form={this.form}
-                                options={options.getAdapters()}
-                                ref={(c) => this._adapter = c}
-                        />
+                        <Options.LibraryAdapters form={this.form} ref={(c) => this._adapter = c} />
                     </Col>
 
                     {/* Illumina kits and lots */}
@@ -243,10 +240,7 @@ class LibrariesInsertForm extends React.Component {
                     {/* Library state */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="library_state_id" label="Library state" form={this.form}
-                                options={options.getLibraryStates()}
-                                ref={(c) => this._libraryState = c}
-                        />
+                        <Options.LibraryStates form={this.form} ref={(c) => this._libraryState = c} />
                     </Col>
 
                 </Form>

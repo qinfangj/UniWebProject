@@ -21,6 +21,24 @@ export class LibProtocols extends React.Component {
     }
 }
 
+export class LibraryAdapters extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name]; }
+    render() {
+        return <AsyncOptionsList table="library_adapters" label="Adapter" form={this.props.form}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
+export class LibraryStates extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.state_order +" - "+ v.name]; }
+    render() {
+        return <AsyncOptionsList table="library_states" label="Library state" form={this.props.form}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
 export class FlowcellTypes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.version]; }
