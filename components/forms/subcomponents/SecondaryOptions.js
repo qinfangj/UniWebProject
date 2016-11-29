@@ -7,7 +7,7 @@ import AsyncSecondaryOptionsList from './AsyncSecondaryOptionsList';
  */
 export class BasecallingsOutputFolders extends React.Component {
     getValue() { return this._select.getValue(); }
-    formatter(v) { return [v.id, v.output_folder]; }
+    formatter(v) { return [v.id, v.output_dir]; }
     render() {
         return (<AsyncSecondaryOptionsList
             table="basecallings" label="Unaligned data output folder" form={this.props.form}

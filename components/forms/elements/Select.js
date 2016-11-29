@@ -40,9 +40,10 @@ class Select extends React.Component {
     }
 
     onChange(e) {
-        this.setState({value: parseInt(e.target.value)});
+        let value = parseInt(e.target.value);
+        this.setState({value: value});
         if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.name, this.state.value));
+            store.dispatch(changeFormValue(this.props.form, this.props.name, value));
         }
     }
 
