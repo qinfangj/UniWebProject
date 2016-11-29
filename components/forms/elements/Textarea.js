@@ -1,5 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import store from '../../../core/store';
+import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -21,7 +23,11 @@ class Textarea extends React.Component {
     }
 
     onChange(e) {
-        this.setState({value: e.target.value});
+        let value = e.target.value;
+        this.setState({ value });
+        if (this.props.form !== undefined) {
+            store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.name, value));
+        }
     }
 
     render() {
@@ -41,6 +47,7 @@ class Textarea extends React.Component {
 Textarea.propTypes = {
     name: React.PropTypes.string.isRequired,
     label: React.PropTypes.string.isRequired,
+    form: React.PropTypes.string,  // form name
     defaultValue: React.PropTypes.string,
 // maybe use later:
     required: React.PropTypes.bool,

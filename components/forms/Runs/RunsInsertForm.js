@@ -35,7 +35,7 @@ class RunsInsertForm extends React.Component {
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
             this.setState({
-                lanes: store.getState().common.route.data,   // NOT SAFE
+                lanes: store.getState().common.route.data,
             });
         });
     }
