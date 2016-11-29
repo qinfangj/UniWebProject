@@ -120,7 +120,7 @@ class RunsInsertForm extends React.Component {
                         <Options.FlowcellTypes ref={(c) => this._flowcell_type_id = c} />
                     </Col>
 
-                    {/* Cluster date (aka "?") */}
+                    {/* Cluster date (aka "flowcell_loading_date") */}
 
                     <Col sm={3} className={formsCss.formCol}>
                         <DatePicker name="cluster_date" label="Cluster date"
@@ -134,7 +134,7 @@ class RunsInsertForm extends React.Component {
                         <Options.Instruments ref={(c) => this._instrument = c} />
                     </Col>
 
-                    {/* Run date (aka "?") */}
+                    {/* Run date (aka "ga_run_date") */}
 
                     <Col sm={3} className={formsCss.formCol}>
                         <DatePicker name="run_date" label="Run date"
