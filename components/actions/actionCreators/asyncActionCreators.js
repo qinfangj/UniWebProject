@@ -27,10 +27,14 @@ function asyncAction(type, action, args) {
     }
 }
 
-/* Select options. `suffix` is something like "labsList" in "/table/<tableName>/<suffix>". */
+/* Select options. */
 export function getOptionsListAsync(tableName) {
     let args = {tableName,};
     return asyncAction(actions.GET_OPTIONS_LIST, restService.getOptionsList.bind(null, tableName), args)
+}
+export function getConditionalOptionsListAsync(tableName, all) {
+    let args = {tableName,};
+    return asyncAction(actions.GET_OPTIONS_LIST, restService.getConditionalOptionsList.bind(null, tableName, all), args)
 }
 export function getSecondaryOptionsListAsync(tableName, id) {
     let args = {tableName,};

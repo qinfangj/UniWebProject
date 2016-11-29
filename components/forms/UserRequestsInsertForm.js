@@ -123,10 +123,7 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Run request */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="run_request" label="Run request" form={this.form}
-                                options={options.getRunRequests()}
-                                ref={(c) => this._run_request = c}
-                        />
+                        <Options.RunTypesLengths all={true} form={this.form} ref={(c) => this._run_request = c} />
                     </Col>
 
                     {/* Number of lanes */}

@@ -2,7 +2,7 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 
-import { getOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
+import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
 import Select from '../elements/Select';
 import constants from '../../constants/constants';
 
@@ -18,9 +18,10 @@ class AsyncOptionsList extends React.Component {
 
     static propTypes = {
         table: React.PropTypes.string.isRequired,
-        label: React.PropTypes.string.isRequired,
+        label: React.PropTypes.string,
         form: React.PropTypes.string,
         formatter: React.PropTypes.func,  // object => [id, name]
+        all: React.PropTypes.bool,  // for conditional lists (all/activeOnly etc.)
     };
 
     getValue() {
@@ -40,7 +41,14 @@ class AsyncOptionsList extends React.Component {
             let value = list.length > 0 ? list[0].id : null;  // first one of the list
             this.setState({ list, value });
         } else {
-            store.dispatch(getOptionsListAsync(this.props.table));
+            if (this.props.all === true) {
+                store.dispatch(getConditionalOptionsListAsync(this.props.table, true));
+            } else if (this.props.all === false) {
+                store.dispatch(getConditionalOptionsListAsync(this.props.table, false));
+            } else {
+                store.dispatch(getOptionsListAsync(this.props.table));
+
+            }
         }
     }
 
