@@ -66,6 +66,15 @@ export class ProjectAnalysesList extends React.Component {
     }
 }
 
+export class Projects extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.last_name +" - "+ v.name]; }
+    render() {
+        return <AsyncOptionsList table="projects" label="Project" form={this.props.form}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
 export class ProjectStatesList extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }

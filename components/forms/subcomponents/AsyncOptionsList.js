@@ -18,7 +18,7 @@ class AsyncOptionsList extends React.Component {
 
     static propTypes = {
         table: React.PropTypes.string.isRequired,
-        label: React.PropTypes.string,
+        label: React.PropTypes.string.isRequired,
         form: React.PropTypes.string,
         formatter: React.PropTypes.func,  // object => [id, name]
     };
@@ -35,7 +35,13 @@ class AsyncOptionsList extends React.Component {
                 this.setState({ list, value });
             }
         });
-        store.dispatch(getOptionsListAsync(this.props.table));
+        let list = store.getState().async[constants.OPTIONS + this.props.table];
+        if (list) {
+            let value = list.length > 0 ? list[0].id : null;  // first one of the list
+            this.setState({ list, value });
+        } else {
+            store.dispatch(getOptionsListAsync(this.props.table));
+        }
     }
 
     componentWillUnmount() {

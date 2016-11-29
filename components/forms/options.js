@@ -35,10 +35,6 @@ export function getMultiplexIndexes() {
     return[];
 }
 
-export function getOrganismsList() {
-    return [];
-}
-
 export function getProjectsList() {
     return [];
 }
@@ -52,10 +48,6 @@ export function getRunRequests() {
 }
 
 export function getSamplesList() {
-    return [];
-}
-
-export function getSampleTypesList() {
     return [];
 }
 
