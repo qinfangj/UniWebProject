@@ -98,25 +98,25 @@ class BasecallingsInsertForm extends React.Component {
 
 
                 </Form>
-                <Form componentClass="fieldset">
+                <Form componentClass="fieldset" horizontal>
 
                     {/* Unaligned data output folder */}
 
-                    <div className={css.soloField}>
+                    <Col sm={12} className={css.formCol}>
                         <TextField name="output_folder" label="Unaligned data output folder" required
                                    missing = {!!this.state.missing["output_folder"]}
                                    ref = {(c) => this._output_folder = c}
                         />
-                    </div>
+                    </Col>
 
                 </Form>
-                <Form componentClass="fieldset">
+                <Form componentClass="fieldset" horizontal>
 
                     {/* Comment */}
 
-                    <div className={css.soloField}>
+                    <Col sm={12} className={css.formCol}>
                         <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
-                    </div>
+                    </Col>
 
                 </Form>
 

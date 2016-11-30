@@ -31,7 +31,6 @@ class BioanalysersInsertForm extends React.Component {
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
-                console.debug(555, insertId);
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
                 console.warn("Uncaught form validation error");
@@ -42,15 +41,10 @@ class BioanalysersInsertForm extends React.Component {
 
     getFormValues() {
         return {
-            name: this._projectName.getValue(),
-            person_id: this._personInCharge.getValue(),
-            code_name: this._codeName.getValue(),
+            fielname: this._fileName.getValue(),
+            bioanalyser_date: this._bioanalyserDate.getValue(),
             description: this._description.getValue(),
-            project_state_id: this._projectState.getValue(),
-            isControl: this._isControl.getValue(),
-            user_meeting_date: this._userMeetingDate.getValue(),
-            project_analysis_id: this._projectAnalysis.getValue(),
-            comment: this._comment.getValue(),
+            lanes: null,
         };
     }
 
@@ -65,83 +59,32 @@ class BioanalysersInsertForm extends React.Component {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="projectName" label="Project name" required
-                                   missing = {!!this.state.missing["name"]}
-                                   invalid = {!!this.state.invalid["name"]}
-                                   ref = {(c) => this._projectName = c}
-                                   defaultValue="Name"
+                        <TextField name="filename" label="Bioanalyser file" type="file"
+                                   ref = {(c) => this._fileName = c}
                         />
                     </Col>
 
-                    {/* Person in charge */}
+                    {/* Bioanalyser date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.PeopleList ref={(c) => this._personInCharge = c} />
-                    </Col>
-
-                    {/* Code name */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <TextField name="codeName" label="Code name" required
-                                   missing = {!!this.state.missing["code_name"]}
-                                   invalid = {!!this.state.invalid["code_name"]}
-                                   validator = {validators.codeNameValidator}
-                                   placeholder = "[name]_[initials] Ex: Tcells_EG."
-                                   ref = {(c) => this._codeName = c}
-                                   defaultValue="code_JD"
+                        <DatePicker name="bioanalyser_date" label="Bioanalyser date"
+                                    ref={(c) => this._bioanalyserDate = c}
                         />
                     </Col>
 
                 </Form>
-                <Form componentClass="fieldset">
+                <Form componentClass="fieldset" horizontal>
 
                     {/* Description */}
 
-                    <div className={css.soloField}>
+                    <Col sm={12} className={css.formCol}>
                         <TextField name="description" label="Description"
                                    defaultValue = "Enter description here"
                                    validator = {validators.descriptionValidator}
                                    invalid = {!!this.state.invalid["description"]}
                                    ref = {(c) => this._description = c}
                         />
-                    </div>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-                    <Col sm={4} className={css.formCol}>
-
-                        {/* Project state */}
-
-                        <Options.ProjectStates ref={(c) => this._projectState = c} />
-
-                        {/* Is control */}
-
-                        <CheckBox ref={(c) => this._isControl = c} name="isControl" label="Control Project" />
-
                     </Col>
-
-                    {/* User meeting date */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <DatePicker name="user_meeting_date" label="User meeting date"
-                                    ref={(c) => this._userMeetingDate = c}
-                        />
-                    </Col>
-
-                    {/* Project analysis */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <Options.ProjectAnalyses ref={(c) => this._projectAnalysis = c} />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset">
-
-                    {/* Comment */}
-
-                    <div className={css.soloField}>
-                        <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
-                    </div>
 
                 </Form>
 

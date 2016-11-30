@@ -115,18 +115,18 @@ class GenomesInsertForm extends React.Component {
                     </Col>
 
                 </Form>
-                <Form componentClass="fieldset">
+                <Form componentClass="fieldset" horizontal>
 
                     {/* File names */}
 
-                    <div className={css.soloField}>
+                    <Col sm={12} className={css.formCol}>
                         <TextField name="files" label="File names"
                                    invalid = {!!this.state.invalid["files"]}
                                    missing = {!!this.state.missing["files"]}
                                    ref = {(c) => this._files = c}
                                    defaultValue = "truc.txt, autre.txt"
                         />
-                    </div>
+                    </Col>
 
                 </Form>
                 <Form componentClass="fieldset" horizontal>

@@ -83,7 +83,7 @@ class TextField extends React.Component {
             <FormGroup controlId={this.props.name} validationState={this.state.status} bsSize="small" >
                 {label}
                 <FormControl
-                    type="text"
+                    type={this.props.type}
                     value={this.state.value}
                     onChange={this.onChange.bind(this)}
                     placeholder={this.props.placeholder}
@@ -98,6 +98,7 @@ class TextField extends React.Component {
 TextField.propTypes = {
     name: React.PropTypes.string.isRequired,
     label: React.PropTypes.string,  // title - visible
+    type: React.PropTypes.string,  // input type (defaults to "text")
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
     required: React.PropTypes.bool,
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting
@@ -109,6 +110,7 @@ TextField.propTypes = {
     storeKey: React.PropTypes.string,  // key to get the form value from store. Otherwise, `name` is used instead.
 };
 TextField.defaultProps = {
+    type: "text",
     validator: ((x) => {return {valid: true, msg: ""}}),
     required: false,
     missing: false,

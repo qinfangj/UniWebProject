@@ -105,24 +105,24 @@ class AlignmentsInsertForm extends React.Component {
                     </Col>
 
                 </Form>
-                <Form componentClass="fieldset">
+                <Form componentClass="fieldset" horizontal>
 
                     {/* Config file content */}
 
-                    <div className={css.soloField}>
+                    <Col sm={12} className={css.formCol}>
                         <TextArea name="config_file_content" label="Config file content" required
                                    ref = {(c) => this._config_file_content = c}
                         />
-                    </div>
+                    </Col>
 
                 </Form>
-                <Form componentClass="fieldset">
+                <Form componentClass="fieldset" horizontal>
 
                     {/* Comment */}
 
-                    <div className={css.soloField}>
+                    <Col sm={12} className={css.formCol}>
                         <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
-                    </div>
+                    </Col>
 
                 </Form>
 

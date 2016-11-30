@@ -94,18 +94,18 @@ class ProjectInsertForm extends React.Component {
                     </Col>
 
                 </Form>
-                <Form componentClass="fieldset">
+                <Form componentClass="fieldset" horizontal>
 
                     {/* Description */}
 
-                    <div className={css.soloField}>
+                    <Col sm={12} className={css.formCol}>
                         <TextField name="description" label="Description"
                                    defaultValue = "Enter description here"
                                    validator = {validators.descriptionValidator}
                                    invalid = {!!this.state.invalid["description"]}
                                    ref = {(c) => this._description = c}
                         />
-                    </div>
+                    </Col>
 
                 </Form>
                 <Form componentClass="fieldset" horizontal>

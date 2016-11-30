@@ -7,14 +7,9 @@
     width: 100%;
 }
 
-/* Add a horizontal space between inputs in horizontal form layouts */
+/* Add a horizontal space between inputs in "horizontal" form layouts */
 .formCol {
     padding-right: 30px;
-    white-space: nowrap;
-}
-/* Fields spanning 12 cols don't get the <Col> wrapper */
-.soloField {
-    padding-right: 15px;
     white-space: nowrap;
 }
 
