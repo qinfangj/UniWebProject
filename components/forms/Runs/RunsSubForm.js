@@ -186,7 +186,6 @@ class RunsSubForm extends React.Component {
                 <th className={cx(css.libCell, css.qualityCell)}>QC</th>
             </tr></thead>
             {laneRows}
-            <tbody><tr><td><Button onClick={this.getFormValues.bind(this)}/></td></tr></tbody>
         </table>;
     }
 }

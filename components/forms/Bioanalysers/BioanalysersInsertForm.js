@@ -6,7 +6,6 @@ import cx from 'classnames';
 
 import TextField from '../elements/TextField';
 import DatePicker from '../elements/DatePicker';
-import * as Options from '../subcomponents/Options';
 import validators from '../validators';
 import * as forms from '../forms.js';
 import BioanalysersSubForm from './BioanalysersSubForm';
@@ -46,7 +45,7 @@ class BioanalysersInsertForm extends React.Component {
             filename: this._fileName.getValue(),
             bioanalyser_date: this._bioanalyserDate.getValue(),
             description: this._description.getValue(),
-            lanes: null,
+            lanes: this._lanes.getFormValues(),
         };
     }
 

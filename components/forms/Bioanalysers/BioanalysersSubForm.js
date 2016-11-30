@@ -24,7 +24,7 @@ class BioanalysersSubForm extends React.Component {
         //console.debug(this.props.lanes)
         this.table = "bioanalysers";
         this.form = "bioanalysers";
-        this.laneRefs = {1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}};
+        this.laneRefs = [{}, {}, {}, {}, {}, {}, {}, {}];
         this.state = {
             invalid: {1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}},
         };
@@ -34,11 +34,19 @@ class BioanalysersSubForm extends React.Component {
      * 
      */
     getFormValues() {
-
+        return this.laneRefs.map((ref, i) => {
+            return {
+                lane_nb: i+1,
+                projectId: ref.project.getValue(),
+                libraryId: ref.library.getValue(),
+                comment: ref.comment.getValue(),
+            };
+        });
     }
 
-    makeRow(N) {
-        return <tr key={N}>
+    makeRow(k) {
+        let N = k+1;
+        return <tr key={k}>
             <td key="id" className={css.laneId}>
                 {N}
             </td>
@@ -46,7 +54,7 @@ class BioanalysersSubForm extends React.Component {
                 <Options.ProjectsWithLibraries
                     form={this.form}
                     storeKey={this.form + N +"_project"}
-                    ref={(c) => this.laneRefs[N]["project"] = c}
+                    ref={(c) => this.laneRefs[k]["project"] = c}
                 />
             </td>
             <td key="library" className={css.cell}>
@@ -54,13 +62,13 @@ class BioanalysersSubForm extends React.Component {
                     form={this.form}
                     referenceField={this.form + N +"_project"}  // the store key to the form value
                     storeKey={this.form + N +"_library"}        // the store key for the result list
-                    ref={(c) => this.laneRefs[N]["library"] = c}
+                    ref={(c) => this.laneRefs[k]["library"] = c}
                 />
             </td>
             <td key="comment" className={css.cell}>
                 <TextField
                     name="comment"
-                    ref={(c) => this.laneRefs[N]["comment"] = c}
+                    ref={(c) => this.laneRefs[k]["comment"] = c}
                 />
             </td>
         </tr>;
@@ -70,7 +78,7 @@ class BioanalysersSubForm extends React.Component {
     render() {
 
         let laneRows = [];
-        for (let k=1; k <= 8; k++) {
+        for (let k=0; k < 8; k++) {
             laneRows.push(this.makeRow(k));
         }
 
@@ -85,8 +93,6 @@ class BioanalysersSubForm extends React.Component {
                 <tbody>
                     {laneRows}
                 </tbody>
-                {/* Test button */}
-                <tbody><tr><td><Button onClick={this.getFormValues.bind(this)}/></td></tr></tbody>
             </table>
         );
     }
