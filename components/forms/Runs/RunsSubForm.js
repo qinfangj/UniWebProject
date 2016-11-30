@@ -46,23 +46,8 @@ class RunsSubForm extends React.Component {
         };
         this.librariesRefs = {};
         this.state = {
-            ga_run_nb: "",
             invalid: {1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}},
         };
-    }
-
-    componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let formData = store.getState().common.forms[this.form];
-            if (formData && formData.ga_run_nb) {
-                this.setState({
-                    ga_run_nb: formData.ga_run_nb,
-                });
-            }
-        });
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     /**
@@ -140,7 +125,6 @@ class RunsSubForm extends React.Component {
                     form={this.form}
                     referenceField={this.form + libIdx +"_project"}
                     storeKey={this.form + libIdx +"_library"}
-                    runNb = {this.state.ga_run_nb}
                     pool = {lane.libraryPoolId}
                     selectProps={{
                         inputProps: {bsClass: qcBsClass},                 // add the blue background
