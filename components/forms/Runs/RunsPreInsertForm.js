@@ -101,35 +101,39 @@ class RunsPreInsertForm extends React.Component {
     render() {
         let makeRow = (N) => {
             let invalid = this.state.invalid[N];
-            return <tr key={N} className={css.preRunsInsertRow}>
-                <td key="id" className={css.laneId}>{N+1}</td>
-                <td key="nlibs" className={css.numeric}>
-                    <TextField name="nlibs" defaultValue="0" required
-                               validator = {validators.integerValidator}
-                               invalid = {invalid && invalid.nlibs}
-                               ref={(c) => this.lanesRefs[N]["nlibs"] = c}
-                    />
-                </td>
-                <td key="nqc" className={css.numeric}>
-                    <TextField name="nqc" defaultValue="0" required
-                               validator = {validators.integerValidator}
-                               invalid = {invalid && invalid.nqc}
-                               ref={(c) => this.lanesRefs[N]["nqc"] = c}
-                    />
-                </td>
-                <td key="project">
-                    <Options.ProjectsWithLibraries form={this.form}
-                            storeKey={this.form + N +"_project"}
-                            ref={(c) => this.lanesRefs[N]["project"] = c}
-                    />
-                </td>
-                <td key="pool">
-                    <SecondaryOptions.ProjectPools form={this.form}
-                            referenceField={this.form + N +"_project"}  // the store key to the form value
-                            storeKey={this.form + N +"_pool"}           // the store key for the result list
-                            ref={(c) => this.lanesRefs[N]["pool"] = c} />
-                </td>
-            </tr>;
+            return (
+                <tr key={N}>
+                    <td key="id" className={css.laneId}>
+                        {N+1}
+                    </td>
+                    <td key="nlibs" className={css.numeric}>
+                        <TextField name="nlibs" defaultValue="0" required
+                                   validator = {validators.integerValidator}
+                                   invalid = {invalid && invalid.nlibs}
+                                   ref={(c) => this.lanesRefs[N]["nlibs"] = c}
+                        />
+                    </td>
+                    <td key="nqc" className={css.numeric}>
+                        <TextField name="nqc" defaultValue="0" required
+                                   validator = {validators.integerValidator}
+                                   invalid = {invalid && invalid.nqc}
+                                   ref={(c) => this.lanesRefs[N]["nqc"] = c}
+                        />
+                    </td>
+                    <td key="project">
+                        <Options.ProjectsWithLibraries form={this.form}
+                                storeKey={this.form + N +"_project"}
+                                ref={(c) => this.lanesRefs[N]["project"] = c}
+                        />
+                    </td>
+                    <td key="pool">
+                        <SecondaryOptions.ProjectPools form={this.form}
+                                referenceField={this.form + N +"_project"}  // the store key to the form value
+                                storeKey={this.form + N +"_pool"}           // the store key for the result list
+                                ref={(c) => this.lanesRefs[N]["pool"] = c} />
+                    </td>
+                </tr>
+            );
         };
 
         let rows = range8.map(makeRow);

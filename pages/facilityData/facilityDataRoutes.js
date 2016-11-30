@@ -11,7 +11,7 @@ import LibrariesInsertForm from '../../components/forms/LibrariesInsertForm';
 import RunsPreInsertForm from '../../components/forms/Runs/RunsPreInsertForm';
 import RunsInsertForm from '../../components/forms/Runs/RunsInsertForm';
 import UserRequestsInsertForm from '../../components/forms/UserRequestsInsertForm';
-import BioanalysersInsertForm from '../../components/forms/BioanalysersInsertForm';
+import BioanalysersInsertForm from '../../components/forms/Bioanalysers/BioanalysersInsertForm';
 import BasecallingsInsertForm from '../../components/forms/BasecallingsInsertForm';
 import AlignmentsInsertForm from '../../components/forms/AlignmentsInsertForm';
 

@@ -1,14 +1,15 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from './forms.css';
+import formsCss from '../forms.css';
+import css from './bioanalysers.css';
+import cx from 'classnames';
 
-import TextField from './elements/TextField';
-import CheckBox from './elements/MyCheckbox';
-import DatePicker from './elements/DatePicker';
-import TextArea from './elements/Textarea';
-import * as Options from './subcomponents/Options';
-import validators from './validators';
-import * as forms from './forms.js';
+import TextField from '../elements/TextField';
+import DatePicker from '../elements/DatePicker';
+import * as Options from '../subcomponents/Options';
+import validators from '../validators';
+import * as forms from '../forms.js';
+import BioanalysersSubForm from './BioanalysersSubForm';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -21,6 +22,7 @@ class BioanalysersInsertForm extends React.Component {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "bioanalysers";
+        this.form = "bioanalysers";
         this.required = [];
         this.state = forms.defaultFormState;
     }
@@ -41,7 +43,7 @@ class BioanalysersInsertForm extends React.Component {
 
     getFormValues() {
         return {
-            fielname: this._fileName.getValue(),
+            filename: this._fileName.getValue(),
             bioanalyser_date: this._bioanalyserDate.getValue(),
             description: this._description.getValue(),
             lanes: null,
@@ -56,9 +58,9 @@ class BioanalysersInsertForm extends React.Component {
 
                 <Form componentClass="fieldset" horizontal>
 
-                    {/* Project name */}
+                    {/* Bioanalyser file */}
 
-                    <Col sm={4} className={css.formCol}>
+                    <Col sm={4} className={formsCss.formCol}>
                         <TextField name="filename" label="Bioanalyser file" type="file"
                                    ref = {(c) => this._fileName = c}
                         />
@@ -66,7 +68,7 @@ class BioanalysersInsertForm extends React.Component {
 
                     {/* Bioanalyser date */}
 
-                    <Col sm={4} className={css.formCol}>
+                    <Col sm={3} className={formsCss.formCol}>
                         <DatePicker name="bioanalyser_date" label="Bioanalyser date"
                                     ref={(c) => this._bioanalyserDate = c}
                         />
@@ -77,13 +79,20 @@ class BioanalysersInsertForm extends React.Component {
 
                     {/* Description */}
 
-                    <Col sm={12} className={css.formCol}>
+                    <Col sm={12} className={formsCss.formCol}>
                         <TextField name="description" label="Description"
-                                   defaultValue = "Enter description here"
-                                   validator = {validators.descriptionValidator}
-                                   invalid = {!!this.state.invalid["description"]}
+                                   defaultValue = ""
                                    ref = {(c) => this._description = c}
                         />
+                    </Col>
+
+                </Form>
+                <Form componentClass="fieldset" horizontal>
+
+                    {/* Lanes sub form */}
+
+                    <Col sm={12} className={cx(formsCss.formCol, css.subformCol)} >
+                        <BioanalysersSubForm ref={(c) => this._lanes = c} />
                     </Col>
 
                 </Form>

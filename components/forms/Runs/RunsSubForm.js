@@ -5,9 +5,7 @@ import cx from 'classnames';
 import store from '../../../core/store';
 
 import TextField from '../elements/TextField';
-import Select from '../elements/Select';
 import validators from '../validators';
-import * as options from '../options';
 import * as Options from '../subcomponents/Options';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 

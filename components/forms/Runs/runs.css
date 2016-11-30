@@ -22,33 +22,22 @@
     padding: 5px 5px 0 0;
 }
 
-.preRunsInsertRow {
-
-}
-
-/* Column types*/
-
-.laneId {
-    width: 50px;
-    text-align: center;
-    font-weight: bold;
-}
-.numeric {
-    width: 120px;
-    max-width: 120px;
-}
-
 
 .submitButton {
     margin-top: 15px;
 }
 
-/* Lanes sub-form */
-
+/* The <Col> element containing the table */
 .subformCol {
     padding-left: 0;
     margin-top: 6px;
 }
+
+
+/******************/
+/* Lanes sub-form */
+/******************/
+
 .lanesTable {
     width: 100%;
 }
@@ -109,4 +98,16 @@ td.qualityCell {
 .bottomRow td {
     border-bottom: var(--border);
     padding-bottom: var(--mar);
+}
+
+/* Column content style */
+
+.laneId {
+    width: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+.numeric {
+    width: 120px;
+    max-width: 120px;
 }
