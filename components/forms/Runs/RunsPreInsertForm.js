@@ -118,15 +118,14 @@ class RunsPreInsertForm extends React.Component {
                     />
                 </td>
                 <td key="project">
-                    <Options.Projects form={this.form}
-                            all={true} label={null}
+                    <Options.ProjectsWithLibraries form={this.form}
                             storeKey={this.form + N +"_project"}
                             ref={(c) => this.lanesRefs[N]["project"] = c}
                     />
                 </td>
                 <td key="pool">
                     <SecondaryOptions.ProjectPools form={this.form}
-                            dependsOnField={this.form + N +"_project"}  // the store key to the form value
+                            referenceField={this.form + N +"_project"}  // the store key to the form value
                             storeKey={this.form + N +"_pool"}           // the store key for the result list
                             ref={(c) => this.lanesRefs[N]["pool"] = c} />
                 </td>

@@ -11,7 +11,7 @@ export class BasecallingsOutputFolders extends React.Component {
     render() {
         return (<AsyncSecondaryOptionsList
             table="basecallings" label="Unaligned data output folder" form={this.props.form}
-            dependsOnField="runs"
+            referenceField="runs"
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
@@ -26,7 +26,7 @@ export class ProjectSamples extends React.Component {
     render() {
         return (<AsyncSecondaryOptionsList
             table="samples" label="Sample" form={this.props.form}
-            dependsOnField="projects"
+            referenceField="projects"
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
@@ -42,14 +42,34 @@ export class ProjectPools extends React.Component {
     render() {
         return (<AsyncSecondaryOptionsList
             table="user_requests" label={null} form={this.props.form}
-            dependsOnField={this.props.dependsOnField}
+            referenceField={this.props.referenceField}
             storeKey={this.props.storeKey}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
 }
 ProjectPools.propTypes = {
-    dependsOnField: React.PropTypes.string.isRequired,
+    referenceField: React.PropTypes.string.isRequired,
     storeKey: React.PropTypes.string,
 };
 
+
+/**
+ * List available libraries for a given project ID.
+ */
+export class ProjectLibraries extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name]; }
+    render() {
+        return (<AsyncSecondaryOptionsList
+            table="libraries" label={null} form={this.props.form}
+            referenceField={this.props.referenceField}
+            storeKey={this.props.storeKey}
+            formatter={this.formatter} ref={(c) => {this._select = c;}}
+        />);
+    }
+}
+ProjectLibraries.propTypes = {
+    referenceField: React.PropTypes.string.isRequired,
+    storeKey: React.PropTypes.string,
+};

@@ -103,6 +103,18 @@ export class ProjectAnalyses extends React.Component {
     }
 }
 
+/* Projects with libraries, for the pre-runs insert form */
+export class ProjectsWithLibraries extends React.Component {
+    getValue() { return this._select.getValue(); }
+    formatter(v) { return [v.id, v.name]; }
+    render() {
+        return <AsyncOptionsList table="projects" label={null} form={this.props.form}
+                                 storeKey={this.props.storeKey}
+                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
+    }
+}
+
+/* With the parameter `all`, which calls a different view */
 export class Projects extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.last_name +" - "+ v.name]; }

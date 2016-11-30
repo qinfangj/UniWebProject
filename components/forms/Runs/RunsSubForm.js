@@ -2,12 +2,14 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './runs.css';
 import cx from 'classnames';
+import store from '../../../core/store';
 
 import TextField from '../elements/TextField';
 import Select from '../elements/Select';
 import validators from '../validators';
 import * as options from '../options';
 import * as Options from '../subcomponents/Options';
+import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -25,6 +27,7 @@ class RunsSubForm extends React.Component {
         // Test
         //console.debug(props)
         //console.debug(this.props.lanes)
+        this.form = "runs";
         this.lanes = { 3:
             {
                 "lane_nb": 3,
@@ -42,7 +45,24 @@ class RunsSubForm extends React.Component {
             }
         };
         this.librariesRefs = {};
-        this.state = {invalid: {1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}}};
+        this.state = {
+            ga_run_nb: "",
+            invalid: {1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}},
+        };
+    }
+
+    componentWillMount() {
+        this.unsubscribe = store.subscribe(() => {
+            let formData = store.getState().common.forms[this.form];
+            if (formData && formData.ga_run_nb) {
+                this.setState({
+                    ga_run_nb: formData.ga_run_nb,
+                });
+            }
+        });
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     /**
@@ -104,20 +124,28 @@ class RunsSubForm extends React.Component {
             : null}
 
             <td className={cx(css.libCell, css.projectCell)}>
-                <Options.Projects form={this.form}
-                                  all={true} label={null}
-                                  storeKey={this.form + libIdx +"_project"}
-                                  selectProps={{
-                                      defaultValue: lane.projectId,       // report the pre-selected project id
-                                      inputProps: {bsClass: qcBsClass},   // add the blue background
-                                  }}
-                                  ref={(c) => this.librariesRefs[N][libIdx]["project"] = c}
+                <Options.Projects
+                    form={this.form} label={null}
+                    all={true}
+                    storeKey={this.form + libIdx +"_project"}
+                    selectProps={{
+                        defaultValue: lane.projectId,       // report the pre-selected project id
+                        inputProps: {bsClass: qcBsClass},   // add the blue background
+                    }}
+                    ref={(c) => this.librariesRefs[N][libIdx]["project"] = c}
                 />
             </td>
             <td className={cx(css.libCell, css.libraryCell)}>
-                <Select name="library"
-                        options={options.getLibrariesList()}
-                        ref={(c) => this.librariesRefs[N][libIdx]["library"] = c}
+                <SecondaryOptions.ProjectLibraries
+                    form={this.form}
+                    referenceField={this.form + libIdx +"_project"}
+                    storeKey={this.form + libIdx +"_library"}
+                    runNb = {this.state.ga_run_nb}
+                    pool = {lane.libraryPoolId}
+                    selectProps={{
+                        inputProps: {bsClass: qcBsClass},                 // add the blue background
+                    }}
+                    ref={(c) => this.librariesRefs[N][libIdx]["library"] = c}
                 />
             </td>
             <td className={cx(css.libCell, css.quantityCell)}>
