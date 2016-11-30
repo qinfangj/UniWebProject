@@ -61,7 +61,8 @@ export class MutliplexIndexes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name +" - "+ v.sequence]; }
     render() {
-        return <AsyncOptionsList table="multiplex_indexes" label="Multiplex index (I7)" form={this.props.form}
+        return <AsyncOptionsList table="multiplex_indexes" form={this.props.form}
+                                 label={this.props.label}
                                  all = {this.props.all}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }

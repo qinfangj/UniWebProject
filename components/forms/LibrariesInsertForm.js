@@ -184,16 +184,18 @@ class LibrariesInsertForm extends React.Component {
                     {/* Multiplex index */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.MutliplexIndexes all={true} form={this.form} ref={(c) => this._multiplexIndex = c} />
+                        <Options.MutliplexIndexes form={this.form}
+                            label="Multiplex index (I7)" all={true}
+                            ref={(c) => this._multiplexIndex = c} />
                     </Col>
 
                     {/* Second (multiplex) index */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="index_5prime_id" label="Second index" form={this.form}
-                                options={options.getMultiplexIndexes()}
-                                ref={(c) => this._secondIndex = c}
-                        />
+                        <Options.MutliplexIndexes form={this.form}
+                            label="Second index (I5)" all={true}
+                            ref={(c) => this._secondIndex = c} />
+
                     </Col>
 
                     {/* Volume */}
