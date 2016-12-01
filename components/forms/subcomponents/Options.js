@@ -166,6 +166,7 @@ export class RunTypesLengths extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name +' '+ v.length]; }
     render() {
+        console.debug(this.props.form, "run_types_lengths")
         return <AsyncOptionsList table="run_types_lengths" label="Run type" form={this.props.form}
                                  all={this.props.all}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;

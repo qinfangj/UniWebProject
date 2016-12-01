@@ -27,16 +27,27 @@ function asyncAction(type, action, args) {
     }
 }
 
+/**
+ * We don't have many tests, so better perform arg checks...
+ */
+function assertStoreKey(storeKey) {
+    if (!storeKey) { throw "No store key was defined!"; }
+}
+
+
 /* Select options. */
 export function getOptionsListAsync(tableName, storeKey) {
+    assertStoreKey(storeKey);
     let args = {tableName, storeKey};
     return asyncAction(actions.GET_OPTIONS_LIST, restService.getOptionsList.bind(null, tableName), args)
 }
 export function getConditionalOptionsListAsync(tableName, all, storeKey) {
+    assertStoreKey(storeKey);
     let args = {tableName, storeKey};
     return asyncAction(actions.GET_OPTIONS_LIST, restService.getConditionalOptionsList.bind(null, tableName, all), args)
 }
 export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
+    assertStoreKey(storeKey);
     let args = {tableName, storeKey};
     return asyncAction(actions.GET_SECONDARY_OPTIONS_LIST, restService.getSecondaryOptionsList.bind(null, tableName, id), args)
 }

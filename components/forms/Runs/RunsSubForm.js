@@ -108,7 +108,8 @@ class RunsSubForm extends React.Component {
 
             <td className={cx(css.libCell, css.projectCell)}>
                 <Options.Projects
-                    form={this.form} label={null}
+                    form={this.form}
+                    label={null}
                     all={true}
                     storeKey={this.form + libIdx +"_project"}
                     selectProps={{
@@ -143,6 +144,7 @@ class RunsSubForm extends React.Component {
             </td>
             <td className={cx(css.libCell, css.qualityCell)}>
                 <Options.SequencingQualities
+                    form={this.form}
                     ref={(c) => this.librariesRefs[N][libIdx]["quality"] = c}
                     selectProps={{
                         inputProps: {bsClass: qcBsClass},   // add the blue background

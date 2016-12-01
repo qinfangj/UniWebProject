@@ -18,8 +18,8 @@ class AsyncOptionsList extends React.Component {
 
     static propTypes = {
         table: React.PropTypes.string.isRequired,
+        form: React.PropTypes.string.isRequired,
         label: React.PropTypes.string,
-        form: React.PropTypes.string,
         formatter: React.PropTypes.func,  // ex: object => [id, name]
         all: React.PropTypes.bool,  // for conditional lists (all/activeOnly etc.)
         storeKey: React.PropTypes.string,  // the store key for the result list - defaults to `table` prop
@@ -31,7 +31,7 @@ class AsyncOptionsList extends React.Component {
     }
 
     componentWillMount() {
-        this.storeKey = this.props.storeKey || (constants.OPTIONS + this.props.table);
+        this.storeKey = this.props.storeKey || (constants.OPTIONS + this.props.form +"_"+ this.props.table);
         this.unsubscribe = store.subscribe(() => {
             let list = store.getState().async[this.storeKey];
             if (list) {

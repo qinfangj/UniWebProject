@@ -119,7 +119,7 @@ class RunsInsertForm extends React.Component {
                     {/* Version */}
 
                     <Col sm={1} className={formsCss.formCol}>
-                        <Options.FlowcellTypes ref={(c) => this._flowcell_type_id = c} />
+                        <Options.FlowcellTypes form={this.form} ref={(c) => this._flowcell_type_id = c} />
                     </Col>
 
                     {/* Cluster date (aka "flowcell_loading_date") */}
@@ -133,7 +133,7 @@ class RunsInsertForm extends React.Component {
                     {/* Machine (aka "Instrument") */}
 
                     <Col sm={2} className={formsCss.formCol}>
-                        <Options.Instruments ref={(c) => this._instrument = c} />
+                        <Options.Instruments form={this.form} ref={(c) => this._instrument = c} />
                     </Col>
 
                     {/* Run date (aka "ga_run_date") */}
@@ -154,7 +154,7 @@ class RunsInsertForm extends React.Component {
                             {/* Reads type + length */}
 
                             <Col sm={12} className={formsCss.formCol}>
-                                <Options.RunTypesLengths all={false} ref={(c) => this._runTypesLengths = c} />
+                                <Options.RunTypesLengths all={false} form={this.form} ref={(c) => this._runTypesLengths = c} />
                             </Col>
 
                             {/* Run stage */}
@@ -169,7 +169,7 @@ class RunsInsertForm extends React.Component {
                             {/* Kit */}
 
                             <Col sm={4} className={formsCss.formCol}>
-                                <Options.SequencingKitVersions ref={(c) => this._kit = c} />
+                                <Options.SequencingKitVersions form={this.form} ref={(c) => this._kit = c} />
                             </Col>
 
                             {/* Is failed */}

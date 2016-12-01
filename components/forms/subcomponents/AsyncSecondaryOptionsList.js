@@ -26,8 +26,8 @@ class AsyncSecondaryOptionsList extends React.Component {
     static propTypes = {
         referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value
         table: React.PropTypes.string.isRequired,
+        form: React.PropTypes.string.isRequired,
         label: React.PropTypes.string,
-        form: React.PropTypes.string,
         formatter: React.PropTypes.func,  // ex: object => [id, name]
         storeKey: React.PropTypes.string,  // the store key for the result list - defaults to `table` prop
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
@@ -38,7 +38,7 @@ class AsyncSecondaryOptionsList extends React.Component {
     }
 
     componentWillMount() {
-        this.storeKey = this.props.storeKey || (constants.SECONDARY_OPTIONS + this.props.table);
+        this.storeKey = this.props.storeKey || (constants.SECONDARY_OPTIONS + this.props.form +"_"+ this.props.table);
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
             let list = storeState.async[this.storeKey];
