@@ -24,9 +24,9 @@ class BioanalysersSubForm extends React.Component {
         //console.debug(this.props.lanes)
         this.table = "bioanalysers";
         this.form = "bioanalysers";
-        this.laneRefs = [{}, {}, {}, {}, {}, {}, {}, {}];
+        this.laneRefs = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
         this.state = {
-            invalid: {1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}},
+            invalid: {1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}, 9:{}, 10:{}, 11:{}, 12: {}},
         };
     }
 
@@ -78,7 +78,7 @@ class BioanalysersSubForm extends React.Component {
     render() {
 
         let laneRows = [];
-        for (let k=0; k < 8; k++) {
+        for (let k=0; k < 12; k++) {
             laneRows.push(this.makeRow(k));
         }
 

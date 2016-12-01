@@ -19,6 +19,7 @@ class TextField extends React.Component {
         let res = this.validate(value);
         this.state = {
             value: value,  // string
+            files: null,  // if type="file", the FilesList
             valid: res.valid,  // boolean, is the field valid
             msg: res.msg,  // error message below the field
             status: null,  // "success", "warning", "error", null
@@ -27,6 +28,14 @@ class TextField extends React.Component {
 
     getValue() {
         return this.state.valid ? this.state.value.trim() : null;
+    }
+
+    /**
+     * If type="file", get the FilesList
+     */
+    getFile() {
+        console.debug(this.state.files)
+        return this.state.files[0];
     }
 
     /**
@@ -67,8 +76,12 @@ class TextField extends React.Component {
     }
 
     onChange(e) {
+        console.debug(e.target.files)
         let value = e.target.value;
         let {valid, msg, status} = this.validate(value);
+        if (this.props.type === "file") {
+            this.setState({ files: e.target.files });
+        }
         this.setState({ value, valid, msg, status });
         if (this.props.form !== undefined) {
             store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.name, value));

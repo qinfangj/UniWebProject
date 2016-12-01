@@ -38,10 +38,10 @@ class AsyncSecondaryOptionsList extends React.Component {
     }
 
     componentWillMount() {
-        this.storeKey = this.props.storeKey || this.props.table;
+        this.storeKey = this.props.storeKey || (constants.SECONDARY_OPTIONS + this.props.table);
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
-            let list = storeState.async[constants.SECONDARY_OPTIONS + this.storeKey];
+            let list = storeState.async[this.storeKey];
             let formValues = storeState.common.forms[this.props.form];
             // Since it depends on another field of the same form, no need to
             //  do anything if the other field has not yet sent its value to the store.

@@ -31,15 +31,15 @@ class AsyncOptionsList extends React.Component {
     }
 
     componentWillMount() {
-        this.storeKey = this.props.storeKey || this.props.table;
+        this.storeKey = this.props.storeKey || (constants.OPTIONS + this.props.table);
         this.unsubscribe = store.subscribe(() => {
-            let list = store.getState().async[constants.OPTIONS + this.storeKey];
+            let list = store.getState().async[this.storeKey];
             if (list) {
                 let value = list.length > 0 ? list[0].id : null;  // first one of the list
                 this.setState({ list, value });
             }
         });
-        let list = store.getState().async[constants.OPTIONS + this.storeKey];
+        let list = store.getState().async[this.storeKey];
         if (list) {
             let value = list.length > 0 ? list[0].id : null;  // first one of the list
             this.setState({ list, value });

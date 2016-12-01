@@ -125,7 +125,7 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Number of lanes */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="nn_lanes" label="Nb of lanes" required
+                        <TextField name="nb_lanes" label="Nb of lanes" required
                                    ref = {(c) => this._laneNb = c}
                         />
                     </Col>

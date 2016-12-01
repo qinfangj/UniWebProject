@@ -41,8 +41,10 @@ class BioanalysersInsertForm extends React.Component {
     }
 
     getFormValues() {
+        console.debug(this._file.getValue(), btoa(this._file.getFile()))
         return {
-            filename: this._fileName.getValue(),
+            filename: this._file.getValue().replace(/.*[\/\\]/, ''),
+            file: btoa(this._file.getFile()),
             bioanalyser_date: this._bioanalyserDate.getValue(),
             description: this._description.getValue(),
             lanes: this._lanes.getFormValues(),
@@ -61,7 +63,7 @@ class BioanalysersInsertForm extends React.Component {
 
                     <Col sm={4} className={formsCss.formCol}>
                         <TextField name="filename" label="Bioanalyser file" type="file"
-                                   ref = {(c) => this._fileName = c}
+                                   ref = {(c) => this._file = c}
                         />
                     </Col>
 
