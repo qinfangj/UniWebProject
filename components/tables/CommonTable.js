@@ -9,7 +9,7 @@ import * as actions from '../actions/actionCreators/asyncActionCreators';
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import columns from './columns';
+import columnsKey from './columns';
 
 
 class CommonTable extends React.Component {
@@ -24,21 +24,23 @@ class CommonTable extends React.Component {
     }
 
     static propTypes = {
-        name: React.PropTypes.string,  // columns key, store key, action key
+        dataStoreKey: React.PropTypes.string.isRequired,  // store key for the table data (in "async")
+        table: React.PropTypes.string.isRequired,  // table name
+        columnsKey: React.PropTypes.string.isRequired,  // key in the columns definition dict
         activeOnly: React.PropTypes.bool,
     };
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let data = store.getState().async[this.props.name];
+            let data = store.getState().async[this.props.dataStoreKey];
             this.setState({ data });
         });
         /* If data is already in store, use that one. Otherwise, call backend API. */
-        let data = store.getState().async[this.props.name];
+        let data = store.getState().async[this.props.dataStoreKey];
         if (data && data.length > 0) {
             this.setState({ data });
         } else {
-            store.dispatch(actions.getTableDataAsync(this.props.name, this.props.activeOnly))
+            store.dispatch(actions.getTableDataAsync(this.props.table, this.props.activeOnly, this.props.dataStoreKey))
             .fail(() => console.error("getTableDataAsync() failed to load data."));
         }
     }
@@ -46,7 +48,7 @@ class CommonTable extends React.Component {
         this.unsubscribe();
     }
     /**
-     * Need to update columns width here, just before rendering, and not in `onGridReady`
+     * Need to update columnsKey width here, just before rendering, and not in `onGridReady`
      * as the docs suggest, because `onGridReady` happens before data arrives
      * and container sizes change in unpredictable manner.
      */
@@ -54,7 +56,7 @@ class CommonTable extends React.Component {
         this.api && this.api.doLayout();  // recalculate layout to fill the container div
     }
     componentDidUpdate() {
-        this.api && this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
+        this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
     }
 
     onGridReady(params) {
@@ -73,8 +75,8 @@ class CommonTable extends React.Component {
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
-        if (!columns[this.props.name]) {
-            throw new ReferenceError("No columns definition found for table "+ this.props.name);
+        if (!columnsKey[this.props.columnsKey]) {
+            throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
         return (
@@ -94,7 +96,7 @@ class CommonTable extends React.Component {
                             rowData={data}
                             enableFilter={true}
                             enableSorting={true}
-                            columnDefs={columns[this.props.name]}
+                            columnDefs={columnsKey[this.props.columnsKey]}
                         >
                         </AgGridReact>
                     </div>

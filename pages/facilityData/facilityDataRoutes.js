@@ -25,7 +25,7 @@ export class FacilityDataRoute extends React.Component {
 export class ProjectsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
-            <CommonTable activeOnly={false} name="projects" />
+            <CommonTable activeOnly={false} dataStoreKey="projects" table="projects" columnsKey="projects" />
         } />
     );}
 }
@@ -33,7 +33,7 @@ export class ProjectsListRoute extends React.Component {
 export class ProjectsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
-            <CommonTable activeOnly={true} name="projects" />
+            <CommonTable activeOnly={true} dataStoreKey="projects" table="projects" columnsKey="projects" />
         } />
     );}
 }
@@ -50,7 +50,7 @@ export class ProjectsNewRoute extends React.Component {
 export class PeopleListRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
-            <CommonTable activeOnly={false} name="people" />
+            <CommonTable activeOnly={false} dataStoreKey="people" table="people" columnsKey="people" />
         } />
     );}
 }
@@ -58,7 +58,7 @@ export class PeopleListRoute extends React.Component {
 export class PeopleActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
-            <CommonTable activeOnly={true} name="people" />
+            <CommonTable activeOnly={true} dataStoreKey="people" table="people" columnsKey="people" />
         } />
     );}
 }
@@ -75,7 +75,7 @@ export class PeopleNewRoute extends React.Component {
 export class GenomesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
-            <CommonTable activeOnly={false} name="genomes" />
+            <CommonTable activeOnly={false} dataStoreKey="genomes" table="genomes" columnsKey="genomes" />
         } />
     );}
 }
@@ -83,7 +83,7 @@ export class GenomesListRoute extends React.Component {
 export class GenomesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
-            <CommonTable activeOnly={true} name="genomes" />
+            <CommonTable activeOnly={true} dataStoreKey="genomes" table="genomes" columnsKey="genomes" />
         } />
     );}
 }
@@ -100,7 +100,7 @@ export class GenomesNewRoute extends React.Component {
 export class SamplesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
-            <CommonTable activeOnly={false} name="samples" />
+            <CommonTable activeOnly={false} dataStoreKey="samples" table="samples" columnsKey="samples" />
         } />
     );}
 }
@@ -108,7 +108,7 @@ export class SamplesListRoute extends React.Component {
 export class SamplesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
-            <CommonTable activeOnly={true} name="samples" />
+            <CommonTable activeOnly={true} dataStoreKey="samples" table="samples" columnsKey="samples" />
         } />
     );}
 }
@@ -125,7 +125,7 @@ export class SamplesNewRoute extends React.Component {
 export class LibrariesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
-            <CommonTable activeOnly={false} name="libraries" />
+            <CommonTable activeOnly={false} dataStoreKey="libraries" table="libraries" columnsKey="libraries" />
         } />
     );}
 }
@@ -133,7 +133,7 @@ export class LibrariesListRoute extends React.Component {
 export class LibrariesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
-            <CommonTable activeOnly={true} name="libraries" />
+            <CommonTable activeOnly={true} dataStoreKey="libraries" table="libraries" columnsKey="libraries" />
         } />
     );}
 }
@@ -150,7 +150,7 @@ export class LibrariesNewRoute extends React.Component {
 export class RunsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
-            <CommonTable activeOnly={false} name="runs" />
+            <CommonTable activeOnly={false} dataStoreKey="runs" table="runs" columnsKey="runs" />
         } />
     );}
 }
@@ -158,7 +158,7 @@ export class RunsListRoute extends React.Component {
 export class RunsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
-            <CommonTable activeOnly={true} name="runs" />
+            <CommonTable activeOnly={true} dataStoreKey="runs" table="runs" columnsKey="runs" />
         } />
     );}
 }
@@ -182,7 +182,7 @@ export class RunsNewRoute extends React.Component {
 export class UserRequestsListRoute extends React.Component {
     render() {return (
         <FacilityData title="User requests" name="user_requests" content={
-            <CommonTable activeOnly={false} name="user_requests" />
+            <CommonTable activeOnly={false} dataStoreKey="user_requests" table="user_requests" columnsKey="user_requests" />
         } />
     );}
 }
@@ -190,7 +190,7 @@ export class UserRequestsListRoute extends React.Component {
 export class UserRequestsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="User requests" name="user_requests" content={
-            <CommonTable activeOnly={true} name="user_requests" />
+            <CommonTable activeOnly={true} dataStoreKey="user_requests" table="user_requests" columnsKey="user_requests" />
         } />
     );}
 }
@@ -207,7 +207,7 @@ export class UserRequestsNewRoute extends React.Component {
 export class BioanalysersListRoute extends React.Component {
     render() {return (
         <FacilityData title="Bioanalysers" name="bioanalysers" content={
-            <CommonTable activeOnly={false} name="bioanalysers" />
+            <CommonTable activeOnly={false} dataStoreKey="bioanalysers" table="bioanalysers" columnsKey="bioanalysers" />
         } />
     );}
 }
@@ -215,7 +215,7 @@ export class BioanalysersListRoute extends React.Component {
 export class BioanalysersActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Bioanalysers" name="bioanalysers" content={
-            <CommonTable activeOnly={true} name="bioanalysers" />
+            <CommonTable activeOnly={true} dataStoreKey="bioanalysers" table="bioanalysers" columnsKey="bioanalysers" />
         } />
     );}
 }
@@ -232,7 +232,7 @@ export class BioanalysersNewRoute extends React.Component {
 export class BasecallingsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Basecallings" name="basecallings" content={
-            <CommonTable activeOnly={false} name="basecallings" />
+            <CommonTable activeOnly={false} dataStoreKey="basecallings" table="basecallings" columnsKey="basecallings" />
         } />
     );}
 }
@@ -240,7 +240,7 @@ export class BasecallingsListRoute extends React.Component {
 export class BasecallingsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Basecallings" name="basecallings" content={
-            <CommonTable activeOnly={true} name="basecallings" />
+            <CommonTable activeOnly={true} dataStoreKey="basecallings" table="basecallings" columnsKey="basecallings" />
         } />
     );}
 }
@@ -257,7 +257,7 @@ export class BasecallingsNewRoute extends React.Component {
 export class AlignmentsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Alignments" name="alignments" content={
-            <CommonTable activeOnly={false} name="alignments" />
+            <CommonTable activeOnly={false} dataStoreKey="alignments" table="alignments" columnsKey="alignments" />
         } />
     );}
 }
@@ -265,7 +265,7 @@ export class AlignmentsListRoute extends React.Component {
 export class AlignmentsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Alignments" name="alignments" content={
-            <CommonTable activeOnly={true} name="alignments" />
+            <CommonTable activeOnly={true} dataStoreKey="alignments" table="alignments" columnsKey="alignments" />
         } />
     );}
 }

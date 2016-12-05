@@ -108,7 +108,7 @@ class ResponsiveSidebar extends React.Component {
             { text: "Facility data", to: "/data", elements: tables },
             { text: "User data", to: "/userData", disabled: true },
             { text: "Tracking", to: "/tracking", disabled: true },
-            { text: "Query projects", to: "/queryProjects", disabled: true },
+            { text: "Query projects", to: "/projects", },
             { text: "Query runs", to: "/queryRuns", disabled: true },
             { text: "Admin", to: "/admin", disabled: true },
         ];
