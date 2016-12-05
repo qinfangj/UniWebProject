@@ -3,6 +3,7 @@ import css from './pages.css';
 import Layout from '../components/Layout';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import * as fdata from '../pages/facilityData/facilityDataRoutes';
+import * as qprojects from '../pages/queryProjects/queryProjectsRoutes';
 
 
 class App extends React.Component {
@@ -31,6 +32,9 @@ const routes = (
         <Route path="/" component={App}>
             <IndexRoute component={HomePage}/>
             <Route path="home" component={HomePage}/>
+
+            {/* FACILITY DATA */}
+
             <Route path="data" component={fdata.FacilityDataRoute}/>
 
             <Route path="data/projects" component={fdata.ProjectsListRoute}/>
@@ -83,6 +87,10 @@ const routes = (
             <Route path="data/alignments/list" component={fdata.AlignmentsListRoute}/>
             <Route path="data/alignments/active" component={fdata.AlignmentsActiveRoute}/>
             <Route path="data/alignments/new" component={fdata.AlignmentsNewRoute}/>
+
+            {/* QUERY PROJECTS */}
+
+            <Route path="projects" component={qprojects.QueryProjectsRoute} />
 
         </Route>
     </Router>

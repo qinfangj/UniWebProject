@@ -3,17 +3,17 @@ import FacilityDataHome from '../../components/pages/FacilityDataHome';
 import FacilityData from '../../components/pages/FacilityData';
 import CommonTable from '../../components/tables/CommonTable';
 
-import ProjectsInsertForm from '../../components/forms/ProjectsInsertForm';
-import PeopleInsertForm from '../../components/forms/PeopleInsertForm';
-import GenomesInsertForm from '../../components/forms/GenomesInsertForm';
-import SamplesInsertForm from '../../components/forms/SamplesInsertForm';
-import LibrariesInsertForm from '../../components/forms/LibrariesInsertForm';
-import RunsPreInsertForm from '../../components/forms/Runs/RunsPreInsertForm';
-import RunsInsertForm from '../../components/forms/Runs/RunsInsertForm';
-import UserRequestsInsertForm from '../../components/forms/UserRequestsInsertForm';
-import BioanalysersInsertForm from '../../components/forms/Bioanalysers/BioanalysersInsertForm';
-import BasecallingsInsertForm from '../../components/forms/BasecallingsInsertForm';
-import AlignmentsInsertForm from '../../components/forms/AlignmentsInsertForm';
+import ProjectsInsertForm from '../../components/forms/facilityData/ProjectsInsertForm';
+import PeopleInsertForm from '../../components/forms/facilityData/PeopleInsertForm';
+import GenomesInsertForm from '../../components/forms/facilityData/GenomesInsertForm';
+import SamplesInsertForm from '../../components/forms/facilityData/SamplesInsertForm';
+import LibrariesInsertForm from '../../components/forms/facilityData/LibrariesInsertForm';
+import RunsPreInsertForm from '../../components/forms/facilityData/Runs/RunsPreInsertForm';
+import RunsInsertForm from '../../components/forms/facilityData/Runs/RunsInsertForm';
+import UserRequestsInsertForm from '../../components/forms/facilityData/UserRequestsInsertForm';
+import BioanalysersInsertForm from '../../components/forms/facilityData/Bioanalysers/BioanalysersInsertForm';
+import BasecallingsInsertForm from '../../components/forms/facilityData/BasecallingsInsertForm';
+import AlignmentsInsertForm from '../../components/forms/facilityData/AlignmentsInsertForm';
 
 
 export class FacilityDataRoute extends React.Component {

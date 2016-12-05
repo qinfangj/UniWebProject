@@ -1,10 +1,10 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from './forms.css';
+import css from '../forms.css';
 
-import TextField from './elements/TextField';
-import validators from './validators';
-import * as forms from './forms.js';
+import TextField from '../elements/TextField';
+import validators from '../validators';
+import * as forms from '../forms.js';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';

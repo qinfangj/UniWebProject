@@ -2,13 +2,13 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './bioanalysers.css';
 import cx from 'classnames';
-import store from '../../../core/store';
+import store from '../../../../core/store';
 
-import TextField from '../elements/TextField';
-import * as forms from '../forms';
-import validators from '../validators';
-import * as Options from '../subcomponents/Options';
-import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
+import TextField from '../../elements/TextField';
+import * as forms from '../../forms';
+import validators from '../../validators';
+import * as Options from '../../subcomponents/Options';
+import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
 
 
 /**

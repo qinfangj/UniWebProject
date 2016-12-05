@@ -1,19 +1,18 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import formsCss from '../forms.css';
+import formsCss from '../../forms.css';
 import css from './runs.css';
 import cx from 'classnames';
-import store from '../../../core/store';
+import store from '../../../../core/store';
 
-import TextField from '../elements/TextField';
-import CheckBox from '../elements/MyCheckbox';
-import Select from '../elements/Select';
-import TextArea from '../elements/Textarea';
-import DatePicker from '../elements/DatePicker';
-import validators from '../validators';
-import * as forms from '../forms.js';
-import * as options from '../options';
-import * as Options from '../subcomponents/Options';
+import TextField from '../../elements/TextField';
+import CheckBox from '../../elements/MyCheckbox';
+import Select from '../../elements/Select';
+import TextArea from '../../elements/Textarea';
+import DatePicker from '../../elements/DatePicker';
+import validators from '../../validators';
+import * as forms from '../../forms.js';
+import * as Options from '../../subcomponents/Options';
 import RunsSubForm from './RunsSubForm';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -163,7 +162,7 @@ class RunsInsertForm extends React.Component {
 
                             <Col sm={4} className={formsCss.formCol}>
                                 <Select name="stage" label="Stage"
-                                        options={options.getRunStages()}
+                                        options={Options.getRunStages()}
                                         ref={(c) => this._stage = c}
                                 />
                             </Col>

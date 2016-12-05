@@ -1,13 +1,13 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import formsCss from '../forms.css';
+import formsCss from '../../forms.css';
 import css from './bioanalysers.css';
 import cx from 'classnames';
 
-import TextField from '../elements/TextField';
-import DatePicker from '../elements/DatePicker';
-import validators from '../validators';
-import * as forms from '../forms.js';
+import TextField from '../../elements/TextField';
+import DatePicker from '../../elements/DatePicker';
+import validators from '../../validators';
+import * as forms from '../../forms.js';
 import BioanalysersSubForm from './BioanalysersSubForm';
 
 import Form from 'react-bootstrap/lib/Form';

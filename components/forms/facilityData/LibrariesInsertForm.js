@@ -1,15 +1,15 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from './forms.css';
+import css from '../forms.css';
 
-import TextField from './elements/TextField';
-import Textarea from './elements/TextField';
-import CheckBox from './elements/MyCheckbox';
-import DatePicker from './elements/DatePicker';
-import validators from './validators';
-import * as forms from './forms.js';
-import * as Options from './subcomponents/Options';
-import * as SecondaryOptions from './subcomponents/SecondaryOptions';
+import TextField from '../elements/TextField';
+import Textarea from '../elements/TextField';
+import Checkbox from '../elements/MyCheckbox';
+import DatePicker from '../elements/DatePicker';
+import validators from '../validators';
+import * as forms from '../forms.js';
+import * as Options from '../subcomponents/Options';
+import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -254,13 +254,13 @@ class LibrariesInsertForm extends React.Component {
                     {/* Is made by user / by robot / trashed */}
 
                     <Col sm={2} className={css.formCol}>
-                        <CheckBox name="isCustomer_made" label="Made by user"
+                        <Checkbox name="isCustomer_made" label="Made by user"
                                   ref = {(c) => this._isCustomerMade = c}
                         />
-                        <CheckBox name="isRobot_made" label="Made by robot"
+                        <Checkbox name="isRobot_made" label="Made by robot"
                                   ref = {(c) => this._isRobotMade = c}
                         />
-                        <CheckBox name="is_discarded" label="Discarded"
+                        <Checkbox name="is_discarded" label="Discarded"
                                   ref = {(c) => this._isTrashed = c}
                         />
                     </Col>

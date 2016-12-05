@@ -1,17 +1,15 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from './forms.css';
+import css from '../forms.css';
 import cx from 'classnames';
 
-import TextField from './elements/TextField';
-import CheckBox from './elements/MyCheckbox';
-import TextArea from './elements/Textarea';
-import Select from './elements/Select';
-import * as SecondaryOptions from './subcomponents/SecondaryOptions';
-import * as Options from './subcomponents/Options';
-import * as options from './options';
-import * as forms from './forms.js';
-import validators from './validators';
+import TextField from '../elements/TextField';
+import Checkbox from '../elements/MyCheckbox';
+import TextArea from '../elements/Textarea';
+import Select from '../elements/Select';
+import * as Options from '../subcomponents/Options';
+import * as forms from '../forms.js';
+import validators from '../validators';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -19,13 +17,13 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 
-class AlignmentsInsertForm extends React.Component {
+class BasecallingsInsertForm extends React.Component {
     constructor() {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-        this.table = "alignments";
-        this.form = "alignments";
-        this.required = ["eland_output_folder"];
+        this.table = "basecallings";
+        this.form = "basecallings";
+        this.required = ["output_folder"];
         this.state = forms.defaultFormState;
     }
 
@@ -35,6 +33,7 @@ class AlignmentsInsertForm extends React.Component {
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
+                console.debug(555, insertId);
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
                 console.warn("Uncaught form validation error");
@@ -45,13 +44,12 @@ class AlignmentsInsertForm extends React.Component {
 
     getFormValues() {
         return {
-            analysis_type_id: this._analysis_type.getValue(),
             run_id: this._run.getValue(),
-            fastq_path: this._unaligned_output_folder.getValue(),
-            mapping_tool_id: this._mapping_tool.getValue(),
-            eland_output_folder: this._eland_output_folder.getValue(),
-            isQC_report: this._qc_report.getValue(),
-            config_file_content: this._config_file_content.getValue(),
+            pipeline_version_id: this._pipeline_version.getValue(),
+            analysis_type_id: this._analysis_type.getValue(),
+            control_lane_id: this._control_lane.getValue(),
+            isDemultiplexing: this._demultiplexing.getValue(),
+            output_folder: this._output_folder.getValue(),
             comment: this._comment.getValue(),
         };
     }
@@ -64,54 +62,49 @@ class AlignmentsInsertForm extends React.Component {
 
                 <Form componentClass="fieldset" horizontal>
 
-                    {/* Analysis type */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.PipelineAnalysisTypes form={this.form} ref={(c) => this._analysis_type = c} />
-                    </Col>
-
                     {/* Run */}
 
                     <Col sm={3} className={css.formCol}>
                         <Options.RunsOutputFolders form={this.form} ref={(c) => this._run = c} />
                     </Col>
 
-                    {/* Unaligned data output folder */}
+                    {/* Version */}
 
-                    <Col sm={7} className={css.formCol}>
-                        <SecondaryOptions.BasecallingsOutputFolders form={this.form} ref={(c) => this._unaligned_output_folder = c} />
+                    <Col sm={3} className={css.formCol}>
+                        <Options.PipelineVersions form={this.form} ref={(c) => this._pipeline_version = c} />
                     </Col>
 
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Mapping tool */}
+                    {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.MappingTools form={this.form} ref={(c) => this._mapping_tool = c} />
+                        <Options.PipelineAnalysisTypes form={this.form} ref={(c) => this._analysis_type = c} />
                     </Col>
 
-                    {/* Alignment output folder */}
+                    {/* Control lane nb */}
 
-                    <Col sm={8} className={css.formCol}>
-                        <TextField name="eland_output_folder" label="Alignment output folder" required
-                                   missing = {!!this.state.missing["eland_output_folder"]}
-                                   ref = {(c) => this._eland_output_folder = c}
+                    <Col sm={2} className={css.formCol}>
+                        <Select name="control_lane" label="Control lane" form={this.form}
+                                options={Options.getControlLanes()}
+                                ref={(c) => this._control_lane = c}
                         />
                     </Col>
 
+                    {/* Demultiplexing */}
+
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <CheckBox label="QC report" ref={(c) => this._qc_report = c}/>
+                        <Checkbox label="Demultiplexing" ref={(c) => this._demultiplexing = c} />
                     </Col>
+
 
                 </Form>
                 <Form componentClass="fieldset" horizontal>
 
-                    {/* Config file content */}
+                    {/* Unaligned data output folder */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea name="config_file_content" label="Config file content" required
-                                   ref = {(c) => this._config_file_content = c}
+                        <TextField name="output_folder" label="Unaligned data output folder" required
+                                   missing = {!!this.state.missing["output_folder"]}
+                                   ref = {(c) => this._output_folder = c}
                         />
                     </Col>
 
@@ -138,5 +131,5 @@ class AlignmentsInsertForm extends React.Component {
 }
 
 
-export default AlignmentsInsertForm;
+export default BasecallingsInsertForm;
 

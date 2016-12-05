@@ -1,14 +1,14 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from './forms.css';
+import css from '../forms.css';
 
-import TextField from './elements/TextField';
-import CheckBox from './elements/MyCheckbox';
-import DatePicker from './elements/DatePicker';
-import TextArea from './elements/Textarea';
-import * as Options from './subcomponents/Options';
-import validators from './validators';
-import * as forms from './forms.js';
+import TextField from '../elements/TextField';
+import Checkbox from '../elements/MyCheckbox';
+import DatePicker from '../elements/DatePicker';
+import TextArea from '../elements/Textarea';
+import * as Options from '../subcomponents/Options';
+import validators from '../validators';
+import * as forms from '../forms.js';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -117,7 +117,7 @@ class ProjectInsertForm extends React.Component {
 
                         {/* Is control */}
 
-                        <CheckBox ref={(c) => this._isControl = c} name="isControl" label="Control Project" />
+                        <Checkbox ref={(c) => this._isControl = c} name="isControl" label="Control Project" />
 
                     </Col>
 

@@ -2,6 +2,14 @@ import React from 'react';
 import AsyncOptionsList from './AsyncOptionsList';
 
 
+export function getControlLanes() {
+    return [[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']];
+}
+
+export function getRunStages() {
+    return [[1,'--'], [2,'A'], [3,'B']];
+}
+
 
 export class Instruments extends React.Component {
     getValue() { return this._select.getValue(); }

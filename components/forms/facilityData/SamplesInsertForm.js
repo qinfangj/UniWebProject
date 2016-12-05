@@ -1,17 +1,15 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from './forms.css';
+import css from '../forms.css';
 import cx from 'classnames';
 
-import TextField from './elements/TextField';
-import Textarea from './elements/TextField';
-import CheckBox from './elements/MyCheckbox';
-import Select from './elements/Select';
-import DatePicker from './elements/DatePicker';
-import validators from './validators';
-import * as forms from './forms.js';
-import * as options from './options';
-import * as Options from './subcomponents/Options';
+import TextField from '../elements/TextField';
+import Textarea from '../elements/TextField';
+import Checkbox from '../elements/MyCheckbox';
+import DatePicker from '../elements/DatePicker';
+import validators from '../validators';
+import * as forms from '../forms.js';
+import * as Options from '../subcomponents/Options';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -217,7 +215,7 @@ class SamplesInsertForm extends React.Component {
                     {/* Is trashed */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <CheckBox name="is_discarded" label="Discarded"
+                        <Checkbox name="is_discarded" label="Discarded"
                                   ref = {(c) => this._isDiscarded = c}
                         />
                     </Col>

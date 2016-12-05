@@ -1,17 +1,17 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './runs.css';
-import formsCss from '../forms.css';
-import commonCss from '../../../styles/common.css';
+import formsCss from '../../forms.css';
+import commonCss from '../../../../styles/common.css';
 import cx from 'classnames';
-import store from '../../../core/store';
-import { goTo } from '../../actions/actionCreators/commonActionCreators';
+import store from '../../../../core/store';
+import { goTo } from '../../../actions/actionCreators/commonActionCreators';
 
-import TextField from '../elements/TextField';
-import validators from '../validators';
-import * as forms from '../forms.js';
-import * as Options from '../subcomponents/Options';
-import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
+import TextField from '../../elements/TextField';
+import validators from '../../validators';
+import * as forms from '../../forms.js';
+import * as Options from '../../subcomponents/Options';
+import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
 
 import Button from 'react-bootstrap/lib/Button';
 
