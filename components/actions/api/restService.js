@@ -7,15 +7,15 @@ class RestService {
     /* Select options list */
 
     getOptionsList(tableName) {
-        let url = BACKEND + "/table/"+ tableName +"/list";
+        let url = `${BACKEND}/table/${tableName}/list`;
         return $.get(url);
     }
     getConditionalOptionsList(tableName, suffix) {
-        let url = BACKEND + "/table/"+ tableName +"/list/"+ suffix;
+        let url = `${BACKEND}/table/${tableName}/list/${suffix}`;
         return $.get(url);
     }
     getSecondaryOptionsList(tableName, id) {
-        let url = BACKEND + "/table/"+ tableName +"/secondaryList/" + id;
+        let url = `${BACKEND}/table/${tableName}/secondaryList/${id}`;
         return $.get(url);
     }
 
@@ -23,14 +23,14 @@ class RestService {
 
     specialSelect(tableName, activeOnly) {
         let mode = activeOnly ? "selactive" : "selall";
-        let url = BACKEND + "/table/"+ tableName +"/"+ mode;
+        let url = `${BACKEND}/table/${tableName}/${mode}`;
         return $.get(url);
     }
 
     /* Inserts */
 
     insert(tableName, formData) {
-        let url = BACKEND + "/table/"+tableName+"/insert";
+        let url = `${BACKEND}/table/${tableName}/insert`;
         console.info(url);
         return $.ajax({
             type: "POST",

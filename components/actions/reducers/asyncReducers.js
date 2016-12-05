@@ -2,7 +2,10 @@ import types from '../actionTypes';
 import constants from '../../constants/constants';
 
 
-let asyncReducers = (state = {}, action) => {
+const defaultState = {};
+
+
+let asyncReducers = (state = defaultState, action) => {
 
     /**
      * All kinds of special backend async GET responses are handled the same way.
@@ -37,13 +40,13 @@ let asyncReducers = (state = {}, action) => {
         /* Table data */
 
         case types.GET_TABLE_DATA:
-            storeKey = action.args.storeKey || action.args.tableName;
+            storeKey = action.args.storeKey;
             return returnList(storeKey);
 
         /* Inserts */
 
         case types.INSERT:
-            storeKey = action.args.storeKey || action.args.tableName;
+            storeKey = action.args.storeKey;
             return returnList(storeKey);
 
         default:
