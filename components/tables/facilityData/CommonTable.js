@@ -41,7 +41,7 @@ class CommonTable extends React.Component {
             this.setState({ data });
         } else {
             store.dispatch(actions.getTableDataAsync(this.props.table, this.props.activeOnly, this.props.dataStoreKey))
-            .fail(() => console.error("getTableDataAsync() failed to load data."));
+            .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
         }
     }
     componentWillUnmount() {
@@ -104,7 +104,7 @@ class CommonTable extends React.Component {
                     <div style={{height: '1200px', width: '100%'}}/>
                 }
 
-                {/* Show nunber of rows in result */}
+                {/* Show nuMber of rows in result */}
 
                 { data.length === 0 ? null :
                     <tables.Nrows data={data} />

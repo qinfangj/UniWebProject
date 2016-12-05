@@ -10,6 +10,7 @@ import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as Options from '../subcomponents/Options';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
+import * as forms from '../forms';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -26,6 +27,17 @@ class QueryProjectsForm extends React.Component {
         this.libraryFormKey = this.form + "_library";
     }
 
+    getFormValue(storeKey) {
+        return forms.getFormValue(this.form, storeKey);
+    }
+
+    getFormData() {
+        return {
+            project_id: this.getFormValue(this.projectsFormKey),
+            library_id: this.getFormValue(this.libraryFormKey),
+        };
+    }
+
     render() {
         return (
             <Form>
@@ -34,7 +46,6 @@ class QueryProjectsForm extends React.Component {
                     form={this.form}
                     referenceField={this.projectsFormKey}  // the store key to the form value
                     storeKey={this.libraryFormKey}        // the store key for the result list
-                    ref={(c) => this._project = c}
                 />
             </Form>
         );
