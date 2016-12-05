@@ -10,8 +10,8 @@ class RestService {
         let url = BACKEND + "/table/"+ tableName +"/list";
         return $.get(url);
     }
-    getConditionalOptionsList(tableName, all) {
-        let url = BACKEND + "/table/"+ tableName +"/list/"+ (all ? "true" : "false");
+    getConditionalOptionsList(tableName, suffix) {
+        let url = BACKEND + "/table/"+ tableName +"/list/"+ suffix;
         return $.get(url);
     }
     getSecondaryOptionsList(tableName, id) {

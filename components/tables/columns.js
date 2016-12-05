@@ -146,7 +146,6 @@ const columns = {
         },{
             headerName: "Status",
             field: "status",
-            cellRenderer: (v) => v.value ? "Active" : "Released",
             cellStyle: CENTER,
         },
     ],

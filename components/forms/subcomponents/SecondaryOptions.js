@@ -26,7 +26,7 @@ export class ProjectSamples extends React.Component {
     render() {
         return (<AsyncSecondaryOptionsList
             table="samples" label="Sample" form={this.props.form}
-            referenceField="projects"
+            referenceField={this.props.referenceField}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }

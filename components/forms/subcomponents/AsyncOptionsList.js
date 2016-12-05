@@ -21,7 +21,7 @@ class AsyncOptionsList extends React.Component {
         form: React.PropTypes.string.isRequired,
         label: React.PropTypes.string,
         formatter: React.PropTypes.func,  // ex: object => [id, name]
-        all: React.PropTypes.bool,  // for conditional lists (all/activeOnly etc.)
+        suffix: React.PropTypes.string,  // route suffix for conditional lists (e.g. "all" in "/table/projects/list/all")
         storeKey: React.PropTypes.string,  // the store key for the result list - defaults to `table` prop
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
@@ -44,10 +44,8 @@ class AsyncOptionsList extends React.Component {
             let value = list.length > 0 ? list[0].id : null;  // first one of the list
             this.setState({ list, value });
         } else {
-            if (this.props.all === true) {
-                store.dispatch(getConditionalOptionsListAsync(this.props.table, true, this.storeKey));
-            } else if (this.props.all === false) {
-                store.dispatch(getConditionalOptionsListAsync(this.props.table, false, this.storeKey));
+            if (this.props.suffix) {
+                store.dispatch(getConditionalOptionsListAsync(this.props.table, this.props.suffix, this.storeKey));
             } else {
                 store.dispatch(getOptionsListAsync(this.props.table, this.storeKey));
             }

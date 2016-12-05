@@ -24,7 +24,7 @@ class AsyncSecondaryOptionsList extends React.Component {
      *  and the key used in the store for the selected item.
      */
     static propTypes = {
-        referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value
+        referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `storeKey`!
         table: React.PropTypes.string.isRequired,
         form: React.PropTypes.string.isRequired,
         label: React.PropTypes.string,

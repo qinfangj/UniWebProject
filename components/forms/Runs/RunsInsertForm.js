@@ -61,9 +61,11 @@ class RunsInsertForm extends React.Component {
     getFormValues() {
         let {lanes, invalid} = this._lanes.getFormValues();
         for (let laneNb of Object.keys(invalid)) {
-            if (Object.keys(invalid[laneNb]).length > 0) {
-                lanes = null;
-                break;
+            for (let lib of Object.keys(invalid[laneNb])) {
+                if (invalid[laneNb][lib] === true) {
+                    lanes = null;
+                    break;
+                }
             }
         }
         if (lanes !== null) {
@@ -154,7 +156,7 @@ class RunsInsertForm extends React.Component {
                             {/* Reads type + length */}
 
                             <Col sm={12} className={formsCss.formCol}>
-                                <Options.RunTypesLengths all={false} form={this.form} ref={(c) => this._runTypesLengths = c} />
+                                <Options.RunTypesLengths suffix="all" form={this.form} ref={(c) => this._runTypesLengths = c} />
                             </Col>
 
                             {/* Run stage */}

@@ -34,8 +34,7 @@ class TextField extends React.Component {
      * If type="file", get the FilesList
      */
     getFile() {
-        console.debug(this.state.files)
-        return this.state.files[0];
+        return this.state.files ? this.state.files[0] : null;
     }
 
     /**
@@ -76,7 +75,6 @@ class TextField extends React.Component {
     }
 
     onChange(e) {
-        console.debug(e.target.files)
         let value = e.target.value;
         let {valid, msg, status} = this.validate(value);
         if (this.props.type === "file") {

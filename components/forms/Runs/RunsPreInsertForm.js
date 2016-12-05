@@ -87,50 +87,53 @@ class RunsPreInsertForm extends React.Component {
     }
 
     getFormValues() {
-        return this.lanesRefs.map((lane) => {
+        return this.lanesRefs.map((lane, i) => {
             return {
                 lane_nb: lane.lane_nb,
                 nlibs: lane.nlibs.getValue(),
                 nqc: lane.nqc.getValue(),
-                projectId: lane.project.getValue(),
+                projectId: forms.getFormValue(this.form, this._projectsStoreKey(i)),
                 libraryPoolId: lane.pool.getValue(),
             };
         });
     }
 
+    _projectsFormKey(i) {
+        return this.form + i +"_project";
+    }
+
     render() {
-        let makeRow = (N) => {
-            let invalid = this.state.invalid[N];
+        let makeRow = (i) => {
+            let invalid = this.state.invalid[i];
+            let projectsFromKey = this._projectsFormKey(i);
             return (
-                <tr key={N}>
+                <tr key={i}>
                     <td key="id" className={css.laneId}>
-                        {N+1}
+                        {i + 1}
                     </td>
                     <td key="nlibs" className={css.numeric}>
                         <TextField name="nlibs" defaultValue="0" required
                                    validator = {validators.integerValidator}
                                    invalid = {invalid && invalid.nlibs}
-                                   ref={(c) => this.lanesRefs[N]["nlibs"] = c}
+                                   ref={(c) => this.lanesRefs[i]["nlibs"] = c}
                         />
                     </td>
                     <td key="nqc" className={css.numeric}>
                         <TextField name="nqc" defaultValue="0" required
                                    validator = {validators.integerValidator}
                                    invalid = {invalid && invalid.nqc}
-                                   ref={(c) => this.lanesRefs[N]["nqc"] = c}
+                                   ref={(c) => this.lanesRefs[i]["nqc"] = c}
                         />
                     </td>
                     <td key="project">
-                        <Options.ProjectsWithLibraries form={this.form}
-                                storeKey={this.form + N +"_project"}
-                                ref={(c) => this.lanesRefs[N]["project"] = c}
-                        />
+                        {Options.ProjectsWithPool(this.form, projectsFromKey)}
+
                     </td>
                     <td key="pool">
                         <SecondaryOptions.ProjectPools form={this.form}
-                                referenceField={this.form + N +"_project"}  // the store key to the form value
-                                storeKey={this.form + N +"_pool"}           // the store key for the result list
-                                ref={(c) => this.lanesRefs[N]["pool"] = c} />
+                                referenceField={projectsFromKey}     // the store key to the form value
+                                storeKey={this.form + i +"_pool"}           // the store key for the result list
+                                ref={(c) => this.lanesRefs[i]["pool"] = c} />
                     </td>
                 </tr>
             );

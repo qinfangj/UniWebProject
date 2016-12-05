@@ -97,7 +97,7 @@ class SamplesInsertForm extends React.Component {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        <Options.Projects form={this.form} ref={(c) => this._project = c} />
+                        <Options.Projects suffix="all" form={this.form} ref={(c) => this._project = c} />
                     </Col>
 
                 </Form>

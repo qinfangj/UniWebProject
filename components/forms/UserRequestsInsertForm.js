@@ -25,6 +25,7 @@ class UserRequestsInsertForm extends React.Component {
         this.form = "user_requests";
         this.required = ["multiplexing_group", "multiplex_nb"];
         this.state = forms.defaultFormState;
+        this.projectsFormKey = this.form +"_projects";
     }
 
     onSubmit() {
@@ -43,7 +44,7 @@ class UserRequestsInsertForm extends React.Component {
 
     getFormValues() {
         return {
-            project_id: this._project.getValue(),
+            project_id: forms.getFormValue(this.form, this.projectsFormKey),
             sample_id: this._sample.getValue(),
             insert_size_min: this._insertSizeMin.getValue(),
             insert_size_max: this._insertSizeMax.getValue(),
@@ -70,13 +71,15 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        <Options.Projects form={this.form} ref={(c) => this._project = c} />
+                        {Options.ProjectsWithSamples(this.form, this.projectsFormKey)}
                     </Col>
 
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
-                        <SecondaryOptions.ProjectSamples form={this.form} ref={(c) => this._sample = c} />
+                        <SecondaryOptions.ProjectSamples
+                            referenceField={this.projectsFormKey}
+                            form={this.form} ref={(c) => this._sample = c} />
                     </Col>
 
                     {/* Insert size */}
@@ -119,7 +122,7 @@ class UserRequestsInsertForm extends React.Component {
                     {/* Run request */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.RunTypesLengths all={true} form={this.form} ref={(c) => this._run_request = c} />
+                        <Options.RunTypesLengths suffix="all" form={this.form} ref={(c) => this._run_request = c} />
                     </Col>
 
                     {/* Number of lanes */}

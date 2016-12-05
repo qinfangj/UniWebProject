@@ -5,11 +5,9 @@ import css from './forms.css';
 import TextField from './elements/TextField';
 import Textarea from './elements/TextField';
 import CheckBox from './elements/MyCheckbox';
-import Select from './elements/Select';
 import DatePicker from './elements/DatePicker';
 import validators from './validators';
 import * as forms from './forms.js';
-import * as options from './options';
 import * as Options from './subcomponents/Options';
 import * as SecondaryOptions from './subcomponents/SecondaryOptions';
 
@@ -28,6 +26,7 @@ class LibrariesInsertForm extends React.Component {
         this.required = ["sample_id", "name", "lib_protocol_id", "library_date", "starting_material",
                          "frag_size_min", "frag_size_max", "multiplex_index_id"];
         this.state = forms.defaultFormState;
+        this.projectsFormKey = this.form +"_projects";
     }
 
     onSubmit() {
@@ -47,7 +46,7 @@ class LibrariesInsertForm extends React.Component {
     /* Group fields to not exceed 22 scala tuple size limit */
     getFormValues() {
         return {
-            project_id: this._project.getValue(),
+            project_id: forms.getFormValue(this.form, this.projectsFormKey),
             sample_id: this._sample.getValue(),
             name: this._name.getValue(),
             lib_protocol_id: this._protocol.getValue(),
@@ -83,13 +82,15 @@ class LibrariesInsertForm extends React.Component {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        <Options.Projects form={this.form} ref={(c) => this._project = c} />
+                        {Options.ProjectsWithSamples(this.form, this.projectsFormKey)}
                     </Col>
 
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
-                        <SecondaryOptions.ProjectSamples form={this.form} ref={(c) => this._sample = c} />
+                        <SecondaryOptions.ProjectSamples
+                            referenceField={this.projectsFormKey}
+                            form={this.form} ref={(c) => this._sample = c} />
                     </Col>
 
                     {/* Name */}
@@ -184,16 +185,16 @@ class LibrariesInsertForm extends React.Component {
                     {/* Multiplex index */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.MutliplexIndexes form={this.form}
-                            label="Multiplex index (I7)" all={true}
+                        <Options.MultiplexIndexes form={this.form}
+                            label="Multiplex index (I7)" suffix="all"
                             ref={(c) => this._multiplexIndex = c} />
                     </Col>
 
                     {/* Second (multiplex) index */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.MutliplexIndexes form={this.form}
-                            label="Second index (I5)" all={true}
+                        <Options.MultiplexIndexes form={this.form}
+                            label="Second index (I5)" suffix="all"
                             ref={(c) => this._secondIndex = c} />
 
                     </Col>

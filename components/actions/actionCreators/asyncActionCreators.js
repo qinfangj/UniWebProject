@@ -41,10 +41,10 @@ export function getOptionsListAsync(tableName, storeKey) {
     let args = {tableName, storeKey};
     return asyncAction(actions.GET_OPTIONS_LIST, restService.getOptionsList.bind(null, tableName), args)
 }
-export function getConditionalOptionsListAsync(tableName, all, storeKey) {
+export function getConditionalOptionsListAsync(tableName, suffix, storeKey) {
     assertStoreKey(storeKey);
     let args = {tableName, storeKey};
-    return asyncAction(actions.GET_OPTIONS_LIST, restService.getConditionalOptionsList.bind(null, tableName, all), args)
+    return asyncAction(actions.GET_OPTIONS_LIST, restService.getConditionalOptionsList.bind(null, tableName, suffix), args)
 }
 export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
     assertStoreKey(storeKey);

@@ -57,16 +57,19 @@ export class MappingTools extends React.Component {
     }
 }
 
-export class MutliplexIndexes extends React.Component {
+export class MultiplexIndexes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name +" - "+ v.sequence]; }
     render() {
         return <AsyncOptionsList table="multiplex_indexes" form={this.props.form}
                                  label={this.props.label}
-                                 all = {this.props.all}
+                                 suffix = {this.props.suffix}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
+MultiplexIndexes.propTypes = {
+    suffix: React.PropTypes.string.isRequired,
+};
 
 export class People extends React.Component {
     getValue() { return this._select.getValue(); }
@@ -104,36 +107,45 @@ export class ProjectAnalyses extends React.Component {
     }
 }
 
-/* Projects with libraries, for the pre-runs insert form */
-export class ProjectsWithLibraries extends React.Component {
-    getValue() { return this._select.getValue(); }
-    formatter(v) { return [v.id, v.name]; }
-    render() {
-        return <AsyncOptionsList table="projects" label={null} form={this.props.form}
-                                 storeKey={this.props.storeKey}
-                                 formatter={this.formatter} ref={(c) => {this._select = c;}} />;
-    }
+/* Projects with libraries, for Runs and Bioanalysers */
+export function ProjectsWithLibraries(form, storeKey, props) {
+    return <Projects suffix="libs" label={null} form={form} storeKey={storeKey} {...props} />;
 }
 
-/* With the parameter `all`, which calls a different view */
+/* Projects with samples, for User requests and Libraries */
+export function ProjectsWithSamples(form, storeKey, props) {
+    return <Projects suffix="samples" form={form} storeKey={storeKey} {...props} />;
+}
+
+/* Projects with pool, for pre-Runs */
+export function ProjectsWithPool(form, storeKey, props) {
+    return <Projects suffix="pools" label={null} form={form} storeKey={storeKey} {...props} />;
+}
+
+/* All projects */
 export class Projects extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.last_name +" - "+ v.name]; }
     render() {
         return <AsyncOptionsList table="projects"
-            label={this.props.label === undefined ? "Project" : this.props.label}
+            label={this.props.label}
             form={this.props.form}
-            all={this.props.all}
+            suffix={this.props.suffix}
             storeKey={this.props.storeKey}
             selectProps={this.props.selectProps}
             formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
 Projects.propTypes = {
-    all: React.PropTypes.bool.isRequired,
+    suffix: React.PropTypes.string.isRequired,  // url arg for conditional list
     storeKey: React.PropTypes.string,  // store key for the result list
     selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
 };
+Projects.defaultProps = {
+    suffix: "all",
+    label: "Project",
+};
+
 
 export class ProjectStates extends React.Component {
     getValue() { return this._select.getValue(); }
@@ -166,14 +178,13 @@ export class RunTypesLengths extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name +' '+ v.length]; }
     render() {
-        console.debug(this.props.form, "run_types_lengths")
         return <AsyncOptionsList table="run_types_lengths" label="Run type" form={this.props.form}
-                                 all={this.props.all}
+                                 suffix={this.props.suffix}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
 Projects.propTypes = {
-    all: React.PropTypes.bool.isRequired,
+    suffix: React.PropTypes.string.isRequired,
 };
 
 export class SampleTypes extends React.Component {

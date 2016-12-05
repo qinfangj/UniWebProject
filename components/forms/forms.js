@@ -6,7 +6,7 @@ import { insertAsync } from '../actions/actionCreators/asyncActionCreators';
 import Alert from 'react-bootstrap/lib/Alert';
 
 
-const defaultFormState = {
+export const defaultFormState = {
     missing: {},
     invalid: {},
     submissionError: false,
@@ -14,7 +14,19 @@ const defaultFormState = {
     submissionId: undefined,
 };
 
-function submit(tableName, formData, required=[], formatFormData=null) {
+/**
+ * Get the value of that input from the store.
+ */
+export function getFormValue(form, storeKey) {
+    if (! store.getState().common.forms[form]) {
+        return null;
+    } else {
+        return store.getState().common.forms[form][storeKey];
+    }
+}
+
+
+export function submit(tableName, formData, required=[], formatFormData=null) {
     console.info(JSON.stringify(formData, null, 2));
     let fields = Object.keys(formData);
     let nullFields = required.filter(k => formData[k] === null);
@@ -35,7 +47,7 @@ function submit(tableName, formData, required=[], formatFormData=null) {
 }
 
 
-class SubmissionErrorMessage extends React.Component {
+export class SubmissionErrorMessage extends React.Component {
     state = { visible: this.props.error };
     static propTypes = {
         error: React.PropTypes.bool.isRequired
@@ -58,7 +70,7 @@ class SubmissionErrorMessage extends React.Component {
     }
 }
 
-class SubmissionSuccessfulMessage extends React.Component {
+export class SubmissionSuccessfulMessage extends React.Component {
     state = { visible: this.props.success };
     static propTypes = {
         success: React.PropTypes.bool.isRequired,
@@ -80,12 +92,4 @@ class SubmissionSuccessfulMessage extends React.Component {
             );
         } else return null;
     }
-}
-
-
-export {
-    defaultFormState,
-    submit,
-    SubmissionErrorMessage,
-    SubmissionSuccessfulMessage,
 }

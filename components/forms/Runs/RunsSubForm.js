@@ -8,8 +8,7 @@ import TextField from '../elements/TextField';
 import validators from '../validators';
 import * as Options from '../subcomponents/Options';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
-
-import Button from 'react-bootstrap/lib/Button';
+import * as forms from '../forms';
 
 
 /**
@@ -68,7 +67,7 @@ class RunsSubForm extends React.Component {
             // fill
             libsArray.map((lib, libIdx) => {
                 // One library
-                let project = lib.project.getValue();
+                let project = forms.getFormValue(this.form, this._projectsFormKey(N, libIdx));
                 let library = lib.library.getValue();
                 let quantity = lib.quantity.getValue();
                 let quality = lib.quality.getValue();
@@ -89,6 +88,10 @@ class RunsSubForm extends React.Component {
         return {lanes, invalid};
     }
 
+    _projectsFormKey(laneNb, libIdx) {
+        return this.form + libIdx +"_"+ laneNb +"_project";
+    }
+
     /**
      * One row of 4 fields (project, lib, pM, QC).
      * @param lane: lane object, as in this.lanes.
@@ -98,6 +101,8 @@ class RunsSubForm extends React.Component {
     makeLibRow(lane, libIdx, isQC) {
         let N = lane.lane_nb;
         let qcBsClass = isQC ? cx('form-control', css.qcCell) : 'form-control';
+        let projectFormKey = this._projectsFormKey(N, libIdx);
+        let libFormKey = this.form + libIdx +"_"+ N +"_library";
         return (<tr key={N +'-'+ libIdx}
                     className={libIdx===0 ? css.topRow : (libIdx===lane.nlibs + lane.nqc -1 ? css.bottomRow : null)}>
 
@@ -107,24 +112,18 @@ class RunsSubForm extends React.Component {
             : null}
 
             <td className={cx(css.libCell, css.projectCell)}>
-                <Options.Projects
-                    form={this.form}
-                    label={null}
-                    all={true}
-                    storeKey={this.form + libIdx +"_project"}
-                    selectProps={{
+                {Options.ProjectsWithLibraries(this.form, projectFormKey,
+                    {
                         defaultValue: lane.projectId,       // report the pre-selected project id
                         inputProps: {bsClass: qcBsClass},   // add the blue background
-                    }}
-                    ref={(c) => this.librariesRefs[N][libIdx]["project"] = c}
-                />
+                    }
+                )}
             </td>
             <td className={cx(css.libCell, css.libraryCell)}>
                 <SecondaryOptions.ProjectLibraries
                     form={this.form}
-                    referenceField={this.form + libIdx +"_project"}
-                    storeKey={this.form + libIdx +"_library"}
-                    pool = {lane.libraryPoolId}
+                    referenceField={projectFormKey}
+                    storeKey={libFormKey}
                     selectProps={{
                         inputProps: {bsClass: qcBsClass},                 // add the blue background
                     }}
