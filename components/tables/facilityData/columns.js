@@ -1,16 +1,6 @@
-import * as format from './formatters';
+import * as format from '../formatters';
+import { CENTER, ID_COLUMN } from '../constants';
 
-
-const CENTER = {textAlign: "center"};
-
-const ID_COLUMN = {
-    headerName: "ID",
-    field: "id",
-    width: 40,
-    suppressSizeToFit: true,
-    suppressMenu: true,
-    cellStyle: CENTER,
-};
 
 const columns = {
     projects: [

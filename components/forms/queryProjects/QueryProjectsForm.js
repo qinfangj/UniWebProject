@@ -14,6 +14,9 @@ import * as forms from '../forms';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import FormControl from 'react-bootstrap/lib/FormControl';
+
 import Col from 'react-bootstrap/lib/Col';
 
 
@@ -41,12 +44,32 @@ class QueryProjectsForm extends React.Component {
     render() {
         return (
             <Form>
-                {Options.ProjectsWithLibraries(this.form, this.projectsFormKey)}
-                <SecondaryOptions.ProjectLibraries
-                    form={this.form}
-                    referenceField={this.projectsFormKey}  // the store key to the form value
-                    storeKey={this.libraryFormKey}        // the store key for the result list
-                />
+                {/*
+                <FormGroup controlId="formControlsSelectMultiple">
+
+                    <FormControl componentClass="select" multiple>
+
+                        <option value="select">select (multiple)</option>
+
+                        <option value="other">...</option>
+                        <option value="other">A</option>
+                        <option value="other">B</option>
+                        <option value="other">C</option>
+
+                    </FormControl>
+
+                </FormGroup>
+*/}
+                ​<Col sm={6}>
+                    {Options.ProjectsWithSamples(this.form, this.projectsFormKey)}
+                </Col>
+                <Col sm={6}>
+                    <SecondaryOptions.ProjectSamples
+                        form={this.form}
+                        referenceField={this.projectsFormKey}  // the store key to the form value
+                        storeKey={this.libraryFormKey}        // the store key for the result list
+                    />
+                </Col>
             </Form>
         );
     }

@@ -53,7 +53,7 @@ export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
 }
 
 
-/* Table data */
+/* Facility data table */
 export function getTableDataAsync(tableName, activeOnly, storeKey) {
     let args = {tableName, storeKey};
     return asyncAction(actions.GET_TABLE_DATA, restService.specialSelect.bind(null, tableName, activeOnly), args);
@@ -65,4 +65,8 @@ export function insertAsync(tableName, formData, storeKey) {
     return asyncAction(actions.INSERT, restService.insert.bind(null, tableName, formData), args);
 }
 
-
+/* Query projects */
+export function queryProjectsAsync(ids, storeKey) {
+    let args = {ids, storeKey};
+    return asyncAction(actions.QUERY_PROJECTS, restService.queryProjects.bind(null, ids), args);
+}

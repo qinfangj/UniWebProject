@@ -1,7 +1,7 @@
 import React from 'react';
 import FacilityDataHome from '../../components/pages/FacilityDataHome';
 import FacilityData from '../../components/pages/FacilityData';
-import CommonTable from '../../components/tables/CommonTable';
+import CommonTable from '../../components/tables/facilityData/CommonTable';
 
 import ProjectsInsertForm from '../../components/forms/facilityData/ProjectsInsertForm';
 import PeopleInsertForm from '../../components/forms/facilityData/PeopleInsertForm';

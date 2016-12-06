@@ -1,15 +1,15 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from './tables.css';
+import css from '../tables.css';
 import cx from 'classnames';
-import store from '../../core/store';
-import * as tables from './tables.js';
-import * as actions from '../actions/actionCreators/asyncActionCreators';
+import store from '../../../core/store';
+import * as tables from '../tables.js';
+import * as actions from '../../actions/actionCreators/asyncActionCreators';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import columnsKey from './columns';
+import columns from './columns';
 
 
 class CommonTable extends React.Component {
@@ -25,8 +25,10 @@ class CommonTable extends React.Component {
 
     static propTypes = {
         dataStoreKey: React.PropTypes.string.isRequired,  // store key for the table data (in "async")
-        table: React.PropTypes.string.isRequired,  // table name
         columnsKey: React.PropTypes.string.isRequired,  // key in the columns definition dict
+        /* MODES */
+        // 1. Table selactive/selall (specialSelect for facilityData)
+        table: React.PropTypes.string,  // table name
         activeOnly: React.PropTypes.bool,
     };
 
@@ -39,6 +41,7 @@ class CommonTable extends React.Component {
         let data = store.getState().async[this.props.dataStoreKey];
         if (data && data.length > 0) {
             this.setState({ data });
+        // 1. FacilityData
         } else {
             store.dispatch(actions.getTableDataAsync(this.props.table, this.props.activeOnly, this.props.dataStoreKey))
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
@@ -75,7 +78,7 @@ class CommonTable extends React.Component {
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
-        if (!columnsKey[this.props.columnsKey]) {
+        if (!columns[this.props.columnsKey]) {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
@@ -96,7 +99,7 @@ class CommonTable extends React.Component {
                             rowData={data}
                             enableFilter={true}
                             enableSorting={true}
-                            columnDefs={columnsKey[this.props.columnsKey]}
+                            columnDefs={columns[this.props.columnsKey]}
                         >
                         </AgGridReact>
                     </div>

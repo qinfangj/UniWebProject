@@ -92,7 +92,7 @@ class RunsPreInsertForm extends React.Component {
                 lane_nb: lane.lane_nb,
                 nlibs: lane.nlibs.getValue(),
                 nqc: lane.nqc.getValue(),
-                projectId: forms.getFormValue(this.form, this._projectsStoreKey(i)),
+                projectId: forms.getFormValue(this.form, this._projectsFormKey(i)),
                 libraryPoolId: lane.pool.getValue(),
             };
         });

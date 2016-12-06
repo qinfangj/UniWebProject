@@ -25,6 +25,8 @@ const actionTypes = {
     LOCK_ERROR: 'LOCK_ERROR',
 
     CHANGE_FORM_VALUE: "CHANGE_FORM_VALUE",
+
+    QUERY_PROJECTS: "QUERY_PROJECTS",
 };
 
 export default actionTypes;

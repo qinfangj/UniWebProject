@@ -49,6 +49,12 @@ let asyncReducers = (state = defaultState, action) => {
             storeKey = action.args.storeKey;
             return returnList(storeKey);
 
+        /* Query Projects */
+
+        case types.QUERY_PROJECTS:
+            storeKey = action.args.storeKey;
+            return returnList(storeKey);
+
         default:
             return state;
     }
