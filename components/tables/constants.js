@@ -9,3 +9,6 @@ export const ID_COLUMN = {
     suppressMenu: true,
     cellStyle: CENTER,
 };
+
+export const ROW_HEIGTH = 25;
+export const ROW_HEIGTH_PX = ROW_HEIGTH + "px";

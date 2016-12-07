@@ -3,12 +3,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 import cx from 'classnames';
 
-import TextField from '../elements/TextField';
-import Textarea from '../elements/TextField';
-import Checkbox from '../elements/MyCheckbox';
-import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
-import * as Options from '../subcomponents/Options';
+import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 import * as forms from '../forms';
 
@@ -27,7 +23,13 @@ class QueryProjectsForm extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.form = "queryProjects";
         this.projectsFormKey = this.form + "_project";
+        this.projectsStoreKey = this.projectsFormKey;
         this.libraryFormKey = this.form + "_library";
+        this.libraryStoreKey = this.libraryFormKey;
+        this.state = {
+            selectedProjects: [],
+            selectedSamples: [],
+        };
     }
 
     getFormValue(storeKey) {
@@ -44,30 +46,20 @@ class QueryProjectsForm extends React.Component {
     render() {
         return (
             <Form>
-                {/*
-                <FormGroup controlId="formControlsSelectMultiple">
-
-                    <FormControl componentClass="select" multiple>
-
-                        <option value="select">select (multiple)</option>
-
-                        <option value="other">...</option>
-                        <option value="other">A</option>
-                        <option value="other">B</option>
-                        <option value="other">C</option>
-
-                    </FormControl>
-
-                </FormGroup>
-*/}
                 ​<Col sm={6}>
-                    {Options.ProjectsWithSamples(this.form, this.projectsFormKey)}
+                    <ProjectsMultipleSelect
+                        label="Projects"
+                        form={this.form}
+                        formKey={this.projectsFormKey}
+                        storeKey={this.projectsStoreKey}
+                        suffix="samples"
+                    />
                 </Col>
                 <Col sm={6}>
                     <SecondaryOptions.ProjectSamples
                         form={this.form}
                         referenceField={this.projectsFormKey}  // the store key to the form value
-                        storeKey={this.libraryFormKey}        // the store key for the result list
+                        storeKey={this.libraryStoreKey}        // the store key for the result list
                     />
                 </Col>
             </Form>

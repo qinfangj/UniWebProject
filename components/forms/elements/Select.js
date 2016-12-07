@@ -41,27 +41,28 @@ class Select extends React.Component {
 
     onChange(e) {
         let value = parseInt(e.target.value);
-        this.setState({value: value});
+        this.setState({ value });
         if (this.props.form !== undefined) {
             store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.name, value));
         }
     }
 
     render() {
-        let opts = this.props.options ? this.props.options.map((v,i) => {
+        let options = this.props.options ? this.props.options.map((v,i) => {
             return <option value={v[0]} key={v[0]+v[1]+i}>{v[1]}</option>;
         }) : null;
-        let lab = this.props.label ? <ControlLabel>{this.props.label}</ControlLabel> : null;
+        let label = this.props.label ? <ControlLabel>{this.props.label}</ControlLabel> : null;
+
         return (
             <FormGroup controlId={this.props.name} bsSize="small" >
-                {lab}
+                {label}
                 <FormControl componentClass="select"
-                    placeholder={lab}
+                    placeholder={label}
                     onChange={this.onChange.bind(this)}
                     value={this.state.value}
                     {...this.props.inputProps}
                 >
-                    {opts}
+                    {options}
                 </FormControl>
             </FormGroup>
         );

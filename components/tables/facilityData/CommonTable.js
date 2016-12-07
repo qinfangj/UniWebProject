@@ -5,6 +5,7 @@ import cx from 'classnames';
 import store from '../../../core/store';
 import * as tables from '../tables.js';
 import * as actions from '../../actions/actionCreators/asyncActionCreators';
+import * as constants from '../constants';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
@@ -82,6 +83,7 @@ class CommonTable extends React.Component {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
+        //let cssHeight = (Math.max(1200, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
         return (
             <div style={{width: '100%', height: '100%'}}>
                 <FormControl type="text" placeholder="Search" className={css.searchField}
@@ -100,6 +102,7 @@ class CommonTable extends React.Component {
                             enableFilter={true}
                             enableSorting={true}
                             columnDefs={columns[this.props.columnsKey]}
+                            rowHeight={constants.ROW_HEIGTH}
                         >
                         </AgGridReact>
                     </div>
@@ -107,7 +110,7 @@ class CommonTable extends React.Component {
                     <div style={{height: '1200px', width: '100%'}}/>
                 }
 
-                {/* Show nuMber of rows in result */}
+                {/* Show number of rows in result */}
 
                 { data.length === 0 ? null :
                     <tables.Nrows data={data} />

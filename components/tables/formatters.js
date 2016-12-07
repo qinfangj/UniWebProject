@@ -4,7 +4,7 @@
  * */
 
 
-function boolean(v) {
+export function boolean(v) {
     switch (v.value) {
         case 1:
         case "1":
@@ -26,13 +26,17 @@ function boolean(v) {
 /**
  * Convert timestamp `v.value` to a readable date, assuming `v.value` is a Unix timestamp.
  */
-function date(v) {
+export function date(v) {
     let date = new Date(v.value * 1000);
     return `${date.getYear()}-${date.getDay()}-${date.getMonth()}`;
 }
 
+/**
+ * Whatever can be None in backend can be translated to "undefined" and
+ * must be handled specially.
+ */
+export function nullable(v) {
+    if (!v.value || v.value === "") { return "-"; }
+    else { return v.value; }
+}
 
-export {
-    boolean,
-    date,
-};

@@ -1,4 +1,4 @@
-import * as format from '../formatters';
+import * as formatters from '../formatters';
 import { CENTER, ID_COLUMN } from '../constants';
 
 
@@ -43,12 +43,12 @@ const columns = {
         },{
             headerName: "Masked",
             field: "is_masked",
-            cellRenderer: format.boolean,
+            cellRenderer: formatters.boolean,
             cellStyle: CENTER,
         },{
             headerName: "Download date",
             field: "downloaded_date",
-            //cellRenderer: format.date,
+            //cellRenderer: formatters.date,
         },{
             headerName: "Folder",
             field: "genome_folder",
@@ -65,7 +65,7 @@ const columns = {
         },{
             headerName: "Received date",
             field: "received_date",
-            //cellRenderer: format.date,
+            //cellRenderer: formatters.date,
         },{
             headerName: "Type",
             field: "sample_type",
@@ -91,14 +91,14 @@ const columns = {
         },{
             headerName: "Date",
             field: "library_date",
-            //cellRenderer: format.date,
+            //cellRenderer: formatters.date,
         },{
             headerName: "Index",
             field: "multiplex_index",
         },{
             headerName: "Submitted as library",
             field: "isCustomer_made",
-            cellRenderer: format.boolean,
+            cellRenderer: formatters.boolean,
             cellStyle: CENTER,
         },{
             headerName: "Project",
@@ -109,7 +109,7 @@ const columns = {
         },{
             headerName: "Made on robot",
             field: "isRobot_made",
-            cellRenderer: format.boolean,
+            cellRenderer: formatters.boolean,
             cellStyle: CENTER,
         },
     ],
@@ -132,7 +132,7 @@ const columns = {
         },{
             headerName: "Release date",
             field: "release_date",
-            //cellRenderer: format.date,
+            //cellRenderer: formatters.date,
         },{
             headerName: "Status",
             field: "status",

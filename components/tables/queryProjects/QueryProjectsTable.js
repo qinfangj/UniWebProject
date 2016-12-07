@@ -1,10 +1,12 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from '../tables.css';
+import tablesCss from '../tables.css';
+import css from './queryProjectsTable.css';
 import cx from 'classnames';
 import store from '../../../core/store';
 import * as tables from '../tables.js';
 import * as actions from '../../actions/actionCreators/asyncActionCreators';
+import * as constants from '../constants';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
@@ -65,40 +67,37 @@ class QueryProjectsTable extends React.Component {
 
     render() {
         let data = this.state.data;
-        console.debug(data)
+        //console.debug(data)
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
-        console.debug(columns, this.columnsKey)
         if (!columns[this.columnsKey]) {
             throw new ReferenceError("No columns definition found");
         }
         tables.checkData(data);
         data = this.formatData(data);
+        let cssHeight = ((data.length + 1) * constants.ROW_HEIGTH) + "px";
         return (
             <div style={{width: '100%', height: '100%'}}>
                 {/* If no data, no table but fill the space */}
 
-                { data.length > 0 ?
-                    <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>
-                        <AgGridReact
-                            onGridReady={this.onGridReady.bind(this)}
-                            rowData={data}
-                            enableFilter={true}
-                            enableSorting={true}
-                            columnDefs={columns[this.columnsKey]}
-                        >
-                        </AgGridReact>
-                    </div>
-                    :
-                    <div style={{height: '1200px', width: '100%'}}/>
-                }
+                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: cssHeight, width: '100%'}}>
+                    <AgGridReact
+                        onGridReady={this.onGridReady.bind(this)}
+                        rowData={data}
+                        enableFilter={true}
+                        enableSorting={true}
+                        columnDefs={columns[this.columnsKey]}
+                        rowHeight={constants.ROW_HEIGTH}
+                    >
+                    </AgGridReact>
+                </div>
 
-                {/* Show nuMber of rows in result */}
+                {/* Show number of rows in result */}
 
-                { data.length === 0 ? null :
+                {/* data.length === 0 ? null :
                     <tables.Nrows data={data} />
-                }
+                */}
 
             </div>
         );

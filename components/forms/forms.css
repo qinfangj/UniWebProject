@@ -55,3 +55,7 @@
     position: relative;
     top: 5px;
 }
+
+.multipleSelect[multiple] {
+    height: 300px;
+}
