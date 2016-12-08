@@ -24,22 +24,22 @@ class MultipleSelect extends React.Component {
     }
 
     onChange(e) {
-        let value = e.target.value;
-        let selected = this.state.selected;
-        if (value && value !== "" && !selected[value]) {
-            selected[value] = true;
-        } else {
-            delete selected[value];
-        }
-        if (this.props.form && this.props.formKey) {
-            store.dispatch(changeFormValue(this.props.form, this.props.formKey, selected));
+        // Because IE is retarded again, and react-bootstrap cannot provide a way to get the values back,
+        //  need all that crap just to get the multiple selected values.
+        let options = e.target.options;
+        let selected = {};
+        for (let k=0; k < options.length; k++) {
+            if (options[k].selected) {
+                selected[options[k].value] = true;
+            }
         }
         this.setState({ selected });
+        store.dispatch(changeFormValue(this.props.form, this.props.formKey, selected));
     }
 
     render() {
         let options = this.props.options.map((v,i) => {
-            return <option value={v.id} key={i}>{ v.last_name +" - "+ v.name }</option>;
+            return <option value={v[0]} key={i}>{v[1]}</option>;
         });
         let label = this.props.label ? <ControlLabel>{this.props.label}</ControlLabel> : null;
         let values = [];

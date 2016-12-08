@@ -14,7 +14,7 @@ class AsyncSecondaryOptionsList extends React.Component {
     constructor(props) {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-        this.referenceValue = null; // not in state because not used for display. Only the callback updated the component.
+        this.referenceValue = null; // not in state because not used for display. Only the callback updates the component.
         this.state = {list: [], value: null};
     }
 

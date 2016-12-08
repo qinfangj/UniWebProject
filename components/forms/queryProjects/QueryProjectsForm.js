@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import validators from '../validators';
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
-import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
+import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
 import * as forms from '../forms';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -56,10 +56,12 @@ class QueryProjectsForm extends React.Component {
                     />
                 </Col>
                 <Col sm={6}>
-                    <SecondaryOptions.ProjectSamples
+                    <SamplesSecondaryMultipleSelect
+                        label="Samples"
                         form={this.form}
-                        referenceField={this.projectsFormKey}  // the store key to the form value
-                        storeKey={this.libraryStoreKey}        // the store key for the result list
+                        referenceField={this.projectsFormKey}
+                        formKey={this.libraryFormKey}
+                        storeKey={this.libraryStoreKey}
                     />
                 </Col>
             </Form>

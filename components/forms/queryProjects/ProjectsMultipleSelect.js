@@ -19,18 +19,13 @@ class ProjectsMultipleSelect extends React.Component {
     }
 
     static propTypes = {
-        form: React.PropTypes.string.isRequired,
+        form: React.PropTypes.string.isRequired,  // form name
         storeKey: React.PropTypes.string.isRequired,  // the store key for the result list
         formKey: React.PropTypes.string.isRequired,  // the store key for the selected values
         suffix: React.PropTypes.string.isRequired,  // route suffix for conditional lists (e.g. "all" in "/table/projects/list/all")
-        label: React.PropTypes.string,
-        formatter: React.PropTypes.func,  // ex: object => [id, name]
+        label: React.PropTypes.string,  // title on top of the input
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
-
-    getValue() {
-        return this._select.getValue();
-    }
 
     componentWillMount() {
         let storeKey = this.props.storeKey;
@@ -60,6 +55,10 @@ class ProjectsMultipleSelect extends React.Component {
         this.unsubscribe();
     }
 
+    getOptions() {
+        return this.state.options.map(v => [v.id, v.last_name +" - "+ v.name]);
+    }
+
     render() {
         return (
             <MultipleSelect
@@ -67,7 +66,7 @@ class ProjectsMultipleSelect extends React.Component {
                 form={this.props.form}
                 formKey={this.props.formKey}
                 label={this.props.label}
-                options={this.state.options}
+                options={this.getOptions()}
             />
         );
     }
