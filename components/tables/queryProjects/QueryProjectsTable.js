@@ -7,11 +7,17 @@ import store from '../../../core/store';
 import * as tables from '../tables.js';
 import * as actions from '../../actions/actionCreators/asyncActionCreators';
 import * as constants from '../constants';
+import _ from 'lodash';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
+
+import formStoreKeys from '../../constants/formStoreKeys';
+import dataStoreKeys from '../../constants/dataStoreKeys';
+import * as forms from '../../forms/forms';
+
 
 
 class QueryProjectsTable extends React.Component {
@@ -19,26 +25,45 @@ class QueryProjectsTable extends React.Component {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
-            data: [],
             renderme: false,
+            tableData: this.getTableDataFromStore(),
         };
-        this.dataStoreKey = "queryProjects";
+        this.selectedSampleIds = this.getSelectedSampleIds();  // not in store, because
+        this.dataStoreKey = dataStoreKeys.STARTING_MATERIAL_INFO;
         this.columnsKey = "queryProjects";
+    }
+
+    /**
+     * Return an array of the selected sample ids;
+     */
+    getSelectedSampleIds() {
+        let selectedSampleIds;
+        let formKey = formStoreKeys.QUERY_PROJECTS_FORM;
+        let samplesKey = formKey + formStoreKeys.suffixes.SAMPLES;
+        selectedSampleIds = forms.getFormValue(formKey, samplesKey);
+        selectedSampleIds = selectedSampleIds ? Object.keys(selectedSampleIds) : [];
+        return selectedSampleIds;
+    }
+
+    getTableDataFromStore() {
+        return store.getState().async[this.dataStoreKey] || [];
     }
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let data = store.getState().async[this.dataStoreKey];
-            this.setState({ data });
+            let tableData = this.getTableDataFromStore();
+            let selectedSampleIds = this.getSelectedSampleIds();
+            /* If selected ids have changed, query new data */
+            if (! _.isEqual(selectedSampleIds, this.selectedSampleIds)) {
+                this.selectedSampleIds = selectedSampleIds;
+                store.dispatch(actions.queryProjectsAsync(selectedSampleIds, this.dataStoreKey))
+                .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
+            }
+            /* Otherwise, load the table data from store */
+            else {
+                this.setState({ tableData });
+            }
         });
-        /* If data is already in store, use that one. Otherwise, call backend API. */
-        let data = store.getState().async[this.dataStoreKey];
-        if (data && data.length > 0) {
-            this.setState({ data });
-        } else {
-            store.dispatch(actions.queryProjectsAsync([1,2,3,4], this.dataStoreKey))
-            .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
-        }
     }
     componentWillUnmount() {
         this.unsubscribe();
@@ -66,7 +91,7 @@ class QueryProjectsTable extends React.Component {
     }
 
     render() {
-        let data = this.state.data;
+        let data = this.state.tableData;
         //console.debug(data)
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");

@@ -1,6 +1,6 @@
 
 
-const Constants = {
+export default {
     PENDING: "PENDING",
     SUCCESS: "SUCCESS",
     ERROR: "ERROR",
@@ -9,5 +9,3 @@ const Constants = {
     SECONDARY_OPTIONS: "secondary_options_",
 };
 
-
-export default Constants;

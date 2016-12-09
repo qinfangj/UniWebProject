@@ -3,10 +3,10 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 import cx from 'classnames';
 
-import validators from '../validators';
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
 import * as forms from '../forms';
+import formStoreKeys from '../../constants/formStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -21,25 +21,23 @@ class QueryProjectsForm extends React.Component {
     constructor() {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-        this.form = "queryProjects";
-        this.projectsFormKey = this.form + "_project";
-        this.projectsStoreKey = this.projectsFormKey;
-        this.libraryFormKey = this.form + "_library";
-        this.libraryStoreKey = this.libraryFormKey;
+        this.form = formStoreKeys.QUERY_PROJECTS_FORM;
+        this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
+        this.samplesFormKey = this.form + formStoreKeys.suffixes.SAMPLES;
         this.state = {
             selectedProjects: [],
             selectedSamples: [],
         };
     }
 
-    getFormValue(storeKey) {
+    _getFormValue(storeKey) {
         return forms.getFormValue(this.form, storeKey);
     }
 
     getFormData() {
         return {
-            project_id: this.getFormValue(this.projectsFormKey),
-            library_id: this.getFormValue(this.libraryFormKey),
+            project_id: this._getFormValue(this.projectsFormKey),
+            library_id: this._getFormValue(this.samplesFormKey),
         };
     }
 
@@ -51,7 +49,6 @@ class QueryProjectsForm extends React.Component {
                         label="Projects"
                         form={this.form}
                         formKey={this.projectsFormKey}
-                        storeKey={this.projectsStoreKey}
                         suffix="samples"
                     />
                 </Col>
@@ -60,8 +57,7 @@ class QueryProjectsForm extends React.Component {
                         label="Samples"
                         form={this.form}
                         referenceField={this.projectsFormKey}
-                        formKey={this.libraryFormKey}
-                        storeKey={this.libraryStoreKey}
+                        formKey={this.samplesFormKey}
                     />
                 </Col>
             </Form>

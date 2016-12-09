@@ -1,17 +1,10 @@
 import React from 'react';
 
-import QueryProjectsForm from '../../components/forms/queryProjects/QueryProjectsForm';
-import QueryProjectsTable from '../../components/tables/queryProjects/QueryProjectsTable';
+import QueryProjects from '../../components/pages/QueryProjects';
 
 
 export class QueryProjectsRoute extends React.Component {
     render() {
-        return (
-            <div>
-                <QueryProjectsForm />
-                <div className="clearfix"/>
-                <QueryProjectsTable />
-            </div>
-        );
+        return <QueryProjects />;
     }
 }
