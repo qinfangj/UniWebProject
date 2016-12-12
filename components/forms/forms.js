@@ -26,6 +26,14 @@ export function getFormValue(form, storeKey) {
     }
 }
 
+/**
+ * Get the options list from store.
+ */
+export function getOptionsList(storeKey) {
+    let data = store.getState().async[storeKey];
+    return data ? data : [];
+}
+
 
 export function submit(tableName, formData, required=[], formatFormData=null) {
     console.info(JSON.stringify(formData, null, 2));

@@ -25,8 +25,8 @@ class SamplesSecondaryMultipleSelect extends React.Component {
         formKey: React.PropTypes.string.isRequired,  // the store key for the selected values
         label: React.PropTypes.string,  // title on top of the input
         formatter: React.PropTypes.func,  // ex: object => [id, name]
-        filterBy: React.PropTypes.any,          // filter the available options with a string or regex
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
+        filterByIds: React.PropTypes.any,  // set. keep only these ones
     };
 
     componentWillMount() {
@@ -60,10 +60,26 @@ class SamplesSecondaryMultipleSelect extends React.Component {
         this.unsubscribe();
     }
 
+    /**
+     * Filter and format options.
+     */
     getOptions() {
-        return this.state.options.map(v => {
+        let options = this.filterOptions(this.state.options);
+        return options.map(v => {
             return {id: v.id, name: v.short_name +" ("+ v.name +")", project_id: v.project_id};
         });
+    }
+
+    /**
+     * Keep only options which id is in the set.
+     */
+    filterOptions(options) {
+        let idsSet = this.props.filterByIds;
+        if (idsSet === null) {
+            return options;
+        } else {
+            return options.filter(v => idsSet.has(v.id));
+        }
     }
 
     render() {
@@ -73,7 +89,6 @@ class SamplesSecondaryMultipleSelect extends React.Component {
                 form={this.props.form}
                 formKey={this.props.formKey}
                 label={this.props.label}
-                filterBy={this.props.filterBy}
                 options={this.getOptions()}
             />
         );

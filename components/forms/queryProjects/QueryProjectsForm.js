@@ -9,6 +9,7 @@ import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
 import * as forms from '../forms';
 import formStoreKeys from '../../constants/formStoreKeys';
+import dataStoreKeys from '../../constants/dataStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -28,13 +29,65 @@ class QueryProjectsForm extends React.Component {
         this.samplesFormKey = this.form + formStoreKeys.suffixes.SAMPLES;
         this.state = {
             searchValue: "",
+            projectIds: null,
+            sampleIds: null,
         };
     }
 
+    /**
+     * Not a simple filter: we keep options from both projects and samples lists,
+     *  where the project either contains the term or has a sample containing it,
+     *  and where the sample either contains the term of its project contains it.
+     */
     onSearch(e) {
-        let value = e.target.value;
-        this.setState({searchValue: value});
+        let value = e.target.value.toLowerCase();
+        let {projectIds, sampleIds} = this.filterOptions(value);
+        this.setState({ projectIds, sampleIds, searchValue: value });
         store.dispatch(searchQueryProjects(value));
+    }
+
+    getProjectsList() {
+        return forms.getOptionsList(dataStoreKeys.PROJECTS_WITH_SAMPLE);
+    }
+    getSamplesList() {
+        return forms.getOptionsList(dataStoreKeys.SAMPLES_FOR_PROJECTS);
+    }
+    filterOptions(term) {
+        if (term === "") {
+            return {
+                projectIds: null,
+                sampleIds: null,
+            };
+        } else {
+            let projects = this.getProjectsList();
+            let samples = this.getSamplesList();
+            // IE can't do that, but who needs IE anyway?
+            let sampleIdsWithTerm = new Set(samples.filter(v => {
+                return v.name.toLowerCase().indexOf(term) >= 0;
+            }).map(v => v.id));
+            let projectIdsWithTerm = new Set(projects.filter(v => {
+                return v.name.toLowerCase().indexOf(term) >= 0
+                    || v.last_name.toLowerCase().indexOf(term) >= 0;
+            }).map(v => v.id));
+
+            for (let item of projectIdsWithTerm) console.log("P00", item);
+            for (let item of sampleIdsWithTerm) console.log("S00", item);
+
+            let sampleIdsWithProject = new Set(samples.filter(v => projectIdsWithTerm.has(v.project_id)).map(v => v.id));
+            let projectIdsWithSample = new Set(projects.filter(v => sampleIdsWithTerm.has(v.id)).map(v => v.id));
+
+            for (let item of projectIdsWithSample) console.log("P0", item);
+            for (let item of sampleIdsWithProject) console.log("S0", item);
+
+            // Union, the JS way.
+            let projectIds = new Set([...projectIdsWithTerm, ...projectIdsWithSample]);
+            let sampleIds = new Set([...sampleIdsWithTerm, ...sampleIdsWithProject]);
+
+            for (let item of projectIds) console.log("P", item);
+            for (let item of sampleIds) console.log("S", item);
+
+            return { projectIds, sampleIds };
+        }
     }
 
     render() {
@@ -50,7 +103,7 @@ class QueryProjectsForm extends React.Component {
                         form={this.form}
                         formKey={this.projectsFormKey}
                         suffix="samples"
-                        filterBy={this.state.searchValue}
+                        filterByIds={this.state.projectIds}
                     />
                 </Col>
                 <Col sm={6}>
@@ -59,7 +112,7 @@ class QueryProjectsForm extends React.Component {
                         form={this.form}
                         referenceField={this.projectsFormKey}
                         formKey={this.samplesFormKey}
-                        filterBy={this.state.searchValue}
+                        filterByIds={this.state.sampleIds}
                     />
                 </Col>
             </Form>
