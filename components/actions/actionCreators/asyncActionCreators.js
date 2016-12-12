@@ -5,7 +5,7 @@ import restService from '../api/restService';
 import { sendError } from './commonActionCreators';
 
 /**
- * @param type: action type.
+ * @param type
  * @param status: constants.[SUCCESS|ERROR|PENDING]
  * @param response: http response.
  * @param args: an object of parameters to pass to the reducers.
@@ -66,7 +66,8 @@ export function insertAsync(tableName, formData, storeKey) {
 }
 
 /* Query projects */
-export function queryProjectsAsync(ids, storeKey) {
+export function queryProjectsAsync(ids, queryType, storeKey) {
     let args = {ids, storeKey};
-    return asyncAction(actions.QUERY_PROJECTS, restService.queryProjects.bind(null, ids), args);
+    return asyncAction(actions.QUERY_PROJECTS, restService.queryProjects.bind(null, ids, queryType), args);
 }
+

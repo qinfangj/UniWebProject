@@ -27,16 +27,17 @@ class QueryProjectsTable extends React.Component {
         this.state = {
             renderme: false,
             tableData: this.getTableDataFromStore(),
+            columnsKey: this.getQueryTypeFromStore(),
         };
-        this.selectedSampleIds = this.getSelectedSampleIds();  // not in store, because
+        this.selectedSampleIds = this.getSelectedSampleIdsFromStore();
+        this.queryType = this.getQueryTypeFromStore();
         this.dataStoreKey = dataStoreKeys.STARTING_MATERIAL_INFO;
-        this.columnsKey = "queryProjects";
     }
 
     /**
      * Return an array of the selected sample ids;
      */
-    getSelectedSampleIds() {
+    getSelectedSampleIdsFromStore() {
         let selectedSampleIds;
         let formKey = formStoreKeys.QUERY_PROJECTS_FORM;
         let samplesKey = formKey + formStoreKeys.suffixes.SAMPLES;
@@ -49,19 +50,39 @@ class QueryProjectsTable extends React.Component {
         return store.getState().async[this.dataStoreKey] || [];
     }
 
+    getQueryTypeFromStore() {
+        return store.getState().common.queryProjectsType;
+    }
+
+    isUpdated(queryType, selectedSampleIds) {
+        if (! queryType) {
+            return false
+        } else if (queryType !== this.queryType) {
+            return true
+        } else if (selectedSampleIds.join(",") !== this.selectedSampleIds.join(",")) {
+            return true
+        }
+    }
+
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
             let tableData = this.getTableDataFromStore();
-            let selectedSampleIds = this.getSelectedSampleIds();
+            let selectedSampleIds = this.getSelectedSampleIdsFromStore();
+            let queryType = this.getQueryTypeFromStore();
+            /* If no sample id, shortcut */
+            if (! selectedSampleIds || selectedSampleIds.length === 0) {
+                this.setState({ tabledata: [] });
+            }
             /* If selected ids have changed, query new data */
-            if (! _.isEqual(selectedSampleIds, this.selectedSampleIds)) {
+            else if (this.isUpdated(queryType, selectedSampleIds)) {
                 this.selectedSampleIds = selectedSampleIds;
-                store.dispatch(actions.queryProjectsAsync(selectedSampleIds, this.dataStoreKey))
+                this.queryType = queryType;
+                store.dispatch(actions.queryProjectsAsync(selectedSampleIds, queryType, this.dataStoreKey))
                 .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
             }
             /* Otherwise, load the table data from store */
             else {
-                this.setState({ tableData });
+                this.setState({ tableData, columnsKey: queryType });
             }
         });
     }
@@ -81,7 +102,7 @@ class QueryProjectsTable extends React.Component {
         this.columnApi = params.columnApi;
     }
 
-    formatData(data) {
+    formatData(data, queryType) {
         let L = data.length;
         for (let i=0; i < L; i++) {
             let d = data[i];
@@ -96,7 +117,7 @@ class QueryProjectsTable extends React.Component {
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
-        if (!columns[this.columnsKey]) {
+        if (!columns[this.state.columnsKey]) {
             throw new ReferenceError("No columns definition found");
         }
         tables.checkData(data);
@@ -112,7 +133,7 @@ class QueryProjectsTable extends React.Component {
                         rowData={data}
                         enableFilter={true}
                         enableSorting={true}
-                        columnDefs={columns[this.columnsKey]}
+                        columnDefs={columns[this.state.columnsKey]}
                         rowHeight={constants.ROW_HEIGTH}
                     >
                     </AgGridReact>

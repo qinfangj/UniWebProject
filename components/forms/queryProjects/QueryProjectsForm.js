@@ -2,6 +2,8 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 import cx from 'classnames';
+import store from '../../../core/store';
+import { changeFormValue, searchQueryProjects } from '../../actions/actionCreators/commonActionCreators';
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
@@ -25,31 +27,30 @@ class QueryProjectsForm extends React.Component {
         this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
         this.samplesFormKey = this.form + formStoreKeys.suffixes.SAMPLES;
         this.state = {
-            selectedProjects: [],
-            selectedSamples: [],
+            searchValue: "",
         };
     }
 
-    _getFormValue(storeKey) {
-        return forms.getFormValue(this.form, storeKey);
-    }
-
-    getFormData() {
-        return {
-            project_id: this._getFormValue(this.projectsFormKey),
-            library_id: this._getFormValue(this.samplesFormKey),
-        };
+    onSearch(e) {
+        let value = e.target.value;
+        this.setState({searchValue: value});
+        store.dispatch(searchQueryProjects(value));
     }
 
     render() {
         return (
             <Form>
+                <FormControl type="text" placeholder="Search" className={css.searchField}
+                             value={this.state.searchValue}
+                             onChange={this.onSearch.bind(this)}
+                />
                 ​<Col sm={6}>
                     <ProjectsMultipleSelect
                         label="Projects"
                         form={this.form}
                         formKey={this.projectsFormKey}
                         suffix="samples"
+                        filterBy={this.state.searchValue}
                     />
                 </Col>
                 <Col sm={6}>
@@ -58,6 +59,7 @@ class QueryProjectsForm extends React.Component {
                         form={this.form}
                         referenceField={this.projectsFormKey}
                         formKey={this.samplesFormKey}
+                        filterBy={this.state.searchValue}
                     />
                 </Col>
             </Form>

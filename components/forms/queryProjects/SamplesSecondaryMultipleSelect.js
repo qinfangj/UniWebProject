@@ -25,6 +25,7 @@ class SamplesSecondaryMultipleSelect extends React.Component {
         formKey: React.PropTypes.string.isRequired,  // the store key for the selected values
         label: React.PropTypes.string,  // title on top of the input
         formatter: React.PropTypes.func,  // ex: object => [id, name]
+        filterBy: React.PropTypes.any,          // filter the available options with a string or regex
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
 
@@ -39,8 +40,11 @@ class SamplesSecondaryMultipleSelect extends React.Component {
             if (formValues !== undefined) {
                 let referenceValue = formValues[this.props.referenceField];
                 let projectIds = referenceValue ? Object.keys(referenceValue).join(",") : null;
+                if ((! projectIds) || projectIds.length === 0) {
+                    this.setState({ options: [] });
+                }
                 // The value it depends on changed, ask for new data
-                if (referenceValue && projectIds !== this.projectIds) {
+                else if (projectIds && projectIds !== this.projectIds) {
                     this.projectIds = projectIds;  // avoids infinite callback loop
                     store.dispatch(getSecondaryOptionsListAsync(this.table, projectIds, this.dataStoreKey));
                 }
@@ -57,7 +61,9 @@ class SamplesSecondaryMultipleSelect extends React.Component {
     }
 
     getOptions() {
-        return this.state.options.map(v => [v.id, v.short_name +" ("+ v.name +")"]);
+        return this.state.options.map(v => {
+            return {id: v.id, name: v.short_name +" ("+ v.name +")", project_id: v.project_id};
+        });
     }
 
     render() {
@@ -67,6 +73,7 @@ class SamplesSecondaryMultipleSelect extends React.Component {
                 form={this.props.form}
                 formKey={this.props.formKey}
                 label={this.props.label}
+                filterBy={this.props.filterBy}
                 options={this.getOptions()}
             />
         );

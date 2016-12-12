@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 const defaultState = {
     route: {data: {}},
     forms: {},
+    queryProjectsType: "starting_material",
 };
 
 
@@ -37,6 +38,9 @@ let commonReducers = (state = defaultState, action) => {
             }
             newState.forms[form][field] = value;
             return newState;
+
+        case types.CHANGE_QUERY_PROJECTS_TYPE:
+            return Object.assign(state, {queryProjectsType: action.queryType});
 
         default:
             return state;

@@ -57,8 +57,8 @@ class RestService {
 
     /* Query projects */
 
-    queryProjects(ids) {
-        let url = `${BACKEND}/query/projects/${ids.join(",")}`;
+    queryProjects(ids, queryType) {
+        let url = `${BACKEND}/query/projects/${queryType}/${ids.join(",")}`;
         return $.get(url);
     }
 

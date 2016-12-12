@@ -38,3 +38,17 @@ export function changeFormValue(form, field, value) {
         value: value,
     }
 }
+
+export function changeQueryProjectsType(queryType) {
+    return {
+        type: actions.CHANGE_QUERY_PROJECTS_TYPE,
+        queryType: queryType,
+    }
+}
+
+export function searchQueryProjects(term) {
+    return {
+        type: actions.SEARCH_QUERY_PROJECTS,
+        term: term,
+    }
+}
