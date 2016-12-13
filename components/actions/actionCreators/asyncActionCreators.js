@@ -38,17 +38,17 @@ function assertStoreKey(storeKey) {
 /* Select options. */
 export function getOptionsListAsync(tableName, storeKey) {
     assertStoreKey(storeKey);
-    let args = {tableName, storeKey};
+    let args = {storeKey};
     return asyncAction(actions.GET_OPTIONS_LIST, restService.getOptionsList.bind(null, tableName), args)
 }
 export function getConditionalOptionsListAsync(tableName, suffix, storeKey) {
     assertStoreKey(storeKey);
-    let args = {tableName, storeKey};
+    let args = {storeKey};
     return asyncAction(actions.GET_OPTIONS_LIST, restService.getConditionalOptionsList.bind(null, tableName, suffix), args)
 }
 export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
     assertStoreKey(storeKey);
-    let args = {tableName, storeKey};
+    let args = {storeKey};
     return asyncAction(actions.GET_SECONDARY_OPTIONS_LIST, restService.getSecondaryOptionsList.bind(null, tableName, id), args)
 }
 
@@ -68,6 +68,11 @@ export function insertAsync(tableName, formData, storeKey) {
 /* Query projects */
 export function queryProjectsAsync(ids, queryType, storeKey) {
     let args = {ids, storeKey};
-    return asyncAction(actions.QUERY_PROJECTS, restService.queryProjects.bind(null, ids, queryType), args);
+    return asyncAction(actions.queryProjects.QUERY_PROJECTS, restService.queryProjects.bind(null, ids, queryType), args);
+}
+export function searchSamplesByTerm(term, storeKey) {
+    assertStoreKey(storeKey);
+    let args = {storeKey};
+    return asyncAction(actions.queryProjects.SEARCH_SAMPLES, restService.searchSamplesByTerm.bind(null, term), args);
 }
 

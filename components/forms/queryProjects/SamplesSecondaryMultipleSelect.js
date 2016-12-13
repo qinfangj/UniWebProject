@@ -30,7 +30,6 @@ class SamplesSecondaryMultipleSelect extends React.Component {
     };
 
     componentWillMount() {
-        // Listen to store for changes
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
             let options = storeState.async[this.dataStoreKey];

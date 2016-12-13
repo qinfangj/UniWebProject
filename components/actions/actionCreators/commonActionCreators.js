@@ -41,14 +41,8 @@ export function changeFormValue(form, field, value) {
 
 export function changeQueryProjectsType(queryType) {
     return {
-        type: actions.CHANGE_QUERY_PROJECTS_TYPE,
+        type: actions.queryProjects.CHANGE_QUERY_TYPE,
         queryType: queryType,
     }
 }
 
-export function searchQueryProjects(term) {
-    return {
-        type: actions.SEARCH_QUERY_PROJECTS,
-        term: term,
-    }
-}

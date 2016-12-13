@@ -29,7 +29,7 @@ export function getFormValue(form, storeKey) {
 /**
  * Get the options list from store.
  */
-export function getOptionsList(storeKey) {
+export function getStoreData(storeKey) {
     let data = store.getState().async[storeKey];
     return data ? data : [];
 }

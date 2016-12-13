@@ -3,7 +3,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 import cx from 'classnames';
 import store from '../../../core/store';
-import { changeFormValue, searchQueryProjects } from '../../actions/actionCreators/commonActionCreators';
+import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
+import { searchSamplesByTerm } from '../../actions/actionCreators/asyncActionCreators';
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
@@ -34,25 +35,35 @@ class QueryProjectsForm extends React.Component {
         };
     }
 
+    componentWillMount() {
+        this.unsubscribe = store.subscribe(() => {
+            let searchedSamples = forms.getStoreData(dataStoreKeys.SAMPLES_BY_TERM);
+            let {projectIds, sampleIds} = this.filterOptions(this.state.searchValue, searchedSamples);
+            this.setState({ projectIds, sampleIds });
+        });
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     /**
      * Not a simple filter: we keep options from both projects and samples lists,
      *  where the project either contains the term or has a sample containing it,
      *  and where the sample either contains the term of its project contains it.
      */
     onSearch(e) {
-        let value = e.target.value.toLowerCase();
-        let {projectIds, sampleIds} = this.filterOptions(value);
-        this.setState({ projectIds, sampleIds, searchValue: value });
-        store.dispatch(searchQueryProjects(value));
+        let term = e.target.value.toLowerCase();
+        this.setState({ searchValue: term });
+        store.dispatch(searchSamplesByTerm(term, dataStoreKeys.SAMPLES_BY_TERM));
     }
 
     getProjectsList() {
-        return forms.getOptionsList(dataStoreKeys.PROJECTS_WITH_SAMPLE);
+        return forms.getStoreData(dataStoreKeys.PROJECTS_WITH_SAMPLE);
     }
     getSamplesList() {
-        return forms.getOptionsList(dataStoreKeys.SAMPLES_FOR_PROJECTS);
+        return forms.getStoreData(dataStoreKeys.SAMPLES_FOR_PROJECTS);
     }
-    filterOptions(term) {
+    filterOptions(term, searchedSamples) {
         if (term === "") {
             return {
                 projectIds: null,
@@ -62,30 +73,16 @@ class QueryProjectsForm extends React.Component {
             let projects = this.getProjectsList();
             let samples = this.getSamplesList();
             // IE can't do that, but who needs IE anyway?
-            let sampleIdsWithTerm = new Set(samples.filter(v => {
-                return v.name.toLowerCase().indexOf(term) >= 0;
-            }).map(v => v.id));
+            let sampleIdsWithTerm = new Set(searchedSamples.map(v => v.id));
             let projectIdsWithTerm = new Set(projects.filter(v => {
                 return v.name.toLowerCase().indexOf(term) >= 0
                     || v.last_name.toLowerCase().indexOf(term) >= 0;
             }).map(v => v.id));
-
-            for (let item of projectIdsWithTerm) console.log("P00", item);
-            for (let item of sampleIdsWithTerm) console.log("S00", item);
-
             let sampleIdsWithProject = new Set(samples.filter(v => projectIdsWithTerm.has(v.project_id)).map(v => v.id));
-            let projectIdsWithSample = new Set(projects.filter(v => sampleIdsWithTerm.has(v.id)).map(v => v.id));
-
-            for (let item of projectIdsWithSample) console.log("P0", item);
-            for (let item of sampleIdsWithProject) console.log("S0", item);
-
+            let projectIdsWithSample = new Set(searchedSamples.map(v => v.project_id));
             // Union, the JS way.
             let projectIds = new Set([...projectIdsWithTerm, ...projectIdsWithSample]);
             let sampleIds = new Set([...sampleIdsWithTerm, ...sampleIdsWithProject]);
-
-            for (let item of projectIds) console.log("P", item);
-            for (let item of sampleIds) console.log("S", item);
-
             return { projectIds, sampleIds };
         }
     }

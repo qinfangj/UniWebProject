@@ -61,6 +61,10 @@ class RestService {
         let url = `${BACKEND}/query/projects/${queryType}/${ids.join(",")}`;
         return $.get(url);
     }
+    searchSamplesByTerm(term) {
+        let url = `${BACKEND}/search/samples?term=${term}`;
+        return $.get(url);
+    }
 
 }
 

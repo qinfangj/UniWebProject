@@ -12,6 +12,8 @@ export default {
     // secondaryLists
     SAMPLES_FOR_PROJECTS: "SAMPLES_FOR_PROJECTS",
 
+    SAMPLES_BY_TERM: "SAMPLES_BY_TERM",
+
     // query projects types
     STARTING_MATERIAL_INFO: "STARTING_MATERIAL_INFO",
 };
