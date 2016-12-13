@@ -26,13 +26,10 @@
 :global(.ag-cell) {
     outline: none;
 }
-:global(.ag-cell-focus) {
+:global(.ag-bootstrap .ag-cell-focus) {  /* only .ag-cell-focus is not specific enough to override! */
     border: none;
-    outline: none;
-}
-:global(.ag-cell:focus) {
-    border: none;
-    outline: none;
+    margin-top: 1px;  /* it was moving mysteriously on click */
+    margin-left: 1px;
 }
 :global(.ag-header-cell) {
     background-color: var(--yellow);
