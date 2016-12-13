@@ -39,7 +39,7 @@ let commonReducers = (state = defaultState, action) => {
             newState.forms[form][field] = value;
             return newState;
 
-        case types.CHANGE_QUERY_PROJECTS_TYPE:
+        case types.queryProjects.CHANGE_QUERY_TYPE:
             return Object.assign(state, {queryProjectsType: action.queryType});
 
         default:
