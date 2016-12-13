@@ -12,6 +12,7 @@ export default {
     // secondaryLists
     SAMPLES_FOR_PROJECTS: "SAMPLES_FOR_PROJECTS",
 
+    // search samples taht contain a given string (for Query Projects)
     SAMPLES_BY_TERM: "SAMPLES_BY_TERM",
 
     // query projects types
