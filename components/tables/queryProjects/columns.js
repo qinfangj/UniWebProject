@@ -139,7 +139,119 @@ const columns = {
             field: "pi_last_name",
         },
         // "comment" is available only when "Show comments" is toggled on. Add it on the fly.
-    ]
+    ],
+
+    "sequencing_details": [
+        {
+            headerName: "Machine",
+            field: "machine",
+        },{
+            headerName: "Date",
+            field: "date",
+        },{
+            headerName: "Run",
+            field: "run_nb",
+        },{
+            headerName: "Cycles",
+            field: "cycles",
+        },{
+            headerName: "Lane",
+            field: "lane",
+        },{
+            headerName: "Library",
+            field: "library",
+        },{
+            headerName: "Adapter",
+            field: "adapter",
+        },{
+            headerName: "Protocol",
+            field: "protocol",
+        },{
+            headerName: "Organism",
+            field: "organism",
+        },{
+            headerName: "Project",
+            field: "project",
+        },{
+            headerName: "Lab",
+            field: "pi_last_name",  // formatted from PI first name + last name
+        },{
+            headerName: "Submitter",
+            field: "submitter",  // formatted from submitter first name + last name
+        },
+    ],
+
+    "sample_sheet": [
+        {
+            headerName: "FCID",
+            field: "?",
+        },{
+            headerName: "Lane",
+            field: "lane_nb",
+        },{
+            headerName: "SampleID",
+            field: "sample_id",
+        },{
+            headerName: "SampleRef",
+            field: "sample_ref",
+        },{
+            headerName: "Index",
+            field: "?",
+        },{
+            headerName: "Description",
+            field: "description",
+        },{
+            headerName: "Control",
+            field: "isControl",
+        },{
+            headerName: "Recipe",
+            field: "recipe",
+        },{
+            headerName: "Operator",
+            field: "operator",
+        },{
+            headerName: "Project",
+            field: "project",
+        },
+    ],
+
+    "demultiplexings": [
+        {
+            headerName: "Library",
+            field: "library",
+        },{
+            headerName: "Run",
+            field: "run_nb",
+        },{
+            headerName: "GAP",
+            field: "gap",
+        },{
+            headerName: "Lane Yield",
+            field: "lane_yield",
+        },{
+            headerName: "Raw Clusters#",
+            field: "raw_clusters_nb",
+        },{
+            headerName: "% PF Clusters",
+            field: "pc_pf_clusters",
+        },{
+            headerName: "% Q30 PF",
+            field: "pc_q30_pf",
+        },{
+            headerName: "Mean Score PF",
+            field: "mean_score_pf",
+        },{
+            headerName: "% Perfect Index",
+            field: "pc_perfect_index",
+        },{
+            headerName: "% 1MM Index",
+            field: "pc_1mm_index",
+        },
+    ],
+
+    "alignments": [
+        // 3 tables
+    ],
 };
 
 

@@ -2,7 +2,10 @@
 @import '../../../styles/colors.css';
 
 
-/* Container div */
+.col6 {
+    padding: 0;
+}
+
 .querySelector {
     float: left;
     width: 150px;

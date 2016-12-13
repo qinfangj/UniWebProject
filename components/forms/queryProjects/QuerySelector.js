@@ -30,6 +30,21 @@ class QuerySelector extends React.Component {
                     <ListGroupItem onClick={this.changeQueryType.bind(null, "library")}>
                         Library info
                     </ListGroupItem>
+                    <ListGroupItem onClick={this.changeQueryType.bind(null, "sequencing_details")} disabled>
+                        Sequencing details
+                    </ListGroupItem>
+                    <ListGroupItem onClick={this.changeQueryType.bind(null, "samples_sheet")} disabled>
+                        Samples sheet
+                    </ListGroupItem>
+                    <ListGroupItem onClick={this.changeQueryType.bind(null, "ivc_plots")} disabled>
+                        IVC plots
+                    </ListGroupItem>
+                    <ListGroupItem onClick={this.changeQueryType.bind(null, "demultiplexings")} disabled>
+                        Demultiplexings
+                    </ListGroupItem>
+                    <ListGroupItem onClick={this.changeQueryType.bind(null, "alignments")} disabled>
+                        Alignments (CASAVA)
+                    </ListGroupItem>
                 </ListGroup>
             </div>
         );

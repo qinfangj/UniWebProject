@@ -1,6 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from '../forms.css';
+import formsCss from '../forms.css';
+import css from './queryProjects.css';
 import cx from 'classnames';
 import store from '../../../core/store';
 import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
@@ -90,11 +91,11 @@ class QueryProjectsForm extends React.Component {
     render() {
         return (
             <Form>
-                <FormControl type="text" placeholder="Search" className={css.searchField}
+                <FormControl type="text" placeholder="Search" className={formsCss.searchField}
                              value={this.state.searchValue}
                              onChange={this.onSearch.bind(this)}
                 />
-                ​<Col sm={6}>
+                <Col sm={6} className={css.col6}>
                     <ProjectsMultipleSelect
                         label="Projects"
                         form={this.form}
@@ -103,7 +104,7 @@ class QueryProjectsForm extends React.Component {
                         filterByIds={this.state.projectIds}
                     />
                 </Col>
-                <Col sm={6}>
+                <Col sm={6} className={css.col6}>
                     <SamplesSecondaryMultipleSelect
                         label="Samples"
                         form={this.form}
