@@ -1,9 +1,12 @@
 import * as formatters from '../formatters';
 import { CENTER, ID_COLUMN } from '../constants';
+import columnNames from '../../constants/columns';
 
+
+const col = columnNames.queryProjects;
 
 const columns = {
-    starting_material: [
+    [col.STARTING_MATERIAL_INFO]: [
         {
             headerName: "ID",
             field: "sample_id",
@@ -57,7 +60,7 @@ const columns = {
         }
     ],
 
-    "user_request": [
+    [col.USER_REQUEST_INFO]: [
         {
             headerName: "Sample",
             field: "samples_short_name",
@@ -67,9 +70,11 @@ const columns = {
         },{
             headerName: "Insert size",
             field: "insert_size",    // formatted from min + max
+            cellRenderer: formatters.nullable
         },{
             headerName: "Multiplex group",
             field: "multiplexing_group",
+            cellRenderer: formatters.nullable
         },{
             headerName: "Run type",
             field: "run_type",
@@ -88,6 +93,7 @@ const columns = {
         },{
             headerName: "Submitter",
             field: "submitter",   // formatted from first name + last name
+            cellRenderer: formatters.nullable
         },{
             headerName: "Status",
             field: "status",   // formatted from isFulfilled
@@ -95,7 +101,7 @@ const columns = {
         // "comment" is available only when "Show comments" is toggled on. Add it on the fly.
     ],
 
-    "library": [
+    [col.LIBRARY_INFO]: [
         {
             headerName: "ID",
             field: "library_id",
@@ -121,16 +127,19 @@ const columns = {
         },{
             headerName: "Insert size",
             field: "bioanalyser_peak",   // ??
+            cellRenderer: formatters.nullable
         },{
             headerName: "Conc. [ng/μl]",
             field: "concentration",
-        // Conc. updated by ?
+            cellRenderer: formatters.nullable
+// Conc. updated by ?
         },{
             headerName: "Method",
             field: "quantif_method",
         },{
             headerName: "Vol [μl]",
             field: "volume",
+            cellRenderer: formatters.nullable
         },{
             headerName: "Project",
             field: "project_name",
@@ -139,24 +148,25 @@ const columns = {
             field: "pi_last_name",
         },
         // "comment" is available only when "Show comments" is toggled on. Add it on the fly.
+        // "commentCustomer" is here, too.
     ],
 
-    "sequencing_details": [
+    [col.SEQUENCING_DETAILS_INFO]: [
         {
             headerName: "Machine",
-            field: "machine",
+            field: "instrument",
         },{
             headerName: "Date",
-            field: "date",
+            field: "ga_run_date",
         },{
             headerName: "Run",
-            field: "run_nb",
+            field: "ga_run_nb",
         },{
             headerName: "Cycles",
-            field: "cycles",
+            field: "read_length",
         },{
             headerName: "Lane",
-            field: "lane",
+            field: "lane_nb",
         },{
             headerName: "Library",
             field: "library",
@@ -178,78 +188,85 @@ const columns = {
         },{
             headerName: "Submitter",
             field: "submitter",  // formatted from submitter first name + last name
+            cellRenderer: formatters.nullable
         },
     ],
 
-    "sample_sheet": [
+    [col.SAMPLE_SHEETS_INFO]: [
         {
             headerName: "FCID",
-            field: "?",
+            field: "ref_name",
         },{
             headerName: "Lane",
             field: "lane_nb",
         },{
             headerName: "SampleID",
-            field: "sample_id",
+            field: "library_name",
         },{
             headerName: "SampleRef",
-            field: "sample_ref",
+            field: "organism",
         },{
             headerName: "Index",
-            field: "?",
+            field: "multiplexing_index",  // formatted from both indexes
+            cellRenderer: formatters.nullable
         },{
             headerName: "Description",
-            field: "description",
+            field: "sample_name",
         },{
             headerName: "Control",
-            field: "isControl",
+            field: "project_isControl",
         },{
             headerName: "Recipe",
-            field: "recipe",
+            field: "recipe",        // ???
         },{
             headerName: "Operator",
-            field: "operator",
+            field: "run_created_by",
+            cellRenderer: formatters.nullable
         },{
             headerName: "Project",
-            field: "project",
+            field: "project_code_name",
         },
     ],
 
-    "demultiplexings": [
+    [col.DEMULTIPLEXING_INFO]: [
         {
             headerName: "Library",
             field: "library",
         },{
             headerName: "Run",
-            field: "run_nb",
+            field: "run",   // formatted from instrument + ga_run_nb + lane_nb
         },{
             headerName: "GAP",
-            field: "gap",
+            field: "pipeline_version",  // ?
         },{
             headerName: "Lane Yield",
-            field: "lane_yield",
+            field: "bc_lane_yield",
         },{
             headerName: "Raw Clusters#",
-            field: "raw_clusters_nb",
+            field: "bc_raw_clusters_nb",
         },{
             headerName: "% PF Clusters",
-            field: "pc_pf_clusters",
+            field: "bc_pc_pf_clusters",
         },{
             headerName: "% Q30 PF",
-            field: "pc_q30_pf",
+            field: "bc_pc_q30_pf",
+            cellRenderer: formatters.nullable
         },{
             headerName: "Mean Score PF",
-            field: "mean_score_pf",
+            field: "bc_mean_score_pf",
+            cellRenderer: formatters.nullable
         },{
             headerName: "% Perfect Index",
-            field: "pc_perfect_index",
+            field: "bc_pc_perfect_index",
+            cellRenderer: formatters.nullable
         },{
             headerName: "% 1MM Index",
-            field: "pc_1mm_index",
+            field: "bc_pc_one_mismatch_index",
+            cellRenderer: formatters.nullable
         },
     ],
 
-    "alignments": [
+    [col.ALIGNMENTS_INFO]: [
         // 3 tables
     ],
 };

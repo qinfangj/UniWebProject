@@ -14,7 +14,4 @@ export default {
 
     // search samples taht contain a given string (for Query Projects)
     SAMPLES_BY_TERM: "SAMPLES_BY_TERM",
-
-    // query projects types
-    STARTING_MATERIAL_INFO: "STARTING_MATERIAL_INFO",
 };

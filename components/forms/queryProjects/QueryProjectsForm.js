@@ -14,8 +14,6 @@ import formStoreKeys from '../../constants/formStoreKeys';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
-import Button from 'react-bootstrap/lib/Button';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
 import Col from 'react-bootstrap/lib/Col';
