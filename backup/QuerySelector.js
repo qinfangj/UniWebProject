@@ -1,11 +1,11 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import css from './queryProjects.css';
+import css from '../components/forms/queryProjects/queryProjects.css';
 import cx from 'classnames';
-import store from '../../../core/store';
+import store from '../core/store';
 
-import { changeQueryProjectsType } from '../../actions/actionCreators/commonActionCreators';
-import columnNames from '../../constants/columns';
+import { changeQueryProjectsType } from '../components/actions/actionCreators/commonActionCreators';
+import columnNames from '../components/constants/columns';
 
 import { ListGroup, ListGroupItem } from 'react-bootstrap/lib';
 
