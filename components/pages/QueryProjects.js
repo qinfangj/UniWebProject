@@ -11,7 +11,6 @@ class QueryProjects extends React.Component {
             <div>
                 <QueryProjectsForm />
                 <div className="clearfix"/>
-                <QuerySelector />
                 <QueryProjectsTable />
             </div>
         );

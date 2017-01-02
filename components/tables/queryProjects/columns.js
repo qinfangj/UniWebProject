@@ -1,5 +1,5 @@
 import * as formatters from '../formatters';
-import { CENTER, ID_COLUMN } from '../constants';
+import { CENTER } from '../constants';
 import columnNames from '../../constants/columns';
 
 

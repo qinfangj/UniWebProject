@@ -56,11 +56,11 @@ class QueryProjectsTable extends React.Component {
 
     isUpdated(queryType, selectedSampleIds) {
         if (! queryType) {
-            return false
+            return false;
         } else if (queryType !== this.queryType) {
-            return true
+            return true;
         } else if (selectedSampleIds.join(",") !== this.selectedSampleIds.join(",")) {
-            return true
+            return true;
         }
     }
 
@@ -71,7 +71,7 @@ class QueryProjectsTable extends React.Component {
             let queryType = this.getQueryTypeFromStore();
             /* If no sample id, shortcut */
             if (! selectedSampleIds || selectedSampleIds.length === 0) {
-                this.setState({ tabledata: [] });
+                this.setState({ tabledata: [], columnsKey: queryType });
             }
             /* If selected ids have changed, query new data */
             else if (this.isUpdated(queryType, selectedSampleIds)) {

@@ -6,7 +6,8 @@ import store from '../../../core/store';
 import { toggleSidebar } from '../../actions/actionCreators/commonActionCreators';
 
 import Sidebar from 'react-sidebar';
-import { Link } from 'react-router'
+import * as submenus from './submenus';
+import { Link } from 'react-router';
 import { Collapse, ListGroup, ListGroupItem } from 'react-bootstrap/lib';
 
 
@@ -91,24 +92,12 @@ class ResponsiveSidebar extends React.Component {
         //console.debug("submenu", this.state.submenuOpen ? "OPEN" : "CLOSED")
         let path = window.location.pathname;
         if (!path) return null;
-        let tables = [
-            { text: "Laboratories", to: "/data/people", },
-            { text: "Projects", to: "/data/projects", },
-            { text: "Samples", to: "/data/samples", },
-            { text: "User requests", to: "/data/user_requests", },
-            { text: "Libraries", to: "/data/libraries", },
-            { text: "Bioanalysers", to: "/data/bioanalysers", },
-            { text: "Runs", to: "/data/runs" },
-            { text: "Base callings / demultiplexings", to: "/data/basecallings", },
-            { text: "Alignments / QC", to: "/data/alignments", },
-            { text: "Genomes", to: "/data/genomes", },
-        ];
         let menuItems = [
             { text: "Home", to: "/home", },
-            { text: "Facility data", to: "/data", elements: tables },
+            { text: "Facility data", to: "/data", elements: submenus.facilityDataSubmenu },
             { text: "User data", to: "/userData", disabled: true },
             { text: "Tracking", to: "/tracking", disabled: true },
-            { text: "Query projects", to: "/projects", },
+            { text: "Query projects", to: "/projects", elements: submenus.queryProjectsSubmenu },
             { text: "Query runs", to: "/queryRuns", disabled: true },
             { text: "Admin", to: "/admin", disabled: true },
         ];
@@ -117,15 +106,23 @@ class ResponsiveSidebar extends React.Component {
             //console.log(path, to, path.includes(to))
             let active = path.includes(to);
             let subitems = !elements ? null : elements.map((elt, j) => {
-                let active = path.includes(elt.to);
-                return (
-                    <ListGroupItem key={j}>
-                        <Link to={elt.to}
-                              className={cx(css.submenuLink, active ? css.active : null,
-                                                             elt.disabled ? css.disabled : null)}
-                        >{elt.text}</Link>
-                    </ListGroupItem>
-                );
+                //if (elt.to) {
+                    let active = path.includes(elt.to);
+                    return (
+                        <ListGroupItem key={j}>
+                            <Link to={elt.to} onClick={elt.action}
+                                  className={cx(css.submenuLink, active ? css.active : null,
+                                                                 elt.disabled ? css.disabled : null)}
+                            >{elt.text}</Link>
+                        </ListGroupItem>
+                    );
+                // } else if (elt.action) {
+                //     return (
+                //         <ListGroupItem key={j}>
+                //             {elt.text}
+                //         </ListGroupItem>
+                //     );
+                // }
             });
             return (
                 <ListGroupItem key={i}>

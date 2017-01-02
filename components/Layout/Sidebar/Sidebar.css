@@ -96,6 +96,7 @@
 .submenuLink {
     text-align: left;
     padding: 8px 20px;
+    cursor: pointer;
 }
 .submenuLink:hover {
     background-color: var(--grey);
