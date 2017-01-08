@@ -4,6 +4,7 @@ import store from '../../../core/store';
 
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
+import formStoreKeys from '../../constants/formStoreKeys';
 import MultipleSelect from '../elements/MultipleSelect';
 
 
@@ -12,7 +13,7 @@ class SamplesSecondaryMultipleSelect extends React.Component {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
-            options: []
+            options: []  // an array of objects of the type {id: .., name: ..}
         };
         this.table = "samples";
         this.dataStoreKey = dataStoreKeys.SAMPLES_FOR_PROJECTS;

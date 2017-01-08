@@ -66,9 +66,9 @@ export function insertAsync(tableName, formData, storeKey) {
 }
 
 /* Query projects */
-export function queryProjectsAsync(ids, queryType, storeKey) {
-    let args = {ids, storeKey};
-    return asyncAction(actions.queryProjects.QUERY_PROJECTS, restService.queryProjects.bind(null, ids, queryType), args);
+export function queryProjectsAsync(sampleIds, queryType, storeKey) {
+    let args = {sampleIds, storeKey};
+    return asyncAction(actions.queryProjects.QUERY_PROJECTS, restService.queryProjects.bind(null, sampleIds, queryType), args);
 }
 export function searchSamplesByTerm(term, storeKey) {
     assertStoreKey(storeKey);

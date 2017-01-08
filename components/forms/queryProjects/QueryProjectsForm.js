@@ -4,7 +4,6 @@ import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
 import store from '../../../core/store';
-import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 import { searchSamplesByTerm } from '../../actions/actionCreators/asyncActionCreators';
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
@@ -19,18 +18,22 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import Col from 'react-bootstrap/lib/Col';
 
 
-
+/**
+ * Holds together the projects and samples multiple selectors,
+ * and allows to filter their options by term.
+ */
 class QueryProjectsForm extends React.Component {
     constructor() {
         super();
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.form = formStoreKeys.QUERY_PROJECTS_FORM;
+        // Build store keys for selected form values
         this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
         this.samplesFormKey = this.form + formStoreKeys.suffixes.SAMPLES;
         this.state = {
             searchValue: "",
-            projectIds: null,
-            sampleIds: null,
+            projectIds: null,  // if filtered by term, a restriction on the selection (not the selection itself)
+            sampleIds: null,   // idem
         };
     }
 

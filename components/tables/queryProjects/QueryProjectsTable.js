@@ -7,16 +7,14 @@ import store from '../../../core/store';
 import * as tables from '../tables.js';
 import * as actions from '../../actions/actionCreators/asyncActionCreators';
 import * as constants from '../constants';
-import _ from 'lodash';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
 
+import * as forms from '../../forms/forms';
 import formStoreKeys from '../../constants/formStoreKeys';
 import dataStoreKeys from '../../constants/dataStoreKeys';
-import * as forms from '../../forms/forms';
 
 
 
@@ -31,19 +29,36 @@ class QueryProjectsTable extends React.Component {
         };
         this.selectedSampleIds = this.getSelectedSampleIdsFromStore();
         this.queryType = this.getQueryTypeFromStore();
-        this.dataStoreKey = dataStoreKeys.STARTING_MATERIAL_INFO;
+        this.dataStoreKey = this.queryType;
     }
 
     /**
-     * Return an array of the selected sample ids;
+     * Return an array of the selected sample ids
      */
     getSelectedSampleIdsFromStore() {
-        let selectedSampleIds;
         let formKey = formStoreKeys.QUERY_PROJECTS_FORM;
         let samplesKey = formKey + formStoreKeys.suffixes.SAMPLES;
-        selectedSampleIds = forms.getFormValue(formKey, samplesKey);
-        selectedSampleIds = selectedSampleIds ? Object.keys(selectedSampleIds) : [];
+        let selectedSampleIds = forms.getFormValue(formKey, samplesKey);
+        // If no sample selected, load all samples for the selected projects
+        if (!selectedSampleIds || selectedSampleIds.length === 0) {
+            selectedSampleIds = this.getListedSamplesFromStore();
+        }
+        selectedSampleIds = Object.keys(selectedSampleIds);
         return selectedSampleIds;
+    }
+
+    /**
+     * Return the array of sample options that appear in the list
+     *  (corresponding to the selected projects).
+     * Format the result in the same way as for `selectedSampleIds` ({id: true}).
+     */
+    getListedSamplesFromStore() {
+        let list = store.getState().async[dataStoreKeys.SAMPLES_FOR_PROJECTS] || [];
+        let formatted = {};
+        for (let option of list) {
+            formatted[option.id] = true;
+        }
+        return formatted;
     }
 
     getTableDataFromStore() {
@@ -69,7 +84,7 @@ class QueryProjectsTable extends React.Component {
             let tableData = this.getTableDataFromStore();
             let selectedSampleIds = this.getSelectedSampleIdsFromStore();
             let queryType = this.getQueryTypeFromStore();
-            /* If no sample id, shortcut */
+            /* Shortcut */
             if (! selectedSampleIds || selectedSampleIds.length === 0) {
                 this.setState({ tabledata: [], columnsKey: queryType });
             }

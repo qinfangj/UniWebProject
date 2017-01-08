@@ -40,7 +40,7 @@ class ProjectsMultipleSelect extends React.Component {
     }
 
     componentWillMount() {
-        // Listen to store for changes
+        // Listen to store for changes or initial data
         this.unsubscribe = store.subscribe(() => {
             let options = store.getState().async[this.dataStoreKey];
             if (options) {
