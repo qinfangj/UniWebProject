@@ -23,31 +23,26 @@ let asyncReducers = (state = defaultState, action) => {
         }
     }
 
-    let storeKey;
 
     switch (action.type) {
 
         /* Select options list */
 
         case types.GET_OPTIONS_LIST:
-            storeKey = action.args.storeKey;
-            return returnList(storeKey);
+            return returnList(action.args.storeKey);
 
         case types.GET_SECONDARY_OPTIONS_LIST:
-            storeKey = action.args.storeKey;
-            return returnList(storeKey);
+            return returnList(action.args.storeKey);
 
         /* Table data */
 
         case types.GET_TABLE_DATA:
-            storeKey = action.args.storeKey;
-            return returnList(storeKey);
+            return returnList(action.args.storeKey);
 
         /* Inserts */
 
         case types.INSERT:
-            storeKey = action.args.storeKey;
-            return returnList(storeKey);
+            return returnList(action.args.storeKey);
 
         default:
             return state;
