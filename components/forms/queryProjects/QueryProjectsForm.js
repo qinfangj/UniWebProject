@@ -8,7 +8,6 @@ import { searchSamplesByTerm } from '../../actions/actionCreators/queryProjectsA
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
-import * as forms from '../forms';
 import formStoreKeys from '../../constants/formStoreKeys';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 
@@ -17,7 +16,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import Collapse from 'react-bootstrap/lib/Collapse';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
-import {Icon} from 'react-fa'
+import { Icon } from 'react-fa'
 
 
 /**
@@ -50,6 +49,8 @@ class QueryProjectsForm extends React.Component {
                 }
             }
         });
+        // Initialize with all samples - filtering with empty term
+        store.dispatch(searchSamplesByTerm("", dataStoreKeys.SAMPLES_BY_TERM));
     }
     componentWillUnmount() {
         this.unsubscribe();

@@ -39,31 +39,69 @@ class QueryProjectsTable extends React.Component {
      * If no filter is applied, returns an empty array.
      */
     getSelectedSampleIdsFromStore() {
-        let samples = store.getState().async[dataStoreKeys.SAMPLES_FOR_PROJECTS] || [];
-        let searchedSamples = store.getState().async[dataStoreKeys.SAMPLES_BY_TERM];
-        if (searchedSamples) {
-            console.debug(2, samples, searchedSamples)
-            samples = samples.filter(v => searchedSamples.sampleIds.has(v.id));
-        }
-        console.debug(3, samples)
-
-
-
+        // If there is a samples selection, display these.
         let formKey = formStoreKeys.QUERY_PROJECTS_FORM;
         let samplesKey = formKey + formStoreKeys.suffixes.SAMPLES;
-        let projectsKey = formKey + formStoreKeys.suffixes.PROJECTS;
-        let selectedProjectIds = forms.getFormValue(formKey, projectsKey);
-        let selectedSampleIds = forms.getFormValue(formKey, samplesKey);
-        console.debug(1, selectedProjectIds, selectedSampleIds)
-        // if (!selectedProjectIds || selectedProjectIds.length === 0 || (-1 in selectedProjectIds)) {
-        //     selectedSampleIds = {};
-        // }
-        // If no sample selected, load all samples for the selected projects
-        if (!selectedSampleIds || selectedSampleIds.length === 0) {
-            selectedSampleIds = this.getListedSamplesFromStore();
+        let selectedSampleIds = forms.getFormValue(formKey, samplesKey);  // array [{id: true}, ..]
+        if (selectedSampleIds && selectedSampleIds.length !== 0) {
+            console.debug(1.1)
+            return Object.keys(selectedSampleIds);
         }
-        selectedSampleIds = Object.keys(selectedSampleIds);
-        console.debug(1, selectedProjectIds, selectedSampleIds)
+        // If there is no samples selection, there may be projects selected.
+        // Use the secondaryOptionsList for this projects selection to have the same list of ids
+        // as in the samples selection input.
+        else {
+            console.debug(1.2)
+            let projectsKey = formKey + formStoreKeys.suffixes.PROJECTS;
+            let selectedProjectIds = forms.getFormValue(formKey, projectsKey);
+            if (selectedProjectIds && selectedProjectIds.length !== 0) {
+                let samples = store.getState().queryProjects[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // array of samples [{id, name}, ..]
+                selectedSampleIds = samples.map(v => v.id);
+            }
+        }
+        // Check if there is a search by term
+        let searched = store.getState().queryProjects[dataStoreKeys.SAMPLES_BY_TERM];  // {projectIds(set), sampleIds(set)}
+        if (searched && searched.projectIds) {
+            console.debug(2, searched)
+            let searchedSamples = searched.sampleIds;
+            // If there was something in the projects/samples selection above, filter the result by term
+            if (selectedSampleIds) {
+                console.debug(2.1)
+                selectedSampleIds = selectedSampleIds.filter(v => searchedSamples.has(v));
+            }
+            // Otherwise, use the result of the search by term directly
+            else {
+                console.debug(2.2)
+                selectedSampleIds = [...searchedSamples];
+            }
+        }
+        // If not yet available, wait for it (shortcut), because it this is the initial value
+        else {
+            console.debug(3)
+            selectedSampleIds = [];
+        }
+
+
+
+        // console.debug(1, selectedProjectIds, selectedSampleIds)
+        // if (!selectedProjectIds || selectedProjectIds.length === 0 || (-1 in selectedProjectIds)) {
+        //     let searched = store.getState().queryProjects[dataStoreKeys.SAMPLES_BY_TERM];
+        //     if (searched) {
+        //         let list = [... searched.sampleIds];
+        //         let formatted = {};
+        //         for (let option of list) {
+        //             formatted[option] = true;
+        //         }
+        //         selectedSampleIds = formatted;
+        //     }
+        // }
+        // // If no sample selected, load all samples for the selected projects
+        // if (!selectedSampleIds || selectedSampleIds.length === 0) {
+        //     selectedSampleIds = this.getListedSamplesFromStore();
+        // }
+        // selectedSampleIds = Object.keys(selectedSampleIds);
+        // console.debug(1, selectedProjectIds, selectedSampleIds)
+        console.debug(123, selectedSampleIds)
         return selectedSampleIds;
     }
 
@@ -75,8 +113,8 @@ class QueryProjectsTable extends React.Component {
     getListedSamplesFromStore() {
         let list;
         let formatted = {};
-        let forProjects = store.getState().async[dataStoreKeys.SAMPLES_FOR_PROJECTS];
-        let searched = store.getState().async[dataStoreKeys.SAMPLES_BY_TERM];
+        let forProjects = store.getState().queryProjects[dataStoreKeys.SAMPLES_FOR_PROJECTS];
+        let searched = store.getState().queryProjects[dataStoreKeys.SAMPLES_BY_TERM];
         // Searched by term
         if (searched && searched.sampleIds) {
             // A project is selected
