@@ -42,8 +42,6 @@ class QueryProjectsForm extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            //let searchedSamples = forms.getStoreData(dataStoreKeys.SAMPLES_BY_TERM);
-            //let {projectIds, sampleIds} = this.filterOptions(this.state.searchValue, searchedSamples);
             let {projectIds, sampleIds} = forms.getStoreData(dataStoreKeys.SAMPLES_BY_TERM);
             if (projectIds !== undefined) {
                 this.setState({ projectIds, sampleIds });

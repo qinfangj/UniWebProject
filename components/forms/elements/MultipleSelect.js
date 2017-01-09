@@ -37,6 +37,10 @@ class MultipleSelect extends React.Component {
                 selected[options[k].value] = true;
             }
         }
+        // If "none" is selected, reset
+        if (-1 in selected) {
+            selected = {};
+        }
         this.setState({ selected });
         store.dispatch(changeFormValue(this.props.form, this.props.formKey, selected));
     }

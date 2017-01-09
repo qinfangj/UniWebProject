@@ -4,6 +4,7 @@ import store from '../../../core/store';
 
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
+import constants from '../../constants/constants';
 import MultipleSelect from '../elements/MultipleSelect';
 
 
@@ -68,9 +69,11 @@ class ProjectsMultipleSelect extends React.Component {
 
     getOptions() {
         let options = this.filterOptions(this.state.options);
-        return options.map(v => {
+        options = options.map(v => {
             return {id: v.id, name: v.last_name +" - "+ v.name};
         });
+        options.unshift(constants.NONE_OPTION);
+        return options;
     }
 
     /**

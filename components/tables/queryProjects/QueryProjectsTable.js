@@ -33,24 +33,44 @@ class QueryProjectsTable extends React.Component {
     }
 
     /**
-     * Return an array of the selected sample ids
+     * Return an array of the sample ids that will be put into the table.
+     * If projects are selected, it fits what is displayed in the sample selection window.
+     * If not, it reflects the searched terms.
+     * If no filter is applied, returns an empty array.
      */
     getSelectedSampleIdsFromStore() {
+        let samples = store.getState().async[dataStoreKeys.SAMPLES_FOR_PROJECTS] || [];
+        let searchedSamples = store.getState().async[dataStoreKeys.SAMPLES_BY_TERM];
+        console.debug(2, samples, searchedSamples)
+        if (searchedSamples) {
+            let samples = samples.filter(v => searchedSamples.sampleIds.has(v.id));
+        }
+        console.debug(3, samples)
+
+
+
         let formKey = formStoreKeys.QUERY_PROJECTS_FORM;
         let samplesKey = formKey + formStoreKeys.suffixes.SAMPLES;
+        let projectsKey = formKey + formStoreKeys.suffixes.PROJECTS;
+        let selectedProjectIds = forms.getFormValue(formKey, projectsKey);
         let selectedSampleIds = forms.getFormValue(formKey, samplesKey);
+        console.debug(1, selectedProjectIds, selectedSampleIds)
+        // if (!selectedProjectIds || selectedProjectIds.length === 0 || (-1 in selectedProjectIds)) {
+        //     selectedSampleIds = {};
+        // }
         // If no sample selected, load all samples for the selected projects
         if (!selectedSampleIds || selectedSampleIds.length === 0) {
             selectedSampleIds = this.getListedSamplesFromStore();
         }
         selectedSampleIds = Object.keys(selectedSampleIds);
+        console.debug(1, selectedProjectIds, selectedSampleIds)
         return selectedSampleIds;
     }
 
     /**
      * Return the array of sample options that appear in the list
      *  (corresponding to the selected projects).
-     * Format the result in the same way as for `selectedSampleIds` ({id: true}).
+     * Format the result in the same way as for `selectedSampleIds` ([{id: true}, ...]).
      */
     getListedSamplesFromStore() {
         let list;
@@ -91,12 +111,15 @@ class QueryProjectsTable extends React.Component {
     }
 
     isUpdated(queryType, selectedSampleIds) {
+    console.debug(selectedSampleIds, this.selectedSampleIds)
         if (! queryType) {
             return false;
         } else if (queryType !== this.queryType) {
             return true;
         } else if (selectedSampleIds.join(",") !== this.selectedSampleIds.join(",")) {
             return true;
+        } else {
+            return false;
         }
     }
 
