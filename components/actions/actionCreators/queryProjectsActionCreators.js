@@ -1,9 +1,8 @@
 import actions from '../actionTypes';
 import restService from '../api/restService';
-import { asyncAction } from './baseActionCreators';
+import { asyncAction, assertStoreKey } from './baseActionCreators';
 
 
-/* Query projects */
 /**
  * Query the table data for Query Projects, given a list of sample IDs and a query type (sample material info, etc.)
  */
@@ -11,6 +10,7 @@ export function queryProjectsAsync(sampleIds, queryType, storeKey) {
     let args = {sampleIds, storeKey};
     return asyncAction(actions.queryProjects.QUERY_PROJECTS, restService.queryProjects.bind(null, sampleIds, queryType), args);
 }
+
 /**
  * Query samples which name contains the given term, or which project/PI name contains the given term.
  */

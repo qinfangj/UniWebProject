@@ -5,7 +5,7 @@ import css from './queryProjectsTable.css';
 import cx from 'classnames';
 import store from '../../../core/store';
 import * as tables from '../tables.js';
-import { queryProjectsAsync } from '../../actions/actionCreators/asyncActionCreators';
+import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
 import * as constants from '../constants';
 
 import { AgGridReact } from 'ag-grid-react';
