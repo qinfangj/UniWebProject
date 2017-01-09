@@ -49,26 +49,20 @@ let queryProjectsReducers = (state = defaultState, action) => {
             let newState = Object.assign({}, state);
             if (action.status === constants.SUCCESS) {
                 let searchedSamples = action.response;
-                if (term === "") {
-                    newState[storeKey] = { projectIds: null, sampleIds: null };
-                } else {
-                    let projects = state[dataStoreKeys.PROJECTS_WITH_SAMPLE] || [];
-                    let samples = state[dataStoreKeys.SAMPLES_FOR_PROJECTS] || [];
-                    // IE can't do that, but who needs IE anyway?
-                    let sampleIdsWithTerm = new Set(searchedSamples.map(v => v.id));
-                    let projectIdsWithTerm = new Set(projects.filter(v => {
-                        return v.name.toLowerCase().indexOf(term) >= 0
-                            || v.last_name.toLowerCase().indexOf(term) >= 0;
-                    }).map(v => v.id));
-                    let sampleIdsWithProject = new Set(samples.filter(v => projectIdsWithTerm.has(v.project_id)).map(v => v.id));
-                    let projectIdsWithSample = new Set(searchedSamples.map(v => v.project_id));
-                    // Union, the JS way.
-                    let projectIds = new Set([...projectIdsWithTerm, ...projectIdsWithSample]);
-                    let sampleIds = new Set([...sampleIdsWithTerm, ...sampleIdsWithProject]);
-                    newState[storeKey] = { projectIds, sampleIds };
-                }
-            } else {
-                newState[storeKey] = { projectIds: null, sampleIds: null };
+                let projects = state[dataStoreKeys.PROJECTS_WITH_SAMPLE] || [];
+                let samples = state[dataStoreKeys.SAMPLES_FOR_PROJECTS] || [];
+                // IE can't do that, but who needs IE anyway?
+                let sampleIdsWithTerm = new Set(searchedSamples.map(v => v.id));
+                let projectIdsWithTerm = new Set(projects.filter(v => {
+                    return v.name.toLowerCase().indexOf(term) >= 0
+                        || v.last_name.toLowerCase().indexOf(term) >= 0;
+                }).map(v => v.id));
+                let sampleIdsWithProject = new Set(samples.filter(v => projectIdsWithTerm.has(v.project_id)).map(v => v.id));
+                let projectIdsWithSample = new Set(searchedSamples.map(v => v.project_id));
+                // Union, the JS way.
+                let projectIds = new Set([...projectIdsWithTerm, ...projectIdsWithSample]);
+                let sampleIds = new Set([...sampleIdsWithTerm, ...sampleIdsWithProject]);
+                newState[storeKey] = { projectIds, sampleIds };
             }
             return newState;
 
