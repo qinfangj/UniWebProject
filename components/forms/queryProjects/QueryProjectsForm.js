@@ -42,9 +42,12 @@ class QueryProjectsForm extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let searchedSamples = forms.getStoreData(dataStoreKeys.SAMPLES_BY_TERM);
-            let {projectIds, sampleIds} = this.filterOptions(this.state.searchValue, searchedSamples);
-            this.setState({ projectIds, sampleIds });
+            //let searchedSamples = forms.getStoreData(dataStoreKeys.SAMPLES_BY_TERM);
+            //let {projectIds, sampleIds} = this.filterOptions(this.state.searchValue, searchedSamples);
+            let {projectIds, sampleIds} = forms.getStoreData(dataStoreKeys.SAMPLES_BY_TERM);
+            if (projectIds !== undefined) {
+                this.setState({ projectIds, sampleIds });
+            }
         });
     }
     componentWillUnmount() {
@@ -60,36 +63,6 @@ class QueryProjectsForm extends React.Component {
         let term = e.target.value.toLowerCase();
         this.setState({ searchValue: term });
         store.dispatch(searchSamplesByTerm(term, dataStoreKeys.SAMPLES_BY_TERM));
-    }
-
-    getProjectsList() {
-        return forms.getStoreData(dataStoreKeys.PROJECTS_WITH_SAMPLE);
-    }
-    getSamplesList() {
-        return forms.getStoreData(dataStoreKeys.SAMPLES_FOR_PROJECTS);
-    }
-    filterOptions(term, searchedSamples) {
-        if (term === "") {
-            return {
-                projectIds: null,
-                sampleIds: null,
-            };
-        } else {
-            let projects = this.getProjectsList();
-            let samples = this.getSamplesList();
-            // IE can't do that, but who needs IE anyway?
-            let sampleIdsWithTerm = new Set(searchedSamples.map(v => v.id));
-            let projectIdsWithTerm = new Set(projects.filter(v => {
-                return v.name.toLowerCase().indexOf(term) >= 0
-                    || v.last_name.toLowerCase().indexOf(term) >= 0;
-            }).map(v => v.id));
-            let sampleIdsWithProject = new Set(samples.filter(v => projectIdsWithTerm.has(v.project_id)).map(v => v.id));
-            let projectIdsWithSample = new Set(searchedSamples.map(v => v.project_id));
-            // Union, the JS way.
-            let projectIds = new Set([...projectIdsWithTerm, ...projectIdsWithSample]);
-            let sampleIds = new Set([...sampleIdsWithTerm, ...sampleIdsWithProject]);
-            return { projectIds, sampleIds };
-        }
     }
 
     toggleVisible() {

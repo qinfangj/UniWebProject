@@ -53,10 +53,31 @@ class QueryProjectsTable extends React.Component {
      * Format the result in the same way as for `selectedSampleIds` ({id: true}).
      */
     getListedSamplesFromStore() {
-        let list = store.getState().async[dataStoreKeys.SAMPLES_FOR_PROJECTS] || [];
+        let list;
         let formatted = {};
-        for (let option of list) {
-            formatted[option.id] = true;
+        let forProjects = store.getState().async[dataStoreKeys.SAMPLES_FOR_PROJECTS];
+        let searched = store.getState().async[dataStoreKeys.SAMPLES_BY_TERM];
+        // Searched by term
+        if (searched && searched.sampleIds) {
+            // A project is selected
+            if (forProjects) {
+                list = forProjects.filter(v => searched.sampleIds.has(v.id));
+                for (let option of list) {
+                    formatted[option.id] = true;
+                }
+            // No project selected, take all
+            } else {
+                list = [... searched.sampleIds];
+                for (let option of list) {
+                    formatted[option] = true;
+                }
+            }
+        // No search
+        } else {
+            list = forProjects || [];
+            for (let option of list) {
+                formatted[option.id] = true;
+            }
         }
         return formatted;
     }
