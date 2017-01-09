@@ -4,7 +4,7 @@ import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
 import store from '../../../core/store';
-import { searchSamplesByTerm } from '../../actions/actionCreators/asyncActionCreators';
+import { searchSamplesByTerm } from '../../actions/actionCreators/queryProjectsActionCreators';
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';

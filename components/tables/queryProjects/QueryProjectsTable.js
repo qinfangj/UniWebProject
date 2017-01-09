@@ -5,7 +5,7 @@ import css from './queryProjectsTable.css';
 import cx from 'classnames';
 import store from '../../../core/store';
 import * as tables from '../tables.js';
-import * as actions from '../../actions/actionCreators/asyncActionCreators';
+import { queryProjectsAsync } from '../../actions/actionCreators/asyncActionCreators';
 import * as constants from '../constants';
 
 import { AgGridReact } from 'ag-grid-react';
@@ -41,9 +41,9 @@ class QueryProjectsTable extends React.Component {
     getSelectedSampleIdsFromStore() {
         let samples = store.getState().async[dataStoreKeys.SAMPLES_FOR_PROJECTS] || [];
         let searchedSamples = store.getState().async[dataStoreKeys.SAMPLES_BY_TERM];
-        console.debug(2, samples, searchedSamples)
         if (searchedSamples) {
-            let samples = samples.filter(v => searchedSamples.sampleIds.has(v.id));
+            console.debug(2, samples, searchedSamples)
+            samples = samples.filter(v => searchedSamples.sampleIds.has(v.id));
         }
         console.debug(3, samples)
 
@@ -136,7 +136,7 @@ class QueryProjectsTable extends React.Component {
             else if (this.isUpdated(queryType, selectedSampleIds)) {
                 this.selectedSampleIds = selectedSampleIds;
                 this.queryType = queryType;
-                store.dispatch(actions.queryProjectsAsync(selectedSampleIds, queryType, this.dataStoreKey))
+                store.dispatch(queryProjectsAsync(selectedSampleIds, queryType, this.dataStoreKey))
                 .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
             }
             /* Otherwise, load the table data from store */
