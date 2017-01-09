@@ -2,6 +2,13 @@
 @import './colors.css';
 
 
+:global(*:focus) {
+    outline: none;
+}
+:global(*:hover) {
+    outline: none;
+}
+
 /* BS */
 
 /* Make forms more compact by removing margin between lines */

@@ -14,8 +14,10 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
-
+import Collapse from 'react-bootstrap/lib/Collapse';
+import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import {Icon} from 'react-fa'
 
 
 /**
@@ -34,6 +36,7 @@ class QueryProjectsForm extends React.Component {
             searchValue: "",
             projectIds: null,  // if filtered by term, a restriction on the selection (not the selection itself)
             sampleIds: null,   // idem
+            visible: true,
         };
     }
 
@@ -89,32 +92,45 @@ class QueryProjectsForm extends React.Component {
         }
     }
 
+    toggleVisible() {
+        this.setState({ visible: ! this.state.visible });
+    }
+
     render() {
         return (
-            <Form>
-                <FormControl type="text" placeholder="Search" className={formsCss.searchField}
+            <div id="QueryProjectsForm">
+                <FormControl type="text" placeholder="Search" className={css.searchField}
                              value={this.state.searchValue}
                              onChange={this.onSearch.bind(this)}
                 />
-                <Col sm={6} className={css.col6}>
-                    <ProjectsMultipleSelect
-                        label="Projects"
-                        form={this.form}
-                        formKey={this.projectsFormKey}
-                        suffix="samples"
-                        filterByIds={this.state.projectIds}
-                    />
-                </Col>
-                <Col sm={6} className={css.col6}>
-                    <SamplesSecondaryMultipleSelect
-                        label="Samples"
-                        form={this.form}
-                        referenceField={this.projectsFormKey}
-                        formKey={this.samplesFormKey}
-                        filterByIds={this.state.sampleIds}
-                    />
-                </Col>
-            </Form>
+                <Collapse in={this.state.visible}>
+                    <Form>
+                        <Col sm={6} className={css.col6}>
+                            <ProjectsMultipleSelect
+                                label="Projects"
+                                form={this.form}
+                                formKey={this.projectsFormKey}
+                                suffix="samples"
+                                filterByIds={this.state.projectIds}
+                            />
+                        </Col>
+                        <Col sm={6} className={css.col6}>
+                            <SamplesSecondaryMultipleSelect
+                                label="Samples"
+                                form={this.form}
+                                referenceField={this.projectsFormKey}
+                                formKey={this.samplesFormKey}
+                                filterByIds={this.state.sampleIds}
+                            />
+                        </Col>
+                    </Form>
+                </Collapse>
+                <div className={css.toggleVisible}>
+                    <Button className={css.toggleVisibleButton} onClick={this.toggleVisible.bind(this)}>
+                        <Icon name={this.state.visible ? "angle-double-up" : "angle-double-down"} />
+                    </Button>
+                </div>
+            </div>
         );
     }
 }

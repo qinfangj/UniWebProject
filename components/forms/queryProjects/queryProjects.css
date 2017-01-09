@@ -6,6 +6,22 @@
     padding: 0;
 }
 
+.searchField {
+    width: 45%;
+}
+
+.toggleVisible {
+    width: 34px;
+    margin: 0 auto;
+}
+.toggleVisibleButton {
+    width: 34px;
+    height: 34px;
+    position: relative;
+    top: -34px;
+    padding: 0;
+}
+
 .querySelector {
     float: left;
     width: 150px;
