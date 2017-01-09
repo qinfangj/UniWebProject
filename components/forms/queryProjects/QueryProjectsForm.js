@@ -42,9 +42,12 @@ class QueryProjectsForm extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let {projectIds, sampleIds} = forms.getStoreData(dataStoreKeys.SAMPLES_BY_TERM);
-            if (projectIds !== undefined) {
-                this.setState({ projectIds, sampleIds });
+            let searched = store.getState().queryProjects[dataStoreKeys.SAMPLES_BY_TERM];
+            if (searched) {
+                let {projectIds, sampleIds} = searched;
+                if (projectIds !== undefined) {
+                    this.setState({ projectIds, sampleIds });
+                }
             }
         });
     }

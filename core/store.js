@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import asyncReducers from '../components/actions/reducers/asyncReducers';
 import commonReducers from '../components/actions/reducers/commonReducers';
 import authReducers from '../components/actions/reducers/authReducers';
+import queryProjectsReducers from '../components/actions/reducers/queryProjectsReducers';
 
 
 /*
@@ -28,6 +29,7 @@ let reducer = combineReducers({
     async: asyncReducers,
     common: commonReducers,
     auth: authReducers,
+    queryProjects: queryProjectsReducers,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));

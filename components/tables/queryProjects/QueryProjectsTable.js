@@ -103,7 +103,7 @@ class QueryProjectsTable extends React.Component {
     }
 
     getTableDataFromStore() {
-        return store.getState().async[this.dataStoreKey] || [];
+        return store.getState().queryProjects[this.dataStoreKey] || [];
     }
 
     getQueryTypeFromStore() {
@@ -128,6 +128,7 @@ class QueryProjectsTable extends React.Component {
             let tableData = this.getTableDataFromStore();
             let selectedSampleIds = this.getSelectedSampleIdsFromStore();
             let queryType = this.getQueryTypeFromStore();
+            console.debug(this.isUpdated(queryType, selectedSampleIds))
             /* Shortcut */
             if (! selectedSampleIds || selectedSampleIds.length === 0) {
                 this.setState({ tabledata: [], columnsKey: queryType });

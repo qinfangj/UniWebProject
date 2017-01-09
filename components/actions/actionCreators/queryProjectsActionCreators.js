@@ -1,6 +1,6 @@
 import actions from '../actionTypes';
 import restService from '../api/restService';
-import { asyncAction, assertStoreKey } from './baseActionCreators';
+import { asyncAction, assertStoreKey } from './base';
 
 
 /**
