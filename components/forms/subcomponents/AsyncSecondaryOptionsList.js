@@ -27,9 +27,9 @@ class AsyncSecondaryOptionsList extends React.Component {
         referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `storeKey`!
         table: React.PropTypes.string.isRequired,
         form: React.PropTypes.string.isRequired,
+        storeKey: React.PropTypes.string.isRequired,  // the store key for the result list
         label: React.PropTypes.string,
         formatter: React.PropTypes.func,  // ex: object => [id, name]
-        storeKey: React.PropTypes.string,  // the store key for the result list - defaults to `table` prop
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
 

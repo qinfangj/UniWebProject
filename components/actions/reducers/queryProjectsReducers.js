@@ -40,7 +40,7 @@ let queryProjectsReducers = (state = defaultState, action) => {
             return Object.assign(state, {queryProjectsType: action.queryType});
 
         case types.queryProjects.RESET_SELECTION:
-            console.debug(2)
+            // treated in commonReducers.
             return state;
 
         /**

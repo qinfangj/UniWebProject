@@ -1,5 +1,6 @@
 import React from 'react';
 import AsyncOptionsList from './AsyncOptionsList';
+import dataStoreKeys from '../../constants/dataStoreKeys';
 
 
 export function getControlLanes() {
@@ -16,6 +17,7 @@ export class Instruments extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="instruments" label="Machine" form={this.props.form}
+                                 storeKey={dataStoreKeys.INSTRUMENTS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -25,6 +27,7 @@ export class LibProtocols extends React.Component {
     formatter(v) { return [v.id, v.short_name]; }
     render() {
         return <AsyncOptionsList table="lib_protocols" label="Library type" form={this.props.form}
+                                 storeKey={dataStoreKeys.LIB_PROTOCOLS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -34,6 +37,7 @@ export class LibraryAdapters extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="library_adapters" label="Adapter" form={this.props.form}
+                                 storeKey={dataStoreKeys.LIB_ADAPTERS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -43,6 +47,7 @@ export class LibraryStates extends React.Component {
     formatter(v) { return [v.id, v.state_order +" - "+ v.name]; }
     render() {
         return <AsyncOptionsList table="library_states" label="Library state" form={this.props.form}
+                                 storeKey={dataStoreKeys.LIB_STATES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -52,6 +57,7 @@ export class FlowcellTypes extends React.Component {
     formatter(v) { return [v.id, v.version]; }
     render() {
         return <AsyncOptionsList table="flowcell_types" label="Version" form={this.props.form}
+                                 storeKey={dataStoreKeys.FLOWCELL_TYPES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -61,6 +67,7 @@ export class MappingTools extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="mapping_tools" label="Mapping tool" form={this.props.form}
+                                 storeKey={dataStoreKeys.MAPPING_TOOLS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -72,6 +79,7 @@ export class MultiplexIndexes extends React.Component {
         return <AsyncOptionsList table="multiplex_indexes" form={this.props.form}
                                  label={this.props.label}
                                  suffix = {this.props.suffix}
+                                 storeKey={dataStoreKeys.MULTIPLEX_INDEXES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -84,6 +92,7 @@ export class People extends React.Component {
     formatter(v) { return [v.id, v.last_name +" "+ v.first_name]; }
     render() {
         return <AsyncOptionsList table="people" label="Laboratory" form={this.props.form}
+                                 storeKey={dataStoreKeys.PEOPLE}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -93,6 +102,7 @@ export class PipelineAnalysisTypes extends React.Component {
     formatter(v) { return [v.id, v.description]; }
     render() {
         return <AsyncOptionsList table="pipeline_analysis_types" label="Analysis type" form={this.props.form}
+                                 storeKey={dataStoreKeys.PIPELINE_ANALYSIS_TYPES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -102,6 +112,7 @@ export class PipelineVersions extends React.Component {
     formatter(v) { return [v.id, v.software_name +" - "+ v.number]; }
     render() {
         return <AsyncOptionsList table="pipeline_versions" label="Pipeline version" form={this.props.form}
+                                 storeKey={dataStoreKeys.PIPELINE_VERSIONS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -111,6 +122,7 @@ export class ProjectAnalyses extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="project_analysis" label="Project analysis" form={this.props.form}
+                                 storeKey={dataStoreKeys.PROJECT_ANALYSES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -152,6 +164,7 @@ Projects.propTypes = {
 Projects.defaultProps = {
     suffix: "all",
     label: "Project",
+    storeKey: dataStoreKeys.PROJECTS,
 };
 
 
@@ -160,6 +173,7 @@ export class ProjectStates extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="project_states" label="Project states" form={this.props.form}
+                                 storeKey={dataStoreKeys.PROJECT_STATES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -169,6 +183,7 @@ export class QuantifMethods extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="quantif_methods" label="Quantification" form={this.props.form}
+                                 storeKey={dataStoreKeys.QUANTIF_METHODS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -178,6 +193,7 @@ export class RunsOutputFolders extends React.Component {
     formatter(v) { return [v.id, v.run_folder]; }
     render() {
         return <AsyncOptionsList table="runs" label="Run" form={this.props.form}
+                                 storeKey={dataStoreKeys.RUNS_OUTPUT_FOLDERS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -188,6 +204,7 @@ export class RunTypesLengths extends React.Component {
     render() {
         return <AsyncOptionsList table="run_types_lengths" label="Run type" form={this.props.form}
                                  suffix={this.props.suffix}
+                                 storeKey={dataStoreKeys.RUN_TYPES_LENGTHS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -200,6 +217,7 @@ export class SampleTypes extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="sample_types" label="Sample type" form={this.props.form}
+                                 storeKey={dataStoreKeys.SAMPLE_TYPES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -209,6 +227,7 @@ export class SequencingKitVersions extends React.Component {
     formatter(v) { return [v.id, v.version]; }
     render() {
         return <AsyncOptionsList table="sequencing_kit_versions" label="Kit" form={this.props.form}
+                                 storeKey={dataStoreKeys.SEQUENCING_KIT_VERSIONS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -219,6 +238,7 @@ export class SequencingQualities extends React.Component {
     render() {
         return <AsyncOptionsList table="sequencing_qualities" form={this.props.form}
                                  selectProps={this.props.selectProps}
+                                 storeKey={dataStoreKeys.SEQUENCING_QUALITIES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
@@ -231,6 +251,7 @@ export class Taxonomies extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList table="taxonomies" label="Organism" form={this.props.form}
+                                 storeKey={dataStoreKeys.TAXONOMIES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }

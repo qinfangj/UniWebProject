@@ -4,7 +4,7 @@ import store from '../../../core/store';
 
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
 import Select from '../elements/Select';
-import constants from '../../constants/constants';
+
 
 /**
  * Dropdown with available options
@@ -19,10 +19,10 @@ class AsyncOptionsList extends React.Component {
     static propTypes = {
         table: React.PropTypes.string.isRequired,
         form: React.PropTypes.string.isRequired,
+        storeKey: React.PropTypes.string.isRequired,  // the store key for the result list
         label: React.PropTypes.string,
         formatter: React.PropTypes.func,  // ex: object => [id, name]
         suffix: React.PropTypes.string,  // route suffix for conditional lists (e.g. "all" in "/table/projects/list/all")
-        storeKey: React.PropTypes.string,  // the store key for the result list - defaults to `table` prop
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
 
@@ -31,7 +31,7 @@ class AsyncOptionsList extends React.Component {
     }
 
     componentWillMount() {
-        this.storeKey = this.props.storeKey || (constants.OPTIONS + this.props.form +"_"+ this.props.table);
+        this.storeKey = this.props.storeKey; //|| (constants.OPTIONS + this.props.form +"_"+ this.props.table);
         this.unsubscribe = store.subscribe(() => {
             let list = store.getState().async[this.storeKey];
             if (list) {

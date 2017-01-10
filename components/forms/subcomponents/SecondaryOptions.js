@@ -1,5 +1,6 @@
 import React from 'react';
 import AsyncSecondaryOptionsList from './AsyncSecondaryOptionsList';
+import dataStoreKeys from '../../constants/dataStoreKeys';
 
 
 /**
@@ -12,6 +13,7 @@ export class BasecallingsOutputFolders extends React.Component {
         return (<AsyncSecondaryOptionsList
             table="basecallings" label="Unaligned data output folder" form={this.props.form}
             referenceField="runs"
+            storeKey={dataStoreKeys.BASECALLING_OUTPUT_FOLDERS}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
@@ -27,6 +29,7 @@ export class ProjectSamples extends React.Component {
         return (<AsyncSecondaryOptionsList
             table="samples" label="Sample" form={this.props.form}
             referenceField={this.props.referenceField}
+            storeKey={dataStoreKeys.PROJECT_SAMPLES}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
