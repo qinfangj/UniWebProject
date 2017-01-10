@@ -136,13 +136,13 @@ class ProjectInsertForm extends React.Component {
                     </Col>
 
                 </Form>
-                <Form componentClass="fieldset">
+                <Form componentClass="fieldset" horizontal>
 
                     {/* Comment */}
 
-                    <div className={css.soloField}>
+                    <Col sm={12} className={css.formCol}>
                         <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
-                    </div>
+                    </Col>
 
                 </Form>
 
