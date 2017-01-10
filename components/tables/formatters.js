@@ -40,3 +40,14 @@ export function nullable(v) {
     else { return v.value; }
 }
 
+/**
+ *
+ */
+export function clipFloat(v) {
+    let parsed = parseFloat(v.value);
+    if (!isNaN(parsed)) {
+        return Math.round(parsed * 100) / 100;
+    } else {
+        return nullable(v.value);
+    }
+}

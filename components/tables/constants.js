@@ -1,5 +1,11 @@
 
 export const CENTER = {textAlign: "center"};
+export const MULTIROW = {
+    'text-overflow': 'ellipsis',  // 'clip', 'ellipsis', '…' (string)
+    //'overflow': 'visible',
+    //'white-space': 'normal',
+    //'overflow-wrap': 'break-word',
+};
 
 export const ID_COLUMN = {
     headerName: "ID",

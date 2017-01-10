@@ -45,3 +45,9 @@
 :global(.ag-header-cell-menu-button) {
     display: none;
 }
+:global(.ag-header-cell-label) {
+    text-overflow: ellipsis;
+    /*overflow: visible;*/
+    white-space: normal;
+    /*overflow-wrap: break-word;*/
+}

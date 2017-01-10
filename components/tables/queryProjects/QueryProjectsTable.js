@@ -172,6 +172,7 @@ class QueryProjectsTable extends React.Component {
                         enableSorting={true}
                         columnDefs={columns[this.state.columnsKey]}
                         rowHeight={constants.ROW_HEIGTH}
+                        headerHeight={constants.ROW_HEIGTH}
                     >
                     </AgGridReact>
                 </div>
