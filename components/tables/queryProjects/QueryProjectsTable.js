@@ -52,7 +52,7 @@ class QueryProjectsTable extends React.Component {
         else {
             let projectsKey = formKey + formStoreKeys.suffixes.PROJECTS;
             let selectedProjectIds = forms.getFormValue(formKey, projectsKey);
-            if (selectedProjectIds && selectedProjectIds.length !== 0) {
+            if (selectedProjectIds && Object.keys(selectedProjectIds).length !== 0) {
                 let samples = store.getState().async[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // array of samples [{id, name}, ..]
                 if (samples) {
                     selectedSampleIds = samples.map(v => v.id);
@@ -84,7 +84,7 @@ class QueryProjectsTable extends React.Component {
     }
 
     getQueryTypeFromStore() {
-        return store.getState().common.queryProjectsType;
+        return store.getState().queryProjects.queryProjectsType;
     }
 
     isUpdated(queryType, selectedSampleIds) {

@@ -39,10 +39,3 @@ export function changeFormValue(form, field, value) {
     }
 }
 
-export function changeQueryProjectsType(queryType) {
-    return {
-        type: actions.queryProjects.CHANGE_QUERY_TYPE,
-        queryType: queryType,
-    }
-}
-

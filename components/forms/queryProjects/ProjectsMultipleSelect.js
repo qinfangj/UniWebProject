@@ -3,6 +3,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
+import { resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 import constants from '../../constants/constants';
 import MultipleSelect from '../elements/MultipleSelect';
@@ -96,6 +97,7 @@ class ProjectsMultipleSelect extends React.Component {
                 formKey={this.props.formKey}
                 label={this.props.label}
                 options={this.getOptions()}
+                resetAction={resetSelection()}
             />
         );
     }

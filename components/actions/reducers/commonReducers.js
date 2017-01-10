@@ -7,11 +7,12 @@ import formStoreKeys from '../../constants/formStoreKeys';
 const defaultState = {
     route: {data: {}},
     forms: {},
-    queryProjectsType: "starting_material",
 };
 
 
 let commonReducers = (state = defaultState, action) => {
+
+    let newState;
 
     switch (action.type) {
 
@@ -33,7 +34,7 @@ let commonReducers = (state = defaultState, action) => {
             let form = action.form;
             let field = action.field;
             let value = action.value;
-            let newState = Object.assign({}, state);
+            newState = Object.assign({}, state);
             if (! (form in state.forms)) {
                 newState.forms[form] = {};
             }
@@ -50,8 +51,19 @@ let commonReducers = (state = defaultState, action) => {
 
             return newState;
 
-        case types.queryProjects.CHANGE_QUERY_TYPE:
-            return Object.assign(state, {queryProjectsType: action.queryType});
+        /**
+         * Specific to queryProjects, but acts on centralized form values, so we treat it here as well.
+         */
+        case types.queryProjects.RESET_SELECTION:
+            newState = Object.assign({}, state);
+            let qpForm = formStoreKeys.QUERY_PROJECTS_FORM;
+            let samplesKey = qpForm + formStoreKeys.suffixes.SAMPLES;
+            let projectsKey = qpForm + formStoreKeys.suffixes.PROJECTS;
+            if (newState.forms[qpForm] !== undefined) {
+                newState.forms[qpForm][samplesKey] = {};
+                newState.forms[qpForm][projectsKey] = {};
+            }
+            return newState;
 
         default:
             return state;

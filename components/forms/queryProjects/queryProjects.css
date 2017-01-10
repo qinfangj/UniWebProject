@@ -7,19 +7,22 @@
 }
 
 .searchField {
-    width: 45%;
+    width: 40%;
+    float: left;
 }
 
 .toggleVisible {
     width: 34px;
-    margin: 0 auto;
+    margin-left: 20px;
+    float: left;
 }
 .toggleVisibleButton {
     width: 34px;
     height: 34px;
-    position: relative;
-    top: -34px;
     padding: 0;
+}
+.toggleVisible::after {
+    clear: both;
 }
 
 .querySelector {

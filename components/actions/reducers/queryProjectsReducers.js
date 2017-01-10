@@ -1,9 +1,12 @@
 import types from '../actionTypes';
 import constants from '../../constants/constants';
+import columns from '../../constants/columns'
 import dataStoreKeys from '../../constants/dataStoreKeys';
 
 
-const defaultState = {};
+const defaultState = {
+    queryProjectsType: columns.queryProjects.STARTING_MATERIAL_INFO,
+};
 
 
 let queryProjectsReducers = (state = defaultState, action) => {
@@ -32,6 +35,13 @@ let queryProjectsReducers = (state = defaultState, action) => {
          */
         case types.queryProjects.QUERY_PROJECTS:
             return returnList(action.args.storeKey);
+
+        case types.queryProjects.CHANGE_QUERY_TYPE:
+            return Object.assign(state, {queryProjectsType: action.queryType});
+
+        case types.queryProjects.RESET_SELECTION:
+            console.debug(2)
+            return state;
 
         /**
          * Search for samples having a given term in their name.

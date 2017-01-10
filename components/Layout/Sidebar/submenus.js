@@ -15,7 +15,7 @@ export const facilityDataSubmenu = [
 
 import store from '../../../core/store';
 import columnNames from '../../constants/columns';
-import { changeQueryProjectsType } from '../../actions/actionCreators/commonActionCreators';
+import { changeQueryProjectsType } from '../../actions/actionCreators/queryProjectsActionCreators';
 let col = columnNames.queryProjects;
 let changeQueryType = (type) => store.dispatch(changeQueryProjectsType(type));
 

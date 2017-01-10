@@ -4,7 +4,7 @@ import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
 import store from '../../../core/store';
-import { searchSamplesByTerm } from '../../actions/actionCreators/queryProjectsActionCreators';
+import { searchSamplesByTerm, resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
@@ -64,6 +64,8 @@ class QueryProjectsForm extends React.Component {
     onSearch(e) {
         let term = e.target.value.toLowerCase();
         this.setState({ searchValue: term });
+        // Clear the current projects/samples selection
+        store.dispatch(resetSelection());
         store.dispatch(searchSamplesByTerm(term, dataStoreKeys.SAMPLES_BY_TERM));
     }
 
@@ -74,10 +76,28 @@ class QueryProjectsForm extends React.Component {
     render() {
         return (
             <div id="QueryProjectsForm">
-                <FormControl type="text" placeholder="Search" className={css.searchField}
-                             value={this.state.searchValue}
-                             onChange={this.onSearch.bind(this)}
-                />
+                <div className={css.topLineWithSearch}>
+
+                {/* Search bar */}
+
+                    <FormControl type="text" placeholder="Search" className={css.searchField}
+                                 value={this.state.searchValue}
+                                 onChange={this.onSearch.bind(this)}
+                    />
+
+                {/* Toggle visibility button */}
+
+                    <div className={css.toggleVisible}>
+                        <Button className={css.toggleVisibleButton} onClick={this.toggleVisible.bind(this)}>
+                            <Icon name={this.state.visible ? "angle-double-up" : "angle-double-down"} />
+                        </Button>
+                    </div>
+
+                </div>
+
+                {/* Multiple selects */}
+
+                <div className="clearfix" />
                 <Collapse in={this.state.visible}>
                     <Form>
                         <Col sm={6} className={css.col6}>
@@ -100,11 +120,6 @@ class QueryProjectsForm extends React.Component {
                         </Col>
                     </Form>
                 </Collapse>
-                <div className={css.toggleVisible}>
-                    <Button className={css.toggleVisibleButton} onClick={this.toggleVisible.bind(this)}>
-                        <Icon name={this.state.visible ? "angle-double-up" : "angle-double-down"} />
-                    </Button>
-                </div>
             </div>
         );
     }

@@ -40,6 +40,9 @@ class MultipleSelect extends React.Component {
         // If "none" is selected, reset
         if (-1 in selected) {
             selected = {};
+            if (this.props.resetAction) {
+                store.dispatch(this.props.resetAction);
+            }
         }
         this.setState({ selected });
         store.dispatch(changeFormValue(this.props.form, this.props.formKey, selected));
@@ -78,6 +81,7 @@ MultipleSelect.propTypes = {
 // optional
     label: React.PropTypes.string,  // title - visible
     inputProps: React.PropTypes.object,  // additional input field props
+    resetAction: React.PropTypes.object,  // redux action, when value "-1/any/none" is selected
 
 // maybe use later:
     required: React.PropTypes.bool,
