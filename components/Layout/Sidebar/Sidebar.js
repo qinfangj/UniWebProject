@@ -103,26 +103,18 @@ class ResponsiveSidebar extends React.Component {
         ];
         let items = menuItems.map((items, i) => {
             let {text, to, elements, disabled, ...props} = items;
-            //console.log(path, to, path.includes(to))
+            console.log(path, to, path.includes(to))
             let active = path.includes(to);
             let subitems = !elements ? null : elements.map((elt, j) => {
-                //if (elt.to) {
-                    let active = path.includes(elt.to);
-                    return (
-                        <ListGroupItem key={j}>
-                            <Link to={elt.to} onClick={elt.action}
-                                  className={cx(css.submenuLink, active ? css.active : null,
-                                                                 elt.disabled ? css.disabled : null)}
-                            >{elt.text}</Link>
-                        </ListGroupItem>
-                    );
-                // } else if (elt.action) {
-                //     return (
-                //         <ListGroupItem key={j}>
-                //             {elt.text}
-                //         </ListGroupItem>
-                //     );
-                // }
+                let active = path.includes(elt.to);
+                return (
+                    <ListGroupItem key={j}>
+                        <Link to={elt.to} onClick={elt.action}
+                              className={cx(css.submenuLink, active ? css.active : null,
+                                                             elt.disabled ? css.disabled : null)}
+                        >{elt.text}</Link>
+                    </ListGroupItem>
+                );
             });
             return (
                 <ListGroupItem key={i}>

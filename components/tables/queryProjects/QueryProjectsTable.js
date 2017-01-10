@@ -22,14 +22,14 @@ class QueryProjectsTable extends React.Component {
     constructor(props) {
         super(props);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.dataStoreKey = null;  // will match this.queryType
+        this.selectedSampleIds = this.getSelectedSampleIdsFromStore();
+        this.queryType = this.getQueryTypeFromStore();
         this.state = {
             renderme: false,
             tableData: this.getTableDataFromStore(),
-            columnsKey: this.getQueryTypeFromStore(),
+            columnsKey: this.queryType,
         };
-        this.selectedSampleIds = this.getSelectedSampleIdsFromStore();
-        this.queryType = this.getQueryTypeFromStore();
-        this.dataStoreKey = this.queryType;
     }
 
     /**
@@ -84,7 +84,9 @@ class QueryProjectsTable extends React.Component {
     }
 
     getQueryTypeFromStore() {
-        return store.getState().queryProjects.queryProjectsType;
+        let queryType = store.getState().queryProjects.queryProjectsType;
+        this.dataStoreKey = queryType;
+        return queryType;
     }
 
     isUpdated(queryType, selectedSampleIds) {
