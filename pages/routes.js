@@ -91,6 +91,14 @@ const routes = (
             {/* QUERY PROJECTS */}
 
             <Route path="projects" component={qprojects.QueryProjectsRoute} />
+            <Route path="projects/sample" component={qprojects.QueryProjectsRoute} />
+            <Route path="projects/request" component={qprojects.QueryProjectsRoute} />
+            <Route path="projects/library" component={qprojects.QueryProjectsRoute} />
+            <Route path="projects/desc" component={qprojects.QueryProjectsRoute} />
+            <Route path="projects/sheet" component={qprojects.QueryProjectsRoute} />
+            {/*<Route path="projects/ivc" component={qprojects.QueryProjectsRoute} />*/}
+            <Route path="projects/demultiplexing" component={qprojects.QueryProjectsRoute} />
+            {/*<Route path="projects/alignments" component={qprojects.QueryProjectsRoute} />*/}
 
         </Route>
     </Router>
