@@ -27,7 +27,7 @@ class CommonTable extends React.Component {
     static propTypes = {
         dataStoreKey: React.PropTypes.string.isRequired,  // store key for the table data (in "async")
         columnsKey: React.PropTypes.string.isRequired,  // key in the columns definition dict
-        table: React.PropTypes.string,  // table name
+        table: React.PropTypes.string.isRequired,  // database table name
         activeOnly: React.PropTypes.bool,
     };
 
@@ -117,6 +117,10 @@ class CommonTable extends React.Component {
         );
     }
 }
+
+CommonTable.defaultProps = {
+    activeOnly: false,
+};
 
 
 export default Dimensions()(CommonTable);
