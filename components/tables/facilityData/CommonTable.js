@@ -27,8 +27,6 @@ class CommonTable extends React.Component {
     static propTypes = {
         dataStoreKey: React.PropTypes.string.isRequired,  // store key for the table data (in "async")
         columnsKey: React.PropTypes.string.isRequired,  // key in the columns definition dict
-        /* MODES */
-        // 1. Table selactive/selall (specialSelect for facilityData)
         table: React.PropTypes.string,  // table name
         activeOnly: React.PropTypes.bool,
     };
@@ -42,7 +40,6 @@ class CommonTable extends React.Component {
         let data = store.getState().async[this.props.dataStoreKey];
         if (data && data.length > 0) {
             this.setState({ data });
-        // 1. FacilityData
         } else {
             store.dispatch(actions.getTableDataAsync(this.props.table, this.props.activeOnly, this.props.dataStoreKey))
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
