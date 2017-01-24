@@ -1,6 +1,7 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
+import store from '../../../core/store';
 
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckbox';
@@ -24,6 +25,18 @@ class ProjectInsertForm extends React.Component {
         this.form = "projects";
         this.required = ["name", "code_name"];
         this.state = forms.defaultFormState;
+    }
+
+    static propTypes = {
+        // If defined, the form will be pre-filled with the current data for the item with this ID,
+        //  after fetching it on the server.
+        updateId: React.PropTypes.number,
+    };
+
+    componentWillMount() {
+        this.unsubscribe = store.subscribe(() => {
+
+        });
     }
 
     onSubmit() {
@@ -56,6 +69,7 @@ class ProjectInsertForm extends React.Component {
     }
 
     render() {
+        console.debug(this.props.updateId)
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />

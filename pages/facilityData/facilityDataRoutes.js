@@ -41,7 +41,7 @@ export class ProjectsActiveRoute extends React.Component {
 export class ProjectsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
-            <ProjectsInsertForm/>
+            <ProjectsInsertForm updateId={this.props.params.id}/>
         } />
     );}
 }
