@@ -1,5 +1,7 @@
 import React from 'react';
 import css from '../forms.css';
+import store from '../../../core/store';
+import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import Textarea from '../elements/TextField';
@@ -25,6 +27,28 @@ class LibrariesInsertForm extends React.PureComponent {
                          "frag_size_min", "frag_size_max", "multiplex_index_id"];
         this.state = forms.defaultFormState;
         this.projectsFormKey = this.form +"_projects";
+    }
+
+    static propTypes = {
+        // If defined, the form will be pre-filled with the current data for the item with this ID,
+        //  after fetching it on the server.
+        updateId: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+    };
+
+    componentWillMount() {
+        this.unsubscribe = store.subscribe(() => {
+            let initFormData = store.getState().facilityData["updateData"];
+            if (initFormData && Object.keys(initFormData).length > 0) {
+                console.debug(this.props.updateId, initFormData)
+                this.setState({ initFormData });
+            }
+        });
+        if (this.props.updateId) {
+            store.dispatch(findByIdAsync(this.table, this.props.updateId));
+        }
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     onSubmit() {

@@ -1,5 +1,7 @@
 import React from 'react';
 import css from '../forms.css';
+import store from '../../../core/store';
+import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import validators from '../validators';
@@ -17,6 +19,28 @@ class ProjectInsertForm extends React.PureComponent {
         this.table = "people";
         this.required = ["first_name", "last_name", "email", "address", "phone"];
         this.state = forms.defaultFormState;
+    }
+
+    static propTypes = {
+        // If defined, the form will be pre-filled with the current data for the item with this ID,
+        //  after fetching it on the server.
+        updateId: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+    };
+
+    componentWillMount() {
+        this.unsubscribe = store.subscribe(() => {
+            let initFormData = store.getState().facilityData["updateData"];
+            if (initFormData && Object.keys(initFormData).length > 0) {
+                console.debug(this.props.updateId, initFormData)
+                this.setState({ initFormData });
+            }
+        });
+        if (this.props.updateId) {
+            store.dispatch(findByIdAsync(this.table, this.props.updateId));
+        }
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     formatFormData(formData) {
