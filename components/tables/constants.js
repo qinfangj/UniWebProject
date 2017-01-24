@@ -17,4 +17,4 @@ export const ID_COLUMN = {
 };
 
 export const ROW_HEIGTH = 25;
-export const ROW_HEIGTH_PX = ROW_HEIGTH + "px";
+

@@ -1,10 +1,29 @@
+import React from 'react';
 import * as formatters from '../formatters';
 import { CENTER, ID_COLUMN } from '../constants';
+import { Link } from 'react-router';
+
+
+// See React cell rendering with Ag-Grid: https://www.ag-grid.com/javascript-grid-cell-rendering/
+function idColumnWithUpdateLink(tableName) {
+    return Object.assign(ID_COLUMN, {
+        cellRendererFramework: IdColumnWithUpdateLink,
+        cellRendererParams: {tableName},
+    });
+}
+
+class IdColumnWithUpdateLink extends React.Component {
+    render() {
+        return <Link to={`/data/${this.props.tableName}/update/${this.props.value}`}>
+            {this.props.value}
+        </Link>;
+    }
+}
 
 
 const columns = {
     projects: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("projects"),
         {
             headerName: "Name",
             field: "name",
@@ -20,7 +39,7 @@ const columns = {
         },
     ],
     people: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("people"),
         {
             headerName: "PI name",
             field: "name",
@@ -33,7 +52,7 @@ const columns = {
         }
     ],
     genomes: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("genomes"),
         {
             headerName: "Organism",
             field: "organism",
@@ -55,7 +74,7 @@ const columns = {
         },
     ],
     samples: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("samples"),
         {
             headerName: "Short name",
             field: "short_name",
@@ -81,7 +100,7 @@ const columns = {
         },
     ],
     libraries: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("libraries"),
         {
             headerName: "Name",
             field: "name",
@@ -114,7 +133,7 @@ const columns = {
         },
     ],
     runs: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("runs"),
         {
             headerName: "Run folder",
             field: "run_folder",
@@ -140,7 +159,7 @@ const columns = {
         },
     ],
     user_requests: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("user_requests"),
         {
             headerName: "Sample",
             field: "sample",
@@ -171,7 +190,7 @@ const columns = {
         },
     ],
     bioanalysers: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("bioanalysers"),
         {
             headerName: "Date",
             field: "bioanalyser_date",
@@ -182,7 +201,7 @@ const columns = {
         },
     ],
     basecallings: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("basecallings"),
         {
             headerName: "Run folder",
             field: "run_folder",
@@ -203,7 +222,7 @@ const columns = {
         },
     ],
     alignments: [
-        ID_COLUMN,
+        idColumnWithUpdateLink("alignments"),
         {
             headerName: "Run folder",
             field: "run_folder",

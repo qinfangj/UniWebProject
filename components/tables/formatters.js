@@ -41,7 +41,7 @@ export function nullable(v) {
 }
 
 /**
- *
+ * Round floats to a number of significant digits.
  */
 export function clipFloat(v) {
     let parsed = parseFloat(v.value);
@@ -51,3 +51,4 @@ export function clipFloat(v) {
         return nullable(v.value);
     }
 }
+

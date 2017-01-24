@@ -103,7 +103,7 @@ class ResponsiveSidebar extends React.Component {
         ];
         let items = menuItems.map((items, i) => {
             let {text, to, elements, disabled, ...props} = items;
-            console.log(path, to, path.startsWith(to))
+            //console.log(path, to, path.startsWith(to))
             let active = path.startsWith(to);
             let subitems = !elements ? null : elements.map((elt, j) => {
                 let active = path.includes(elt.to);
