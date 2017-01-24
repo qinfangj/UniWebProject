@@ -35,3 +35,8 @@ export function insertAsync(tableName, formData, storeKey) {
     return asyncAction(actions.INSERT, restService.insert.bind(null, tableName, formData), args);
 }
 
+/* Fetch one item info for update */
+export function findByIdAsync(tableName, id) {
+    let args = {tableName, id};
+    return asyncAction(actions.FIND_BY_ID, restService.findById.bind(null, tableName, id), args);
+}

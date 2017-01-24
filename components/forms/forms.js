@@ -13,6 +13,7 @@ export const defaultFormState = {
     submissionError: false,
     submissionSuccess: false,
     submissionId: undefined,
+    initFormData: {},
 };
 
 /**

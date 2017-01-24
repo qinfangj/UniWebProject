@@ -55,6 +55,14 @@ class RestService {
         return this.post(url, formData);
     }
 
+    /* Find a row details by ID */
+
+    findById(tableName, id) {
+        let url = `${BACKEND}/table/${tableName}/find/${id}`;
+        console.info(url);
+        return $.get(url);
+    }
+
     /* Query projects */
 
     queryProjects(ids, queryType) {

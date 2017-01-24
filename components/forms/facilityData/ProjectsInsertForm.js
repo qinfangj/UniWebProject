@@ -2,6 +2,7 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 import store from '../../../core/store';
+import { findByIdAsync } from '../../actions/actionCreators/asyncActionCreators';
 
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckbox';
@@ -35,8 +36,15 @@ class ProjectInsertForm extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-
+            let initFormData = store.getState().async.updateData;
+            if (initFormData && Object.keys(initFormData).length > 0) {
+                console.debug(77, initFormData)
+                this.setState({ initFormData });
+            }
         });
+        if (this.props.updateId) {
+            store.dispatch(findByIdAsync(this.table, this.props.updateId));
+        }
     }
 
     onSubmit() {
