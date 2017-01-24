@@ -1,7 +1,7 @@
 import React from 'react';
 import store from '../../../core/store';
 
-import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
+import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 import formStoreKeys from '../../constants/formStoreKeys';
 import MultipleSelect from '../elements/MultipleSelect';
@@ -31,7 +31,7 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
-            let options = storeState.async[this.dataStoreKey];
+            let options = storeState.facilityData[this.dataStoreKey];
             let formValues = storeState.common.forms[this.props.form];
             // Since it depends on another field of the same form, no need to
             //  do anything if the other field has not yet sent its value to the store.

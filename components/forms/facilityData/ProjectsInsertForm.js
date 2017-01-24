@@ -1,7 +1,7 @@
 import React from 'react';
 import css from '../forms.css';
 import store from '../../../core/store';
-import { findByIdAsync } from '../../actions/actionCreators/asyncActionCreators';
+import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckbox';
@@ -34,7 +34,7 @@ class ProjectInsertForm extends React.PureComponent {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let initFormData = store.getState().async["updateData"];
+            let initFormData = store.getState().facilityData["updateData"];
             if (initFormData && Object.keys(initFormData).length > 0) {
                 console.debug(this.props.updateId, initFormData)
                 this.setState({ initFormData });

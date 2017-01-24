@@ -1,7 +1,7 @@
 import React from 'react';
 import store from '../../../core/store';
 
-import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
+import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 import constants from '../../constants/constants';
@@ -42,13 +42,13 @@ class ProjectsMultipleSelect extends React.PureComponent {
     componentWillMount() {
         // Listen to store for changes or initial data
         this.unsubscribe = store.subscribe(() => {
-            let options = store.getState().async[this.dataStoreKey];
+            let options = store.getState().facilityData[this.dataStoreKey];
             if (options) {
                 this.setState({ options });
             }
         });
         // Initialize state
-        let options = store.getState().async[this.dataStoreKey];
+        let options = store.getState().facilityData[this.dataStoreKey];
         /// ...cached
         if (options) {
             this.setState({ options });

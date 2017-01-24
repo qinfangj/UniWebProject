@@ -2,7 +2,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
-import asyncReducers from '../components/actions/reducers/asyncReducers';
+import facilityDataReducers from '../components/actions/reducers/facilityDataReducers';
 import commonReducers from '../components/actions/reducers/commonReducers';
 import authReducers from '../components/actions/reducers/authReducers';
 import queryProjectsReducers from '../components/actions/reducers/queryProjectsReducers';
@@ -26,7 +26,7 @@ const logger = createLogger({
 });
 
 let reducer = combineReducers({
-    async: asyncReducers,
+    facilityData: facilityDataReducers,
     common: commonReducers,
     auth: authReducers,
     queryProjects: queryProjectsReducers,

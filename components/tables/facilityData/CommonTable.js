@@ -3,7 +3,7 @@ import css from '../tables.css';
 import cx from 'classnames';
 import store from '../../../core/store';
 import * as tables from '../tables.js';
-import * as actions from '../../actions/actionCreators/asyncActionCreators';
+import * as actions from '../../actions/actionCreators/facilityDataActionCreators';
 import * as constants from '../constants';
 
 import { AgGridReact } from 'ag-grid-react';
@@ -31,11 +31,11 @@ class CommonTable extends React.PureComponent {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let data = store.getState().async[this.props.dataStoreKey];
+            let data = store.getState().facilityData[this.props.dataStoreKey];
             this.setState({ data });
         });
         /* If data is already in store, use that one. Otherwise, call backend API. */
-        let data = store.getState().async[this.props.dataStoreKey];
+        let data = store.getState().facilityData[this.props.dataStoreKey];
         if (data && data.length > 0) {
             this.setState({ data });
         } else {

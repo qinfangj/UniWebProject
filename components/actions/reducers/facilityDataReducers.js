@@ -5,7 +5,7 @@ import constants from '../../constants/constants';
 const defaultState = {};
 
 
-let asyncReducers = (state = defaultState, action) => {
+let facilityDataReducers = (state = defaultState, action) => {
 
     /**
      * All kinds of special backend async GET responses are handled the same way.
@@ -54,4 +54,4 @@ let asyncReducers = (state = defaultState, action) => {
 };
 
 
-export default asyncReducers;
+export default facilityDataReducers;
