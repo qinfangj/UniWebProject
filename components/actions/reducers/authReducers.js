@@ -5,7 +5,7 @@ import constants from '../../constants/constants';
 
 const defaultState = {
     isFetching: false,
-    isAuthenticated: localStorage.getItem('id_token') ? true : false,
+    isAuthenticated: !! localStorage.getItem('id_token'),
 };
 
 
