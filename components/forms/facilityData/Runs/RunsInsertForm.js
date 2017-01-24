@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import formsCss from '../../forms.css';
 import css from './runs.css';
 import cx from 'classnames';
@@ -21,10 +20,9 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 
-class RunsInsertForm extends React.Component {
+class RunsInsertForm extends React.PureComponent {
     constructor() {
         super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "runs";
         this.form = "runs";
         this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];

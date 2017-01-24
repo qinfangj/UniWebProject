@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../components/forms/queryProjects/queryProjects.css';
 import cx from 'classnames';
 import store from '../core/store';

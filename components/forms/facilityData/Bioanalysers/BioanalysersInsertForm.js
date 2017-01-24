@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import formsCss from '../../forms.css';
 import css from './bioanalysers.css';
 import cx from 'classnames';
@@ -16,10 +15,9 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 
-class BioanalysersInsertForm extends React.Component {
+class BioanalysersInsertForm extends React.PureComponent {
     constructor() {
         super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "bioanalysers";
         this.form = "bioanalysers";
         this.required = [];

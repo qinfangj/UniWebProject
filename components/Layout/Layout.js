@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import cx from 'classnames';
 import css from './Layout.css';
 import commonCss from '../../styles/common.css';
@@ -19,12 +18,7 @@ import ResponsiveSidebar from './Sidebar';
  *   {content}
  * </Layout>
  */
-class Layout extends React.Component {
-
-    constructor() {
-        super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-    }
+class Layout extends React.PureComponent {
 
     render() {
 

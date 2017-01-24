@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -7,10 +6,9 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 
 
-class DatePicker extends React.Component {
+class DatePicker extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             value: this.props.defaultValue,
         };

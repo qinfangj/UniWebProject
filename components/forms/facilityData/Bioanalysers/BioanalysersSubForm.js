@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './bioanalysers.css';
 import cx from 'classnames';
 import store from '../../../../core/store';
@@ -14,10 +13,9 @@ import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
 /**
  *
  */
-class BioanalysersSubForm extends React.Component {
+class BioanalysersSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // Test
         //console.debug(props)
         //console.debug(this.props.lanes)

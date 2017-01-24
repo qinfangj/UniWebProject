@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 import css from '../forms.css';
@@ -14,10 +13,9 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
  * A component displaying a list of options, several of which can be selected
  *  at a time using Shift or Ctrl.
  */
-class MultipleSelect extends React.Component {
+class MultipleSelect extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             selected: {},
         };

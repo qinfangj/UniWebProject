@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
@@ -10,10 +9,9 @@ import constants from '../../constants/constants';
  * Dropdown with available options depending on the selected value
  * in another input field `referenceField`.
  */
-class AsyncSecondaryOptionsList extends React.Component {
+class AsyncSecondaryOptionsList extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.referenceValue = null; // not in state because not used for display. Only the callback updates the component.
         this.state = {list: [], value: null};
     }

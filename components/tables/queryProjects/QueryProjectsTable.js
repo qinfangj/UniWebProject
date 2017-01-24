@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import tablesCss from '../tables.css';
 import css from './queryProjectsTable.css';
 import cx from 'classnames';
@@ -18,10 +17,9 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 
 
 
-class QueryProjectsTable extends React.Component {
+class QueryProjectsTable extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.dataStoreKey = null;  // will match this.queryType
         this.selectedSampleIds = this.getSelectedSampleIdsFromStore();
         this.queryType = this.getQueryTypeFromStore();

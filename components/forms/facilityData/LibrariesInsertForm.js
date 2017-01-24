@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 
 import TextField from '../elements/TextField';
@@ -17,10 +16,9 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 
-class LibrariesInsertForm extends React.Component {
+class LibrariesInsertForm extends React.PureComponent {
     constructor() {
         super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "libraries";
         this.form = "libraries";
         this.required = ["sample_id", "name", "lib_protocol_id", "library_date", "starting_material",

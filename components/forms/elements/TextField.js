@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 import store from '../../../core/store';
 import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
@@ -11,10 +10,9 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 
-class TextField extends React.Component {
+class TextField extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         let value = this.props.defaultValue;
         let res = this.validate(value);
         this.state = {

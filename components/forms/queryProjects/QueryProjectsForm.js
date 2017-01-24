@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
@@ -23,10 +22,9 @@ import { Icon } from 'react-fa'
  * Holds together the projects and samples multiple selectors,
  * and allows to filter their options by term.
  */
-class QueryProjectsForm extends React.Component {
+class QueryProjectsForm extends React.PureComponent {
     constructor() {
         super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.form = formStoreKeys.QUERY_PROJECTS_FORM;
         // Build store keys for selected form values
         this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;

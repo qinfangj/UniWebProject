@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
@@ -10,10 +9,9 @@ import MultipleSelect from '../elements/MultipleSelect';
 
 
 
-class ProjectsMultipleSelect extends React.Component {
+class ProjectsMultipleSelect extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "projects";
         this.dataStoreKey = this.getDataStoreKey();
         this.state = {

@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../tables.css';
 import cx from 'classnames';
 import store from '../../../core/store';
@@ -13,10 +12,9 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
 
 
-class CommonTable extends React.Component {
+class CommonTable extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             data: [],
             searchValue: "",

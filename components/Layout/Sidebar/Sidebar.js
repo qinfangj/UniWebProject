@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import cx from 'classnames';
 import css from './Sidebar.css';
 import store from '../../../core/store';
@@ -19,11 +18,10 @@ import { Collapse, ListGroup, ListGroupItem } from 'react-bootstrap/lib';
  * they trigger actions instead of just updating the state:
  * a route change will reconstruct the conponents.
  */
-class ResponsiveSidebar extends React.Component {
+class ResponsiveSidebar extends React.PureComponent {
 
     constructor() {
         super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             open: true,
             docked: true,

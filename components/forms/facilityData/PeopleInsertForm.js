@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 
 import TextField from '../elements/TextField';
@@ -12,10 +11,9 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 
-class ProjectInsertForm extends React.Component {
+class ProjectInsertForm extends React.PureComponent {
     constructor() {
         super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "people";
         this.required = ["first_name", "last_name", "email", "address", "phone"];
         this.state = forms.defaultFormState;

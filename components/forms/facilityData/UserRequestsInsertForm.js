@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 import cx from 'classnames';
 
@@ -17,10 +16,9 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 
-class UserRequestsInsertForm extends React.Component {
+class UserRequestsInsertForm extends React.PureComponent {
     constructor() {
         super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "user_requests";
         this.form = "user_requests";
         this.required = ["multiplexing_group", "multiplex_nb"];

@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './runs.css';
 import formsCss from '../../forms.css';
 import commonCss from '../../../../styles/common.css';
@@ -24,10 +23,9 @@ const range8 = Array.from(new Array(8).keys());  // idiotic JS - range(8)
  * or you give a number of libraries and QC libraries to fill manually.
  * It passes this data to `RunsInsertForm` -> `RunsSubForm` to build a table of the lanes.
  */
-class RunsPreInsertForm extends React.Component {
+class RunsPreInsertForm extends React.PureComponent {
     constructor() {
         super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "runs";
         this.form = "pre-runs";
         this.required = [""];

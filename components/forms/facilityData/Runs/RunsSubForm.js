@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from './runs.css';
 import cx from 'classnames';
 import store from '../../../../core/store';
@@ -17,10 +16,9 @@ import * as forms from '../../forms';
  * It is part of `RunsInsertForm`.
  * Each lane is a group of rows with 4 inputs each, spaced and surrounded by a border.
  */
-class RunsSubForm extends React.Component {
+class RunsSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // Test
         //console.debug(props)
         //console.debug(this.props.lanes)

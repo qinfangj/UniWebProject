@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -8,10 +7,9 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 /**
  * This name so that it does not conflict with the React-BS one.
  */
-class MyCheckbox extends React.Component {
+class MyCheckbox extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = { checked: false };
     }
 

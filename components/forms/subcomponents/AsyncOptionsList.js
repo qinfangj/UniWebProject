@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
@@ -9,10 +8,9 @@ import Select from '../elements/Select';
 /**
  * Dropdown with available options
  */
-class AsyncOptionsList extends React.Component {
+class AsyncOptionsList extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {list: [], value: null};
     }
 

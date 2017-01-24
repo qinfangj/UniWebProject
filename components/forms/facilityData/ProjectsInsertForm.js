@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../forms.css';
 import store from '../../../core/store';
 import { findByIdAsync } from '../../actions/actionCreators/asyncActionCreators';
@@ -18,10 +17,9 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 
-class ProjectInsertForm extends React.Component {
+class ProjectInsertForm extends React.PureComponent {
     constructor() {
         super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.table = "projects";
         this.form = "projects";
         this.required = ["name", "code_name"];
@@ -31,20 +29,23 @@ class ProjectInsertForm extends React.Component {
     static propTypes = {
         // If defined, the form will be pre-filled with the current data for the item with this ID,
         //  after fetching it on the server.
-        updateId: React.PropTypes.number,
+        updateId: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
     };
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let initFormData = store.getState().async.updateData;
+            let initFormData = store.getState().async["updateData"];
             if (initFormData && Object.keys(initFormData).length > 0) {
-                console.debug(77, initFormData)
+                console.debug(this.props.updateId, initFormData)
                 this.setState({ initFormData });
             }
         });
         if (this.props.updateId) {
             store.dispatch(findByIdAsync(this.table, this.props.updateId));
         }
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     onSubmit() {
@@ -77,7 +78,6 @@ class ProjectInsertForm extends React.Component {
     }
 
     render() {
-        console.debug(this.props.updateId)
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />

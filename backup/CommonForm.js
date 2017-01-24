@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import css from '../components/forms/forms.css';
 import * as forms from '../components/forms/forms.js';
 
@@ -7,10 +6,9 @@ import Button from 'react-bootstrap/lib/Button';
 
 
 
-class CommonForm extends React.Component {
+class CommonForm extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             missing: {},
             invalid: {},

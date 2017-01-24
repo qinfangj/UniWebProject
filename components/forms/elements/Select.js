@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 
@@ -9,10 +8,9 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 
 
-class Select extends React.Component {
+class Select extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             value: this.defaultOption(props.options, props.defaultValue),
         };

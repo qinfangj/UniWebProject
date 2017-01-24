@@ -66,7 +66,7 @@ export class PeopleActiveRoute extends React.Component {
 export class PeopleNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
-            <PeopleInsertForm />
+            <PeopleInsertForm updateId={this.props.params.id} />
         } />
     );}
 }
@@ -91,7 +91,7 @@ export class GenomesActiveRoute extends React.Component {
 export class GenomesNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
-            <GenomesInsertForm/>
+            <GenomesInsertForm updateId={this.props.params.id} />
         } />
     );}
 }
@@ -116,7 +116,7 @@ export class SamplesActiveRoute extends React.Component {
 export class SamplesNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
-            <SamplesInsertForm/>
+            <SamplesInsertForm updateId={this.props.params.id} />
         } />
     );}
 }
@@ -141,7 +141,7 @@ export class LibrariesActiveRoute extends React.Component {
 export class LibrariesNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
-            <LibrariesInsertForm/>
+            <LibrariesInsertForm updateId={this.props.params.id} />
         } />
     );}
 }
@@ -166,7 +166,7 @@ export class RunsActiveRoute extends React.Component {
 export class RunsPreNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
-            <RunsPreInsertForm/>
+            <RunsPreInsertForm updateId={this.props.params.id} />
         } />
     );}
 }
@@ -198,7 +198,7 @@ export class UserRequestsActiveRoute extends React.Component {
 export class UserRequestsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="User requests" name="user_requests" content={
-            <UserRequestsInsertForm/>
+            <UserRequestsInsertForm updateId={this.props.params.id} />
         } />
     );}
 }
@@ -223,7 +223,7 @@ export class BioanalysersActiveRoute extends React.Component {
 export class BioanalysersNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Bioanalysers" name="bioanalysers" content={
-            <BioanalysersInsertForm/>
+            <BioanalysersInsertForm updateId={this.props.params.id} />
         } />
     );}
 }
@@ -248,7 +248,7 @@ export class BasecallingsActiveRoute extends React.Component {
 export class BasecallingsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Basecallings" name="basecallings" content={
-            <BasecallingsInsertForm/>
+            <BasecallingsInsertForm updateId={this.props.params.id} />
         } />
     );}
 }
@@ -273,7 +273,7 @@ export class AlignmentsActiveRoute extends React.Component {
 export class AlignmentsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Alignments" name="alignments" content={
-            <AlignmentsInsertForm/>
+            <AlignmentsInsertForm updateId={this.props.params.id} />
         } />
     );}
 }

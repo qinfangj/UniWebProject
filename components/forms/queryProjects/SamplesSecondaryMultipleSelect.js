@@ -1,5 +1,4 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import store from '../../../core/store';
 
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/asyncActionCreators';
@@ -8,10 +7,9 @@ import formStoreKeys from '../../constants/formStoreKeys';
 import MultipleSelect from '../elements/MultipleSelect';
 
 
-class SamplesSecondaryMultipleSelect extends React.Component {
+class SamplesSecondaryMultipleSelect extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             options: []  // an array of objects of the type {id: .., name: ..}
         };
