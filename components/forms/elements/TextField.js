@@ -38,9 +38,9 @@ class TextField extends React.PureComponent {
         // Initial feedback
         let {valid, msg, feedback} = this.validate(this.state.value);
         this.setState({valid, msg, feedback});
-        // Listen to value changes from the store
     }
     componentDidMount() {
+        // Listen to value change from the store
         this.unsubscribe = store.subscribe(() => {
             let formData = store.getState().common.forms[this.props.form];
             if (formData) {
@@ -51,7 +51,6 @@ class TextField extends React.PureComponent {
         });
     }
     componentWillUnmount() {
-        console.debug(this)
         this.unsubscribe();
     }
 

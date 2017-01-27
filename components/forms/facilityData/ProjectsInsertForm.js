@@ -1,7 +1,7 @@
 import React from 'react';
 import css from '../forms.css';
 import store from '../../../core/store';
-import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckbox';
@@ -35,18 +35,9 @@ class ProjectInsertForm extends React.PureComponent {
     };
 
     componentDidMount() {
-        // this.unsubscribe = store.subscribe(() => {
-        //     let initFormData = store.getState().facilityData["updateData"];
-        //     if (initFormData && Object.keys(initFormData).length > 0) {
-        //         this.setState({ initFormData });
-        //     }
-        // });
         if (this.props.updateId) {
-            store.dispatch(findByIdAsync(this.table, this.props.updateId));
+            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }
-    }
-    componentWillUnmount() {
-        //this.unsubscribe();
     }
 
     onSubmit() {
@@ -55,18 +46,19 @@ class ProjectInsertForm extends React.PureComponent {
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
-                console.debug(200, insertId)
+                console.debug(200, "Inserted ID <"+insertId+">");
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
                 console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
-            }
+        }
     }
 
     getFormValues() {
+        let formData = store.getState().common.forms[this.form];
         return {
-            id: this.state.initFormData["id"],
+            id: formData[fields.ID],
             name: this._projectName.getValue(),
             person_id: this._personInCharge.getValue(),
             code_name: this._codeName.getValue(),
@@ -77,15 +69,6 @@ class ProjectInsertForm extends React.PureComponent {
             project_analysis_id: this._projectAnalysis.getValue(),
             comment: this._comment.getValue(),
         };
-    }
-
-    /**
-     * For update, return the field value found in database for this row ID.
-     * The RHS is the identifier for the input field, the LHS is the field in the Slick row.
-     */
-    setDefaultValue(field) {
-        let initData = this.state.initFormData;
-        if (initData[field]) { return initData[field]; }
     }
 
     render() {
@@ -101,7 +84,6 @@ class ProjectInsertForm extends React.PureComponent {
                     <Col sm={4} className={css.formCol}>
                         <TextField storeKey={fields.NAME} label="Project name" form={this.form} required
                                    ref = {(c) => this._projectName = c}
-                                   defaultValue = {this.setDefaultValue(fields.NAME)}
                         />
                     </Col>
 
@@ -118,7 +100,6 @@ class ProjectInsertForm extends React.PureComponent {
                                    validator = {validators.codeNameValidator}
                                    placeholder = "[name]_[initials] Ex: Tcells_EG."
                                    ref = {(c) => this._codeName = c}
-                                   defaultValue = {this.setDefaultValue(fields.CODE_NAME)}
                         />
                     </Col>
 
@@ -131,7 +112,7 @@ class ProjectInsertForm extends React.PureComponent {
                         <TextField storeKey={fields.DESCRIPTION} label="Description" form={this.form}
                                    validator = {validators.descriptionValidator}
                                    ref = {(c) => this._description = c}
-                                   defaultValue = {this.setDefaultValue(fields.DESCRIPTION) || "Enter description here"}
+                                   defaultValue = "Enter description here"
                         />
                     </Col>
 

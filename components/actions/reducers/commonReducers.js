@@ -13,6 +13,7 @@ const defaultState = {
 let commonReducers = (state = defaultState, action) => {
 
     let newState;
+    let form;
 
     switch (action.type) {
 
@@ -31,10 +32,10 @@ let commonReducers = (state = defaultState, action) => {
             });
 
         case types.CHANGE_FORM_VALUE:
-            let form = action.form;
+            newState = Object.assign({}, state);
+            form = action.form;
             let field = action.field;
             let value = action.value;
-            newState = Object.assign({}, state);
             // Create if not exists
             if (! (form in state.forms)) {
                 newState.forms[form] = {};
@@ -50,6 +51,23 @@ let commonReducers = (state = defaultState, action) => {
               newState.forms[form][form + formStoreKeys.suffixes.SAMPLES] = {};
             }
 
+            return newState;
+
+        /**
+         * Takes the data for a database row that we queried by ID to fill the related form for update.
+         * Expects `action.form` (form name), `action.data` (row data).
+         */
+        case types.facilityData.FILL_UPDATE_FORM:
+            newState = Object.assign({}, state);
+            form = action.form;
+            if (! state.forms[form]) {
+                newState.forms[form] = {};
+            }
+            let formData = newState.forms[form];
+            Object.assign(formData, action.data);
+            // Above we supposed that the keys returned by the backend (Slick auto-generated models)
+            // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
+            newState.forms[form] = formData;
             return newState;
 
         /**

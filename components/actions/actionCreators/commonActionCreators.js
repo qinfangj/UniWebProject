@@ -30,14 +30,12 @@ export function goTo(url, query={}, state={}, data={}) {
     }
 }
 
-export function changeFormValue(form, field, value, missing, invalid) {
+export function changeFormValue(form, field, value) {
     return {
         type: actions.CHANGE_FORM_VALUE,
         form: form,
         field: field,
         value: value,
-        missing: missing,
-        invalid: invalid,
     }
 }
 

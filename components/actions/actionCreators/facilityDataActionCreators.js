@@ -35,8 +35,24 @@ export function insertAsync(tableName, formData, storeKey) {
     return asyncAction(types.INSERT, restService.insert.bind(null, tableName, formData), args);
 }
 
-/* Fetch one item info for update */
+/* Fetch one item info (database row) */
 export function findByIdAsync(tableName, id) {
     let args = {tableName, id};
-    return asyncAction(types.FIND_BY_ID, restService.findById.bind(null, tableName, id), args);
+    return asyncAction(types.FIND_BY_ID, restService.findById.bind(null, tableName, id), args)
+}
+/* Fetch one item to update the related form fields */
+export function findForUpdateAsync(tableName, id, form) {
+    return (dispatch) => {
+        dispatch(findByIdAsync(tableName, id))
+        .done((data) => {
+            dispatch(fillUpdateForm(form, data))
+        });
+    }
+}
+export function fillUpdateForm(form, data) {
+    return {
+        type: types.FILL_UPDATE_FORM,
+        form: form,
+        data: data,
+    };
 }

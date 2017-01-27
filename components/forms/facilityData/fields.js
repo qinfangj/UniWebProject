@@ -1,10 +1,12 @@
 /*
  * Identifiers for input fields.
- * N.B. The closer they are to Slick row fields, the easier.
+ * N.B. The closer they are to Slick row fields, the easier,
+ * otherwise we would need exceptions in the reducer that treats form updates.
  */
 
 
 const fields = {
+    ID: "id",
     NAME: "name",
     DESCRIPTION: "description",
     COMMENT: "comment",

@@ -3,17 +3,13 @@ import store from '../../core/store';
 import css from './forms.css';
 import _ from 'lodash';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import { changeFormValue } from '../actions/actionCreators/commonActionCreators';
 import Alert from 'react-bootstrap/lib/Alert';
 
 
 export const defaultFormState = {
-    missing: {},
-    invalid: {},
     submissionError: false,
     submissionSuccess: false,
     submissionId: undefined,
-    initFormData: {},
 };
 
 /**
@@ -30,7 +26,6 @@ export function getFormValue(form, storeKey) {
 
 export function submit(tableName, formData, required=[], formatFormData=null) {
     console.info(JSON.stringify(formData, null, 2));
-    //store.getState().facilityData["updateData"] = null;
     let fields = Object.keys(formData);
     let nullFields = required.filter(k => formData[k] === null);
     let invalidFields = fields.filter(k => formData[k] === null);
@@ -44,7 +39,7 @@ export function submit(tableName, formData, required=[], formatFormData=null) {
             formData = formatFormData(formData);
         }
         let future = store.dispatch(insertAsync(tableName, formData));
-        state = {missing: {}, invalid: {}, submissionError: false, submissionFuture: future, initFormData: {}};
+        state = {submissionError: false, submissionFuture: future};
     }
     return state;
 }
