@@ -23,7 +23,6 @@ class SamplesInsertForm extends React.PureComponent {
         super();
         this.table = "samples";
         this.form = "samples";
-        this.required = ["name", "short_name", "project_id", "organism", "taxo_id"];
         this.state = forms.defaultFormState;
     }
 
@@ -51,7 +50,7 @@ class SamplesInsertForm extends React.PureComponent {
 
     onSubmit() {
         let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, this.required, null);
+        let newState = forms.submit(this.table, formData, null);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {

@@ -23,8 +23,6 @@ class LibrariesInsertForm extends React.PureComponent {
         super();
         this.table = "libraries";
         this.form = "libraries";
-        this.required = ["sample_id", "name", "lib_protocol_id", "library_date", "starting_material",
-                         "frag_size_min", "frag_size_max", "multiplex_index_id"];
         this.state = forms.defaultFormState;
         this.projectsFormKey = this.form +"_projects";
     }
@@ -53,7 +51,7 @@ class LibrariesInsertForm extends React.PureComponent {
 
     onSubmit() {
         let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, this.required, null);
+        let newState = forms.submit(this.table, formData, null);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {

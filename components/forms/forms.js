@@ -24,16 +24,14 @@ export function getFormValue(form, storeKey) {
 }
 
 
-export function submit(tableName, formData, required=[], formatFormData=null) {
+export function submit(tableName, formData, formatFormData=null) {
     console.info(JSON.stringify(formData, null, 2));
     let fields = Object.keys(formData);
-    let nullFields = required.filter(k => formData[k] === null);
     let invalidFields = fields.filter(k => formData[k] === null);
     let state = {};
     if (invalidFields.length !== 0) {
-        let missing = _.zipObject(nullFields, new Array(nullFields.length).fill(true));
         let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
-        state = {missing, invalid, submissionError: true};
+        state = {invalid, submissionError: true};
     } else {
         if (formatFormData) {
             formData = formatFormData(formData);

@@ -23,7 +23,6 @@ class UserRequestsInsertForm extends React.PureComponent {
         super();
         this.table = "user_requests";
         this.form = "user_requests";
-        this.required = ["multiplexing_group", "multiplex_nb"];
         this.state = forms.defaultFormState;
         this.projectsFormKey = this.form +"_projects";
     }
@@ -52,7 +51,7 @@ class UserRequestsInsertForm extends React.PureComponent {
 
     onSubmit() {
         let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, this.required, null);
+        let newState = forms.submit(this.table, formData, null);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {

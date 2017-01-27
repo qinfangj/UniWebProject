@@ -23,7 +23,6 @@ class BasecallingsInsertForm extends React.PureComponent {
         super();
         this.table = "basecallings";
         this.form = "basecallings";
-        this.required = ["output_folder"];
         this.state = forms.defaultFormState;
     }
 
@@ -51,7 +50,7 @@ class BasecallingsInsertForm extends React.PureComponent {
 
     onSubmit() {
         let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, this.required, null);
+        let newState = forms.submit(this.table, formData, null);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {

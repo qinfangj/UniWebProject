@@ -19,7 +19,6 @@ class ProjectInsertForm extends React.PureComponent {
         super();
         this.table = "people";
         this.form = formStoreKeys.PEOPLE_INSERT_FORM;
-        this.required = ["first_name", "last_name", "email", "address", "phone"];
         this.state = forms.defaultFormState;
     }
 
@@ -53,7 +52,7 @@ class ProjectInsertForm extends React.PureComponent {
 
     onSubmit() {
         let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, this.required, this.formatFormData);
+        let newState = forms.submit(this.table, formData, this.formatFormData);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
