@@ -47,56 +47,56 @@ const routes = (
             <Route path="data/people/list" component={fdata.PeopleListRoute}/>
             <Route path="data/people/active" component={fdata.PeopleActiveRoute}/>
             <Route path="data/people/new" component={fdata.PeopleNewRoute}/>
-            <Route path="data/people/update/:id" component={fdata.ProjectsNewRoute}/>
+            <Route path="data/people/update/:id" component={fdata.PeopleNewRoute}/>
 
             <Route path="data/genomes" component={fdata.GenomesListRoute}/>
             <Route path="data/genomes/list" component={fdata.GenomesListRoute}/>
             <Route path="data/genomes/active" component={fdata.GenomesActiveRoute}/>
             <Route path="data/genomes/new" component={fdata.GenomesNewRoute}/>
-            <Route path="data/genomes/update/:id" component={fdata.ProjectsNewRoute}/>
+            <Route path="data/genomes/update/:id" component={fdata.GenomesNewRoute}/>
 
             <Route path="data/samples" component={fdata.SamplesListRoute}/>
             <Route path="data/samples/list" component={fdata.SamplesListRoute}/>
             <Route path="data/samples/active" component={fdata.SamplesActiveRoute}/>
             <Route path="data/samples/new" component={fdata.SamplesNewRoute}/>
-            <Route path="data/samples/update/:id" component={fdata.ProjectsNewRoute}/>
+            <Route path="data/samples/update/:id" component={fdata.SamplesNewRoute}/>
 
             <Route path="data/libraries" component={fdata.LibrariesListRoute}/>
             <Route path="data/libraries/list" component={fdata.LibrariesListRoute}/>
             <Route path="data/libraries/active" component={fdata.LibrariesActiveRoute}/>
             <Route path="data/libraries/new" component={fdata.LibrariesNewRoute}/>
-            <Route path="data/libraries/update/:id" component={fdata.ProjectsNewRoute}/>
+            <Route path="data/libraries/update/:id" component={fdata.LibrariesNewRoute}/>
 
             <Route path="data/runs" component={fdata.RunsListRoute}/>
             <Route path="data/runs/list" component={fdata.RunsListRoute}/>
             <Route path="data/runs/active" component={fdata.RunsActiveRoute}/>
             <Route path="data/runs/new" component={fdata.RunsPreNewRoute}/>
             <Route path="data/runs/postnew" component={fdata.RunsNewRoute}/>
-            <Route path="data/runs/update/:id" component={fdata.ProjectsNewRoute}/>
+            <Route path="data/runs/update/:id" component={fdata.RunsNewRoute}/>
 
             <Route path="data/user_requests" component={fdata.UserRequestsListRoute}/>
             <Route path="data/user_requests/list" component={fdata.UserRequestsListRoute}/>
             <Route path="data/user_requests/active" component={fdata.UserRequestsActiveRoute}/>
             <Route path="data/user_requests/new" component={fdata.UserRequestsNewRoute}/>
-            <Route path="data/user_requests/update/:id" component={fdata.ProjectsNewRoute}/>
+            <Route path="data/user_requests/update/:id" component={fdata.UserRequestsNewRoute}/>
 
             <Route path="data/bioanalysers" component={fdata.BioanalysersListRoute}/>
             <Route path="data/bioanalysers/list" component={fdata.BioanalysersListRoute}/>
             <Route path="data/bioanalysers/active" component={fdata.BioanalysersActiveRoute}/>
             <Route path="data/bioanalysers/new" component={fdata.BioanalysersNewRoute}/>
-            <Route path="data/bioanalysers/update/:id" component={fdata.ProjectsNewRoute}/>
+            <Route path="data/bioanalysers/update/:id" component={fdata.BioanalysersNewRoute}/>
 
             <Route path="data/basecallings" component={fdata.BasecallingsListRoute}/>
             <Route path="data/basecallings/list" component={fdata.BasecallingsListRoute}/>
             <Route path="data/basecallings/active" component={fdata.BasecallingsActiveRoute}/>
             <Route path="data/basecallings/new" component={fdata.BasecallingsNewRoute}/>
-            <Route path="data/basecallings/update/:id" component={fdata.ProjectsNewRoute}/>
+            <Route path="data/basecallings/update/:id" component={fdata.BasecallingsNewRoute}/>
 
             <Route path="data/alignments" component={fdata.AlignmentsListRoute}/>
             <Route path="data/alignments/list" component={fdata.AlignmentsListRoute}/>
             <Route path="data/alignments/active" component={fdata.AlignmentsActiveRoute}/>
             <Route path="data/alignments/new" component={fdata.AlignmentsNewRoute}/>
-            <Route path="data/alignments/update/:id" component={fdata.ProjectsNewRoute}/>
+            <Route path="data/alignments/update/:id" component={fdata.AlignmentsNewRoute}/>
 
             {/* QUERY PROJECTS */}
 

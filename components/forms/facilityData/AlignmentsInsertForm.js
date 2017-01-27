@@ -114,14 +114,13 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Alignment output folder */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField name="eland_output_folder" label="Alignment output folder" required
-                                   missing = {!!this.state.missing["eland_output_folder"]}
+                        <TextField field="eland_output_folder" label="Alignment output folder" form={this.form} required
                                    ref = {(c) => this._eland_output_folder = c}
                         />
                     </Col>
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox label="QC report" ref={(c) => this._qc_report = c}/>
+                        <Checkbox label="QC report" form={this.form} ref={(c) => this._qc_report = c}/>
                     </Col>
 
                 </Form>
@@ -130,7 +129,7 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Config file content */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea name="config_file_content" label="Config file content" required
+                        <TextArea field="config_file_content" label="Config file content" form={this.form} required
                                    ref = {(c) => this._config_file_content = c}
                         />
                     </Col>
@@ -141,7 +140,7 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
+                        <TextArea field="comment" label="Comment" form={this.form} ref={(c) => this._comment = c} />
                     </Col>
 
                 </Form>

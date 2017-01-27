@@ -6,6 +6,7 @@ import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCr
 import TextField from '../elements/TextField';
 import validators from '../validators';
 import * as forms from '../forms.js';
+import formStoreKeys from '../../constants/formStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -17,6 +18,7 @@ class ProjectInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "people";
+        this.form = formStoreKeys.PEOPLE_INSERT_FORM;
         this.required = ["first_name", "last_name", "email", "address", "phone"];
         this.state = forms.defaultFormState;
     }
@@ -84,9 +86,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* First name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="firstName" label="PI first name" required
-                                   missing = {!!this.state.missing["first_name"]}
-                                   invalid = {!!this.state.invalid["first_name"]}
+                        <TextField field="firstName" label="PI first name" form={this.form} required
                                    ref = {(c) => this._firstName = c}
                                    defaultValue="J"
                         />
@@ -95,9 +95,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Last name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="lastName" label="PI last name" required
-                                   missing = {!!this.state.missing["last_name"]}
-                                   invalid = {!!this.state.invalid["last_name"]}
+                        <TextField field="lastName" label="PI last name" form={this.form} required
                                    ref = {(c) => this._lastName = c}
                                    defaultValue="D"
                         />
@@ -106,9 +104,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Email */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="email" label="PI email" required
-                                   missing = {!!this.state.missing["email"]}
-                                   invalid = {!!this.state.invalid["email"]}
+                        <TextField field="email" label="PI email" form={this.form} required
                                    ref = {(c) => this._email = c}
                                    validator = {validators.emailValidator}
                                    defaultValue="lab@unil.ch"
@@ -121,9 +117,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Address */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField name="address" label="PI address" required
-                                   missing = {!!this.state.missing["address"]}
-                                   invalid = {!!this.state.invalid["address"]}
+                        <TextField field="address" label="PI address" form={this.form} required
                                    ref = {(c) => this._address = c}
                                    defaultValue=""
                         />
@@ -132,9 +126,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Phone */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="phone" label="PI phone" required
-                                   missing = {!!this.state.missing["phone"]}
-                                   invalid = {!!this.state.invalid["phone"]}
+                        <TextField field="phone" label="PI phone" form={this.form} required
                                    ref = {(c) => this._phone = c}
                                    validator={validators.phoneValidator}
                                    defaultValue="000 000 000"

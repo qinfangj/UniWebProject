@@ -41,7 +41,7 @@ class Select extends React.PureComponent {
         let value = parseInt(e.target.value);
         this.setState({ value });
         if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.name, value));
+            store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.field, value));
         }
     }
 
@@ -52,7 +52,7 @@ class Select extends React.PureComponent {
         let label = this.props.label ? <ControlLabel>{this.props.label}</ControlLabel> : null;
 
         return (
-            <FormGroup controlId={this.props.name} bsSize="small" >
+            <FormGroup controlId={this.props.field} bsSize="small" >
                 {label}
                 <FormControl componentClass="select"
                     placeholder={label}
@@ -68,7 +68,7 @@ class Select extends React.PureComponent {
 }
 
 Select.propTypes = {
-    name: React.PropTypes.string.isRequired,  // FormGroup controlId + name of the field in store
+    field: React.PropTypes.string.isRequired,  // FormGroup controlId + name of the field in store
     options: React.PropTypes.array.isRequired,  // an array of the type [[1,"yes"], [2,"no"], [3,"maybe"]]
     form: React.PropTypes.string,  // form name
     label: React.PropTypes.string,  // title - visible

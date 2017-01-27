@@ -56,3 +56,9 @@ export function fillUpdateForm(form, data) {
         data: data,
     };
 }
+export function emptyForm(form) {
+    return {
+        type: types.EMPTY_FORM,
+        form: form,
+    };
+}

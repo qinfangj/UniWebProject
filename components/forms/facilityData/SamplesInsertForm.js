@@ -95,9 +95,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="name" label="Name" required
-                                   missing = {!!this.state.missing["name"]}
-                                   invalid = {!!this.state.invalid["name"]}
+                        <TextField field="name" label="Name" form={this.form} required
                                    validator = {validators.mediumStringValidator}
                                    ref={(c) => this._name = c}
                         />
@@ -106,9 +104,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Short name */}
 
                     <Col sm={3} className={css.formCol}>
-                        <TextField name="short_name" label="Short name" required
-                                   missing = {!!this.state.missing["short_name"]}
-                                   invalid = {!!this.state.invalid["short_name"]}
+                        <TextField field="short_name" label="Short name" form={this.form} required
                                    validator = {validators.shortStringValidator}
                                    ref={(c) => this._shortName = c}
                         />
@@ -138,7 +134,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Received date */}
 
                     <Col sm={3} className={css.formCol}>
-                        <DatePicker name="received_date" label="Received date"
+                        <DatePicker field="received_date" label="Received date"
                                     ref = {(c) => this._receivedDate = c}
                         />
                     </Col>
@@ -155,9 +151,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Concentration */}
 
                     <Col sm={3} className={css.formCol}>
-                        <TextField name="concentration" label="Concentration" required
-                                   missing = {!!this.state.missing["concentration"]}
-                                   invalid = {!!this.state.invalid["concentration"]}
+                        <TextField field="concentration" label="Concentration" form={this.form} required
                                    validator = {validators.numberValidator}
                                    ref = {(c) => this._concentration = c}
                         />
@@ -166,9 +160,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Volume */}
 
                     <Col sm={3} className={css.formCol}>
-                        <TextField name="volume" label="Volume" required
-                                   missing = {!!this.state.missing["volume"]}
-                                   invalid = {!!this.state.invalid["volume"]}
+                        <TextField field="volume" label="Volume" form={this.form} required
                                    validator = {validators.numberValidator}
                                    ref = {(c) => this._volume = c}
                         />
@@ -177,9 +169,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* RIN */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="rin" label="RIN" required
-                                   missing = {!!this.state.missing["rin"]}
-                                   invalid = {!!this.state.invalid["rin"]}
+                        <TextField field="rin" label="RIN" form={this.form} required
                                    validator = {validators.numberValidator}
                                    ref = {(c) => this._rin = c}
                         />
@@ -188,7 +178,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Ratio 260/280 */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="ratio_260_280" label="Ratio 260/280"
+                        <TextField field="ratio_260_280" label="Ratio 260/280" form={this.form}
                                    ref = {(c) => this._ratio_260_280 = c}
                         />
                     </Col>
@@ -196,7 +186,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Ratio 260/230 */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="ratio_260_230" label="Ratio 260/230"
+                        <TextField field="ratio_260_230" label="Ratio 260/230" form={this.form}
                                    ref = {(c) => this._ratio_260_230 = c}
                         />
                     </Col>
@@ -207,7 +197,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Description */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField name="description" label="Description"
+                        <TextField field="description" label="Description" form={this.form}
                                    ref = {(c) => this._description = c}
                         />
                     </Col>
@@ -218,7 +208,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Customer's comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField name="comment" label="Comment"
+                        <TextField field="comment" label="Comment" form={this.form}
                                    ref = {(c) => this._customerComment = c}
                         />
                     </Col>
@@ -229,7 +219,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Internal comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <Textarea name="comment_customer" label="Internal comment"
+                        <Textarea field="comment_customer" label="Internal comment" form={this.form}
                                   ref = {(c) => this._internalComment = c}
                         />
                     </Col>
@@ -237,7 +227,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Is trashed */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox name="is_discarded" label="Discarded"
+                        <Checkbox field="is_discarded" label="Discarded"
                                   ref = {(c) => this._isDiscarded = c}
                         />
                     </Col>

@@ -107,16 +107,14 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Insert size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="insert_size_min" label="Insert size min"
+                        <TextField field="insert_size_min" label="Insert size min" form={this.form}
                                    validator = {validators.integerValidator}
-                                   invalid = {!! this.state.invalid["insert_size_min"]}
                                    ref = {(c) => this._insertSizeMin = c}
                         />
                     </Col>
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="insert_size_max" label="Insert size max"
+                        <TextField field="insert_size_max" label="Insert size max" form={this.form}
                                    validator = {validators.integerValidator}
-                                   invalid = {!! this.state.invalid["insert_size_max"]}
                                    ref = {(c) => this._insertSizeMax = c}
                         />
                     </Col>
@@ -133,10 +131,8 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Multiplexing group */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="multiplexing_group" label="Multiplexing group" required
+                        <TextField field="multiplexing_group" label="Multiplexing group" form={this.form} required
                                    validator = {validators.shortStringValidator}
-                                   invalid = {!! this.state.invalid["multiplexing_group"]}
-                                   missing = {!! this.state.missing["multiplexing_group"]}
                                    ref = {(c) => this._multiplexingGroup = c}
                         />
                     </Col>
@@ -150,7 +146,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Number of lanes */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="nb_lanes" label="Nb of lanes" required
+                        <TextField field="nb_lanes" label="Nb of lanes" form={this.form} required
                                    ref = {(c) => this._laneNb = c}
                         />
                     </Col>
@@ -158,10 +154,8 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Multiplex# */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="multiplex_nb" label="Multiplex#" required
+                        <TextField field="multiplex_nb" label="Multiplex#" form={this.form} required
                                    validator={validators.integerValidator}
-                                   invalid = {!! this.state.invalid["multiplex_nb"]}
-                                   missing = {!! this.state.missing["multiplex_nb"]}
                                    ref = {(c) => this._multiplexNb = c}
                         />
                     </Col>
@@ -169,7 +163,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Is QC lib */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox ref = {(c) => this._isQC = c} name="isQC" label="is QC"/>
+                        <Checkbox ref = {(c) => this._isQC = c} field="isQC" label="is QC"/>
                     </Col>
 
                 </Form>
@@ -178,14 +172,14 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
+                        <TextArea field="comment" label="Comment" ref={(c) => this._comment = c} />
                     </Col>
 
                     {/* Is discarded / is done */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox ref = {(c) => this._isDiscarded = c} name="isDiscarded" label="Discarded"/>
-                        <Checkbox ref = {(c) => this._isDone = c} name="isDone" label="DONE"/>
+                        <Checkbox ref = {(c) => this._isDiscarded = c} field="isDiscarded" label="Discarded"/>
+                        <Checkbox ref = {(c) => this._isDone = c} field="isDone" label="DONE"/>
                     </Col>
 
                 </Form>

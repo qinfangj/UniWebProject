@@ -24,13 +24,13 @@ class Textarea extends React.PureComponent {
         let value = e.target.value;
         this.setState({ value });
         if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.name, value));
+            store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.field, value));
         }
     }
 
     render() {
         return (
-            <FormGroup controlId={this.props.name} bsSize="small" >
+            <FormGroup controlId={this.props.field} bsSize="small" >
                 <ControlLabel>{this.props.label}</ControlLabel>
                 <FormControl componentClass="textarea"
                     placeholder={this.props.label}
@@ -43,23 +43,19 @@ class Textarea extends React.PureComponent {
     }
 }
 Textarea.propTypes = {
-    name: React.PropTypes.string.isRequired,
+    field: React.PropTypes.string.isRequired,
     label: React.PropTypes.string.isRequired,
     form: React.PropTypes.string,  // form name
     defaultValue: React.PropTypes.string,
 // maybe use later:
     required: React.PropTypes.bool,
-    missing: React.PropTypes.bool,  // field is required but was found empty when submitting
-    invalid: React.PropTypes.bool,  // field was found invalid when submitting
     inputProps: React.PropTypes.object,  // additional input field props
-    storeKey: React.PropTypes.string,  // key to get the form value from store. Otherwise, `name` is used instead.
+    storeKey: React.PropTypes.string,  // key to get the form value from store.
 };
 Textarea.defaultProps = {
     defaultValue: "",
 // maybe use later:
     required: false,
-    missing: false,
-    invalid: false,
 };
 
 

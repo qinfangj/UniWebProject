@@ -118,9 +118,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Name */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="name" label="Name" required
-                                   missing = {!!this.state.missing["name"]}
-                                   invalid = {!!this.state.invalid["name"]}
+                        <TextField field="name" label="Name" form={this.form} required
                                    validator = {validators.mediumStringValidator}
                                    ref={(c) => this._name = c}
                         />
@@ -135,9 +133,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Starting material */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="starting_material" label="Starting material" required
-                                   missing = {!!this.state.missing["starting_material"]}
-                                   invalid = {!!this.state.invalid["starting_material"]}
+                        <TextField field="starting_material" label="Starting material" form={this.form} required
                                    ref={(c) => this._startingMaterial = c}
                         />
                     </Col>
@@ -148,7 +144,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Library date */}
 
                     <Col sm={2} className={css.formCol}>
-                        <DatePicker name="library_date" label="Library date"
+                        <DatePicker field="library_date" label="Library date"
                                     ref = {(c) => this._libraryDate = c}
                         />
                     </Col>
@@ -157,9 +153,8 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Bioanalyser peak */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="bioanalyser_peak" label="Bioanalyser peak"
+                        <TextField field="bioanalyser_peak" label="Bioanalyser peak" form={this.form}
                                    validator = {validators.numberValidator}
-                                   invalid = {!!this.state.invalid["bioanalyser_peak"]}
                                    ref = {(c) => this._bioanalyserPeak = c}
                         />
                     </Col>
@@ -167,10 +162,8 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Min frag size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="frag_size_min" label="Frag.size(min)" required
+                        <TextField field="frag_size_min" label="Frag.size(min)" form={this.form} required
                                    validator = {validators.numberValidator}
-                                   invalid = {!!this.state.invalid["frag_size_min"]}
-                                   missing = {!!this.state.missing["frag_size_min"]}
                                    ref = {(c) => this._fragSizeMin = c}
                         />
                     </Col>
@@ -178,10 +171,8 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Max frag size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="frag_size_max" label="Frag.size(max)" required
+                        <TextField field="frag_size_max" label="Frag.size(max)" form={this.form} required
                                    validator = {validators.numberValidator}
-                                   invalid = {!!this.state.invalid["frag_size_max"]}
-                                   missing = {!!this.state.missing["frag_size_max"]}
                                    ref = {(c) => this._fragSizeMax = c}
                         />
                     </Col>
@@ -189,7 +180,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Concentration */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="url" label="Concentration"
+                        <TextField field="url" label="Concentration" form={this.form}
                                    validator = {validators.numberValidator}
                                    ref = {(c) => this._concentration = c}
                         />
@@ -224,9 +215,8 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Volume */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField name="volume" label="Volume"
+                        <TextField field="volume" label="Volume" form={this.form}
                                    validator = {validators.numberValidator}
-                                   invalid={!! this.state.invalid["volume"]}
                                    ref = {(c) => this._volume = c}
                         />
                     </Col>
@@ -240,7 +230,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Illumina kits and lots */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="kits_lots" label="Illumina kits and lots"
+                        <TextField field="kits_lots" label="Illumina kits and lots" form={this.form}
                                    ref = {(c) => this._illuminaKits = c}
                         />
                     </Col>
@@ -251,7 +241,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Customer's comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <TextField name="comment" label="Comment"
+                        <TextField field="comment" label="Comment" form={this.form}
                                    ref = {(c) => this._customerComment = c}
                         />
                     </Col>
@@ -268,7 +258,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Internal comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <Textarea name="comment_customer" label="Internal comment"
+                        <Textarea field="comment_customer" label="Internal comment" form={this.form}
                                   ref = {(c) => this._internalComment = c}
                         />
                     </Col>
@@ -276,13 +266,13 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Is made by user / by robot / trashed */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Checkbox name="isCustomer_made" label="Made by user"
+                        <Checkbox field="isCustomer_made" label="Made by user"
                                   ref = {(c) => this._isCustomerMade = c}
                         />
-                        <Checkbox name="isRobot_made" label="Made by robot"
+                        <Checkbox field="isRobot_made" label="Made by robot"
                                   ref = {(c) => this._isRobotMade = c}
                         />
-                        <Checkbox name="is_discarded" label="Discarded"
+                        <Checkbox field="is_discarded" label="Discarded"
                                   ref = {(c) => this._isTrashed = c}
                         />
                     </Col>

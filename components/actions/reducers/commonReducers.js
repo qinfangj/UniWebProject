@@ -71,6 +71,14 @@ let commonReducers = (state = defaultState, action) => {
             return newState;
 
         /**
+         * Reset form data. Expects `action.form` (form name).
+         */
+        case types.facilityData.EMPTY_FORM:
+            newState = Object.assign({}, state);
+            newState.forms[form] = {};
+            return newState;
+
+        /**
          * Specific to queryProjects, but acts on centralized form values, so we treat it here as well.
          */
         case types.queryProjects.RESET_SELECTION:

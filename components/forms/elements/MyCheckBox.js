@@ -23,7 +23,7 @@ class MyCheckbox extends React.PureComponent {
 
     render() {
         return (
-            <FormGroup controlId={this.props.name} bsSize="small" >
+            <FormGroup controlId={this.props.field} bsSize="small" >
                 <Checkbox onChange={this.onChange.bind(this)} value={this.state.checked} className={css.checkbox}>
                     <div className={css.checkboxLabel}>{this.props.label}</div>
                 </Checkbox>

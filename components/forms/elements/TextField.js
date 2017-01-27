@@ -44,7 +44,7 @@ class TextField extends React.PureComponent {
         this.unsubscribe = store.subscribe(() => {
             let formData = store.getState().common.forms[this.props.form];
             if (formData) {
-                let storedValue = formData[this.props.storeKey];
+                let storedValue = formData[this.props.field];
                 let {valid, msg, feedback} = this.validate(storedValue);
                 this.setState({ value: storedValue, valid, msg, feedback });
             }
@@ -88,7 +88,7 @@ class TextField extends React.PureComponent {
 
     changeValue(value) {
         if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.storeKey, value));
+            store.dispatch(changeFormValue(this.props.form, this.props.field, value));
         }
     }
 
@@ -113,7 +113,7 @@ class TextField extends React.PureComponent {
         let feedback = this.state.feedback !== null ? <FormControl.Feedback /> : null;
 
         return (
-            <FormGroup controlId={this.props.storeKey} validationState={this.state.feedback} bsSize="small" >
+            <FormGroup controlId={this.props.field} validationState={this.state.feedback} bsSize="small" >
                 {label}
                 <FormControl
                     type={this.props.type}
@@ -130,7 +130,7 @@ class TextField extends React.PureComponent {
 }
 TextField.propTypes = {
     form: React.PropTypes.string.isRequired,  // form name
-    storeKey: React.PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
+    field: React.PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
     label: React.PropTypes.string,  // title - visible
     type: React.PropTypes.string,  // input type (defaults to "text")
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`

@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 
 // See React cell rendering with Ag-Grid: https://www.ag-grid.com/javascript-grid-cell-rendering/
 function idColumnWithUpdateLink(tableName) {
-    return Object.assign(ID_COLUMN, {
+    return Object.assign({}, ID_COLUMN, {
         cellRendererFramework: IdColumnWithUpdateLink,
         cellRendererParams: {tableName},
     });

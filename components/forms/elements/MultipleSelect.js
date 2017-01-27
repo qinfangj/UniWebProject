@@ -57,7 +57,7 @@ class MultipleSelect extends React.PureComponent {
         }
 
         return (
-            <FormGroup controlId={this.props.name}>
+            <FormGroup controlId={this.props.field}>
                 {label}
                 <FormControl componentClass="select" multiple
                              className={css.multipleSelect}
@@ -71,9 +71,9 @@ class MultipleSelect extends React.PureComponent {
 }
 
 MultipleSelect.propTypes = {
-    name: React.PropTypes.string.isRequired,     // FormGroup controlId + name of the field in store
-    options: React.PropTypes.array.isRequired,   // an array of objects {id, name}
-    form: React.PropTypes.string.isRequired,     // form name
+    field: React.PropTypes.string.isRequired,     // FormGroup controlId + field of the field in store
+    options: React.PropTypes.array.isRequired,   // an array of objects {id, field}
+    form: React.PropTypes.string.isRequired,     // form field
     formKey: React.PropTypes.string.isRequired,  // key to get the form value from store.
 
 // optional
@@ -83,16 +83,12 @@ MultipleSelect.propTypes = {
 
 // maybe use later:
     required: React.PropTypes.bool,
-    missing: React.PropTypes.bool,  // field is required but was found empty when submitting
-    invalid: React.PropTypes.bool,  // field was found invalid when submitting
 };
 
 MultipleSelect.defaultProps = {
     label: null,
 // maybe use later:
     required: false,
-    missing: false,
-    invalid: false,
 };
 
 

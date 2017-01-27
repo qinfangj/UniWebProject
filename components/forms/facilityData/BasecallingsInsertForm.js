@@ -105,7 +105,7 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Control lane nb */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select name="control_lane" label="Control lane" form={this.form}
+                        <Select field="control_lane" label="Control lane" form={this.form}
                                 options={Options.getControlLanes()}
                                 ref={(c) => this._control_lane = c}
                         />
@@ -114,7 +114,7 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Demultiplexing */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox label="Demultiplexing" ref={(c) => this._demultiplexing = c} />
+                        <Checkbox label="Demultiplexing" form={this.form} ref={(c) => this._demultiplexing = c} />
                     </Col>
 
 
@@ -124,8 +124,7 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Unaligned data output folder */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField name="output_folder" label="Unaligned data output folder" required
-                                   missing = {!!this.state.missing["output_folder"]}
+                        <TextField field="output_folder" label="Unaligned data output folder" form={this.form} required
                                    ref = {(c) => this._output_folder = c}
                         />
                     </Col>
@@ -136,7 +135,7 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
+                        <TextArea field="comment" label="Comment" form={this.form} ref={(c) => this._comment = c} />
                     </Col>
 
                 </Form>

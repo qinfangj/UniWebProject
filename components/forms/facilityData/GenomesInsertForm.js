@@ -94,9 +94,7 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Assembly */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="assembly" label="Assembly" required
-                                   missing = {!!this.state.missing["assembly"]}
-                                   invalid = {!!this.state.invalid["assembly"]}
+                        <TextField field="assembly" label="Assembly" form={this.form} required
                                    ref = {(c) => this._assembly = c}
                                    defaultValue="hg19"
                         />
@@ -105,9 +103,7 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Genome folder */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="genomeFolder" label="Genome folder" required
-                                   missing = {!!this.state.missing["genome_folder"]}
-                                   invalid = {!!this.state.invalid["genome_folder"]}
+                        <TextField field="genomeFolder" label="Genome folder" form={this.form} required
                                    ref = {(c) => this._genomeFolder = c}
                                    defaultValue="/path/to"
                         />
@@ -119,8 +115,7 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Url */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField name="url" label="URL"
-                                   invalid = {!!this.state.invalid["url"]}
+                        <TextField field="url" label="URL" form={this.form}
                                    ref = {(c) => this._url = c}
                                    defaultValue = "http://"
                         />
@@ -129,7 +124,7 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Downloaded date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker name="downloaded_date" label="Download date"
+                        <DatePicker field="downloaded_date" label="Download date"
                                     ref = {(c) => this._downloadedDate = c}
                         />
                     </Col>
@@ -140,9 +135,7 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* File names */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField name="files" label="File names"
-                                   invalid = {!!this.state.invalid["files"]}
-                                   missing = {!!this.state.missing["files"]}
+                        <TextField field="files" label="File names" form={this.form}
                                    ref = {(c) => this._files = c}
                                    defaultValue = "truc.txt, autre.txt"
                         />
@@ -154,8 +147,7 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <TextField name="comment" label="Comment"
-                                   invalid = {!!this.state.invalid["comment"]}
+                        <TextField field="comment" label="Comment" form={this.form}
                                    ref = {(c) => this._comment = c}
                                    defaultValue = "!!"
                         />
@@ -164,8 +156,8 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Is masked / is archived */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Checkbox ref={(c) => this._isMasked = c} name="isMasked" label="Masked" />
-                        <Checkbox ref={(c) => this._isArchived = c} name="isArchived" label="Archived" />
+                        <Checkbox ref={(c) => this._isMasked = c} field="isMasked" label="Masked" />
+                        <Checkbox ref={(c) => this._isArchived = c} field="isArchived" label="Archived" />
                     </Col>
 
                 </Form>

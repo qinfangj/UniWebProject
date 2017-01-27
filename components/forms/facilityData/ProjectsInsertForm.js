@@ -82,7 +82,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField storeKey={fields.NAME} label="Project name" form={this.form} required
+                        <TextField field={fields.NAME} label="Project name" form={this.form} required
                                    ref = {(c) => this._projectName = c}
                         />
                     </Col>
@@ -96,7 +96,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Code name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField storeKey={fields.CODE_NAME} label="Code name" form={this.form} required
+                        <TextField field={fields.CODE_NAME} label="Code name" form={this.form} required
                                    validator = {validators.codeNameValidator}
                                    placeholder = "[name]_[initials] Ex: Tcells_EG."
                                    ref = {(c) => this._codeName = c}
@@ -109,7 +109,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Description */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField storeKey={fields.DESCRIPTION} label="Description" form={this.form}
+                        <TextField field={fields.DESCRIPTION} label="Description" form={this.form}
                                    validator = {validators.descriptionValidator}
                                    ref = {(c) => this._description = c}
                                    defaultValue = "Enter description here"
@@ -126,14 +126,14 @@ class ProjectInsertForm extends React.PureComponent {
 
                         {/* Is control */}
 
-                        <Checkbox ref={(c) => this._isControl = c} name={fields.IS_CONTROL} label="Control Project" />
+                        <Checkbox ref={(c) => this._isControl = c} field={fields.IS_CONTROL} label="Control Project" />
 
                     </Col>
 
                     {/* User meeting date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker name={fields.USER_MEETING_DATE} label="User meeting date"
+                        <DatePicker field={fields.USER_MEETING_DATE} label="User meeting date"
                                     ref={(c) => this._userMeetingDate = c}
                         />
                     </Col>
@@ -150,7 +150,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea name={fields.COMMENT} form={this.form} label="Comment" ref={(c) => this._comment = c} />
+                        <TextArea field={fields.COMMENT} form={this.form} label="Comment" ref={(c) => this._comment = c} />
                     </Col>
 
                 </Form>

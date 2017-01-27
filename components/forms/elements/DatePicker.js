@@ -24,7 +24,7 @@ class DatePicker extends React.PureComponent {
 
     render() {
         return (
-            <FormGroup controlId={this.props.name} bsSize="small" >
+            <FormGroup controlId={this.props.field} bsSize="small" >
                 <ControlLabel>{this.props.label}</ControlLabel>
                 <FormControl
                     type="date"
@@ -37,20 +37,16 @@ class DatePicker extends React.PureComponent {
     }
 }
 DatePicker.propTypes = {
-    name: React.PropTypes.string.isRequired,
+    field: React.PropTypes.string.isRequired,
     label: React.PropTypes.string.isRequired,
     defaultValue: React.PropTypes.string,
 // maybe use later:
     required: React.PropTypes.bool,
-    missing: React.PropTypes.bool,  // field is required but was found empty when submitting
-    invalid: React.PropTypes.bool,  // field was found invalid when submitting
 };
 DatePicker.defaultProps = {
     defaultValue: "1970-01-01",
 // maybe use later:
     required: false,
-    missing: false,
-    invalid: false,
 };
 
 

@@ -60,7 +60,7 @@ class AsyncOptionsList extends React.PureComponent {
 
     render() {
         return (
-            <Select name={this.props.table} label={this.props.label} form={this.props.form}
+            <Select field={this.props.table} label={this.props.label} form={this.props.form}
                     storeKey={this.storeKey}
                     ref={(c) => {this._select = c;}}
                     options={this.getList()}
