@@ -4,6 +4,7 @@
 
 export default {
     // Form identifiers
+    PROJECTS_INSERT_FORM: "PROJECTS_INSERT_FORM",
     QUERY_PROJECTS_FORM: "QUERY_PROJECTS_FORM",
 
     // Suffixes (unique within a form)

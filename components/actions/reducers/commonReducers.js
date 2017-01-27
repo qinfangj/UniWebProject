@@ -35,11 +35,12 @@ let commonReducers = (state = defaultState, action) => {
             let field = action.field;
             let value = action.value;
             newState = Object.assign({}, state);
+            // Create if not exists
             if (! (form in state.forms)) {
                 newState.forms[form] = {};
             }
             newState.forms[form][field] = value;
-            //console.debug(field, value)
+            //console.debug(field, action, value)
 
             /* Special cases */
 
