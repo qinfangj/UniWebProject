@@ -1,5 +1,6 @@
-import types from '../actionTypes';
+import actionTypes from '../actionTypes';
 import constants from '../../constants/constants';
+let types = actionTypes.facilityData;
 
 
 const defaultState = {};

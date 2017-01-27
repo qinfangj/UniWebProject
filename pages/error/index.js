@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import history from '../../core/history';
+import history from '../../backup/history';
 import Link from '../../components/Link';
 import s from './error.css';
 

@@ -30,6 +30,7 @@ export function getFormValue(form, storeKey) {
 
 export function submit(tableName, formData, required=[], formatFormData=null) {
     console.info(JSON.stringify(formData, null, 2));
+    //store.getState().facilityData["updateData"] = null;
     let fields = Object.keys(formData);
     let nullFields = required.filter(k => formData[k] === null);
     let invalidFields = fields.filter(k => formData[k] === null);
@@ -43,7 +44,7 @@ export function submit(tableName, formData, required=[], formatFormData=null) {
             formData = formatFormData(formData);
         }
         let future = store.dispatch(insertAsync(tableName, formData));
-        state = {missing: {}, invalid: {}, submissionError: false, submissionFuture: future};
+        state = {missing: {}, invalid: {}, submissionError: false, submissionFuture: future, initFormData: {}};
     }
     return state;
 }
