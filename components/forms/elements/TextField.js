@@ -25,6 +25,7 @@ class TextField extends React.PureComponent {
     }
 
     getValue() {
+        console.debug(1, this.props.name, this.state.value, this.state.valid)
         return this.state.valid ? this.state.value.trim() : null;
     }
 
@@ -35,21 +36,23 @@ class TextField extends React.PureComponent {
         return this.state.files ? this.state.files[0] : null;
     }
 
-    /**
-     * When submitted, display more evidently if a required field is missing or invalid.
-     */
     componentWillReceiveProps(nextProps) {
+        // Show warning if the field is required but there is no value yet
         if (this.state.value === "" && nextProps.missing) {
             this.setState({
                 valid: false,
                 msg: this.props.label + " is required.",
                 status: "error",
             });
+        // Show error message if the validator did not pass
         } else if (nextProps.invalid) {
             this.setState({
                 valid: false,
                 status: "error",
             });
+        // Set value to defaultValue (for update)
+        } else if (nextProps.defaultValue !== this.state.value) {
+            this.changeValue(nextProps.defaultValue);
         }
     }
 
@@ -72,16 +75,20 @@ class TextField extends React.PureComponent {
         return {valid, msg, status};
     }
 
-    onChange(e) {
-        let value = e.target.value;
+    changeValue(value) {
         let {valid, msg, status} = this.validate(value);
-        if (this.props.type === "file") {
-            this.setState({ files: e.target.files });
-        }
         this.setState({ value, valid, msg, status });
         if (this.props.form !== undefined) {
             store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.name, value));
         }
+    }
+
+    onChange(e) {
+        let value = e.target.value;
+        if (this.props.type === "file") {
+            this.setState({ files: e.target.files });
+        }
+        this.changeValue(value);
     }
 
     render() {
@@ -105,7 +112,7 @@ class TextField extends React.PureComponent {
     }
 }
 TextField.propTypes = {
-    name: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired,  // the 'id' of the <input> and 'for' on the <label>
     label: React.PropTypes.string,  // title - visible
     type: React.PropTypes.string,  // input type (defaults to "text")
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`

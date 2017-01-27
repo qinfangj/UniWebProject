@@ -10,6 +10,7 @@ import TextArea from '../elements/Textarea';
 import * as Options from '../subcomponents/Options';
 import validators from '../validators';
 import * as forms from '../forms.js';
+import fields from './fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -36,7 +37,6 @@ class ProjectInsertForm extends React.PureComponent {
         this.unsubscribe = store.subscribe(() => {
             let initFormData = store.getState().facilityData["updateData"];
             if (initFormData && Object.keys(initFormData).length > 0) {
-                console.debug(this.props.updateId, initFormData)
                 this.setState({ initFormData });
             }
         });
@@ -54,7 +54,7 @@ class ProjectInsertForm extends React.PureComponent {
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
-                console.debug(555, insertId)
+                console.debug(200, insertId)
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
                 console.warn("Uncaught form validation error");
@@ -65,6 +65,7 @@ class ProjectInsertForm extends React.PureComponent {
 
     getFormValues() {
         return {
+            id: this.state.initFormData["id"],
             name: this._projectName.getValue(),
             person_id: this._personInCharge.getValue(),
             code_name: this._codeName.getValue(),
@@ -75,6 +76,15 @@ class ProjectInsertForm extends React.PureComponent {
             project_analysis_id: this._projectAnalysis.getValue(),
             comment: this._comment.getValue(),
         };
+    }
+
+    /**
+     * For update, return the field value found in database for this row ID.
+     * The RHS is the identifier for the input field, the LHS is the field in the Slick row.
+     */
+    setDefaultValue(field) {
+        let initData = this.state.initFormData;
+        if (initData[field]) { return initData[field]; }
     }
 
     render() {
@@ -88,11 +98,11 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="projectName" label="Project name" required
-                                   missing = {!!this.state.missing["name"]}
-                                   invalid = {!!this.state.invalid["name"]}
+                        <TextField name={fields.NAME} label="Project name" required
+                                   missing = {!!this.state.missing[fields.NAME]}
+                                   invalid = {!!this.state.invalid[fields.NAME]}
                                    ref = {(c) => this._projectName = c}
-                                   defaultValue="Name"
+                                   defaultValue = {this.setDefaultValue(fields.NAME)}
                         />
                     </Col>
 
@@ -105,13 +115,13 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Code name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField name="codeName" label="Code name" required
-                                   missing = {!!this.state.missing["code_name"]}
-                                   invalid = {!!this.state.invalid["code_name"]}
+                        <TextField name={fields.CODE_NAME} label="Code name" required
+                                   missing = {!!this.state.missing[fields.CODE_NAME]}
+                                   invalid = {!!this.state.invalid[fields.CODE_NAME]}
                                    validator = {validators.codeNameValidator}
                                    placeholder = "[name]_[initials] Ex: Tcells_EG."
                                    ref = {(c) => this._codeName = c}
-                                   defaultValue="code_JD"
+                                   defaultValue = {this.setDefaultValue(fields.CODE_NAME)}
                         />
                     </Col>
 
@@ -121,11 +131,11 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Description */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField name="description" label="Description"
-                                   defaultValue = "Enter description here"
+                        <TextField name={fields.DESCRIPTION} label="Description"
                                    validator = {validators.descriptionValidator}
-                                   invalid = {!!this.state.invalid["description"]}
+                                   invalid = {!!this.state.invalid[fields.DESCRIPTION]}
                                    ref = {(c) => this._description = c}
+                                   defaultValue = {this.setDefaultValue(fields.DESCRIPTION) || "Enter description here"}
                         />
                     </Col>
 
@@ -139,14 +149,14 @@ class ProjectInsertForm extends React.PureComponent {
 
                         {/* Is control */}
 
-                        <Checkbox ref={(c) => this._isControl = c} name="isControl" label="Control Project" />
+                        <Checkbox ref={(c) => this._isControl = c} name={fields.IS_CONTROL} label="Control Project" />
 
                     </Col>
 
                     {/* User meeting date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker name="user_meeting_date" label="User meeting date"
+                        <DatePicker name={fields.USER_MEETING_DATE} label="User meeting date"
                                     ref={(c) => this._userMeetingDate = c}
                         />
                     </Col>
@@ -163,7 +173,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea name="comment" label="Comment" ref={(c) => this._comment = c} />
+                        <TextArea name={fields.COMMENT} label="Comment" ref={(c) => this._comment = c} />
                     </Col>
 
                 </Form>
