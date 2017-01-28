@@ -12,6 +12,7 @@ import validators from '../validators';
 import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
 import formStoreKeys from '../../constants/formStoreKeys';
+import fields from './fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -25,6 +26,7 @@ class SamplesInsertForm extends React.PureComponent {
         this.table = "samples";
         this.form = formStoreKeys.SAMPLES_INSERT_FORM;
         this.state = forms.defaultFormState;
+        forms.initForm(this.form);
     }
 
     static propTypes = {

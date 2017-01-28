@@ -12,6 +12,7 @@ import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 import formStoreKeys from '../../constants/formStoreKeys';
+import fields from './fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -26,6 +27,7 @@ class LibrariesInsertForm extends React.PureComponent {
         this.form = formStoreKeys.LIBRARIES_INSERT_FORM;
         this.state = forms.defaultFormState;
         this.projectsFormKey = this.form +"_projects";
+        forms.initForm(this.form);
     }
 
     static propTypes = {
@@ -35,29 +37,18 @@ class LibrariesInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let initFormData = store.getState().facilityData["updateData"];
-            if (initFormData && Object.keys(initFormData).length > 0) {
-                console.debug(this.props.updateId, initFormData)
-                this.setState({ initFormData });
-            }
-        });
         if (this.props.updateId) {
-            store.dispatch(findByIdAsync(this.table, this.props.updateId));
+            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     onSubmit() {
-        let newState = forms.submit(this.form, this.table, null);
-        this.setState(newState);
-        if (!newState.submissionError) {
-            newState.submissionFuture.done((insertId) => {
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        this.setState({ submissionError });
+        if (!submissionError) {
+            submissionFuture.done((insertId) => {
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
-                console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
         }
@@ -82,29 +73,31 @@ class LibrariesInsertForm extends React.PureComponent {
                     <Col sm={3} className={css.formCol}>
                         <SecondaryOptions.ProjectSamples
                             referenceField={this.projectsFormKey}
-                            form={this.form} ref={(c) => this._sample = c} />
+                            form={this.form}
+                         />
                     </Col>
 
                     {/* Name */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="name" label="Name" form={this.form} required
+                        <TextField field={fields.NAME} label="Name" form={this.form} required
                                    validator = {validators.mediumStringValidator}
-                                   ref={(c) => this._name = c}
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Library type - aka protocol */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.LibProtocols form={this.form} ref={(c) => this._protocol = c} />
+                        <Options.LibProtocols form={this.form}
+                        />
                     </Col>
 
                     {/* Starting material */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="starting_material" label="Starting material" form={this.form} required
-                                   ref={(c) => this._startingMaterial = c}
+                        <TextField field={fields.STARTING_MATERIAL} label="Starting material" form={this.form} required
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -114,8 +107,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Library date */}
 
                     <Col sm={2} className={css.formCol}>
-                        <DatePicker field="library_date" label="Library date"
-                                    ref = {(c) => this._libraryDate = c}
+                        <DatePicker field={fields.LIBRARY_DATE} label="Library date"
                         />
                     </Col>
 
@@ -123,43 +115,44 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Bioanalyser peak */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="bioanalyser_peak" label="Bioanalyser peak" form={this.form}
+                        <TextField field={fields.BIOANALYSER_PEAK} label="Bioanalyser peak" form={this.form}
                                    validator = {validators.numberValidator}
-                                   ref = {(c) => this._bioanalyserPeak = c}
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Min frag size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="frag_size_min" label="Frag.size(min)" form={this.form} required
+                        <TextField field={fields.FRAG_SIZE_MIN} label="Frag.size(min)" form={this.form} required
                                    validator = {validators.numberValidator}
-                                   ref = {(c) => this._fragSizeMin = c}
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Max frag size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="frag_size_max" label="Frag.size(max)" form={this.form} required
+                        <TextField field={fields.FRAG_SIZE_MAX} label="Frag.size(max)" form={this.form} required
                                    validator = {validators.numberValidator}
-                                   ref = {(c) => this._fragSizeMax = c}
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Concentration */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="url" label="Concentration" form={this.form}
+                        <TextField field={fields.CONCENTRATION} label="Concentration" form={this.form}
                                    validator = {validators.numberValidator}
-                                   ref = {(c) => this._concentration = c}
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Quantification */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.QuantifMethods form={this.form} ref={(c) => this._quantification = c} />
+                        <Options.QuantifMethods field={fields.QUANTIF_METHOD_ID} form={this.form}
+                        />
                     </Col>
 
                 </Form>
@@ -170,7 +163,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     <Col sm={2} className={css.formCol}>
                         <Options.MultiplexIndexes form={this.form}
                             label="Multiplex index (I7)" suffix="all"
-                            ref={(c) => this._multiplexIndex = c} />
+                        />
                     </Col>
 
                     {/* Second (multiplex) index */}
@@ -178,30 +171,30 @@ class LibrariesInsertForm extends React.PureComponent {
                     <Col sm={2} className={css.formCol}>
                         <Options.MultiplexIndexes form={this.form}
                             label="Second index (I5)" suffix="all"
-                            ref={(c) => this._secondIndex = c} />
-
+                        />
                     </Col>
 
                     {/* Volume */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="volume" label="Volume" form={this.form}
+                        <TextField field={fields.VOLUME} label="Volume" form={this.form}
                                    validator = {validators.numberValidator}
-                                   ref = {(c) => this._volume = c}
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Adapters */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.LibraryAdapters form={this.form} ref={(c) => this._adapter = c} />
+                        <Options.LibraryAdapters field={fields.ADAPTER_ID} form={this.form}
+                        />
                     </Col>
 
                     {/* Illumina kits and lots */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field="kits_lots" label="Illumina kits and lots" form={this.form}
-                                   ref = {(c) => this._illuminaKits = c}
+                        <TextField field={fields.KITS_LOTS} label="Illumina kits and lots" form={this.form}
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -211,15 +204,16 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Customer's comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <TextField field="comment" label="Comment" form={this.form}
-                                   ref = {(c) => this._customerComment = c}
+                        <TextField field={fields.COMMENT} label="Comment" form={this.form}
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Library state */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.LibraryStates form={this.form} ref={(c) => this._libraryState = c} />
+                        <Options.LibraryStates field={fields.LIBRARY_STATE_ID} form={this.form}
+                        />
                     </Col>
 
                 </Form>
@@ -228,22 +222,19 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Internal comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <Textarea field="comment_customer" label="Internal comment" form={this.form}
-                                  ref = {(c) => this._internalComment = c}
+                        <Textarea field={fields.COMMENT_CUSTOMER} label="Internal comment" form={this.form}
+                                  submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Is made by user / by robot / trashed */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Checkbox field="isCustomer_made" label="Made by user"
-                                  ref = {(c) => this._isCustomerMade = c}
+                        <Checkbox form={this.form} field={fields.IS_CUSTOMER_MADE} label="Made by user"
                         />
-                        <Checkbox field="isRobot_made" label="Made by robot"
-                                  ref = {(c) => this._isRobotMade = c}
+                        <Checkbox form={this.form} field={fields.IS_ROBOT_MADE} label="Made by robot"
                         />
-                        <Checkbox field="is_discarded" label="Discarded"
-                                  ref = {(c) => this._isTrashed = c}
+                        <Checkbox form={this.form} field={fields.IS_TRASHED} label="Discarded"
                         />
                     </Col>
 

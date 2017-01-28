@@ -45,6 +45,23 @@ const fields = {
     IS_MASKED: "ismasked",
     IS_ARCHIVED: "isarchived",
 
+    // Libraries
+    STARTING_MATERIAL: "startingMaterial",
+    LIBRARY_DATE: "libraryDate",
+    BIOANALYSER_PEAK:  "bioanalyserPeak",
+    FRAG_SIZE_MIN: "fragSizeMin",
+    FRAG_SIZE_MAX: "fragSizeMax",
+    CONCENTRATION: "concentration",
+    QUANTIF_METHOD_ID: "quantifMethodId",
+    VOLUME: "volume",
+    ADAPTER_ID: "adapterId",
+    KITS_LOTS: "kitsLots",
+    LIBRARY_STATE_ID: "libraryStateId",
+    COMMENT_CUSTOMER: "commentCustomer",
+    IS_CUSTOMER_MADE: "iscustomerMade",
+    IS_ROBOT_MADE: "isrobotMade",
+    IS_TRASHED: "istrashed",
+
 };
 
 export default fields;
