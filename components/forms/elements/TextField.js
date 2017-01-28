@@ -17,9 +17,7 @@ class TextField extends React.PureComponent {
             value: this.props.defaultValue,  // field value. Cannot have a default since React 15... Set `defaultValue` instead.
             files: null,  // if type="file", the FilesList
             valid: true,  // boolean, is the field valid
-            msg: "",  // error message below the field
-            feedback: null,  // "success", "warning", "error", null
-            submitted: false,  // display stronger feedback if form is submitted
+            msg: "",  // error message from the validator
         };
     }
 
@@ -35,9 +33,9 @@ class TextField extends React.PureComponent {
     }
 
     componentWillMount() {
-        // Initial feedback
-        let {valid, msg, feedback} = this.validate(this.state.value);
-        this.setState({valid, msg, feedback});
+        // Initial validation of default value
+        let {valid, msg} = this.validate(this.state.value);
+        this.setState({valid, msg});
     }
     componentDidMount() {
         // Listen to value change from the store
@@ -45,8 +43,8 @@ class TextField extends React.PureComponent {
             let formData = store.getState().common.forms[this.props.form];
             if (formData) {
                 let storedValue = formData[this.props.field];
-                let {valid, msg, feedback} = this.validate(storedValue);
-                this.setState({ value: storedValue, valid, msg, feedback });
+                let {valid, msg} = this.validate(storedValue);
+                this.setState({ value: storedValue, valid, msg });
             }
         });
     }
@@ -58,32 +56,41 @@ class TextField extends React.PureComponent {
      * Check different conditions on string `value` **during the typing**.
      */
     validate(value) {
-        let valid, msg, feedback;
+        let valid, msg;
         // No value: valid only if not required.
-        // No feedback yet, because warnings for missing value on all empty fields is not a good user experience.
         if (!value) {
-            if (this.props.isRequired) {
-                if (this.state.submitted) {
-                    msg = this.props.label + " is required.";
-                    feedback = "error";
-                } else {
-                    feedback = null;
-                }
-            } else {
-                valid = true;
-            }
-        // When there is a value, validate it and set message and feedback accordingly.
+            valid = ! this.props.isRequired;
+        // When there is a value, validate it and set message accordingly.
         } else {
             let res = this.props.validator(value);
             valid = res.valid;
             msg = valid ? "" : res.msg;
-            if (this.state.submitted) {
-                feedback = "error";
-            } else {
-                feedback = valid ? null : "warning";
-            }
         }
-        return {valid, msg, feedback};
+        return {valid, msg};
+    }
+
+    /** For bootstrap validationState: can be "success", "warning", "error", or null */
+    getFeedbackValue() {
+        let feedback = null;
+        if (!this.state.value) {
+            if (this.props.isRequired && this.props.submissionError) {
+                feedback = "error"
+            }
+        } else if (!this.state.valid) {
+            feedback = this.props.submissionError ? "error" : "warning";
+        }
+        return feedback;
+    }
+
+    /** Info text on error/warning */
+    getErrorMessage() {
+        let msg = "";
+        if (!this.state.value && this.props.isRequired && this.props.submissionError) {
+            msg = this.props.label + " is required.";
+        } else {
+            msg = this.state.msg;
+        }
+        return msg;
     }
 
     changeValue(value) {
@@ -101,6 +108,7 @@ class TextField extends React.PureComponent {
     }
 
     render() {
+        console.debug("Textfield state:", this.props.submissionError)
         // Display a star if the field is required and no valud has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
         let requireString = (this.props.required && !this.state.value) ?
@@ -110,10 +118,15 @@ class TextField extends React.PureComponent {
         let label = this.props.label ? <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel> : null;
 
         // Color and symbol indicating an error/warning
-        let feedback = this.state.feedback !== null ? <FormControl.Feedback /> : null;
+        let feedbackValue = this.getFeedbackValue();
+        let feedback = feedbackValue !== null ? <FormControl.Feedback /> : null;
+
+        // Help block: text info on error or warning
+        let msg = this.getErrorMessage();
+        let help = <HelpBlock bsClass={css.feedback}>{msg}</HelpBlock>;
 
         return (
-            <FormGroup controlId={this.props.field} validationState={this.state.feedback} bsSize="small" >
+            <FormGroup controlId={this.props.field} validationState={feedbackValue} bsSize="small" >
                 {label}
                 <FormControl
                     type={this.props.type}
@@ -123,7 +136,7 @@ class TextField extends React.PureComponent {
                     {...this.props.inputProps}
                 />
                 {feedback}
-                <HelpBlock bsClass={css.feedback}>{this.state.msg}</HelpBlock>
+                {help}
             </FormGroup>
         );
     }
@@ -138,6 +151,7 @@ TextField.propTypes = {
     placeholder: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
     inputProps: React.PropTypes.object,  // additional input field props
+    submissionError: React.PropTypes.bool,  // display stronger feedback if an invalid form is submitted
 };
 TextField.defaultProps = {
     type: "text",

@@ -27,11 +27,14 @@ export function getFormValue(form, storeKey) {
 export function submit(tableName, formData, formatFormData=null) {
     console.info(JSON.stringify(formData, null, 2));
     let fields = Object.keys(formData);
+    // Check if some fields have value 'null' (invalid or missing+required)
     let invalidFields = fields.filter(k => formData[k] === null);
     let state = {};
+    // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
         let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
         state = {invalid, submissionError: true};
+    // Valid form: send
     } else {
         if (formatFormData) {
             formData = formatFormData(formData);

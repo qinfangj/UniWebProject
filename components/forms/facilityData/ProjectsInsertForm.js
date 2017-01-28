@@ -71,6 +71,7 @@ class ProjectInsertForm extends React.PureComponent {
     }
 
     render() {
+        console.debug("Submission state: ", this.state.submissionError)
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />
@@ -82,6 +83,7 @@ class ProjectInsertForm extends React.PureComponent {
 
                     <Col sm={4} className={css.formCol}>
                         <TextField field={fields.NAME} label="Project name" form={this.form} required
+                                   submissionError = {this.state.submissionError}
                                    ref = {(c) => this._projectName = c}
                         />
                     </Col>
@@ -97,6 +99,7 @@ class ProjectInsertForm extends React.PureComponent {
                     <Col sm={4} className={css.formCol}>
                         <TextField field={fields.CODE_NAME} label="Code name" form={this.form} required
                                    validator = {validators.codeNameValidator}
+                                   submissionError = {this.state.submissionError}
                                    placeholder = "[name]_[initials] Ex: Tcells_EG."
                                    ref = {(c) => this._codeName = c}
                         />
@@ -110,6 +113,7 @@ class ProjectInsertForm extends React.PureComponent {
                     <Col sm={12} className={css.formCol}>
                         <TextField field={fields.DESCRIPTION} label="Description" form={this.form}
                                    validator = {validators.descriptionValidator}
+                                   submissionError = {this.state.submissionError}
                                    ref = {(c) => this._description = c}
                                    defaultValue = "Enter description here"
                         />
