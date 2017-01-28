@@ -11,6 +11,7 @@ import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
 import validators from '../validators';
+import formStoreKeys from '../../constants/formStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -22,7 +23,7 @@ class AlignmentsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "alignments";
-        this.form = "alignments";
+        this.form = formStoreKeys.ALIGNMENTS_INSERT_FORM;
         this.state = forms.defaultFormState;
     }
 

@@ -10,6 +10,7 @@ import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
+import formStoreKeys from '../../constants/formStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -21,7 +22,7 @@ class GenomesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "genomes";
-        this.form = "genomes";
+        this.form = formStoreKeys.GENOMES_INSERT_FORM;
         this.state = forms.defaultFormState;
     }
 

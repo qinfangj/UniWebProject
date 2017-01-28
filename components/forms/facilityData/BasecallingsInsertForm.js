@@ -11,6 +11,7 @@ import Select from '../elements/Select';
 import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
 import validators from '../validators';
+import formStoreKeys from '../../constants/formStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -22,7 +23,7 @@ class BasecallingsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "basecallings";
-        this.form = "basecallings";
+        this.form = formStoreKeys.BASECALLINGS_INSERT_FORM;
         this.state = forms.defaultFormState;
     }
 

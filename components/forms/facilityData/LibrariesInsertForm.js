@@ -11,6 +11,7 @@ import validators from '../validators';
 import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
+import formStoreKeys from '../../constants/formStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -22,7 +23,7 @@ class LibrariesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "libraries";
-        this.form = "libraries";
+        this.form = formStoreKeys.LIBRARIES_INSERT_FORM;
         this.state = forms.defaultFormState;
         this.projectsFormKey = this.form +"_projects";
     }
