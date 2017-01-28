@@ -20,11 +20,23 @@ class Textarea extends React.PureComponent {
         return this.state.value;
     }
 
+    componentDidMount() {
+        // Listen to value change from the store
+        this.unsubscribe = store.subscribe(() => {
+            let formData = store.getState().common.forms[this.props.form];
+            if (formData) {
+                this.setState({ value: formData[this.props.field] });
+            }
+        });
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     onChange(e) {
         let value = e.target.value;
-        this.setState({ value });
         if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.field, value));
+            store.dispatch(changeFormValue(this.props.form, this.props.field, value));
         }
     }
 
@@ -43,14 +55,13 @@ class Textarea extends React.PureComponent {
     }
 }
 Textarea.propTypes = {
-    field: React.PropTypes.string.isRequired,
-    label: React.PropTypes.string.isRequired,
-    form: React.PropTypes.string,  // form name
+    form: React.PropTypes.string.isRequired,  // form name
+    field: React.PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
+    label: React.PropTypes.string.isRequired,  // title - visible
     defaultValue: React.PropTypes.string,
 // maybe use later:
     required: React.PropTypes.bool,
     inputProps: React.PropTypes.object,  // additional input field props
-    storeKey: React.PropTypes.string,  // key to get the form value from store.
 };
 Textarea.defaultProps = {
     defaultValue: "",
