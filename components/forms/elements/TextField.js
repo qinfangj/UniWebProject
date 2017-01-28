@@ -61,7 +61,7 @@ class TextField extends React.PureComponent {
         let valid, msg;
         // No value: valid only if not required.
         if (!value) {
-            valid = ! this.props.isRequired;
+            valid = ! this.props.required;
         // When there is a value, validate it and set message accordingly.
         } else {
             let res = this.props.validator(value);
@@ -74,8 +74,8 @@ class TextField extends React.PureComponent {
     /** For bootstrap validationState: can be "success", "warning", "error", or null */
     getFeedbackValue() {
         let feedback = null;
-        if (!this.state.value) {
-            if (this.props.isRequired && this.props.submissionError) {
+        if (!this.state.value || this.state.value === "") {
+            if (this.props.required && this.props.submissionError) {
                 feedback = "error"
             }
         } else if (!this.state.valid) {
@@ -87,7 +87,7 @@ class TextField extends React.PureComponent {
     /** Info text on error/warning */
     getErrorMessage() {
         let msg = "";
-        if (!this.state.value && this.props.isRequired && this.props.submissionError) {
+        if (!this.state.value && this.props.required && this.props.submissionError) {
             msg = this.props.label + " is required.";
         } else {
             msg = this.state.msg;

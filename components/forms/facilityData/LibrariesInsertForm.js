@@ -26,7 +26,7 @@ class LibrariesInsertForm extends React.PureComponent {
         this.table = "libraries";
         this.form = formStoreKeys.LIBRARIES_INSERT_FORM;
         this.state = forms.defaultFormState;
-        this.projectsFormKey = this.form +"_projects";
+        this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
         forms.initForm(this.form);
     }
 
