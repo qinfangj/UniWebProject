@@ -2,7 +2,7 @@ import React from 'react';
 import css from '../forms.css';
 import cx from 'classnames';
 import store from '../../../core/store';
-import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import Textarea from '../elements/TextField';

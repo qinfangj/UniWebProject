@@ -2,7 +2,7 @@ import React from 'react';
 import css from '../forms.css';
 import cx from 'classnames';
 import store from '../../../core/store';
-import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckbox';
@@ -11,6 +11,7 @@ import validators from '../validators';
 import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
 import formStoreKeys from '../../constants/formStoreKeys';
+import fields from './fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -24,6 +25,7 @@ class GenomesInsertForm extends React.PureComponent {
         this.table = "genomes";
         this.form = formStoreKeys.GENOMES_INSERT_FORM;
         this.state = forms.defaultFormState;
+        forms.initForm(this.form);
     }
 
     static propTypes = {
@@ -33,29 +35,18 @@ class GenomesInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let initFormData = store.getState().facilityData["updateData"];
-            if (initFormData && Object.keys(initFormData).length > 0) {
-                console.debug(this.props.updateId, initFormData)
-                this.setState({ initFormData });
-            }
-        });
         if (this.props.updateId) {
-            store.dispatch(findByIdAsync(this.table, this.props.updateId));
+            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     onSubmit() {
-        let newState = forms.submit(this.form, this.table, null);
-        this.setState(newState);
-        if (!newState.submissionError) {
-            newState.submissionFuture.done((insertId) => {
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        this.setState({ submissionError });
+        if (!submissionError) {
+            submissionFuture.done((insertId) => {
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
-                console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
         }
@@ -72,14 +63,14 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Organism */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.Taxonomies form={this.form} ref={(c) => this._organism = c} />
+                        <Options.Taxonomies form={this.form} />
                     </Col>
 
                     {/* Assembly */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field="assembly" label="Assembly" form={this.form} required
-                                   ref = {(c) => this._assembly = c}
+                        <TextField field={fields.ASSEMBLY} label="Assembly" form={this.form} required
+                                   submissionError = {this.state.submissionError}
                                    defaultValue="hg19"
                         />
                     </Col>
@@ -87,8 +78,8 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Genome folder */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field="genomeFolder" label="Genome folder" form={this.form} required
-                                   ref = {(c) => this._genomeFolder = c}
+                        <TextField field={fields.GENOME_FOLDER} label="Genome folder" form={this.form} required
+                                   submissionError = {this.state.submissionError}
                                    defaultValue="/path/to"
                         />
                     </Col>
@@ -99,8 +90,8 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Url */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField field="url" label="URL" form={this.form}
-                                   ref = {(c) => this._url = c}
+                        <TextField field={fields.URL} label="URL" form={this.form}
+                                   submissionError = {this.state.submissionError}
                                    defaultValue = "http://"
                         />
                     </Col>
@@ -108,8 +99,7 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Downloaded date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker field="downloaded_date" label="Download date"
-                                    ref = {(c) => this._downloadedDate = c}
+                        <DatePicker field={fields.DOWNLOADED_DATE} label="Download date"
                         />
                     </Col>
 
@@ -119,8 +109,8 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* File names */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField field="files" label="File names" form={this.form}
-                                   ref = {(c) => this._files = c}
+                        <TextField field={fields.FILES} label="File names" form={this.form}
+                                   submissionError = {this.state.submissionError}
                                    defaultValue = "truc.txt, autre.txt"
                         />
                     </Col>
@@ -131,8 +121,8 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <TextField field="comment" label="Comment" form={this.form}
-                                   ref = {(c) => this._comment = c}
+                        <TextField field={fields.COMMENT} label="Comment" form={this.form}
+                                   submissionError = {this.state.submissionError}
                                    defaultValue = "!!"
                         />
                     </Col>
@@ -140,8 +130,8 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Is masked / is archived */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Checkbox ref={(c) => this._isMasked = c} field="isMasked" label="Masked" />
-                        <Checkbox ref={(c) => this._isArchived = c} field="isArchived" label="Archived" />
+                        <Checkbox field={fields.IS_MASKED} label="Masked" />
+                        <Checkbox field={fields.IS_ARCHIVED} label="Archived" />
                     </Col>
 
                 </Form>

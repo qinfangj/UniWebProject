@@ -36,6 +36,15 @@ const fields = {
     IS_DEMULTIPLEXING:"isdemultiplexingAnalysis",
     UNALIGNED_OUTPUT_DIR: "outputDir",
 
+    // Genomes
+    ASSEMBLY: "assembly",
+    URL: "url",
+    GENOME_FOLDER: "genomeFolder",
+    DOWNLOADED_DATE: "downloadedDate",
+    FILES: "files",
+    IS_MASKED: "ismasked",
+    IS_ARCHIVED: "isarchived",
+
 };
 
 export default fields;

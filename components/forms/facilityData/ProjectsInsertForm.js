@@ -10,8 +10,8 @@ import TextArea from '../elements/Textarea';
 import * as Options from '../subcomponents/Options';
 import validators from '../validators';
 import * as forms from '../forms.js';
-import fields from './fields';
 import formStoreKeys from '../../constants/formStoreKeys';
+import fields from './fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
