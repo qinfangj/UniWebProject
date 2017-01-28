@@ -25,7 +25,7 @@ class ProjectInsertForm extends React.PureComponent {
         this.table = "projects";
         this.form = formStoreKeys.PROJECTS_INSERT_FORM;
         this.state = forms.defaultFormState;
-        this.initForm(this.form);
+        forms.initForm(this.form);
     }
 
     static propTypes = {
@@ -34,7 +34,7 @@ class ProjectInsertForm extends React.PureComponent {
         updateId: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
     };
 
-    componentDidMount() {
+    componentWillMount() {
         if (this.props.updateId) {
             store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }

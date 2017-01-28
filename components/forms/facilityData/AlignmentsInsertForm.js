@@ -2,7 +2,7 @@ import React from 'react';
 import css from '../forms.css';
 import cx from 'classnames';
 import store from '../../../core/store';
-import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckbox';
@@ -12,6 +12,7 @@ import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
 import validators from '../validators';
 import formStoreKeys from '../../constants/formStoreKeys';
+import fields from './fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -25,6 +26,7 @@ class AlignmentsInsertForm extends React.PureComponent {
         this.table = "alignments";
         this.form = formStoreKeys.ALIGNMENTS_INSERT_FORM;
         this.state = forms.defaultFormState;
+        forms.initForm(this.form);
     }
 
     static propTypes = {
@@ -34,29 +36,18 @@ class AlignmentsInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let initFormData = store.getState().facilityData["updateData"];
-            if (initFormData && Object.keys(initFormData).length > 0) {
-                console.debug(this.props.updateId, initFormData)
-                this.setState({ initFormData });
-            }
-        });
         if (this.props.updateId) {
-            store.dispatch(findByIdAsync(this.table, this.props.updateId));
+            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     onSubmit() {
-        let newState = forms.submit(this.form, this.table, null);
-        this.setState(newState);
-        if (!newState.submissionError) {
-            newState.submissionFuture.done((insertId) => {
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        this.setState({ submissionError });
+        if (!submissionError) {
+            submissionFuture.done((insertId) => {
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
-                console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
         }
@@ -73,19 +64,19 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.PipelineAnalysisTypes form={this.form} ref={(c) => this._analysis_type = c} />
+                        <Options.PipelineAnalysisTypes form={this.form} />
                     </Col>
 
                     {/* Run */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Options.RunsOutputFolders form={this.form} ref={(c) => this._run = c} />
+                        <Options.RunsOutputFolders form={this.form} />
                     </Col>
 
                     {/* Unaligned data output folder */}
 
                     <Col sm={7} className={css.formCol}>
-                        <SecondaryOptions.BasecallingsOutputFolders form={this.form} ref={(c) => this._unaligned_output_folder = c} />
+                        <SecondaryOptions.BasecallingsOutputFolders form={this.form} />
                     </Col>
 
                 </Form>
@@ -94,19 +85,19 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Mapping tool */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.MappingTools form={this.form} ref={(c) => this._mapping_tool = c} />
+                        <Options.MappingTools form={this.form} />
                     </Col>
 
                     {/* Alignment output folder */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField field="eland_output_folder" label="Alignment output folder" form={this.form} required
-                                   ref = {(c) => this._eland_output_folder = c}
+                        <TextField field={fields.ELAND_OUTPUT_DIR} label="Alignment output folder" form={this.form} required
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox label="QC report" form={this.form} ref={(c) => this._qc_report = c}/>
+                        <Checkbox label="QC report" form={this.form} />
                     </Col>
 
                 </Form>
@@ -115,8 +106,8 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Config file content */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea field="config_file_content" label="Config file content" form={this.form} required
-                                   ref = {(c) => this._config_file_content = c}
+                        <TextArea field={fields.CONFIG_FILE_CONTENT} label="Config file content" form={this.form} required
+                                  submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -126,7 +117,9 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea field="comment" label="Comment" form={this.form} ref={(c) => this._comment = c} />
+                        <TextArea field={fields.COMMENT} label="Comment" form={this.form}
+                                  submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                 </Form>

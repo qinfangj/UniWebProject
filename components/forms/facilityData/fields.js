@@ -11,6 +11,7 @@ const fields = {
     DESCRIPTION: "description",
     COMMENT: "comment",
 
+    // Projects
     CODE_NAME: "codeName",
     PERSON_ID: "personId",
     PROJECT_STATE_ID: "projectStateId",
@@ -19,11 +20,22 @@ const fields = {
     PROJECT_ANALYSIS_ID: "projectAnalysisId",
     TO_ANALYZE: "toanalyze",
 
+    // People
     FIRST_NAME: "firstName",
     LAST_NAME: "lastName",
     EMAIL: "email",
     ADDRESS: "address",
     PHONE: "phone",
+
+    // Alignments
+    ELAND_OUTPUT_DIR: "elandOutputDir",
+    CONFIG_FILE_CONTENT: "configFileContent",
+
+    // Basecallings
+    CONTROL_LANE_NB: "controlLaneNb",
+    IS_DEMULTIPLEXING:"isdemultiplexingAnalysis",
+    UNALIGNED_OUTPUT_DIR: "outputDir",
+
 };
 
 export default fields;

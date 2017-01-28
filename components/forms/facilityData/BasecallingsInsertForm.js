@@ -2,7 +2,7 @@ import React from 'react';
 import css from '../forms.css';
 import cx from 'classnames';
 import store from '../../../core/store';
-import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckbox';
@@ -12,6 +12,7 @@ import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
 import validators from '../validators';
 import formStoreKeys from '../../constants/formStoreKeys';
+import fields from './fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -25,6 +26,7 @@ class BasecallingsInsertForm extends React.PureComponent {
         this.table = "basecallings";
         this.form = formStoreKeys.BASECALLINGS_INSERT_FORM;
         this.state = forms.defaultFormState;
+        forms.initForm(this.form);
     }
 
     static propTypes = {
@@ -34,30 +36,18 @@ class BasecallingsInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let initFormData = store.getState().facilityData["updateData"];
-            if (initFormData && Object.keys(initFormData).length > 0) {
-                console.debug(this.props.updateId, initFormData)
-                this.setState({ initFormData });
-            }
-        });
         if (this.props.updateId) {
-            store.dispatch(findByIdAsync(this.table, this.props.updateId));
+            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     onSubmit() {
-        let newState = forms.submit(this.form, this.table, null);
-        this.setState(newState);
-        if (!newState.submissionError) {
-            newState.submissionFuture.done((insertId) => {
-                console.debug(555, insertId);
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        this.setState({ submissionError });
+        if (!submissionError) {
+            submissionFuture.done((insertId) => {
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
-                console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
         }
@@ -74,34 +64,33 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Run */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Options.RunsOutputFolders form={this.form} ref={(c) => this._run = c} />
+                        <Options.RunsOutputFolders form={this.form} />
                     </Col>
 
                     {/* Version */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Options.PipelineVersions form={this.form} ref={(c) => this._pipeline_version = c} />
+                        <Options.PipelineVersions form={this.form} />
                     </Col>
 
                     {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.PipelineAnalysisTypes form={this.form} ref={(c) => this._analysis_type = c} />
+                        <Options.PipelineAnalysisTypes form={this.form} />
                     </Col>
 
                     {/* Control lane nb */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select field="control_lane" label="Control lane" form={this.form}
+                        <Select field={fields.CONTROL_LANE_NB} label="Control lane" form={this.form}
                                 options={Options.getControlLanes()}
-                                ref={(c) => this._control_lane = c}
                         />
                     </Col>
 
                     {/* Demultiplexing */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox label="Demultiplexing" form={this.form} ref={(c) => this._demultiplexing = c} />
+                        <Checkbox field={fields.IS_DEMULTIPLEXING} label="Demultiplexing" form={this.form} />
                     </Col>
 
 
@@ -111,8 +100,8 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Unaligned data output folder */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField field="output_folder" label="Unaligned data output folder" form={this.form} required
-                                   ref = {(c) => this._output_folder = c}
+                        <TextField field={fields.UNALIGNED_OUTPUT_DIR} label="Unaligned data output folder" form={this.form} required
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -122,7 +111,9 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea field="comment" label="Comment" form={this.form} ref={(c) => this._comment = c} />
+                        <TextArea field={fields.COMMENT} label="Comment" form={this.form}
+                                  submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                 </Form>

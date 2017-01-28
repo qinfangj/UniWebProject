@@ -30,7 +30,7 @@ class ProjectInsertForm extends React.PureComponent {
         updateId: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
     };
 
-    componentDidMount() {
+    componentWillMount() {
         if (this.props.updateId) {
             store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }
@@ -43,10 +43,10 @@ class ProjectInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let newState = forms.submit(this.form, this.table, this.formatFormData);
-        this.setState(newState);
-        if (!newState.submissionError) {
-            newState.submissionFuture.done((insertId) => {
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        this.setState({ submissionError });
+        if (!submissionError) {
+            submissionFuture.done((insertId) => {
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
                 this.setState({ submissionError: true });
