@@ -79,13 +79,13 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Insert size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="insert_size_min" label="Insert size min" form={this.form}
+                        <TextField field={fields.INSERT_SIZE_MIN} label="Insert size min" form={this.form}
                                    validator = {validators.integerValidator}
                                    submissionError = {this.state.submissionError}
                         />
                     </Col>
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="insert_size_max" label="Insert size max" form={this.form}
+                        <TextField field={fields.INSERT_SIZE_MAX} label="Insert size max" form={this.form}
                                    validator = {validators.integerValidator}
                                    submissionError = {this.state.submissionError}
                         />
@@ -104,7 +104,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Multiplexing group */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="multiplexing_group" label="Multiplexing group" form={this.form} required
+                        <TextField field={fields.MULTIPLEXING_GROUP} label="Multiplexing group" form={this.form} required
                                    validator = {validators.shortStringValidator}
                                    submissionError = {this.state.submissionError}
                         />
@@ -120,7 +120,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Number of lanes */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="nb_lanes" label="Nb of lanes" form={this.form} required
+                        <TextField field={fields.NB_LANES} label="Nb of lanes" form={this.form} required
                                    submissionError = {this.state.submissionError}
                         />
                     </Col>
@@ -128,7 +128,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Multiplex# */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field="multiplex_nb" label="Multiplex#" form={this.form} required
+                        <TextField field={fields.MULTIPLEX_NB} label="Multiplex#" form={this.form} required
                                    validator={validators.integerValidator}
                                    submissionError = {this.state.submissionError}
                         />
@@ -137,7 +137,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Is QC lib */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox form={this.form} field="isQC" label="is QC"/>
+                        <Checkbox form={this.form} field={fields.WITH_LIB_QC} label="is QC"/>
                     </Col>
 
                 </Form>
@@ -146,7 +146,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <TextArea field="comment" label="Comment" form={this.form}
+                        <TextArea field={fields.COMMENT} label="Comment" form={this.form}
                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
@@ -154,8 +154,8 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Is discarded / is done */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox form={this.form} field="isDiscarded" label="Discarded"/>
-                        <Checkbox form={this.form} field="isDone" label="DONE"/>
+                        <Checkbox form={this.form} field={fields.IS_TRASHED} label="Discarded"/>
+                        <Checkbox form={this.form} field={fields.IS_FULFILLED} label="DONE"/>
                     </Col>
 
                 </Form>

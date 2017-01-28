@@ -70,6 +70,13 @@ const fields = {
     RATIO_260_230: "",
 
     // User requests
+    INSERT_SIZE_MIN: "insertSizeMin",
+    INSERT_SIZE_MAX: "insertSizeMax",
+    MULTIPLEXING_GROUP: "multiplexingGroup",
+    NB_LANES: "nbLanes",
+    MULTIPLEX_NB: "????",
+    WITH_LIB_QC: "withLibQc",
+    IS_FULFILLED: "isfulfilled",
 
 };
 
