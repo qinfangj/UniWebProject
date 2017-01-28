@@ -10,6 +10,7 @@ const fields = {
     NAME: "name",
     DESCRIPTION: "description",
     COMMENT: "comment",
+    IS_TRASHED: "istrashed",
 
     // Projects
     CODE_NAME: "codeName",
@@ -60,7 +61,15 @@ const fields = {
     COMMENT_CUSTOMER: "commentCustomer",
     IS_CUSTOMER_MADE: "iscustomerMade",
     IS_ROBOT_MADE: "isrobotMade",
-    IS_TRASHED: "istrashed",
+
+    // Samples
+    SHORT_NAME: "shortName",
+    RECEIVED_DATE: "receivedDate",
+    RIN: "rin",
+    RATIO_260_280: "ratio260280",
+    RATIO_260_230: "",
+
+    // User requests
 
 };
 
