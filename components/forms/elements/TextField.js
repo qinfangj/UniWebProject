@@ -2,6 +2,7 @@ import React from 'react';
 import css from '../forms.css';
 import store from '../../../core/store';
 import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
+import * as forms from '../forms';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -19,6 +20,7 @@ class TextField extends React.PureComponent {
             valid: true,  // boolean, is the field valid
             msg: "",  // error message from the validator
         };
+        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
     }
 
     getValue() {
@@ -108,7 +110,6 @@ class TextField extends React.PureComponent {
     }
 
     render() {
-        console.debug("Textfield state:", this.props.submissionError)
         // Display a star if the field is required and no valud has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
         let requireString = (this.props.required && !this.state.value) ?
@@ -147,11 +148,11 @@ TextField.propTypes = {
     label: React.PropTypes.string,  // title - visible
     type: React.PropTypes.string,  // input type (defaults to "text")
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
-    required: React.PropTypes.bool,  // if true, `this.getValue()` will return null if field is empty, and a warning shows.
+    required: React.PropTypes.bool,  // if true, `this.getValue()` will return null if field is empty, and a warning shows up.
     placeholder: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
     inputProps: React.PropTypes.object,  // additional input field props
-    submissionError: React.PropTypes.bool,  // display stronger feedback if an invalid form is submitted
+    submissionError: React.PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
 };
 TextField.defaultProps = {
     type: "text",

@@ -12,6 +12,17 @@ export const defaultFormState = {
     submissionId: undefined,
 };
 
+export function initForm(form) {
+    if (! store.getState().common.forms[form]) {
+        store.getState().common.forms[form] = {};
+    }
+}
+export function initFormField(form, field, value=null) {
+    if (! store.getState().common.forms[form][field]) {
+        store.getState().common.forms[form][field] = value;
+    }
+}
+
 /**
  * Get the value of that input from the store.
  */
@@ -23,13 +34,25 @@ export function getFormValue(form, storeKey) {
     }
 }
 
+/**
+ * Get all field values for one form from the store,
+ * as an object {field: value}.
+ */
+export function getFormData(form) {
+    return store.getState().common.forms[form];
+}
 
-export function submit(tableName, formData, formatFormData=null) {
+/**
+ * Send the `formData` for insert or update of db `table`.
+ * A custom formatter `formatFormData` can be given to transform the data before submission.
+ */
+export function submit(form, table, formatFormData=null) {
+    let state = {};
+    let formData = getFormData(form);
     console.info(JSON.stringify(formData, null, 2));
     let fields = Object.keys(formData);
     // Check if some fields have value 'null' (invalid or missing+required)
     let invalidFields = fields.filter(k => formData[k] === null);
-    let state = {};
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
         let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
@@ -39,13 +62,18 @@ export function submit(tableName, formData, formatFormData=null) {
         if (formatFormData) {
             formData = formatFormData(formData);
         }
-        let future = store.dispatch(insertAsync(tableName, formData));
+        let future = store.dispatch(insertAsync(table, formData));
         state = {submissionError: false, submissionFuture: future};
+        future
+            .done((insertId) => console.debug(200, "Inserted ID <"+insertId+">"))
+            .fail(() => console.warn("Uncaught form validation error"));
     }
     return state;
 }
 
-
+/**
+ * Error message showing on top of the screen when an invalid form is submitted.
+ */
 export class SubmissionErrorMessage extends React.Component {
     state = { visible: this.props.error };
     static propTypes = {
@@ -69,6 +97,9 @@ export class SubmissionErrorMessage extends React.Component {
     }
 }
 
+/**
+ * Info message showing on top of the screen when a valid form is submitted.
+ */
 export class SubmissionSuccessfulMessage extends React.Component {
     state = { visible: this.props.success };
     static propTypes = {

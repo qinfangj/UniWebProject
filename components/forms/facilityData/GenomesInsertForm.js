@@ -49,8 +49,7 @@ class GenomesInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, null);
+        let newState = forms.submit(this.form, this.table, null);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
@@ -60,20 +59,6 @@ class GenomesInsertForm extends React.PureComponent {
                 this.setState({ submissionError: true });
             });
         }
-    }
-
-    getFormValues() {
-        return {
-            taxo_id: this._organism.getValue(),
-            assembly: this._assembly.getValue(),
-            genome_folder: this._genomeFolder.getValue(),
-            url: this._url.getValue(),
-            downloaded_date: this._downloadedDate.getValue(),
-            files: this._files.getValue(),
-            comment: this._comment.getValue(),
-            isMasked: this._isMasked.getValue(),
-            isArchived: this._isArchived.getValue(),
-        };
     }
 
     render() {

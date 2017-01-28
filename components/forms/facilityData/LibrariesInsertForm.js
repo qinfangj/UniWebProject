@@ -51,8 +51,7 @@ class LibrariesInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, null);
+        let newState = forms.submit(this.form, this.table, null);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
@@ -62,34 +61,6 @@ class LibrariesInsertForm extends React.PureComponent {
                 this.setState({ submissionError: true });
             });
         }
-    }
-
-    /* Group fields to not exceed 22 scala tuple size limit */
-    getFormValues() {
-        return {
-            project_id: forms.getFormValue(this.form, this.projectsFormKey),
-            sample_id: this._sample.getValue(),
-            name: this._name.getValue(),
-            lib_protocol_id: this._protocol.getValue(),
-            starting_material: this._startingMaterial.getValue(),
-            library_date: this._libraryDate.getValue(),
-            bioanalyser_peak: this._bioanalyserPeak.getValue(),
-            frag_size_min: this._fragSizeMin.getValue(),
-            frag_size_max: this._fragSizeMax.getValue(),
-            multiplex_index_id: this._multiplexIndex.getValue(),
-            index_5prime_id: this._secondIndex.getValue(),
-            adapter_id: this._adapter.getValue(),
-            kits_lots: this._illuminaKits.getValue(),
-            comment_customer: this._customerComment.getValue(),
-            library_state_id: this._libraryState.getValue(),
-            comment: this._internalComment.getValue(),
-            isCustomer_made: this._isCustomerMade.getValue(),
-            isRobot_made: this._isRobotMade.getValue(),
-            isTrashed: this._isTrashed.getValue(),
-            quantif_method_id: this._quantification.getValue(),
-            concentration: this._concentration.getValue(),
-            volume: this._volume.getValue(),
-        };
     }
 
     render() {

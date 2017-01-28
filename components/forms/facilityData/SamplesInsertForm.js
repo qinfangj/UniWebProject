@@ -50,8 +50,7 @@ class SamplesInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, null);
+        let newState = forms.submit(this.form, this.table, null);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
@@ -61,27 +60,6 @@ class SamplesInsertForm extends React.PureComponent {
                 this.setState({ submissionError: true });
             });
         }
-    }
-
-    getFormValues() {
-        return {
-            name: this._name.getValue(),
-            short_name: this._shortName.getValue(),
-            project_id: this._project.getValue(),
-            taxo_id: this._organism.getValue(),
-            sample_type_id: this._sampleType.getValue(),
-            received_date: this._receivedDate.getValue(),
-            quantif_method_id: this._quantification.getValue(),
-            concentration: this._concentration.getValue(),
-            volume: this._volume.getValue(),
-            rin: this._rin.getValue(),
-            ratio_260_280: this._ratio_260_280.getValue(),
-            ratio_260_230: this._ratio_260_230.getValue(),
-            description: this._description.getValue(),
-            comment_customer: this._customerComment.getValue(),
-            comment: this._internalComment.getValue(),
-            isTrashed: this._isDiscarded.getValue(),
-        };
     }
 
     render() {

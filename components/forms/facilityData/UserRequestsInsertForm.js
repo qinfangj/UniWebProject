@@ -51,8 +51,7 @@ class UserRequestsInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, null);
+        let newState = forms.submit(this.form, this.table, null);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
@@ -61,25 +60,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                 console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
-            }
-    }
-
-    getFormValues() {
-        return {
-            project_id: forms.getFormValue(this.form, this.projectsFormKey),
-            sample_id: this._sample.getValue(),
-            insert_size_min: this._insertSizeMin.getValue(),
-            insert_size_max: this._insertSizeMax.getValue(),
-            library_type_id: this._library_type.getValue(),
-            multiplexing_group: this._multiplexingGroup.getValue(),
-            run_request_id: this._run_request.getValue(),
-            lane_nb: this._laneNb.getValue(),
-            multiplex_nb: this._multiplexNb.getValue(),
-            isQClib: this._isQC.getValue(),
-            comment: this._comment.getValue(),
-            isDiscarded: this._isDiscarded.getValue(),
-            isDone: this._isDone.getValue(),
-        };
+        }
     }
 
     render() {

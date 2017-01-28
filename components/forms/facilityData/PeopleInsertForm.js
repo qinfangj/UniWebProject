@@ -1,12 +1,13 @@
 import React from 'react';
 import css from '../forms.css';
 import store from '../../../core/store';
-import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import validators from '../validators';
 import * as forms from '../forms.js';
 import formStoreKeys from '../../constants/formStoreKeys';
+import fields from './fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -20,6 +21,7 @@ class ProjectInsertForm extends React.PureComponent {
         this.table = "people";
         this.form = formStoreKeys.PEOPLE_INSERT_FORM;
         this.state = forms.defaultFormState;
+        forms.initForm(this.form);
     }
 
     static propTypes = {
@@ -28,20 +30,10 @@ class ProjectInsertForm extends React.PureComponent {
         updateId: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
     };
 
-    componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let initFormData = store.getState().facilityData["updateData"];
-            if (initFormData && Object.keys(initFormData).length > 0) {
-                console.debug(this.props.updateId, initFormData)
-                this.setState({ initFormData });
-            }
-        });
+    componentDidMount() {
         if (this.props.updateId) {
-            store.dispatch(findByIdAsync(this.table, this.props.updateId));
+            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     formatFormData(formData) {
@@ -51,27 +43,15 @@ class ProjectInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, this.formatFormData);
+        let newState = forms.submit(this.form, this.table, this.formatFormData);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
-                console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
         }
-    }
-
-    getFormValues() {
-        return {
-            first_name: this._firstName.getValue(),
-            last_name: this._lastName.getValue(),
-            email: this._email.getValue(),
-            address: this._address.getValue(),
-            phone: this._phone.getValue(),
-        };
     }
 
     render() {
@@ -85,28 +65,25 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* First name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field="firstName" label="PI first name" form={this.form} required
-                                   ref = {(c) => this._firstName = c}
-                                   defaultValue="J"
+                        <TextField field={fields.FIRST_NAME} label="PI first name" form={this.form} required
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Last name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field="lastName" label="PI last name" form={this.form} required
-                                   ref = {(c) => this._lastName = c}
-                                   defaultValue="D"
+                        <TextField field={fields.LAST_NAME} label="PI last name" form={this.form} required
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Email */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field="email" label="PI email" form={this.form} required
-                                   ref = {(c) => this._email = c}
+                        <TextField field={fields.EMAIL} label="PI email" form={this.form} required
                                    validator = {validators.emailValidator}
-                                   defaultValue="lab@unil.ch"
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -116,19 +93,17 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Address */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField field="address" label="PI address" form={this.form} required
-                                   ref = {(c) => this._address = c}
-                                   defaultValue=""
+                        <TextField field={fields.ADDRESS} label="PI address" form={this.form} required
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Phone */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field="phone" label="PI phone" form={this.form} required
-                                   ref = {(c) => this._phone = c}
+                        <TextField field={fields.PHONE} label="PI phone" form={this.form} required
                                    validator={validators.phoneValidator}
-                                   defaultValue="000 000 000"
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 

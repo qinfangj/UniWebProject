@@ -50,8 +50,7 @@ class BasecallingsInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, null);
+        let newState = forms.submit(this.form, this.table, null);
         this.setState(newState);
         if (!newState.submissionError) {
             newState.submissionFuture.done((insertId) => {
@@ -61,19 +60,7 @@ class BasecallingsInsertForm extends React.PureComponent {
                 console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
-            }
-    }
-
-    getFormValues() {
-        return {
-            run_id: this._run.getValue(),
-            pipeline_version_id: this._pipeline_version.getValue(),
-            analysis_type_id: this._analysis_type.getValue(),
-            control_lane_id: this._control_lane.getValue(),
-            isDemultiplexing: this._demultiplexing.getValue(),
-            output_folder: this._output_folder.getValue(),
-            comment: this._comment.getValue(),
-        };
+        }
     }
 
     render() {

@@ -25,6 +25,7 @@ class ProjectInsertForm extends React.PureComponent {
         this.table = "projects";
         this.form = formStoreKeys.PROJECTS_INSERT_FORM;
         this.state = forms.defaultFormState;
+        this.initForm(this.form);
     }
 
     static propTypes = {
@@ -40,38 +41,18 @@ class ProjectInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, null);
-        this.setState(newState);
-        if (!newState.submissionError) {
-            newState.submissionFuture.done((insertId) => {
-                console.debug(200, "Inserted ID <"+insertId+">");
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        this.setState({ submissionError });
+        if (!submissionError) {
+            submissionFuture.done((insertId) => {
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
-                console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
         }
     }
 
-    getFormValues() {
-        let formData = store.getState().common.forms[this.form];
-        return {
-            id: formData[fields.ID],
-            name: this._projectName.getValue(),
-            person_id: this._personInCharge.getValue(),
-            code_name: this._codeName.getValue(),
-            description: this._description.getValue(),
-            project_state_id: this._projectState.getValue(),
-            isControl: this._isControl.getValue(),
-            user_meeting_date: this._userMeetingDate.getValue(),
-            project_analysis_id: this._projectAnalysis.getValue(),
-            comment: this._comment.getValue(),
-        };
-    }
-
     render() {
-        console.debug("Submission state: ", this.state.submissionError)
         return (
             <form className={css.form}>
                 <forms.SubmissionErrorMessage error={this.state.submissionError} />
@@ -84,14 +65,13 @@ class ProjectInsertForm extends React.PureComponent {
                     <Col sm={4} className={css.formCol}>
                         <TextField field={fields.NAME} label="Project name" form={this.form} required
                                    submissionError = {this.state.submissionError}
-                                   ref = {(c) => this._projectName = c}
                         />
                     </Col>
 
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.People form={this.form} ref={(c) => this._personInCharge = c} />
+                        <Options.People form={this.form} />
                     </Col>
 
                     {/* Code name */}
@@ -101,7 +81,6 @@ class ProjectInsertForm extends React.PureComponent {
                                    validator = {validators.codeNameValidator}
                                    submissionError = {this.state.submissionError}
                                    placeholder = "[name]_[initials] Ex: Tcells_EG."
-                                   ref = {(c) => this._codeName = c}
                         />
                     </Col>
 
@@ -114,7 +93,6 @@ class ProjectInsertForm extends React.PureComponent {
                         <TextField field={fields.DESCRIPTION} label="Description" form={this.form}
                                    validator = {validators.descriptionValidator}
                                    submissionError = {this.state.submissionError}
-                                   ref = {(c) => this._description = c}
                                    defaultValue = "Enter description here"
                         />
                     </Col>
@@ -125,26 +103,24 @@ class ProjectInsertForm extends React.PureComponent {
 
                         {/* Project state */}
 
-                        <Options.ProjectStates form={this.form} ref={(c) => this._projectState = c} />
+                        <Options.ProjectStates form={this.form} />
 
                         {/* Is control */}
 
-                        <Checkbox ref={(c) => this._isControl = c} field={fields.IS_CONTROL} label="Control Project" />
+                        <Checkbox field={fields.IS_CONTROL} label="Control Project" />
 
                     </Col>
 
                     {/* User meeting date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker field={fields.USER_MEETING_DATE} label="User meeting date"
-                                    ref={(c) => this._userMeetingDate = c}
-                        />
+                        <DatePicker field={fields.USER_MEETING_DATE} label="User meeting date" />
                     </Col>
 
                     {/* Project analysis */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.ProjectAnalyses form={this.form} ref={(c) => this._projectAnalysis = c} />
+                        <Options.ProjectAnalyses form={this.form} />
                     </Col>
 
                 </Form>
@@ -153,7 +129,7 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea field={fields.COMMENT} form={this.form} label="Comment" ref={(c) => this._comment = c} />
+                        <TextArea field={fields.COMMENT} form={this.form} label="Comment" />
                     </Col>
 
                 </Form>

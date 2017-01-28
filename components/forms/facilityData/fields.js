@@ -19,6 +19,11 @@ const fields = {
     PROJECT_ANALYSIS_ID: "projectAnalysisId",
     TO_ANALYZE: "toanalyze",
 
+    FIRST_NAME: "firstName",
+    LAST_NAME: "lastName",
+    EMAIL: "email",
+    ADDRESS: "address",
+    PHONE: "phone",
 };
 
 export default fields;
