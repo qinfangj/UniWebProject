@@ -41,8 +41,18 @@ class BioanalysersInsertForm extends React.PureComponent {
         }
     }
 
+    /**
+     * Use this to add lanes info - nothing to validate there anyway.
+     */
+    formatFormData(formData) {
+        formData["lanes"] = this._lanes.getFormValues();
+        formData["file"] = btoa(this._file.getFile());
+        formData["filename"] = (this._file.getValue() || "").replace(/.*[\/\\]/, '');
+        return formData;
+    }
+
     onSubmit() {
-        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, this.formatFormData.bind(this));
         this.setState({ submissionError });
         if (!submissionError) {
             submissionFuture.done((insertId) => {
@@ -51,17 +61,6 @@ class BioanalysersInsertForm extends React.PureComponent {
                 this.setState({ submissionError: true });
             });
         }
-    }
-
-    getFormValues() {
-        console.debug(this._file.getValue(), btoa(this._file.getFile()))
-        return {
-            filename: this._file.getValue().replace(/.*[\/\\]/, ''),
-            file: btoa(this._file.getFile()),
-            bioanalyser_date: this._bioanalyserDate.getValue(),
-            description: this._description.getValue(),
-            lanes: this._lanes.getFormValues(),
-        };
     }
 
     render() {
@@ -76,6 +75,7 @@ class BioanalysersInsertForm extends React.PureComponent {
 
                     <Col sm={4} className={formsCss.formCol}>
                         <TextField form={this.form} field={fields.FILENAME} label="Bioanalyser file" type="file"
+                                   ref = {(c) => this._file = c}
                                    submissionError = {this.state.submissionError}
                         />
                     </Col>
@@ -105,7 +105,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                     {/* Lanes sub form */}
 
                     <Col sm={12} className={cx(formsCss.formCol, css.subformCol)} >
-                        <BioanalysersSubForm />
+                        <BioanalysersSubForm ref={(c) => this._lanes = c} />
                     </Col>
 
                 </Form>

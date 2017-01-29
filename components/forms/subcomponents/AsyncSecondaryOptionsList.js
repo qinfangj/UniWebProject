@@ -37,7 +37,6 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
     }
 
     componentWillMount() {
-        console.debug(this.props.form, this.props.referenceField)
         let storeKey = this.props.storeKey;
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
