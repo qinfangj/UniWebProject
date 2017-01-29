@@ -23,10 +23,11 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
      */
     static propTypes = {
         referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `storeKey`!
-        table: React.PropTypes.string.isRequired,
-        form: React.PropTypes.string.isRequired,
+        field: React.PropTypes.string.isRequired,  // the name of the form field - to find the value in store
+        form: React.PropTypes.string.isRequired,  // the form name - to find the value in store
+        table: React.PropTypes.string.isRequired,  // the db table to query the data from
         storeKey: React.PropTypes.string.isRequired,  // the store key for the result list
-        label: React.PropTypes.string,
+        label: React.PropTypes.string,  // The text above the input
         formatter: React.PropTypes.func,  // ex: object => [id, name]
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
@@ -36,10 +37,10 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
     }
 
     componentWillMount() {
-        this.storeKey = this.props.storeKey || (constants.SECONDARY_OPTIONS + this.props.form +"_"+ this.props.table);
+        let storeKey = this.props.storeKey;
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
-            let list = storeState.facilityData[this.storeKey];
+            let list = storeState.facilityData[storeKey];
             let formValues = storeState.common.forms[this.props.form];
             // Since it depends on another field of the same form, no need to
             //  do anything if the other field has not yet sent its value to the store.
@@ -48,7 +49,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
                 // The value it dends on changed, ask for new data
                 if (referenceValue && referenceValue !== this.referenceValue) {
                     this.referenceValue = referenceValue;  // avoids infinite callback loop
-                    store.dispatch(getSecondaryOptionsListAsync(this.props.table, referenceValue, this.storeKey));
+                    store.dispatch(getSecondaryOptionsListAsync(this.props.table, referenceValue, storeKey));
                 }
                 // New data received, update options list
                 else if (list) {

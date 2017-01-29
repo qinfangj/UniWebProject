@@ -15,11 +15,12 @@ class AsyncOptionsList extends React.PureComponent {
     }
 
     static propTypes = {
-        table: React.PropTypes.string.isRequired,
-        form: React.PropTypes.string.isRequired,
-        storeKey: React.PropTypes.string.isRequired,  // the store key for the result list
-        label: React.PropTypes.string,
-        formatter: React.PropTypes.func,  // ex: object => [id, name]
+        table: React.PropTypes.string.isRequired,  // the db table to query the data from
+        field: React.PropTypes.string.isRequired,  // the name of the form field - to find the value in store
+        form: React.PropTypes.string.isRequired,  // the form name - to find the value in store
+        storeKey: React.PropTypes.string.isRequired,  // the data store key for the result list
+        label: React.PropTypes.string,  // The text above the input
+        formatter: React.PropTypes.func,  // ex: row object from REST => [id, name]
         suffix: React.PropTypes.string,  // route suffix for conditional lists (e.g. "all" in "/table/projects/list/all")
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
@@ -29,7 +30,7 @@ class AsyncOptionsList extends React.PureComponent {
     }
 
     componentWillMount() {
-        this.storeKey = this.props.storeKey; //|| (constants.OPTIONS + this.props.form +"_"+ this.props.table);
+        this.storeKey = this.props.storeKey;
         this.unsubscribe = store.subscribe(() => {
             let list = store.getState().facilityData[this.storeKey];
             if (list) {
@@ -61,7 +62,6 @@ class AsyncOptionsList extends React.PureComponent {
     render() {
         return (
             <Select field={this.props.table} label={this.props.label} form={this.props.form}
-                    storeKey={this.storeKey}
                     ref={(c) => {this._select = c;}}
                     options={this.getList()}
                     {...this.props.selectProps}

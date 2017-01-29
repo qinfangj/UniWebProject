@@ -65,10 +65,10 @@ let queryProjectsReducers = (state = defaultState, action) => {
                 let sampleIdsWithTerm = new Set(searchedSamples.map(v => v.id));
                 let projectIdsWithTerm = new Set(projects.filter(v => {
                     return v.name.toLowerCase().indexOf(term) >= 0
-                        || v.last_name.toLowerCase().indexOf(term) >= 0;
+                        || v.lastName.toLowerCase().indexOf(term) >= 0;
                 }).map(v => v.id));
-                let sampleIdsWithProject = new Set(samples.filter(v => projectIdsWithTerm.has(v.project_id)).map(v => v.id));
-                let projectIdsWithSample = new Set(searchedSamples.map(v => v.project_id));
+                let sampleIdsWithProject = new Set(samples.filter(v => projectIdsWithTerm.has(v.projectId)).map(v => v.id));
+                let projectIdsWithSample = new Set(searchedSamples.map(v => v.projectId));
                 // Union, the JS way.
                 let projectIds = new Set([...projectIdsWithTerm, ...projectIdsWithSample]);
                 let sampleIds = new Set([...sampleIdsWithTerm, ...sampleIdsWithProject]);

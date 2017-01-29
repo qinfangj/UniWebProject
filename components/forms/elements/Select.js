@@ -41,7 +41,7 @@ class Select extends React.PureComponent {
         let value = parseInt(e.target.value);
         this.setState({ value });
         if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.storeKey || this.props.field, value));
+            store.dispatch(changeFormValue(this.props.form, this.props.field, value));
         }
     }
 
@@ -74,7 +74,6 @@ Select.propTypes = {
     label: React.PropTypes.string,  // title - visible
     defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),  // Id or name (not option index)
     inputProps: React.PropTypes.object,  // additional input field props
-    storeKey: React.PropTypes.string,  // key to get the form value from store. Otherwise, `name` is used instead.
 // maybe use later:
     required: React.PropTypes.bool,
     missing: React.PropTypes.bool,  // field is required but was found empty when submitting

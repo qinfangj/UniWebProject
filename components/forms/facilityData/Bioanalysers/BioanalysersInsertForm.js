@@ -2,12 +2,16 @@ import React from 'react';
 import formsCss from '../../forms.css';
 import css from './bioanalysers.css';
 import cx from 'classnames';
+import store from '../../../../core/store';
 
 import TextField from '../../elements/TextField';
 import DatePicker from '../../elements/DatePicker';
 import validators from '../../validators';
 import * as forms from '../../forms.js';
 import BioanalysersSubForm from './BioanalysersSubForm';
+import formStoreKeys from '../../../constants/formStoreKeys';
+import fields from '../fields';
+import { findForUpdateAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -19,23 +23,34 @@ class BioanalysersInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "bioanalysers";
-        this.form = "bioanalysers";
+        this.form = formStoreKeys.BIOANALYSERS_INSERT_FORM;
         this.required = [];
         this.state = forms.defaultFormState;
+        forms.initForm(this.form);
+    }
+
+    static propTypes = {
+        // If defined, the form will be pre-filled with the current data for the item with this ID,
+        //  after fetching it on the server.
+        updateId: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+    };
+
+    componentWillMount() {
+        if (this.props.updateId) {
+            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
+        }
     }
 
     onSubmit() {
-        let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, this.required, null);
-        this.setState(newState);
-        if (!newState.submissionError) {
-            newState.submissionFuture.done((insertId) => {
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        this.setState({ submissionError });
+        if (!submissionError) {
+            submissionFuture.done((insertId) => {
                 this.setState({ submissionSuccess: true, submissionId: insertId });
             }).fail(() =>{
-                console.warn("Uncaught form validation error");
                 this.setState({ submissionError: true });
             });
-            }
+        }
     }
 
     getFormValues() {
@@ -60,16 +75,15 @@ class BioanalysersInsertForm extends React.PureComponent {
                     {/* Bioanalyser file */}
 
                     <Col sm={4} className={formsCss.formCol}>
-                        <TextField name="filename" label="Bioanalyser file" type="file"
-                                   ref = {(c) => this._file = c}
+                        <TextField form={this.form} field={fields.FILENAME} label="Bioanalyser file" type="file"
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Bioanalyser date */}
 
                     <Col sm={3} className={formsCss.formCol}>
-                        <DatePicker name="bioanalyser_date" label="Bioanalyser date"
-                                    ref={(c) => this._bioanalyserDate = c}
+                        <DatePicker form={this.form} field={fields.BIOANALYSER_DATE} label="Bioanalyser date"
                         />
                     </Col>
 
@@ -79,9 +93,9 @@ class BioanalysersInsertForm extends React.PureComponent {
                     {/* Description */}
 
                     <Col sm={12} className={formsCss.formCol}>
-                        <TextField name="description" label="Description"
+                        <TextField form={this.form} field={fields.DESCRIPTION} label="Description"
                                    defaultValue = ""
-                                   ref = {(c) => this._description = c}
+                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -91,7 +105,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                     {/* Lanes sub form */}
 
                     <Col sm={12} className={cx(formsCss.formCol, css.subformCol)} >
-                        <BioanalysersSubForm ref={(c) => this._lanes = c} />
+                        <BioanalysersSubForm />
                     </Col>
 
                 </Form>

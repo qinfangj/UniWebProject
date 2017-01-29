@@ -8,6 +8,8 @@ import * as forms from '../../forms';
 import validators from '../../validators';
 import * as Options from '../../subcomponents/Options';
 import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
+import formStoreKeys from '../../../constants/formStoreKeys';
+import fields from '../fields';
 
 
 /**
@@ -16,54 +18,44 @@ import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
 class BioanalysersSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
-        // Test
-        //console.debug(props)
-        //console.debug(this.props.lanes)
         this.table = "bioanalysers";
-        this.form = "bioanalysers";
-        this.laneRefs = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
-        this.state = {
-            invalid: {1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}, 8:{}, 9:{}, 10:{}, 11:{}, 12: {}},
-        };
+        this.form = formStoreKeys.BIOANALYSERS_LANES_INSERT_FORM;
+        forms.initForm(this.form);
     }
 
     getFormValues() {
-        return this.laneRefs.map((ref, i) => {
-            return {
-                id: 0,
+        let data = [];
+        for (let i=0; i < 12; i++) {
+            data.push({
                 lane_nb: i+1,
-                project_id: forms.getFormValue(this.form, this.form + i +"_project"),
-                library_id: ref.library.getValue(),
-                comment: ref.comment.getValue(),
-            };
-        });
-    }
-
-    _projectsFormKey(i) {
-        return this.form + i +"_project";
+                project_id: forms.getFormValue(this.form, "project_"+i),
+                library_id: forms.getFormValue(this.form, "library_"+i),
+                comment: forms.getFormValue(this.form, fields.COMMENT),
+            });
+        }
+        return data;
     }
 
     makeRow(i) {
-        let projectsFormKey = this._projectsFormKey(i);
+        let referenceKey = this.form+"project"+i;  // doesn't matter what it is, just a common data key for both inputs
         return <tr key={i}>
             <td key="id" className={css.laneId}>
                 {i + 1}
             </td>
             <td key="project" className={css.cell}>
-                {Options.ProjectsWithLibraries(this.form, projectsFormKey)}
+                {Options.ProjectsWithLibraries(this.form, "project_"+i, referenceKey)}
             </td>
             <td key="library" className={css.cell}>
                 <SecondaryOptions.ProjectLibraries
                     form={this.form}
-                    referenceField={projectsFormKey}  // the store key to the form value
-                    storeKey={this.form + i +"_library"}        // the store key for the result list
-                    ref={(c) => this.laneRefs[i]["library"] = c}
+                    field={"library_"+i}
+                    referenceField={referenceKey}  // the store key to the other field's value
+                    storeKey={this.form+"_library_"+i}   // whatever; the store key for the result list
                 />
             </td>
             <td key="comment" className={css.cell}>
-                <TextField
-                    name="comment"
-                    ref={(c) => this.laneRefs[i]["comment"] = c}
+                <TextField form={this.form}
+                    field={fields.COMMENT}
                 />
             </td>
         </tr>;

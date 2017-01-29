@@ -78,6 +78,11 @@ const fields = {
     WITH_LIB_QC: "withLibQc",
     IS_FULFILLED: "isfulfilled",
 
+    // Bioanalysers
+    FILENAME: "filename",
+    BIOANALYSER_DATE: "bioanalyserDate",
+
+
 };
 
 export default fields;
