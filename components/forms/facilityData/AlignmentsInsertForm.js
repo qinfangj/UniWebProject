@@ -73,7 +73,7 @@ class AlignmentsInsertForm extends React.PureComponent {
                         <Options.RunsOutputFolders form={this.form} />
                     </Col>
 
-                    {/* Unaligned data output folder */}
+                    {/* Unaligned data output folder (aka basecallingId) */}
 
                     <Col sm={7} className={css.formCol}>
                         <SecondaryOptions.BasecallingsOutputFolders form={this.form} />

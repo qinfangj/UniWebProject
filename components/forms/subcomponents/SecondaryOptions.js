@@ -12,7 +12,9 @@ export class BasecallingsOutputFolders extends React.Component {
     render() {
         return (<AsyncSecondaryOptionsList
             field={this.props.field}
-            table="basecallings" label="Unaligned data output folder" form={this.props.form}
+            table="basecallings"
+            label="Unaligned data output folder"
+            form={this.props.form}
             referenceField="runs"
             storeKey={dataStoreKeys.BASECALLING_OUTPUT_FOLDERS}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
@@ -21,8 +23,6 @@ export class BasecallingsOutputFolders extends React.Component {
 }
 BasecallingsOutputFolders.propTypes = {
     field: React.PropTypes.string.isRequired,
-    referenceField: React.PropTypes.string.isRequired,
-    storeKey: React.PropTypes.string,
 };
 BasecallingsOutputFolders.defaultProps = {
     field: "basecallings",
@@ -38,7 +38,9 @@ export class ProjectSamples extends React.Component {
     render() {
         return (<AsyncSecondaryOptionsList
             field={this.props.field}
-            table="samples" label="Sample" form={this.props.form}
+            table="samples"
+            label="Sample"
+            form={this.props.form}
             referenceField={this.props.referenceField}
             storeKey={dataStoreKeys.PROJECT_SAMPLES}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
@@ -65,7 +67,9 @@ export class ProjectPools extends React.Component {
     render() {
         return (<AsyncSecondaryOptionsList
             field={this.props.field}
-            table="user_requests" label={null} form={this.props.form}
+            table="user_requests"
+            label={null}
+            form={this.props.form}
             referenceField={this.props.referenceField}
             storeKey={this.props.storeKey}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
