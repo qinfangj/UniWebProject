@@ -37,19 +37,18 @@ class BioanalysersSubForm extends React.PureComponent {
     }
 
     makeRow(i) {
-        let referenceKey = this.form+"project"+i;  // doesn't matter what it is, just a common data key for both inputs
         return <tr key={i}>
             <td key="id" className={css.laneId}>
                 {i + 1}
             </td>
             <td key="project" className={css.cell}>
-                {Options.ProjectsWithLibraries(this.form, "project_"+i, referenceKey)}
+                {Options.ProjectsWithLibraries(this.form, "project_"+i, this.form+"project"+i)}
             </td>
             <td key="library" className={css.cell}>
                 <SecondaryOptions.ProjectLibraries
                     form={this.form}
                     field={"library_"+i}
-                    referenceField={referenceKey}  // the store key to the other field's value
+                    referenceField={"project_"+i}  // the store key to the other field's value
                     storeKey={this.form+"_library_"+i}   // whatever; the store key for the result list
                 />
             </td>

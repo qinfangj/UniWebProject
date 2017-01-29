@@ -24,7 +24,7 @@ export class Instruments extends React.Component {
 
 export class LibProtocols extends React.Component {
     getValue() { return this._select.getValue(); }
-    formatter(v) { return [v.id, v.short_name]; }
+    formatter(v) { return [v.id, v.shortName]; }
     render() {
         return <AsyncOptionsList field="lib_protocols" table="lib_protocols" label="Library type" form={this.props.form}
                                  storeKey={dataStoreKeys.LIB_PROTOCOLS}
@@ -66,7 +66,7 @@ export class MappingTools extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
     render() {
-        return <AsyncOptionsList field="maping_tools" table="mapping_tools" label="Mapping tool" form={this.props.form}
+        return <AsyncOptionsList field="mapping_tools" table="mapping_tools" label="Mapping tool" form={this.props.form}
                                  storeKey={dataStoreKeys.MAPPING_TOOLS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
@@ -89,7 +89,7 @@ MultiplexIndexes.propTypes = {
 
 export class People extends React.Component {
     getValue() { return this._select.getValue(); }
-    formatter(v) { return [v.id, v.last_name +" "+ v.first_name]; }
+    formatter(v) { return [v.id, v.lastName +" "+ v.firstName]; }
     render() {
         return <AsyncOptionsList field="people" table="people" label="Laboratory" form={this.props.form}
                                  storeKey={dataStoreKeys.PEOPLE}
@@ -194,7 +194,7 @@ export class QuantifMethods extends React.Component {
 
 export class RunsOutputFolders extends React.Component {
     getValue() { return this._select.getValue(); }
-    formatter(v) { return [v.id, v.run_folder]; }
+    formatter(v) { return [v.id, v.runFolder]; }
     render() {
         return <AsyncOptionsList field="runs" table="runs" label="Run" form={this.props.form}
                                  storeKey={dataStoreKeys.RUNS_OUTPUT_FOLDERS}

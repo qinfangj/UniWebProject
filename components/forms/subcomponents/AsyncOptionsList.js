@@ -30,23 +30,23 @@ class AsyncOptionsList extends React.PureComponent {
     }
 
     componentWillMount() {
-        this.storeKey = this.props.storeKey;
+        let storeKey = this.props.storeKey;
         this.unsubscribe = store.subscribe(() => {
-            let list = store.getState().facilityData[this.storeKey];
+            let list = store.getState().facilityData[storeKey];
             if (list) {
                 let value = list.length > 0 ? list[0].id : null;  // first one of the list
                 this.setState({ list, value });
             }
         });
-        let list = store.getState().facilityData[this.storeKey];
+        let list = store.getState().facilityData[storeKey];
         if (list) {
             let value = list.length > 0 ? list[0].id : null;  // first one of the list
             this.setState({ list, value });
         } else {
             if (this.props.suffix) {
-                store.dispatch(getConditionalOptionsListAsync(this.props.table, this.props.suffix, this.storeKey));
+                store.dispatch(getConditionalOptionsListAsync(this.props.table, this.props.suffix, storeKey));
             } else {
-                store.dispatch(getOptionsListAsync(this.props.table, this.storeKey));
+                store.dispatch(getOptionsListAsync(this.props.table, storeKey));
             }
         }
     }
@@ -61,7 +61,7 @@ class AsyncOptionsList extends React.PureComponent {
 
     render() {
         return (
-            <Select field={this.props.table} label={this.props.label} form={this.props.form}
+            <Select field={this.props.field} label={this.props.label} form={this.props.form}
                     ref={(c) => {this._select = c;}}
                     options={this.getList()}
                     {...this.props.selectProps}

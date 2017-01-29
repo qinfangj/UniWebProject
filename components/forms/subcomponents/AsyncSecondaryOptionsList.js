@@ -22,7 +22,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
      *  and the key used in the store for the selected item.
      */
     static propTypes = {
-        referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `storeKey`!
+        referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `field`!
         field: React.PropTypes.string.isRequired,  // the name of the form field - to find the value in store
         form: React.PropTypes.string.isRequired,  // the form name - to find the value in store
         table: React.PropTypes.string.isRequired,  // the db table to query the data from
@@ -37,6 +37,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
     }
 
     componentWillMount() {
+        console.debug(this.props.form, this.props.referenceField)
         let storeKey = this.props.storeKey;
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
