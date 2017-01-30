@@ -99,10 +99,12 @@ Textarea.propTypes = {
     defaultValue: React.PropTypes.string,
     required: React.PropTypes.bool, // show a warning if required but no value
     inputProps: React.PropTypes.object,  // additional input field props
+    submissionError: React.PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
 };
 Textarea.defaultProps = {
     defaultValue: "",
     required: false,
+    submissionError: false,
 };
 
 

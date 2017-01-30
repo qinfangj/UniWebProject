@@ -165,6 +165,7 @@ TextField.defaultProps = {
     required: false,
     placeholder: "",
     defaultValue: "",
+    submissionError: false,
 };
 
 
