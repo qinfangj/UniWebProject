@@ -64,6 +64,7 @@ const fields = {
     MULTIPLEX_INDEX_ID: "multiplexIndexId",
     LIBRARY_STATE_ID: "libraryStateId",
     LIB_PROTOCOL_ID: "libProtocolId",
+    SAMPLE_ID: "sampleId",
 
     // Samples
     SHORT_NAME: "shortName",
@@ -81,7 +82,7 @@ const fields = {
     INSERT_SIZE_MAX: "insertSizeMax",
     MULTIPLEXING_GROUP: "multiplexingGroup",
     NB_LANES: "nbLanes",
-    MULTIPLEX_NB: "????",
+    MILLION_READS: "millionReads",
     WITH_LIB_QC: "withLibQc",
     IS_FULFILLED: "isfulfilled",
     RUN_TYPES_LENGTH_ID: "runTypesLengthId",

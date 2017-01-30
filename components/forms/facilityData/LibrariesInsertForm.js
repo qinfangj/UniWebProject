@@ -73,6 +73,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     <Col sm={3} className={css.formCol}>
                         <SecondaryOptions.ProjectSamples
                             form={this.form}
+
                          />
                     </Col>
 

@@ -43,12 +43,13 @@ export function getFormValue(form, storeKey) {
 export function getFormData(form) {
     let storedForm = store.getState().common.forms[form];
     let formData = {};
+    //console.debug(storedForm)
     for (let key of Object.keys(storedForm)) {
         let valid = storedForm._isValid[key];
-        if (valid === true) {
-            formData[key] = storedForm[key];
-        } else if (valid === false) {
+        if (valid === false) {
             formData[key] = null;
+        } else {
+            formData[key] = storedForm[key];
         }
         /* DON'T DO THIS:
              formData[key] = valid ? storedForm[key] : null;

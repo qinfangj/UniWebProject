@@ -70,7 +70,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
 
     render() {
         return (
-            <Select field={this.props.table} label={this.props.label} form={this.props.form}
+            <Select field={this.props.field} label={this.props.label} form={this.props.form}
                     ref={(c) => {this._select = c;}}
                     options={this.getList()}
                     {...this.props.selectProps}

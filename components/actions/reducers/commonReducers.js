@@ -41,7 +41,6 @@ let commonReducers = (state = defaultState, action) => {
             }
             newState.forms[form][field] = action.value;
             newState.forms[form]._isValid[field] = action.valid || true;
-            console.debug(field, action.value, action.valid)
 
             /* Special cases */
 

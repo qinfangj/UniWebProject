@@ -23,6 +23,7 @@ export class BasecallingsOutputFolders extends React.Component {
     }
 }
 BasecallingsOutputFolders.propTypes = {
+    form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
 };
 BasecallingsOutputFolders.defaultProps = {
@@ -32,29 +33,28 @@ BasecallingsOutputFolders.defaultProps = {
 
 /**
  * List available samples for a given project ID.
+ * Used in UserRequests and Librairies insert forms.
  */
 export class ProjectSamples extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name + (v.shortName ? " ("+v.shortName+")" : "")]; }
     render() {
         return (<AsyncSecondaryOptionsList
-            field={this.props.field}
+            field={fields.SAMPLE_ID}
             table="samples"
             label="Sample"
             form={this.props.form}
             referenceField={this.props.referenceField}
-            storeKey={dataStoreKeys.SAMPLES_FROM_PROJECT}
+            storeKey={this.props.form + '_' + dataStoreKeys.SAMPLES_FROM_PROJECT}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
 }
 ProjectSamples.propTypes = {
-    field: React.PropTypes.string.isRequired,
+    form: React.PropTypes.string.isRequired,
     referenceField: React.PropTypes.string.isRequired,
-    storeKey: React.PropTypes.string.isRequired,
 };
 ProjectSamples.defaultProps = {
-    field: "sampleId",
     referenceField: fields.PROJECT_ID,
 };
 
@@ -73,15 +73,15 @@ export class ProjectPools extends React.Component {
             label={null}
             form={this.props.form}
             referenceField={this.props.referenceField}
-            storeKey={this.props.storeKey}
+            storeKey={this.props.form + '_' + dataStoreKeys.POOLS_FROM_PROJECT}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
 }
 ProjectPools.propTypes = {
+    form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
     referenceField: React.PropTypes.string.isRequired,
-    storeKey: React.PropTypes.string.isRequired,
 };
 ProjectPools.defaultProps = {
     field: "userRequestId",
@@ -100,15 +100,15 @@ export class ProjectLibraries extends React.Component {
             field={this.props.field}
             table="libraries" label={null} form={this.props.form}
             referenceField={this.props.referenceField}
-            storeKey={this.props.storeKey}
+            storeKey={this.props.form + '_' + dataStoreKeys.LIBRAIRIES_FROM_PROJECT}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
 }
 ProjectLibraries.propTypes = {
+    form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
     referenceField: React.PropTypes.string.isRequired,
-    storeKey: React.PropTypes.string.isRequired,
 };
 ProjectLibraries.defaultProps = {
     field: "libraryId",

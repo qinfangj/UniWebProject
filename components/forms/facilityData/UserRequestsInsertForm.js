@@ -127,7 +127,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Multiplex# */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field={fields.MULTIPLEX_NB} label="Multiplex#" form={this.form} required
+                        <TextField field={fields.MILLION_READS} label="Multiplex#" form={this.form} required
                                    validator={validators.integerValidator}
                                    submissionError = {this.state.submissionError}
                         />
