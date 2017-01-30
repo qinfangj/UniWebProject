@@ -10,7 +10,7 @@ import validators from '../../validators';
 import * as forms from '../../forms.js';
 import BioanalysersSubForm from './BioanalysersSubForm';
 import formStoreKeys from '../../../constants/formStoreKeys';
-import fields from '../fields';
+import fields from '../../fields';
 import { findForUpdateAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';

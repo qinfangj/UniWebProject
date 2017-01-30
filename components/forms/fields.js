@@ -14,12 +14,12 @@ const fields = {
 
     // Projects
     CODE_NAME: "codeName",
-    PERSON_ID: "personId",
-    PROJECT_STATE_ID: "projectStateId",
-    IS_CONTROL: "iscontrol",
     USER_MEETING_DATE: "userMeetingDate",
-    PROJECT_ANALYSIS_ID: "projectAnalysisId",
+    IS_CONTROL: "iscontrol",
     TO_ANALYZE: "toanalyze",
+    PERSON_ID: "personId",
+    PROJECT_ANALYSIS_ID: "projectAnalysisId",
+    PROJECT_STATE_ID: "projectStateId",
 
     // People
     FIRST_NAME: "firstName",
@@ -31,6 +31,7 @@ const fields = {
     // Alignments
     ELAND_OUTPUT_DIR: "elandOutputDir",
     CONFIG_FILE_CONTENT: "configFileContent",
+    BASECALLING_ID: "basecallingId",
 
     // Basecallings
     CONTROL_LANE_NB: "controlLaneNb",
@@ -55,12 +56,14 @@ const fields = {
     CONCENTRATION: "concentration",
     QUANTIF_METHOD_ID: "quantifMethodId",
     VOLUME: "volume",
-    ADAPTER_ID: "adapterId",
     KITS_LOTS: "kitsLots",
-    LIBRARY_STATE_ID: "libraryStateId",
     COMMENT_CUSTOMER: "commentCustomer",
     IS_CUSTOMER_MADE: "iscustomerMade",
     IS_ROBOT_MADE: "isrobotMade",
+    ADAPTER_ID: "adapterId",
+    MULTIPLEX_INDEX_ID: "multiplexIndexId",
+    LIBRARY_STATE_ID: "libraryStateId",
+    LIB_PROTOCOL_ID: "libProtocolId",
 
     // Samples
     SHORT_NAME: "shortName",
@@ -68,6 +71,10 @@ const fields = {
     RIN: "rin",
     RATIO_260_280: "ratio260280",
     RATIO_260_230: "",
+    TAXO_ID: "taxoId",
+    PROJECT_ID: "projectId",
+    SAMPLE_TYPE_ID: "sampleTypeId",
+
 
     // User requests
     INSERT_SIZE_MIN: "insertSizeMin",
@@ -77,11 +84,21 @@ const fields = {
     MULTIPLEX_NB: "????",
     WITH_LIB_QC: "withLibQc",
     IS_FULFILLED: "isfulfilled",
+    RUN_TYPES_LENGTH_ID: "runTypesLengthId",
+
 
     // Bioanalysers
     FILENAME: "filename",
     BIOANALYSER_DATE: "bioanalyserDate",
+    PIPELINE_VERSION_ID: "pipelineVersionId",
+    PIPELINE_ANALYSIS_TYPE_ID: "pipelineAnalysisTypeId",
 
+    // Runs
+    INSTRUMENT_ID: "instrumentId",
+    SEQUENCING_KIT_VERSION_ID: "sequencingKitVersionId",
+    FLOWCELL_TYPE_ID: "flowcellTypeId",
+    MAPPING_TOOL_ID: "mappingToolId",
+    QUALITY_ID: "qualityId",
 
 };
 

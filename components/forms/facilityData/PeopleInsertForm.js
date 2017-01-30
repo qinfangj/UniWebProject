@@ -7,7 +7,7 @@ import TextField from '../elements/TextField';
 import validators from '../validators';
 import * as forms from '../forms.js';
 import formStoreKeys from '../../constants/formStoreKeys';
-import fields from './fields';
+import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';

@@ -12,7 +12,7 @@ import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 import * as forms from '../forms.js';
 import validators from '../validators';
 import formStoreKeys from '../../constants/formStoreKeys';
-import fields from './fields';
+import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -65,14 +65,13 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        {Options.ProjectsWithSamples(this.form, this.projectsFormKey)}
+                        {Options.ProjectsWithSamples(this.form)}
                     </Col>
 
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
                         <SecondaryOptions.ProjectSamples form={this.form}
-                            referenceField={this.projectsFormKey}
                         />
                     </Col>
 

@@ -44,7 +44,6 @@ export function getFormData(form) {
     let storedForm = store.getState().common.forms[form];
     let formData = {};
     for (let key of Object.keys(storedForm)) {
-        console.debug(key, storedForm._isValid[key])
         let valid = storedForm._isValid[key];
         if (valid === true) {
             formData[key] = storedForm[key];

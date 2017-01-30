@@ -12,7 +12,7 @@ import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 import formStoreKeys from '../../constants/formStoreKeys';
-import fields from './fields';
+import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -65,14 +65,13 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        {Options.ProjectsWithSamples(this.form, this.projectsFormKey)}
+                        {Options.ProjectsWithSamples(this.form)}
                     </Col>
 
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
                         <SecondaryOptions.ProjectSamples
-                            referenceField={this.projectsFormKey}
                             form={this.form}
                          />
                     </Col>

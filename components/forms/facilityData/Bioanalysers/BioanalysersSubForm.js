@@ -9,7 +9,7 @@ import validators from '../../validators';
 import * as Options from '../../subcomponents/Options';
 import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
 import formStoreKeys from '../../../constants/formStoreKeys';
-import fields from '../fields';
+import fields from '../../fields';
 
 
 /**

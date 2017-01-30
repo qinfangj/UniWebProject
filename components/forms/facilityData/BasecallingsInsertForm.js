@@ -12,7 +12,7 @@ import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
 import validators from '../validators';
 import formStoreKeys from '../../constants/formStoreKeys';
-import fields from './fields';
+import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';

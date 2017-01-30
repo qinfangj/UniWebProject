@@ -41,7 +41,7 @@ class Select extends React.PureComponent {
         let value = parseInt(e.target.value);
         this.setState({ value });
         if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.field, value));
+            store.dispatch(changeFormValue(this.props.form, this.props.field, value, true));
         }
     }
 
