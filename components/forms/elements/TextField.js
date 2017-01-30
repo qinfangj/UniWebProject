@@ -153,7 +153,7 @@ TextField.propTypes = {
     label: React.PropTypes.string,  // title - visible
     type: React.PropTypes.string,  // input type (defaults to "text")
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
-    required: React.PropTypes.bool,  // if true, `this.getValue()` will return null if field is empty, and a warning shows up.
+    required: React.PropTypes.bool,  // show a warning if required but no value
     placeholder: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
     inputProps: React.PropTypes.object,  // additional input field props

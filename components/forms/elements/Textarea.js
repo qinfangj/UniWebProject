@@ -1,4 +1,5 @@
 import React from 'react';
+import css from '../forms.css';
 import store from '../../../core/store';
 import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 
@@ -6,6 +7,7 @@ import { changeFormValue } from '../../actions/actionCreators/commonActionCreato
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 
 class Textarea extends React.PureComponent {
@@ -33,6 +35,24 @@ class Textarea extends React.PureComponent {
         this.unsubscribe();
     }
 
+    /** For bootstrap validationState: can be "success", "warning", "error", or null */
+    getFeedbackValue() {
+        let feedback = null;
+        if ((!this.state.value || this.state.value === "") && this.props.required && this.props.submissionError) {
+            feedback = "error"
+        }
+        return feedback;
+    }
+
+    /** Info text on error/warning */
+    getErrorMessage() {
+        let msg = "";
+        if (!this.state.value && this.props.required && this.props.submissionError) {
+            msg = this.props.label + " is required.";
+        }
+        return msg;
+    }
+
     onChange(e) {
         let value = e.target.value;
         if (this.props.form !== undefined) {
@@ -41,15 +61,33 @@ class Textarea extends React.PureComponent {
     }
 
     render() {
+        // Display a star if the field is required and no valud has been entered yet
+        //  (better than an ugly warning, see comment in `validate`).
+        let requireString = (this.props.required && !this.state.value) ?
+            <span className={css.requiredString}>{" *"}</span>: null;
+
+        // Descriptive text above the field
+        let label = this.props.label ? <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel> : null;
+
+        // Color and symbol indicating an error/warning
+        let feedbackValue = this.getFeedbackValue();
+        let feedback = feedbackValue !== null ? <FormControl.Feedback /> : null;
+
+        // Help block: text info on error or warning
+        let msg = this.getErrorMessage();
+        let help = <HelpBlock bsClass={css.feedback}>{msg}</HelpBlock>;
+
         return (
             <FormGroup controlId={this.props.field} bsSize="small" >
-                <ControlLabel>{this.props.label}</ControlLabel>
+                {label}
                 <FormControl componentClass="textarea"
                     placeholder={this.props.label}
                     onChange={this.onChange.bind(this)}
                     value={this.state.value}
                     {...this.props.inputProps}
                 />
+                {feedback}
+                {help}
             </FormGroup>
         );
     }
@@ -59,13 +97,11 @@ Textarea.propTypes = {
     field: React.PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
     label: React.PropTypes.string.isRequired,  // title - visible
     defaultValue: React.PropTypes.string,
-// maybe use later:
-    required: React.PropTypes.bool,
+    required: React.PropTypes.bool, // show a warning if required but no value
     inputProps: React.PropTypes.object,  // additional input field props
 };
 Textarea.defaultProps = {
     defaultValue: "",
-// maybe use later:
     required: false,
 };
 
