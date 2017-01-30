@@ -37,7 +37,7 @@ class ProjectInsertForm extends React.PureComponent {
     }
 
     formatFormData(formData) {
-        formData.isLaboratory = true;
+        formData.islaboratory = true;  // add
         formData.phone = parseInt(formData.phone);
         return formData;
     }

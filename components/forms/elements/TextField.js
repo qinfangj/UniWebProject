@@ -58,10 +58,13 @@ class TextField extends React.PureComponent {
      * Check different conditions on string `value` **during the typing**.
      */
     validate(value) {
-        let valid, msg;
+        let valid = true;
+        let msg;
         // No value: valid only if not required.
         if (!value) {
-            valid = ! this.props.required;
+            // different from `if (!value && this.props.required)`:
+            // we do not want any warning while fields are empty (the little star should help already)
+            valid = !this.props.required;
         // When there is a value, validate it and set message accordingly.
         } else {
             let res = this.props.validator(value);
@@ -75,6 +78,7 @@ class TextField extends React.PureComponent {
     getFeedbackValue() {
         let feedback = null;
         if (!this.state.value || this.state.value === "") {
+            // Again, separate conditions because we do not want any warning while fields are empty
             if (this.props.required && this.props.submissionError) {
                 feedback = "error"
             }
@@ -96,8 +100,11 @@ class TextField extends React.PureComponent {
     }
 
     changeValue(value) {
+        console.debug(1)
+        let {valid, msg} = this.props.validator(value);
+        //this.setState({valid, msg});
         if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.field, value));
+            store.dispatch(changeFormValue(this.props.form, this.props.field, value, valid));
         }
     }
 

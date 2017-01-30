@@ -15,11 +15,13 @@ export const defaultFormState = {
 export function initForm(form) {
     if (! store.getState().common.forms[form]) {
         store.getState().common.forms[form] = {};
+        store.getState().common.forms[form]._isValid = {};
     }
 }
 export function initFormField(form, field, value=null) {
     if (! store.getState().common.forms[form][field]) {
         store.getState().common.forms[form][field] = value;
+        store.getState().common.forms[form]._isValid[field] = true;
     }
 }
 
@@ -35,11 +37,27 @@ export function getFormValue(form, storeKey) {
 }
 
 /**
- * Get all field values for one form from the store,
- * as an object {field: value}.
+ * Get all field values for one form from the store, as an object {field: value}.
+ * `value` is null if the field is not valid.
  */
 export function getFormData(form) {
-    return store.getState().common.forms[form];
+    let storedForm = store.getState().common.forms[form];
+    let formData = {};
+    for (let key of Object.keys(storedForm)) {
+        console.debug(key, storedForm._isValid[key])
+        let valid = storedForm._isValid[key];
+        if (valid === true) {
+            formData[key] = storedForm[key];
+        } else if (valid === false) {
+            formData[key] = null;
+        }
+        /* DON'T DO THIS:
+             formData[key] = valid ? storedForm[key] : null;
+           because if the value is null the key is added to the object (unlike undefined).
+           and we don't want to submit everything we get from a backend row, or things like '_valid'.
+        */
+    }
+    return formData;
 }
 
 /**

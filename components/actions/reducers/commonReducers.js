@@ -35,12 +35,12 @@ let commonReducers = (state = defaultState, action) => {
             newState = Object.assign({}, state);
             form = action.form;
             let field = action.field;
-            let value = action.value;
             // Create if not exists
             if (! (form in state.forms)) {
                 newState.forms[form] = {};
             }
-            newState.forms[form][field] = value;
+            newState.forms[form][field] = action.value;
+            newState.forms[form]._isValid[field] = action.valid;
             //console.debug(field, action, value)
 
             /* Special cases */
@@ -60,14 +60,11 @@ let commonReducers = (state = defaultState, action) => {
         case types.facilityData.FILL_UPDATE_FORM:
             newState = Object.assign({}, state);
             form = action.form;
-            if (! state.forms[form]) {
-                newState.forms[form] = {};
-            }
-            let formData = newState.forms[form];
+            let formData = state.forms[form] || {};
             Object.assign(formData, action.data);
+            newState.forms[form] = formData;
             // Above we supposed that the keys returned by the backend (Slick auto-generated models)
             // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
-            newState.forms[form] = formData;
             return newState;
 
         /**
