@@ -100,9 +100,7 @@ class TextField extends React.PureComponent {
     }
 
     changeValue(value) {
-        console.debug(1)
-        let {valid, msg} = this.props.validator(value);
-        //this.setState({valid, msg});
+        let valid = this.props.validator(value).valid;
         if (this.props.form !== undefined) {
             store.dispatch(changeFormValue(this.props.form, this.props.field, value, valid));
         }
