@@ -20,7 +20,6 @@ export function initForm(form) {
     }
 }
 export function initFormField(form, field, value=null, valid) {
-    console.debug(field, value)
     if (! store.getState().common.forms[form][field]) {
         store.getState().common.forms[form][field] = value;
         store.getState().common.forms[form]._isValid[field] = valid;
