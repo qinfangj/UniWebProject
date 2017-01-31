@@ -45,7 +45,8 @@ class ResponsiveSidebar extends React.PureComponent {
             this.setState(this.getStoreState());
         });
         const mql = window.matchMedia(`(min-width: 800px)`);
-        mql.addListener(this.mediaQueryChanged.bind(this));
+        this.sidebarEventHandle = this.mediaQueryChanged.bind(this);
+        mql.addListener(this.sidebarEventHandle);
         this.setState({
             open: this.getStoreState().open,
             mql: mql,
@@ -54,7 +55,7 @@ class ResponsiveSidebar extends React.PureComponent {
     }
 
     componentWillUnmount() {
-        this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
+        this.state.mql.removeListener(this.sidebarEventHandle);
         this.unsubscribe();
     }
 
