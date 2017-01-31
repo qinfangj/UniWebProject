@@ -1,7 +1,6 @@
 import React from 'react';
 import css from '../forms.css';
 import store from '../../../core/store';
-import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 import * as forms from '../forms';
 
 /* React-bootstrap */
@@ -99,19 +98,13 @@ class TextField extends React.PureComponent {
         return msg;
     }
 
-    changeValue(value) {
-        let valid = this.props.validator(value).valid;
-        if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.field, value, valid));
-        }
-    }
-
     onChange(e) {
         let value = e.target.value;
         if (this.props.type === "file") {
             this.setState({ files: e.target.files });
         }
-        this.changeValue(value);
+        let valid = this.props.validator(value).valid;
+        forms.changeValue(this.props.form, this.props.field, value, valid);
     }
 
     render() {

@@ -3,6 +3,7 @@ import store from '../../core/store';
 import css from './forms.css';
 import _ from 'lodash';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
+import { changeFormValue } from '../actions/actionCreators/commonActionCreators';
 import Alert from 'react-bootstrap/lib/Alert';
 
 
@@ -28,13 +29,20 @@ export function initFormField(form, field, value=null) {
 /**
  * Get the value of that input from the store.
  */
-export function getFormValue(form, storeKey) {
-    if (! store.getState().common.forms[form]) {
+export function getFormValue(form, field) {
+    let storeData = store.getState().common.forms[form];
+    if (! storeData) {
         return null;
     } else {
-        return store.getState().common.forms[form][storeKey];
+        return storeData[field];
     }
 }
+export function changeValue(form, field, value, valid) {
+    if (form !== undefined) {
+        store.dispatch(changeFormValue(form, field, value, valid));
+    }
+}
+
 
 /**
  * Get all field values for one form from the store, as an object {field: value}.
@@ -43,7 +51,6 @@ export function getFormValue(form, storeKey) {
 export function getFormData(form) {
     let storedForm = store.getState().common.forms[form];
     let formData = {};
-    //console.debug(storedForm)
     for (let key of Object.keys(storedForm)) {
         let valid = storedForm._isValid[key];
         if (valid === false) {
@@ -57,6 +64,7 @@ export function getFormData(form) {
            and we don't want to submit everything we get from a backend row, or things like '_valid'.
         */
     }
+    delete formData._isValid;
     return formData;
 }
 

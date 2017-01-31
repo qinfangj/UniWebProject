@@ -97,7 +97,7 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Downloaded date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker field={fields.DOWNLOADED_DATE} label="Download date"
+                        <DatePicker form={this.form} field={fields.DOWNLOADED_DATE} label="Download date"
                         />
                     </Col>
 

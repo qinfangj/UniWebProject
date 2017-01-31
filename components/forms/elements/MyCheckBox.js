@@ -1,6 +1,6 @@
 import React from 'react';
 import css from '../forms.css';
-import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
+import store from '../../../core/store';
 import * as forms from '../forms';
 
 import Checkbox from 'react-bootstrap/lib/Checkbox';
@@ -21,8 +21,23 @@ class MyCheckbox extends React.PureComponent {
         return this.state.checked;
     }
 
+    componentDidMount() {
+        // Listen to value change from the store
+        this.unsubscribe = store.subscribe(() => {
+            let formData = store.getState().common.forms[this.props.form];
+            if (formData) {
+                let storedValue = formData[this.props.field];
+                this.setState({ value: storedValue });
+            }
+        });
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     onChange() {
-        this.setState({checked: !this.state.checked});
+        let value = !this.state.checked;
+        forms.changeValue(this.props.form, this.props.field, value);
     }
 
     render() {

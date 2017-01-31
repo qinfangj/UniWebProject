@@ -1,5 +1,5 @@
 import React from 'react';
-import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
+import store from '../../../core/store';
 import * as forms from '../forms';
 
 /* React-bootstrap */
@@ -21,8 +21,23 @@ class DatePicker extends React.PureComponent {
         return this.state.value;
     }
 
+    componentDidMount() {
+        // Listen to value change from the store
+        this.unsubscribe = store.subscribe(() => {
+            let formData = store.getState().common.forms[this.props.form];
+            if (formData) {
+                let storedValue = formData[this.props.field];
+                this.setState({ value: storedValue });
+            }
+        });
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     onChange(e) {
-        this.setState({value: e.target.value});
+        let value = e.target.value;
+        forms.changeValue(this.props.form, this.props.field, value);
     }
 
     render() {

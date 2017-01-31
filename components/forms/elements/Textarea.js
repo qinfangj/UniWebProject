@@ -1,7 +1,6 @@
 import React from 'react';
 import css from '../forms.css';
 import store from '../../../core/store';
-import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 import * as forms from '../forms';
 
 /* React-bootstrap */
@@ -57,9 +56,7 @@ class Textarea extends React.PureComponent {
 
     onChange(e) {
         let value = e.target.value;
-        if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.field, value));
-        }
+        forms.changeValue(this.props.form, this.props.field, value, valid);
     }
 
     render() {
