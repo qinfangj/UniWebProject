@@ -30,20 +30,32 @@ class Validators {
     }
 
     laneNumberValidator(v) {
-        let valid = /^[1-8]$/.test(v.trim());
-        let msg = "Lane number is one digit between 1 and 8.";
+        let valid = true;
+        let msg = "";
+        if (! Number.isInteger(v)) {
+            valid = /^[1-8]$/.test(v.trim());
+            msg = "Lane number is one digit between 1 and 8.";
+        }
         return {valid, msg};
     }
 
     integerValidator(v) {
-        let valid = /^[0-9]*$/.test(v.trim());
-        let msg = "Must be an integer.";
+        let valid = true;
+        let msg = "";
+        if (! Number.isInteger(v)) {
+            valid = /^[0-9]*$/.test(''+v.trim());
+            msg = "Must be an integer.";
+        }
         return {valid, msg};
     }
 
     positiveIntegerValidator(v) {
-        let valid = /^[1-9]+$/.test(v.trim());
-        let msg = "Must be a non-null integer.";
+        let valid = true;
+        let msg = "";
+        if (! Number.isInteger(v)) {
+            valid = /^[1-9]+$/.test(v.trim());
+            msg = "Must be a non-null integer.";
+        }
         return {valid, msg};
     }
 
@@ -51,7 +63,7 @@ class Validators {
      * Positive floats.
      */
     numberValidator(v) {
-        let valid = /^\d+\.?\d*$/.test(v.trim());
+        let valid = /^\d+\.?\d*$/.test(''+v.trim());
         let msg = "Must be a number.";
         return {valid, msg};
     }

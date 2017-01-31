@@ -8,6 +8,7 @@ import TextField from '../../elements/TextField';
 import DatePicker from '../../elements/DatePicker';
 import validators from '../../validators';
 import * as forms from '../../forms.js';
+import * as messages from '../../messages';
 import BioanalysersSubForm from './BioanalysersSubForm';
 import formStoreKeys from '../../../constants/formStoreKeys';
 import fields from '../../fields';
@@ -20,8 +21,8 @@ import Col from 'react-bootstrap/lib/Col';
 
 
 class BioanalysersInsertForm extends React.PureComponent {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.table = "bioanalysers";
         this.form = formStoreKeys.BIOANALYSERS_INSERT_FORM;
         this.required = [];
@@ -53,12 +54,13 @@ class BioanalysersInsertForm extends React.PureComponent {
 
     onSubmit() {
         let {submissionError, submissionFuture} = forms.submit(this.form, this.table, this.formatFormData.bind(this));
-        this.setState({ submissionError });
-        if (!submissionError) {
+        if (submissionError) {
+            this.setState({ submissionError, serverError: {} });
+        } else {
             submissionFuture.done((insertId) => {
-                this.setState({ submissionSuccess: true, submissionId: insertId });
-            }).fail(() =>{
-                this.setState({ submissionError: true });
+                this.setState({ submissionSuccess: true, submissionId: insertId, submissionError: false, serverError: {} });
+            }).fail((err) =>{
+                this.setState({ serverError: err, submissionError: false, submissionSuccess: false });
             });
         }
     }
@@ -66,8 +68,9 @@ class BioanalysersInsertForm extends React.PureComponent {
     render() {
         return (
             <form className={css.form}>
-                <forms.SubmissionErrorMessage error={this.state.submissionError} />
-                <forms.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
+                <messages.SubmissionErrorMessage error={this.state.submissionError} />
+                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
+                <messages.ServerErrorMessage error={this.state.serverError} />
 
                 <Form componentClass="fieldset" horizontal>
 
