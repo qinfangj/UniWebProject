@@ -1,6 +1,6 @@
 import React from 'react';
 import store from '../../../core/store';
-import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
+import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 import css from '../forms.css';
 
 /* React-bootstrap */

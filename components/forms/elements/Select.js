@@ -1,12 +1,12 @@
 import React from 'react';
 import store from '../../../core/store';
-import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
 import * as forms from '../forms';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+
 
 
 class Select extends React.PureComponent {
@@ -44,9 +44,7 @@ class Select extends React.PureComponent {
     onChange(e) {
         let value = parseInt(e.target.value);
         this.setState({ value });
-        if (this.props.form !== undefined) {
-            store.dispatch(changeFormValue(this.props.form, this.props.field, value, true));
-        }
+        forms.changeValue(this.props.form, this.props.field, value, true);
     }
 
     render() {
@@ -80,16 +78,12 @@ Select.propTypes = {
     inputProps: React.PropTypes.object,  // additional input field props
 // maybe use later:
     required: React.PropTypes.bool,
-    missing: React.PropTypes.bool,  // field is required but was found empty when submitting
-    invalid: React.PropTypes.bool,  // field was found invalid when submitting
 };
 
 Select.defaultProps = {
     defaultValue: 0,
 // maybe use later:
     required: false,
-    missing: false,
-    invalid: false,
 };
 
 

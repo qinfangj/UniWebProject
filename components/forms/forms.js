@@ -3,7 +3,7 @@ import store from '../../core/store';
 import css from './forms.css';
 import _ from 'lodash';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import { changeFormValue } from '../actions/actionCreators/commonActionCreators';
+import { changeFormValue } from '../actions/actionCreators/formsActionCreators';
 import Alert from 'react-bootstrap/lib/Alert';
 
 
@@ -14,15 +14,15 @@ export const defaultFormState = {
 };
 
 export function initForm(form) {
-    if (! store.getState().common.forms[form]) {
-        store.getState().common.forms[form] = {};
-        store.getState().common.forms[form]._isValid = {};
+    if (! store.getState().forms[form]) {
+        store.getState().forms[form] = {};
+        store.getState().forms[form]._isValid = {};
     }
 }
 export function initFormField(form, field, value=null, valid) {
-    if (! store.getState().common.forms[form][field]) {
-        store.getState().common.forms[form][field] = value;
-        store.getState().common.forms[form]._isValid[field] = valid;
+    if (! store.getState().forms[form][field]) {
+        store.getState().forms[form][field] = value;
+        store.getState().forms[form]._isValid[field] = valid;
     }
 }
 
@@ -30,7 +30,7 @@ export function initFormField(form, field, value=null, valid) {
  * Get the value of that input from the store.
  */
 export function getFormValue(form, field) {
-    let storeData = store.getState().common.forms[form];
+    let storeData = store.getState().forms[form];
     if (storeData) {
         return storeData[field];
     }
@@ -47,8 +47,8 @@ export function changeValue(form, field, value, valid) {
  * `value` is null if the field is not valid.
  */
 export function getFormData(form) {
-    let storedForm = store.getState().common.forms[form];
-    let storedValid = store.getState().common.forms[form]._isValid;
+    let storedForm = store.getState().forms[form];
+    let storedValid = store.getState().forms[form]._isValid;
     let formData = {};
     for (let key of Object.keys(storedForm)) {
         let valid = storedValid[key];

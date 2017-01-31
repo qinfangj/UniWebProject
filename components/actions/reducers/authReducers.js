@@ -9,7 +9,7 @@ const defaultState = {
 };
 
 
-let commonReducers = (state = defaultState, action) => {
+let authReducers = (state = defaultState, action) => {
 
     switch (action.type) {
 
@@ -46,4 +46,4 @@ let commonReducers = (state = defaultState, action) => {
 };
 
 
-export default commonReducers;
+export default authReducers;

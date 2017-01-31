@@ -6,6 +6,7 @@ import facilityDataReducers from '../components/actions/reducers/facilityDataRed
 import commonReducers from '../components/actions/reducers/commonReducers';
 import authReducers from '../components/actions/reducers/authReducers';
 import queryProjectsReducers from '../components/actions/reducers/queryProjectsReducers';
+import formReducers from '../components/actions/reducers/formReducers';
 
 
 /*
@@ -30,6 +31,7 @@ let reducer = combineReducers({
     common: commonReducers,
     auth: authReducers,
     queryProjects: queryProjectsReducers,
+    forms: formReducers,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));

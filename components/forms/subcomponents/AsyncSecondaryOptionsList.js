@@ -43,7 +43,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
             let list = storeState.facilityData[storeKey];
-            let formValues = storeState.common.forms[this.props.form];
+            let formValues = storeState.forms[this.props.form];
             // Since it depends on another field of the same form, no need to
             //  do anything if the other field has not yet sent its value to the store.
             if (formValues !== undefined) {
