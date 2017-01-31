@@ -42,8 +42,16 @@ class UserRequestsInsertForm extends React.PureComponent {
         }
     }
 
+    formatFormData(formData) {
+        formData.insertSizeMin = parseInt(formData.insertSizeMin);
+        formData.insertSizeMax = parseInt(formData.insertSizeMax);
+        formData.nbLanes = parseInt(formData.nbLanes);
+        formData.millionReads = parseInt(formData.millionReads);
+        return formData;
+    }
+
     onSubmit() {
-        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, this.formatFormData);
         this.setState({ submissionError });
         if (!submissionError) {
             submissionFuture.done((insertId) => {
