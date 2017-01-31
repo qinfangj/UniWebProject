@@ -1,9 +1,10 @@
 import React from 'react';
 import store from '../../../core/store';
+import * as forms from '../forms';
 
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import Select from '../elements/Select';
-import constants from '../../constants/constants';
+
 
 /**
  * Dropdown with available options depending on the selected value
@@ -14,6 +15,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
         super(props);
         this.referenceValue = null; // not in state because not used for display. Only the callback updates the component.
         this.state = {list: [], value: null};
+        forms.initFormField(this.props.form, this.props.field);
     }
 
     /**
@@ -62,6 +64,10 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
 
     componentWillUnmount() {
         this.unsubscribe();
+    }
+
+    componentDidUpdate() {
+        forms.initFormField(this.props.form, this.props.field, this.state.value);
     }
 
     getList() {
