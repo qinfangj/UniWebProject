@@ -31,9 +31,7 @@ export function initFormField(form, field, value=null) {
  */
 export function getFormValue(form, field) {
     let storeData = store.getState().common.forms[form];
-    if (! storeData) {
-        return null;
-    } else {
+    if (storeData) {
         return storeData[field];
     }
 }

@@ -26,9 +26,9 @@ class Textarea extends React.PureComponent {
     componentDidMount() {
         // Listen to value change from the store
         this.unsubscribe = store.subscribe(() => {
-            let formData = store.getState().common.forms[this.props.form];
-            if (formData) {
-                this.setState({ value: formData[this.props.field] });
+            let value = forms.getFormValue(this.props.form, this.props.field);
+            if (value) {
+                this.setState({ value });
             }
         });
     }

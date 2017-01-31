@@ -24,10 +24,9 @@ class DatePicker extends React.PureComponent {
     componentDidMount() {
         // Listen to value change from the store
         this.unsubscribe = store.subscribe(() => {
-            let formData = store.getState().common.forms[this.props.form];
-            if (formData) {
-                let storedValue = formData[this.props.field];
-                this.setState({ value: storedValue });
+            let value = forms.getFormValue(this.props.form, this.props.field);
+            if (value) {
+                this.setState({ value });
             }
         });
     }
