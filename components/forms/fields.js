@@ -37,6 +37,7 @@ const fields = {
     CONTROL_LANE_NB: "controlLaneNb",
     IS_DEMULTIPLEXING:"isdemultiplexingAnalysis",
     UNALIGNED_OUTPUT_DIR: "outputDir",
+    RUN_ID: "runId",
 
     // Genomes
     ASSEMBLY: "assembly",
@@ -92,7 +93,7 @@ const fields = {
     FILENAME: "filename",
     BIOANALYSER_DATE: "bioanalyserDate",
     PIPELINE_VERSION_ID: "pipelineVersionId",
-    PIPELINE_ANALYSIS_TYPE_ID: "pipelineAnalysisTypeId",
+    ANALYSIS_TYPE_ID: "analysisTypeId",
 
     // Runs
     INSTRUMENT_ID: "instrumentId",

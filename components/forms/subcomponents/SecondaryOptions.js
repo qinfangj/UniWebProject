@@ -12,22 +12,18 @@ export class BasecallingsOutputFolders extends React.Component {
     formatter(v) { return [v.id, v.outputDir]; }
     render() {
         return (<AsyncSecondaryOptionsList
-            field={this.props.field}
-            table="basecallingId"
+            field={fields.BASECALLING_ID}
+            table="basecallings"
             label="Unaligned data output folder"
             form={this.props.form}
-            referenceField="runs"
-            storeKey={dataStoreKeys.BASECALLING_OUTPUT_FOLDERS}
+            referenceField={fields.RUN_ID}
+            storeKey={dataStoreKeys.BASECALLINGS_OUTPUT_FOLDERS}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
 }
 BasecallingsOutputFolders.propTypes = {
     form: React.PropTypes.string.isRequired,
-    field: React.PropTypes.string.isRequired,
-};
-BasecallingsOutputFolders.defaultProps = {
-    field: fields.BASECALLING_ID,  // "run" (output folder)
 };
 
 

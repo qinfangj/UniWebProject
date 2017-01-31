@@ -71,7 +71,6 @@ class GenomesInsertForm extends React.PureComponent {
                     <Col sm={4} className={css.formCol}>
                         <TextField field={fields.ASSEMBLY} label="Assembly" form={this.form} required
                                    submissionError = {this.state.submissionError}
-                                   defaultValue="hg19"
                         />
                     </Col>
 
@@ -80,7 +79,6 @@ class GenomesInsertForm extends React.PureComponent {
                     <Col sm={4} className={css.formCol}>
                         <TextField field={fields.GENOME_FOLDER} label="Genome folder" form={this.form} required
                                    submissionError = {this.state.submissionError}
-                                   defaultValue="/path/to"
                         />
                     </Col>
 
@@ -111,7 +109,6 @@ class GenomesInsertForm extends React.PureComponent {
                     <Col sm={12} className={css.formCol}>
                         <TextField field={fields.FILES} label="File names" form={this.form}
                                    submissionError = {this.state.submissionError}
-                                   defaultValue = "truc.txt, autre.txt"
                         />
                     </Col>
 
@@ -123,7 +120,6 @@ class GenomesInsertForm extends React.PureComponent {
                     <Col sm={10} className={css.formCol}>
                         <TextField field={fields.COMMENT} label="Comment" form={this.form}
                                    submissionError = {this.state.submissionError}
-                                   defaultValue = "!!"
                         />
                     </Col>
 

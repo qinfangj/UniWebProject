@@ -1,7 +1,7 @@
 /**
  * Options dropdown lists are used in several forms, and are the result
  * of the same backend db query. There is no reason to create one entry per form
- * in the store.
+ * in the store, so the same data is reused of the same dataStoreKey is used.
  */
 
 export default {
@@ -27,6 +27,7 @@ export default {
     PROJECT_ANALYSES: "PROJECT_ANALYSES",
     PROJECT_STATES: "PROJECT_STATES",
     QUANTIF_METHODS: "QUANTIF_METHODS",
+    RUNS_LIST: "RUNS_LIST",
     RUNS_OUTPUT_FOLDERS: "RUNS_OUTPUT_FOLDERS",
     RUN_TYPES_LENGTHS: "RUN_TYPES_LENGTHS",
     SAMPLE_TYPES: "SAMPLE_TYPES",
@@ -35,7 +36,7 @@ export default {
     TAXONOMIES: "TAXONOMIES",
 
     // secondaryLists
-    BASECALLING_OUTPUT_FOLDERS: "BASECALLING_OUTPUT_FOLDERS",
+    BASECALLINGS_OUTPUT_FOLDERS: "BASECALLINGS_OUTPUT_FOLDERS",
     SAMPLES_FROM_PROJECT: "SAMPLES_FROM_PROJECT",
     POOLS_FROM_PROJECT: "POOLS_FROM_PROJECT",
     LIBRAIRIES_FROM_PROJECT: "LIBRAIRIES_FROM_PROJECT",

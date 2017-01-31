@@ -45,7 +45,7 @@ export class LibraryAdapters extends React.Component {
 
 export class LibraryStates extends React.Component {
     getValue() { return this._select.getValue(); }
-    formatter(v) { return [v.id, v.state_order +" - "+ v.name]; }
+    formatter(v) { return [v.id, v.stateOrder +" - "+ v.name]; }
     render() {
         return <AsyncOptionsList field={fields.LIBRARY_STATE_ID} table="library_states" label="Library state" form={this.props.form}
                                  storeKey={dataStoreKeys.LIB_STATES}
@@ -98,19 +98,21 @@ export class People extends React.Component {
     }
 }
 
+/** In Basecallings */
 export class PipelineAnalysisTypes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.description]; }
     render() {
-        return <AsyncOptionsList field={fields.PIPELINE_ANALYSIS_TYPE_ID} table="pipeline_analysis_types" label="Analysis type" form={this.props.form}
+        return <AsyncOptionsList field={fields.ANALYSIS_TYPE_ID} table="pipeline_analysis_types" label="Analysis type" form={this.props.form}
                                  storeKey={dataStoreKeys.PIPELINE_ANALYSIS_TYPES}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }
 
+/** In Basecallings */
 export class PipelineVersions extends React.Component {
     getValue() { return this._select.getValue(); }
-    formatter(v) { return [v.id, v.software_name +" - "+ v.number]; }
+    formatter(v) { return [v.id, v.softwareName +" - "+ v.number]; }
     render() {
         return <AsyncOptionsList field={fields.PIPELINE_VERSION_ID} table="pipeline_versions" label="Pipeline version" form={this.props.form}
                                  storeKey={dataStoreKeys.PIPELINE_VERSIONS}
@@ -128,25 +130,32 @@ export class ProjectAnalyses extends React.Component {
     }
 }
 
-/* Projects with libraries, for Runs and Bioanalysers */
-export function ProjectsWithLibraries(form, props) {
-    let storeKey = form + dataStoreKeys.PROJECTS_WITH_LIBRARIES;
-    return <Projects suffix="libs" label={null} form={form} storeKey={storeKey} {...props} />;
+/** Projects with samples, for User requests and Libraries */
+export function ProjectsWithSamples(form, field, storeKey, props) {
+    storeKey = storeKey || form + dataStoreKeys.PROJECTS_WITH_SAMPLES;
+    field = field || fields.PROJECT_ID;
+    return <Projects suffix="samples" form={form} field={field} storeKey={storeKey} {...props} />;
 }
 
-/* Projects with samples, for User requests and Libraries */
-export function ProjectsWithSamples(form, props) {
-    let storeKey = form + dataStoreKeys.PROJECTS_WITH_SAMPLES;
-    return <Projects suffix="samples" form={form} storeKey={storeKey} {...props} />;
+/** Projects with libraries, for Runs and Bioanalysers.
+  * In Bioanalysers it is used in many rows, so we must set a special form key + data key.
+  */
+export function ProjectsWithLibraries(form, field, storeKey, props) {
+    storeKey = storeKey || form + dataStoreKeys.PROJECTS_WITH_LIBRARIES;
+    field = field || fields.PROJECT_ID;
+    return <Projects suffix="libs" label={null} form={form} field={field} storeKey={storeKey} {...props} />;
 }
 
-/* Projects with pool, for pre-Runs */
-export function ProjectsWithPool(form, props) {
-    let storeKey = form + dataStoreKeys.PROJECTS_WITH_POOL;
-    return <Projects suffix="pools" label={null} form={form} storeKey={storeKey} {...props} />;
+/** Projects with pool, for pre-Runs.
+  * In pre-Runs it is used in many rows, so we must set a special form key.
+  */
+export function ProjectsWithPool(form, field, storeKey, props) {
+    storeKey = storeKey || form + dataStoreKeys.PROJECTS_WITH_POOL;
+    field = field || fields.PROJECT_ID;
+    return <Projects suffix="pools" label={null} form={form} field={field} storeKey={storeKey} {...props} />;
 }
 
-/* All projects */
+/** All projects */
 export class Projects extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.lastName +" - "+ v.name]; }
@@ -196,11 +205,12 @@ export class QuantifMethods extends React.Component {
     }
 }
 
+/** In Alignments. */
 export class RunsOutputFolders extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.runFolder]; }
     render() {
-        return <AsyncOptionsList field={fields.BASECALLING_ID} table="runs" label="Run" form={this.props.form}
+        return <AsyncOptionsList field={fields.RUN_ID} table="runs" label="Run" form={this.props.form}
                                  storeKey={dataStoreKeys.RUNS_OUTPUT_FOLDERS}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
