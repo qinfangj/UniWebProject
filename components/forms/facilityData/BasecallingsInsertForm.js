@@ -83,7 +83,7 @@ class BasecallingsInsertForm extends React.PureComponent {
 
                     <Col sm={2} className={css.formCol}>
                         <Select field={fields.CONTROL_LANE_NB} label="Control lane" form={this.form}
-                                options={Options.getControlLanes()}
+                                options={[[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']]}
                         />
                     </Col>
 

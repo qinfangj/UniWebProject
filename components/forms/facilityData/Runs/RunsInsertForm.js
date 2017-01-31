@@ -160,7 +160,7 @@ class RunsInsertForm extends React.PureComponent {
 
                             <Col sm={4} className={formsCss.formCol}>
                                 <Select name="stage" label="Stage"
-                                        options={Options.getRunStages()}
+                                        options={[[1,'--'], [2,'A'], [3,'B']]}
                                         ref={(c) => this._stage = c}
                                 />
                             </Col>

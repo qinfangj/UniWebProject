@@ -4,15 +4,8 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 import fields from '../fields';
 
 
-export function getControlLanes() {
-    return [[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']];
-}
 
-export function getRunStages() {
-    return [[1,'--'], [2,'A'], [3,'B']];
-}
-
-
+/** In Runs */
 export class Instruments extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
@@ -23,6 +16,7 @@ export class Instruments extends React.Component {
     }
 }
 
+/** In Libraries and UserRequests ("Library type") */
 export class LibProtocols extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.shortName]; }
@@ -33,6 +27,7 @@ export class LibProtocols extends React.Component {
     }
 }
 
+/** In Libraries */
 export class LibraryAdapters extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
@@ -43,6 +38,7 @@ export class LibraryAdapters extends React.Component {
     }
 }
 
+/** In Libraries */
 export class LibraryStates extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.stateOrder +" - "+ v.name]; }
@@ -53,6 +49,7 @@ export class LibraryStates extends React.Component {
     }
 }
 
+/** In Runs */
 export class FlowcellTypes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.version]; }
@@ -63,6 +60,7 @@ export class FlowcellTypes extends React.Component {
     }
 }
 
+/** In Runs */
 export class MappingTools extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
@@ -73,6 +71,7 @@ export class MappingTools extends React.Component {
     }
 }
 
+/** In Libraries (twice: 5'-3') */
 export class MultiplexIndexes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name +" - "+ v.sequence]; }
@@ -88,6 +87,7 @@ MultiplexIndexes.propTypes = {
     suffix: React.PropTypes.string.isRequired,
 };
 
+/** In Projects */
 export class People extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.lastName +" "+ v.firstName]; }
@@ -120,6 +120,7 @@ export class PipelineVersions extends React.Component {
     }
 }
 
+/** In Projects */
 export class ProjectAnalyses extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
@@ -137,7 +138,7 @@ export function ProjectsWithSamples(form, field, storeKey, props) {
     return <Projects suffix="samples" form={form} field={field} storeKey={storeKey} {...props} />;
 }
 
-/** Projects with libraries, for Runs and Bioanalysers.
+/** Projects with libraries, in Runs and Bioanalysers.
   * In Bioanalysers it is used in many rows, so we must set a special form key + data key.
   */
 export function ProjectsWithLibraries(form, field, storeKey, props) {
@@ -146,7 +147,7 @@ export function ProjectsWithLibraries(form, field, storeKey, props) {
     return <Projects suffix="libs" label={null} form={form} field={field} storeKey={storeKey} {...props} />;
 }
 
-/** Projects with pool, for pre-Runs.
+/** Projects with pool, in pre-Runs.
   * In pre-Runs it is used in many rows, so we must set a special form key.
   */
 export function ProjectsWithPool(form, field, storeKey, props) {
@@ -185,6 +186,7 @@ Projects.defaultProps = {
 };
 
 
+/** In Projects */
 export class ProjectStates extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
@@ -195,6 +197,7 @@ export class ProjectStates extends React.Component {
     }
 }
 
+/** In Samples and Libraries */
 export class QuantifMethods extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
@@ -216,6 +219,7 @@ export class RunsOutputFolders extends React.Component {
     }
 }
 
+/** In Runs and UserRequests. */
 export class RunTypesLengths extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name +' '+ v.length]; }
@@ -230,6 +234,7 @@ RunTypesLengths.propTypes = {
     suffix: React.PropTypes.string.isRequired,
 };
 
+/** In Samples. */
 export class SampleTypes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
@@ -240,6 +245,7 @@ export class SampleTypes extends React.Component {
     }
 }
 
+/** In Runs */
 export class SequencingKitVersions extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.version]; }
@@ -250,6 +256,7 @@ export class SequencingKitVersions extends React.Component {
     }
 }
 
+/** In Runs sub-form (QC column) */
 export class SequencingQualities extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
@@ -264,6 +271,7 @@ SequencingQualities.propTypes = {
     selectProps: React.PropTypes.object,
 };
 
+/** In Genomes and Samples */
 export class Taxonomies extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
