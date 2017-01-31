@@ -1,13 +1,12 @@
 import React from 'react';
 import store from '../../core/store';
-import css from './forms.css';
 import _ from 'lodash';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { changeFormValue } from '../actions/actionCreators/formsActionCreators';
-import Alert from 'react-bootstrap/lib/Alert';
 
 
 export const defaultFormState = {
+    serverError: {},
     submissionError: false,
     submissionSuccess: false,
     submissionId: undefined,
@@ -77,7 +76,7 @@ export function getFormData(form) {
  * A custom formatter `formatFormData` can be given to transform the data before submission.
  */
 export function submit(form, table, formatFormData=null) {
-    let state = {};
+    let state = {serverError: {}};
     let formData = getFormData(form);
     let fields = Object.keys(formData);
     // Check if some fields have value are invalid
@@ -87,14 +86,14 @@ export function submit(form, table, formatFormData=null) {
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
         let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
-        state = {invalid, submissionError: true};
+        state = Object.assign(state, {invalid, submissionError: true});
     // Valid form: send
     } else {
         if (formatFormData) {
             formData = formatFormData(formData);
         }
         let future = store.dispatch(insertAsync(table, formData));
-        state = {submissionError: false, submissionFuture: future};
+        state = Object.assign(state, {submissionError: false, submissionFuture: future});
         future
             .done((insertId) => console.debug(200, "Inserted ID <"+insertId+">"))
             .fail(() => console.warn("Uncaught form validation error"));
@@ -102,55 +101,3 @@ export function submit(form, table, formatFormData=null) {
     return state;
 }
 
-/**
- * Error message showing on top of the screen when an invalid form is submitted.
- */
-export class SubmissionErrorMessage extends React.Component {
-    state = { visible: this.props.error };
-    static propTypes = {
-        error: React.PropTypes.bool.isRequired
-    };
-    componentWillReceiveProps(newProps) {
-        this.setState({visible: newProps.error});
-    }
-    discardErrorMessage() {
-        this.setState({visible: false});
-    }
-    render() {
-        if (this.state.visible) {
-            return (
-                <Alert bsStyle="warning" onClick={this.discardErrorMessage.bind(this)}>
-                    Some required fields are missing or ill-formatted. Please review the form and submit again.
-                    <span className={css.alertOk} onClick={this.discardErrorMessage.bind(this)}><a>OK</a></span>
-                </Alert>
-            );
-        } else return null;
-    }
-}
-
-/**
- * Info message showing on top of the screen when a valid form is submitted.
- */
-export class SubmissionSuccessfulMessage extends React.Component {
-    state = { visible: this.props.success };
-    static propTypes = {
-        success: React.PropTypes.bool.isRequired,
-        id: React.PropTypes.number,
-    };
-    componentWillReceiveProps(newProps) {
-        this.setState({visible: newProps.success});
-    }
-    discardErrorMessage() {
-        this.setState({visible: false});
-    }
-    render() {
-        if (this.props.id && this.state.visible) {
-            return (
-                <Alert bsStyle="success" onClick={this.discardErrorMessage.bind(this)}>
-                    {"Submission successful" + (this.props.id ? ` (#${this.props.id})` : '')}
-                    <span className={css.alertOk} onClick={this.discardErrorMessage.bind(this)}><a>OK</a></span>
-                </Alert>
-            );
-        } else return null;
-    }
-}

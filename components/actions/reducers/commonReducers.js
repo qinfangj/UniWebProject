@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 
 const defaultState = {
     route: {data: {}},
+    error: {response: null, origin: null},
 };
 
 
@@ -25,6 +26,14 @@ let commonReducers = (state = defaultState, action) => {
                     query: action.query,
                     state: action.state,
                     data: action.data,
+                }
+            });
+
+        case types.ERROR:
+            return Object.assign(state, {
+                error: {
+                    response: action.error,
+                    origin: action.origin,
                 }
             });
 

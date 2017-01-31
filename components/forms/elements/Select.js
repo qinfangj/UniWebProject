@@ -1,5 +1,4 @@
 import React from 'react';
-import store from '../../../core/store';
 import * as forms from '../forms';
 
 /* React-bootstrap */

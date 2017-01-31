@@ -1,4 +1,5 @@
 import constants from '../../constants/constants';
+import { sendError } from './errorActionCreators';
 
 
 /**
@@ -27,6 +28,7 @@ export function asyncAction(type, action, args) {
             })
             .fail(error => {
                 dispatch(syncAction(type, constants.ERROR, error, args))
+                //dispatch(sendError(error, "asyncAction"));
             })
         ;
     }

@@ -2,14 +2,9 @@
 import actions from '../actionTypes';
 
 
-
-export function sendError(error) {
-    return {
-        type: actions.ERROR,
-        error: error,
-    };
-}
-
+/**
+ * Open/close the left menu
+ */
 export function toggleSidebar(open) {
     return {
         type: actions.TOGGLE_SIDEBAR,

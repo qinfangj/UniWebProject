@@ -9,6 +9,7 @@ import Checkbox from '../elements/MyCheckbox';
 import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as forms from '../forms.js';
+import * as messages from '../messages';
 import * as Options from '../subcomponents/Options';
 import formStoreKeys from '../../constants/formStoreKeys';
 import fields from '../fields';
@@ -42,12 +43,13 @@ class GenomesInsertForm extends React.PureComponent {
 
     onSubmit() {
         let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
-        this.setState({ submissionError });
-        if (!submissionError) {
+        if (submissionError) {
+            this.setState({ submissionError, serverError: {} });
+        } else {
             submissionFuture.done((insertId) => {
-                this.setState({ submissionSuccess: true, submissionId: insertId });
-            }).fail(() =>{
-                this.setState({ submissionError: true });
+                this.setState({ submissionSuccess: true, submissionId: insertId, submissionError: false, serverError: {} });
+            }).fail((err) =>{
+                this.setState({ serverError: err, submissionError: false, submissionSuccess: false });
             });
         }
     }
@@ -55,8 +57,9 @@ class GenomesInsertForm extends React.PureComponent {
     render() {
         return (
             <form className={css.form}>
-                <forms.SubmissionErrorMessage error={this.state.submissionError} />
-                <forms.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
+                <messages.SubmissionErrorMessage error={this.state.submissionError} />
+                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
+                <messages.ServerErrorMessage error={this.state.serverError} />
 
                 <Form componentClass="fieldset" horizontal>
 
