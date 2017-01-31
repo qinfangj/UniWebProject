@@ -110,14 +110,14 @@ class RunsPreInsertForm extends React.PureComponent {
                         {i + 1}
                     </td>
                     <td key="nlibs" className={css.numeric}>
-                        <TextField name="nlibs" defaultValue="0" required
+                        <TextField form={this.form} field="nlibs" defaultValue="0" required
                                    validator = {validators.integerValidator}
                                    invalid = {invalid && invalid.nlibs}
                                    ref={(c) => this.lanesRefs[i]["nlibs"] = c}
                         />
                     </td>
                     <td key="nqc" className={css.numeric}>
-                        <TextField name="nqc" defaultValue="0" required
+                        <TextField form={this.form} field="nqc" defaultValue="0" required
                                    validator = {validators.integerValidator}
                                    invalid = {invalid && invalid.nqc}
                                    ref={(c) => this.lanesRefs[i]["nqc"] = c}

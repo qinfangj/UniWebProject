@@ -106,7 +106,7 @@ class SamplesInsertForm extends React.PureComponent {
                     {/* Received date */}
 
                     <Col sm={3} className={css.formCol}>
-                        <DatePicker field={fields.RECEIVED_DATE} label="Received date"
+                        <DatePicker form={this.form} field={fields.RECEIVED_DATE} label="Received date"
                         />
                     </Col>
 

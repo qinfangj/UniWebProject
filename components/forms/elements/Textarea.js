@@ -2,6 +2,7 @@ import React from 'react';
 import css from '../forms.css';
 import store from '../../../core/store';
 import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
+import * as forms from '../forms';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -16,6 +17,7 @@ class Textarea extends React.PureComponent {
         this.state = {
             value: this.props.defaultValue,
         };
+        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
     }
 
     getValue() {

@@ -1,4 +1,6 @@
 import React from 'react';
+import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
+import * as forms from '../forms';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -12,6 +14,7 @@ class DatePicker extends React.PureComponent {
         this.state = {
             value: this.props.defaultValue,
         };
+        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
     }
 
     getValue() {
@@ -37,6 +40,7 @@ class DatePicker extends React.PureComponent {
     }
 }
 DatePicker.propTypes = {
+    form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
     label: React.PropTypes.string.isRequired,
     defaultValue: React.PropTypes.string,

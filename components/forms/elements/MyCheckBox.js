@@ -1,5 +1,8 @@
 import React from 'react';
 import css from '../forms.css';
+import { changeFormValue } from '../../actions/actionCreators/commonActionCreators';
+import * as forms from '../forms';
+
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 
@@ -10,7 +13,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 class MyCheckbox extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = { checked: false };
+        this.state = { checked: this.props.defaultValue };
+        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
     }
 
     getValue() {
@@ -32,12 +36,14 @@ class MyCheckbox extends React.PureComponent {
     }
 }
 MyCheckbox.propTypes = {
+    form: React.PropTypes.string.isRequired,
+    field: React.PropTypes.string.isRequired,
     label: React.PropTypes.string,
-    defaultValue: React.PropTypes.string,
+    defaultValue: React.PropTypes.bool,
 };
 MyCheckbox.defaultProps = {
     label: "",
-    defaultValue: "",
+    defaultValue: false,
 };
 
 

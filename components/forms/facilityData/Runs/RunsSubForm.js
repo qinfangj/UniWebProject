@@ -129,7 +129,7 @@ class RunsSubForm extends React.PureComponent {
                 />
             </td>
             <td className={cx(css.libCell, css.quantityCell)}>
-                <TextField name="pM" required
+                <TextField form={this.form} field="pM" required
                            validator = {validators.numberValidator}
                            invalid = {this.state.invalid[N][libIdx]}
                            ref={(c) => this.librariesRefs[N][libIdx]["quantity"] = c}

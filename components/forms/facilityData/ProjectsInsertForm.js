@@ -107,14 +107,14 @@ class ProjectInsertForm extends React.PureComponent {
 
                         {/* Is control */}
 
-                        <Checkbox field={fields.IS_CONTROL} label="Control Project" />
+                        <Checkbox form={this.form} field={fields.IS_CONTROL} label="Control Project" />
 
                     </Col>
 
                     {/* User meeting date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker field={fields.USER_MEETING_DATE} label="User meeting date" />
+                        <DatePicker form={this.form} field={fields.USER_MEETING_DATE} label="User meeting date" />
                     </Col>
 
                     {/* Project analysis */}

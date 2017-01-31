@@ -126,8 +126,8 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Is masked / is archived */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Checkbox field={fields.IS_MASKED} label="Masked" />
-                        <Checkbox field={fields.IS_ARCHIVED} label="Archived" />
+                        <Checkbox form={this.form} field={fields.IS_MASKED} label="Masked" />
+                        <Checkbox form={this.form} field={fields.IS_ARCHIVED} label="Archived" />
                     </Col>
 
                 </Form>

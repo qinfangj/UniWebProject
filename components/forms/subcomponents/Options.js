@@ -98,7 +98,7 @@ export class People extends React.Component {
     }
 }
 
-/** In Basecallings */
+/** In Basecallings and Alignments */
 export class PipelineAnalysisTypes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.description]; }
@@ -208,7 +208,7 @@ export class QuantifMethods extends React.Component {
     }
 }
 
-/** In Alignments. */
+/** In Alignments and Basecallings */
 export class RunsOutputFolders extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.runFolder]; }
@@ -219,7 +219,7 @@ export class RunsOutputFolders extends React.Component {
     }
 }
 
-/** In Runs and UserRequests. */
+/** In Runs and UserRequests */
 export class RunTypesLengths extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name +' '+ v.length]; }
@@ -234,7 +234,7 @@ RunTypesLengths.propTypes = {
     suffix: React.PropTypes.string.isRequired,
 };
 
-/** In Samples. */
+/** In Samples */
 export class SampleTypes extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
