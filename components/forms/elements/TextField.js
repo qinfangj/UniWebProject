@@ -19,7 +19,8 @@ class TextField extends React.PureComponent {
             valid: true,  // boolean, is the field valid
             msg: "",  // error message from the validator
         };
-        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
+        let valid = this.validate(this.props.defaultValue).valid;
+        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue, valid);
     }
 
     getValue() {
@@ -42,7 +43,7 @@ class TextField extends React.PureComponent {
         // Listen to value change from the store
         this.unsubscribe = store.subscribe(() => {
             let value = forms.getFormValue(this.props.form, this.props.field);
-            if (value) {
+            if (value !== undefined) {
                 let {valid, msg} = this.validate(value);
                 this.setState({ value, valid, msg });
             }
@@ -102,7 +103,7 @@ class TextField extends React.PureComponent {
         if (this.props.type === "file") {
             this.setState({ files: e.target.files });
         }
-        let valid = this.props.validator(value).valid;
+        let valid = this.validate(value).valid;
         forms.changeValue(this.props.form, this.props.field, value, valid);
     }
 

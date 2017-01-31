@@ -19,10 +19,10 @@ export function initForm(form) {
         store.getState().common.forms[form]._isValid = {};
     }
 }
-export function initFormField(form, field, value=null) {
+export function initFormField(form, field, value=null, valid) {
     if (! store.getState().common.forms[form][field]) {
         store.getState().common.forms[form][field] = value;
-        store.getState().common.forms[form]._isValid[field] = true;
+        store.getState().common.forms[form]._isValid[field] = valid;
     }
 }
 
@@ -48,11 +48,13 @@ export function changeValue(form, field, value, valid) {
  */
 export function getFormData(form) {
     let storedForm = store.getState().common.forms[form];
+    let storedValid = store.getState().common.forms[form]._isValid;
     let formData = {};
     for (let key of Object.keys(storedForm)) {
-        let valid = storedForm._isValid[key];
+        let valid = storedValid[key];
         if (valid === false) {
             formData[key] = null;
+            formData._isValid[key] = false;
         } else {
             let value = storedForm[key];
             // Don't double escape multiline strings
@@ -67,7 +69,6 @@ export function getFormData(form) {
            and we don't want to submit everything we get from a backend row, or things like '_valid'.
         */
     }
-    delete formData._isValid;
     return formData;
 }
 
@@ -78,10 +79,11 @@ export function getFormData(form) {
 export function submit(form, table, formatFormData=null) {
     let state = {};
     let formData = getFormData(form);
-    console.info(JSON.stringify(formData, null, 2));
     let fields = Object.keys(formData);
-    // Check if some fields have value 'null' (invalid or missing+required)
-    let invalidFields = fields.filter(k => formData[k] === null);
+    // Check if some fields have value are invalid
+    let invalidFields = fields.filter(k => formData._isValid[k] === false);
+    console.info(JSON.stringify(formData, null, 2));
+    delete formData._isValid;
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
         let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
