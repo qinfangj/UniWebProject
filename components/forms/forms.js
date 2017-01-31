@@ -54,7 +54,12 @@ export function getFormData(form) {
         if (valid === false) {
             formData[key] = null;
         } else {
-            formData[key] = storedForm[key];
+            let value = storedForm[key];
+            // Don't double escape multiline strings
+            if (typeof value === "string") {
+                value = value.replace("\\n", "\n");
+            }
+            formData[key] = value;
         }
         /* DON'T DO THIS:
              formData[key] = valid ? storedForm[key] : null;

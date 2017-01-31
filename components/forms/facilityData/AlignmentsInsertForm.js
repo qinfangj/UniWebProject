@@ -91,13 +91,13 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Alignment output folder */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField field={fields.ELAND_OUTPUT_DIR} label="Alignment output folder" form={this.form} required
+                        <TextField form={this.form} field={fields.ELAND_OUTPUT_DIR} label="Alignment output folder" required
                                    submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox label="QC report" form={this.form} />
+                        <Checkbox form={this.form} field={fields.HAS_QC_PDFS} label="QC report" />
                     </Col>
 
                 </Form>
@@ -106,8 +106,9 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Config file content */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea field={fields.CONFIG_FILE_CONTENT} label="Config file content" form={this.form} required
+                        <TextArea form={this.form} field={fields.CONFIG_FILE_CONTENT} label="Config file content" required
                                   submissionError = {this.state.submissionError}
+                                  defaultValue = "ANALYSIS xxx\nUSE_BASES xxx"
                         />
                     </Col>
 

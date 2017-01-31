@@ -32,6 +32,7 @@ const fields = {
     ELAND_OUTPUT_DIR: "elandOutputDir",
     CONFIG_FILE_CONTENT: "configFileContent",
     BASECALLING_ID: "basecallingId",
+    HAS_QC_PDFS: "hasqcpdfs",
 
     // Basecallings
     CONTROL_LANE_NB: "controlLaneNb",

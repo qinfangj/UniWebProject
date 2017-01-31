@@ -56,10 +56,14 @@ class Textarea extends React.PureComponent {
 
     onChange(e) {
         let value = e.target.value;
-        forms.changeValue(this.props.form, this.props.field, value, valid);
+        // The default value is automatically escaped, so do this to allow a multiline default value.
+        value = value.replace("\\n", "\n");
+        forms.changeValue(this.props.form, this.props.field, value);
     }
 
     render() {
+        let value = this.state.value.replace("\\n", "\n");
+
         // Display a star if the field is required and no valud has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
         let requireString = (this.props.required && !this.state.value) ?
@@ -82,7 +86,7 @@ class Textarea extends React.PureComponent {
                 <FormControl componentClass="textarea"
                     placeholder={this.props.label}
                     onChange={this.onChange.bind(this)}
-                    value={this.state.value}
+                    value={value}
                     {...this.props.inputProps}
                 />
                 {feedback}
