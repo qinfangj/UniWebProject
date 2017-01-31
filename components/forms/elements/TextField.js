@@ -39,6 +39,7 @@ class TextField extends React.PureComponent {
         let {valid, msg} = this.validate(this.state.value);
         this.setState({valid, msg});
     }
+
     componentDidMount() {
         // Listen to value change from the store
         this.unsubscribe = store.subscribe(() => {

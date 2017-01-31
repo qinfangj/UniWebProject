@@ -45,10 +45,6 @@ let facilityDataReducers = (state = defaultState, action) => {
         case types.INSERT:
             return returnList(action, state, action.args.storeKey, []);
 
-        // /* Get one row details by ID */
-        // case types.FIND_BY_ID:
-        //     return returnList("foundById", {});
-
         default:
             return state;
     }

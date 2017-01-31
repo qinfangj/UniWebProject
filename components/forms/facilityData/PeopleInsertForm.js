@@ -44,7 +44,7 @@ class ProjectInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, this.formatFormData);
         if (submissionError) {
             this.setState({ submissionError, serverError: {} });
         } else {
