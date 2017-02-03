@@ -3,6 +3,12 @@
  * `{valid <boolean>, msg <string>}`.
  */
 
+
+function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+
 class Validators {
 
     codeNameValidator(v) {
@@ -63,7 +69,7 @@ class Validators {
      * Positive floats.
      */
     numberValidator(v) {
-        let valid = /^\d+\.?\d*$/.test(''+v.trim());
+        let valid = isNumeric(v);
         let msg = "Must be a number.";
         return {valid, msg};
     }

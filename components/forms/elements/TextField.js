@@ -45,6 +45,7 @@ class TextField extends React.PureComponent {
         this.unsubscribe = store.subscribe(() => {
             let value = forms.getFormValue(this.props.form, this.props.field);
             if (value !== undefined) {
+                value = value || "";
                 let {valid, msg} = this.validate(value);
                 this.setState({ value, valid, msg });
             }

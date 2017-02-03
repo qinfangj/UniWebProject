@@ -61,7 +61,7 @@ const fields = {
     KITS_LOTS: "kitsLots",
     COMMENT_CUSTOMER: "commentCustomer",
     IS_CUSTOMER_MADE: "iscustomerMade",
-    IS_ROBOT_MADE: "isrobotMade",
+    IS_ROBOT_MADE: "isRobot_made",
     ADAPTER_ID: "adapterId",
     MULTIPLEX_INDEX_ID: "multiplexIndexId",
     LIBRARY_STATE_ID: "libraryStateId",

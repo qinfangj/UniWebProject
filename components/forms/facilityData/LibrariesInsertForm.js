@@ -43,8 +43,17 @@ class LibrariesInsertForm extends React.PureComponent {
         }
     }
 
+    formatFormData(formData) {
+        formData.concentration = parseInt(formData.concentration);
+        formData.volume = parseInt(formData.volume);
+        formData.fragSizeMin = parseInt(formData.fragSizeMin);
+        formData.fragSizeMax = parseInt(formData.fragSizeMax);
+        formData.bioanalyserPeak = parseInt(formData.bioanalyserPeak);
+        return formData;
+    }
+
     onSubmit() {
-        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
+        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, this.formatFormData);
         if (submissionError) {
             this.setState({ submissionError, serverError: {} });
         } else {
