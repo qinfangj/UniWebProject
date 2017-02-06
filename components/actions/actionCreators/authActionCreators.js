@@ -1,6 +1,7 @@
 
 import actions from '../actionTypes';
 let types = actions.login;
+import restService from '../api/restService';
 
 
 /* Login */
@@ -10,7 +11,7 @@ export function requestLogin(creds) {
         type: types.LOGIN_REQUEST,
         isFetching: true,
         isAuthenticated: false,
-        creds
+        creds: creds,
     }
 }
 
@@ -19,7 +20,7 @@ export function receiveLogin(user) {
         type: types.LOGIN_SUCCESS,
         isFetching: false,
         isAuthenticated: true,
-        id_token: user.id_token
+        id_token: user.access_token,
     }
 }
 
@@ -28,36 +29,33 @@ export function loginError(message) {
         type: types.LOGIN_FAILURE,
         isFetching: false,
         isAuthenticated: false,
-        message
+        message: message,
     }
 }
 
 // Calls the API to get a token and dispatches actions along the way
 export function loginUser(creds) {
-
-    let config = {
-        method: 'POST',
-        headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-        body: JSON.stringify({
-            username: creds.username,
-            password: creds.password
-        })
-    };
-
     return dispatch => {
         dispatch(requestLogin(creds));  // "Fetching..."
-        return fetch(window.ENV.BACKEND_URL + '/sessions/create', config)
+        return restService.login(creds)
             // Format the response
-            .then(response =>
-                response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) =>  {
+            .then(response => {
+                // Error
+                if (!response.ok) {
+                    dispatch(loginError(response.statusText));
+                    return Promise.reject(response);
+                // Successful login
+                } else {
+                    response.json().then(user => ({ user, response }))
+                }
+            }).then(({ user, response }) =>  {
                 // Error
                 if (!response.ok) {
                     dispatch(loginError(user.message));
                     return Promise.reject(user);
                 // Successful login
                 } else {
-                    localStorage.setItem('id_token', user.id_token)
+                    localStorage.setItem('id_token', user.access_token)
                     dispatch(receiveLogin(user));
                 }
             }).catch(err => console.log("Error: ", err))

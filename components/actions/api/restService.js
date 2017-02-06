@@ -75,6 +75,17 @@ class RestService {
     }
 
     /* Login */
+    login(creds) {
+        let config = {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/json' },
+            body: JSON.stringify({
+                username: creds.username,
+                password: creds.password
+            })
+        };
+        return fetch(window.ENV.BACKEND_URL + '/account/login', config);
+    }
 
 }
 
