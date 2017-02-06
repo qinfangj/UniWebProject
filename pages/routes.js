@@ -4,6 +4,8 @@ import Layout from '../components/Layout';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import * as fdata from '../pages/facilityData/facilityDataRoutes';
 import * as qprojects from '../pages/queryProjects/queryProjectsRoutes';
+import LoginPage from '../components/login/LoginPage';
+import AuthService from '../utils/AuthService';
 
 
 class App extends React.Component {
@@ -27,11 +29,24 @@ class HomePage extends React.Component {
     }
 }
 
+
+// Validate authentication for private routes
+const requireAuth = (nextState, replace) => {
+    if (!auth.loggedIn()) {
+        replace({ pathname: '/login' });
+    }
+};
+
+
+
 const routes = (
     <Router history={browserHistory} >
         <Route path="/" component={App}>
             <IndexRoute component={HomePage}/>
             <Route path="home" component={HomePage}/>
+
+            <Route path="login" component={LoginPage}/>
+            <Route path="protected" component={HomePage} onEnter={requireAuth} />
 
             {/* FACILITY DATA */}
 

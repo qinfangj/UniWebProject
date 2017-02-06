@@ -43,7 +43,7 @@ class MultipleSelect extends React.PureComponent {
             }
         }
         this.setState({ selected });
-        store.dispatch(changeFormValue(this.props.form, this.props.formKey, selected));
+        store.dispatch(changeFormValue(this.props.form, this.props.field, selected));
     }
 
     render() {
@@ -74,7 +74,6 @@ MultipleSelect.propTypes = {
     field: React.PropTypes.string.isRequired,     // FormGroup controlId + field of the field in store
     options: React.PropTypes.array.isRequired,   // an array of objects {id, field}
     form: React.PropTypes.string.isRequired,     // form field
-    formKey: React.PropTypes.string.isRequired,  // key to get the form value from store.
 
 // optional
     label: React.PropTypes.string,  // title - visible

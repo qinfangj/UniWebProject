@@ -4,6 +4,7 @@ import store from '../../../core/store';
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
+import * as fields from '../fields';
 import constants from '../../constants/constants';
 import MultipleSelect from '../elements/MultipleSelect';
 
@@ -21,7 +22,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
 
     static propTypes = {
         form: React.PropTypes.string.isRequired,  // form name
-        formKey: React.PropTypes.string.isRequired,  // the store key for the selected values
+        field: React.PropTypes.string.isRequired,  // the store key for the selected values
         suffix: React.PropTypes.string.isRequired,  // route suffix for conditional lists (e.g. "all" in "/table/projects/list/all")
         label: React.PropTypes.string,  // title on top of the input
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
@@ -69,7 +70,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
     getOptions() {
         let options = this.filterOptions(this.state.options);
         options = options.map(v => {
-            return {id: v.id, name: v.last_name +" - "+ v.name};
+            return {id: v.id, name: v.lastName +" - "+ v.name};
         });
         options.unshift(constants.NONE_OPTION);
         return options;
@@ -90,9 +91,8 @@ class ProjectsMultipleSelect extends React.PureComponent {
     render() {
         return (
             <MultipleSelect
-                name="projects_multiple_select"
+                field="projects_multiple_select"
                 form={this.props.form}
-                formKey={this.props.formKey}
                 label={this.props.label}
                 options={this.getOptions()}
                 resetAction={resetSelection()}

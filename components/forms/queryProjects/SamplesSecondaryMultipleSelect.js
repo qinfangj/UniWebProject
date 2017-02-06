@@ -3,7 +3,7 @@ import store from '../../../core/store';
 
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
-import formStoreKeys from '../../constants/formStoreKeys';
+import * as fields from '../fields';
 import MultipleSelect from '../elements/MultipleSelect';
 
 
@@ -21,7 +21,7 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
     static propTypes = {
         referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `storeKey`!
         form: React.PropTypes.string.isRequired,  // form name
-        formKey: React.PropTypes.string.isRequired,  // the store key for the selected values
+        field: React.PropTypes.string.isRequired,  // the store key for the selected values
         label: React.PropTypes.string,  // title on top of the input
         formatter: React.PropTypes.func,  // ex: object => [id, name]
         selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
@@ -64,7 +64,7 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
     getOptions() {
         let options = this.filterOptions(this.state.options);
         return options.map(v => {
-            return {id: v.id, name: v.short_name +" ("+ v.name +")", project_id: v.project_id};
+            return {id: v.id, name: v.shortName +" ("+ v.name +")", project_id: v.projectId};
         });
     }
 
@@ -83,9 +83,8 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
     render() {
         return (
             <MultipleSelect
-                name="samples_secondary_multiple_select"
+                field="samples_secondary_multiple_select"
                 form={this.props.form}
-                formKey={this.props.formKey}
                 label={this.props.label}
                 options={this.getOptions()}
             />

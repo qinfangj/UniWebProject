@@ -7,9 +7,8 @@ import { browserHistory } from 'react-router';
  */
 
 
-export default class AuthService {
+class AuthService {
     constructor(clientId, domain) {
-        super();
         // Configure Auth0
         this.lock = new Auth0Lock(clientId, domain, {
             auth: {
@@ -101,3 +100,6 @@ export default class AuthService {
         localStorage.removeItem('profile');
     }
 }
+
+
+export default new AuthService('3J53AFEKn0KW6j9F5SzVBhm6VniQDIr0', 'jdelafon.eu.auth0.com');

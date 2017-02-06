@@ -2,10 +2,8 @@ import React from 'react';
 import cx from 'classnames';
 import css from './Header.css';
 import commonCss from '../../../styles/common.css';
-
-import { Link } from 'react-router';
+import LoginButton from '../../login/LoginButton';
 import { Nav, NavItem } from 'react-bootstrap/lib';
-
 
 
 class Header extends React.Component {
@@ -27,8 +25,10 @@ class Header extends React.Component {
 
                     <div className={cx("pull-right", css.navBar)}>
                         <Nav bsStyle="pills">
+                            <LoginButton />
                             <NavItem disabled>Account</NavItem>
-                            <NavItem disabled>Logout</NavItem>
+                            <NavItem disabled>Account</NavItem>
+                            <NavItem disabled>Account</NavItem>
                         </Nav>
                     </div>
 

@@ -102,7 +102,7 @@ class QueryProjectsForm extends React.PureComponent {
                             <ProjectsMultipleSelect
                                 label="Projects"
                                 form={this.form}
-                                formKey={this.projectsFormKey}
+                                field={this.projectsFormKey}
                                 suffix="samples"
                                 filterByIds={this.state.projectIds}
                             />
@@ -112,7 +112,7 @@ class QueryProjectsForm extends React.PureComponent {
                                 label="Samples"
                                 form={this.form}
                                 referenceField={this.projectsFormKey}
-                                formKey={this.samplesFormKey}
+                                field={this.samplesFormKey}
                                 filterByIds={this.state.sampleIds}
                             />
                         </Col>

@@ -151,7 +151,7 @@ TextField.propTypes = {
     required: React.PropTypes.bool,  // show a warning if required but no value
     placeholder: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
-    inputProps: React.PropTypes.object,  // additional input field props
+    inputProps: React.PropTypes.object,  // additional FormControl props
     submissionError: React.PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
 };
 TextField.defaultProps = {

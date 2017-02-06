@@ -74,6 +74,8 @@ class RestService {
         return $.get(url);
     }
 
+    /* Login */
+
 }
 
 
