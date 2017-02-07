@@ -1,7 +1,7 @@
 
 import actions from '../actionTypes';
 let types = actions.login;
-import restService from '../api/restService';
+import RestService from '../../../utils/RestService';
 import AuthService from '../../../utils/AuthService';
 import { browserHistory } from 'react-router'
 
@@ -43,7 +43,7 @@ export function receiveSignup(user) {
 export function loginUser(creds) {
     return dispatch => {
         dispatch(requestLogin(creds));  // "Fetching..."
-        return restService.login(creds)
+        return RestService.login(creds)
             // Format the response
             .then(response => {
                 // Error
@@ -64,7 +64,7 @@ export function loginUser(creds) {
 export function signupUser(creds) {
     return dispatch => {
         dispatch(requestLogin(creds));  // "Fetching..."
-        return restService.signup(creds)
+        return RestService.signup(creds)
             // Format the response
             .then(response => {
                 // Error

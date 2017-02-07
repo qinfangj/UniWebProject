@@ -1,5 +1,5 @@
 import actions from '../actionTypes';
-import restService from '../api/restService';
+import RestService from '../../../utils/RestService';
 import { asyncAction, assertStoreKey } from './base';
 
 
@@ -8,7 +8,7 @@ import { asyncAction, assertStoreKey } from './base';
  */
 export function queryProjectsAsync(sampleIds, queryType, storeKey) {
     let args = {sampleIds, storeKey};
-    return asyncAction(actions.queryProjects.QUERY_PROJECTS, restService.queryProjects.bind(null, sampleIds, queryType), args);
+    return asyncAction(actions.queryProjects.QUERY_PROJECTS, RestService.queryProjects.bind(null, sampleIds, queryType), args);
 }
 
 /**
@@ -17,7 +17,7 @@ export function queryProjectsAsync(sampleIds, queryType, storeKey) {
 export function searchSamplesByTerm(term, storeKey) {
     assertStoreKey(storeKey);
     let args = {storeKey, term};
-    return asyncAction(actions.queryProjects.SEARCH_SAMPLES, restService.searchSamplesByTerm.bind(null, term), args);
+    return asyncAction(actions.queryProjects.SEARCH_SAMPLES, RestService.searchSamplesByTerm.bind(null, term), args);
 }
 
 /**
