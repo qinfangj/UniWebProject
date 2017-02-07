@@ -7,23 +7,13 @@ import { browserHistory } from 'react-router';
 
 
 class AuthService {
-    constructor() {
-    }
+    constructor() {}
 
     _doAuthentication(authResult){
-        // Save the user token
         this.setToken(authResult.idToken);
-        // Navigate to the home route
         browserHistory.replace('/home');
         // Async loads the user profile data
         //...
-    }
-
-    /**
-     * Unexpected authentication error
-     */
-    _authorizationError(error) {
-        console.log('Authentication Error', error);
     }
 
     /**
@@ -32,23 +22,6 @@ class AuthService {
     get isLoggedIn() {
         const token = this.getToken();
         return !!token && !isTokenExpired(token);
-    }
-
-    /**
-     * Saves profile data to localStorage
-     */
-    setProfile(profile) {
-        localStorage.setItem('profile', JSON.stringify(profile));
-        // Triggers profile_updated event to update the UI
-        //this.emit('profile_updated', profile);
-    }
-
-    /**
-     * Retrieves the profile data from localStorage
-     */
-    getProfile() {
-        const profile = localStorage.getItem('profile');
-        return profile ? JSON.parse(localStorage.profile) : {};
     }
 
     /**
@@ -71,6 +44,23 @@ class AuthService {
     logout() {
         localStorage.removeItem('id_token');
         localStorage.removeItem('profile');
+    }
+
+    /**
+     * Saves profile data to localStorage
+     */
+    setProfile(profile) {
+        localStorage.setItem('profile', JSON.stringify(profile));
+        // Triggers profile_updated event to update the UI
+        //this.emit('profile_updated', profile);
+    }
+
+    /**
+     * Retrieves the profile data from localStorage
+     */
+    getProfile() {
+        const profile = localStorage.getItem('profile');
+        return profile ? JSON.parse(localStorage.profile) : {};
     }
 }
 
