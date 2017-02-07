@@ -5,8 +5,6 @@ import store from '../../core/store';
 import { signupUser } from '../../components/actions/actionCreators/authActionCreators';
 
 import {Form, FormControl, InputGroup, FormGroup, Button} from 'react-bootstrap/lib';
-import Col from 'react-bootstrap/lib/Col';
-import TextField from '../forms/elements/TextField';
 
 
 
@@ -39,8 +37,6 @@ class SignupForm extends React.Component {
     render() {
         return (
             <div className={css.loginForm}>
-
-                Sign up
 
                 <Form>
 
@@ -77,7 +73,7 @@ class SignupForm extends React.Component {
 
                 </Form>
 
-                <Button onClick={this.login.bind(this)}>
+                <Button onClick={this.signup.bind(this)} className={css.loginButton}>
                     Send >
                 </Button>
 

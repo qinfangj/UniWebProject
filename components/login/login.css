@@ -1,6 +1,53 @@
 
+@import '../../styles/colors.css';
+
 
 .loginWidget {
     width: 300px;
     margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.switchLoginSignup {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+.modeButton {
+    width: 50%;
+}
+
+.formContainer {
+
+}
+.form {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.formGroup {
+    margin-bottom: 10px;
+}
+
+.forgotPassword {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.forgotPasswordLink {
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.forgotPasswordLink:hover {
+    border-radius: 4px;
+    background-color: #eee;
+}
+
+.loginButton {
+    width: 100%;
 }

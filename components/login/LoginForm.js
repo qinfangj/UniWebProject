@@ -1,12 +1,12 @@
 import React from 'react';
 import cx from 'classnames';
 import css from './login.css';
+import commonCss from '../../styles/common.css';
 import store from '../../core/store';
 import { loginUser } from '../../components/actions/actionCreators/authActionCreators';
+import { Link } from 'react-router';
 
 import {Form, FormControl, InputGroup, FormGroup, Button} from 'react-bootstrap/lib';
-import Col from 'react-bootstrap/lib/Col';
-import TextField from '../forms/elements/TextField';
 
 
 
@@ -38,13 +38,11 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div className={css.loginForm}>
+            <div className={css.formContainer}>
 
-                Log in
+                <Form className={css.form}>
 
-                <Form>
-
-                    <FormGroup>
+                    <FormGroup className={css.formGroup}>
                         <InputGroup>
                         <InputGroup.Addon>@</InputGroup.Addon>
                         <FormControl
@@ -55,7 +53,7 @@ class LoginForm extends React.Component {
                         </InputGroup>
                     </FormGroup>
 
-                    <FormGroup>
+                    <FormGroup className={css.formGroup}>
                         <InputGroup>
                         <InputGroup.Addon>@</InputGroup.Addon>
                         <FormControl
@@ -65,6 +63,10 @@ class LoginForm extends React.Component {
                         />
                         </InputGroup>
                     </FormGroup>
+
+                    <div className={css.forgotPassword}>
+                        <Link className={cx(css.forgotPasswordLink, commonCss.nolink)}>Don't remember your password?</Link>
+                    </div>
 
                     {/*<div className='form-actions col-sm-9 col-sm-offset-3'>*/}
                         {/*<button type="submit" className="submit-button btn btn-primary"*/}
@@ -77,7 +79,7 @@ class LoginForm extends React.Component {
 
                 </Form>
 
-                <Button onClick={this.login.bind(this)}>
+                <Button onClick={this.login.bind(this)} className={css.loginButton}>
                     Log in >
                 </Button>
 

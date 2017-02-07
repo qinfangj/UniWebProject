@@ -1,9 +1,6 @@
 import React from 'react';
 import store from '../../core/store';
-import cx from 'classnames';
-import { Link } from 'react-router';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Button, NavItem } from 'react-bootstrap/lib';
+import { NavItem } from 'react-bootstrap/lib';
 import AuthService from '../../utils/AuthService';
 import { browserHistory } from 'react-router';
 import { logout } from '../actions/actionCreators/authActionCreators';

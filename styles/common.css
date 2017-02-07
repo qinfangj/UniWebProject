@@ -37,3 +37,9 @@
 .halo {
     box-shadow: 0 0 25px 15px white inset;
 }
+
+/* Don't underline links */
+.nolink:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
