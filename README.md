@@ -1,4 +1,4 @@
-# React Static Boilerplate
+# UHTS LIMS
 
 ### Directory Layout
 
