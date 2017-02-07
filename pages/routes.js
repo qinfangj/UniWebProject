@@ -2,9 +2,9 @@ import React from 'react';
 import css from './pages.css';
 import Layout from '../components/Layout';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import * as fdata from '../pages/facilityData/facilityDataRoutes';
-import * as qprojects from '../pages/queryProjects/queryProjectsRoutes';
-import LoginPage from '../components/login/LoginPage';
+import * as fdata from './facilityData/facilityDataRoutes';
+import * as qprojects from './queryProjects/queryProjectsRoutes';
+import LoginPage from './login/LoginPage';
 import AuthService from '../utils/AuthService';
 
 

@@ -1,11 +1,12 @@
 
-import types from '../actionTypes';
+import actionTypes from '../actionTypes';
 import constants from '../../constants/constants';
+const types = actionTypes.login;
 
 
 const defaultState = {
     isFetching: false,
-    isAuthenticated: !! localStorage.getItem('id_token'),
+    isAuthenticated: false, //!! localStorage.getItem('id_token'),
 };
 
 
@@ -17,14 +18,14 @@ let authReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
-                user: action.creds
+                user: action.creds,
             });
 
         case types.LOGIN_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: true,
-                errorMessage: ''
+                errorMessage: '',
             });
 
         case types.LOGIN_FAILURE:
@@ -37,7 +38,7 @@ let authReducers = (state = defaultState, action) => {
         case types.LOGOUT_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: true,
-                isAuthenticated: false
+                isAuthenticated: false,
             });
 
         default:

@@ -2,6 +2,7 @@
 import actions from '../actionTypes';
 let types = actions.login;
 import restService from '../api/restService';
+import { browserHistory } from 'react-router'
 
 
 /* Login */
@@ -9,8 +10,6 @@ import restService from '../api/restService';
 export function requestLogin(creds) {
     return {
         type: types.LOGIN_REQUEST,
-        isFetching: true,
-        isAuthenticated: false,
         creds: creds,
     }
 }
@@ -18,8 +17,6 @@ export function requestLogin(creds) {
 export function receiveLogin(user) {
     return {
         type: types.LOGIN_SUCCESS,
-        isFetching: false,
-        isAuthenticated: true,
         id_token: user.access_token,
     }
 }
@@ -27,8 +24,6 @@ export function receiveLogin(user) {
 export function loginError(message) {
     return {
         type: types.LOGIN_FAILURE,
-        isFetching: false,
-        isAuthenticated: false,
         message: message,
     }
 }
@@ -46,34 +41,24 @@ export function loginUser(creds) {
                     return Promise.reject(response);
                 // Successful login
                 } else {
-                    response.json().then(user => ({ user, response }))
+                    response.json().then(user => {
+                        localStorage.setItem('id_token', user.access_token);
+                        dispatch(receiveLogin(user));
+                        browserHistory.push('/home');
+                    }).catch(err => console.log("Error retreiving id_token: ", err))
                 }
-            }).then(({ user, response }) =>  {
-                // Error
-                if (!response.ok) {
-                    dispatch(loginError(user.message));
-                    return Promise.reject(user);
-                // Successful login
-                } else {
-                    localStorage.setItem('id_token', user.access_token)
-                    dispatch(receiveLogin(user));
-                }
-            }).catch(err => console.log("Error: ", err))
+            }).catch(err => console.log("Error logging in: ", err))
     }
+}
+
+export function signupUser(info) {
+
 }
 
 
 /* Logout */
 
-function requestLogout() {
-    return {
-        type: types.LOGOUT_REQUEST,
-        isFetching: true,
-        isAuthenticated: true
-    }
-}
-
-function receiveLogout() {
+export function logout() {
     return {
         type: types.LOGOUT_SUCCESS,
         isFetching: false,
@@ -81,38 +66,6 @@ function receiveLogout() {
     }
 }
 
-export function logoutError(message) {
-    return {
-        type: types.LOGOUT_FAILURE,
-        isFetching: false,
-        isAuthenticated: false,
-        message
-    }
-}
-
-
-/* Show lock screen */
-
-function showLock() {
-    return {
-        type: types.SHOW_LOCK,
-    }
-}
-
-function lockSuccess(profile, token) {
-    return {
-        type: types.LOCK_SUCCESS,
-        profile,
-        token
-    }
-}
-
-function lockError(err) {
-    return {
-        type: types.LOCK_ERROR,
-        err
-    }
-}
 
 
 

@@ -1,5 +1,4 @@
 import { isTokenExpired } from './jwtHelper';
-import Auth0Lock from 'auth0-lock';
 import { browserHistory } from 'react-router';
 
 /**
@@ -8,19 +7,7 @@ import { browserHistory } from 'react-router';
 
 
 class AuthService {
-    constructor(clientId, domain) {
-        // Configure Auth0
-        this.lock = new Auth0Lock(clientId, domain, {
-            auth: {
-                redirectUrl: `${window.location.origin}/login`,
-                responseType: 'token'
-            }
-        });
-        // Add callback for lock `authenticated` event
-        this.lock.on('authenticated', this._doAuthentication.bind(this));
-        // Add callback for lock `authorization_error` event
-        this.lock.on('authorization_error', this._authorizationError.bind(this));
-        // binds login functions to keep this context
+    constructor() {
         this.login = this.login.bind(this);
     }
 
@@ -30,13 +17,7 @@ class AuthService {
         // Navigate to the home route
         browserHistory.replace('/home');
         // Async loads the user profile data
-        this.lock.getProfile(authResult.idToken, (error, profile) => {
-            if (error) {
-                console.log('Error loading the Profile', error);
-            } else {
-                this.setProfile(profile);
-            }
-        })
+        //...
     }
 
     /**
@@ -67,7 +48,7 @@ class AuthService {
     setProfile(profile) {
         localStorage.setItem('profile', JSON.stringify(profile));
         // Triggers profile_updated event to update the UI
-        this.emit('profile_updated', profile);
+        //this.emit('profile_updated', profile);
     }
 
     /**
@@ -102,4 +83,4 @@ class AuthService {
 }
 
 
-export default new AuthService('3J53AFEKn0KW6j9F5SzVBhm6VniQDIr0', 'jdelafon.eu.auth0.com');
+export default new AuthService();
