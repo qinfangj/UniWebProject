@@ -54,7 +54,7 @@ export function loginUser(creds) {
                 } else {
                     response.json().then(user => {
                         dispatch(receiveSignup(user));
-                        AuthService._doAuthentication(user.access_token);
+                        AuthService._doAuthentication(user);
                     }).catch(err => console.log("Error retreiving id_token: ", err))
                 }
             }).catch(err => console.log("Error logging in: ", err))
@@ -75,7 +75,7 @@ export function signupUser(creds) {
                 } else {
                     response.json().then(user => {
                         dispatch(receiveSignup(user));
-                        AuthService._doAuthentication(user.access_token);
+                        AuthService._doAuthentication(user);
                     }).catch(err => console.log("Error retreiving id_token: ", err))
                 }
             }).catch(err => console.log("Error signing up: ", err))

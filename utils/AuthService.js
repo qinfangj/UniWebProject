@@ -10,7 +10,7 @@ class AuthService {
     constructor() {}
 
     _doAuthentication(authResult){
-        this.setToken(authResult.idToken);
+        this.setToken(authResult.access_token);
         browserHistory.replace('/home');
         // Async loads the user profile data
         //...
