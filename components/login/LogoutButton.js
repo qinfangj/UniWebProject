@@ -12,7 +12,7 @@ class LogoutButton extends React.PureComponent {
     logout() {
         AuthService.logout();
         store.dispatch(logout());
-        browserHistory.push("/home");
+        browserHistory.push("/login");
     }
 
     render() {

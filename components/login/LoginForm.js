@@ -6,7 +6,7 @@ import store from '../../core/store';
 import { loginUser } from '../../components/actions/actionCreators/authActionCreators';
 import { Link } from 'react-router';
 
-import {Form, FormControl, InputGroup, FormGroup, Button} from 'react-bootstrap/lib';
+import {Form, FormControl, InputGroup, FormGroup, Button, Glyphicon} from 'react-bootstrap/lib';
 
 
 
@@ -44,9 +44,8 @@ class LoginForm extends React.Component {
 
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
-                        <InputGroup.Addon>@</InputGroup.Addon>
+                        <InputGroup.Addon><Glyphicon glyph="user"/></InputGroup.Addon>
                         <FormControl
-                            type="type"
                             value={this.state.username}
                             onChange={this.onChangeUsername.bind(this)}
                         />
@@ -55,7 +54,7 @@ class LoginForm extends React.Component {
 
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
-                        <InputGroup.Addon>@</InputGroup.Addon>
+                        <InputGroup.Addon><Glyphicon glyph="lock"/></InputGroup.Addon>
                         <FormControl
                             type="password"
                             value={this.state.password}
@@ -68,14 +67,12 @@ class LoginForm extends React.Component {
                         <Link className={cx(css.forgotPasswordLink, commonCss.nolink)}>Don't remember your password?</Link>
                     </div>
 
-                    {/*<div className='form-actions col-sm-9 col-sm-offset-3'>*/}
                         {/*<button type="submit" className="submit-button btn btn-primary"*/}
                                 {/*onClick={this.login} disabled={!this.formValid()}>Login</button>*/}
                         {/*{!this.isDemo ?*/}
                             {/*<Link id='signup-link' to='/signup'>Register</Link> : '' }*/}
                         {/*{!this.isDemo ?*/}
                             {/*<Link id='forget-password-link' to='/forgetPassword'>I forgot my password</Link> : '' }*/}
-                    {/*</div>*/}
 
                 </Form>
 

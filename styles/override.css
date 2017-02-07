@@ -11,6 +11,12 @@
 
 /* BS */
 
+:global(.btn:focus) {
+    outline: none;
+}
+:global(.btn:active) {
+    outline: none;
+}
 /* Make forms more compact by removing margin between lines */
 :global(.form-group) {
     margin-bottom: 0;

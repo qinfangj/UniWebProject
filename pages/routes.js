@@ -32,7 +32,7 @@ class HomePage extends React.Component {
 
 // Validate authentication for private routes
 const requireAuth = (nextState, replace) => {
-    if (!auth.loggedIn()) {
+    if (!AuthService.loggedIn()) {
         replace({ pathname: '/login' });
     }
 };

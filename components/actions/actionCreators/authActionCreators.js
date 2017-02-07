@@ -28,6 +28,16 @@ export function loginError(message) {
     }
 }
 
+/* Signup */
+
+export function receiveSignup(user) {
+    return {
+        type: types.SIGNUP_SUCCESS,
+        id_token: user.access_token,
+    }
+}
+
+
 // Calls the API to get a token and dispatches actions along the way
 export function loginUser(creds) {
     return dispatch => {
@@ -51,8 +61,26 @@ export function loginUser(creds) {
     }
 }
 
-export function signupUser(info) {
-
+export function signupUser(creds) {
+    return dispatch => {
+        dispatch(requestLogin(creds));  // "Fetching..."
+        return restService.signup(creds)
+            // Format the response
+            .then(response => {
+                // Error
+                if (!response.ok) {
+                    dispatch(loginError(response.statusText));
+                    return Promise.reject(response);
+                // Successful signup
+                } else {
+                    response.json().then(user => {
+                        localStorage.setItem('id_token', user.access_token);
+                        dispatch(receiveSignup(user));
+                        browserHistory.push('/home');
+                    }).catch(err => console.log("Error retreiving id_token: ", err))
+                }
+            }).catch(err => console.log("Error signing up: ", err))
+    }
 }
 
 
