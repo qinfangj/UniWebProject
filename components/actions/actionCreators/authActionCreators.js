@@ -2,6 +2,7 @@
 import actions from '../actionTypes';
 let types = actions.login;
 import restService from '../api/restService';
+import AuthService from '../../../utils/AuthService';
 import { browserHistory } from 'react-router'
 
 
@@ -52,9 +53,8 @@ export function loginUser(creds) {
                 // Successful login
                 } else {
                     response.json().then(user => {
-                        localStorage.setItem('id_token', user.access_token);
-                        dispatch(receiveLogin(user));
-                        browserHistory.push('/home');
+                        dispatch(receiveSignup(user));
+                        AuthService._doAuthentication(user.access_token);
                     }).catch(err => console.log("Error retreiving id_token: ", err))
                 }
             }).catch(err => console.log("Error logging in: ", err))
@@ -74,9 +74,8 @@ export function signupUser(creds) {
                 // Successful signup
                 } else {
                     response.json().then(user => {
-                        localStorage.setItem('id_token', user.access_token);
                         dispatch(receiveSignup(user));
-                        browserHistory.push('/home');
+                        AuthService._doAuthentication(user.access_token);
                     }).catch(err => console.log("Error retreiving id_token: ", err))
                 }
             }).catch(err => console.log("Error signing up: ", err))

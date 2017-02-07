@@ -166,7 +166,7 @@ class SignupForm extends React.Component {
                 </Form>
 
                 <Button onClick={this.signup.bind(this)} className={css.loginButton}>
-                    Send >
+                    Submit >
                 </Button>
 
             </div>

@@ -8,7 +8,6 @@ import { browserHistory } from 'react-router';
 
 class AuthService {
     constructor() {
-        this.login = this.login.bind(this);
     }
 
     _doAuthentication(authResult){
@@ -28,16 +27,9 @@ class AuthService {
     }
 
     /**
-     * Call the show method to display the widget.
-     */
-    login() {
-        this.lock.show()
-    }
-
-    /**
      * Checks if there is a saved token and it's still valid
      */
-    loggedIn() {
+    get isLoggedIn() {
         const token = this.getToken();
         return !!token && !isTokenExpired(token);
     }

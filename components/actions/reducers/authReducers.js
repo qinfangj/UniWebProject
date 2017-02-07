@@ -1,12 +1,13 @@
 
 import actionTypes from '../actionTypes';
 import constants from '../../constants/constants';
+import AuthService from '../../../utils/AuthService';
 const types = actionTypes.login;
 
 
 const defaultState = {
     isFetching: false,
-    isAuthenticated: false, //!! localStorage.getItem('id_token'),
+    isAuthenticated: AuthService.isLoggedIn, //!! localStorage.getItem('id_token'),
 };
 
 
