@@ -83,7 +83,7 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
     render() {
         return (
             <MultipleSelect
-                field="samples_secondary_multiple_select"
+                field={this.props.field}
                 form={this.props.form}
                 label={this.props.label}
                 options={this.getOptions()}
