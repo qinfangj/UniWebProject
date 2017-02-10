@@ -59,6 +59,7 @@ class AsyncOptionsList extends React.PureComponent {
         this.unsubscribe();
     }
 
+    // When the options list changes, re-init the field value in store with the first value on the list
     componentDidUpdate() {
         forms.initFormField(this.props.form, this.props.field, this.state.value);
     }

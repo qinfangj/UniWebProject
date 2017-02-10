@@ -1,4 +1,5 @@
 import React from 'react';
+import store from '../../../core/store';
 import * as forms from '../forms';
 
 /* React-bootstrap */
@@ -14,6 +15,24 @@ class Select extends React.PureComponent {
         this.state = {
             value: this.defaultOption(props.options, props.defaultValue),
         };
+        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
+    }
+
+    getValue() {
+        return this.state.value;
+    }
+
+    componentDidMount() {
+        // Listen to value change from the store
+        this.unsubscribe = store.subscribe(() => {
+            let value = forms.getFormValue(this.props.form, this.props.field);
+            if (value) {
+                this.setState({ value });
+            }
+        });
+    }
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     /* Update the defaultValue option when new options are sent (after REST call). */
@@ -36,13 +55,8 @@ class Select extends React.PureComponent {
         }
     }
 
-    getValue() {
-        return this.state.value;
-    }
-
     onChange(e) {
         let value = parseInt(e.target.value);
-        this.setState({ value });
         forms.changeValue(this.props.form, this.props.field, value, true);
     }
 
@@ -69,9 +83,9 @@ class Select extends React.PureComponent {
 }
 
 Select.propTypes = {
+    form: React.PropTypes.string.isRequired,  // form name
     field: React.PropTypes.string.isRequired,  // FormGroup controlId + name of the field in store
     options: React.PropTypes.array.isRequired,  // an array of the type [[1,"yes"], [2,"no"], [3,"maybe"]]
-    form: React.PropTypes.string,  // form name
     label: React.PropTypes.string,  // title - visible
     defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),  // Option index or item name
     inputProps: React.PropTypes.object,  // additional input field props

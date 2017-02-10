@@ -9,6 +9,7 @@ import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
 import formStoreKeys from '../../constants/formStoreKeys';
 import dataStoreKeys from '../../constants/dataStoreKeys';
+import * as forms from '../forms.js';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -35,6 +36,7 @@ class QueryProjectsForm extends React.PureComponent {
             sampleIds: null,   // idem
             visible: true,
         };
+        forms.initForm(this.form);
     }
 
     componentWillMount() {

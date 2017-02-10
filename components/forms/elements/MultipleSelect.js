@@ -1,5 +1,6 @@
 import React from 'react';
 import store from '../../../core/store';
+import * as forms from '../forms';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 import css from '../forms.css';
 
@@ -19,6 +20,7 @@ class MultipleSelect extends React.PureComponent {
         this.state = {
             selected: {},
         };
+        forms.initFormField(this.props.form, this.props.field);
     }
 
     getValue() {
@@ -71,9 +73,9 @@ class MultipleSelect extends React.PureComponent {
 }
 
 MultipleSelect.propTypes = {
+    form: React.PropTypes.string.isRequired,     // form field
     field: React.PropTypes.string.isRequired,     // FormGroup controlId + field of the field in store
     options: React.PropTypes.array.isRequired,   // an array of objects {id, field}
-    form: React.PropTypes.string.isRequired,     // form field
 
 // optional
     label: React.PropTypes.string,  // title - visible

@@ -91,7 +91,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
     render() {
         return (
             <MultipleSelect
-                field="projects_multiple_select"
+                field={this.props.field}
                 form={this.props.form}
                 label={this.props.label}
                 options={this.getOptions()}
