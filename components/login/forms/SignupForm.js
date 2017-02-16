@@ -1,8 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
-import css from './login.css';
-import store from '../../core/store';
-import { signupUser } from '../../components/actions/actionCreators/authActionCreators';
+import css from '../login.css';
+import store from '../../../core/store';
+import { signupUser } from '../../actions/actionCreators/authActionCreators';
 
 import {Form, FormControl, InputGroup, FormGroup, ControlLabel, Button, Glyphicon} from 'react-bootstrap/lib';
 

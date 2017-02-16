@@ -1,8 +1,8 @@
 import React from 'react';
 import LoginWidget from '../../components/login/LoginWidget';
-import LoginForm from '../../components/login/LoginForm';
-import SignupForm from '../../components/login/SignupForm';
-import ForgotPasswordForm from '../../components/login/ForgotPasswordForm';
+import LoginForm from '../../components/login/forms/LoginForm';
+import SignupForm from '../../components/login/forms/SignupForm';
+import ForgotPasswordForm from '../../components/login/forms/ForgotPasswordForm';
 
 
 export class LoginPage extends React.Component {

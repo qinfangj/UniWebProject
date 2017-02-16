@@ -1,9 +1,9 @@
 import React from 'react';
 import cx from 'classnames';
-import css from './login.css';
-import commonCss from '../../styles/common.css';
-import store from '../../core/store';
-import { loginUser } from '../../components/actions/actionCreators/authActionCreators';
+import css from '../login.css';
+import commonCss from '../../../styles/common.css';
+import store from '../../../core/store';
+import { loginUser } from '../../actions/actionCreators/authActionCreators';
 import { Link } from 'react-router';
 
 import {Form, FormControl, InputGroup, FormGroup, Button, Glyphicon} from 'react-bootstrap/lib';
