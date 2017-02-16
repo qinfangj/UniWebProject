@@ -37,18 +37,26 @@
 
 ### Getting Started
 
+Make sure you have node and npm installed, then install all the dependencies:
+
+```shell
+$ npm install
+```
+
 Compile and launch your app by running:
 
 ```shell
 $ node run                      # Same as `npm start` or `node run start`
 ```
 
-You can also test your app in release (production) mode by running `node run start --release` or
-with HMR and React Hot Loader disabled by running `node run start --no-hmr`. The app should become
-available at [http://localhost:3000/](http://localhost:3000/).
+The app should become available at [http://localhost:3000/](http://localhost:3000/).
+
+You can also test your app in release (production) mode by running `node run start --release`.
 
 
 ### How to Test
+
+(For when there will actually be tests...)
 
 The unit tests are powered by [chai](http://chaijs.com/) and [mocha](http://mochajs.org/).
 
