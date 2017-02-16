@@ -18,7 +18,6 @@ const requireAuth = (nextState, replace) => {
 };
 
 
-
 const routes = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>

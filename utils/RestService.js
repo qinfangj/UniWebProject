@@ -109,8 +109,16 @@ class RestService {
             headers: { 'Content-Type': 'text/json' },
             body: JSON.stringify({email, redirectUrl: window.location.host + '/changePassword'}),
         };
-        //return this.post(window.ENV.BACKEND_URL + '/account/requestResetPassword', {email});
         return fetch(window.ENV.BACKEND_URL + '/account/requestResetPassword', config);
+    }
+
+    changePassword(code, email, newPassword) {
+        let config = {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/json' },
+            body: JSON.stringify({email, code, newPassword}),
+        };
+        return fetch(window.ENV.BACKEND_URL + '/account/changePassword', config);
     }
 
 }

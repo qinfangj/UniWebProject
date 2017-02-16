@@ -3,7 +3,7 @@ import cx from 'classnames';
 import css from '../login.css';
 import commonCss from '../../../styles/common.css';
 import store from '../../../core/store';
-import { requestResetPassword } from '../../actions/actionCreators/authActionCreators';
+import { changePassword } from '../../actions/actionCreators/authActionCreators';
 import { Link } from 'react-router';
 
 import {Form, FormControl, InputGroup, FormGroup, Button, Glyphicon} from 'react-bootstrap/lib';
@@ -27,7 +27,7 @@ class ChangePasswordForm extends React.Component {
     };
 
     submit() {
-        //store.dispatch(changePassword(this.state.code, this.state.password));
+        store.dispatch(changePassword(this.props.code, this.props.email, this.state.password));
     }
 
     onChangeCode(e) {
@@ -42,8 +42,11 @@ class ChangePasswordForm extends React.Component {
         this.setState({password2: e.target.value});
     }
 
+    validate() {
+
+    }
+
     render() {
-        console.debug(this.props)
         return (
             <div className={css.formContainer}>
 

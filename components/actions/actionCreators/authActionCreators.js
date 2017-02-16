@@ -69,9 +69,9 @@ export function loginUser(creds) {
                     response.json().then(user => {
                         dispatch(_LoginSuccess(user));
                         AuthService._doAuthentication(user);
-                    }).catch(err => console.log("Error retreiving id_token: ", err))
+                    }).catch(err => console.log("Error retreiving id_token: ", err));
                 }
-            }).catch(err => console.log("Error logging in: ", err))
+            }).catch(err => console.log("Error logging in: ", err));
     }
 }
 
@@ -90,9 +90,9 @@ export function signupUser(creds) {
                     response.json().then(user => {
                         dispatch(_signupSuccess(user));
                         AuthService._doAuthentication(user);
-                    }).catch(err => console.log("Error retreiving id_token: ", err))
+                    }).catch(err => console.log("Error retreiving id_token: ", err));
                 }
-            }).catch(err => console.log("Error signing up: ", err))
+            }).catch(err => console.log("Error signing up: ", err));
     }
 }
 
@@ -112,19 +112,34 @@ export function logout() {
 
 export function requestResetPassword(email) {
     return dispatch => {
-        dispatch(() => {return {type: types.PASSWORD_RESET_REQUEST}});
+        dispatch(() => {return {type: types.RESET_PASSWORD_REQUEST}});
         return RestService.requestResetPassword(email)
             .then(response => {
                 if (response.ok) {
-                    dispatch(() => {return {type: types.PASSWORD_RESET_SUCCESS}});
+                    dispatch(() => {return {type: types.RESET_PASSWORD_SUCCESS}});
                 } else {
-                    dispatch(() => {return {type: types.PASSWORD_RESET_FAILURE}});
+                    dispatch(() => {return {type: types.RESET_PASSWORD_FAILURE}});
                     return Promise.reject(response);
                 }
-            });
-    }
+            }).catch(err => console.log('Error asking for password reset: ' + err));
+        }
 }
 
+
+export function changePassword(code, email, newPassword) {
+    return dispatch => {
+        dispatch(() => {return {type: types.CHANGE_PASSWORD_REQUEST}});
+        return RestService.changePassword(code, email, newPassword)
+            .then(response => {
+                if (response.ok) {
+                    dispatch(() => {return {type: types.CHANGE_PASSWORD_SUCCESS}});
+                } else {
+                    dispatch(() => {return {type: types.CHANGE_PASSWORD_FAILURE}});
+                    return Promise.reject(response);
+                }
+            }).catch(err => console.log('Error changing password: ' + err));
+    }
+}
 
 
 

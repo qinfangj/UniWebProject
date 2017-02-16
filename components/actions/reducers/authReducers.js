@@ -71,7 +71,7 @@ let authReducers = (state = defaultState, action) => {
 
         /* Reset Password */
 
-        case types.PASSWORD_RESET_REQUEST:
+        case types.RESET_PASSWORD_REQUEST:
             return state;
 
         default:
