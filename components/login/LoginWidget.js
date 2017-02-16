@@ -1,7 +1,5 @@
 import React from 'react';
 import css from './login.css';
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
 import Link from 'react-router';
 import { browserHistory } from 'react-router';
 import { Button, ButtonGroup } from 'react-bootstrap/lib';

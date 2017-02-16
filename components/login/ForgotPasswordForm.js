@@ -32,6 +32,8 @@ class ForgotPasswordForm extends React.Component {
 
                 <Form className={css.form}>
 
+                    To reset your password, submit your email address.
+
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
                         <InputGroup.Addon>@</InputGroup.Addon>
