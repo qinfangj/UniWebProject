@@ -45,8 +45,8 @@ class Header extends React.Component {
                     <div className={cx("pull-right", css.navBar)}>
                         <Nav bsStyle="pills">
                             {login}
-                            <NavItem disabled>Account</NavItem>
-                            <NavItem disabled>Account</NavItem>
+                            <NavItem disabled>---</NavItem>
+                            <NavItem disabled>---</NavItem>
                             <NavItem disabled>Account</NavItem>
                         </Nav>
                     </div>
