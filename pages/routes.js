@@ -28,7 +28,7 @@ const routes = (
             <Route path="login" component={login.LoginPage}/>
             <Route path="signup" component={login.SignupPage}/>
             <Route path="forgotPassword" component={login.ForgotPasswordPage}/>
-            {/*<Route path="changePassword" component={login.ChangePasswordPage}/>*/}
+            <Route path="changePassword" component={login.ChangePasswordPage}/>
 
             {/* FACILITY DATA */}
 
