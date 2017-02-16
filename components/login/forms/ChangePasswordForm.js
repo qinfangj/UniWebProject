@@ -17,11 +17,17 @@ class ChangePasswordForm extends React.Component {
             code: "",
             password: "",
             password2: "",
+            valid: false,
         };
     }
 
+    static propTypes = {
+        code: React.PropTypes.string,
+        email: React.PropTypes.string,
+    };
+
     submit() {
-        //store.dispatch(requestResetPassword(this.state.email));
+        //store.dispatch(changePassword(this.state.code, this.state.password));
     }
 
     onChangeCode(e) {
@@ -37,18 +43,22 @@ class ChangePasswordForm extends React.Component {
     }
 
     render() {
+        console.debug(this.props)
         return (
             <div className={css.formContainer}>
 
                 <Form className={css.form}>
 
-                    Enter in the field below the code that you received at your email address:
+                    {/*Enter in the field below the code that you received at your email address:*/}
+
+                    Verification code:
 
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
-                            <InputGroup.Addon>@</InputGroup.Addon>
+                            <InputGroup.Addon><Glyphicon glyph='lock'/></InputGroup.Addon>
                             <FormControl
-                                value={this.state.code}
+                                value={this.props.code}
+                                disabled
                                 onChange={this.onChangeCode.bind(this)}
                             />
                         </InputGroup>
@@ -58,7 +68,7 @@ class ChangePasswordForm extends React.Component {
 
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
-                            <InputGroup.Addon>@</InputGroup.Addon>
+                            <InputGroup.Addon><Glyphicon glyph='lock'/></InputGroup.Addon>
                             <FormControl
                                 type="password"
                                 value={this.state.password}
@@ -71,7 +81,7 @@ class ChangePasswordForm extends React.Component {
 
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
-                        <InputGroup.Addon>@</InputGroup.Addon>
+                        <InputGroup.Addon><Glyphicon glyph='lock'/></InputGroup.Addon>
                         <FormControl
                             type="password"
                             value={this.state.password2}

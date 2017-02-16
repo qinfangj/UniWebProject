@@ -41,9 +41,10 @@ export class ForgotPasswordPage extends React.Component {
 
 export class ChangePasswordPage extends React.Component {
     render() {
+        let {email, code} = this.props.location.query;
         return (
             <LoginWidget>
-                <ChangePasswordForm/>
+                <ChangePasswordForm email={email} code={code} />
             </LoginWidget>
         );
     }
