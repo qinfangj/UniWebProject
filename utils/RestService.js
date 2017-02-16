@@ -9,6 +9,12 @@ class RestService {
     }
 
     post(url, data) {
+        // Prepare for `fetch` to replace jQuery:
+        // let config = {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(data),
+        // };
         return $.ajax({
             type: "POST",
             url: url,
@@ -97,7 +103,18 @@ class RestService {
         return fetch(window.ENV.BACKEND_URL + '/account/signup', config);
     }
 
+    requestResetPassword(email) {
+        let config = {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/json' },
+            body: JSON.stringify({email, redirectUrl: ""}),
+        };
+        //return this.post(window.ENV.BACKEND_URL + '/account/requestResetPassword', {email});
+        return fetch(window.ENV.BACKEND_URL + '/account/requestResetPassword', config);
+    }
+
 }
+
 
 
 export default new RestService;

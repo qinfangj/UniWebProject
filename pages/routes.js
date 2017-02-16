@@ -1,33 +1,13 @@
 import React from 'react';
-import css from './pages.css';
-import Layout from '../components/Layout';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+
+import App from './App';
+import HomePage from './HomePage';
 import * as fdata from './facilityData/facilityDataRoutes';
 import * as qprojects from './queryProjects/queryProjectsRoutes';
-import LoginPage from './login/LoginPage';
+import * as login from './login/loginRoutes';
 import AuthService from '../utils/AuthService';
 
-
-class App extends React.Component {
-    componentDidMount() {
-        document.title = "UHTS LIMS Web /index";
-    }
-    render() {
-        return (
-            <Layout className={css.content}>
-                {this.props.children}
-            </Layout>
-        );
-    }
-}
-
-class HomePage extends React.Component {
-    render() {
-        return (
-            <h1>Welcome to the Lausanne Genomic Technologies Facility!</h1>
-        );
-    }
-}
 
 
 // Validate authentication for private routes
@@ -45,8 +25,10 @@ const routes = (
             <IndexRoute component={HomePage}/>
             <Route path="home" component={HomePage}/>
 
-            <Route path="login" component={LoginPage}/>
-            <Route path="protected" component={HomePage} onEnter={requireAuth} />
+            <Route path="login" component={login.LoginPage}/>
+            <Route path="signup" component={login.SignupPage}/>
+            <Route path="forgotPassword" component={login.ForgotPasswordPage}/>
+            {/*<Route path="changePassword" component={login.ChangePasswordPage}/>*/}
 
             {/* FACILITY DATA */}
 

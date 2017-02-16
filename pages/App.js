@@ -1,20 +1,20 @@
 import React from 'react';
-import pagesCss from './pages.css';
+import css from './pages.css';
 import Layout from '../components/Layout';
 
 
-class App extends React.Component {
 
+class App extends React.Component {
+    componentDidMount() {
+        document.title = "UHTS LIMS Web /index";
+    }
     render() {
         return (
-            <Layout className={pagesCss.content}>
-
+            <Layout className={css.content}>
                 {this.props.children}
-
             </Layout>
         );
     }
-
 }
 
 export default App;

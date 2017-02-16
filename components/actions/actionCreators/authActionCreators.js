@@ -8,21 +8,21 @@ import { browserHistory } from 'react-router'
 
 /* Login */
 
-export function requestLogin(creds) {
+export function _loginRequest(creds) {
     return {
         type: types.LOGIN_REQUEST,
         creds: creds,
     }
 }
 
-export function receiveLogin(user) {
+export function _LoginSuccess(user) {
     return {
         type: types.LOGIN_SUCCESS,
         id_token: user.access_token,
     }
 }
 
-export function loginError(message) {
+export function _loginError(message) {
     return {
         type: types.LOGIN_FAILURE,
         message: message,
@@ -31,10 +31,24 @@ export function loginError(message) {
 
 /* Signup */
 
-export function receiveSignup(user) {
+export function _signupRequest(creds) {
+    return {
+        type: types.SIGNUP_REQUEST,
+        creds: creds,
+    }
+}
+
+export function _signupSuccess(user) {
     return {
         type: types.SIGNUP_SUCCESS,
         id_token: user.access_token,
+    }
+}
+
+export function _signupError(message) {
+    return {
+        type: types.SIGNUP_FAILURE,
+        message: message,
     }
 }
 
@@ -42,18 +56,18 @@ export function receiveSignup(user) {
 // Calls the API to get a token and dispatches actions along the way
 export function loginUser(creds) {
     return dispatch => {
-        dispatch(requestLogin(creds));  // "Fetching..."
+        dispatch(_loginRequest(creds));  // "Fetching..."
         return RestService.login(creds)
             // Format the response
             .then(response => {
                 // Error
                 if (!response.ok) {
-                    dispatch(loginError(response.statusText));
+                    dispatch(_loginError(response.statusText));
                     return Promise.reject(response);
                 // Successful login
                 } else {
                     response.json().then(user => {
-                        dispatch(receiveSignup(user));
+                        dispatch(_LoginSuccess(user));
                         AuthService._doAuthentication(user);
                     }).catch(err => console.log("Error retreiving id_token: ", err))
                 }
@@ -63,18 +77,18 @@ export function loginUser(creds) {
 
 export function signupUser(creds) {
     return dispatch => {
-        dispatch(requestLogin(creds));  // "Fetching..."
+        dispatch(_signupRequest(creds));  // "Fetching..."
         return RestService.signup(creds)
             // Format the response
             .then(response => {
                 // Error
                 if (!response.ok) {
-                    dispatch(loginError(response.statusText));
+                    dispatch(_signupError(response.statusText));
                     return Promise.reject(response);
                 // Successful signup
                 } else {
                     response.json().then(user => {
-                        dispatch(receiveSignup(user));
+                        dispatch(_signupSuccess(user));
                         AuthService._doAuthentication(user);
                     }).catch(err => console.log("Error retreiving id_token: ", err))
                 }
@@ -90,6 +104,24 @@ export function logout() {
         type: types.LOGOUT_SUCCESS,
         isFetching: false,
         isAuthenticated: false
+    }
+}
+
+
+/* Reset password */
+
+export function requestResetPassword(email) {
+    return dispatch => {
+        dispatch(() => {return {type: types.PASSWORD_RESET_REQUEST}});
+        return RestService.requestResetPassword(email)
+            .then(response => {
+                if (response.ok) {
+                    dispatch(() => {return {type: types.PASSWORD_RESET_SUCCESS}});
+                } else {
+                    dispatch(() => {return {type: types.PASSWORD_RESET_FAILURE}});
+                    return Promise.reject(response);
+                }
+            });
     }
 }
 

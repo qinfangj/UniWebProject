@@ -23,7 +23,7 @@ class SignupForm extends React.Component {
         };
     }
 
-    signup() {
+    submit() {
         store.dispatch(signupUser(
             {
                 username: this.state.username,
@@ -165,7 +165,7 @@ class SignupForm extends React.Component {
 
                 </Form>
 
-                <Button onClick={this.signup.bind(this)} className={css.loginButton}>
+                <Button onClick={this.submit.bind(this)} className={css.loginButton}>
                     Submit >
                 </Button>
 
