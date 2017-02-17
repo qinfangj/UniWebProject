@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 import FacilityDataHome from '../../components/pages/FacilityDataHome';
 import FacilityData from '../../components/pages/FacilityData';

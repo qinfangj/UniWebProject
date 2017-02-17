@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 import AsyncOptionsList from './AsyncOptionsList';
 import dataStoreKeys from '../../constants/dataStoreKeys';

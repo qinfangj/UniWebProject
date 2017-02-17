@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 import css from './runs.css';
 import formsCss from '../../forms.css';

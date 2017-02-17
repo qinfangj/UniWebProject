@@ -2,6 +2,7 @@
 import types from '../actionTypes';
 import { browserHistory } from 'react-router';
 
+"use strict";
 
 const defaultState = {
     route: {data: {}},

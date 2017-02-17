@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 
 import QueryProjects from '../../components/pages/QueryProjects';

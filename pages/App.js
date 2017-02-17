@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 import css from './pages.css';
 import Layout from '../components/Layout';

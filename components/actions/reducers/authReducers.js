@@ -1,4 +1,4 @@
-
+"use strict";
 import actionTypes from '../actionTypes';
 import constants from '../../constants/constants';
 import AuthService from '../../../utils/AuthService';

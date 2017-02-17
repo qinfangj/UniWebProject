@@ -1,3 +1,4 @@
+"use strict";
 import constants from '../../constants/constants';
 import { sendError } from './errorActionCreators';
 

@@ -1,4 +1,4 @@
-
+"use strict";
 import actions from '../actionTypes';
 let types = actions.login;
 import RestService from '../../../utils/RestService';

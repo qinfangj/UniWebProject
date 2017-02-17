@@ -1,3 +1,5 @@
+"use strict";
+
 /*
  * Validators take an input value and return an "Error" object
  * `{valid <boolean>, msg <string>}`.

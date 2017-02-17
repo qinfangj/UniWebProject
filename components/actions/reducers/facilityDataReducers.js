@@ -1,3 +1,4 @@
+"use strict";
 import actionTypes from '../actionTypes';
 import constants from '../../constants/constants';
 const types = actionTypes.facilityData;

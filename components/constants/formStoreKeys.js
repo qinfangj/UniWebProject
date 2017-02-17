@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Store keys to selected form values.
  */

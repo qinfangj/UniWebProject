@@ -1,3 +1,5 @@
+"use strict";
+
 
 export const CENTER = {textAlign: "center"};
 export const MULTIROW = {

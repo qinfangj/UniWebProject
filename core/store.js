@@ -1,4 +1,4 @@
-
+"use strict";
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 //import { routerMiddleware } from 'react-router-redux'
 import createLogger from 'redux-logger';

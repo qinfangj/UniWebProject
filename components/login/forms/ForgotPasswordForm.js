@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import css from '../login.css';
+"use strict";
 import commonCss from '../../../styles/common.css';
 import store from '../../../core/store';
 import { requestResetPassword } from '../../actions/actionCreators/authActionCreators';

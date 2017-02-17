@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Options dropdown lists are used in several forms, and are the result
  * of the same backend db query. There is no reason to create one entry per form

@@ -1,3 +1,4 @@
+"use strict";
 import actions from '../actionTypes';
 import RestService from '../../../utils/RestService';
 import { asyncAction, assertStoreKey } from './base';

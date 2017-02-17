@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 import LoginWidget from '../../components/login/LoginWidget';
 import LoginForm from '../../components/login/forms/LoginForm';

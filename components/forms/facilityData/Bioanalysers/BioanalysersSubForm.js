@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 import css from './bioanalysers.css';
 import cx from 'classnames';

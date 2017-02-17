@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * React Static Boilerplate
  * https://github.com/kriasoft/react-static-boilerplate

@@ -1,3 +1,5 @@
+"use strict";
+
 /*
  * Identifiers for input fields.
  * N.B. The closer they are to Slick row fields, the easier,

@@ -1,3 +1,4 @@
+"use strict";
 import types from '../actionTypes';
 import constants from '../../constants/constants';
 import columns from '../../constants/columns'

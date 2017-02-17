@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 import tablesCss from '../tables.css';
 import css from './queryProjectsTable.css';

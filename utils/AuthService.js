@@ -1,3 +1,4 @@
+"use strict";
 import { isTokenExpired } from './jwtHelper';
 import { browserHistory } from 'react-router';
 

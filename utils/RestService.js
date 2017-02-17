@@ -1,3 +1,4 @@
+"use strict";
 import $ from 'jquery';
 const BACKEND = window.ENV.BACKEND_URL;
 

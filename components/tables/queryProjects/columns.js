@@ -1,3 +1,4 @@
+"use strict";
 import * as formatters from '../formatters';
 import { CENTER, MULTIROW } from '../constants';
 import columnNames from '../../constants/columns';

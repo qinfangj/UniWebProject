@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 import * as formatters from '../formatters';
 import { CENTER, ID_COLUMN } from '../constants';
