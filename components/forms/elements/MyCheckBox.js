@@ -11,7 +11,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 /**
  * This name so that it does not conflict with the React-BS one.
  */
-class MyCheckbox extends React.PureComponent {
+class MyCheckBox extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = { checked: this.props.defaultValue };
@@ -50,17 +50,17 @@ class MyCheckbox extends React.PureComponent {
         );
     }
 }
-MyCheckbox.propTypes = {
+MyCheckBox.propTypes = {
     form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
     label: React.PropTypes.string,
     defaultValue: React.PropTypes.bool,
 };
-MyCheckbox.defaultProps = {
+MyCheckBox.defaultProps = {
     label: "",
     defaultValue: false,
 };
 
 
-export default MyCheckbox;
+export default MyCheckBox;
 

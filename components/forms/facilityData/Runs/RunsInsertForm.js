@@ -6,7 +6,7 @@ import cx from 'classnames';
 import store from '../../../../core/store';
 
 import TextField from '../../elements/TextField';
-import CheckBox from '../../elements/MyCheckbox';
+import CheckBox from '../../elements/MyCheckBox';
 import Select from '../../elements/Select';
 import TextArea from '../../elements/Textarea';
 import DatePicker from '../../elements/DatePicker';

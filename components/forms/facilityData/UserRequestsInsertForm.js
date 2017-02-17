@@ -6,7 +6,7 @@ import store from '../../../core/store';
 import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
-import Checkbox from '../elements/MyCheckbox';
+import Checkbox from '../elements/MyCheckBox';
 import TextArea from '../elements/Textarea';
 import * as Options from '../subcomponents/Options';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';

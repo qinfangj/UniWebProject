@@ -6,7 +6,7 @@ import store from '../../../core/store';
 import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
-import Checkbox from '../elements/MyCheckbox';
+import Checkbox from '../elements/MyCheckBox';
 import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as forms from '../forms.js';
