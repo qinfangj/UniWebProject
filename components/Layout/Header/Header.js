@@ -26,7 +26,6 @@ class Header extends React.Component {
         this.unsubscribe = store.subscribe(() => {
             let isAuthenticated = store.getState().auth.isAuthenticated;
             let sidebarOpen = store.getState().common.sidebarOpen;
-            console.debug(sidebarOpen)
             this.setState({isAuthenticated, sidebarOpen});
         });
     }
@@ -46,10 +45,16 @@ class Header extends React.Component {
                         <Icon name='bars'/>
                     </div>
 
+                    {/* Flowcell image */}
+
+                    <span className={cx(css.leftItem)}>
+                        <div className={css.flowcellImage}/>
+                    </span>
+
                     {/* GTF logo */}
 
                     <span className={cx(css.leftItem)}>
-                        <img className={css.gtfLogo} src={require("../../../public/images/gtf_logo.png")} height="55px" />
+                        <div className={css.gtfLogo}/>
                     </span>
 
                     {/* Right-side navbar */}

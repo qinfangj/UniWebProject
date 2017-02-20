@@ -117,7 +117,7 @@ const config = {
         loaders: [
           'style-loader',
           `css-loader?${JSON.stringify({
-            sourceMap: isDebug,
+            // sourceMap: isDebug,  // This was causing images not to show with CSS "background: url(...)"
             // CSS Modules https://github.com/css-modules/css-modules
             modules: true,
             localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',

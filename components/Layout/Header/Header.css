@@ -26,11 +26,21 @@
     font-size: 1.6em;
     cursor: pointer;
 }
+.flowcellImage {
+    display: block;  /* see @media below */
+    height: var(--header-height);
+    width: var(--header-height);
+    background: url("../../../public/images/uhts_logo5-min.png") -153px 0;
+    background-size: cover;
+}
 .gtfLogo {
     display: block;  /* see @media below */
-    float: left;
+    height: 55px;
+    width: 100px;
     margin-left: 10px;
-    padding-top: 5px;
+    margin-top: 5px;
+    background: url("../../../public/images/gtf_logo.png");
+    background-size: cover;
 }
 
 .navBar {
@@ -74,6 +84,9 @@
     }
 
     .gtfLogo {
+        display: none;
+    }
+    .flowcellImage {
         display: none;
     }
 
