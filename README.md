@@ -16,10 +16,6 @@
 ├── core/                      # Core framework
 │   └── store.js               # Application state manager (Redux)
 ├── node_modules/              # 3rd-party libraries and utilities
-├── pages/                     # React components for web pages (1 per route)
-│   ├── login/                 # Login page
-│   ├── facilityData           # Data management pages
-│   └── ...                    # etc.
 ├── public/                    # Static files such as favicon.ico etc.
 │   ├── dist/                  # The folder for compiled output
 │   ├── favicon.ico            # Application icon to be displayed in bookmarks
