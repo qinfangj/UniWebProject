@@ -2,12 +2,12 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
-import App from './App';
-import HomePage from './HomePage';
-import * as fdata from './facilityData/facilityDataRoutes';
-import * as qprojects from './queryProjects/queryProjectsRoutes';
-import * as login from './login/loginRoutes';
-import AuthService from '../utils/AuthService';
+import App from './components/routes/App';
+import HomePage from './components/routes/HomePage';
+import * as fdata from './components/routes/facilityData/facilityDataRoutes';
+import * as qprojects from './components/routes/queryProjects/queryProjectsRoutes';
+import * as login from './components/routes/login/loginRoutes';
+import AuthService from './utils/AuthService';
 
 
 

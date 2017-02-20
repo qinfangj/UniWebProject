@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
 import { Provider } from 'react-redux';
 import store from './core/store';
-import routes from './pages/routes';
+import routes from './routes';
 
 
 const container = document.getElementById('container');

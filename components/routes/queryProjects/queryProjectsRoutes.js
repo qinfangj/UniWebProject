@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 
-import QueryProjects from '../../components/pages/QueryProjects';
+import QueryProjects from '../../pages/QueryProjects';
 
 
 export class QueryProjectsRoute extends React.Component {

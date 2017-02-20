@@ -4,7 +4,6 @@
 
 .sidebar {
     background-color: white;
-    /*margin-top: 60px;*/
 }
 .overlay {}
 .content {}
@@ -16,9 +15,6 @@
 
 
 /** Contents **/
-
-.sidebarLogo {
-}
 
 .sidebarContent {
     padding: 16px;

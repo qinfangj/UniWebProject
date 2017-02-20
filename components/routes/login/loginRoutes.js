@@ -1,10 +1,10 @@
 "use strict";
 import React from 'react';
-import LoginWidget from '../../components/login/LoginWidget';
-import LoginForm from '../../components/login/forms/LoginForm';
-import SignupForm from '../../components/login/forms/SignupForm';
-import ForgotPasswordForm from '../../components/login/forms/ForgotPasswordForm';
-import ChangePasswordForm from '../../components/login/forms/ChangePasswordForm';
+import LoginWidget from '../../login/LoginWidget';
+import LoginForm from '../../login/forms/LoginForm';
+import SignupForm from '../../login/forms/SignupForm';
+import ForgotPasswordForm from '../../login/forms/ForgotPasswordForm';
+import ChangePasswordForm from '../../login/forms/ChangePasswordForm';
 
 
 export class LoginPage extends React.Component {
