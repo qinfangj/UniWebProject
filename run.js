@@ -17,11 +17,10 @@ const del = require('del');
 const ejs = require('ejs');
 const webpack = require('webpack');
 
-// TODO: Update configuration settings
 const config = {
-  title: 'UHTS LIMS Web',        // Your website title
-  url: 'https://rsb.kriasoft.com',          // Your website URL
-  project: 'uhts-lims-web',      // Firebase project. See README.md -> How to Deploy
+  title: 'UHTS LIMS Web',                   // Website title
+  url: 'https://uhts-lgtf.vital-it.ch/',    // Website URL
+  project: 'uhts-lims-web',                 // Firebase project. See README.md -> How to Deploy
   trackingID: 'UA-XXXXX-Y',                 // Google Analytics Site's ID
 };
 
