@@ -11,16 +11,19 @@ export function getOptionsListAsync(tableName, storeKey) {
     let args = {storeKey};
     return asyncAction(types.GET_OPTIONS_LIST, RestService.getOptionsList.bind(null, tableName), args)
 }
+
 export function getConditionalOptionsListAsync(tableName, suffix, storeKey) {
     assertStoreKey(storeKey);
     let args = {storeKey};
     return asyncAction(types.GET_OPTIONS_LIST, RestService.getConditionalOptionsList.bind(null, tableName, suffix), args)
 }
+
 export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
     assertStoreKey(storeKey);
     let args = {storeKey};
     return asyncAction(types.GET_SECONDARY_OPTIONS_LIST, RestService.getSecondaryOptionsList.bind(null, tableName, id), args)
 }
+
 
 
 /* Facility data table */
@@ -35,11 +38,13 @@ export function insertAsync(tableName, formData, storeKey) {
     return asyncAction(types.INSERT, RestService.insert.bind(null, tableName, formData), args);
 }
 
+
 /* Fetch one item info (database row) */
 export function findByIdAsync(tableName, id) {
     let args = {tableName, id};
     return asyncAction(types.FIND_BY_ID, RestService.findById.bind(null, tableName, id), args)
 }
+
 /* Fetch one item to update the related form fields */
 export function findForUpdateAsync(tableName, id, form) {
     return (dispatch) => {
