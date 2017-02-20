@@ -19,17 +19,17 @@
     height: 100%;
 }
 
-.mainLogoFiller {
-    position: relative;
-    display: inline-block;
-    /*background: url("../../../public/images/uhts_logo5-min.png") red;*/
-    width: 70px;
-    height: var(--header-height);
-    /*z-index: 4;*/
-    margin-left: -153px;
+.menuToggleButton {
+    display: none;  /* see @media below */
+    padding: 0 22px;
+    line-height: var(--header-height);
+    font-size: 1.6em;
+    cursor: pointer;
 }
 .gtfLogo {
-    margin-left: 70px;
+    display: block;  /* see @media below */
+    float: left;
+    margin-left: 10px;
     padding-top: 5px;
 }
 
@@ -65,7 +65,16 @@
 @media screen and (max-width: 800px) {
 
     .header {
-        margin-left: var(--main-logo-width);
+        /*margin-left: var(--main-logo-width);*/
+    }
+
+    .menuToggleButton {
+        display: block;
+        float: left;
+    }
+
+    .gtfLogo {
+        display: none;
     }
 
 }

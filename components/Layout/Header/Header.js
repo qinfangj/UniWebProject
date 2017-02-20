@@ -6,7 +6,11 @@ import css from './Header.css';
 import commonCss from '../../../styles/common.css';
 import LoginButton from '../../login/LoginButton';
 import LogoutButton from '../../login/LogoutButton';
+import Icon from 'react-fontawesome';
+import { toggleSidebar } from '../../actions/actionCreators/commonActionCreators';
+
 import { Nav, NavItem } from 'react-bootstrap/lib';
+
 
 
 class Header extends React.Component {
@@ -14,13 +18,16 @@ class Header extends React.Component {
         super(props);
         this.state = {
             isAuthenticated: false,
+            sidebarOpen: true,
         };
     }
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
             let isAuthenticated = store.getState().auth.isAuthenticated;
-            this.setState({isAuthenticated});
+            let sidebarOpen = store.getState().common.sidebarOpen;
+            console.debug(sidebarOpen)
+            this.setState({isAuthenticated, sidebarOpen});
         });
     }
     componentWillUnmount() {
@@ -33,15 +40,19 @@ class Header extends React.Component {
             <div className={cx(css.header)}>
                 <div className={cx(css.headerRow, commonCss.fullwidth)}>
 
-                    <span className={cx(css.leftItem)}>
-                        <span className={css.mainLogoFiller}>
-                            <img src={require("../../../public/images/uhts_logo5-min.png")} height="60px" />
-                        </span>
-                    </span>
+                    {/* Menu toggling button */}
+
+                    <div className={css.menuToggleButton} onClick={() => store.dispatch(toggleSidebar(true))}>
+                        <Icon name='bars'/>
+                    </div>
+
+                    {/* GTF logo */}
 
                     <span className={cx(css.leftItem)}>
                         <img className={css.gtfLogo} src={require("../../../public/images/gtf_logo.png")} height="55px" />
                     </span>
+
+                    {/* Right-side navbar */}
 
                     <div className={cx("pull-right", css.navBar)}>
                         <Nav bsStyle="pills">

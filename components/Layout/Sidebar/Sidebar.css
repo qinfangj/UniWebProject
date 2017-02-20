@@ -4,6 +4,7 @@
 
 .sidebar {
     background-color: white;
+    /*margin-top: 60px;*/
 }
 .overlay {}
 .content {}
@@ -59,7 +60,7 @@
 /* Main menu only */
 
 .items {
-    margin: 0;
+    margin-top: 20px;
 }
 .menuLink {
     padding: 15px 16px;

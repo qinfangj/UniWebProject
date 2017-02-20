@@ -150,10 +150,16 @@ class ResponsiveSidebar extends React.PureComponent {
             height: '100%',
             width: '152px',
             backgroundColor: 'white',
-            marginTop: '70px',
         };
         let sidebarContents = (
             <div style={contentStyle}>
+                { // If docked, show the logo. Otherwise, save vertical space for narrow devices.
+                    this.state.docked ?
+                    <div className={css.mainLogoButton}>
+                        <img src={require("../../../public/images/uhts_logo5-min.png")} height="60px" />
+                    </div>
+                    : null
+                }
                 <ListGroup className={css.items}>
                     {items}
                 </ListGroup>

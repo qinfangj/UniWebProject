@@ -4,9 +4,6 @@ import cx from 'classnames';
 import css from './Layout.css';
 import commonCss from '../../styles/common.css';
 
-import store from '../../core/store';
-import { toggleSidebar } from '../actions/actionCreators/commonActionCreators';
-
 import Header from './Header';
 import Footer from './Footer';
 import ResponsiveSidebar from './Sidebar';
@@ -25,9 +22,7 @@ class Layout extends React.PureComponent {
 
         return (
             <div className={commonCss.fullwidth}>
-                <div className={css.mainLogoButton} onClick={() => store.dispatch(toggleSidebar(true))}>
-                    <img src={require("../../public/images/uhts_logo5-min.png")} height="60px" />
-                </div>
+
                 <ResponsiveSidebar>
 
                 <div className={commonCss.fullwidth}>
