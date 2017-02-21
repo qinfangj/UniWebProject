@@ -75,6 +75,7 @@ export function getFormData(form) {
 /**
  * Send the `formData` for insert or update of db `table`.
  * A custom formatter `formatFormData` can be given to transform the data before submission.
+ * Return an object `{invalid: (bool), submissionError: (bool), submissionFuture: (Promise)}`.
  */
 export function submit(form, table, formatFormData=null) {
     let state = {serverError: {}};

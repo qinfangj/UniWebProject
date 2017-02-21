@@ -12,6 +12,7 @@ import validators from '../../validators';
 import * as forms from '../../forms.js';
 import * as Options from '../../subcomponents/Options';
 import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
+import * as messages from '../../messages';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -40,6 +41,7 @@ class RunsPreInsertForm extends React.PureComponent {
                 pool: null,
             }
         });
+        forms.initForm(this.form);
     }
 
     onSubmit() {
@@ -103,7 +105,6 @@ class RunsPreInsertForm extends React.PureComponent {
 
     render() {
         let makeRow = (i) => {
-            let invalid = this.state.invalid[i];
             let projectsFromKey = this._projectsFormKey(i);
             return (
                 <tr key={i}>
@@ -113,14 +114,12 @@ class RunsPreInsertForm extends React.PureComponent {
                     <td key="nlibs" className={css.numeric}>
                         <TextField form={this.form} field="nlibs" defaultValue="0" required
                                    validator = {validators.integerValidator}
-                                   invalid = {invalid && invalid.nlibs}
                                    ref={(c) => this.lanesRefs[i]["nlibs"] = c}
                         />
                     </td>
                     <td key="nqc" className={css.numeric}>
                         <TextField form={this.form} field="nqc" defaultValue="0" required
                                    validator = {validators.integerValidator}
-                                   invalid = {invalid && invalid.nqc}
                                    ref={(c) => this.lanesRefs[i]["nqc"] = c}
                         />
                     </td>
@@ -142,7 +141,7 @@ class RunsPreInsertForm extends React.PureComponent {
 
         return (
             <form className={formsCss.form}>
-                <forms.SubmissionErrorMessage error={this.state.submissionError} />
+                <messages.SubmissionErrorMessage error={this.state.submissionError} />
 
                 <table className={css.preRunsInsertTable}>
                     <thead><tr>
