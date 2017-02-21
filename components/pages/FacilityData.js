@@ -26,11 +26,11 @@ class FacilityData extends React.PureComponent {
 
                     <div className={css.navbar}>
                         <ul>
-                            <li><Link to={`/data/${name}/list`}>{"All "+ name}</Link></li>
+                            <li><Link to={`/data/${name}/list`} activeClassName={css.active}>{"All "+ name}</Link></li>
                             <li> · </li>
-                            <li><Link to={`/data/${name}/active`}>{"Active "+ name}</Link></li>
+                            <li><Link to={`/data/${name}/active`} activeClassName={css.active}>{"Active "+ name}</Link></li>
                             <li> · </li>
-                            <li><Link to={`/data/${name}/new`}>{"New "+ name}</Link></li>
+                            <li><Link to={`/data/${name}/new`} activeClassName={css.active}>{"New "+ name}</Link></li>
                         </ul>
                     </div>
 
