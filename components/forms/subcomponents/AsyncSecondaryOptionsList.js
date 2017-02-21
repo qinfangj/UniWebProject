@@ -40,19 +40,17 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
     }
 
     componentWillMount() {
-        let storeKey = this.props.storeKey;
         this.unsubscribe = store.subscribe(() => {
-            let storeState = store.getState();
-            let list = storeState.facilityData[storeKey];
-            let formValues = storeState.forms[this.props.form];
+            let list = store.getState().facilityData[this.props.storeKey];
+            let formValues = store.getState().forms[this.props.form];
             // Since it depends on another field of the same form, no need to
             //  do anything if the other field has not yet sent its value to the store.
             if (formValues !== undefined) {
                 let referenceValue = formValues[this.props.referenceField];
-                // The value it dends on changed, ask for new data
+                // The value it depends on changed, ask for new data
                 if (referenceValue && referenceValue !== this.referenceValue) {
                     this.referenceValue = referenceValue;  // avoids infinite callback loop
-                    store.dispatch(getSecondaryOptionsListAsync(this.props.table, referenceValue, storeKey));
+                    store.dispatch(getSecondaryOptionsListAsync(this.props.table, referenceValue, this.props.storeKey));
                 }
                 // New data received, update options list
                 else if (list) {

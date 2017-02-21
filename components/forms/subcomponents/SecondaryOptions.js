@@ -97,7 +97,7 @@ export class ProjectLibraries extends React.Component {
             field={this.props.field}
             table="libraries" label={null} form={this.props.form}
             referenceField={this.props.referenceField}
-            storeKey={this.props.form + '_' + dataStoreKeys.LIBRAIRIES_FROM_PROJECT}
+            storeKey={this.props.storeKey ? this.props.storeKey : this.props.form +'_'+ dataStoreKeys.LIBRAIRIES_FROM_PROJECT}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
         />);
     }
