@@ -36,7 +36,7 @@ class FacilityData extends React.PureComponent {
 
                     {this.props.content}
 
-                </div>q
+                </div>
 
             </div>
         );
