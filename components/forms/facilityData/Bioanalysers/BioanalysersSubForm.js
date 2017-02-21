@@ -38,24 +38,25 @@ class BioanalysersSubForm extends React.PureComponent {
     }
 
     makeRow(i) {
+        let referenceField_i = "project_"+i;
         return <tr key={i}>
             <td key="id" className={css.laneId}>
                 {i + 1}
             </td>
             <td key="project" className={css.cell}>
-                {Options.ProjectsWithLibraries(this.form, "project_"+i, this.form+"project"+i)}
+                {Options.ProjectsWithLibraries(this.form, referenceField_i, this.form+"_project_"+i)}
             </td>
             <td key="library" className={css.cell}>
                 <SecondaryOptions.ProjectLibraries
                     form={this.form}
                     field={"library_"+i}
-                    referenceField={"project_"+i}  // the store key to the other field's value
+                    referenceField={referenceField_i}  // the store key to the other field's value
                     storeKey={this.form+"_library_"+i}   // whatever; the store key for the result list
                 />
             </td>
             <td key="comment" className={css.cell}>
                 <TextField form={this.form}
-                    field={fields.COMMENT}
+                    field={fields.COMMENT + i}
                 />
             </td>
         </tr>;
@@ -63,7 +64,6 @@ class BioanalysersSubForm extends React.PureComponent {
 
 
     render() {
-
         let laneRows = [];
         for (let k=0; k < 12; k++) {
             laneRows.push(this.makeRow(k));
