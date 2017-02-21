@@ -1,5 +1,6 @@
 "use strict";
 import $ from 'jquery';
+import AuthService from './AuthService';
 const BACKEND = window.ENV.BACKEND_URL;
 
 
@@ -22,6 +23,9 @@ class RestService {
             data: JSON.stringify(data),
             contentType: "application/json",
             dataType: "json",
+            headers: {
+                'Authorization': 'Bearer '+ AuthService.getToken(),
+            },
             error: (jqXHR, textStatus, error) => {
                 // `jqXHR` is a kind of Future or the response, with other methods and attributes.
                 // `textStatus` can be "timeout", "error", "abort", or "parsererror".
