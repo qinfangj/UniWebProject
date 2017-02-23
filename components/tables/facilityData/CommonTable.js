@@ -47,6 +47,10 @@ class CommonTable extends React.PureComponent {
     componentWillUnmount() {
         this.unsubscribe();
     }
+    componentDidMount() {
+        this.api && this.api.doLayout();  // recalculate layout to fill the container div
+        this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
+    }
     /**
      * Need to update columnsKey width here, just before rendering, and not in `onGridReady`
      * as the docs suggest, because `onGridReady` happens before data arrives

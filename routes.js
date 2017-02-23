@@ -7,6 +7,8 @@ import HomePage from './components/routes/HomePage';
 import * as fdata from './components/routes/facilityData/facilityDataRoutes';
 import * as qprojects from './components/routes/queryProjects/queryProjectsRoutes';
 import * as login from './components/routes/login/loginRoutes';
+import * as admin from './components/routes/admin/adminRoutes';
+import * as account from './components/routes/account/accountRoutes';
 import AuthService from './utils/AuthService';
 
 
@@ -29,6 +31,8 @@ const routes = (
             <Route path="signup" component={login.SignupPage}/>
             <Route path="forgotPassword" component={login.ForgotPasswordPage}/>
             <Route path="changePassword" component={login.ChangePasswordPage}/>
+
+            <Route path="account" component={account.AccountPage} onEnter={requireAuth} />
 
             {/* FACILITY DATA */}
 
@@ -106,6 +110,34 @@ const routes = (
             {/*<Route path="projects/ivc" component={qprojects.QueryProjectsRoute} />*/}
             <Route path="projects/demultiplexing" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             {/*<Route path="projects/alignments" component={qprojects.QueryProjectsRoute} />*/}
+
+            {/* ADMIN */}
+
+            {/*<Route path="admin" component={admin.AdminPage} onEnter={requireAuth} />*/}
+            <Route path="admin" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/users" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/project_sharings" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/analysis_types" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/flowcell_types" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/instruments" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/library_adapters" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/library_protocols" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/library_states" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/mapping_tools" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/multiplex_indexes" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/pipeline_versions" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/project_analysis" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/project_states" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/quantification_methods" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/read_lengths" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/run_types" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/read_lengths_for_run_types" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/sample_types" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/sequencing_kit_versions" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/sequencing_qualities" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/taxonomies" component={admin.UsersPage} onEnter={requireAuth} />
+
+
 
         </Route>
     </Router>

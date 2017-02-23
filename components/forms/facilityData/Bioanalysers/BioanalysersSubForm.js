@@ -14,7 +14,7 @@ import fields from '../../fields';
 
 
 /**
- *
+ * The mutable part of the Bioanalysers insert form, with the lanes.
  */
 class BioanalysersSubForm extends React.PureComponent {
     constructor(props) {
@@ -28,9 +28,10 @@ class BioanalysersSubForm extends React.PureComponent {
         let data = [];
         for (let i=0; i < 12; i++) {
             data.push({
-                lane_nb: i+1,
-                project_id: forms.getFormValue(this.form, "project_"+i),
-                library_id: forms.getFormValue(this.form, "library_"+i),
+                id: 0,
+                laneNb: i+1,
+                projectId: forms.getFormValue(this.form, "project_"+i),
+                libraryId: forms.getFormValue(this.form, "library_"+i),
                 comment: forms.getFormValue(this.form, fields.COMMENT),
             });
         }
