@@ -12,6 +12,13 @@
     height: 1px;
     background-color: #757575;
 }
+.mainLogoButton {
+    width: 152px;
+    height: 60px;
+    background-image: url("../../../public/images/uhts_logo5-min.png");
+    background-size: cover;
+    overflow: hidden;
+}
 
 
 /** Contents **/
