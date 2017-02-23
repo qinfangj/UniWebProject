@@ -10,6 +10,7 @@ import Icon from 'react-fontawesome';
 import { toggleSidebar } from '../../actions/actionCreators/commonActionCreators';
 
 import { Nav, NavItem } from 'react-bootstrap/lib';
+import { LinkContainer } from 'react-router-bootstrap';
 
 
 
@@ -62,9 +63,10 @@ class Header extends React.Component {
                     <div className={cx("pull-right", css.navBar)}>
                         <Nav bsStyle="pills">
                             {login}
+                            <LinkContainer to='/account'><NavItem>Account</NavItem></LinkContainer>
                             <NavItem disabled>---</NavItem>
                             <NavItem disabled>---</NavItem>
-                            <NavItem disabled>Account</NavItem>
+                            <NavItem disabled>---</NavItem>
                         </Nav>
                     </div>
 

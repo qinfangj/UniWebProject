@@ -47,3 +47,70 @@ export const queryProjectsSubmenu = [
     //   to: "/projects/alignments",
     // action: changeQueryType(col.ALIGNMENTS_INFO) },
 ];
+
+
+export const adminSubmenu = [
+    { text: "LIMS users",
+      to: "/admin/users",
+    },{
+      text: "Project sharings",
+      to: "/admin/project_sharings",
+    },{
+      text: "Analysis types",
+      to: "/admin/analysis_types",
+    },{
+      text: "Flowcell types",
+      to: "/admin/flowcell_types",
+    },{
+      text: "Instruments",
+      to: "/admin/instruments",
+    },{
+      text: "Library adapters",
+      to: "/admin/library_adapters",
+    },{
+      text: "Library protocols",
+      to: "/admin/library_protocols",
+    },{
+      text: "Library states",
+      to: "/admin/library_states",
+    },{
+      text: "Mapping tools",
+      to: "/admin/mapping_tools",
+    },{
+      text: "Multiplex indexes",
+      to: "/admin/multiplex_indexes",
+    },{
+      text: "Pipeline versions",
+      to: "/admin/pipeline_versions",
+    },{
+      text: "Project analysis",
+      to: "/admin/project_analysis",
+    },{
+      text: "Project states",
+      to: "/admin/project_states",
+    },{
+      text: "Quantification methods",
+      to: "/admin/quantification_methods",
+    },{
+      text: "Read lengths",
+      to: "/admin/read_lengths",
+    },{
+      text: "Run types",
+      to: "/admin/run_types",
+    },{
+      text: "Read lengths for run types",
+      to: "/admin/read_lengths_for_run_types"
+    },{
+      text: "Sample types",
+      to: "/admin/sample_types",
+    },{
+      text: "Sequencing kit versions",
+      to: "/admin/sequencing_kit_versions",
+    },{
+      text: "Sequencing qualities",
+      to: "/admin/sequencing_qualities",
+    },{
+      text: "Taxonomies",
+      to: "/admin/taxonomies",
+    }
+];
