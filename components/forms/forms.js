@@ -94,6 +94,7 @@ export function submit(form, table, formatFormData=null) {
         if (formatFormData) {
             formData = formatFormData(formData);
         }
+        console.info(JSON.stringify(formData, null, 2));
         let future = store.dispatch(insertAsync(table, formData));
         state = Object.assign(state, {submissionError: false, submissionFuture: future});
         future
