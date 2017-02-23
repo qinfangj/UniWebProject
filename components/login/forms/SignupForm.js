@@ -39,6 +39,7 @@ class SignupForm extends React.Component {
         ));
     }
 
+
     onChangeUsername(e) {
         this.setState({username: e.target.value});
     }

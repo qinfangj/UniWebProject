@@ -81,9 +81,9 @@ export function submit(form, table, formatFormData=null) {
     let state = {serverError: {}};
     let formData = getFormData(form);
     let fields = Object.keys(formData);
-    // Check if some fields have value are invalid
+    // Check if some fields have an invalid value
     let invalidFields = fields.filter(k => formData._isValid[k] === false);
-    console.info(JSON.stringify(formData, null, 2));
+    //console.info(JSON.stringify(formData, null, 2));
     delete formData._isValid;
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {

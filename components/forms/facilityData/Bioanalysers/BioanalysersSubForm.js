@@ -14,7 +14,7 @@ import fields from '../../fields';
 
 
 /**
- *
+ * The mutable part of the Bioanalysers insert form, with the lanes.
  */
 class BioanalysersSubForm extends React.PureComponent {
     constructor(props) {
