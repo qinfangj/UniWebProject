@@ -95,6 +95,7 @@ export class People extends React.Component {
     render() {
         return <AsyncOptionsList field={fields.PERSON_ID} table="people" label="Laboratory" form={this.props.form}
                                  storeKey={dataStoreKeys.PEOPLE}
+                                 selectProps={{hasNoneValue: true}}
                                  formatter={this.formatter} ref={(c) => {this._select = c;}} />;
     }
 }

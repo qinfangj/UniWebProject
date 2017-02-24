@@ -61,10 +61,21 @@ class Select extends React.PureComponent {
         forms.changeValue(this.props.form, this.props.field, value, true);
     }
 
+    makeOptions() {
+        let options = [];
+        if (this.props.options) {
+            options = this.props.options.map((v,i) => {
+                return <option value={v[0]} key={i}>{v[1]}</option>;
+            });
+        }
+        if (this.props.hasNoneValue) {
+            options.unshift(<option value={-1} key={-1}> - </option>);
+        }
+        return options;
+    }
+
     render() {
-        let options = this.props.options ? this.props.options.map((v,i) => {
-            return <option value={v[0]} key={i}>{v[1]}</option>;
-        }) : null;
+        let options = this.makeOptions();
         let label = this.props.label ? <ControlLabel>{this.props.label}</ControlLabel> : null;
 
         return (
@@ -90,12 +101,14 @@ Select.propTypes = {
     label: React.PropTypes.string,  // title - visible
     defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),  // Option index or item name
     inputProps: React.PropTypes.object,  // additional input field props
+    hasNoneValue: React.PropTypes.bool,  // whether there can be a "no item selected" option
 // maybe use later:
     required: React.PropTypes.bool,
 };
 
 Select.defaultProps = {
     defaultValue: 0,
+    hasNoneValue: false,
 // maybe use later:
     required: false,
 };
