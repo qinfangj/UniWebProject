@@ -75,7 +75,9 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.People form={this.form} />
+                        <Options.People form={this.form} required
+                                        submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                     {/* Code name */}
@@ -107,7 +109,9 @@ class ProjectInsertForm extends React.PureComponent {
 
                         {/* Project state */}
 
-                        <Options.ProjectStates form={this.form} />
+                        <Options.ProjectStates form={this.form} required
+                                               submissionError = {this.state.submissionError}
+                        />
 
                         {/* Is control */}
 
@@ -124,7 +128,9 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Project analysis */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.ProjectAnalyses form={this.form} />
+                        <Options.ProjectAnalyses form={this.form} required
+                                                 submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                 </Form>

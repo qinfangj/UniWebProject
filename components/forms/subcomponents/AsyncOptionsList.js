@@ -8,13 +8,14 @@ import Select from '../elements/Select';
 
 
 /**
- * Dropdown with available options
+ * Wrapper on a Select that fetches the options list from backend, async.
+ * If `hasNoneValue`, it adds a supplementary 'none' option.
  */
 class AsyncOptionsList extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {list: [], value: null};
-        forms.initFormField(this.props.form, this.props.field);
+        this.state = {list: []};
+        forms.initFormField(this.props.form, this.props.field, null);
     }
 
     static propTypes = {
@@ -22,30 +23,23 @@ class AsyncOptionsList extends React.PureComponent {
         form: React.PropTypes.string.isRequired,  // the form name - to find the value in store
         field: React.PropTypes.string.isRequired,  // the name of the form field - to find the value in store
         storeKey: React.PropTypes.string.isRequired,  // the data store key for the result list
-        label: React.PropTypes.string,  // The text above the input
         formatter: React.PropTypes.func,  // (row object from backend) => `[id, name]`
         suffix: React.PropTypes.string,  // route suffix for conditional lists (e.g. "all" in "/table/projects/list/all")
-        selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
+        hasNoneValue: React.PropTypes.bool,  // whether there can be a "no item selected" option
     };
-
-    getValue() {
-        return this._select.getValue();
-    }
 
     componentWillMount() {
         let storeKey = this.props.storeKey;
         this.unsubscribe = store.subscribe(() => {
             let list = store.getState().facilityData[storeKey];
             if (list) {
-                let value = list.length > 0 ? list[0].id : null;  // first one of the list
-                this.setState({ list, value });
+                this.setState({ list });
             }
         });
         // Already in cache: just load it
         let list = store.getState().facilityData[storeKey];
         if (list) {
-            let value = list.length > 0 ? list[0].id : null;  // first one of the list
-            this.setState({ list, value });
+            this.setState({ list });
         // Request from backend
         } else {
             if (this.props.suffix) {
@@ -60,26 +54,29 @@ class AsyncOptionsList extends React.PureComponent {
         this.unsubscribe();
     }
 
-    // When the options list changes, re-init the field value in store with the first value on the list
-    componentDidUpdate() {
-        forms.initFormField(this.props.form, this.props.field, this.state.value);
-    }
-
     getList() {
-        return this.state.list.map(v => this.props.formatter(v));
+        let options = this.state.list.map(v => this.props.formatter(v));
+        if (this.props.hasNoneValue) {
+            options.unshift([-1, '-']);
+        }
+        return options;
     }
 
     render() {
         return (
-            <Select field={this.props.field} label={this.props.label} form={this.props.form}
+            <Select {...this.props}
                     ref={(c) => {this._select = c;}}
                     options={this.getList()}
-                    {...this.props.selectProps}
             />
         );
     }
 
 }
+
+
+AsyncOptionsList.defaultProps = {
+    hasNoneValue: true,
+};
 
 
 export default AsyncOptionsList;
