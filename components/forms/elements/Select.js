@@ -1,34 +1,32 @@
 "use strict";
 import React from 'react';
+import css from '../forms.css';
 import store from '../../../core/store';
 import * as forms from '../forms';
 
 /* React-bootstrap */
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap/lib';
 
 
 
 class Select extends React.PureComponent {
     constructor(props) {
         super(props);
+        let initValue = this.defaultOption(props.options);
         this.state = {
-            value: this.defaultOption(props.options, props.defaultValue),
+            value: initValue,
+            valid: true,
         };
-        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
-    }
-
-    getValue() {
-        return this.state.value;
+        forms.initFormField(this.props.form, this.props.field, -1, this.isValid(initValue));
     }
 
     componentDidMount() {
         // Listen to value change from the store
         this.unsubscribe = store.subscribe(() => {
             let value = forms.getFormValue(this.props.form, this.props.field);
+            let valid = forms.getIsValid(this.props.form, this.props.field);
             if (value) {
-                this.setState({ value });
+                this.setState({ value, valid });
             }
         });
     }
@@ -36,29 +34,39 @@ class Select extends React.PureComponent {
         this.unsubscribe();
     }
 
-    /* Update the defaultValue option when new options are sent (after REST call). */
-    componentWillReceiveProps(newProps) {
-        this.setState({value: this.defaultOption(newProps.options, newProps.defaultValue)});
+    isValid(value) {
+        if (value) {
+            return !(this.props.required && value === -1);
+        }
     }
 
-    /* Return the n-th (first by defaultValue prop) option index to pass as input value. */
-    defaultOption(options, defaultValue) {
-        // if bad value - but should never happen
-        if (options.length == 0) {
+    /* Return the initial option index */
+    defaultOption(options) {
+        if (!options || options.length === 0) {
             return -1;
-        // if given an option index, return the item ID
-        } else if (Number.isInteger(defaultValue)) {
-            return options[defaultValue][0];
-        // if given an item name, return the item ID (or -1 if not found)
-        } else {
-            let res = options.filter((x) => { return x[1] === defaultValue; });
-            return res ? res[0][0] : -1;
         }
+        return options[0][0];
+    }
+
+    getFeedbackValue() {
+        let feedback = null;
+        if (this.props.submissionError && !this.isValid(this.state.value)) {
+            feedback = "error";
+        }
+        return feedback;
+    }
+
+    getErrorMessage() {
+        let msg = "";
+        if (this.props.submissionError && !this.isValid(this.state.value)) {
+            msg = this.props.label + " is required.";
+        }
+        return msg;
     }
 
     onChange(e) {
         let value = parseInt(e.target.value);
-        forms.changeValue(this.props.form, this.props.field, value, true);
+        forms.changeValue(this.props.form, this.props.field, value, this.isValid(value));
     }
 
     makeOptions() {
@@ -68,18 +76,29 @@ class Select extends React.PureComponent {
                 return <option value={v[0]} key={i}>{v[1]}</option>;
             });
         }
-        if (this.props.hasNoneValue) {
-            options.unshift(<option value={-1} key={-1}> - </option>);
-        }
         return options;
     }
 
     render() {
         let options = this.makeOptions();
-        let label = this.props.label ? <ControlLabel>{this.props.label}</ControlLabel> : null;
+
+        // Display a star if the field is required and no valud has been entered yet
+        //  (better than an ugly warning, see comment in `validate`).
+        let requireString = (this.props.required && !this.isValid(this.state.value)) ?
+            <span className={css.requiredString}>{" *"}</span>: null;
+
+        let label = this.props.label ? <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel> : null;
+
+        // Color and symbol indicating an error/warning
+        let feedbackValue = this.getFeedbackValue();
+        let feedback = feedbackValue !== null ? <FormControl.Feedback /> : null;
+
+        // Help block: text info on error or warning
+        let msg = this.getErrorMessage();
+        let help = <HelpBlock bsClass={css.feedback}>{msg}</HelpBlock>;
 
         return (
-            <FormGroup controlId={this.props.field} bsSize="small" >
+            <FormGroup controlId={this.props.field} validationState={feedbackValue} bsSize="small" >
                 {label}
                 <FormControl componentClass="select"
                     placeholder={label}
@@ -89,6 +108,8 @@ class Select extends React.PureComponent {
                 >
                     {options}
                 </FormControl>
+                {feedback}
+                {help}
             </FormGroup>
         );
     }
@@ -101,15 +122,12 @@ Select.propTypes = {
     label: React.PropTypes.string,  // title - visible
     defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),  // Option index or item name
     inputProps: React.PropTypes.object,  // additional input field props
-    hasNoneValue: React.PropTypes.bool,  // whether there can be a "no item selected" option
-// maybe use later:
-    required: React.PropTypes.bool,
+    required: React.PropTypes.bool,  // whether one must choose an option other than 'none'
+    submissionError: React.PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
 };
 
 Select.defaultProps = {
-    defaultValue: 0,
-    hasNoneValue: false,
-// maybe use later:
+    hasNoneValue: true,
     required: false,
 };
 

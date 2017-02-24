@@ -35,6 +35,12 @@ export function getFormValue(form, field) {
         return storeData[field];
     }
 }
+export function getIsValid(form, field) {
+    let storeData = store.getState().forms[form];
+    if (storeData) {
+        return storeData._isValid[field];
+    }
+}
 export function changeValue(form, field, value, valid) {
     if (form !== undefined) {
         store.dispatch(changeFormValue(form, field, value, valid));
@@ -83,7 +89,8 @@ export function submit(form, table, formatFormData=null) {
     let fields = Object.keys(formData);
     // Check if some fields have an invalid value
     let invalidFields = fields.filter(k => formData._isValid[k] === false);
-    //console.info(JSON.stringify(formData, null, 2));
+    // Print it with _isValid status, before formatting, and with invalid values set to null
+    console.info(JSON.stringify(formData, null, 2));
     delete formData._isValid;
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
