@@ -144,10 +144,6 @@ class ChangePasswordForm extends React.Component {
 
 }
 
-ChangePasswordForm.defaultProps = {
-
-}
-
 
 export default ChangePasswordForm;
 
