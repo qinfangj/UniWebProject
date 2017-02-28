@@ -72,6 +72,7 @@ tasks.set('bundle', () => {
   return new Promise((resolve, reject) => {
     webpack(webpackConfig).run((err, stats) => {
       if (err) {
+        console.debug(err)
         reject(err);
       } else {
         console.log(stats.toString(webpackConfig.stats));

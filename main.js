@@ -9,14 +9,15 @@ import { Provider } from 'react-redux';
 import store from './core/store';
 import routes from './routes';
 
+import App from './components/routes/App';
+
 
 const container = document.getElementById('container');
 
-function renderComponent(component) {
-    ReactDOM.render(<Provider store={store}>{component}</Provider>, container);
-}
 
-renderComponent(routes);
+let routesWithStore = <Provider store={store}>{routes}</Provider>;
+
+ReactDOM.render(routesWithStore, container);
 
 // Eliminates the 300ms delay between a physical tap
 // and the firing of a click event on mobile browsers

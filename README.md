@@ -20,6 +20,7 @@
 │   ├── dist/                  # The folder for compiled output
 │   ├── favicon.ico            # Application icon to be displayed in bookmarks
 │   ├── robots.txt             # Instructions for search engine crawlers
+│   ├── conf/conf.js           # The main configuration file, to set e.g. BACKEND_URL
 │   └── ...                    # etc.
 ├── test/                      # Unit and integration tests
 ├── styles/                    # Global styles (constants, overrides, etc.) 
@@ -99,4 +100,9 @@ in the Apache configuration:
 scp -r public/* /var/www/html
 ```
 
-Additional configuration in on top of "/run.js".
+### Configuration
+
+The main app configuration, to set e.g. BACKEND_URL is in `public/conf/conf.js`.
+You will want to rewrite this file before serving the app in production.
+
+Additional configuration is on top of "/run.js".

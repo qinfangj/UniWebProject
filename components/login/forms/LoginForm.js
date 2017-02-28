@@ -65,7 +65,7 @@ class LoginForm extends React.Component {
                     </FormGroup>
 
                     <div className={css.forgotPassword}>
-                        <Link to='forgotPassword' className={cx(css.forgotPasswordLink, commonCss.nolink)}>Don't remember your password?</Link>
+                        <Link to='/forgotPassword' className={cx(css.forgotPasswordLink, commonCss.nolink)}>Don't remember your password?</Link>
                     </div>
 
                         {/*<button type="submit" className="submit-button btn btn-primary"*/}
