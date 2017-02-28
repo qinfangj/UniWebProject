@@ -137,8 +137,6 @@ const routes = (
             <Route path="admin/sequencing_qualities" component={admin.UsersPage} onEnter={requireAuth} />
             <Route path="admin/taxonomies" component={admin.UsersPage} onEnter={requireAuth} />
 
-
-
         </Route>
     </Router>
 );

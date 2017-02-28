@@ -17,6 +17,7 @@ const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 const pkg = require('./package.json');
 
+console.log("isDebug:", global.DEBUG);
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
 const useHMR = false; //!!global.HMR; // Hot Module Replacement (HMR)
@@ -205,12 +206,12 @@ if (!isDebug) {
   config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 }
 
-// Hot Module Replacement (HMR) + React Hot Reload
-if (isDebug && useHMR) {
-  babelConfig.plugins.unshift('react-hot-loader/babel');
-  config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true');
-  config.plugins.push(new webpack.HotModuleReplacementPlugin());
-  config.plugins.push(new webpack.NoErrorsPlugin());
-}
+// // Hot Module Replacement (HMR) + React Hot Reload
+// if (isDebug && useHMR) {
+//   babelConfig.plugins.unshift('react-hot-loader/babel');
+//   config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true');
+//   config.plugins.push(new webpack.HotModuleReplacementPlugin());
+//   config.plugins.push(new webpack.NoErrorsPlugin());
+// }
 
 module.exports = config;
