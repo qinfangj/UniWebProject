@@ -68,33 +68,55 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Run */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Options.RunsOutputFolders form={this.form} />
+                        <Options.RunsOutputFolders
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                     {/* Version */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Options.PipelineVersions form={this.form} />
+                        <Options.PipelineVersions
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                     {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.PipelineAnalysisTypes form={this.form} />
+                        <Options.PipelineAnalysisTypes
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                     {/* Control lane nb */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Select field={fields.CONTROL_LANE_NB} label="Control lane" form={this.form}
-                                options={[[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']]}
+                        <Select
+                            form={this.form}
+                            field={fields.CONTROL_LANE_NB}
+                            required
+                            label="Control lane"
+                            options={[[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']]}
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Demultiplexing */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox field={fields.IS_DEMULTIPLEXING} label="Demultiplexing" form={this.form} />
+                        <Checkbox
+                            form={this.form}
+                            field={fields.IS_DEMULTIPLEXING}
+                            label="Demultiplexing"
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
 
@@ -104,8 +126,12 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Unaligned data output folder */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField field={fields.UNALIGNED_OUTPUT_DIR} label="Unaligned data output folder" form={this.form} required
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.UNALIGNED_OUTPUT_DIR}
+                            label="Unaligned data output folder"
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -115,8 +141,11 @@ class BasecallingsInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea field={fields.COMMENT} label="Comment" form={this.form}
-                                  submissionError = {this.state.submissionError}
+                        <TextArea
+                            form={this.form}
+                            field={fields.COMMENT}
+                            label="Comment"
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

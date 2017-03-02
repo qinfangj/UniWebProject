@@ -79,16 +79,23 @@ class BioanalysersInsertForm extends React.PureComponent {
                     {/* Bioanalyser file */}
 
                     <Col sm={4} className={formsCss.formCol}>
-                        <TextField form={this.form} field={fields.FILENAME} label="Bioanalyser file" type="file"
-                                   ref = {(c) => this._file = c}
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.FILENAME}
+                            label="Bioanalyser file"
+                            type="file"
+                            submissionError = {this.state.submissionError}
+                            ref = {(c) => this._file = c}
                         />
                     </Col>
 
                     {/* Bioanalyser date */}
 
                     <Col sm={3} className={formsCss.formCol}>
-                        <DatePicker form={this.form} field={fields.BIOANALYSER_DATE} label="Bioanalyser date"
+                        <DatePicker
+                            form={this.form}
+                            field={fields.BIOANALYSER_DATE}
+                            label="Bioanalyser date"
                         />
                     </Col>
 
@@ -98,9 +105,12 @@ class BioanalysersInsertForm extends React.PureComponent {
                     {/* Description */}
 
                     <Col sm={12} className={formsCss.formCol}>
-                        <TextField form={this.form} field={fields.DESCRIPTION} label="Description"
-                                   defaultValue = ""
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.DESCRIPTION}
+                            label="Description"
+                            defaultValue = ""
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

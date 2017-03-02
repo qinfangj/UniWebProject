@@ -83,22 +83,31 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
-                        <SecondaryOptions.ProjectSamples form={this.form}
+                        <SecondaryOptions.ProjectSamples
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Insert size */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field={fields.INSERT_SIZE_MIN} label="Insert size min" form={this.form}
-                                   validator = {validators.integerValidator}
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.INSERT_SIZE_MIN}
+                            label="Insert size min"
+                            validator = {validators.integerValidator}
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
                     <Col sm={2} className={css.formCol}>
-                        <TextField field={fields.INSERT_SIZE_MAX} label="Insert size max" form={this.form}
-                                   validator = {validators.integerValidator}
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.INSERT_SIZE_MAX}
+                            label="Insert size max"
+                            validator = {validators.integerValidator}
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -108,47 +117,70 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Library type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.LibProtocols form={this.form}
+                        <Options.LibProtocols
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Multiplexing group */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field={fields.MULTIPLEXING_GROUP} label="Multiplexing group" form={this.form} required
-                                   validator = {validators.shortStringValidator}
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.MULTIPLEXING_GROUP}
+                            label="Multiplexing group"
+                            required
+                            validator = {validators.shortStringValidator}
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Run request */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.RunTypesLengths suffix="all" form={this.form}
+                        <Options.RunTypesLengths
+                            form={this.form}
+                            required
+                            suffix="all"
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Number of lanes */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field={fields.NB_LANES} label="Nb of lanes" form={this.form} required
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.NB_LANES}
+                            label="Nb of lanes"
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Multiplex# */}
 
                     <Col sm={2} className={css.formCol}>
-                        <TextField field={fields.MILLION_READS} label="Multiplex#" form={this.form} required
-                                   validator={validators.integerValidator}
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.MILLION_READS}
+                            label="Multiplex#"
+                            required
+                            validator={validators.integerValidator}
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Is QC lib */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox form={this.form} field={fields.WITH_LIB_QC} label="is QC"/>
+                        <Checkbox
+                            form={this.form}
+                            field={fields.WITH_LIB_QC}
+                            label="is QC"
+                        />
                     </Col>
 
                 </Form>
@@ -157,8 +189,11 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <TextArea field={fields.COMMENT} label="Comment" form={this.form}
-                                  submissionError = {this.state.submissionError}
+                        <TextArea
+                            form={this.form}
+                            field={fields.COMMENT}
+                            label="Comment"
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

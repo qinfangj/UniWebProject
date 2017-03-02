@@ -67,22 +67,34 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Organism */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.Taxonomies form={this.form} />
+                        <Options.Taxonomies
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                     {/* Assembly */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field={fields.ASSEMBLY} label="Assembly" form={this.form} required
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.ASSEMBLY}
+                            label="Assembly"
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Genome folder */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field={fields.GENOME_FOLDER} label="Genome folder" form={this.form} required
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.GENOME_FOLDER}
+                            label="Genome folder"
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -92,16 +104,23 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Url */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField field={fields.URL} label="URL" form={this.form}
-                                   submissionError = {this.state.submissionError}
-                                   defaultValue = "http://"
+                        <TextField
+                            form={this.form}
+                            field={fields.URL}
+                            label="URL"
+                            required
+                            submissionError = {this.state.submissionError}
+                            defaultValue = "http://"
                         />
                     </Col>
 
                     {/* Downloaded date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker form={this.form} field={fields.DOWNLOADED_DATE} label="Download date"
+                        <DatePicker
+                            form={this.form}
+                            field={fields.DOWNLOADED_DATE}
+                            label="Download date"
                         />
                     </Col>
 
@@ -111,8 +130,12 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* File names */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField field={fields.FILES} label="File names" form={this.form}
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.FILES}
+                            label="File names"
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -122,16 +145,28 @@ class GenomesInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={10} className={css.formCol}>
-                        <TextField field={fields.COMMENT} label="Comment" form={this.form}
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.COMMENT}
+                            label="Comment"
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Is masked / is archived */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Checkbox form={this.form} field={fields.IS_MASKED} label="Masked" />
-                        <Checkbox form={this.form} field={fields.IS_ARCHIVED} label="Archived" />
+                        <Checkbox
+                            form={this.form}
+                            field={fields.IS_MASKED}
+                            label="Masked"
+                        />
+                        <Checkbox
+                            form={this.form}
+                            field={fields.IS_ARCHIVED}
+                            label="Archived"
+                        />
                     </Col>
 
                 </Form>
