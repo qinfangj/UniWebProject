@@ -68,19 +68,19 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.PipelineAnalysisTypes form={this.form} />
+                        <Options.PipelineAnalysisTypes form={this.form} required />
                     </Col>
 
                     {/* Run */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Options.RunsOutputFolders form={this.form} />
+                        <Options.RunsOutputFolders form={this.form} required />
                     </Col>
 
                     {/* Unaligned data output folder (aka basecallingId) */}
 
                     <Col sm={7} className={css.formCol}>
-                        <SecondaryOptions.BasecallingsOutputFolders form={this.form} />
+                        <SecondaryOptions.BasecallingsOutputFolders form={this.form} required />
                     </Col>
 
                 </Form>

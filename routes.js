@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 
 import App from './components/routes/App';
 import HomePage from './components/routes/HomePage';
@@ -22,9 +22,9 @@ const requireAuth = (nextState, replace) => {
 
 
 const routes = (
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
         <Route path="/" component={App}>
-            <IndexRoute component={HomePage}/>
+            {/*<IndexRoute component={HomePage}/>*/}
             <Route path="home" component={HomePage}/>
 
             <Route path="login" component={login.LoginPage}/>

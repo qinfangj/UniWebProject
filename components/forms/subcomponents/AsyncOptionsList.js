@@ -15,7 +15,7 @@ class AsyncOptionsList extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {list: []};
-        forms.initFormField(this.props.form, this.props.field, null);
+        //forms.initFormField(this.props.form, this.props.field, -1);
     }
 
     static propTypes = {

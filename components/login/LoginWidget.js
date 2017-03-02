@@ -2,7 +2,7 @@
 import React from 'react';
 import css from './login.css';
 import Link from 'react-router';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import { Button, ButtonGroup } from 'react-bootstrap/lib';
 
 
@@ -13,11 +13,11 @@ class LoginWidget extends React.Component {
     }
 
     goToLogin() {
-        browserHistory.push('/login');
+        hashHistory.push('/login');
     }
 
     goToSignup() {
-        browserHistory.push('/signup');
+        hashHistory.push('/signup');
     }
 
     render() {

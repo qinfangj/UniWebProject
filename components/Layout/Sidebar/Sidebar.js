@@ -90,7 +90,10 @@ class ResponsiveSidebar extends React.PureComponent {
 
     render() {
         //console.debug("submenu", this.state.submenuOpen ? "OPEN" : "CLOSED")
-        let path = window.location.pathname;
+        // With browserHistory, use this:
+        //let path = window.location.pathname
+        // With hashHistory, read the hash part:
+        let path = window.location.hash ? window.location.hash.substring(1) : "";
         if (!path) return null;
         let menuItems = [
             { text: "Home", to: "/home", },
