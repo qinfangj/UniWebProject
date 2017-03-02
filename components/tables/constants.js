@@ -12,7 +12,7 @@ export const MULTIROW = {
 export const ID_COLUMN = {
     headerName: "ID",
     field: "id",
-    width: 40,
+    width: 70,
     suppressSizeToFit: true,
     suppressMenu: true,
     cellStyle: CENTER,

@@ -11,6 +11,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
+import { ID_COLUMN } from '../constants';
 
 
 class CommonTable extends React.PureComponent {
@@ -50,6 +51,7 @@ class CommonTable extends React.PureComponent {
     componentDidMount() {
         this.api && this.api.doLayout();  // recalculate layout to fill the container div
         this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
+        //this.columnApi && this.columnApi.autoSizeColumns(["ID"]);  // recalculate columnsKey width to fill the content
     }
     /**
      * Need to update columnsKey width here, just before rendering, and not in `onGridReady`
@@ -61,6 +63,7 @@ class CommonTable extends React.PureComponent {
     }
     componentDidUpdate() {
         this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
+        //this.columnApi && this.columnApi.autoSizeColumns(["ID"]);  // recalculate columnsKey width to fill the content
     }
 
     onGridReady(params) {
