@@ -12,14 +12,16 @@ export class BasecallingsOutputFolders extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.outputDir]; }
     render() {
+        let {form, ...otherProps} = this.props;
         return (<AsyncSecondaryOptionsList
+            form={form}
             field={fields.BASECALLING_ID}
             table="basecallings"
             label="Unaligned data output folder"
-            form={this.props.form}
             referenceField={fields.RUN_ID}
-            storeKey={dataStoreKeys.BASECALLINGS_OUTPUT_FOLDERS}
+            storeKey={form + '_' + dataStoreKeys.BASECALLINGS_OUTPUT_FOLDERS}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
+            {...otherProps}
         />);
     }
 }
@@ -36,14 +38,16 @@ export class ProjectSamples extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name + (v.shortName ? " ("+v.shortName+")" : "")]; }
     render() {
+        let {form, ...otherProps} = this.props;
         return (<AsyncSecondaryOptionsList
+            form={form}
             field={fields.SAMPLE_ID}
             table="samples"
             label="Sample"
-            form={this.props.form}
             referenceField={this.props.referenceField}
-            storeKey={this.props.form + '_' + dataStoreKeys.SAMPLES_FROM_PROJECT}
+            storeKey={form + '_' + dataStoreKeys.SAMPLES_FROM_PROJECT}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
+            {...otherProps}
         />);
     }
 }
@@ -64,14 +68,16 @@ export class ProjectPools extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.pool]; }
     render() {
+        let {field, form, referenceField, ...otherProps} = this.props;
         return (<AsyncSecondaryOptionsList
-            field={this.props.field}
+            form={form}
+            field={field}
+            referenceField={referenceField}
             table="user_requests"
             label={null}
-            form={this.props.form}
-            referenceField={this.props.referenceField}
-            storeKey={this.props.form + '_' + dataStoreKeys.POOLS_FROM_PROJECT}
+            storeKey={form + '_' + dataStoreKeys.POOLS_FROM_PROJECT}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
+            {...otherProps}
         />);
     }
 }
@@ -93,12 +99,15 @@ export class ProjectLibraries extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
     render() {
+        let {field, form, ...otherProps} = this.props;
         return (<AsyncSecondaryOptionsList
-            field={this.props.field}
-            table="libraries" label={null} form={this.props.form}
+            form={form}
+            field={field}
+            table="libraries" label={null}
             referenceField={this.props.referenceField}
             storeKey={this.props.storeKey ? this.props.storeKey : this.props.form +'_'+ dataStoreKeys.LIBRAIRIES_FROM_PROJECT}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
+            {...otherProps}
         />);
     }
 }

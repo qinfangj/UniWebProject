@@ -9,12 +9,8 @@ import { Provider } from 'react-redux';
 import store from './core/store';
 import routes from './routes';
 
-import App from './components/routes/App';
-
 
 const container = document.getElementById('container');
-
-
 let routesWithStore = <Provider store={store}>{routes}</Provider>;
 
 ReactDOM.render(routesWithStore, container);
