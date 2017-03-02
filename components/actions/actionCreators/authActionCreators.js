@@ -82,7 +82,6 @@ export function signupUser(creds) {
             // Format the response
             .then(response => {
                 // Error
-                console.debug(response)
                 if (!response.ok) {
                     dispatch(_signupError(response.statusText));
                     return Promise.reject(response);
