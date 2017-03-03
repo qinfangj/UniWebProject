@@ -5,7 +5,8 @@ import css from '../login.css';
 import store from '../../../core/store';
 import { signupUser } from '../../actions/actionCreators/authActionCreators';
 
-import {Form, FormControl, InputGroup, FormGroup, ControlLabel, Button, Glyphicon} from 'react-bootstrap/lib';
+import {Form, FormControl, InputGroup, FormGroup, ControlLabel, Button} from 'react-bootstrap/lib';
+import Icon from 'react-fontawesome';
 
 
 
@@ -75,7 +76,7 @@ class SignupForm extends React.Component {
 
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
-                            <InputGroup.Addon><Glyphicon glyph="user"/></InputGroup.Addon>
+                            <InputGroup.Addon><Icon name="user"/></InputGroup.Addon>
                             <FormControl
                                 value={this.state.username}
                                 onChange={this.onChangeUsername.bind(this)}
@@ -87,7 +88,7 @@ class SignupForm extends React.Component {
 
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
-                            <InputGroup.Addon><Glyphicon glyph="lock"/></InputGroup.Addon>
+                            <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
                             <FormControl
                                 type="password"
                                 value={this.state.password}

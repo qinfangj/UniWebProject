@@ -1,13 +1,11 @@
+"use strict";
 import React from 'react';
 import cx from 'classnames';
 import css from '../login.css';
-"use strict";
-import commonCss from '../../../styles/common.css';
 import store from '../../../core/store';
 import { requestResetPassword } from '../../actions/actionCreators/authActionCreators';
-import { Link } from 'react-router';
 
-import {Form, FormControl, InputGroup, FormGroup, Button, Glyphicon} from 'react-bootstrap/lib';
+import {Form, FormControl, InputGroup, FormGroup, Button} from 'react-bootstrap/lib';
 
 
 
