@@ -107,10 +107,10 @@ const config = {
         include: [
           path.resolve(__dirname, './components'),
           path.resolve(__dirname, './core'),
-          path.resolve(__dirname, './pages'),
           path.resolve(__dirname, './utils'),
           path.resolve(__dirname, './routes.js'),
           path.resolve(__dirname, './main.js'),
+          path.resolve(__dirname, './test')
         ],
         loaders: [`babel-loader?${JSON.stringify(babelConfig)}`,],
       },
