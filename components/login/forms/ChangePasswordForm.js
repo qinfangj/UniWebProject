@@ -18,10 +18,10 @@ class ChangePasswordForm extends React.Component {
             password: "",
             password2: "",
             valid: false,
-            feedBack:null,
-            feedBack2:null,
-            msg:"",
-            msg2:""
+            feedback: null,
+            feedback2: null,
+            msg: "",
+            msg2: ""
         };
     }
 
@@ -39,43 +39,42 @@ class ChangePasswordForm extends React.Component {
     }
 
     onChangePassword(e) {
-        let password=e.target.value;
-        let password2= this.state.password2;
-        let pwdChecked=this.validatePwd(password,password2);
-
-        this.setState({password: password,msg:pwdChecked.msg,msg2:pwdChecked.msg2,feedBack:pwdChecked.feedBack,feedBack2:pwdChecked.feedBack2});
+        let password = e.target.value;
+        let password2 = this.state.password2;
+        let pwdChecked = this.validatePwd(password, password2);
+        this.setState({password: password, msg: pwdChecked.msg, msg2: pwdChecked.msg2,
+                       feedback: pwdChecked.feedback, feedback2: pwdChecked.feedback2});
 
     }
 
     onChangePassword2(e) {
-        //this.setState({password2: e.target.value});
-        let password2=e.target.value;
-        let password= this.state.password;
-        let pwdChecked2=this.validatePwd(password,password2);
-
-        this.setState({password2: password2,msg:pwdChecked2.msg,msg2:pwdChecked2.msg2,feedBack:pwdChecked2.feedBack,feedBack2:pwdChecked2.feedBack2});
+        let password2 = e.target.value;
+        let password = this.state.password;
+        let pwdChecked2 = this.validatePwd(password, password2);
+        this.setState({password2: password2, msg: pwdChecked2.msg, msg2: pwdChecked2.msg2,
+                       feedback: pwdChecked2.feedback, feedback2: pwdChecked2.feedback2});
     }
 
     validatePwd (pwd,pwd2) {
 
-        if (pwd.length == 0) {
-            //check if new password is empty.Set appropriate feedBacks and error messages
-            //Set appropriate feedBacks and error messages.
-            return {msg: "New password can't be empty!", msg2: "", feedBack: "warning",feedBack2:null};
-        } else if (pwd.length !=0 && pwd !== pwd2){
-            //check if re-enter password is matched with the entered password.
-            //Set appropriate feedBacks and error messages
-            return {msg: "", msg2: "Re-entered password is not matched.",feedBack: null, feedBack2: "warning"};
-        } else if (pwd.length !=0 && pwd2.length !=0 && pwd === pwd2) {
-            //check if re-enter password is matched .
-            //Set appropriate feedBacks and error messages
-            return {msg: "", msg2: "", feedBack: "success",feedBack2: "success"};
+        if (pwd.length === 0) {
+            //Check if new password is empty. Set appropriate feedbacks and error messages
+            //Set appropriate feedbacks and error messages.
+            return {msg: "New password can't be empty!", msg2: "", feedback: "warning", feedback2: null};
+        } else if (pwd.length !== 0 && pwd !== pwd2) {
+            //Check if re-entered password is matched with the entered password.
+            //Set appropriate feedbacks and error messages.
+            return {msg: "", msg2: "Re-entered password is not matched.", feedback: null, feedback2: "warning"};
+        } else if (pwd.length !== 0 && pwd2.length !== 0 && pwd === pwd2) {
+            //Check if re-entered password is matched.
+            //Set appropriate feedbacks and error messages
+            return {msg: "", msg2: "", feedback: "success", feedback2: "success"};
         }
     }
 
-    enableButton(){
-        let value = (this.state.feedBack ==="success" && this.state.feedBack2 ==="success") ? false:true;
-        return value
+    isDisabledButton(){
+        let disabled = ! (this.state.feedback === "success" && this.state.feedback2 === "success");
+        return disabled;
     }
 
     render() {
@@ -103,7 +102,7 @@ class ChangePasswordForm extends React.Component {
 
                     Enter you new password:
 
-                    <FormGroup className={css.formGroup} validationState={this.state.feedBack}>
+                    <FormGroup className={css.formGroup} validationState={this.state.feedback}>
                         <InputGroup>
                             <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
                             <FormControl
@@ -118,7 +117,7 @@ class ChangePasswordForm extends React.Component {
 
                     Re-enter your new password for confirmation:
 
-                    <FormGroup className={css.formGroup} validationState={this.state.feedBack2}>
+                    <FormGroup className={css.formGroup} validationState={this.state.feedback2}>
                         <InputGroup>
                         <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
                         <FormControl
@@ -133,7 +132,7 @@ class ChangePasswordForm extends React.Component {
 
                 </Form>
 
-                <Button onClick={this.submit.bind(this)} className={css.loginButton} disabled={this.enableButton()}>
+                <Button onClick={this.submit.bind(this)} className={css.loginButton} disabled={this.isDisabledButton()}>
                     Update password >
                 </Button>
 
