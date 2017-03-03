@@ -17,7 +17,7 @@ class Select extends React.PureComponent {
             value: initValue,
             valid: true,
         };
-        forms.initFormField(this.props.form, this.props.field, -1, this.isValid(initValue));
+        forms.initFormField(this.props.form, this.props.field, initValue, this.isValid(initValue));
     }
 
     componentDidMount() {
@@ -35,8 +35,10 @@ class Select extends React.PureComponent {
     }
 
     isValid(value) {
-        if (value) {
+        if (value !== undefined && value !== null) {
             return !(this.props.required && value === -1);
+        } else {
+            return false
         }
     }
 
@@ -127,7 +129,6 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
-    hasNoneValue: true,
     required: false,
 };
 

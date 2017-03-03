@@ -3,7 +3,6 @@ import actions from '../actionTypes';
 let types = actions.login;
 import RestService from '../../../utils/RestService';
 import AuthService from '../../../utils/AuthService';
-import { browserHistory } from 'react-router'
 
 
 /* Login */

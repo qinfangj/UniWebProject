@@ -2,12 +2,11 @@
 import React from 'react';
 import cx from 'classnames';
 import css from '../login.css';
-import commonCss from '../../../styles/common.css';
 import store from '../../../core/store';
 import { changePassword } from '../../actions/actionCreators/authActionCreators';
-import { Link } from 'react-router';
 
-import {Form, FormControl, InputGroup, FormGroup, Button, Glyphicon,HelpBlock} from 'react-bootstrap/lib';
+import {Form, FormControl, InputGroup, FormGroup, Button, HelpBlock} from 'react-bootstrap/lib';
+import Icon from 'react-fontawesome';
 
 
 
@@ -91,7 +90,7 @@ class ChangePasswordForm extends React.Component {
 
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
-                            <InputGroup.Addon><Glyphicon glyph='lock'/></InputGroup.Addon>
+                            <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
                             <FormControl
                                 value={this.props.code}
                                 disabled
@@ -106,7 +105,7 @@ class ChangePasswordForm extends React.Component {
 
                     <FormGroup className={css.formGroup} validationState={this.state.feedBack}>
                         <InputGroup>
-                            <InputGroup.Addon><Glyphicon glyph='lock'/></InputGroup.Addon>
+                            <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
                             <FormControl
                                 type="password"
                                 value={this.state.password}
@@ -121,7 +120,7 @@ class ChangePasswordForm extends React.Component {
 
                     <FormGroup className={css.formGroup} validationState={this.state.feedBack2}>
                         <InputGroup>
-                        <InputGroup.Addon><Glyphicon glyph='lock'/></InputGroup.Addon>
+                        <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
                         <FormControl
                             type="password"
                             value={this.state.password2}

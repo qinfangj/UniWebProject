@@ -83,26 +83,28 @@ You can also test your app in release (production) mode by running `node run sta
 The unit tests are powered by [chai](http://chaijs.com/) and [mocha](http://mochajs.org/).
 
 ```shell
-$ npm run lint                  # Check JavaScript and CSS code for potential issues
-$ npm run test                  # Run unit tests. Or, `npm run test:watch`
+$ node run lint                  # Check JavaScript and CSS code for potential issues
+$ node run test                  # Run unit tests. Or, `npm run test:watch`
+$ node run test:watch            # Run tests, watching for changes in source code
 ```
 
 ### How to Build
 
 ```shell
-$ node run build                # Or, `node run build --release` for production build
+$ node run build --release      # production build (minified)
+$ node run build --debug        # dev build, don't minify-dedupe-merge
 ```
 
 The compiled assets are created in `public/*`. Copy the content of this directory
-to a location your server can expose, such as Apache's /var/www/html or a DocumentRoot
+to a location your server can expose, such as some /var/www/html or a DocumentRoot
 in the Apache configuration:
 ```
-scp -r public/* /var/www/html
+cp -r public/* /var/www/html
 ```
 
 ### Configuration
 
-The main app configuration, to set e.g. BACKEND_URL is in `public/conf/conf.js`.
+The main app configuration, to set e.g. BACKEND_URL, is in `public/conf/conf.js`.
 You will want to rewrite this file before serving the app in production.
 
-Additional configuration is on top of "/run.js".
+Additional configuration, such as the page title, is on top of "/run.js".

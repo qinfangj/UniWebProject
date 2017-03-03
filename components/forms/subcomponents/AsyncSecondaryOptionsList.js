@@ -16,7 +16,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
         super(props);
         this.referenceValue = null; // not in state because not used for display. Only the callback updates the component.
         this.state = {list: [], value: null};
-        forms.initFormField(this.props.form, this.props.field);
+        //forms.initFormField(this.props.form, this.props.field, -1);
     }
 
     /**
@@ -25,19 +25,14 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
      *  and the key used in the store for the selected item.
      */
     static propTypes = {
-        referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `field`!
-        field: React.PropTypes.string.isRequired,  // the name of the form field - to find the value in store
         form: React.PropTypes.string.isRequired,  // the form name - to find the value in store
+        field: React.PropTypes.string.isRequired,  // the name of the form field - to find the value in store
+        referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `field`!
         table: React.PropTypes.string.isRequired,  // the db table to query the data from
         storeKey: React.PropTypes.string.isRequired,  // the store key for the result list
         label: React.PropTypes.string,  // The text above the input
         formatter: React.PropTypes.func,  // ex: object => [id, name]
-        selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
     };
-
-    getValue() {
-        return this._select.getValue();
-    }
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
@@ -75,10 +70,9 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
 
     render() {
         return (
-            <Select field={this.props.field} label={this.props.label} form={this.props.form}
-                    ref={(c) => {this._select = c;}}
-                    options={this.getList()}
-                    {...this.props.selectProps}
+            <Select
+                options={this.getList()}
+                {...this.props}
             />
         );
     }

@@ -25,7 +25,6 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
         field: React.PropTypes.string.isRequired,  // the store key for the selected values
         label: React.PropTypes.string,  // title on top of the input
         formatter: React.PropTypes.func,  // ex: object => [id, name]
-        selectProps: React.PropTypes.object,  // other props to pass to the Select lower-level component
         filterByIds: React.PropTypes.any,  // set. keep only these ones
     };
 
@@ -84,9 +83,7 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
     render() {
         return (
             <MultipleSelect
-                field={this.props.field}
-                form={this.props.form}
-                label={this.props.label}
+                {...this.props}
                 options={this.getOptions()}
             />
         );

@@ -68,19 +68,31 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Analysis type */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.PipelineAnalysisTypes form={this.form} />
+                        <Options.PipelineAnalysisTypes
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                     {/* Run */}
 
                     <Col sm={3} className={css.formCol}>
-                        <Options.RunsOutputFolders form={this.form} />
+                        <Options.RunsOutputFolders
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                     {/* Unaligned data output folder (aka basecallingId) */}
 
                     <Col sm={7} className={css.formCol}>
-                        <SecondaryOptions.BasecallingsOutputFolders form={this.form} />
+                        <SecondaryOptions.BasecallingsOutputFolders
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                 </Form>
@@ -89,19 +101,30 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Mapping tool */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Options.MappingTools form={this.form} />
+                        <Options.MappingTools
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                     {/* Alignment output folder */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField form={this.form} field={fields.ELAND_OUTPUT_DIR} label="Alignment output folder" required
+                        <TextField form={this.form}
+                                   field={fields.ELAND_OUTPUT_DIR}
+                                   label="Alignment output folder"
+                                   required
                                    submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox form={this.form} field={fields.HAS_QC_PDFS} label="QC report" />
+                        <Checkbox form={this.form}
+                                  field={fields.HAS_QC_PDFS}
+                                  label="QC report"
+                                  submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                 </Form>
