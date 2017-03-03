@@ -43,10 +43,10 @@ let formReducers = (state = defaultState, action) => {
         case types.facilityData.FILL_UPDATE_FORM:
             newState = Object.assign({}, state);
             form = action.form;
-            let formData = state[form] || {};
-            formData._isValid = {};
-            Object.assign(formData, action.data);
+            let formData = state[form] || {};  // current state
+            Object.assign(formData, action.data);  // updated state
             newState[form] = formData;
+            newState[form]._isValid = {};
             // Above we supposed that the keys returned by the backend (Slick auto-generated models)
             // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
             return newState;
@@ -57,6 +57,7 @@ let formReducers = (state = defaultState, action) => {
         case types.facilityData.EMPTY_FORM:
             newState = Object.assign({}, state);
             newState[form] = {};
+            newState[form]._isValid = {};
             return newState;
 
         /**

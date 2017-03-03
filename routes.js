@@ -12,9 +12,8 @@ import * as account from './components/routes/account/accountRoutes';
 import AuthService from './utils/AuthService';
 
 
-
 // Validate authentication for private routes
-const requireAuth = (nextState, replace) => {
+const requireAuth = (nextRouterState, replace) => {
     if (!AuthService.isLoggedIn) {
         replace({ pathname: '/login' });
     }
@@ -24,7 +23,7 @@ const requireAuth = (nextState, replace) => {
 const routes = (
     <Router history={hashHistory}>
         <Route path="/" component={App}>
-            {/*<IndexRoute component={HomePage}/>*/}
+            <IndexRoute component={HomePage}/>
             <Route path="home" component={HomePage}/>
 
             <Route path="login" component={login.LoginPage}/>
@@ -42,62 +41,62 @@ const routes = (
             <Route path="data/projects/list" component={fdata.ProjectsListRoute} onEnter={requireAuth} />
             <Route path="data/projects/active" component={fdata.ProjectsActiveRoute} onEnter={requireAuth} />
             <Route path="data/projects/new" component={fdata.ProjectsNewRoute} onEnter={requireAuth} />
-            <Route path="data/projects/update/:id" component={fdata.ProjectsNewRoute} onEnter={requireAuth} />
+            <Route path="data/projects/update/:id" component={fdata.ProjectsUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/people" component={fdata.PeopleListRoute} onEnter={requireAuth} />
             <Route path="data/people/list" component={fdata.PeopleListRoute} onEnter={requireAuth} />
             <Route path="data/people/active" component={fdata.PeopleActiveRoute} onEnter={requireAuth} />
             <Route path="data/people/new" component={fdata.PeopleNewRoute} onEnter={requireAuth} />
-            <Route path="data/people/update/:id" component={fdata.PeopleNewRoute} onEnter={requireAuth} />
+            <Route path="data/people/update/:id" component={fdata.PeopleUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/genomes" component={fdata.GenomesListRoute} onEnter={requireAuth} />
             <Route path="data/genomes/list" component={fdata.GenomesListRoute} onEnter={requireAuth} />
             <Route path="data/genomes/active" component={fdata.GenomesActiveRoute} onEnter={requireAuth} />
             <Route path="data/genomes/new" component={fdata.GenomesNewRoute} onEnter={requireAuth} />
-            <Route path="data/genomes/update/:id" component={fdata.GenomesNewRoute} onEnter={requireAuth} />
+            <Route path="data/genomes/update/:id" component={fdata.GenomesUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/samples" component={fdata.SamplesListRoute} onEnter={requireAuth} />
             <Route path="data/samples/list" component={fdata.SamplesListRoute} onEnter={requireAuth} />
             <Route path="data/samples/active" component={fdata.SamplesActiveRoute} onEnter={requireAuth} />
             <Route path="data/samples/new" component={fdata.SamplesNewRoute} onEnter={requireAuth} />
-            <Route path="data/samples/update/:id" component={fdata.SamplesNewRoute} onEnter={requireAuth} />
+            <Route path="data/samples/update/:id" component={fdata.SamplesUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/libraries" component={fdata.LibrariesListRoute} onEnter={requireAuth} />
             <Route path="data/libraries/list" component={fdata.LibrariesListRoute} onEnter={requireAuth} />
             <Route path="data/libraries/active" component={fdata.LibrariesActiveRoute} onEnter={requireAuth} />
             <Route path="data/libraries/new" component={fdata.LibrariesNewRoute} onEnter={requireAuth} />
-            <Route path="data/libraries/update/:id" component={fdata.LibrariesNewRoute} onEnter={requireAuth} />
+            <Route path="data/libraries/update/:id" component={fdata.LibrariesUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/runs" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/list" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/active" component={fdata.RunsActiveRoute} onEnter={requireAuth} />
             <Route path="data/runs/new" component={fdata.RunsPreNewRoute} onEnter={requireAuth} />
             <Route path="data/runs/postnew" component={fdata.RunsNewRoute} onEnter={requireAuth} />
-            <Route path="data/runs/update/:id" component={fdata.RunsNewRoute} onEnter={requireAuth} />
+            <Route path="data/runs/update/:id" component={fdata.RunsUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/user_requests" component={fdata.UserRequestsListRoute} onEnter={requireAuth} />
             <Route path="data/user_requests/list" component={fdata.UserRequestsListRoute} onEnter={requireAuth} />
             <Route path="data/user_requests/active" component={fdata.UserRequestsActiveRoute} onEnter={requireAuth} />
             <Route path="data/user_requests/new" component={fdata.UserRequestsNewRoute} onEnter={requireAuth} />
-            <Route path="data/user_requests/update/:id" component={fdata.UserRequestsNewRoute} onEnter={requireAuth} />
+            <Route path="data/user_requests/update/:id" component={fdata.UserRequestsUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/bioanalysers" component={fdata.BioanalysersListRoute} onEnter={requireAuth} />
             <Route path="data/bioanalysers/list" component={fdata.BioanalysersListRoute} onEnter={requireAuth} />
             <Route path="data/bioanalysers/active" component={fdata.BioanalysersActiveRoute} onEnter={requireAuth} />
             <Route path="data/bioanalysers/new" component={fdata.BioanalysersNewRoute} onEnter={requireAuth} />
-            <Route path="data/bioanalysers/update/:id" component={fdata.BioanalysersNewRoute} onEnter={requireAuth} />
+            <Route path="data/bioanalysers/update/:id" component={fdata.BioanalysersUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/basecallings" component={fdata.BasecallingsListRoute} onEnter={requireAuth} />
             <Route path="data/basecallings/list" component={fdata.BasecallingsListRoute} onEnter={requireAuth} />
             <Route path="data/basecallings/active" component={fdata.BasecallingsActiveRoute} onEnter={requireAuth} />
             <Route path="data/basecallings/new" component={fdata.BasecallingsNewRoute} onEnter={requireAuth} />
-            <Route path="data/basecallings/update/:id" component={fdata.BasecallingsNewRoute} onEnter={requireAuth} />
+            <Route path="data/basecallings/update/:id" component={fdata.BasecallingsUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/alignments" component={fdata.AlignmentsListRoute} onEnter={requireAuth} />
             <Route path="data/alignments/list" component={fdata.AlignmentsListRoute} onEnter={requireAuth} />
             <Route path="data/alignments/active" component={fdata.AlignmentsActiveRoute} onEnter={requireAuth} />
             <Route path="data/alignments/new" component={fdata.AlignmentsNewRoute} onEnter={requireAuth} />
-            <Route path="data/alignments/update/:id" component={fdata.AlignmentsNewRoute} onEnter={requireAuth} />
+            <Route path="data/alignments/update/:id" component={fdata.AlignmentsUpdateRoute} onEnter={requireAuth} />
 
             {/* QUERY PROJECTS */}
 

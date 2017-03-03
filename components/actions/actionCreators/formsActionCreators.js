@@ -11,3 +11,10 @@ export function changeFormValue(form, field, value, valid) {
         valid: valid,
     }
 }
+
+export function emptyForm(form) {
+    return {
+        type: actions.facilityData.EMPTY_FORM,
+        form: form,
+    }
+}

@@ -13,6 +13,14 @@ export const defaultFormState = {
     submissionId: undefined,
 };
 
+
+/**
+ * Empty all form fields.
+ */
+export function resetForm(form) {
+    store.getState().forms[form] = {};
+    store.getState().forms[form]._isValid = {};
+}
 export function initForm(form) {
     if (! store.getState().forms[form]) {
         store.getState().forms[form] = {};
