@@ -15,9 +15,10 @@ import Icon from 'react-fontawesome';
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
+        let isdev = window.location.hostname === "localhost";
         this.state = {
-            username: "test",
-            password: "pwd",
+            username: isdev ? "test" : "",
+            password: isdev ? "pwd" : "",
         };
     }
 
