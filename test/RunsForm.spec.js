@@ -24,7 +24,7 @@ describe('(Component) RunsPreInsertForm =>', () => {
     });
 });
 
-const wrapper3 = shallow(<RunsSubForm/>);
+const wrapper3 = shallow(<RunsSubForm lanes={{}}/>);
 describe('(Component) RunsSubForm =>', () => {
 
     it('renders without exploding', () => {

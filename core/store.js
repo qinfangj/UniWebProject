@@ -27,6 +27,12 @@ const logger = createLogger({
     diff: false,
 });
 
+let middleware = [thunk];
+console.log("store.js :: NODE_ENV:", process.env.NODE_ENV)
+if (process.env.NODE_ENV !== 'TEST') {
+    middleware = [ ...middleware, logger ]
+}
+
 let reducer = combineReducers({
     facilityData: facilityDataReducers,
     common: commonReducers,
@@ -35,6 +41,6 @@ let reducer = combineReducers({
     forms: formReducers,
 });
 
-const store = createStore(reducer, applyMiddleware(thunk, logger));
+const store = createStore(reducer, applyMiddleware(...middleware));
 
 export default store;

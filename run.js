@@ -51,18 +51,18 @@ tasks.set('html', () => {
   fs.writeFileSync('./public/index.html', output, 'utf8');
 });
 
-// //
-// // Generate sitemap.xml
-// // -----------------------------------------------------------------------------
-// tasks.set('sitemap', () => {
-//   const urls = require('./routes.json')
-//     .filter(x => !x.path.includes(':'))
-//     .map(x => ({ loc: x.path }));
-//   const template = fs.readFileSync('./public/sitemap.ejs', 'utf8');
-//   const render = ejs.compile(template, { filename: './public/sitemap.ejs' });
-//   const output = render({ config, urls });
-//   fs.writeFileSync('public/sitemap.xml', output, 'utf8');
-// });
+//
+// Generate sitemap.xml
+// -----------------------------------------------------------------------------
+tasks.set('sitemap', () => {
+  const urls = require('./routes.json')
+    .filter(x => !x.path.includes(':'))
+    .map(x => ({ loc: x.path }));
+  const template = fs.readFileSync('./public/sitemap.ejs', 'utf8');
+  const render = ejs.compile(template, { filename: './public/sitemap.ejs' });
+  const output = render({ config, urls });
+  fs.writeFileSync('public/sitemap.xml', output, 'utf8');
+});
 
 //
 // Bundle JavaScript, CSS and image files with Webpack
