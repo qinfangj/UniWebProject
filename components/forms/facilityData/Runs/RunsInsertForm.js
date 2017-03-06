@@ -98,8 +98,6 @@ class RunsInsertForm extends React.PureComponent {
 
                     <Col sm={1} className={formsCss.formCol}>
                         <TextField name="ga_run_nb" label="Run#" required
-                                   missing = {!!this.state.missing["ga_run_nb"]}
-                                   invalid = {!!this.state.invalid["ga_run_nb"]}
                                    validator = {validators.integerValidator}
                                    form = {this.form}  // so that it sends its value to store
                                    ref = {(c) => this._runNb = c}
@@ -110,8 +108,6 @@ class RunsInsertForm extends React.PureComponent {
 
                     <Col sm={2} className={formsCss.formCol}>
                         <TextField name="flowcell_ref_name" label="Flowcell ID" required
-                                   missing = {!!this.state.missing["flowcell_ref_name"]}
-                                   invalid = {!!this.state.invalid["flowcell_ref_name"]}
                                    ref = {(c) => this._flowcell = c}
                         />
                     </Col>
