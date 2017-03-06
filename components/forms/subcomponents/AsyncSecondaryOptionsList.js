@@ -16,7 +16,6 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
         super(props);
         this.referenceValue = null; // not in state because not used for display. Only the callback updates the component.
         this.state = {list: [], value: null};
-        //forms.initFormField(this.props.form, this.props.field, -1);
     }
 
     /**
