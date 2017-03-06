@@ -7,7 +7,7 @@ import ProjectsInsertForm from '../components/forms/facilityData/ProjectsInsertF
 
 
 
-const wrapper = shallow(<ProjectsInsertForm/>);
+const wrapper = shallow(<ProjectsInsertForm storeKey="something"/>);
 describe('(Component) ProjectsInsertForm =>', () => {
 
     it('renders without exploding', () => {

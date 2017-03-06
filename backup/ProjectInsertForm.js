@@ -10,7 +10,7 @@ import {
     scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import {expect} from 'chai';
-import ProjectsInsertFrom from '../../../components/forms/facilityData/ProjectsInsertForm';
+import ProjectsInsertFrom from '../components/forms/facilityData/ProjectsInsertForm';
 //import RunsInsertFrom from '../../../components/forms/facilityData/Runs/RunsInsertForm';
 
 import  TextField  from '../components/forms/elements/TextField';

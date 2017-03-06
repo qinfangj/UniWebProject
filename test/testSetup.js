@@ -2,6 +2,9 @@
  * Created by christine on 28.02.17.
  */
 import jsdom from 'jsdom';
+import chai from 'chai';
+chai.config.includeStack = true;
+
 
 if (typeof document === 'undefined') {
     global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
@@ -9,6 +12,4 @@ if (typeof document === 'undefined') {
     global.window.ENV = {BACKEND_URL: 'asdf'};
     //window.ENV.BACKEND_URL = 'asdf';
     global.navigator = global.window.navigator;
-
-
 }
