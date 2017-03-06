@@ -24,7 +24,7 @@ function post(url, data) {
             // `jqXHR` is a kind of Future or the response, with other methods and attributes.
             // `textStatus` can be "timeout", "error", "abort", or "parsererror".
             // `error` is the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error".
-            console.debug(error, ':', jqXHR.responseText);
+            console.log(error, ':', jqXHR.responseText);
         }
     });
 }
@@ -38,7 +38,7 @@ function get(url) {
             'Authorization': 'Bearer '+ AuthService.getToken(),
         },
         error: (jqXHR, textStatus, error) => {
-            console.debug(error, ':', jqXHR.responseText);
+            console.log(error, ':', jqXHR.responseText);
         }
     }); 
 }

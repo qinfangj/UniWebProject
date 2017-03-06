@@ -2,6 +2,7 @@
 import React from 'react';
 import store from '../../../core/store';
 import * as forms from '../forms';
+import { connect } from 'react-redux';
 
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import Select from '../elements/Select';
@@ -15,7 +16,6 @@ class AsyncOptionsList extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {list: []};
-        //forms.initFormField(this.props.form, this.props.field, -1);
     }
 
     static propTypes = {
@@ -33,12 +33,14 @@ class AsyncOptionsList extends React.PureComponent {
         this.unsubscribe = store.subscribe(() => {
             let list = store.getState().facilityData[storeKey];
             if (list) {
+                this.assertIsArray(list);
                 this.setState({ list });
             }
         });
         // Already in cache: just load it
         let list = store.getState().facilityData[storeKey];
         if (list) {
+            this.assertIsArray(list);
             this.setState({ list });
         // Request from backend
         } else {
@@ -47,11 +49,20 @@ class AsyncOptionsList extends React.PureComponent {
             } else {
                 store.dispatch(getOptionsListAsync(this.props.table, storeKey));
             }
+            this.setState({ list: [] });
         }
     }
 
     componentWillUnmount() {
         this.unsubscribe();
+    }
+
+    assertIsArray(list) {
+        if (!list || !Array.isArray(list)) {
+            throw "Options list is not an array.";
+        } else {
+            return true;
+        }
     }
 
     getList() {
@@ -80,3 +91,7 @@ AsyncOptionsList.defaultProps = {
 
 
 export default AsyncOptionsList;
+
+
+//let mapStateToProps = connect((state, ownProps) => {return {list: state.facilityData[ownProps.storeKey]};});
+//export default connect(mapStateToProps)(AsyncOptionsList)
