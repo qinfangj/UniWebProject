@@ -2,7 +2,7 @@
 import React from 'react';
 import store from '../../../core/store';
 import * as forms from '../forms';
-import connect from 'react-redux';
+import { connect } from 'react-redux';
 
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import Select from '../elements/Select';
