@@ -9,6 +9,8 @@ import authReducers from '../components/actions/reducers/authReducers';
 import queryProjectsReducers from '../components/actions/reducers/queryProjectsReducers';
 import formReducers from '../components/actions/reducers/formReducers';
 
+import {combineForms} from  'react-redux-form'
+
 
 /*
  * Redux store
@@ -27,14 +29,26 @@ const logger = createLogger({
     diff: false,
 });
 
+
+const initialAdminFormState = {     discription: '',     customerViewable: '',     useAllReads:'',     comment:'' };
+
+
 let reducer = combineReducers({
     facilityData: facilityDataReducers,
     common: commonReducers,
     auth: authReducers,
     queryProjects: queryProjectsReducers,
     forms: formReducers,
+    adminForms:combineForms(
+        {
+            adminSubmitForm: initialAdminFormState
+        }
+    ,'adminForms')
+
+    //...createForms ({adminSubmitForm :{}})
 });
 
-const store = createStore(reducer, applyMiddleware(thunk, logger));
+
+const store = createStore(reducer,applyMiddleware(thunk, logger));
 
 export default store;
