@@ -22,7 +22,28 @@ class IdColumnWithUpdateLink extends React.Component {
 }
 
 
+
 const columns = {
+    //add admin tables colums
+    analysis_types: [
+        idColumnWithUpdateLink("pipeline_analysis_types"),
+        {
+            headerName: "Description",
+            field: "description",
+        },{
+            headerName: "Customer Viewable",
+            field: "customer_viewable",
+        },{
+            headerName: "UseAllReads",
+            field: "useAllReads",
+        },{
+            headerName: "Author",
+            field: "author",
+        },{
+            headerName: "Comment",
+            field: "comment",
+        }
+    ],
     projects: [
         idColumnWithUpdateLink("projects"),
         {
