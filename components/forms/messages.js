@@ -7,7 +7,7 @@ import Alert from 'react-bootstrap/lib/Alert';
 /**
  * Error message showing on top of the screen when an invalid form is submitted.
  */
-export class SubmissionErrorMessage extends React.Component {
+export class SubmissionErrorMessage extends React.PureComponent {
     /* Need a state and not only props because we want to be able to close it without changing props. */
     state = {
         visible: this.props.error,
@@ -37,7 +37,7 @@ export class SubmissionErrorMessage extends React.Component {
 /**
  * Info message showing on top of the screen when a valid form is submitted.
  */
-export class SubmissionSuccessfulMessage extends React.Component {
+export class SubmissionSuccessfulMessage extends React.PureComponent {
     state = { visible:
     this.props.success
     };
@@ -64,7 +64,7 @@ export class SubmissionSuccessfulMessage extends React.Component {
     }
 }
 
-export class ServerErrorMessage extends React.Component {
+export class ServerErrorMessage extends React.PureComponent {
     state = {
         error: this.props.error,
         visible: this.isError(this.props.error),
@@ -97,3 +97,22 @@ export class ServerErrorMessage extends React.Component {
         } else return null;
     }
 }
+
+
+// export class FeedbackMessages extends React.PureComponent {
+//     static propTypes = {
+//         submissionError: React.PropTypes.object.bool,
+//         submissionSuccess: React.PropTypes.object.bool,
+//         serverError: React.PropTypes.object.object,
+//         submissionId: React.PropTypes.number,
+//     };
+//     render() {
+//         return (
+//             <div>
+//                 <SubmissionErrorMessage error={this.props.submissionError} />
+//                 <SubmissionSuccessfulMessage success={this.props.submissionSuccess} id={this.props.submissionId} />
+//                 <ServerErrorMessage error={this.props.serverError} />
+//             </div>
+//         );
+//     }
+// }

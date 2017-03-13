@@ -24,10 +24,6 @@ class MultipleSelect extends React.PureComponent {
         forms.initFormField(this.props.form, this.props.field);
     }
 
-    getValue() {
-        return this.state.selected;
-    }
-
     onChange(e) {
         // Because IE is retarded again, and react-bootstrap cannot provide a way to get the values back,
         //  need all that crap just to get the multiple selected values.

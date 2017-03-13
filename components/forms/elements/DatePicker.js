@@ -18,10 +18,6 @@ class DatePicker extends React.PureComponent {
         forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
     }
 
-    getValue() {
-        return this.state.value;
-    }
-
     componentDidMount() {
         // Listen to value change from the store
         this.unsubscribe = store.subscribe(() => {

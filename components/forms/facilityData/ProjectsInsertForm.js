@@ -1,8 +1,6 @@
 "use strict";
 import React from 'react';
 import css from '../forms.css';
-import store from '../../../core/store';
-import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckBox';
@@ -37,23 +35,14 @@ class ProjectInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
-        console.log(this.props.updateId);
-        if (this.props.updateId) {
-            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
-        }
+        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+    }
+    componentWillReceiveProps() {
+        forms.newOrUpdate(this.form, this.table, this.props.updateId);
     }
 
     onSubmit() {
-        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, null);
-        if (submissionError) {
-            this.setState({ submissionError, serverError: {} });
-        } else {
-            submissionFuture.done((insertId) => {
-                this.setState({ submissionSuccess: true, submissionId: insertId, submissionError: false, serverError: {} });
-            }).fail((err) =>{
-                this.setState({ serverError: err, submissionError: false, submissionSuccess: false });
-            });
-        }
+        forms.submit(this, this.form, this.table, null);
     }
 
     render() {

@@ -2,10 +2,9 @@
 import React from 'react';
 import store from '../../../core/store';
 
-import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import { resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
-import * as fields from '../fields';
 import constants from '../../constants/constants';
 import MultipleSelect from '../elements/MultipleSelect';
 
@@ -26,7 +25,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
         field: React.PropTypes.string.isRequired,  // the store key for the selected values
         suffix: React.PropTypes.string.isRequired,  // route suffix for conditional lists (e.g. "all" in "/table/projects/list/all")
         label: React.PropTypes.string,  // title on top of the input
-        filterByIds: React.PropTypes.any,  // set. keep only these ones
+        filterByProjectIds: React.PropTypes.any,  // set. keep only these ones
     };
 
     getDataStoreKey() {
@@ -34,22 +33,22 @@ class ProjectsMultipleSelect extends React.PureComponent {
             case "all":
                 return dataStoreKeys.PROJECTS_ALL;
             case "samples":
-                return dataStoreKeys.PROJECTS_WITH_SAMPLE;
+                return dataStoreKeys.PROJECTS_HAVING_A_SAMPLE;
             case "libs":
-                return dataStoreKeys.PROJECTS_WITH_LIBRARY;
+                return dataStoreKeys.PROJECTS_HAVING_A_LIBRARY;
         }
     }
 
     componentWillMount() {
         // Listen to store for changes or initial data
         this.unsubscribe = store.subscribe(() => {
-            let options = store.getState().facilityData[this.dataStoreKey];
+            let options = store.getState().forms[this.dataStoreKey];
             if (options) {
                 this.setState({ options });
             }
         });
         // Initialize state
-        let options = store.getState().facilityData[this.dataStoreKey];
+        let options = store.getState().forms[this.dataStoreKey];
         /// ...cached
         if (options) {
             this.setState({ options });
@@ -80,7 +79,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
      * Keep only options which id is in the set.
      */
     filterOptions(options) {
-        let idsSet = this.props.filterByIds;
+        let idsSet = this.props.filterByProjectIds;
         if (idsSet === null) {
             return options;
         } else {
