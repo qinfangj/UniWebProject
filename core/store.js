@@ -29,9 +29,6 @@ const logger = createLogger({
     diff: false,
 });
 
-
-const initialAdminFormState = {  description: '',     customerViewable: '',     useAllReads:'',     comment:'' };
-
 function initialAdminForms(table) {
 
     var initalData={};
@@ -50,7 +47,7 @@ let reducer = combineReducers({
     auth: authReducers,
     queryProjects: queryProjectsReducers,
     forms: formReducers,
-    //form: formReducer,
+
     adminForms:combineForms(
         {
             analysisTypeForm: initialAdminForms("pipeline_analysis_types"),
@@ -75,7 +72,6 @@ let reducer = combineReducers({
         }
     ,'adminForms')
 
-    //...createForms ({adminSubmitForm :{}})
 });
 
 
