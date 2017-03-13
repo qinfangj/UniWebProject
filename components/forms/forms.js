@@ -5,7 +5,7 @@ import { insertAsync } from '../actions/actionCreators/facilityDataActionCreator
 import { changeFormValue } from '../actions/actionCreators/formsActionCreators';
 import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { emptyForm } from '../actions/actionCreators/formsActionCreators';
-import { dateNow } from '../../utils/time';
+import { dateNow, parseDateString } from '../../utils/time';
 
 export const defaultFormState = {
     serverError: {},
@@ -119,7 +119,7 @@ export function submit(component, form, table, formatFormData=null) {
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
         submissionError = true;
-    // Valid form: send
+    // Valid form: format and send
     } else {
         if (formatFormData) {
             formData = formatFormData(formData);
@@ -128,6 +128,9 @@ export function submit(component, form, table, formatFormData=null) {
         // Updated at: if update, set to current timestamp.
         if (formData.id && formData.id !== 0) {
             formData.updatedAt = dateNow();
+            if (formData.createdAt) {
+                formData.createdAt = parseDateString(formData.createdAt);
+            }
         }
         console.info(JSON.stringify(formData, null, 2));
         submissionFuture = store.dispatch(insertAsync(table, formData));
