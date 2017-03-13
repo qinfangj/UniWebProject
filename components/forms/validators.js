@@ -20,13 +20,14 @@ class Validators {
     }
 
     shortStringValidator(v) {
-        let valid = /^\w{2,10}$/.test(v.trim());
+        let valid = /^[\w ]{2,10}$/.test(v.trim());
         let msg = "2-10 characters.";
         return {valid, msg};
     }
 
     mediumStringValidator(v) {
-        let valid = /^\w{0,30}$/.test(v.trim());
+        let valid = /^[\w ]{0,30}$/.test(v.trim());
+        console.debug(v.trim(), valid)
         let msg = "0-30 characters.";
         return {valid, msg};
     }
@@ -71,7 +72,7 @@ class Validators {
      * Positive floats.
      */
     numberValidator(v) {
-        let valid = isNumeric(v);
+        let valid = isNumeric(v.trim());
         let msg = "Must be a number.";
         return {valid, msg};
     }

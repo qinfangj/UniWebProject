@@ -14,7 +14,16 @@ let formReducers = (state = defaultState, action) => {
 
     switch (action.type) {
 
-        case types.CHANGE_FORM_VALUE:
+        /**
+         * Reset form data. Expects `action.form` (form name).
+         */
+        case types.forms.EMPTY_FORM:
+            newState = Object.assign({}, state);
+            newState[action.form] = {};
+            newState[action.form]._isValid = {};
+            return newState;
+
+        case types.forms.CHANGE_FORM_VALUE:
             newState = Object.assign({}, state);
             form = action.form;
             let field = action.field;
@@ -40,7 +49,7 @@ let formReducers = (state = defaultState, action) => {
          * Takes the data for a database row that we queried by ID to fill the related form for update.
          * Expects `action.form` (form name), `action.data` (row data).
          */
-        case types.facilityData.FILL_UPDATE_FORM:
+        case types.forms.FILL_UPDATE_FORM:
             newState = Object.assign({}, state);
             form = action.form;
             let formData = state[form] || {};  // current state
@@ -49,15 +58,6 @@ let formReducers = (state = defaultState, action) => {
             newState[form]._isValid = {};
             // Above we supposed that the keys returned by the backend (Slick auto-generated models)
             // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
-            return newState;
-
-        /**
-         * Reset form data. Expects `action.form` (form name).
-         */
-        case types.facilityData.EMPTY_FORM:
-            newState = Object.assign({}, state);
-            newState[form] = {};
-            newState[form]._isValid = {};
             return newState;
 
         /**

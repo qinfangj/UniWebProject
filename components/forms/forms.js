@@ -4,7 +4,8 @@ import store from '../../core/store';
 import _ from 'lodash';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { changeFormValue } from '../actions/actionCreators/formsActionCreators';
-
+import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
+import { emptyForm } from '../actions/actionCreators/formsActionCreators';
 
 export const defaultFormState = {
     serverError: {},
@@ -52,6 +53,20 @@ export function getIsValid(form, field) {
 export function changeValue(form, field, value, valid) {
     if (form !== undefined) {
         store.dispatch(changeFormValue(form, field, value, valid));
+    }
+}
+
+
+/**
+ * All tables should either load update data if update ID is found in props,
+ * or empty all form data if it is not.
+ * This should be called both on mount and and receive props.
+ */
+export function newOrUpdate(component) {
+    if (component.props.updateId) {
+        store.dispatch(findForUpdateAsync(component.table, component.props.updateId, component.form));
+    } else {
+        store.dispatch(emptyForm(component.form));
     }
 }
 

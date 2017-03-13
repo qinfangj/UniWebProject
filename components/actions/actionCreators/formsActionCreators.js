@@ -4,7 +4,7 @@ import actions from '../actionTypes';
 
 export function changeFormValue(form, field, value, valid) {
     return {
-        type: actions.CHANGE_FORM_VALUE,
+        type: actions.forms.CHANGE_FORM_VALUE,
         form: form,
         field: field,
         value: value,
@@ -14,7 +14,7 @@ export function changeFormValue(form, field, value, valid) {
 
 export function emptyForm(form) {
     return {
-        type: actions.facilityData.EMPTY_FORM,
+        type: actions.forms.EMPTY_FORM,
         form: form,
     }
 }

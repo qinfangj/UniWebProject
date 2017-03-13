@@ -1,8 +1,6 @@
 "use strict";
 import React from 'react';
 import css from '../forms.css';
-import store from '../../../core/store';
-import { findForUpdateAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import TextField from '../elements/TextField';
 import Textarea from '../elements/TextField';
@@ -39,9 +37,10 @@ class LibrariesInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
-        if (this.props.updateId) {
-            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
-        }
+        forms.newOrUpdate(this);
+    }
+    componentWillReceiveProps() {
+        forms.newOrUpdate(this);
     }
 
     formatFormData(formData) {
