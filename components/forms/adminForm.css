@@ -1,0 +1,54 @@
+.field {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.label {
+    display: block;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    font-weight: 600;
+    color: black;
+}
+
+.input:not([type="radio"]):not([type="checkbox"]), textarea {
+    appearance: none;
+    border: 1px solid grey;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    width:100%;
+
+}
+.input:focus{
+    outline: 2px solid #1695A3;
+}
+
+.button {
+    appearance: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    background: #1695A3;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin: 0.5rem 0;
+}
+
+.button:hover{
+        opacity: 0.8;
+    }
+
+
+.secondary {
+    margin-left: 1rem;
+    appearance: none;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    color: #1695A3;
+    background: transparent;
+    border: 1px solid #1695A3;
+    border-radius: 3px;
+    margin: 0.5rem 0;
+}
+
