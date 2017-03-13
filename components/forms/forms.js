@@ -1,11 +1,11 @@
 "use strict";
 import React from 'react';
 import store from '../../core/store';
-import _ from 'lodash';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { changeFormValue } from '../actions/actionCreators/formsActionCreators';
 import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { emptyForm } from '../actions/actionCreators/formsActionCreators';
+import { dateNow } from '../../utils/time';
 
 export const defaultFormState = {
     serverError: {},
@@ -62,11 +62,11 @@ export function changeValue(form, field, value, valid) {
  * or empty all form data if it is not.
  * This should be called both on mount and and receive props.
  */
-export function newOrUpdate(component) {
-    if (component.props.updateId) {
-        store.dispatch(findForUpdateAsync(component.table, component.props.updateId, component.form));
+export function newOrUpdate(form, table, updateId) {
+    if (updateId) {
+        store.dispatch(findForUpdateAsync(table, updateId, form));
     } else {
-        store.dispatch(emptyForm(component.form));
+        store.dispatch(emptyForm(form));
     }
 }
 
@@ -106,10 +106,11 @@ export function getFormData(form) {
  * A custom formatter `formatFormData` can be given to transform the data before submission.
  * Return an object `{invalid: (bool), submissionError: (bool), submissionFuture: (Promise)}`.
  */
-export function submit(form, table, formatFormData=null) {
-    let state = {serverError: {}};
+export function submit(component, form, table, formatFormData=null) {
     let formData = getFormData(form);
     let fields = Object.keys(formData);
+    let submissionError = false;
+    let submissionFuture = null;
     // Check if some fields have an invalid value
     let invalidFields = fields.filter(k => formData._isValid[k] === false);
     // Print it with _isValid status, before formatting, and with invalid values set to null
@@ -117,20 +118,34 @@ export function submit(form, table, formatFormData=null) {
     delete formData._isValid;
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
-        let invalid = _.zipObject(invalidFields, new Array(invalidFields.length).fill(true));
-        state = Object.assign(state, {invalid, submissionError: true});
+        submissionError = true;
     // Valid form: send
     } else {
         if (formatFormData) {
             formData = formatFormData(formData);
         }
+        // CreatedAt: reformat so that it can be parsed as java.sql.Timestamp.
+        // Updated at: if update, set to current timestamp.
+        if (formData.id && formData.id !== 0) {
+            formData.updatedAt = dateNow();
+        }
         console.info(JSON.stringify(formData, null, 2));
-        let future = store.dispatch(insertAsync(table, formData));
-        state = Object.assign(state, {submissionError: false, submissionFuture: future});
-        future
+        submissionFuture = store.dispatch(insertAsync(table, formData));
+        submissionError = false;
+        submissionFuture
             .done((insertId) => console.debug(200, "Inserted ID <"+insertId+">"))
             .fail(() => console.warn("Uncaught form validation error"));
     }
-    return state;
+
+    // Now set the component state to show error/warning/success
+    if (submissionError) {
+        component.setState({ submissionError: true, serverError: {} });
+    } else {
+        submissionFuture.done((insertId) => {
+            component.setState({ submissionSuccess: true, submissionId: insertId, submissionError: false, serverError: {} });
+        }).fail((err) =>{
+            component.setState({ serverError: err, submissionError: false, submissionSuccess: false });
+        });
+    }
 }
 

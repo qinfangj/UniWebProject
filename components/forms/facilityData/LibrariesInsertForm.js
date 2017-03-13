@@ -37,10 +37,10 @@ class LibrariesInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
-        forms.newOrUpdate(this);
+        forms.newOrUpdate(this.form, this.table, this.props.updateId);
     }
     componentWillReceiveProps() {
-        forms.newOrUpdate(this);
+        forms.newOrUpdate(this.form, this.table, this.props.updateId);
     }
 
     formatFormData(formData) {
@@ -53,16 +53,7 @@ class LibrariesInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, this.formatFormData);
-        if (submissionError) {
-            this.setState({ submissionError, serverError: {} });
-        } else {
-            submissionFuture.done((insertId) => {
-                this.setState({ submissionSuccess: true, submissionId: insertId, submissionError: false, serverError: {} });
-            }).fail((err) =>{
-                this.setState({ serverError: err, submissionError: false, submissionSuccess: false });
-            });
-        }
+        forms.submit(this, this.form, this.table, this.formatFormData);
     }
 
     render() {
