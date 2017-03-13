@@ -143,7 +143,7 @@ export class ProjectAnalyses extends React.Component {
 
 /** Projects with samples, for User requests and Libraries */
 export function ProjectsWithSamples(form, field, storeKey, props) {
-    storeKey = storeKey || form + dataStoreKeys.PROJECTS_WITH_SAMPLES;
+    storeKey = storeKey || form + dataStoreKeys.PROJECTS_HAVING_A_SAMPLES;
     field = field || fields.PROJECT_ID;
     return <Projects suffix="samples" form={form} field={field} storeKey={storeKey} {...props} />;
 }

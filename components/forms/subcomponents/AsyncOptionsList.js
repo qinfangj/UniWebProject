@@ -1,10 +1,7 @@
 "use strict";
 import React from 'react';
 import store from '../../../core/store';
-import * as forms from '../forms';
-import { connect } from 'react-redux';
-
-import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import Select from '../elements/Select';
 
 
@@ -31,14 +28,14 @@ class AsyncOptionsList extends React.PureComponent {
     componentWillMount() {
         let storeKey = this.props.storeKey;
         this.unsubscribe = store.subscribe(() => {
-            let list = store.getState().facilityData[storeKey];
+            let list = store.getState().forms[storeKey];
             if (list) {
                 this.assertIsArray(list);
                 this.setState({ list });
             }
         });
         // Already in cache: just load it
-        let list = store.getState().facilityData[storeKey];
+        let list = store.getState().forms[storeKey];
         if (list) {
             this.assertIsArray(list);
             this.setState({ list });
@@ -93,5 +90,6 @@ AsyncOptionsList.defaultProps = {
 export default AsyncOptionsList;
 
 
+//import { connect } from 'react-redux';
 //let mapStateToProps = connect((state, ownProps) => {return {list: state.facilityData[ownProps.storeKey]};});
 //export default connect(mapStateToProps)(AsyncOptionsList)

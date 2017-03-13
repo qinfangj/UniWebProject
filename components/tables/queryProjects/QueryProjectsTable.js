@@ -52,7 +52,7 @@ class QueryProjectsTable extends React.PureComponent {
             let projectsKey = formKey + formStoreKeys.suffixes.PROJECTS;
             let selectedProjectIds = forms.getFormValue(formKey, projectsKey);
             if (selectedProjectIds && Object.keys(selectedProjectIds).length !== 0) {
-                let samples = store.getState().facilityData[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // array of samples [{id, name}, ..]
+                let samples = store.getState().forms[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // options list, array of samples [{id, name}, ..]
                 if (samples) {
                     selectedSampleIds = samples.map(v => v.id);
                 }

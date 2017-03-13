@@ -2,9 +2,8 @@
 import React from 'react';
 import store from '../../../core/store';
 
-import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
-import * as fields from '../fields';
 import MultipleSelect from '../elements/MultipleSelect';
 
 
@@ -25,20 +24,22 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
         field: React.PropTypes.string.isRequired,  // the store key for the selected values
         label: React.PropTypes.string,  // title on top of the input
         formatter: React.PropTypes.func,  // ex: object => [id, name]
-        filterByIds: React.PropTypes.any,  // set. keep only these ones
+        filterByProjectIds: React.PropTypes.any,  // set. keep only these ones
+        filterBySampleIds: React.PropTypes.any,  // set. keep only these ones
+        searchTerm: React.PropTypes.string,
     };
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
-            let options = storeState.facilityData[this.dataStoreKey];
-            let formValues = storeState.forms[this.props.form];
+            let options = storeState.forms[this.dataStoreKey];   // this options list
+            let referenceFormValues = storeState.forms[this.props.form];  // to get the projects that are currently selected
             // Since it depends on another field of the same form, no need to
             //  do anything if the other field has not yet sent its value to the store.
-            if (formValues !== undefined) {
-                let referenceValue = formValues[this.props.referenceField];
-                let projectIds = referenceValue ? Object.keys(referenceValue).join(",") : null;
-                if ((! projectIds) || projectIds.length === 0) {
+            if (referenceFormValues !== undefined) {
+                let referenceValue = referenceFormValues[this.props.referenceField];
+                let projectIds = referenceValue ? Object.keys(referenceValue).join(",") : [];
+                if (projectIds.length === 0) {
                     this.setState({ options: [] });
                 }
                 // The value it depends on changed, ask for new data
@@ -48,6 +49,9 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
                 }
                 // New data received, update options
                 else if (options) {
+                    let referenceProjects = storeState.forms[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE];  // the projects options list
+                    referenceProjects = referenceProjects.filter(p => p.id in referenceValue);  // the selected projects
+                    options = this.filterOptions(options, referenceProjects);
                     this.setState({ options });
                 }
             }
@@ -62,8 +66,7 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
      * Filter and format options.
      */
     getOptions() {
-        let options = this.filterOptions(this.state.options);
-        return options.map(v => {
+        return this.state.options.map(v => {
             return {id: v.id, name: v.shortName +" ("+ v.name +")", project_id: v.projectId};
         });
     }
@@ -71,12 +74,21 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
     /**
      * Keep only options which id is in the set.
      */
-    filterOptions(options) {
-        let idsSet = this.props.filterByIds;
-        if (idsSet === null) {
+    filterOptions(options, referenceProjects) {
+        let sampleIdsSet = this.props.filterBySampleIds;
+        if (sampleIdsSet === null) {
             return options;
         } else {
-            return options.filter(v => idsSet.has(v.id));
+            return options.filter(v => {
+                if (sampleIdsSet.has(v.id)) {
+                    return true;
+                } else {
+                    let project = referenceProjects.filter(p => p.id === v.projectId)[0];
+                    let term = this.props.searchTerm;
+                    return project.name.toLowerCase().indexOf(term) >= 0
+                        || project.lastName.toLowerCase().indexOf(term) >= 0;
+                }
+            });
         }
     }
 

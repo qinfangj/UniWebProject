@@ -3,7 +3,7 @@ import React from 'react';
 import store from '../../../core/store';
 import * as forms from '../forms';
 
-import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import Select from '../elements/Select';
 
 
@@ -35,7 +35,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let list = store.getState().facilityData[this.props.storeKey];
+            let list = store.getState().forms[this.props.storeKey];
             let formValues = store.getState().forms[this.props.form];
             // Since it depends on another field of the same form, no need to
             //  do anything if the other field has not yet sent its value to the store.

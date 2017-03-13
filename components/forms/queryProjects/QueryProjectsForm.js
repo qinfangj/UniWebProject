@@ -32,7 +32,7 @@ class QueryProjectsForm extends React.PureComponent {
         this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
         this.samplesFormKey = this.form + formStoreKeys.suffixes.SAMPLES;
         this.state = {
-            searchValue: "",
+            searchTerm: "",
             projectIds: null,  // if filtered by term, a restriction on the selection (not the selection itself)
             sampleIds: null,   // idem
             visible: true,
@@ -42,7 +42,7 @@ class QueryProjectsForm extends React.PureComponent {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let searched = store.getState().queryProjects[dataStoreKeys.SAMPLES_BY_TERM];
+            let searched = store.getState().forms[dataStoreKeys.SAMPLES_BY_TERM];
             if (searched) {
                 let {projectIds, sampleIds} = searched;
                 if (projectIds !== undefined) {
@@ -64,7 +64,7 @@ class QueryProjectsForm extends React.PureComponent {
      */
     onSearch(e) {
         let term = e.target.value.toLowerCase();
-        this.setState({ searchValue: term });
+        this.setState({ searchTerm: term });
         // Clear the current projects/samples selection
         store.dispatch(resetSelection());
         store.dispatch(searchSamplesByTerm(term, dataStoreKeys.SAMPLES_BY_TERM));
@@ -82,7 +82,7 @@ class QueryProjectsForm extends React.PureComponent {
                 {/* Search bar */}
 
                     <FormControl type="text" placeholder="Search" className={css.searchField}
-                                 value={this.state.searchValue}
+                                 value={this.state.searchTerm}
                                  onChange={this.onSearch.bind(this)}
                     />
 
@@ -107,7 +107,7 @@ class QueryProjectsForm extends React.PureComponent {
                                 form={this.form}
                                 field={this.projectsFormKey}
                                 suffix="samples"
-                                filterByIds={this.state.projectIds}
+                                filterByProjectIds={this.state.projectIds}
                             />
                         </Col>
                         <Col sm={6} className={css.col6}>
@@ -116,7 +116,8 @@ class QueryProjectsForm extends React.PureComponent {
                                 form={this.form}
                                 referenceField={this.projectsFormKey}
                                 field={this.samplesFormKey}
-                                filterByIds={this.state.sampleIds}
+                                filterBySampleIds={this.state.sampleIds}
+                                searchTerm={this.state.searchTerm}
                             />
                         </Col>
                     </Form>

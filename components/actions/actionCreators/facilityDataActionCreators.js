@@ -1,27 +1,7 @@
 "use strict";
 import types from '../actionTypes';
 import RestService from '../../../utils/RestService';
-import { assertStoreKey, asyncAction } from './base';
-
-
-/* Select options. */
-export function getOptionsListAsync(tableName, storeKey) {
-    assertStoreKey(storeKey);
-    let args = {storeKey};
-    return asyncAction(types.facilityData.GET_OPTIONS_LIST, RestService.getOptionsList.bind(null, tableName), args)
-}
-
-export function getConditionalOptionsListAsync(tableName, suffix, storeKey) {
-    assertStoreKey(storeKey);
-    let args = {storeKey};
-    return asyncAction(types.facilityData.GET_OPTIONS_LIST, RestService.getConditionalOptionsList.bind(null, tableName, suffix), args)
-}
-
-export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
-    assertStoreKey(storeKey);
-    let args = {storeKey};
-    return asyncAction(types.facilityData.GET_SECONDARY_OPTIONS_LIST, RestService.getSecondaryOptionsList.bind(null, tableName, id), args)
-}
+import { asyncAction } from './base';
 
 
 
