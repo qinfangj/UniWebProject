@@ -32,6 +32,7 @@ export function getTableDataAsync(tableName, activeOnly, storeKey) {
     return asyncAction(types.GET_TABLE_DATA, RestService.specialSelect.bind(null, tableName, activeOnly), args);
 }
 
+
 /* Inserts */
 export function insertAsync(tableName, formData, storeKey) {
     let args = {tableName, storeKey};

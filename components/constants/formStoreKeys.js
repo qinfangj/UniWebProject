@@ -18,6 +18,8 @@ export default {
     USER_REQUESTS_INSERT_FORM: "ISER_REQUESTS_INSERT_FORM",
     QUERY_PROJECTS_FORM: "QUERY_PROJECTS_FORM",
     RUNS_INSERT_FORM: "RUNS_INSERT_FORM",
+    //AdminSubmitForms
+    ANALYSIS_TYPE_INSERT_FORM:"ANALYSIS_TYPE_INSERT_FORM",
 
     // Suffixes (unique within a form)
     suffixes: {

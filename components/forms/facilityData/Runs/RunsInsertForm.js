@@ -97,9 +97,7 @@ class RunsInsertForm extends React.PureComponent {
                     {/* Run# */}
 
                     <Col sm={1} className={formsCss.formCol}>
-                        <TextField name="ga_run_nb" label="Run#" required
-                                   missing = {!!this.state.missing["ga_run_nb"]}
-                                   invalid = {!!this.state.invalid["ga_run_nb"]}
+                        <TextField field="ga_run_nb" label="Run#" required
                                    validator = {validators.integerValidator}
                                    form = {this.form}  // so that it sends its value to store
                                    ref = {(c) => this._runNb = c}
@@ -109,9 +107,9 @@ class RunsInsertForm extends React.PureComponent {
                     {/* Flowcell ID */}
 
                     <Col sm={2} className={formsCss.formCol}>
-                        <TextField name="flowcell_ref_name" label="Flowcell ID" required
-                                   missing = {!!this.state.missing["flowcell_ref_name"]}
-                                   invalid = {!!this.state.invalid["flowcell_ref_name"]}
+                        <TextField  
+                            form={this.form}
+                            field="flowcell_ref_name" label="Flowcell ID" required
                                    ref = {(c) => this._flowcell = c}
                         />
                     </Col>
@@ -119,13 +117,16 @@ class RunsInsertForm extends React.PureComponent {
                     {/* Version */}
 
                     <Col sm={1} className={formsCss.formCol}>
-                        <Options.FlowcellTypes form={this.form} ref={(c) => this._flowcell_type_id = c} />
+                        <Options.FlowcellTypes 
+                            form={this.form} ref={(c) => this._flowcell_type_id = c} />
                     </Col>
 
                     {/* Cluster date (aka "flowcell_loading_date") */}
 
                     <Col sm={3} className={formsCss.formCol}>
-                        <DatePicker name="cluster_date" label="Cluster date"
+                        <DatePicker
+                            form={this.form}
+                            field="cluster_date" label="Cluster date"
                                     ref = {(c) => this._clusterDate = c}
                         />
                     </Col>
@@ -133,13 +134,16 @@ class RunsInsertForm extends React.PureComponent {
                     {/* Machine (aka "Instrument") */}
 
                     <Col sm={2} className={formsCss.formCol}>
-                        <Options.Instruments form={this.form} ref={(c) => this._instrument = c} />
+                        <Options.Instruments 
+                            form={this.form} ref={(c) => this._instrument = c} />
                     </Col>
 
                     {/* Run date (aka "ga_run_date") */}
 
                     <Col sm={3} className={formsCss.formCol}>
-                        <DatePicker name="run_date" label="Run date"
+                        <DatePicker
+                            form={this.form}
+                            field="run_date" label="Run date"
                                     ref = {(c) => this._runDate = c}
                         />
                     </Col>
@@ -154,13 +158,16 @@ class RunsInsertForm extends React.PureComponent {
                             {/* Reads type + length */}
 
                             <Col sm={12} className={formsCss.formCol}>
-                                <Options.RunTypesLengths suffix="all" form={this.form} ref={(c) => this._runTypesLengths = c} />
+                                <Options.RunTypesLengths 
+                                    suffix="all" form={this.form} ref={(c) => this._runTypesLengths = c} />
                             </Col>
 
                             {/* Run stage */}
 
                             <Col sm={4} className={formsCss.formCol}>
-                                <Select name="stage" label="Stage"
+                                <Select
+                                    form={this.form}
+                                    field="stage" label="Stage"
                                         options={[[1,'--'], [2,'A'], [3,'B']]}
                                         ref={(c) => this._stage = c}
                                 />
@@ -169,20 +176,25 @@ class RunsInsertForm extends React.PureComponent {
                             {/* Kit */}
 
                             <Col sm={4} className={formsCss.formCol}>
-                                <Options.SequencingKitVersions form={this.form} ref={(c) => this._kit = c} />
+                                <Options.SequencingKitVersions 
+                                    form={this.form} ref={(c) => this._kit = c} />
                             </Col>
 
                             {/* Is failed */}
 
                             <Col sm={3} className={cx(formsCss.formCol)}>
-                                <CheckBox ref={(c) => this._isFailed = c} name="isFailed" label="Run failed" />
+                                <CheckBox
+                                    form={this.form}
+                                    ref={(c) => this._isFailed = c} field="isFailed" label="Run failed" />
                             </Col>
 
                         </Form>
 
                     </Col>
                     <Col sm={8} className={formsCss.formCol}>
-                        <TextArea name="comment" label="Comment"
+                        <TextArea
+                            form={this.form}
+                            field="comment" label="Comment"
                                   ref = {(c) => this._comment = c}
                         />
                     </Col>
@@ -206,7 +218,8 @@ class RunsInsertForm extends React.PureComponent {
 
                         {/* Comment */}
 
-                        <TextArea name="lanes_comment" label="Comment"
+                        <TextArea form={this.form}
+                            field="lanes_comment" label="Comment"
                                   ref = {(c) => this._lanesComment = c}
                         />
 

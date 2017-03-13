@@ -8,13 +8,13 @@ import RunsPreInsertForm from '../components/forms/facilityData/Runs/RunsPreInse
 import RunsSubForm from '../components/forms/facilityData/Runs/RunsSubForm';
 
 
- const wrapper1 = shallow(<RunsInsertForm/>);
- describe('(Component) RunsInsertForm =>', () => {
+const wrapper1 = shallow(<RunsInsertForm/>);
+describe('(Component) RunsInsertForm =>', () => {
 
-     it('renders without exploding', () => {
-         expect(wrapper1).to.have.length(1);
-     });
- });
+    it('renders without exploding', () => {
+        expect(wrapper1).to.have.length(1);
+    });
+});
 
 const wrapper2 = shallow(<RunsPreInsertForm/>);
 describe('(Component) RunsPreInsertForm =>', () => {
@@ -24,10 +24,10 @@ describe('(Component) RunsPreInsertForm =>', () => {
     });
 });
 
-const wrapper3 = shallow(<RunsSubForm/>);
+const wrapper3 = shallow(<RunsSubForm lanes={{}}/>);
 describe('(Component) RunsSubForm =>', () => {
 
     it('renders without exploding', () => {
-        expect(wrapper2).to.have.length(1);
+        expect(wrapper3).to.have.length(1);
     });
 });

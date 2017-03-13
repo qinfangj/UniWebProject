@@ -108,3 +108,11 @@ The main app configuration, to set e.g. BACKEND_URL, is in `public/conf/conf.js`
 You will want to rewrite this file before serving the app in production.
 
 Additional configuration, such as the page title, is on top of "/run.js".
+
+The environment variable `NODE_ENV` case take ... values:
+
+* `DEBUG`: ...
+* `TEST`: will disable loggers for testing
+* `VAL`: ...
+* `PRODUCTION`: ...
+ 

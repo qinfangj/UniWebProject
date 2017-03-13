@@ -124,7 +124,7 @@
     "eslint": "eslint components core pages test utils main.js run.js webpack.config.js",
     "stylelint": "stylelint \"components/**/*.css\" \"pages/**/*.css\"",
     "lint": "npm run eslint && npm run stylelint",
-    "test": "mocha --compilers js:babel-register -r mock-local-storage --require ./test/testSetup.js --require ignore-styles",
+    "test": "NODE_ENV=TEST mocha --compilers js:babel-register -r mock-local-storage --require ./test/testSetup.js --require ignore-styles",
     "test:watch": "mocha --compilers js:babel-register --reporter min --watch -r mock-local-storage  --require ./test/testSetup.js --require ignore-styles",
     "clean": "node run clean",
     "build": "node run build",

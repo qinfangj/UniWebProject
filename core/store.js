@@ -29,14 +29,17 @@ const logger = createLogger({
     diff: false,
 });
 
+let middleware = [thunk];
+console.log("store.js :: NODE_ENV:", process.env.NODE_ENV)
+if (process.env.NODE_ENV !== 'TEST') {
+    middleware = [ ...middleware, logger ]
+}
+
 function initialAdminForms(table) {
-
-    var initalData={};
-
+    var initalData = {};
     adminDataConstants[table].fields.map(
-        (s)=>{
-            initalData[s.name]="";
-
+        (s) => {
+            initalData[s.name] = "";
         });
     return initalData;
 }
@@ -75,6 +78,6 @@ let reducer = combineReducers({
 });
 
 
-const store = createStore(reducer,applyMiddleware(thunk, logger));
+const store = createStore(reducer, applyMiddleware(...middleware));
 
 export default store;

@@ -2,17 +2,21 @@
 import React from 'react';
 import css from '../forms.css';
 import admincss from '../adminForm.css';
-import formStoreKeys from '../../constants/formStoreKeys';
+//import formStoreKeys from '../../constants/formStoreKeys';
 import * as forms from '../forms.js';
 import store from '../../../core/store';
 import { insertAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
-import { Control, Form, actions,combineForms } from 'react-redux-form';
+import { Control, Form, actions} from 'react-redux-form';
 
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
-import Button from 'react-bootstrap/lib/Button';
+
 import * as messages from '../messages';
+import columns from '../../tables/facilityData/columns';
+
+var analysisTypes = columns["analysis_types"].slice(1);
+
 
 // const aaa = {
 //     "analysisType: {
@@ -53,13 +57,43 @@ import * as messages from '../messages';
 //</Col>
 // }
 // })
+const adminData = {
+    "analysisType": {
+        "fields": [
+            {
+                "label": "Description",
+                "name":  "description",
+                "size":  3,
+                "required": false
+            },
+            {
+                "label": "Customer Viewable",
+                "name":  "customer_viewable",
+                "size":  3,
+                "required": false
+            },
+            {
+                "label": "UseAllReads",
+                "name":  "useAllReads",
+                "size":  6,
+                "required": true
+            },
+            {
+                "label": "Comment",
+                "name":  "comment",
+                "size":  12,
+                "required": false
+            }
+        ],
+        "model": "adminSubmitForm"
+    }
+};
 
 
 class AnalysisTypeSubmitForm extends React.Component {
     constructor(props) {
         super(props);
         this.table = "pipeline_analysis_types";
-        this.form = formStoreKeys.ANALYSIS_TYPE_INSERT_FORM;
 
         this.state = { 
             serverError: {}, 
@@ -71,11 +105,19 @@ class AnalysisTypeSubmitForm extends React.Component {
         if (this.props.updateId ==='' || this.props.updateId ==undefined) {
             this.state.isInsert= true;
         }
+        this.formModel = adminData.analysisType.model;
+        this.fields= adminData.analysisType.fields;
+        //const fields= _.map(object,function(s){ console.log( s.name)});
+
+        console.log(this.fields);
+
         //this.update = window.location.hash includes 'update';
 
         //forms.initForm(this.deep.adminSubmitForm);
     }
-
+    // componentWillMount() {
+    //     this.validate = validate(this, analysisTypeModel);
+    // }
 
     handleSubmit(values){
         let state = {serverError: {}};
@@ -104,13 +146,27 @@ class AnalysisTypeSubmitForm extends React.Component {
     }
 
     render() {
-        let values = this.props.values || {};  // values = {description: ""mycomment, viewable: true, ...}
+        //let values = this.props.values || {};  // values = {description: ""mycomment, viewable: true, ...}
+        let formModel= "adminForms.";
+        formModel=formModel.concat(this.formModel);
         return (
-            <Form model="adminForms.adminSubmitForm" className={css.form} onSubmit={(v) => this.handleSubmit(v)}>
+            <Form model={formModel} className={css.form} onSubmit={(v) => this.handleSubmit(v)}>
                 <messages.SubmissionErrorMessage error={this.state.submissionError} /> 
                 <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} /> 
                 <messages.ServerErrorMessage error={this.state.serverError} />
-                <Row>
+                {
+                     this.fields.map((s)=> {
+                         return (
+                            <Col sm={s.size} className={css.formCol} key={s.name}>
+                                <label className={admincss.label}>{s.label}:</label>
+                                <Control.text model={s.name}  disabled={!this.state.isInsert} className={admincss.input} required/>
+                            </Col>
+                         )
+
+                    })
+                }
+
+
                     <Col sm={6} className={css.formCol}>
                         <label className={admincss.label}>Description:</label>
                         <Control.text  model=".description" disabled={!this.state.isInsert} className={admincss.input} required/>
@@ -125,13 +181,12 @@ class AnalysisTypeSubmitForm extends React.Component {
                         <label className={admincss.label}>UseAllReads:</label>
                         <Control.text model=".useAllReads" disabled={!this.state.isInsert} className={admincss.input} required/>
                     </Col>
-                </Row>
-                <Row>
+
                     <Col sm={12} className={css.formCol}>
                         <label className={admincss.label}>Comment:</label>
                         <Control.text model=".comment" disabled={!this.state.isInsert} className={admincss.input}/>
                     </Col>
-                </Row>
+
                 <Col sm={6} className={css.formCol}>
                     {this.state.isInsert ?
                 <button type="submit"  className={admincss.button} style={{float:'right'}}>
@@ -148,4 +203,4 @@ class AnalysisTypeSubmitForm extends React.Component {
     }
 }
 
-export default AnalysisTypeSubmitForm;
+export default AnalysisTypeSubmitForm
