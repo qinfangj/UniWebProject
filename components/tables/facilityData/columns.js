@@ -22,7 +22,286 @@ class IdColumnWithUpdateLink extends React.Component {
 }
 
 
+
 const columns = {
+    //add admin tables columns
+    analysis_types: [
+        idColumnWithUpdateLink("pipeline_analysis_types"),
+        {
+            headerName: "Description",
+            field: "description",
+        },{
+            headerName: "Customer Viewable",
+            field: "customer_viewable",
+        },{
+            headerName: "UseAllReads",
+            field: "useAllReads",
+        },{
+            headerName: "Author",
+            field: "author",
+        },{
+            headerName: "Comment",
+            field: "comment",
+        }
+    ],
+    flowcell_types: [
+        idColumnWithUpdateLink("flowcell_types"),
+        {
+            headerName: "Verserion",
+            field: "version"
+        }
+    ],
+    instruments: [
+        idColumnWithUpdateLink("instruments"),
+        {
+            headerName: "Internal Name",
+            field: "internal_name"
+        },
+        {
+            headerName: "Model",
+            field: "model"
+        },
+        {
+            headerName: "Serial Nb",
+            field: "serial_nb"
+        },
+        {
+            headerName: "IsSequencer",
+            field: "isSequencer"
+        }
+    ],
+    library_adapters: [
+        idColumnWithUpdateLink("library_adapters"),
+        {
+            headerName: "Name",
+            field: "name"
+        },
+        {
+            headerName: "Length",
+            field: "length"
+        }
+    ],
+    lib_protocols: [
+        idColumnWithUpdateLink("lib_protocols"),
+        {
+            headerName: "Name",
+            field: "name"
+        },
+        {
+            headerName: "Short Name",
+            field: "short_name"
+        },
+        {
+            headerName: "Ref Nb",
+            field: "ref_nb"
+        },
+        {
+            headerName: "Release Month",
+            field: "release_month"
+        },
+        {
+            headerName: "HasInsertSizeSelection",
+            field: "hasInsertSizeSelection"
+        },
+        {
+            headerName: "IsDeprecated",
+            field: "isDeprecated"
+        }
+    ],
+    library_states: [
+        idColumnWithUpdateLink("library_states"),
+        {
+            headerName: "State Order",
+            field: "state_order"
+        },
+        {
+            headerName: "Name",
+            field: "name"
+        },
+        {
+            headerName: "Description",
+            field: "description"
+        }
+    ],
+    mapping_tools: [
+        idColumnWithUpdateLink("mapping_tools"),
+        {
+            headerName: "Name",
+            field: "name"
+        },
+        {
+            headerName: "Version",
+            field: "version"
+        },
+        {
+            headerName: "Reference",
+            field: "reference"
+        }
+    ],
+    multiplex_indexes: [
+        idColumnWithUpdateLink("multiplex_indexes"),
+        {
+            headerName: "Name",
+            field: "name"
+        },
+        {
+            headerName: "Manufacturer",
+            field: "manufacturer"
+        },
+        {
+            headerName: "Sequence",
+            field: "sequence"
+        },
+        {
+            headerName: "Index Group",
+            field: "index_group"
+        },
+        {
+            headerName: "IsMultiplexing",
+            field: "isMultiplexing"
+        },
+        {
+            headerName: "IsDeprecated",
+            field: "isDeprecated"
+        }
+    ],
+    pipeline_versions: [
+        idColumnWithUpdateLink("pipeline_versions"),
+        {
+            headerName: "Software Name",
+            field: "software_name"
+        },
+        {
+            headerName: "Number",
+            field: "number"
+        },
+        {
+            headerName: "Description",
+            field: "description"
+        }
+    ],
+    project_analysis: [
+        idColumnWithUpdateLink("project_analysis"),
+        {
+            headerName: "Name",
+            field: "name"
+        },
+        {
+            headerName: "Description",
+            field: "description"
+        },
+        {
+            headerName: "IsReported",
+            field: "isReported"
+        }
+    ],
+    project_states: [
+        idColumnWithUpdateLink("project_states"),
+        {
+            headerName: "State Order",
+            field: "state_order"
+        },
+        {
+            headerName: "Name",
+            field: "name"
+        },
+        {
+            headerName: "Description",
+            field: "description"
+        }
+    ],
+    quantif_methods: [
+        idColumnWithUpdateLink("quantif_methods"),
+        {
+            headerName: "Name",
+            field: "name"
+        }
+
+    ],
+    read_lengths: [
+        idColumnWithUpdateLink("read_lengths"),
+        {
+            headerName: "Length",
+            field: "length"
+        }
+
+    ],
+    run_types: [
+        idColumnWithUpdateLink("run_types"),
+        {
+            headerName: "Name",
+            field: "name"
+        }
+
+    ],
+    run_types_lengths: [
+        idColumnWithUpdateLink("run_types_lengths"),
+        {
+            headerName: "Run Type",
+            field: "run_type_id"
+        },
+        {
+            headerName: "Read Length",
+            field: "read_length_id"
+        },
+        {
+            headerName: "Discarded",
+            field: "isDeprecated"
+        }
+
+    ],
+    sample_types: [
+        idColumnWithUpdateLink("sample_types"),
+        {
+            headerName: "Name",
+            field: "name"
+        }
+
+    ],
+    sequencing_kit_versions: [
+        idColumnWithUpdateLink("sequencing_kit_versions"),
+        {
+            headerName: "Version",
+            field: "version"
+        },
+        {
+            headerName: "Ref Number",
+            field: "ref_number"
+        }
+
+    ],
+    sequencing_qualities: [
+        idColumnWithUpdateLink("sequencing_qualities"),
+        {
+            headerName: "Name",
+            field: "name"
+        },
+        {
+            headerName: "pass QC",
+            field: "pass_QC"
+        },
+        {
+            headerName: "Delivered",
+            field: "delivered"
+        }
+
+    ],
+    taxonomies: [
+        idColumnWithUpdateLink("taxonomies"),
+        {
+            headerName: "Name",
+            field: "name"
+        },
+        {
+            headerName: "Ref Name",
+            field: "ref_name"
+        },
+        {
+            headerName: "Ncbi Id",
+            field: "ncbi_id"
+        }
+
+    ],
     projects: [
         idColumnWithUpdateLink("projects"),
         {

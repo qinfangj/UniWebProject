@@ -37,6 +37,7 @@ class ProjectInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
+        console.log(this.props.updateId);
         if (this.props.updateId) {
             store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }

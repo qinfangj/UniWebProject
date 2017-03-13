@@ -22,6 +22,9 @@ class CommonTable extends React.PureComponent {
             searchValue: "",
             renderme: false,
         };
+        console.log("dataStoreKey="+this.props.dataStoreKey)
+        console.log("columnsKey="+ this.props.columnsKey)
+        console.log("table=" +this.props.table)
     }
 
     static propTypes = {
