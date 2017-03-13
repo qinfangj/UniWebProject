@@ -35,7 +35,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
             case "samples":
                 return dataStoreKeys.PROJECTS_HAVING_A_SAMPLE;
             case "libs":
-                return dataStoreKeys.PROJECTS_WITH_LIBRARY;
+                return dataStoreKeys.PROJECTS_HAVING_A_LIBRARY;
         }
     }
 

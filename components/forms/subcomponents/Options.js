@@ -143,7 +143,7 @@ export class ProjectAnalyses extends React.Component {
 
 /** Projects with samples, for User requests and Libraries */
 export function ProjectsWithSamples(form, field, storeKey, props) {
-    storeKey = storeKey || form + dataStoreKeys.PROJECTS_HAVING_A_SAMPLES;
+    storeKey = storeKey || form + dataStoreKeys.PROJECTS_HAVING_A_SAMPLE;
     field = field || fields.PROJECT_ID;
     return <Projects suffix="samples" form={form} field={field} storeKey={storeKey} {...props} />;
 }
@@ -152,7 +152,7 @@ export function ProjectsWithSamples(form, field, storeKey, props) {
   * In Bioanalysers it is used in many rows, so we must set a special form key + data key.
   */
 export function ProjectsWithLibraries(form, field, storeKey, props) {
-    storeKey = storeKey || form + dataStoreKeys.PROJECTS_WITH_LIBRARIES;
+    storeKey = storeKey || form + dataStoreKeys.PROJECTS_HAVING_A_LIBRARY;
     field = field || fields.PROJECT_ID;
     return <Projects suffix="libs" label={null} form={form} field={field} storeKey={storeKey} {...props} />;
 }
@@ -161,7 +161,7 @@ export function ProjectsWithLibraries(form, field, storeKey, props) {
   * In pre-Runs it is used in many rows, so we must set a special form key.
   */
 export function ProjectsWithPool(form, field, storeKey, props) {
-    storeKey = storeKey || form + dataStoreKeys.PROJECTS_WITH_POOL;
+    storeKey = storeKey || form + dataStoreKeys.PROJECTS_HAVING_A_POOL;
     field = field || fields.PROJECT_ID;
     return <Projects suffix="pools" label={null} form={form} field={field} storeKey={storeKey} {...props} />;
 }
