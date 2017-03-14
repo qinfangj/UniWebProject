@@ -101,7 +101,6 @@ const routes = (
 
             {/* QUERY PROJECTS */}
 
-            {/*<Route path="projects" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />*/}
             <Redirect from="projects" to="projects/starting_material" />
             <Route path="projects/starting_material" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             <Route path="projects/user_request" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
