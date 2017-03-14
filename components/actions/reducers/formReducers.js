@@ -66,6 +66,7 @@ let formReducers = (state = defaultState, action) => {
             form = action.form;
             let formData = state[form] || {};  // current state
             Object.assign(formData, action.data);  // updated state
+            console.debug(formData)
             newState[form] = formData;
             newState[form]._isValid = {};
             // Above we supposed that the keys returned by the backend (Slick auto-generated models)
