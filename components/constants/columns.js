@@ -8,7 +8,7 @@
 
 export default {
 
-    /* The same keys are used in backend (ProjectsListingController) */
+    /* The same keys are used in backend (ProjectsListingController) and for routes here */
     queryProjects: {
         STARTING_MATERIAL_INFO: "starting_material",
         USER_REQUEST_INFO: "user_request",

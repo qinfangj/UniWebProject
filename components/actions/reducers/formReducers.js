@@ -6,8 +6,7 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 import constants from '../../constants/constants';
 
 
-const defaultState = {
-};
+const defaultState = {};
 
 
 

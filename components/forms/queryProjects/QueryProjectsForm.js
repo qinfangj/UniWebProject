@@ -66,7 +66,7 @@ class QueryProjectsForm extends React.PureComponent {
         let term = e.target.value.toLowerCase();
         this.setState({ searchTerm: term });
         // Clear the current projects/samples selection
-        store.dispatch(resetSelection());
+        store.dispatch(resetSelection(this.form, this.projectsFormKey));
         store.dispatch(searchSamplesByTerm(term, dataStoreKeys.SAMPLES_BY_TERM));
     }
 

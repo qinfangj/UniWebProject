@@ -5,8 +5,8 @@ import css from './queryProjectsTable.css';
 import cx from 'classnames';
 import store from '../../../core/store';
 import * as tables from '../tables.js';
-import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
 import * as constants from '../constants';
+import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
@@ -21,15 +21,16 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 class QueryProjectsTable extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.dataStoreKey = null;  // will match this.queryType
         this.selectedSampleIds = this.getSelectedSampleIdsFromStore();
-        this.queryType = this.getQueryTypeFromStore();
         this.state = {
             renderme: false,
             tableData: this.getTableDataFromStore(),
-            columnsKey: this.queryType,
         };
     }
+
+    static propTypes = {
+        queryType: React.PropTypes.string.isRequired,  // from router, see parent (route) component
+    };
 
     /**
      * Return an array of the sample ids that will be put into the table.
@@ -79,46 +80,30 @@ class QueryProjectsTable extends React.PureComponent {
     }
 
     getTableDataFromStore() {
-        return store.getState().queryProjects[this.dataStoreKey] || [];
+        return store.getState().queryProjects[this.props.queryType] || [];
     }
 
-    getQueryTypeFromStore() {
-        let queryType = store.getState().queryProjects.queryProjectsType;
-        this.dataStoreKey = queryType;
-        return queryType;
-    }
-
-    isUpdated(queryType, selectedSampleIds) {
-        if (! queryType) {
-            return false;
-        } else if (queryType !== this.queryType) {
-            return true;
-        } else if (selectedSampleIds.join(",") !== this.selectedSampleIds.join(",")) {
-            return true;
-        } else {
-            return false;
-        }
+    isUpdated(selectedSampleIds) {
+        return selectedSampleIds.join(",") !== this.selectedSampleIds.join(",");
     }
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
             let tableData = this.getTableDataFromStore();
             let selectedSampleIds = this.getSelectedSampleIdsFromStore();
-            let queryType = this.getQueryTypeFromStore();
             /* Shortcut */
             if (! selectedSampleIds || selectedSampleIds.length === 0) {
-                this.setState({ tabledata: [], columnsKey: queryType });
+                this.setState({ tabledata: [] });
             }
             /* If selected ids have changed, query new data */
-            else if (this.isUpdated(queryType, selectedSampleIds)) {
+            else if (this.isUpdated(selectedSampleIds)) {
                 this.selectedSampleIds = selectedSampleIds;
-                this.queryType = queryType;
-                store.dispatch(queryProjectsAsync(selectedSampleIds, queryType, this.dataStoreKey))
+                store.dispatch(queryProjectsAsync(selectedSampleIds, this.props.queryType, this.props.queryType))
                 .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
             }
             /* Otherwise, load the table data from store */
             else {
-                this.setState({ tableData, columnsKey: queryType });
+                this.setState({ tableData });
             }
         });
     }
@@ -130,7 +115,7 @@ class QueryProjectsTable extends React.PureComponent {
         this.api && this.api.doLayout();  // recalculate layout to fill the container div
     }
     componentDidUpdate() {
-        this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
+        this.api && this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
     }
 
     onGridReady(params) {
@@ -152,7 +137,7 @@ class QueryProjectsTable extends React.PureComponent {
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
-        if (!columns[this.state.columnsKey]) {
+        if (!columns[this.props.queryType]) {
             throw new ReferenceError("No columns definition found");
         }
         tables.checkData(data);
@@ -168,9 +153,10 @@ class QueryProjectsTable extends React.PureComponent {
                         rowData={data}
                         enableFilter={true}
                         enableSorting={true}
-                        columnDefs={columns[this.state.columnsKey]}
+                        columnDefs={columns[this.props.queryType]}
                         rowHeight={constants.ROW_HEIGTH}
                         headerHeight={constants.ROW_HEIGTH}
+                        overlayNoRowsTemplate='<span/>'
                     >
                     </AgGridReact>
                 </div>
