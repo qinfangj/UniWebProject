@@ -72,7 +72,7 @@ class Validators {
      * Positive floats.
      */
     numberValidator(v) {
-        let valid = isNumeric(v.trim());
+        let valid = isNumeric(v);
         let msg = "Must be a number.";
         return {valid, msg};
     }

@@ -85,7 +85,6 @@ let formReducers = (state = defaultState, action) => {
                 newState[qpForm][samplesKey] = {};
                 newState[qpForm][projectsKey] = {};
             }
-            console.debug(action.form, action.field)
             newState[action.form][action.field] = -1;
             return newState;
 

@@ -138,7 +138,7 @@ class QueryProjectsTable extends React.PureComponent {
         this.columnApi = params.columnApi;
     }
 
-    formatData(data, queryType) {
+    formatData(data) {
         let L = data.length;
         for (let i=0; i < L; i++) {
             let d = data[i];
@@ -149,7 +149,6 @@ class QueryProjectsTable extends React.PureComponent {
 
     render() {
         let data = this.state.tableData;
-        //console.debug(data)
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
