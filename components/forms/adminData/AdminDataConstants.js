@@ -30,25 +30,29 @@ const adminData = {
                 "label": "Description",
                 "name":  "description",
                 "size":  3,
-                "required": false
+                "required": false,
+                "type": ""
             },
             {
                 "label": "Customer Viewable",
-                "name":  "customer_viewable",
+                "name":  "customerViewable",
                 "size":  3,
-                "required": false
+                "required": false,
+                "type": "Boolean"
             },
             {
                 "label": "UseAllReads",
-                "name":  "useAllReads",
+                "name":  "useallreads",
                 "size":  6,
-                "required": true
+                "required": true,
+                "type": "Boolean"
             },
             {
                 "label": "Comment",
                 "name":  "comment",
                 "size":  12,
-                "required": false
+                "required": false,
+                "type": ""
             }
         ],
         "model": "analysisTypeForm"
@@ -56,10 +60,11 @@ const adminData = {
     "flowcell_types": {
         "fields": [
             {
-                "label": "Verserion",
+                "label": "Version",
                 "name":  "version",
                 "size":  12,
-                "required": true
+                "required": true,
+                "type": ""
             },
 
         ],
@@ -69,27 +74,31 @@ const adminData = {
         "fields": [
             {
                 "label": "Internal Name",
-                "name":  "internal_name",
+                "name":  "internalName",
                 "size":  4,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Model",
                 "name":  "model",
                 "size":  4,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Serial Nb",
-                "name":  "serial_nb",
+                "name":  "serialNumber",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "IsSequencer",
                 "name":  "isSequencer",
                 "size":  1,
-                "required": false
+                "required": false,
+                "type": "Boolean"
             }
         ],
         "model": "instrumentsForm"
@@ -100,13 +109,15 @@ const adminData = {
                 "label": "Name",
                 "name":  "name",
                 "size":  9,
-                "required": true
+                "required": true,
+                "type":""
             },
             {
                 "label": "Length",
                 "name":  "length",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type" : "Int"
             }
         ],
         "model": "libAdaptersForm"
@@ -117,37 +128,43 @@ const adminData = {
                 "label": "Name",
                 "name":  "name",
                 "size":  9,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Short Name",
-                "name":  "short_name",
+                "name":  "shortName",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Ref Nb",
-                "name":  "ref_nb",
+                "name":  "refNb",
                 "size":  3,
-                "required": false
+                "required": false,
+                "type": ""
             },
             {
                 "label": "Release Month",
-                "name":  "release_month",
+                "name":  "releaseMonth",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "HasInsertSizeSelection",
                 "name":  "hasInsertSizeSelection",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type":"Boolean"
             },
             {
                 "label": "IsDeprecated",
                 "name":  "isDeprecated",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type":"Boolean"
             }
         ],
         "model": "libProtocolsForm"
@@ -156,21 +173,24 @@ const adminData = {
         "fields": [
             {
                 "label": "State Order",
-                "name":  "state_order",
+                "name":  "stateOrder",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type":"Int"
             },
             {
                 "label": "Name",
                 "name":  "name",
                 "size":  9,
-                "required": true
+                "required": true,
+                "type":""
             },
             {
                 "label": "Description",
                 "name":  "description",
                 "size":  12,
-                "required": false
+                "required": false,
+                "type": ""
             }
         ],
         "model": "libStatesForm"
@@ -181,19 +201,22 @@ const adminData = {
                 "label": "Name",
                 "name":  "name",
                 "size":  4,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Version",
                 "name":  "version",
                 "size":  2,
-                "required": true
+                "required": true,
+                "type":""
             },
             {
                 "label": "Reference",
                 "name":  "reference",
                 "size":  6,
-                "required": true
+                "required": true,
+                "type":""
             }
         ],
         "model": "mappingToolsForm"
@@ -204,37 +227,43 @@ const adminData = {
                 "label": "Name",
                 "name":  "name",
                 "size":  4,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Manufacturer",
                 "name":  "manufacturer",
                 "size":  4,
-                "required": false
+                "required": false,
+                "type": ""
             },
             {
                 "label": "Sequence",
                 "name":  "sequence",
                 "size":  4,
-                "required": false
+                "required": false,
+                "type": ""
             },
             {
                 "label": "Index Group",
-                "name":  "index_group",
+                "name":  "indexGroup",
                 "size":  4,
-                "required": false
+                "required": false,
+                "type": ""
             },
             {
                 "label": "IsMultiplexing",
                 "name":  "isMultiplexing",
                 "size":  4,
-                "required": true
+                "required": true,
+                "type": "Boolean"
             },
             {
                 "label": "IsDeprecated",
                 "name":  "isDeprecated",
                 "size":  4,
-                "required": false
+                "required": false,
+                "type": "Boolean"
             },
         ],
         "model": "multiplexIndexesForm"
@@ -243,21 +272,24 @@ const adminData = {
         "fields": [
             {
                 "label": "Software Name",
-                "name":  "software_name",
+                "name":  "softwareName",
                 "size":  4,
-                "required": false
+                "required": false,
+                "type": ""
             },
             {
                 "label": "Number",
                 "name":  "number",
                 "size":  2,
-                "required": true
+                "required": true,
+                "type": "Int"
             },
             {
                 "label": "Description",
                 "name":  "description",
                 "size":  6,
-                "required": false
+                "required": false,
+                "type": ""
             }
         ],
         "model": "pipelineVersionForm"
@@ -268,19 +300,22 @@ const adminData = {
                 "label": "Name",
                 "name":  "name",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Description",
                 "name":  "description",
                 "size":  6,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "IsReported",
                 "name":  "isReported",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type": "Boolean"
             }
         ],
         "model": "projectAnalysisForm"
@@ -289,21 +324,24 @@ const adminData = {
         "fields": [
             {
                 "label": "State Order",
-                "name":  "state_order",
+                "name":  "stateOrder",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type": "Int"
             },
             {
                 "label": "Name",
                 "name":  "name",
                 "size":  9,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Description",
                 "name":  "description",
                 "size":  12,
-                "required": false
+                "required": false,
+                "type": ""
             }
 
         ],
@@ -315,7 +353,8 @@ const adminData = {
                 "label": "Name",
                 "name":  "name",
                 "size":  12,
-                "required": true
+                "required": true,
+                "type": ""
             }
         ],
         "model": "quantifMethodsForm"
@@ -323,10 +362,11 @@ const adminData = {
     "read_lengths": {
         "fields": [
             {
-                "label": "Name",
-                "name":  "name",
+                "label": "Length",
+                "name":  "length",
                 "size":  12,
-                "required": true
+                "required": true,
+                "type": "Int"
             }
         ],
         "model": "readLengthsForm"
@@ -334,10 +374,11 @@ const adminData = {
     "run_types": {
         "fields": [
             {
-                "label": "Length",
-                "name":  "length",
+                "label": "Name",
+                "name":  "name",
                 "size":  12,
-                "required": true
+                "required": true,
+                "type": ""
             }
         ],
         "model": "runTypesForm"
@@ -346,21 +387,24 @@ const adminData = {
         "fields": [
             {
                 "label": "Run Type",
-                "name":  "run_type_id",
+                "name":  "runTypeId",
                 "size":  4,
-                "required": true
+                "required": true,
+                "type": "Int"
             },
             {
                 "label": "Read Length",
-                "name":  "read_length_id",
+                "name":  "runLengthId",
                 "size":  4,
-                "required": true
+                "required": true,
+                "type": "Int"
             },
             {
                 "label": "Discarded",
-                "name":  "isDeprecated",
+                "name":  "isDepreated",
                 "size":  4,
-                "required": true
+                "required": true,
+                "type": "Boolean"
             }
         ],
         "model": "runTypesLengthsForm"
@@ -371,7 +415,8 @@ const adminData = {
                 "label": "Name",
                 "name":  "name",
                 "size":  12,
-                "required": true
+                "required": true,
+                "type": ""
             }
         ],
         "model": "samplesTypesForm"
@@ -382,13 +427,15 @@ const adminData = {
                 "label": "Version",
                 "name":  "version",
                 "size":  6,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Ref Number",
-                "name":  "ref_number",
+                "name":  "refNumber",
                 "size":  6,
-                "required": false
+                "required": false,
+                "type": ""
             }
         ],
         "model": "seqKitVersionForm"
@@ -399,19 +446,22 @@ const adminData = {
                 "label": "Name",
                 "name":  "name",
                 "size":  6,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Pass QC",
-                "name":  "pass_QC",
+                "name":  "passQc",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type": "Boolean"
             },
             {
                 "label": "Delivered",
                 "name":  "delivered",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type": "Boolean"
             }
         ],
         "model": "seqQualitiesForm"
@@ -422,19 +472,22 @@ const adminData = {
                 "label": "Name",
                 "name":  "name",
                 "size":  12,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Ref Name",
-                "name":  "ref_name",
+                "name":  "refName",
                 "size":  9,
-                "required": true
+                "required": true,
+                "type": ""
             },
             {
                 "label": "Ncbi Id",
-                "name":  "ncbi_id",
+                "name":  "ncbiId",
                 "size":  3,
-                "required": true
+                "required": true,
+                "type": "Int"
             }
         ],
         "model": "taxonomiesForm"
