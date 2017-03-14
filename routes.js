@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
 import App from './components/routes/App';
 import HomePage from './components/routes/HomePage';
@@ -102,6 +102,7 @@ const routes = (
             {/* QUERY PROJECTS */}
 
             {/*<Route path="projects" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />*/}
+            <Redirect from="projects" to="projects/starting_material" />
             <Route path="projects/starting_material" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             <Route path="projects/user_request" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             <Route path="projects/library" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
