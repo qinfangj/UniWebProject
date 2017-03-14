@@ -38,8 +38,10 @@ export function changeQueryProjectsType(queryType) {
  * The multiple selects should have their own special action, but for now I don't know
  * if these components (multiple selects) will be reused and where.
  */
-export function resetSelection() {
+export function resetSelection(form, field) {
     return {
         type: actions.queryProjects.RESET_SELECTION,
+        form: form,
+        field: field,
     };
 }

@@ -92,7 +92,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
             <MultipleSelect
                 {...this.props}
                 options={this.getOptions()}
-                resetAction={resetSelection()}
+                resetAction={resetSelection(this.props.form, this.props.field)}
             />
         );
     }
