@@ -17,7 +17,7 @@ let queryProjectsReducers = (state = defaultState, action) => {
          * Return an array of sample objects with added info, for display in the table.
          */
         case types.queryProjects.QUERY_PROJECTS:
-            return returnList(action.args.storeKey);
+            return returnList(action, state, action.args.storeKey, []);
 
         case types.queryProjects.CHANGE_QUERY_TYPE:
             return Object.assign(state, {queryProjectsType: action.queryType});
