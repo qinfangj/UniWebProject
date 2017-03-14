@@ -22,17 +22,6 @@ export function searchSamplesByTerm(term, storeKey) {
 }
 
 /**
- * Change the query type (cf. constants.columns.queryProjects)
- * @param queryType
- */
-export function changeQueryProjectsType(queryType) {
-    return {
-        type: actions.queryProjects.CHANGE_QUERY_TYPE,
-        queryType: queryType,
-    };
-}
-
-/**
  * Clear the current projects/samples selection
  * **Special**: this is listened to by commonReducers, because it acts on form values.
  * The multiple selects should have their own special action, but for now I don't know

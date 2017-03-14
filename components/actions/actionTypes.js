@@ -40,7 +40,6 @@ const actionTypes = {
 
     queryProjects: {
         QUERY_PROJECTS: "QUERY_PROJECTS",
-        CHANGE_QUERY_TYPE: "CHANGE_QUERY_TYPE",
         SEARCH_SAMPLES: "SEARCH_SAMPLES",
         RESET_SELECTION: "RESET_SELECTION",
     },
