@@ -6,15 +6,12 @@ import cx from 'classnames';
 import store from '../../../core/store';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
+import dataStoreKeys from '../../constants/dataStoreKeys';
 import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import columns from './columns';
-
-import * as forms from '../../forms/forms';
-import formStoreKeys from '../../constants/formStoreKeys';
-import dataStoreKeys from '../../constants/dataStoreKeys';
 
 
 
@@ -39,19 +36,17 @@ class QueryProjectsTable extends React.Component {
      * If no filter is applied, returns an empty array.
      */
     getSelectedSampleIdsFromStore() {
-        // If there is a samples selection, display these.
-        let formKey = formStoreKeys.QUERY_PROJECTS_FORM;
-        let samplesKey = formKey + formStoreKeys.suffixes.SAMPLES;
-        let selectedSampleIds = forms.getFormValue(formKey, samplesKey);  // array [{id: true}, ..]
+        let selectedSampleIds = store.getState().queryProjects.sampleIds;  // object {id: true, ...}
+
+        /* If there is a samples selection, display these. */
         if (selectedSampleIds && Object.keys(selectedSampleIds).length !== 0) {
             return Object.keys(selectedSampleIds);
         }
-        // If there is no samples selection, there may be projects selected.
-        // Use the secondaryOptionsList for this projects selection to have the same list of ids
-        // as in the samples selection input.
+        /* If there is no samples selection, there may be projects selected.
+         * Use the secondaryOptionsList for this projects selection to have the same list of ids
+         * as in the samples selection input. */
         else {
-            let projectsKey = formKey + formStoreKeys.suffixes.PROJECTS;
-            let selectedProjectIds = forms.getFormValue(formKey, projectsKey);
+            let selectedProjectIds = store.getState().queryProjects.projectIds;  // object {id: true, ...}
             if (selectedProjectIds && Object.keys(selectedProjectIds).length !== 0) {
                 let samples = store.getState().forms[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // options list, array of samples [{id, name}, ..]
                 if (samples) {
@@ -59,20 +54,20 @@ class QueryProjectsTable extends React.Component {
                 }
             }
         }
-        // Check if there is a search by term
+        /* Check if there is a search by term */
         let searched = store.getState().queryProjects[dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
         if (searched && searched.projectIds) {
             let searchedSamples = searched.sampleIds;
-            // If there was something in the projects/samples selection above, filter the result by term
+            /* If there was something in the projects/samples selection above, filter the result by term */
             if (selectedSampleIds && Object.keys(selectedSampleIds).length !== 0) {
                 selectedSampleIds = selectedSampleIds.filter(v => searchedSamples.has(v));
             }
-            // Otherwise, use the result of the search by term directly
+            /* Otherwise, use the result of the search by term directly */
             else {
                 selectedSampleIds = [...searchedSamples];
             }
         }
-        // If not yet available, wait for it (shortcut), because it this is the initial value
+        /* If not yet available, wait for it (shortcut), because it this is the initial value */
         else {
             selectedSampleIds = [];
         }
@@ -161,12 +156,6 @@ class QueryProjectsTable extends React.Component {
                     >
                     </AgGridReact>
                 </div>
-
-                {/* Show number of rows in result */}
-
-                {/* data.length === 0 ? null :
-                    <tables.Nrows data={data} />
-                */}
 
             </div>
         );

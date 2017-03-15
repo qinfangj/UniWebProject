@@ -1,9 +1,9 @@
+"use strict";
 import React from 'react';
 import store from '../../../core/store';
 import * as forms from '../forms';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 import css from '../forms.css';
-"use strict";
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';

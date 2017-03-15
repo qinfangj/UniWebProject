@@ -43,14 +43,9 @@ export function changeSamplesSelection(sampleIds) {
 
 /**
  * Clear the current projects/samples selection
- * **Special**: this is listened to by commonReducers, because it acts on form values.
- * The multiple selects should have their own special action, but for now I don't know
- * if these components (multiple selects) will be reused and where.
  */
 export function resetSelection(form, field) {
     return {
         type: actions.queryProjects.RESET_SELECTION,
-        form: form,
-        field: field,
     };
 }
