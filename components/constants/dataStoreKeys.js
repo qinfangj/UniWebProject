@@ -43,5 +43,5 @@ export default {
 
     // Query projects
     SAMPLES_FOR_PROJECTS: "SAMPLES_FOR_PROJECTS",  // samples for a multiple selection of projects (secondary list)
-    SAMPLES_BY_TERM: "SAMPLES_BY_TERM",  // samples that contain a given string
+    PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM: "PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM",  // projects+samples that contain a given string
 };

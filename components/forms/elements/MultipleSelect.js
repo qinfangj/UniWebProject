@@ -1,9 +1,9 @@
+"use strict";
 import React from 'react';
 import store from '../../../core/store';
 import * as forms from '../forms';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 import css from '../forms.css';
-"use strict";
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -18,9 +18,6 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 class MultipleSelect extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            selected: {},
-        };
         forms.initFormField(this.props.form, this.props.field);
     }
 
@@ -36,32 +33,35 @@ class MultipleSelect extends React.PureComponent {
         }
         // If "none" is selected, reset
         if (-1 in selected) {
-            selected = {};
-            if (this.props.resetAction) {
-                store.dispatch(this.props.resetAction);
+            if (this.props.onResetAction) {
+                store.dispatch(this.props.onResetAction);
             }
         }
-        this.setState({ selected });
-        store.dispatch(changeFormValue(this.props.form, this.props.field, selected));
+        // Otherwise, send an action informing on which values were selected
+        // The internal state is already taken care of by the FormControl.
+        if (this.props.onSelectActionCreator) {
+            store.dispatch(this.props.onSelectActionCreator(selected));
+        } else {
+            store.dispatch(changeFormValue(this.props.form, this.props.field, selected));
+        }
     }
 
     render() {
         let options = this.props.options.map((v,i) => {
             return <option value={v.id} key={i}>{v.name}</option>;
         });
+
         let label = this.props.label ? <ControlLabel>{this.props.label}</ControlLabel> : null;
-        let values = [];
-        for (let key of Object.keys(this.state.selected)) {
-            values.push(key);
-        }
 
         return (
             <FormGroup controlId={this.props.field}>
                 {label}
-                <FormControl componentClass="select" multiple
-                             className={css.multipleSelect}
-                             onChange={this.onChange.bind(this)}
-                             {...this.props.inputProps}>
+                <FormControl
+                    componentClass="select"
+                    multiple
+                    className={css.multipleSelect}
+                    onChange={this.onChange.bind(this)}
+                    {...this.props.inputProps}>
                     {options}
                 </FormControl>
             </FormGroup>
@@ -77,7 +77,8 @@ MultipleSelect.propTypes = {
 // optional
     label: React.PropTypes.string,  // title - visible
     inputProps: React.PropTypes.object,  // additional input field props
-    resetAction: React.PropTypes.object,  // redux action, when value "-1/any/none" is selected
+    onResetAction: React.PropTypes.object,  // redux action, when value "-1/any/none" is selected
+    onSelectActionCreator: React.PropTypes.func,  // redux action creator, when another value is selected
 
 // maybe use later:
     required: React.PropTypes.bool,

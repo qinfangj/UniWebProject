@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
 import App from './components/routes/App';
 import HomePage from './components/routes/HomePage';
@@ -10,6 +10,7 @@ import * as login from './components/routes/login/loginRoutes';
 import * as admin from './components/routes/admin/adminRoutes';
 import * as account from './components/routes/account/accountRoutes';
 import AuthService from './utils/AuthService';
+import cols from './components/constants/columns';
 
 
 // Validate authentication for private routes
@@ -100,12 +101,12 @@ const routes = (
 
             {/* QUERY PROJECTS */}
 
-            <Route path="projects" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
-            <Route path="projects/sample" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
-            <Route path="projects/request" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
+            <Redirect from="projects" to="projects/starting_material" />
+            <Route path="projects/starting_material" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
+            <Route path="projects/user_request" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             <Route path="projects/library" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
-            <Route path="projects/desc" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
-            <Route path="projects/sheet" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
+            <Route path="projects/sequencing_details" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
+            <Route path="projects/sample_sheets" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             {/*<Route path="projects/ivc" component={qprojects.QueryProjectsRoute} />*/}
             <Route path="projects/demultiplexing" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             {/*<Route path="projects/alignments" component={qprojects.QueryProjectsRoute} />*/}

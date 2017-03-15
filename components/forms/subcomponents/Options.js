@@ -142,29 +142,41 @@ export class ProjectAnalyses extends React.Component {
 }
 
 /** Projects with samples, for User requests and Libraries */
-export function ProjectsWithSamples(form, field, storeKey, props) {
-    storeKey = storeKey || form + dataStoreKeys.PROJECTS_HAVING_A_SAMPLE;
-    field = field || fields.PROJECT_ID;
-    return <Projects suffix="samples" form={form} field={field} storeKey={storeKey} {...props} />;
+export class ProjectsWithSamples extends React.Component {
+    render() {
+        return <Projects suffix="samples" {...this.props} />;
+    }
 }
+ProjectsWithSamples.defaultProps = {
+    storeKey: dataStoreKeys.PROJECTS_HAVING_A_SAMPLE,
+    field: fields.PROJECT_ID,
+};
 
 /** Projects with libraries, in Runs and Bioanalysers.
   * In Bioanalysers it is used in many rows, so we must set a special form key + data key.
   */
-export function ProjectsWithLibraries(form, field, storeKey, props) {
-    storeKey = storeKey || form + dataStoreKeys.PROJECTS_HAVING_A_LIBRARY;
-    field = field || fields.PROJECT_ID;
-    return <Projects suffix="libs" label={null} form={form} field={field} storeKey={storeKey} {...props} />;
+export class ProjectsWithLibraries extends React.Component {
+    render() {
+        return <Projects suffix="libs" label={null} {...this.props} />;
+    }
 }
+ProjectsWithLibraries.defaultProps = {
+    storeKey: dataStoreKeys.PROJECTS_HAVING_A_LIBRARY,
+    field: fields.PROJECT_ID,
+};
 
 /** Projects with pool, in pre-Runs.
   * In pre-Runs it is used in many rows, so we must set a special form key.
   */
-export function ProjectsWithPool(form, field, storeKey, props) {
-    storeKey = storeKey || form + dataStoreKeys.PROJECTS_HAVING_A_POOL;
-    field = field || fields.PROJECT_ID;
-    return <Projects suffix="pools" label={null} form={form} field={field} storeKey={storeKey} {...props} />;
+export class ProjectsWithPool extends React.Component {
+    render() {
+        return <Projects suffix="pools" label={null} {...this.props} />;
+    }
 }
+ProjectsWithPool.defaultProps = {
+    storeKey: dataStoreKeys.PROJECTS_HAVING_A_POOL,
+    field: fields.PROJECT_ID,
+};
 
 /** All projects */
 export class Projects extends React.Component {

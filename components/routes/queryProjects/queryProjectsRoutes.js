@@ -1,11 +1,20 @@
 "use strict";
 import React from 'react';
 
-import QueryProjects from '../../pages/QueryProjects';
+import QueryProjectsForm from '../../forms/queryProjects/QueryProjectsForm';
+import QueryProjectsTable from '../../tables/queryProjects/QueryProjectsTable';
 
 
 export class QueryProjectsRoute extends React.Component {
     render() {
-        return <QueryProjects />;
+        let subpaths = this.props.location.pathname.split("/");
+        let queryType = subpaths[subpaths.length-1];  // last element of the path
+        return (
+            <div>
+                <QueryProjectsForm />
+                <div className="clearfix"/>
+                <QueryProjectsTable queryType={queryType} />
+            </div>
+        );
     }
 }

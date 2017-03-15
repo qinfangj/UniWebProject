@@ -7,6 +7,9 @@
 
 
 export function boolean(v) {
+    if (!v) {
+        return v;
+    }
     switch (v.value) {
         case 1:
         case "1":
@@ -29,6 +32,7 @@ export function boolean(v) {
  * Convert timestamp `v.value` to a readable date, assuming `v.value` is a Unix timestamp.
  */
 export function date(v) {
+    if (!v) return v;
     let date = new Date(v.value * 1000);
     return `${date.getYear()}-${date.getDay()}-${date.getMonth()}`;
 }
@@ -38,7 +42,11 @@ export function date(v) {
  * must be handled specially.
  */
 export function nullable(v) {
-    if (!v.value || v.value === "") { return "-"; }
+    if (!v) {
+        console.warn(`Encountered undefined value v=${v} in formatters.nullable(v)`);
+        return v;
+    }
+    else if (!v.value || v.value === "") { return "-"; }
     else { return v.value; }
 }
 
@@ -46,6 +54,7 @@ export function nullable(v) {
  * Round floats to a number of significant digits.
  */
 export function clipFloat(v) {
+    if (!v) return v;
     let parsed = parseFloat(v.value);
     if (!isNaN(parsed)) {
         return Math.round(parsed * 100) / 100;
