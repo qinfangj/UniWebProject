@@ -43,15 +43,6 @@ let formReducers = (state = defaultState, action) => {
             //console.debug(field, action.valid, action.value)
             newState[form][field] = action.value;
             newState[form]._isValid[field] = action.valid;
-
-            /* Special cases */
-
-            // QP: Reset samples selection if projects selection changes
-            if (form === formStoreKeys.QUERY_PROJECTS_FORM
-                && field === form + formStoreKeys.suffixes.PROJECTS) {
-              newState[form][form + formStoreKeys.suffixes.SAMPLES] = {};
-            }
-
             return newState;
 
         /**

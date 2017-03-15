@@ -22,7 +22,8 @@ let queryProjectsReducers = (state = defaultState, action) => {
          * Expects an object `action.projectIds` of the form {id: true} for each selected id.
          */
         case types.queryProjects.CHANGE_PROJECTS_SELECTION:
-            return Object.assign(state, {projectIds: action.projectIds});
+            // Also reset samples selection if projects selection changes
+            return Object.assign(state, {projectIds: action.projectIds, sampleIds: {}});
 
         /**
          * Expects an object `action.sampleIds` of the form {id: true} for each selected id.
