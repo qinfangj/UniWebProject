@@ -44,7 +44,7 @@ export function changeSamplesSelection(sampleIds) {
 /**
  * Clear the current projects/samples selection
  */
-export function resetSelection(form, field) {
+export function resetSelection() {
     return {
         type: actions.queryProjects.RESET_SELECTION,
     };

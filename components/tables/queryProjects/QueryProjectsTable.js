@@ -79,7 +79,9 @@ class QueryProjectsTable extends React.Component {
     }
 
     isUpdated(selectedSampleIds) {
-        return selectedSampleIds.join(",") !== this.selectedSampleIds.join(",");
+        let samplesChanged = selectedSampleIds.join(",") !== this.selectedSampleIds.join(",");
+        let queryTypeChanged = this.queryType !== this.props.queryType;
+        return samplesChanged || queryTypeChanged;
     }
 
     componentWillMount() {
@@ -93,6 +95,7 @@ class QueryProjectsTable extends React.Component {
             /* If selected ids have changed, query new data */
             else if (this.isUpdated(selectedSampleIds)) {
                 this.selectedSampleIds = selectedSampleIds;
+                this.queryType = this.props.queryType;
                 store.dispatch(queryProjectsAsync(selectedSampleIds, this.props.queryType, this.props.queryType))
                     .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
             }
