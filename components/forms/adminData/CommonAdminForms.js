@@ -3,6 +3,7 @@ import React from 'react';
 import { Control, Form, actions} from 'react-redux-form';
 import admincss from '../adminForm.css';
 import css from '../forms.css';
+import cx from 'classnames';
 import * as messages from '../messages';
 
 import store from '../../../core/store';
@@ -24,9 +25,6 @@ class CommonAdminForms extends React.Component {
             submissionSuccess: false,
             submissionId: undefined,
         };
-        //console.log("model=" + this.props.model);
-        console.log("this.props.table=" + this.props.table);
-
 
         if (this.props.updateId ==='' || this.props.updateId ==undefined) {
             this.state.isInsert= true;
@@ -34,12 +32,24 @@ class CommonAdminForms extends React.Component {
     }
 
 
+
     handleSubmit(values){
         let state = {serverError: {}};
-        let formData = values;
+        var formData = Object.assign({}, values);
         console.info(JSON.stringify(formData, null, 2));
         let fields = Object.keys(formData);
-        console.log(fields);
+        let table = this.props.table;
+
+         Object.keys(formData).forEach(function(key,index) {
+         // key: the name of the object key
+         // index: the ordinal position of the key within the object
+             if (adminData[table].fields[index].type ==="Int") {
+                 formData[key]= parseInt(formData[key]);
+             } else if (adminData[table].fields[index].type ==="Boolean"){
+                 formData[key] = !!parseInt(formData[key]);
+             }
+         });
+         console.log(formData);
 
         let future = store.dispatch(insertAsync(this.table, formData));
         state = Object.assign(state, {submissionError: false, submissionFuture: future});
@@ -47,7 +57,7 @@ class CommonAdminForms extends React.Component {
             .done((insertId) => console.debug(200, "Inserted ID <"+insertId+">"))
             .fail(() => console.warn("Uncaught form validation error"));
 
-        let {submissionError, submissionFuture} =state
+        let {submissionError, submissionFuture} =state;
         if (submissionError) {
             this.setState({ submissionError, serverError: {} });
         } else {
@@ -64,10 +74,11 @@ class CommonAdminForms extends React.Component {
         let modelName= "adminForms.";
         modelName=modelName.concat(adminData[this.props.table].model);
         let formFields = adminData[this.props.table].fields;
+
         return (
 
 
-            <Form model={modelName} className={css.form} onSubmit={(v) => this.handleSubmit(v)}>
+            <Form model={modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
                 <messages.SubmissionErrorMessage error={this.state.submissionError} />
                 <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
                 <messages.ServerErrorMessage error={this.state.serverError} />
@@ -78,7 +89,7 @@ class CommonAdminForms extends React.Component {
                              return (
                                  <Col sm={s.size} className={css.formCol} key={s.name}>
                                      <label className={admincss.label}>{s.label}:</label>
-                                     <Control.text model={s.name}  disabled={!this.state.isInsert} className={admincss.input} required={s.required}/>
+                                     <Control.text model={".".concat(s.name)}  disabled={!this.state.isInsert} className={admincss.input} required={s.required}/>
                                  </Col>
                              )
 
