@@ -22,6 +22,26 @@ export function searchSamplesByTerm(term, storeKey) {
 }
 
 /**
+ * Like formsActionCreators.changeFormValue but only for QP projects selection.
+ */
+export function changeProjectsSelection(projectIds) {
+    return {
+        type: actions.queryProjects.CHANGE_PROJECTS_SELECTION,
+        projectIds: projectIds,
+    };
+}
+
+/**
+ * Like formsActionCreators.changeFormValue but only for QP projects selection.
+ */
+export function changeSamplesSelection(sampleIds) {
+    return {
+        type: actions.queryProjects.CHANGE_SAMPLES_SELECTION,
+        sampleIds: sampleIds,
+    };
+}
+
+/**
  * Clear the current projects/samples selection
  * **Special**: this is listened to by commonReducers, because it acts on form values.
  * The multiple selects should have their own special action, but for now I don't know

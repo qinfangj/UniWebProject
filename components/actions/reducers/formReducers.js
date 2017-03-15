@@ -72,20 +72,20 @@ let formReducers = (state = defaultState, action) => {
             // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
             return newState;
 
-        /**
-         * Specific to queryProjects, but acts on centralized form values, so we treat it here as well.
-         */
-        case types.queryProjects.RESET_SELECTION:
-            newState = Object.assign({}, state);
-            let qpForm = formStoreKeys.QUERY_PROJECTS_FORM;
-            let samplesKey = qpForm + formStoreKeys.suffixes.SAMPLES;
-            let projectsKey = qpForm + formStoreKeys.suffixes.PROJECTS;
-            if (newState[qpForm] !== undefined) {
-                newState[qpForm][samplesKey] = {};
-                newState[qpForm][projectsKey] = {};
-            }
-            newState[action.form][action.field] = -1;
-            return newState;
+        // /**
+        //  * Specific to queryProjects, but acts on centralized form values, so we treat it here as well.
+        //  */
+        // case types.queryProjects.RESET_SELECTION:
+        //     newState = Object.assign({}, state);
+        //     let qpForm = formStoreKeys.QUERY_PROJECTS_FORM;
+        //     let samplesKey = qpForm + formStoreKeys.suffixes.SAMPLES;
+        //     let projectsKey = qpForm + formStoreKeys.suffixes.PROJECTS;
+        //     if (newState[qpForm] !== undefined) {
+        //         newState[qpForm][samplesKey] = {};
+        //         newState[qpForm][projectsKey] = {};
+        //     }
+        //     newState[action.form][action.field] = -1;
+        //     return newState;
 
         /**
          * Specific to queryProjects, but acts on centralized form values, so we treat it here as well.

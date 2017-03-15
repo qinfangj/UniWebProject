@@ -3,7 +3,7 @@ import React from 'react';
 import store from '../../../core/store';
 
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
-import { resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
+import { resetSelection, changeProjectsSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 import constants from '../../constants/constants';
 import MultipleSelect from '../elements/MultipleSelect';
@@ -92,7 +92,8 @@ class ProjectsMultipleSelect extends React.PureComponent {
             <MultipleSelect
                 {...this.props}
                 options={this.getOptions()}
-                resetAction={resetSelection(this.props.form, this.props.field)}
+                onResetAction={resetSelection(this.props.form, this.props.field)}
+                onSelectActionCreator={changeProjectsSelection}
             />
         );
     }
