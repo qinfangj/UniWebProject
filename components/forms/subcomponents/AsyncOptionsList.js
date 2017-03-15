@@ -90,6 +90,21 @@ AsyncOptionsList.defaultProps = {
 export default AsyncOptionsList;
 
 
-//import { connect } from 'react-redux';
-//let mapStateToProps = connect((state, ownProps) => {return {list: state.facilityData[ownProps.storeKey]};});
-//export default connect(mapStateToProps)(AsyncOptionsList)
+//-----------------------------------------------------
+// Try with "connect" method
+//-----------------------------------------------------
+
+// import { connect } from 'react-redux';
+//
+// const mapStateToProps = (state, ownProps) => {
+//     return {list: state.facilityData[ownProps.storeKey]};
+// };
+//
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         fetchData: (url) => dispatch(itemsFetchData(url))
+//     };
+// };
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(AsyncOptionsList);
+
