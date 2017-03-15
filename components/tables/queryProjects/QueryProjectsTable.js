@@ -18,7 +18,7 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 
 
 
-class QueryProjectsTable extends React.PureComponent {
+class QueryProjectsTable extends React.Component {
     constructor(props) {
         super(props);
         this.selectedSampleIds = this.getSelectedSampleIdsFromStore();
@@ -60,7 +60,7 @@ class QueryProjectsTable extends React.PureComponent {
             }
         }
         // Check if there is a search by term
-        let searched = store.getState().queryProjects[dataStoreKeys.SAMPLES_BY_TERM];  // {projectIds(set), sampleIds(set)}
+        let searched = store.getState().queryProjects[dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
         if (searched && searched.projectIds) {
             let searchedSamples = searched.sampleIds;
             // If there was something in the projects/samples selection above, filter the result by term
@@ -99,7 +99,7 @@ class QueryProjectsTable extends React.PureComponent {
             else if (this.isUpdated(selectedSampleIds)) {
                 this.selectedSampleIds = selectedSampleIds;
                 store.dispatch(queryProjectsAsync(selectedSampleIds, this.props.queryType, this.props.queryType))
-                .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
+                    .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
             }
             /* Otherwise, load the table data from store */
             else {
@@ -133,6 +133,7 @@ class QueryProjectsTable extends React.PureComponent {
     }
 
     render() {
+        console.debug(this.props.queryType)
         let data = this.state.tableData;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");

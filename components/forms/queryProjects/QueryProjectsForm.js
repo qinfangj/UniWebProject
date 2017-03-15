@@ -24,7 +24,7 @@ import Icon from 'react-fontawesome'
  * Holds together the projects and samples multiple selectors,
  * and allows to filter their options by term.
  */
-class QueryProjectsForm extends React.PureComponent {
+class QueryProjectsForm extends React.Component {
     constructor() {
         super();
         this.form = formStoreKeys.QUERY_PROJECTS_FORM;
@@ -42,7 +42,7 @@ class QueryProjectsForm extends React.PureComponent {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let searched = store.getState().forms[dataStoreKeys.SAMPLES_BY_TERM];
+            let searched = store.getState().forms[dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];
             if (searched) {
                 let {projectIds, sampleIds} = searched;
                 if (projectIds !== undefined) {
@@ -51,7 +51,7 @@ class QueryProjectsForm extends React.PureComponent {
             }
         });
         // Initialize with all samples - filtering with empty term
-        store.dispatch(searchSamplesByTerm("", dataStoreKeys.SAMPLES_BY_TERM));
+        store.dispatch(searchSamplesByTerm("", dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM));
     }
     componentWillUnmount() {
         this.unsubscribe();
@@ -67,7 +67,7 @@ class QueryProjectsForm extends React.PureComponent {
         this.setState({ searchTerm: term });
         // Clear the current projects/samples selection
         store.dispatch(resetSelection(this.form, this.projectsFormKey));
-        store.dispatch(searchSamplesByTerm(term, dataStoreKeys.SAMPLES_BY_TERM));
+        store.dispatch(searchSamplesByTerm(term, dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM));
     }
 
     toggleVisible() {
@@ -81,9 +81,11 @@ class QueryProjectsForm extends React.PureComponent {
 
                 {/* Search bar */}
 
-                    <FormControl type="text" placeholder="Search" className={css.searchField}
-                                 value={this.state.searchTerm}
-                                 onChange={this.onSearch.bind(this)}
+                    <FormControl className={css.searchField}
+                        type="text"
+                        placeholder="Search"
+                        value={this.state.searchTerm}
+                        onChange={this.onSearch.bind(this)}
                     />
 
                 {/* Toggle visibility button */}
