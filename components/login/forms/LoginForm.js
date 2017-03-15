@@ -22,7 +22,8 @@ class LoginForm extends React.Component {
         };
     }
 
-    submit() {
+    submit(e) {
+        e.preventDefault();
         store.dispatch(loginUser(
             {
                 username: this.state.username,
@@ -43,7 +44,7 @@ class LoginForm extends React.Component {
         return (
             <div className={css.formContainer}>
 
-                <Form className={css.form}>
+                <Form className={css.form} onSubmit={this.submit.bind(this)}>
 
                     <FormGroup className={css.formGroup}>
                         <InputGroup>
@@ -77,11 +78,13 @@ class LoginForm extends React.Component {
                         {/*{!this.isDemo ?*/}
                             {/*<Link id='forget-password-link' to='/forgetPassword'>I forgot my password</Link> : '' }*/}
 
+                    <Button type="submit" className={css.loginButton}>
+                        Log in >
+                    </Button>
+
                 </Form>
 
-                <Button onClick={this.submit.bind(this)} className={css.loginButton}>
-                    Log in >
-                </Button>
+
 
             </div>
         );

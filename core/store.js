@@ -35,11 +35,12 @@ if (process.env.NODE_ENV !== 'TEST') {
     middleware = [ ...middleware, logger ]
 }
 
+
 function initialAdminForms(table) {
     var initalData = {};
     adminDataConstants[table].fields.map(
         (s) => {
-            initalData[s.name] = "";
+            initalData[s.name] = '';
         });
     return initalData;
 }
@@ -71,7 +72,7 @@ let reducer = combineReducers({
             samplesTypesForm : initialAdminForms("sample_types"),
             seqKitVersionForm : initialAdminForms("sequencing_kit_versions"),
             seqQualitiesForm : initialAdminForms("sequencing_qualities"),
-            taxonomiesForm : initialAdminForms("sequencing_qualities")
+            taxonomiesForm : initialAdminForms("taxonomies")
         }
     ,'adminForms')
 

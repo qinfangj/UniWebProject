@@ -32,13 +32,10 @@ const columns = {
             field: "description",
         },{
             headerName: "Customer Viewable",
-            field: "customer_viewable",
+            field: "customerViewable",
         },{
             headerName: "UseAllReads",
-            field: "useAllReads",
-        },{
-            headerName: "Author",
-            field: "author",
+            field: "useallreads",
         },{
             headerName: "Comment",
             field: "comment",
@@ -47,7 +44,7 @@ const columns = {
     flowcell_types: [
         idColumnWithUpdateLink("flowcell_types"),
         {
-            headerName: "Verserion",
+            headerName: "Version",
             field: "version"
         }
     ],
@@ -55,7 +52,7 @@ const columns = {
         idColumnWithUpdateLink("instruments"),
         {
             headerName: "Internal Name",
-            field: "internal_name"
+            field: "internalName"
         },
         {
             headerName: "Model",
@@ -63,7 +60,7 @@ const columns = {
         },
         {
             headerName: "Serial Nb",
-            field: "serial_nb"
+            field: "serialNb"
         },
         {
             headerName: "IsSequencer",
@@ -89,15 +86,15 @@ const columns = {
         },
         {
             headerName: "Short Name",
-            field: "short_name"
+            field: "shortName"
         },
         {
             headerName: "Ref Nb",
-            field: "ref_nb"
+            field: "refNb"
         },
         {
             headerName: "Release Month",
-            field: "release_month"
+            field: "releaseMonth"
         },
         {
             headerName: "HasInsertSizeSelection",
@@ -112,7 +109,7 @@ const columns = {
         idColumnWithUpdateLink("library_states"),
         {
             headerName: "State Order",
-            field: "state_order"
+            field: "stateOrder"
         },
         {
             headerName: "Name",
@@ -154,7 +151,7 @@ const columns = {
         },
         {
             headerName: "Index Group",
-            field: "index_group"
+            field: "indexGroup"
         },
         {
             headerName: "IsMultiplexing",
@@ -169,7 +166,7 @@ const columns = {
         idColumnWithUpdateLink("pipeline_versions"),
         {
             headerName: "Software Name",
-            field: "software_name"
+            field: "softwareName"
         },
         {
             headerName: "Number",
@@ -199,7 +196,7 @@ const columns = {
         idColumnWithUpdateLink("project_states"),
         {
             headerName: "State Order",
-            field: "state_order"
+            field: "stateOrder"
         },
         {
             headerName: "Name",
@@ -238,15 +235,15 @@ const columns = {
         idColumnWithUpdateLink("run_types_lengths"),
         {
             headerName: "Run Type",
-            field: "run_type_id"
+            field: "runTypeId"
         },
         {
             headerName: "Read Length",
-            field: "read_length_id"
+            field: "runLengthId"
         },
         {
             headerName: "Discarded",
-            field: "isDeprecated"
+            field: "isDepreated"
         }
 
     ],
@@ -266,7 +263,7 @@ const columns = {
         },
         {
             headerName: "Ref Number",
-            field: "ref_number"
+            field: "refNumber"
         }
 
     ],
@@ -278,7 +275,7 @@ const columns = {
         },
         {
             headerName: "pass QC",
-            field: "pass_QC"
+            field: "passQc"
         },
         {
             headerName: "Delivered",
@@ -294,11 +291,11 @@ const columns = {
         },
         {
             headerName: "Ref Name",
-            field: "ref_name"
+            field: "refName"
         },
         {
             headerName: "Ncbi Id",
-            field: "ncbi_id"
+            field: "ncbiId"
         }
 
     ],
