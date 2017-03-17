@@ -59,7 +59,9 @@ class CommonAdminForms extends React.Component {
 
                     Object.assign(adminData, data);  // updated state
 
-                    this.setState({changed: !this.state.changed})
+                    store.dispatch(actions.merge(this.modelName,data));
+
+                    //this.setState({changed: !this.state.changed})
 
                 });
 
