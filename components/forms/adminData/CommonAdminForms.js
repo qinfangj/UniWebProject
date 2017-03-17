@@ -61,11 +61,9 @@ class CommonAdminForms extends React.Component {
                 });
 
         } else {
-            //store.dispatch(emptyForm(this.modelName));
-            //let newState = Object.assign({}, store.getState());
-            //newState[store.getState().adminForms[model]] = {};
+            //empty the admin forms
+            store.dispatch(actions.reset(this.modelName));
 
-            //return newState;
         }
     }
 
