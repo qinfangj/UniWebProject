@@ -9,6 +9,8 @@ import store from '../../../core/store';
 import { insertAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { findByIdAsync} from '../../actions/actionCreators/facilityDataActionCreators';
 
+
+
 import { dateNow, parseDateString } from '../../../utils/time';
 
 
@@ -28,7 +30,6 @@ class CommonAdminForms extends React.Component {
             submissionError: false,
             submissionSuccess: false,
             submissionId: undefined,
-            changed: true,
         };
 
         const modelName = "adminForms.";
@@ -46,22 +47,16 @@ class CommonAdminForms extends React.Component {
     newOrUpdate(table,updateId){
         let state = {serverError: {}};
         if (this.props.updateId) {
-            console.log("WillMount"+this.props.updateId);
+
             let future = store.dispatch(findByIdAsync(table, updateId));
             state = Object.assign(state, {submissionError: false, submissionFuture: future});
             let model= adminData[table].model;
-            console.log(store.getState());
+
             future
                 .done((data) => {
                     console.log(data);
 
-                    let adminData = store.getState().adminForms[model];
-
-                    Object.assign(adminData, data);  // updated state
-
                     store.dispatch(actions.merge(this.modelName,data));
-
-                    //this.setState({changed: !this.state.changed})
 
                 });
 
