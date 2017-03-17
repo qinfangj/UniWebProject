@@ -127,7 +127,7 @@ const routes = (
             <Route path="admin/library_protocols/new" component={admin.libProtocolsNewPage} onEnter={requireAuth} />
             <Route path="admin/library_protocols/update/:id" component={admin.libProtocolsUpdatePage} onEnter={requireAuth} />
             <Route path="admin/library_states/new" component={admin.libStatesNewPage} onEnter={requireAuth} />
-            <Route path="admin/library_states" component={admin.libStatesUpdatePage} onEnter={requireAuth} />
+            <Route path="admin/library_states/update/:id" component={admin.libStatesUpdatePage} onEnter={requireAuth} />
             <Route path="admin/mapping_tools/new" component={admin.mappingToolsNewPage} onEnter={requireAuth} />
             <Route path="admin/mapping_tools/update/:id" component={admin.mappingToolsUpdatePage} onEnter={requireAuth} />
             <Route path="admin/multiplex_indexes/new" component={admin.multiplexIndexesNewPage} onEnter={requireAuth} />
@@ -139,7 +139,7 @@ const routes = (
             <Route path="admin/project_states/new" component={admin.projectStatesNewPage} onEnter={requireAuth} />
             <Route path="admin/project_states/update/:id" component={admin.projectStatesUpdatePage} onEnter={requireAuth} />
             <Route path="admin/quantif_methods/new" component={admin.quantifMethodsNewPage} onEnter={requireAuth} />
-            <Route path="admin/quantif_methods/update:id" component={admin.quantifMethodsUpdatePage} onEnter={requireAuth} />
+            <Route path="admin/quantif_methods/update/:id" component={admin.quantifMethodsUpdatePage} onEnter={requireAuth} />
             <Route path="admin/read_lengths/new" component={admin.readLengthsNewPage} onEnter={requireAuth} />
             <Route path="admin/read_lengths/update/:id" component={admin.readLengthsUpdatePage} onEnter={requireAuth} />
             <Route path="admin/run_types/new" component={admin.runTypesNewPage} onEnter={requireAuth} />
@@ -147,7 +147,7 @@ const routes = (
             <Route path="admin/run_types_lengths/new" component={admin.runTypesLengthsNewPage} onEnter={requireAuth} />
             <Route path="admin/run_types_lengths/update/:id" component={admin.runTypesLengthsUpdatePage} onEnter={requireAuth} />
             <Route path="admin/sample_types/new" component={admin.sampleTypesNewPage} onEnter={requireAuth} />
-            <Route path="admin/sample_types/update/:id" component={admin.sampleTypesNewPage} onEnter={requireAuth} />
+            <Route path="admin/sample_types/update/:id" component={admin.samplesTypesUpdatePage} onEnter={requireAuth} />
             <Route path="admin/sequencing_kit_versions/new" component={admin.seqKitVersionNewPage} onEnter={requireAuth} />
             <Route path="admin/sequencing_kit_versions/update/:id" component={admin.seqKitVersionUpdatePage} onEnter={requireAuth} />
             <Route path="admin/sequencing_qualities/new" component={admin.seqQualitiesNewPage} onEnter={requireAuth} />
