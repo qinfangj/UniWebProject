@@ -6,18 +6,21 @@ import { Link } from 'react-router';
 
 
 // See React cell rendering with Ag-Grid: https://www.ag-grid.com/javascript-grid-cell-rendering/
-function idColumnWithUpdateLink(tableName) {
+function idColumnWithUpdateLink(tableName,domain) {
+    //make different category links: facilityData,AdminData, etc
+    let linkName= (domain===undefined? 'data/'.concat(tableName): domain + '/' + tableName);
     return Object.assign({}, ID_COLUMN, {
         cellRendererFramework: IdColumnWithUpdateLink,
-        cellRendererParams: {tableName},
+        cellRendererParams: {tableName: linkName}
+
     });
 }
 
 class IdColumnWithUpdateLink extends React.Component {
     render() {
-        return <Link to={`/data/${this.props.tableName}/update/${this.props.value}`}>
-            {this.props.value}
-        </Link>;
+        return <Link to = {`/${this.props.tableName}/update/${this.props.value}`}>
+                    {this.props.value}
+               </Link>;
     }
 }
 
@@ -26,7 +29,7 @@ class IdColumnWithUpdateLink extends React.Component {
 const columns = {
     //add admin tables columns
     analysis_types: [
-        idColumnWithUpdateLink("pipeline_analysis_types"),
+        idColumnWithUpdateLink("analysis_types","admin"),
         {
             headerName: "Description",
             field: "description",
@@ -42,14 +45,14 @@ const columns = {
         }
     ],
     flowcell_types: [
-        idColumnWithUpdateLink("flowcell_types"),
+        idColumnWithUpdateLink("flowcell_types","admin"),
         {
             headerName: "Version",
             field: "version"
         }
     ],
     instruments: [
-        idColumnWithUpdateLink("instruments"),
+        idColumnWithUpdateLink("instruments","admin"),
         {
             headerName: "Internal Name",
             field: "internalName"
@@ -68,7 +71,7 @@ const columns = {
         }
     ],
     library_adapters: [
-        idColumnWithUpdateLink("library_adapters"),
+        idColumnWithUpdateLink("library_adapters","admin"),
         {
             headerName: "Name",
             field: "name"
@@ -79,7 +82,7 @@ const columns = {
         }
     ],
     lib_protocols: [
-        idColumnWithUpdateLink("lib_protocols"),
+        idColumnWithUpdateLink("lib_protocols","admin"),
         {
             headerName: "Name",
             field: "name"
@@ -106,7 +109,7 @@ const columns = {
         }
     ],
     library_states: [
-        idColumnWithUpdateLink("library_states"),
+        idColumnWithUpdateLink("library_states","admin"),
         {
             headerName: "State Order",
             field: "stateOrder"
@@ -121,7 +124,7 @@ const columns = {
         }
     ],
     mapping_tools: [
-        idColumnWithUpdateLink("mapping_tools"),
+        idColumnWithUpdateLink("mapping_tools","admin"),
         {
             headerName: "Name",
             field: "name"
@@ -136,7 +139,7 @@ const columns = {
         }
     ],
     multiplex_indexes: [
-        idColumnWithUpdateLink("multiplex_indexes"),
+        idColumnWithUpdateLink("multiplex_indexes","admin"),
         {
             headerName: "Name",
             field: "name"
@@ -163,7 +166,7 @@ const columns = {
         }
     ],
     pipeline_versions: [
-        idColumnWithUpdateLink("pipeline_versions"),
+        idColumnWithUpdateLink("pipeline_versions","admin"),
         {
             headerName: "Software Name",
             field: "softwareName"
@@ -178,7 +181,7 @@ const columns = {
         }
     ],
     project_analysis: [
-        idColumnWithUpdateLink("project_analysis"),
+        idColumnWithUpdateLink("project_analysis","admin"),
         {
             headerName: "Name",
             field: "name"
@@ -193,7 +196,7 @@ const columns = {
         }
     ],
     project_states: [
-        idColumnWithUpdateLink("project_states"),
+        idColumnWithUpdateLink("project_states","admin"),
         {
             headerName: "State Order",
             field: "stateOrder"
@@ -208,7 +211,7 @@ const columns = {
         }
     ],
     quantif_methods: [
-        idColumnWithUpdateLink("quantif_methods"),
+        idColumnWithUpdateLink("quantif_methods","admin"),
         {
             headerName: "Name",
             field: "name"
@@ -216,7 +219,7 @@ const columns = {
 
     ],
     read_lengths: [
-        idColumnWithUpdateLink("read_lengths"),
+        idColumnWithUpdateLink("read_lengths","admin"),
         {
             headerName: "Length",
             field: "length"
@@ -224,7 +227,7 @@ const columns = {
 
     ],
     run_types: [
-        idColumnWithUpdateLink("run_types"),
+        idColumnWithUpdateLink("run_types","admin"),
         {
             headerName: "Name",
             field: "name"
@@ -232,7 +235,7 @@ const columns = {
 
     ],
     run_types_lengths: [
-        idColumnWithUpdateLink("run_types_lengths"),
+        idColumnWithUpdateLink("run_types_lengths","admin"),
         {
             headerName: "Run Type",
             field: "runTypeId"
@@ -248,7 +251,7 @@ const columns = {
 
     ],
     sample_types: [
-        idColumnWithUpdateLink("sample_types"),
+        idColumnWithUpdateLink("sample_types","admin"),
         {
             headerName: "Name",
             field: "name"
@@ -256,7 +259,7 @@ const columns = {
 
     ],
     sequencing_kit_versions: [
-        idColumnWithUpdateLink("sequencing_kit_versions"),
+        idColumnWithUpdateLink("sequencing_kit_versions","admin"),
         {
             headerName: "Version",
             field: "version"
@@ -268,7 +271,7 @@ const columns = {
 
     ],
     sequencing_qualities: [
-        idColumnWithUpdateLink("sequencing_qualities"),
+        idColumnWithUpdateLink("sequencing_qualities","admin"),
         {
             headerName: "Name",
             field: "name"
@@ -284,7 +287,7 @@ const columns = {
 
     ],
     taxonomies: [
-        idColumnWithUpdateLink("taxonomies"),
+        idColumnWithUpdateLink("taxonomies","admin"),
         {
             headerName: "Name",
             field: "name"
