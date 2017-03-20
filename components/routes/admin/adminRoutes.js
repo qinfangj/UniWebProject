@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import CommonTable from '../../tables/facilityData/CommonTable';
-import AnalysisTypeSubmitForm from '../../forms/adminData/AnalysisTypeSubmitForm';
+
 import CommonAdminForms from '../../forms/adminData/CommonAdminForms';
 
 import AdminData from '../../pages/AdminData';
