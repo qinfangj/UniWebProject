@@ -3,7 +3,7 @@ import React from 'react';
 import CommonTable from '../../tables/facilityData/CommonTable';
 import AnalysisTypeSubmitForm from '../../forms/adminData/AnalysisTypeSubmitForm';
 import CommonAdminForms from '../../forms/adminData/CommonAdminForms';
-import ProjectSharingsForm from '../../forms/adminData/ProjectSharingSubmitForm';
+
 import AdminData from '../../pages/AdminData';
 
 
@@ -599,30 +599,3 @@ export class taxonomiesUpdatePage extends React.Component {
     }
 }
 
-export class projectSharingsNewPage extends React.Component {
-    render() {
-        return (
-            <div>
-                <ProjectSharingsForm table="project_sharings"/>
-                <div className="clearfix"/>
-                <div>
-                    <CommonTable dataStoreKey="project_sharings" table="project_sharings" columnsKey="project_sharings" />
-                </div>
-            </div>
-        );
-    }
-}
-
-export class projectSharingsUpdatePage extends React.Component {
-    render() {
-        return (
-            <div>
-                <ProjectSharingsForm table="project_sharings" updateId={this.props.params.id}/>
-                <div className="clearfix"/>
-                <div>
-                    <CommonTable dataStoreKey="project_sharings" table="project_sharings" columnsKey="project_sharings" />
-                </div>
-            </div>
-        );
-    }
-}
