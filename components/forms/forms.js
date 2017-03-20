@@ -6,6 +6,7 @@ import { changeFormValue } from '../actions/actionCreators/formsActionCreators';
 import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { emptyForm } from '../actions/actionCreators/formsActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
+import { hashHistory } from 'react-router';
 
 export const defaultFormState = {
     serverError: {},
@@ -136,7 +137,16 @@ export function submit(component, form, table, formatFormData=null) {
         submissionFuture = store.dispatch(insertAsync(table, formData));
         submissionError = false;
         submissionFuture
-            .done((insertId) => console.debug(200, "Inserted ID <"+insertId+">"))
+            .done((insertId) => {
+                // Signal that it was a success
+                console.debug(200, "Inserted ID <"+insertId+">");
+                // Clear the form data in store
+                resetForm(form);
+                // Redirect to table by replacing '/new' by '/list' in the router state
+                let currentPath = window.location.pathname + window.location.hash.substr(2);
+                console.debug(currentPath, currentPath.replace('/new', '/list'));
+                hashHistory.push(currentPath.replace('/new', '/list'));
+            })
             .fail(() => console.warn("Uncaught form validation error"));
     }
 

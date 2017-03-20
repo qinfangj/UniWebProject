@@ -3,6 +3,7 @@ import React from 'react';
 import store from '../../../core/store';
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import Select from '../elements/Select';
+import * as forms from '../forms';
 
 
 /**
@@ -35,7 +36,7 @@ class AsyncOptionsList extends React.PureComponent {
             }
         });
         // Already in cache: just load it
-        let list = store.getState().forms[storeKey];
+        let list = forms.getFormValue(this.props.form, this.props.field);
         if (list) {
             this.assertIsArray(list);
             this.setState({ list });
@@ -56,7 +57,7 @@ class AsyncOptionsList extends React.PureComponent {
 
     assertIsArray(list) {
         if (!list || !Array.isArray(list)) {
-            throw "Options list is not an array.";
+            throw "Options list is not an array: "+list.toString();
         } else {
             return true;
         }
