@@ -10,6 +10,7 @@ const defaultState = {};
 let formReducers = (state = defaultState, action) => {
 
     let newState;
+    let formData;
     let form;
 
     switch (action.type) {
@@ -24,11 +25,35 @@ let formReducers = (state = defaultState, action) => {
 
         /**
          * Reset form data. Expects `action.form` (form name).
+         * It is hacky, based on the fact that text/textarea fields return a string value,
+         * options lists a numeric value, dates a formatted string value, and checkboxes a boolean value.
+         * Special formatters are only applied to the submitted object anyway - never to the actual
+         * stored values but to a copy that only exists for the time of the submission.
          */
         case types.forms.EMPTY_FORM:
             newState = Object.assign({}, state);
-            newState[action.form] = {};
-            newState[action.form]._isValid = {};
+            let form = action.form;
+            formData = Object.assign({}, state[form]);
+            if (formData) {
+                for (let key of Object.keys(formData)) {
+                    let value = formData[key];
+                    // Reset checkboxes
+                    if (typeof(value) === "boolean") {
+                        formData[key] = false;
+                    // Reset options
+                    } else if (typeof(value) === "number") {
+                        formData[key] = [];
+                    // Reset dates
+                    } else if (new Date(value).getTime() > 0) {
+                        formData[key] = "1970-01-01";
+                    // Reset text
+                    } else if (typeof(value) === "string") {
+                        formData[key] = "";
+                    }
+                }
+            }
+            newState[form] = formData;
+            newState[form]._isValid = {};
             return newState;
 
         case types.forms.CHANGE_FORM_VALUE:
@@ -51,7 +76,7 @@ let formReducers = (state = defaultState, action) => {
         case types.forms.FILL_UPDATE_FORM:
             newState = Object.assign({}, state);
             form = action.form;
-            let formData = state[form] || {};  // current state
+            formData = state[form] || {};  // current state
             Object.assign(formData, action.data);  // updated state
             console.debug(formData)
             newState[form] = formData;
