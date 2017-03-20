@@ -32,7 +32,7 @@ let formReducers = (state = defaultState, action) => {
          */
         case types.forms.EMPTY_FORM:
             newState = Object.assign({}, state);
-            let form = action.form;
+            form = action.form;
             formData = Object.assign({}, state[form]);
             if (formData) {
                 for (let key of Object.keys(formData)) {

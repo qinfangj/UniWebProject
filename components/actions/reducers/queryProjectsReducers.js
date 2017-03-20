@@ -23,16 +23,16 @@ let queryProjectsReducers = (state = defaultState, action) => {
          */
         case types.queryProjects.CHANGE_PROJECTS_SELECTION:
             // Also reset samples selection if projects selection changes
-            return Object.assign(state, {projectIds: action.projectIds, sampleIds: {}});
+            return Object.assign({}, state, {projectIds: action.projectIds, sampleIds: {}});
 
         /**
          * Expects an object `action.sampleIds` of the form {id: true} for each selected id.
          */
         case types.queryProjects.CHANGE_SAMPLES_SELECTION:
-            return Object.assign(state, {sampleIds: action.sampleIds});
+            return Object.assign({}, state, {sampleIds: action.sampleIds});
 
         case types.queryProjects.RESET_SELECTION:
-            return Object.assign(state, {sampleIds: {}, projectsIds: {}});
+            return Object.assign({}, state, {sampleIds: {}, projectsIds: {}});
 
         /**
          * Search for samples having a given term in their name.
