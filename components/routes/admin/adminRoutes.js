@@ -23,7 +23,7 @@ export class LimsUserPage extends React.Component {
     render() {
         return (
             <div>
-                <AnalysisTypeSubmitForm table="pipeline_analysis_types"/>
+                Account page in construction
             </div>
         );
     }
