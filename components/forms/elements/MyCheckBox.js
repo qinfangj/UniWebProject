@@ -14,12 +14,10 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 class MyCheckBox extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = { checked: this.props.defaultValue };
+        this.state = {
+            checked: this.props.defaultValue
+        };
         forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
-    }
-
-    getValue() {
-        return this.state.checked;
     }
 
     componentDidMount() {

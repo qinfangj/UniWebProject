@@ -16,13 +16,6 @@ export const defaultFormState = {
 };
 
 
-/**
- * Empty all form fields.
- */
-export function resetForm(form) {
-    store.getState().forms[form] = {};
-    store.getState().forms[form]._isValid = {};
-}
 export function initForm(form) {
     if (! store.getState().forms[form]) {
         store.getState().forms[form] = {};
@@ -141,10 +134,9 @@ export function submit(component, form, table, formatFormData=null) {
                 // Signal that it was a success
                 console.debug(200, "Inserted ID <"+insertId+">");
                 // Clear the form data in store
-                resetForm(form);
+                store.dispatch(emptyForm(form));
                 // Redirect to table by replacing '/new' by '/list' in the router state
                 let currentPath = window.location.pathname + window.location.hash.substr(2);
-                console.debug(currentPath, currentPath.replace('/new', '/list'));
                 hashHistory.push(currentPath.replace('/new', '/list'));
             })
             .fail(() => console.warn("Uncaught form validation error"));

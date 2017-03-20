@@ -36,7 +36,7 @@ class AsyncOptionsList extends React.PureComponent {
             }
         });
         // Already in cache: just load it
-        let list = forms.getFormValue(this.props.form, this.props.field);
+        let list = store.getState().forms[storeKey];
         if (list) {
             this.assertIsArray(list);
             this.setState({ list });
