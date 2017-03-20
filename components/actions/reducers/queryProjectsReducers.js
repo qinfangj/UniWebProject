@@ -23,16 +23,16 @@ let queryProjectsReducers = (state = defaultState, action) => {
          */
         case types.queryProjects.CHANGE_PROJECTS_SELECTION:
             // Also reset samples selection if projects selection changes
-            return Object.assign(state, {projectIds: action.projectIds, sampleIds: {}});
+            return Object.assign({}, state, {projectIds: action.projectIds, sampleIds: {}});
 
         /**
          * Expects an object `action.sampleIds` of the form {id: true} for each selected id.
          */
         case types.queryProjects.CHANGE_SAMPLES_SELECTION:
-            return Object.assign(state, {sampleIds: action.sampleIds});
+            return Object.assign({}, state, {sampleIds: action.sampleIds});
 
         case types.queryProjects.RESET_SELECTION:
-            return Object.assign(state, {sampleIds: {}, projectsIds: {}});
+            return Object.assign({}, state, {sampleIds: {}, projectsIds: {}});
 
         /**
          * Search for samples having a given term in their name.
@@ -47,7 +47,7 @@ let queryProjectsReducers = (state = defaultState, action) => {
         case types.queryProjects.SEARCH_SAMPLES:
             let storeKey = action.args.storeKey;
             let term = action.args.term;
-            let newState = Object.assign({}, state);
+            let newState = Object.assign({}, state, {searchTerm: action.args.term});
             if (action.status === constants.SUCCESS) {
                 // The list of samples we get from backend:: [{id, name, projectId, shortName}, ...]
                 let searchedSamples = action.response;

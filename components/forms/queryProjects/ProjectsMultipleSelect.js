@@ -16,7 +16,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
         this.table = "projects";
         this.dataStoreKey = this.getDataStoreKey();
         this.state = {
-            options: []
+            options: [],
         };
     }
 

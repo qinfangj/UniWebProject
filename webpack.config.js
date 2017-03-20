@@ -17,7 +17,7 @@ const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 const pkg = require('./package.json');
 
-console.log("isDebug:", global.DEBUG);
+console.log("isDebug:", global.DEBUG ? global.DEBUG : false);
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
 const useHMR = false; //!!global.HMR; // Hot Module Replacement (HMR)
