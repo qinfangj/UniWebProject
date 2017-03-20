@@ -1,7 +1,5 @@
 "use strict";
 import constants from '../../constants/constants';
-import { sendError } from './errorActionCreators';
-
 
 /**
  * We don't have many tests, so better perform arg checks...
