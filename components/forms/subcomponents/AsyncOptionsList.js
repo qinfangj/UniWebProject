@@ -1,9 +1,8 @@
 "use strict";
 import React from 'react';
-import store from '../../../core/store';
+import { connect } from 'react-redux';
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import Select from '../elements/Select';
-import * as forms from '../forms';
 
 
 /**
@@ -13,7 +12,6 @@ import * as forms from '../forms';
 class AsyncOptionsList extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {list: []};
     }
 
     static propTypes = {
@@ -28,43 +26,15 @@ class AsyncOptionsList extends React.PureComponent {
 
     componentWillMount() {
         let storeKey = this.props.storeKey;
-        this.unsubscribe = store.subscribe(() => {
-            let list = store.getState().forms[storeKey];
-            if (list) {
-                this.assertIsArray(list);
-                this.setState({ list });
-            }
-        });
-        // Already in cache: just load it
-        let list = store.getState().forms[storeKey];
-        if (list) {
-            this.assertIsArray(list);
-            this.setState({ list });
-        // Request from backend
+        if (this.props.suffix) {
+            this.props.getConditionalOptionsListAsync(this.props.table, this.props.suffix, storeKey);
         } else {
-            if (this.props.suffix) {
-                store.dispatch(getConditionalOptionsListAsync(this.props.table, this.props.suffix, storeKey));
-            } else {
-                store.dispatch(getOptionsListAsync(this.props.table, storeKey));
-            }
-            this.setState({ list: [] });
-        }
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
-    assertIsArray(list) {
-        if (!list || !Array.isArray(list)) {
-            throw "Options list is not an array: "+list.toString();
-        } else {
-            return true;
+            this.props.getOptionsListAsync(this.props.table, storeKey);
         }
     }
 
     getList() {
-        let options = this.state.list.map(v => this.props.formatter(v));
+        let options = this.props.list.map(v => this.props.formatter(v));
         if (this.props.hasNoneValue) {
             options.unshift([-1, '-']);
         }
@@ -85,27 +55,22 @@ class AsyncOptionsList extends React.PureComponent {
 
 AsyncOptionsList.defaultProps = {
     hasNoneValue: true,
+    list: [],
 };
 
+const mapStateToProps = (state, ownProps) => {
+    let storeKey = ownProps.storeKey;
+    return {
+        list: state.forms[storeKey],
+    };
+};
 
-export default AsyncOptionsList;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getOptionsListAsync: (table, storeKey) => dispatch(getOptionsListAsync(table, storeKey)),
+        getConditionalOptionsListAsync: (table, suffix, storeKey) => dispatch(getConditionalOptionsListAsync(table, suffix, storeKey)),
+    };
+};
 
-
-//-----------------------------------------------------
-// Try with "connect" method
-//-----------------------------------------------------
-
-// import { connect } from 'react-redux';
-//
-// const mapStateToProps = (state, ownProps) => {
-//     return {list: state.facilityData[ownProps.storeKey]};
-// };
-//
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         fetchData: (url) => dispatch(itemsFetchData(url))
-//     };
-// };
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(AsyncOptionsList);
+export default connect(mapStateToProps, mapDispatchToProps)(AsyncOptionsList);
 
