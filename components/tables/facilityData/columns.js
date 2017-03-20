@@ -82,7 +82,7 @@ const columns = {
         }
     ],
     lib_protocols: [
-        idColumnWithUpdateLink("lib_protocols","admin"),
+        idColumnWithUpdateLink("library_protocols","admin"),
         {
             headerName: "Name",
             field: "name"

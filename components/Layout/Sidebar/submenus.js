@@ -52,60 +52,60 @@ export const adminSubmenu = [
       to: "/admin/project_sharings",
     },{
       text: "Analysis types",
-      to: "/admin/analysis_types/new",
+      to: "/admin/analysis_types/list",
     },{
       text: "Flowcell types",
-      to: "/admin/flowcell_types/new",
+      to: "/admin/flowcell_types/list",
     },{
       text: "Instruments",
-      to: "/admin/instruments/new",
+      to: "/admin/instruments/list",
     },{
       text: "Library adapters",
-      to: "/admin/library_adapters/new",
+      to: "/admin/library_adapters/list",
     },{
       text: "Library protocols",
-      to: "/admin/library_protocols/new",
+      to: "/admin/library_protocols/list",
     },{
       text: "Library states",
-      to: "/admin/library_states/new",
+      to: "/admin/library_states/list",
     },{
       text: "Mapping tools",
-      to: "/admin/mapping_tools/new",
+      to: "/admin/mapping_tools/list",
     },{
       text: "Multiplex indexes",
-      to: "/admin/multiplex_indexes/new",
+      to: "/admin/multiplex_indexes/list",
     },{
       text: "Pipeline versions",
-      to: "/admin/pipeline_versions/new",
+      to: "/admin/pipeline_versions/list",
     },{
       text: "Project analysis",
-      to: "/admin/project_analysis/new",
+      to: "/admin/project_analysis/list",
     },{
       text: "Project states",
-      to: "/admin/project_states/new",
+      to: "/admin/project_states/list",
     },{
       text: "Quantification methods",
-      to: "/admin/quantif_methods/new",
+      to: "/admin/quantif_methods/list",
     },{
       text: "Read lengths",
-      to: "/admin/read_lengths/new",
+      to: "/admin/read_lengths/list",
     },{
       text: "Run types",
-      to: "/admin/run_types/new",
+      to: "/admin/run_types/list",
     },{
       text: "Read lengths for run types",
-      to: "/admin/run_types_lengths/new"
+      to: "/admin/run_types_lengths/list"
     },{
       text: "Sample types",
-      to: "/admin/sample_types/new",
+      to: "/admin/sample_types/list",
     },{
       text: "Sequencing kit versions",
-      to: "/admin/sequencing_kit_versions/new",
+      to: "/admin/sequencing_kit_versions/list",
     },{
       text: "Sequencing qualities",
-      to: "/admin/sequencing_qualities/new",
+      to: "/admin/sequencing_qualities/list",
     },{
       text: "Taxonomies",
-      to: "/admin/taxonomies/new",
+      to: "/admin/taxonomies/list",
     }
 ];
