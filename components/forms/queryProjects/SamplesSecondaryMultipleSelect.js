@@ -2,7 +2,7 @@
 import React from 'react';
 import store from '../../../core/store';
 
-import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
+import { getSecondaryOptionsListAsync, getOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import { changeSamplesSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 import MultipleSelect from '../elements/MultipleSelect';
@@ -40,8 +40,13 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
             if (selectedProjects) {
                 // Make it a comma-separated string
                 let projectIds = Object.keys(selectedProjects).join(",");
+                // No projects selected: emtpy samples list
                 if (projectIds.length === 0) {
                     this.setState({ options: [] });
+                // 'Any' project selected: show all samples in list
+                } else if (-1 in selectedProjects && projectIds !== this.projectIds) {
+                    this.projectIds = projectIds;  // avoids infinite callback loop
+                    store.dispatch(getOptionsListAsync("samples", this.dataStoreKey));
                 }
                 // The value it depends on changed, ask for new data
                 else if (projectIds !== this.projectIds) {

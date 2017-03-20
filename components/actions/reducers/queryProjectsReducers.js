@@ -47,7 +47,7 @@ let queryProjectsReducers = (state = defaultState, action) => {
         case types.queryProjects.SEARCH_SAMPLES:
             let storeKey = action.args.storeKey;
             let term = action.args.term;
-            let newState = Object.assign({}, state);
+            let newState = Object.assign({}, state, {searchTerm: action.args.term});
             if (action.status === constants.SUCCESS) {
                 // The list of samples we get from backend:: [{id, name, projectId, shortName}, ...]
                 let searchedSamples = action.response;

@@ -37,6 +37,9 @@ class QueryProjectsTable extends React.Component {
      */
     getSelectedSampleIdsFromStore() {
         let selectedSampleIds = store.getState().queryProjects.sampleIds;  // object {id: true, ...}
+        let selectedProjectIds = store.getState().queryProjects.projectIds;  // object {id: true, ...}
+        let isSamplesSelected = selectedSampleIds && (Object.keys(selectedSampleIds).length !== 0);
+        let isProjectsSelected = selectedProjectIds && (Object.keys(selectedProjectIds).length !== 0);
 
         /* If there is a samples selection, display these. */
         if (selectedSampleIds && Object.keys(selectedSampleIds).length !== 0) {
@@ -46,8 +49,7 @@ class QueryProjectsTable extends React.Component {
          * Use the secondaryOptionsList for this projects selection to have the same list of ids
          * as in the samples selection input. */
         else {
-            let selectedProjectIds = store.getState().queryProjects.projectIds;  // object {id: true, ...}
-            if (selectedProjectIds && Object.keys(selectedProjectIds).length !== 0) {
+            if (isProjectsSelected) {
                 let samples = store.getState().forms[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // options list, array of samples [{id, name}, ..]
                 if (samples) {
                     selectedSampleIds = samples.map(v => v.id);
@@ -55,11 +57,13 @@ class QueryProjectsTable extends React.Component {
             }
         }
         /* Check if there is a search by term */
+        let term = store.getState().queryProjects.searchTerm;
+        console.debug(term)
         let searched = store.getState().queryProjects[dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
-        if (searched && searched.projectIds) {
+        if (term && term.length > 0 && searched && searched.projectIds) {
             let searchedSamples = searched.sampleIds;
             /* If there was something in the projects/samples selection above, filter the result by term */
-            if (selectedSampleIds && Object.keys(selectedSampleIds).length !== 0) {
+            if (isSamplesSelected) {
                 selectedSampleIds = selectedSampleIds.filter(v => searchedSamples.has(v));
             }
             /* Otherwise, use the result of the search by term directly */
