@@ -39,7 +39,7 @@ class ResponsiveSidebar extends React.PureComponent {
         return { open };
     }
 
-    /* Make it responsive */
+    /* Make it responsive to window size*/
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
@@ -113,8 +113,9 @@ class ResponsiveSidebar extends React.PureComponent {
                 return (
                     <ListGroupItem key={j}>
                         <Link to={elt.to} onClick={elt.action}
-                              className={cx(css.submenuLink, active ? css.active : null,
-                                                             elt.disabled ? css.disabled : null)}
+                              className={cx(css.submenuLink,
+                                            active ? css.active : null,
+                                            elt.disabled ? css.disabled : null)}
                         >{elt.text}</Link>
                     </ListGroupItem>
                 );

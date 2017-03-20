@@ -3,6 +3,7 @@ import React from 'react';
 import store from '../../../core/store';
 
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
+import { changeSamplesSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 import MultipleSelect from '../elements/MultipleSelect';
 
@@ -33,24 +34,24 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
         this.unsubscribe = store.subscribe(() => {
             let storeState = store.getState();
             let options = storeState.forms[this.dataStoreKey];   // this options list
-            let referenceFormValues = storeState.forms[this.props.form];  // to get the projects that are currently selected
+            let selectedProjects = storeState.queryProjects.projectIds;
             // Since it depends on another field of the same form, no need to
             //  do anything if the other field has not yet sent its value to the store.
-            if (referenceFormValues !== undefined) {
-                let referenceValue = referenceFormValues[this.props.referenceField];
-                let projectIds = referenceValue ? Object.keys(referenceValue).join(",") : [];
+            if (selectedProjects) {
+                // Make it a comma-separated string
+                let projectIds = Object.keys(selectedProjects).join(",");
                 if (projectIds.length === 0) {
                     this.setState({ options: [] });
                 }
                 // The value it depends on changed, ask for new data
-                else if (projectIds && projectIds !== this.projectIds) {
+                else if (projectIds !== this.projectIds) {
                     this.projectIds = projectIds;  // avoids infinite callback loop
                     store.dispatch(getSecondaryOptionsListAsync(this.table, projectIds, this.dataStoreKey));
                 }
                 // New data received, update options
                 else if (options) {
                     let referenceProjects = storeState.forms[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE];  // the projects options list
-                    referenceProjects = referenceProjects.filter(p => p.id in referenceValue);  // the selected projects
+                    referenceProjects = referenceProjects.filter(p => p.id in selectedProjects);  // the selected projects
                     options = this.filterOptions(options, referenceProjects);
                     this.setState({ options });
                 }
@@ -97,6 +98,7 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
             <MultipleSelect
                 {...this.props}
                 options={this.getOptions()}
+                onSelectActionCreator={changeSamplesSelection}
             />
         );
     }

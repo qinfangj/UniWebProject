@@ -1,5 +1,8 @@
 "use strict";
 
+import colnames from '../../constants/columns';
+
+
 export const facilityDataSubmenu = [
     { text: "Laboratories", to: "/data/people", },
     { text: "Projects", to: "/data/projects", },
@@ -13,39 +16,31 @@ export const facilityDataSubmenu = [
     { text: "Genomes", to: "/data/genomes", },
 ];
 
-
-import store from '../../../core/store';
-import columnNames from '../../constants/columns';
-import { changeQueryProjectsType } from '../../actions/actionCreators/queryProjectsActionCreators';
-let col = columnNames.queryProjects;
-let changeQueryType = (type) => store.dispatch(changeQueryProjectsType(type));
-
-
 export const queryProjectsSubmenu = [
     { text: "Sample material info",
-      to: "/projects/sample",
-      action: () => changeQueryType(col.STARTING_MATERIAL_INFO) },
-    { text: "User request info",
-      to: "/projects/request",
-      action: () => changeQueryType(col.USER_REQUEST_INFO) },
-    { text: "Library info",
-      to: "/projects/library",
-      action: () => changeQueryType(col.LIBRARY_INFO) },
-    { text: "Sequencing details",
-      to: "/projects/desc",
-      action: () => changeQueryType(col.SEQUENCING_DETAILS_INFO) },
-    { text: "Samples sheet",
-      to: "/projects/sheet",
-      action: () => changeQueryType(col.SAMPLE_SHEETS_INFO) },
+      to: `/projects/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,
+    },{
+      text: "User request info",
+      to: `/projects/${colnames.queryProjects.USER_REQUEST_INFO}`,
+    },{
+      text: "Library info",
+      to: `/projects/${colnames.queryProjects.LIBRARY_INFO}`,
+    },{
+      text: "Sequencing details",
+      to: `/projects/${colnames.queryProjects.SEQUENCING_DETAILS_INFO}`,
+    },{
+      text: "Samples sheet",
+      to: `/projects/${colnames.queryProjects.SAMPLE_SHEETS_INFO}`,
+    },{
     //{ text: "IVC plots",
-    //   to: "/projects/ivc",
-    // action: () => changeQueryType(col.IVC_PLOTS) },
-    { text: "Demultiplexings",
-      to: "/projects/demultiplexing",
-      action: () => changeQueryType(col.DEMULTIPLEXING_INFO) },
+    //   to: `/projects/${col.IVC_PLOTS}`,
+    //},
+      text: "Demultiplexings",
+      to: `/projects/${colnames.queryProjects.DEMULTIPLEXING_INFO}`,
+    },
     //{ text: "Alignments (CASAVA)",
-    //   to: "/projects/alignments",
-    // action: changeQueryType(col.ALIGNMENTS_INFO) },
+    //   to: `/projects/${col.ALIGNMENTS_INFO}`,
+    //},
 ];
 
 

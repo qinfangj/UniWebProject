@@ -68,8 +68,10 @@ class RestService {
     /* Table data */
 
     specialSelect(tableName, activeOnly) {
-        let mode = activeOnly ? "selactive" : "selall";
-        let url = `${BACKEND}/table/${tableName}/${mode}`;
+        let url = `${BACKEND}/table/${tableName}/select`;
+        if (activeOnly) {
+            url += "?active=true";
+        }
         return get(url);
     }
 

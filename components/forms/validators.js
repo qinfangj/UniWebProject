@@ -27,7 +27,6 @@ class Validators {
 
     mediumStringValidator(v) {
         let valid = /^[\w ]{0,30}$/.test(v.trim());
-        console.debug(v.trim(), valid)
         let msg = "0-30 characters.";
         return {valid, msg};
     }
@@ -72,7 +71,7 @@ class Validators {
      * Positive floats.
      */
     numberValidator(v) {
-        let valid = isNumeric(v.trim());
+        let valid = isNumeric(v);
         let msg = "Must be a number.";
         return {valid, msg};
     }

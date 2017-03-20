@@ -45,7 +45,11 @@ class BioanalysersSubForm extends React.PureComponent {
                 {i + 1}
             </td>
             <td key="project" className={css.cell}>
-                {Options.ProjectsWithLibraries(this.form, referenceField_i, this.form+"_project_"+i)}
+                <Options.ProjectsWithLibraries
+                    form={this.form}
+                    field={referenceField_i}
+                    storeKey={this.form+"_project_"+i}
+                />
             </td>
             <td key="library" className={css.cell}>
                 <SecondaryOptions.ProjectLibraries

@@ -109,6 +109,8 @@ class CommonTable extends React.PureComponent {
                             enableSorting={true}
                             columnDefs={columns[this.props.columnsKey]}
                             rowHeight={constants.ROW_HEIGTH}
+                            headerHeight={constants.ROW_HEIGTH}
+                            overlayNoRowsTemplate='<span/>'
                         >
                         </AgGridReact>
                     </div>

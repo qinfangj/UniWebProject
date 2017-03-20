@@ -67,13 +67,17 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        {Options.ProjectsWithSamples(this.form)}
+                        <Options.ProjectsWithSamples
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
+                        />
                     </Col>
 
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
-                        <SecondaryOptions.ProjectSamples
+                        <SecondaryOptions.SamplesForProject
                             form={this.form}
                             required
                             submissionError = {this.state.submissionError}

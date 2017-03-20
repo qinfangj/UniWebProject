@@ -111,12 +111,10 @@ class RunsSubForm extends React.PureComponent {
             : null}
 
             <td className={cx(css.libCell, css.projectCell)}>
-                {Options.ProjectsWithLibraries(this.form, projectFormKey,
-                    {
-                        defaultValue: lane.projectId,       // report the pre-selected project id
-                        inputProps: {bsClass: qcBsClass},   // add the blue background
-                    }
-                )}
+                <Options.ProjectsWithLibraries
+                    form={this.form}
+                    field={projectFormKey}
+                />
             </td>
             <td className={cx(css.libCell, css.libraryCell)}>
                 <SecondaryOptions.ProjectLibraries

@@ -5,6 +5,12 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 import fields from '../fields';
 
 
+/*
+ * These dropdown lists also get their options from the backend,
+ * but they depend on a value selected in another dropdown of the same form ("referenceField").
+ * Also because of that, they need to have the storeKey specific to the form.
+ */
+
 /**
  * List available basecallings output folders for a given run ID.
  */
@@ -34,7 +40,7 @@ BasecallingsOutputFolders.propTypes = {
  * List available samples for a given project ID.
  * Used in UserRequests and Librairies insert forms.
  */
-export class ProjectSamples extends React.Component {
+export class SamplesForProject extends React.Component {
     getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name + (v.shortName ? " ("+v.shortName+")" : "")]; }
     render() {
@@ -51,11 +57,11 @@ export class ProjectSamples extends React.Component {
         />);
     }
 }
-ProjectSamples.propTypes = {
+SamplesForProject.propTypes = {
     form: React.PropTypes.string.isRequired,
     referenceField: React.PropTypes.string.isRequired,
 };
-ProjectSamples.defaultProps = {
+SamplesForProject.defaultProps = {
     referenceField: fields.PROJECT_ID,
 };
 
@@ -75,7 +81,7 @@ export class ProjectPools extends React.Component {
             referenceField={referenceField}
             table="user_requests"
             label={null}
-            storeKey={form + '_' + dataStoreKeys.POOLS_FROM_PROJECT}
+            storeKey={this.props.storeKey ? this.props.storeKey : form + '_' + dataStoreKeys.POOLS_FROM_PROJECT}
             formatter={this.formatter} ref={(c) => {this._select = c;}}
             {...otherProps}
         />);
