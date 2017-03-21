@@ -1,8 +1,8 @@
 
 machine:
   environment:
-    - REMOTE_URL: $REMOTE_URL
-    - REMOTE_DIR: $WWW_DIR
+    REMOTE_URL: $REMOTE_URL
+    REMOTE_DIR: $WWW_DIR
 
 deployment:
   val:
