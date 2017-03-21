@@ -5,8 +5,7 @@ import CommonTable from '../../tables/facilityData/CommonTable';
 import CommonAdminForms from '../../forms/adminData/CommonAdminForms';
 
 import AdminData from '../../pages/AdminData';
-
-
+import ProjectSharingSubmitForm from '../../forms/adminData/ProjectSharingSubmitForm';
 
 
 export class UserPage extends React.Component {
@@ -599,3 +598,32 @@ export class taxonomiesUpdatePage extends React.Component {
     }
 }
 
+export class projectSharingsListRoute extends React.Component {
+    render() {
+        return (
+            <AdminData title="Project Sharings" name="project_sharings" content={
+                <CommonTable dataStoreKey="project_sharings" table="project_sharings" columnsKey="project_sharings" />
+            }/>
+        );
+    }
+}
+
+export class projectSharingsNewPage extends React.Component {
+    render() {
+        return (
+            <AdminData title="Project Sharing" name="project_sharings" content={
+                <ProjectSharingSubmitForm table="project_sharings" />
+            } />
+        );
+    }
+}
+
+export class projectSharingsUpdatePage extends React.Component {
+    render() {
+        return (
+            <AdminData title="Project Sharing" name="project_sharings" content={
+                <ProjectSharingSubmitForm table="project_sharings" updateId={this.props.params.id}/>
+            } />
+        );
+    }
+}

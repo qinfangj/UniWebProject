@@ -28,6 +28,21 @@ class IdColumnWithUpdateLink extends React.Component {
 
 const columns = {
     //add admin tables columns
+    project_sharings: [
+        idColumnWithUpdateLink("project_sharings","admin"),
+        {
+            headerName: "Collaborator",
+            field: "collaborator",
+        },
+        {
+            headerName: "Project",
+            field: "project",
+        },
+        ,{
+            headerName: "Project Owner",
+            field: "laboratory"
+        }
+    ],
     analysis_types: [
         idColumnWithUpdateLink("analysis_types","admin"),
         {

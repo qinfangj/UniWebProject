@@ -49,7 +49,7 @@ export const adminSubmenu = [
       to: "/admin/users",
     },{
       text: "Project sharings",
-      to: "/admin/project_sharings",
+      to: "/admin/project_sharings/list",
     },{
       text: "Analysis types",
       to: "/admin/analysis_types/list",

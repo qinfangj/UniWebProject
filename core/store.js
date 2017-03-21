@@ -72,7 +72,8 @@ let reducer = combineReducers({
             samplesTypesForm : initialAdminForms("sample_types"),
             seqKitVersionForm : initialAdminForms("sequencing_kit_versions"),
             seqQualitiesForm : initialAdminForms("sequencing_qualities"),
-            taxonomiesForm : initialAdminForms("taxonomies")
+            taxonomiesForm : initialAdminForms("taxonomies"),
+            projectSharingsForm : initialAdminForms("project_sharings")
         }
     ,'adminForms')
 
