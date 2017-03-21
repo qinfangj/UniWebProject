@@ -9,7 +9,7 @@ deployment:
     branch: val
     commands:
       - node run build --debug
-      - ssh -v -o ServerAliveInterval=10 ${REMOTE_URL} "rm -rf ${REMOTE_DIR}/*"
+      - ssh -v ${REMOTE_URL} "rm -rf ${REMOTE_DIR}/*"
       - scp -r public/* ${REMOTE_URL}:${REMOTE_DIR}/
       - ssh ${REMOTE_URL} "cd ${REMOTE_DIR} && cp ../conf/conf.js conf/conf.js"
 
