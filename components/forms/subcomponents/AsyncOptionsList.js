@@ -59,9 +59,8 @@ AsyncOptionsList.defaultProps = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    let storeKey = ownProps.storeKey;
     return {
-        list: state.forms[storeKey],
+        list: state.forms[ownProps.storeKey],
     };
 };
 

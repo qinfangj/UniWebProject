@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import store from '../../../core/store';
+import { connect } from 'react-redux';
 import * as forms from '../forms';
 
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
@@ -15,13 +15,11 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
     constructor(props) {
         super(props);
         this.referenceValue = null; // not in state because not used for display. Only the callback updates the component.
-        this.state = {list: [], value: null};
     }
 
     /**
-     * `referenceField` is the `name` prop of a `Select` component,
-     *  which is the `table` props of higher-order `AsyncOptionsList < Options` components
-     *  and the key used in the store for the selected item.
+     * `referenceField` is the field name of another `Select` component
+     * that the options list of this one depends on.
      */
     static propTypes = {
         form: React.PropTypes.string.isRequired,  // the form name - to find the value in store
@@ -33,50 +31,56 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
         formatter: React.PropTypes.func,  // ex: object => [id, name]
     };
 
-    componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let list = store.getState().forms[this.props.storeKey];
-            let formValues = store.getState().forms[this.props.form];
-            // Since it depends on another field of the same form, no need to
-            //  do anything if the other field has not yet sent its value to the store.
-            if (formValues !== undefined) {
-                let referenceValue = formValues[this.props.referenceField];
-                // The value it depends on changed, ask for new data
-                if (referenceValue && referenceValue !== this.referenceValue) {
-                    this.referenceValue = referenceValue;  // avoids infinite callback loop
-                    store.dispatch(getSecondaryOptionsListAsync(this.props.table, referenceValue, this.props.storeKey));
-                }
-                // New data received, update options list
-                else if (list) {
-                    let value = list.length > 0 ? list[0].id : null;  // first one of the list
-                    this.setState({ list, value });
-                }
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
+    /**
+     * If the value of the reference select field has changed,
+     * fetch the corresponding secondary options.
+     */
+    componentWillUpdate(nextProps) {
+        let refValue = nextProps.referenceValue;
+        if (refValue && refValue !== this.referenceValue) {
+            this.referenceValue = refValue;  // avoids infinite callback loop
+            this.props.getSecondaryOptionsListAsync(this.props.table, refValue, this.props.storeKey);
+        }
     }
 
     componentDidUpdate() {
-        forms.initFormField(this.props.form, this.props.field, this.state.value);
+        forms.initFormField(this.props.form, this.props.field, this.props.value);
     }
 
     getList() {
-        return this.state.list.map(v => this.props.formatter(v));
+        return this.props.list.map(v => this.props.formatter(v));
     }
 
     render() {
         return (
-            <Select
-                options={this.getList()}
-                {...this.props}
-            />
+            <Select options={this.getList()} {...this.props} />
         );
     }
 
 }
 
 
-export default AsyncSecondaryOptionsList;
+AsyncSecondaryOptionsList.defaultProps = {
+    list: [],
+    value: null,
+};
+
+const mapStateToProps = (state, ownProps) => {
+    let formData = state.forms[ownProps.form];  // to get the reference field value
+    let list = state.forms[ownProps.storeKey];
+    let value = (list && list.length > 0) ? list[0].id : null;
+    return {
+        list: list,
+        value: value,
+        referenceValue: formData[ownProps.referenceField],
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getSecondaryOptionsListAsync: (table, refValue, storeKey) => dispatch(getSecondaryOptionsListAsync(table, refValue, storeKey)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AsyncSecondaryOptionsList);
+

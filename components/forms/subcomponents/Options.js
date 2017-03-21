@@ -93,13 +93,27 @@ MultiplexIndexes.propTypes = {
     suffix: React.PropTypes.string.isRequired,
 };
 
-/** In Projects */
+/** In Project sharings(?) */
 export class People extends React.Component {
+    formatter(v) { return [v.id, v.lastName +" "+ v.firstName]; }
+    render() {
+        return <AsyncOptionsList field={fields.PERSON_ID} table="people" label="Collaborator"
+                                 storeKey={dataStoreKeys.PEOPLE}
+                                 formatter={this.formatter}
+                                 suffix="all"
+                                 {...this.props}
+        />;
+    }
+}
+
+/** In Projects. Rows from the people table that represent a lab/PI. */
+export class Laboratories extends React.Component {
     formatter(v) { return [v.id, v.lastName +" "+ v.firstName]; }
     render() {
         return <AsyncOptionsList field={fields.PERSON_ID} table="people" label="Laboratory"
                                  storeKey={dataStoreKeys.PEOPLE}
                                  formatter={this.formatter}
+                                 suffix="labs"
                                  {...this.props}
         />;
     }

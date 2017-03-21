@@ -57,26 +57,36 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Project name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field={fields.NAME} label="Project name" form={this.form} required
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.NAME}
+                            required
+                            label="Project name"
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Person in charge */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.People form={this.form} required
-                                        submissionError = {this.state.submissionError}
+                        <Options.Laboratories
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Code name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field={fields.CODE_NAME} label="Code name" form={this.form} required
-                                   validator = {validators.codeNameValidator}
-                                   submissionError = {this.state.submissionError}
-                                   placeholder = "[name]_[initials] Ex: Tcells_EG."
+                        <TextField
+                            form={this.form}
+                            field={fields.CODE_NAME}
+                            required
+                            label="Code name"
+                            validator = {validators.codeNameValidator}
+                            submissionError = {this.state.submissionError}
+                            placeholder = "[name]_[initials] Ex: Tcells_EG."
                         />
                     </Col>
 
@@ -86,10 +96,13 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Description */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextField field={fields.DESCRIPTION} label="Description" form={this.form}
-                                   validator = {validators.descriptionValidator}
-                                   submissionError = {this.state.submissionError}
-                                   defaultValue = "Enter description here"
+                        <TextField
+                            form={this.form}
+                            field={fields.DESCRIPTION}
+                            label="Description"
+                            validator = {validators.descriptionValidator}
+                            submissionError = {this.state.submissionError}
+                            defaultValue = "Enter description here"
                         />
                     </Col>
 
@@ -99,27 +112,39 @@ class ProjectInsertForm extends React.PureComponent {
 
                         {/* Project state */}
 
-                        <Options.ProjectStates form={this.form} required
-                                               submissionError = {this.state.submissionError}
+                        <Options.ProjectStates
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
                         />
 
                         {/* Is control */}
 
-                        <Checkbox form={this.form} field={fields.IS_CONTROL} label="Control Project" />
+                        <Checkbox
+                            form={this.form}
+                            field={fields.IS_CONTROL}
+                            label="Control Project"
+                        />
 
                     </Col>
 
                     {/* User meeting date */}
 
                     <Col sm={4} className={css.formCol}>
-                        <DatePicker form={this.form} field={fields.USER_MEETING_DATE} label="User meeting date" />
+                        <DatePicker
+                            form={this.form}
+                            field={fields.USER_MEETING_DATE}
+                            label="User meeting date"
+                        />
                     </Col>
 
                     {/* Project analysis */}
 
                     <Col sm={4} className={css.formCol}>
-                        <Options.ProjectAnalyses form={this.form} required
-                                                 submissionError = {this.state.submissionError}
+                        <Options.ProjectAnalyses
+                            form={this.form}
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -129,7 +154,11 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea field={fields.COMMENT} form={this.form} label="Comment" />
+                        <TextArea
+                            form={this.form}
+                            field={fields.COMMENT}
+                            label="Comment"
+                        />
                     </Col>
 
                 </Form>
