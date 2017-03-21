@@ -116,11 +116,11 @@ const columns = {
         },
         {
             headerName: "HasInsertSizeSelection",
-            field: "hasInsertSizeSelection"
+            field: "hasinsertsizeselection"
         },
         {
             headerName: "IsDeprecated",
-            field: "isDeprecated"
+            field: "isdeprecated"
         }
     ],
     library_states: [
@@ -173,11 +173,11 @@ const columns = {
         },
         {
             headerName: "IsMultiplexing",
-            field: "isMultiplexing"
+            field: "ismultiplexing"
         },
         {
             headerName: "IsDeprecated",
-            field: "isDeprecated"
+            field: "isdeprecated"
         }
     ],
     pipeline_versions: [
@@ -207,7 +207,7 @@ const columns = {
         },
         {
             headerName: "IsReported",
-            field: "isReported"
+            field: "isreported"
         }
     ],
     project_states: [
@@ -253,15 +253,15 @@ const columns = {
         idColumnWithUpdateLink("run_types_lengths","admin"),
         {
             headerName: "Run Type",
-            field: "runTypeId"
+            field: "name"
         },
         {
             headerName: "Read Length",
-            field: "runLengthId"
+            field: "length"
         },
         {
             headerName: "Discarded",
-            field: "isDepreated"
+            field: "isdeprecated"
         }
 
     ],
