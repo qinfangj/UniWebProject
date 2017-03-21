@@ -91,6 +91,7 @@ $ node run test:watch            # Run tests, watching for changes in source cod
 ### How to Build
 
 ```shell
+$ npm install
 $ node run build --release      # production build (minified)
 $ node run build --debug        # dev build, don't minify-dedupe-merge
 ```
