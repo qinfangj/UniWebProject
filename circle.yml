@@ -1,11 +1,12 @@
 
+machine:
+  environment:
+    - REMOTE_URL: $REMOTE_URL
+    - REMOTE_DIR: $WWW_DIR
 
 deployment:
   val:
     branch: val
-    environment:
-      - REMOTE_URL: $REMOTE_URL
-      - REMOTE_DIR: $WWW_DIR
     commands:
       - node run build --debug
       - ssh ${REMOTE_URL} "rm -rf ${REMOTE_DIR}/*"
