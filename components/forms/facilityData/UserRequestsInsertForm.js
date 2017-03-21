@@ -150,6 +150,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                             field={fields.NB_LANES}
                             label="Nb of lanes"
                             required
+                            validator={validators.integerValidator}
                             submissionError = {this.state.submissionError}
                         />
                     </Col>

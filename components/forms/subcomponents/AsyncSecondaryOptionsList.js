@@ -37,7 +37,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
      */
     componentWillUpdate(nextProps) {
         let refValue = nextProps.referenceValue;
-        if (refValue && refValue !== this.referenceValue) {
+        if (refValue && refValue !== "" && refValue !== this.referenceValue) {
             this.referenceValue = refValue;  // avoids infinite callback loop
             this.props.getSecondaryOptionsListAsync(this.props.table, refValue, this.props.storeKey);
         }

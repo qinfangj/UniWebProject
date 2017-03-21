@@ -12,7 +12,7 @@ export default function returnList(action, state, storeKey, pendingValue) {
     } else if (action.status === constants.SUCCESS) {
         return Object.assign({}, state, {[storeKey]: action.response});
     } else if (action.status === constants.ERROR) {
-        return Object.assign({}, state, {[storeKey]: action.response});
+        return Object.assign({}, state, {[storeKey]: pendingValue, error: action.response});
     } else {
         return state;
     }

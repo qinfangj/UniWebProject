@@ -57,10 +57,16 @@ class RestService {
         return get(url);
     }
     getConditionalOptionsList(tableName, suffix) {
+        if (!suffix || suffix === "") {
+            throw "Cannot call getConditionalOptionsList without a suffix";
+        }
         let url = `${BACKEND}/table/${tableName}/list/${suffix}`;
         return get(url);
     }
     getSecondaryOptionsList(tableName, id) {
+        if (!id || id === "") {
+            throw "Empty argument to getSecondaryOptionsList";
+        }
         let url = `${BACKEND}/table/${tableName}/secondaryList/${id}`;
         return get(url);
     }
@@ -86,6 +92,9 @@ class RestService {
     /* Find a row details by ID */
 
     findById(tableName, id) {
+        if (!id || id === "") {
+            throw "Empty argument to findById";
+        }
         let url = `${BACKEND}/table/${tableName}/find/${id}`;
         console.info(url);
         return get(url);
@@ -94,6 +103,9 @@ class RestService {
     /* Query projects */
 
     queryProjects(ids, queryType) {
+        if (ids === "") {
+            throw "Empty ids list passed to queryProjects";
+        }
         let url = `${BACKEND}/query/projects/${queryType}/${ids.join(",")}`;
         return get(url);
     }
