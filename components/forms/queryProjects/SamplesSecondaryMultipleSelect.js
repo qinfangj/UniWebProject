@@ -6,6 +6,7 @@ import { getSecondaryOptionsListAsync, getOptionsListAsync } from '../../actions
 import { changeSamplesSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 import MultipleSelect from '../elements/MultipleSelect';
+import { assertIsArray } from '../../../utils/common';
 
 
 class SamplesSecondaryMultipleSelect extends React.PureComponent {
@@ -35,25 +36,27 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
             let storeState = store.getState();
             let options = storeState.forms[this.dataStoreKey];   // this options list
             let selectedProjects = storeState.queryProjects.projectIds;
-            // Since it depends on another field of the same form, no need to
-            //  do anything if the other field has not yet sent its value to the store.
+            /* Since it depends on another field of the same form, no need to
+               do anything if the other field has not yet sent its value to the store. */
             if (selectedProjects) {
-                // Make it a comma-separated string
+                /* Make it a comma-separated string */
                 let projectIds = Object.keys(selectedProjects).join(",");
-                // No projects selected: emtpy samples list
+                /* No projects selected: emtpy samples list */
                 if (projectIds.length === 0) {
                     this.setState({ options: [] });
-                // 'Any' project selected: show all samples in list
+                /* 'Any' project selected: show all samples in list */
                 } else if (-1 in selectedProjects && projectIds !== this.projectIds) {
                     this.projectIds = projectIds;  // avoids infinite callback loop
-                    store.dispatch(getOptionsListAsync("samples", this.dataStoreKey));
+                    //! This is wayyy to slow, wait until we have dynamic pagination
+                    //store.dispatch(getOptionsListAsync("samples", this.dataStoreKey));
+                    this.setState({ options: [] });
                 }
-                // The value it depends on changed, ask for new data
+                /* The value it depends on changed, ask for new data */
                 else if (projectIds !== this.projectIds) {
                     this.projectIds = projectIds;  // avoids infinite callback loop
                     store.dispatch(getSecondaryOptionsListAsync(this.table, projectIds, this.dataStoreKey));
                 }
-                // New data received, update options
+                /* New data received, update options */
                 else if (options) {
                     let referenceProjects = storeState.forms[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE];  // the projects options list
                     referenceProjects = referenceProjects.filter(p => p.id in selectedProjects);  // the selected projects
@@ -72,6 +75,7 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
      * Filter and format options.
      */
     getOptions() {
+        assertIsArray(this.state.options, "getOptions::this.state.options");
         return this.state.options.map(v => {
             return {id: v.id, name: v.shortName +" ("+ v.name +")", project_id: v.projectId};
         });

@@ -20,7 +20,7 @@ export class Nrows extends React.Component {
  */
 export function checkData(data) {
     if (! (data instanceof Array)) {
-        throw("Received invalid data to display:" + Object.prototype.toString.call(data));
+        throw("Received invalid data to display:" + JSON.stringify(data, null, 2));
     }
 }
 

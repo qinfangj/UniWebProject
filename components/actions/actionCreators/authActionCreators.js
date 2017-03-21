@@ -68,9 +68,9 @@ export function loginUser(creds) {
                     response.json().then(user => {
                         dispatch(_LoginSuccess(user));
                         AuthService._doAuthentication(user);
-                    }).catch(err => console.log("Error retreiving id_token: ", err.message));
+                    }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
                 }
-            }).catch(err => console.log("Error logging in: ", err.message));
+            }).catch(err => console.log("Error logging in: ", JSON.stringify(err, null, 2)));
     }
 }
 
@@ -89,9 +89,9 @@ export function signupUser(creds) {
                     response.json().then(user => {
                         dispatch(_signupSuccess(user));
                         AuthService._doAuthentication(user);
-                    }).catch(err => console.log("Error retreiving id_token: ", err.message));
+                    }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
                 }
-            }).catch(err => console.log("Error signing up: ", err.message));
+            }).catch(err => console.log("Error signing up: ", JSON.stringify(err, null, 2)));
     }
 }
 
@@ -120,7 +120,7 @@ export function requestResetPassword(email) {
                     dispatch(() => {return {type: types.RESET_PASSWORD_FAILURE}});
                     return Promise.reject(response);
                 }
-            }).catch(err => console.log('Error asking for password reset: ' + err.message));
+            }).catch(err => console.log('Error asking for password reset: ' + JSON.stringify(err, null, 2)));
         }
 }
 
@@ -136,7 +136,7 @@ export function changePassword(code, email, newPassword) {
                     dispatch(() => {return {type: types.CHANGE_PASSWORD_FAILURE}});
                     return Promise.reject(response);
                 }
-            }).catch(err => console.log('Error changing password: ' + err.message));
+            }).catch(err => console.log('Error changing password: ' + JSON.stringify(err, null, 2)));
     }
 }
 

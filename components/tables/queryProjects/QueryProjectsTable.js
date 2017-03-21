@@ -8,6 +8,7 @@ import * as tables from '../tables.js';
 import * as constants from '../constants';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
+import { assertIsArray } from '../../../utils/common';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
@@ -52,6 +53,7 @@ class QueryProjectsTable extends React.Component {
             if (isProjectsSelected) {
                 let samples = store.getState().forms[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // options list, array of samples [{id, name}, ..]
                 if (samples) {
+                    assertIsArray(samples, "getSelectedSampleIdsFromStore::samples");
                     selectedSampleIds = samples.map(v => v.id);
                 }
             }
