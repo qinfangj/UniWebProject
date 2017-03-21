@@ -18,9 +18,8 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
     }
 
     /**
-     * `referenceField` is the `name` prop of a `Select` component,
-     *  which is the `table` props of higher-order `AsyncOptionsList < Options` components
-     *  and the key used in the store for the selected item.
+     * `referenceField` is the field name of another `Select` component
+     * that the options list of this one depends on.
      */
     static propTypes = {
         form: React.PropTypes.string.isRequired,  // the form name - to find the value in store
