@@ -27,7 +27,6 @@ class UserRequestsInsertForm extends React.PureComponent {
         this.form = formStoreKeys.USER_REQUESTS_INSERT_FORM;
         this.state = forms.defaultFormState;
         this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
-        forms.initForm(this.form);
     }
 
     static propTypes = {

@@ -17,7 +17,6 @@ class Select extends React.PureComponent {
             value: initValue,
             valid: true,
         };
-        forms.initFormField(this.props.form, this.props.field, initValue, this.isValid(initValue));
     }
 
     componentDidMount() {

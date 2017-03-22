@@ -38,7 +38,6 @@ class QueryProjectsForm extends React.Component {
             sampleIds: null,   // idem
             visible: true,
         };
-        forms.initForm(this.form);
     }
 
     componentWillMount() {

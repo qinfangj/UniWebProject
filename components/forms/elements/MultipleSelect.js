@@ -18,7 +18,6 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 class MultipleSelect extends React.PureComponent {
     constructor(props) {
         super(props);
-        forms.initFormField(this.props.form, this.props.field);
     }
 
     onChange(e) {

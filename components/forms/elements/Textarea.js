@@ -17,7 +17,6 @@ class Textarea extends React.PureComponent {
         this.state = {
             value: this.props.defaultValue,
         };
-        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
     }
 
     getValue() {

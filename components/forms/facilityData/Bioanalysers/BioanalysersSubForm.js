@@ -21,7 +21,6 @@ class BioanalysersSubForm extends React.PureComponent {
         super(props);
         this.table = "bioanalysers";
         this.form = formStoreKeys.BIOANALYSERS_LANES_INSERT_FORM;
-        forms.initForm(this.form);
     }
 
     getFormValues() {

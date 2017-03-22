@@ -65,6 +65,7 @@ const mapStateToProps = (state, ownProps) => {
     let formData = state.forms[ownProps.form];  // to get the reference field value
     let list = state.forms[ownProps.storeKey];
     let value = (list && list.length > 0) ? list[0].id : null;
+    if (!formData) { throw "Form initial state not defined for '"+ ownProps.form +"'"; }
     return {
         list: list,
         value: value,

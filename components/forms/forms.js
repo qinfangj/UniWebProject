@@ -16,19 +16,6 @@ export const defaultFormState = {
 };
 
 
-export function initForm(form) {
-    // if (! store.getState().forms[form]) {
-    //     store.getState().forms[form] = {};
-    //     store.getState().forms[form]._isValid = {};
-    // }
-}
-export function initFormField(form, field, value=null, valid) {
-//     if (! store.getState().forms[form][field]) {
-//         store.getState().forms[form][field] = value;
-//         store.getState().forms[form]._isValid[field] = valid;
-//     }
-}
-
 /**
  * Get the value of that input from the store.
  */

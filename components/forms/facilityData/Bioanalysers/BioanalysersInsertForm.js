@@ -28,7 +28,6 @@ class BioanalysersInsertForm extends React.PureComponent {
         this.form = formStoreKeys.BIOANALYSERS_INSERT_FORM;
         this.required = [];
         this.state = forms.defaultFormState;
-        forms.initForm(this.form);
     }
 
     static propTypes = {

@@ -26,7 +26,6 @@ class BasecallingsInsertForm extends React.PureComponent {
         this.table = "basecallings";
         this.form = formStoreKeys.BASECALLINGS_INSERT_FORM;
         this.state = forms.defaultFormState;
-        forms.initForm(this.form);
     }
 
     static propTypes = {

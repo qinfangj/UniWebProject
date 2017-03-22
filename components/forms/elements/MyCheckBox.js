@@ -17,7 +17,6 @@ class MyCheckBox extends React.PureComponent {
         this.state = {
             checked: this.props.defaultValue
         };
-        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue);
     }
 
     componentDidMount() {
