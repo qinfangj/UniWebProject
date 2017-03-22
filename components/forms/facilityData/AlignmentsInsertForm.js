@@ -13,11 +13,13 @@ import * as messages from '../messages';
 import validators from '../validators';
 import formStoreKeys from '../../constants/formStoreKeys';
 import fields from '../fields';
+import facilityDataModels from './formModels';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 
+const models = facilityDataModels.alignments;
 
 
 class AlignmentsInsertForm extends React.PureComponent {

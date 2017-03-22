@@ -102,7 +102,7 @@ class ProjectInsertForm extends React.PureComponent {
                             label="Description"
                             validator = {validators.descriptionValidator}
                             submissionError = {this.state.submissionError}
-                            defaultValue = "Enter description here"
+                            defaultValue = ""
                         />
                     </Col>
 

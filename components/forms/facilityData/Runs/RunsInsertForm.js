@@ -13,6 +13,7 @@ import DatePicker from '../../elements/DatePicker';
 import validators from '../../validators';
 import * as forms from '../../forms.js';
 import * as Options from '../../subcomponents/Options';
+import fields from '../../fields';
 import RunsSubForm from './RunsSubForm';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -97,10 +98,13 @@ class RunsInsertForm extends React.PureComponent {
                     {/* Run# */}
 
                     <Col sm={1} className={formsCss.formCol}>
-                        <TextField field="ga_run_nb" label="Run#" required
-                                   validator = {validators.integerValidator}
-                                   form = {this.form}  // so that it sends its value to store
-                                   ref = {(c) => this._runNb = c}
+                        <TextField
+                            form = {this.form}
+                            field={fields.RUN_NUMBER}
+                            label="Run#"
+                            required
+                            validator = {validators.integerValidator}
+                            ref = {(c) => this._runNb = c}
                         />
                     </Col>
 

@@ -203,6 +203,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     <Col sm={2} className={css.formCol}>
                         <Options.MultiplexIndexes
                             form={this.form}
+                            field={fields.MULTIPLEX_INDEX_7_ID}
                             required
                             label="Multiplex index (I7)"
                             suffix="all"
@@ -215,6 +216,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     <Col sm={2} className={css.formCol}>
                         <Options.MultiplexIndexes
                             form={this.form}
+                            field={fields.MULTIPLEX_INDEX_5_ID}
                             required
                             label="Second index (I5)"
                             suffix="all"

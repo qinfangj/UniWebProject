@@ -1,9 +1,25 @@
 "use strict";
 import types from '../actionTypes';
 import returnList from './base';
+import facilityDataModels from '../../forms/facilityData/formModels';
 
 
-const defaultState = {};
+function initialFacilityData() {
+    let initialData = {};
+    for (let form of Object.keys(facilityDataModels)) {
+        initialData[form] = {};
+        initialData[form]._isValid = {};
+        for (let field of Object.keys(facilityDataModels[form])) {
+            initialData[form][field] = facilityDataModels[form][field].defaultValue;
+            initialData[form]._isValid[field] = true;
+        }
+    }
+    return initialData;
+}
+
+const defaultState = Object.assign({},
+    initialFacilityData(),
+);
 
 
 
@@ -25,35 +41,11 @@ let formReducers = (state = defaultState, action) => {
 
         /**
          * Reset form data. Expects `action.form` (form name).
-         * It is hacky, based on the fact that text/textarea fields return a string value,
-         * options lists a numeric value, dates a formatted string value, and checkboxes a boolean value.
-         * Special formatters are only applied to the submitted object anyway - never to the actual
-         * stored values but to a copy that only exists for the time of the submission.
          */
         case types.forms.EMPTY_FORM:
             newState = Object.assign({}, state);
             form = action.form;
-            formData = Object.assign({}, state[form]);
-            if (formData) {
-                for (let key of Object.keys(formData)) {
-                    let value = formData[key];
-                    // Reset checkboxes
-                    if (typeof(value) === "boolean") {
-                        formData[key] = false;
-                    // Reset options
-                    } else if (typeof(value) === "number") {
-                        formData[key] = [];
-                    // Reset dates
-                    } else if (new Date(value).getTime() > 0) {
-                        formData[key] = "1970-01-01";
-                    // Reset text
-                    } else if (typeof(value) === "string") {
-                        formData[key] = "";
-                    }
-                }
-            }
-            newState[form] = formData;
-            newState[form]._isValid = {};
+            newState[form] = initialFacilityData()[form];
             return newState;
 
         case types.forms.CHANGE_FORM_VALUE:
