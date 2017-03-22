@@ -26,7 +26,7 @@ function initialFacilityData() {
         initialData[form]._isValid = {};
         for (let field of Object.keys(facilityDataModels[form])) {
             let model = facilityDataModels[form][field];
-            let value = model.defaultValue;
+            let value = model.value;
             let setValid = model.valid;
             let required = model.required;
             let type = model.type;
@@ -95,6 +95,7 @@ let formReducers = (state = defaultState, action) => {
             newState[form]._isValid = {};
             // Above we supposed that the keys returned by the backend (Slick auto-generated models)
             // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
+            // -- [exceptions] --
             return newState;
 
         default:
