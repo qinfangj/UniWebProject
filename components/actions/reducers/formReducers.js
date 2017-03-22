@@ -2,7 +2,22 @@
 import types from '../actionTypes';
 import returnList from './base';
 import facilityDataModels from '../../forms/facilityData/formModels';
+import { inputTypes } from '../../forms/facilityData/formModels';
 
+
+function isValid(value, type, required, setValid) {
+    let valid = true;
+    if (required) {
+        if (type === inputTypes.TEXT || type === inputTypes.TEXTAREA) {
+            valid = value !== "";
+        } else if (type === inputTypes.DROPDOWN || type === inputTypes.SEC_DROPDOWN) {
+            valid = value !== -1;
+        }
+    } else {
+        valid = setValid;
+    }
+    return valid;
+}
 
 function initialFacilityData() {
     let initialData = {};
@@ -10,8 +25,13 @@ function initialFacilityData() {
         initialData[form] = {};
         initialData[form]._isValid = {};
         for (let field of Object.keys(facilityDataModels[form])) {
-            initialData[form][field] = facilityDataModels[form][field].defaultValue;
-            initialData[form]._isValid[field] = true;
+            let model = facilityDataModels[form][field];
+            let value = model.defaultValue;
+            let setValid = model.valid;
+            let required = model.required;
+            let type = model.type;
+            initialData[form][field] = value;
+            initialData[form]._isValid[field] = isValid(value, type, required, setValid);
         }
     }
     return initialData;
@@ -42,7 +62,7 @@ let formReducers = (state = defaultState, action) => {
         /**
          * Reset form data. Expects `action.form` (form name).
          */
-        case types.forms.EMPTY_FORM:
+        case types.forms.RESET_FORM:
             newState = Object.assign({}, state);
             form = action.form;
             newState[form] = initialFacilityData()[form];

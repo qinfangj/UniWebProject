@@ -4,7 +4,7 @@ import store from '../../core/store';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { changeFormValue } from '../actions/actionCreators/formsActionCreators';
 import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import { emptyForm } from '../actions/actionCreators/formsActionCreators';
+import { resetForm } from '../actions/actionCreators/formsActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
 
@@ -17,16 +17,16 @@ export const defaultFormState = {
 
 
 export function initForm(form) {
-    if (! store.getState().forms[form]) {
-        store.getState().forms[form] = {};
-        store.getState().forms[form]._isValid = {};
-    }
+    // if (! store.getState().forms[form]) {
+    //     store.getState().forms[form] = {};
+    //     store.getState().forms[form]._isValid = {};
+    // }
 }
 export function initFormField(form, field, value=null, valid) {
-    if (! store.getState().forms[form][field]) {
-        store.getState().forms[form][field] = value;
-        store.getState().forms[form]._isValid[field] = valid;
-    }
+//     if (! store.getState().forms[form][field]) {
+//         store.getState().forms[form][field] = value;
+//         store.getState().forms[form]._isValid[field] = valid;
+//     }
 }
 
 /**
@@ -60,7 +60,7 @@ export function newOrUpdate(form, table, updateId) {
     if (updateId) {
         store.dispatch(findForUpdateAsync(table, updateId, form));
     } else {
-        store.dispatch(emptyForm(form));
+        store.dispatch(resetForm(form));
     }
 }
 
@@ -134,7 +134,7 @@ export function submit(component, form, table, formatFormData=null) {
                 // Signal that it was a success
                 console.debug(200, "Inserted ID <"+insertId+">");
                 // Clear the form data in store
-                store.dispatch(emptyForm(form));
+                store.dispatch(resetForm(form));
                 // Redirect to table by replacing '/new' by '/list' in the router state
                 let currentPath = window.location.pathname + window.location.hash.substr(2);
                 hashHistory.push(currentPath.replace('/new', '/list'));
