@@ -35,7 +35,9 @@ if (process.env.NODE_ENV !== 'TEST') {
     middleware = [ ...middleware, logger ]
 }
 
-
+/**
+ * Fills an object `initalData` with the initial form values (always '' in the case of admin forms).
+ */
 function initialAdminForms(table) {
     var initalData = {};
     adminDataConstants[table].fields.map(
