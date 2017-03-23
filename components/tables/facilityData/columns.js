@@ -24,7 +24,16 @@ class IdColumnWithUpdateLink extends React.Component {
     }
 }
 
+var headerRenderer = function(params)
+{
+    var eHeader = document.createElement('span');
+    var eTitle = document.createTextNode(params.colDef.headerName);
 
+    eHeader.appendChild(eTitle);
+    eHeader.style.float = 'left';
+
+    return eHeader;
+};
 
 const columns = {
     //add admin tables columns
@@ -33,14 +42,17 @@ const columns = {
         {
             headerName: "Collaborator",
             field: "collaborator",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Project",
             field: "project",
+            headerCellRenderer :headerRenderer
         },
         ,{
             headerName: "Project Owner",
-            field: "laboratory"
+            field: "laboratory",
+            headerCellRenderer :headerRenderer
         }
     ],
     analysis_types: [
@@ -48,188 +60,227 @@ const columns = {
         {
             headerName: "Description",
             field: "description",
+            headerCellRenderer :headerRenderer
         },{
             headerName: "Customer Viewable",
             field: "customerViewable",
+            headerCellRenderer :headerRenderer
         },{
             headerName: "UseAllReads",
             field: "useallreads",
+            headerCellRenderer :headerRenderer
         },{
             headerName: "Comment",
             field: "comment",
+            headerCellRenderer :headerRenderer
         }
     ],
     flowcell_types: [
         idColumnWithUpdateLink("flowcell_types","admin"),
         {
             headerName: "Version",
-            field: "version"
+            field: "version",
+            headerCellRenderer :headerRenderer
         }
     ],
     instruments: [
         idColumnWithUpdateLink("instruments","admin"),
         {
             headerName: "Internal Name",
-            field: "internalName"
+            field: "internalName",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Model",
-            field: "model"
+            field: "model",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Serial Nb",
-            field: "serialNb"
+            field: "serialNb",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "IsSequencer",
-            field: "isSequencer"
+            field: "isSequencer",
+            headerCellRenderer :headerRenderer
         }
     ],
     library_adapters: [
         idColumnWithUpdateLink("library_adapters","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Length",
-            field: "length"
+            field: "length",
+            headerCellRenderer :headerRenderer
         }
     ],
     lib_protocols: [
         idColumnWithUpdateLink("library_protocols","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Short Name",
-            field: "shortName"
+            field: "shortName",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Ref Nb",
-            field: "refNb"
+            field: "refNb",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Release Month",
-            field: "releaseMonth"
+            field: "releaseMonth",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "HasInsertSizeSelection",
-            field: "hasinsertsizeselection"
+            field: "hasinsertsizeselection",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "IsDeprecated",
-            field: "isdeprecated"
+            field: "isdeprecated",
+            headerCellRenderer :headerRenderer
         }
     ],
     library_states: [
         idColumnWithUpdateLink("library_states","admin"),
         {
             headerName: "State Order",
-            field: "stateOrder"
+            field: "stateOrder",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Description",
-            field: "description"
+            field: "description",
+            headerCellRenderer :headerRenderer
         }
     ],
     mapping_tools: [
         idColumnWithUpdateLink("mapping_tools","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Version",
-            field: "version"
+            field: "version",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Reference",
-            field: "reference"
+            field: "reference",
+            headerCellRenderer :headerRenderer
         }
     ],
     multiplex_indexes: [
         idColumnWithUpdateLink("multiplex_indexes","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Manufacturer",
-            field: "manufacturer"
+            field: "manufacturer",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Sequence",
-            field: "sequence"
+            field: "sequence",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Index Group",
-            field: "indexGroup"
+            field: "indexGroup",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "IsMultiplexing",
-            field: "ismultiplexing"
+            field: "ismultiplexing",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "IsDeprecated",
-            field: "isdeprecated"
+            field: "isdeprecated",
+            headerCellRenderer :headerRenderer
         }
     ],
     pipeline_versions: [
         idColumnWithUpdateLink("pipeline_versions","admin"),
         {
             headerName: "Software Name",
-            field: "softwareName"
+            field: "softwareName",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Number",
-            field: "number"
+            field: "number",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Description",
-            field: "description"
+            field: "description",
+            headerCellRenderer :headerRenderer
         }
     ],
     project_analysis: [
         idColumnWithUpdateLink("project_analysis","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Description",
-            field: "description"
+            field: "description",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "IsReported",
-            field: "isreported"
+            field: "isreported",
+            headerCellRenderer :headerRenderer
         }
     ],
     project_states: [
         idColumnWithUpdateLink("project_states","admin"),
         {
             headerName: "State Order",
-            field: "stateOrder"
+            field: "stateOrder",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Description",
-            field: "description"
+            field: "description",
+            headerCellRenderer :headerRenderer
         }
     ],
     quantif_methods: [
         idColumnWithUpdateLink("quantif_methods","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         }
 
     ],
@@ -237,7 +288,8 @@ const columns = {
         idColumnWithUpdateLink("read_lengths","admin"),
         {
             headerName: "Length",
-            field: "length"
+            field: "length",
+            headerCellRenderer :headerRenderer
         }
 
     ],
@@ -245,7 +297,8 @@ const columns = {
         idColumnWithUpdateLink("run_types","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         }
 
     ],
@@ -253,15 +306,18 @@ const columns = {
         idColumnWithUpdateLink("run_types_lengths","admin"),
         {
             headerName: "Run Type",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Read Length",
-            field: "length"
+            field: "length",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Discarded",
-            field: "isdeprecated"
+            field: "isdeprecated",
+            headerCellRenderer :headerRenderer
         }
 
     ],
@@ -269,7 +325,8 @@ const columns = {
         idColumnWithUpdateLink("sample_types","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         }
 
     ],
@@ -277,11 +334,13 @@ const columns = {
         idColumnWithUpdateLink("sequencing_kit_versions","admin"),
         {
             headerName: "Version",
-            field: "version"
+            field: "version",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Ref Number",
-            field: "refNumber"
+            field: "refNumber",
+            headerCellRenderer :headerRenderer
         }
 
     ],
@@ -289,15 +348,18 @@ const columns = {
         idColumnWithUpdateLink("sequencing_qualities","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "pass QC",
-            field: "passQc"
+            field: "passQc",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Delivered",
-            field: "delivered"
+            field: "delivered",
+            headerCellRenderer :headerRenderer
         }
 
     ],
@@ -305,15 +367,18 @@ const columns = {
         idColumnWithUpdateLink("taxonomies","admin"),
         {
             headerName: "Name",
-            field: "name"
+            field: "name",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Ref Name",
-            field: "refName"
+            field: "refName",
+            headerCellRenderer :headerRenderer
         },
         {
             headerName: "Ncbi Id",
-            field: "ncbiId"
+            field: "ncbiId",
+            headerCellRenderer :headerRenderer
         }
 
     ],
