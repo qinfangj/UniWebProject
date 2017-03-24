@@ -34,12 +34,11 @@ class ProjectSharingSubmitForm extends React.PureComponent {
 
         const modelName = "adminForms.";
         this.modelName = modelName.concat(adminData[this.props.table].model);
-        console.log(this.modelName);
 
         if (this.props.updateId ==='' || this.props.updateId ==undefined) {
-            this.state.isInsert= true;
+            this.state.isInsert = true;
         }else{
-            this.state.isInsert= false;
+            this.state.isInsert = false;
         }
 
     }
