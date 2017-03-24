@@ -90,10 +90,16 @@ class CommonAdminForms extends React.Component {
                 if (adminData[table].fields[index].type === "Int") {
                     formData[key] = parseInt(formData[key]);
                 } else if (adminData[table].fields[index].type === "Boolean") {
-                    formData[key] = !!parseInt(formData[key]);
+                    let formDataKey = JSON.parse(formData[key]);
+                    if (typeof (formDataKey ) === "number") {
+                        formData[key] = !!parseInt(formDataKey);
+                    } else {
+                        formData[key] = formDataKey;
+                    }
                 }
             }
         });
+
 
         if (formData.id && formData.id !== 0) {
             formData.updatedAt = dateNow();
