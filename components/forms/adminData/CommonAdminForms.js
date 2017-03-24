@@ -149,6 +149,20 @@ class CommonAdminForms extends React.Component {
         }
     }
 
+
+    makeInput(s) {
+        let input;
+        if (s.type === "Boolean") {
+            input = <Control.checkbox model={".".concat(s.name)} disabled={!this.state.isInsert}
+                                      className={admincss.input}/>
+        } else {
+            input =
+                <Control.text model={".".concat(s.name)} disabled={!this.state.isInsert} className={admincss.input}
+                              required={s.required}/>
+        }
+        return input;
+    }
+
     render() {
         let formFields = adminData[this.props.table].fields;
 
@@ -160,21 +174,21 @@ class CommonAdminForms extends React.Component {
                 <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
                 <messages.ServerErrorMessage error={this.state.serverError} />
 
-                    {
-                        formFields.map((s)=> {
+                {
+                    formFields.map((s) => {
 
-                             return (
-                                 <Col sm={s.size} className={css.formCol} key={s.name}>
-                                     <label className={admincss.label}>{s.label}:</label>
-                                     <Control.text model={".".concat(s.name)} disabled={!this.state.isInsert} className={admincss.input} required={s.required}/>
-                                 </Col>
-                             )
+                        return (
+                            <Col sm={s.size} className={css.formCol} key={s.name}>
+                                <label className={admincss.label}>{s.label}:</label>
+                                {this.makeInput(s)}
+                            </Col>
+                        )
 
-                         })
-                     }
-
+                    })
+                }
+                <div className="clearfix"/>
                 <Col sm={6} className={css.formCol}>
-                    <Button bsStyle="primary" className={admincss.button} type="submit" style={{float:'center'}}>
+                    <Button bsStyle="primary" className={admincss.button} type="submit" >
                         {this.state.isInsert ? 'Submit':'ActivateForm'}
                     </Button>
                 </Col>
