@@ -80,7 +80,7 @@ class CommonTable extends React.PureComponent {
 
     render() {
         {/* get state from store for loading icon */}
-        let showme= store.getState().facilityData.showme;
+        let showLoading = store.getState().facilityData.showLoading;
         let data = this.state.data;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
@@ -99,7 +99,7 @@ class CommonTable extends React.PureComponent {
                 <div className="clearfix"/>
 
                 {/* If no data, no table but fill the space */}
-                { showme ?<div style={{width: '100%',textAlign:'center'}}>
+                { showLoading ?<div style={{width: '100%',textAlign:'center'}}>
                         <i className="fa fa-spinner fa-pulse fa-3x fa-w"></i>
                         <span>Loading...</span></div> : null}
 

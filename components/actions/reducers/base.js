@@ -9,11 +9,11 @@ import constants from '../../constants/constants';
  */
 export default function returnList(action, state, storeKey, pendingValue) {
     if (action.status === constants.PENDING) {
-        return Object.assign({}, state, {[storeKey]: pendingValue, showme:true});
+        return Object.assign({}, state, {[storeKey]: pendingValue, showLoading:true});
     } else if (action.status === constants.SUCCESS) {
-        return Object.assign({}, state, {[storeKey]: action.response, showme:false});
+        return Object.assign({}, state, {[storeKey]: action.response, showLoading:false});
     } else if (action.status === constants.ERROR) {
-        return Object.assign({}, state, {[storeKey]: pendingValue, showme:false, error: action.response});
+        return Object.assign({}, state, {[storeKey]: pendingValue, showLoading:false, error: action.response});
     } else {
         return state;
     }

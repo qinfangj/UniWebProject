@@ -42,17 +42,17 @@ const columns = {
         {
             headerName: "Collaborator",
             field: "collaborator",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Project",
             field: "project",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
-        ,{
+        {
             headerName: "Project Owner",
             field: "laboratory",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     analysis_types: [
@@ -60,19 +60,19 @@ const columns = {
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },{
             headerName: "Customer Viewable",
             field: "customerViewable",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },{
             headerName: "UseAllReads",
             field: "useallreads",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },{
             headerName: "Comment",
             field: "comment",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     flowcell_types: [
@@ -80,7 +80,7 @@ const columns = {
         {
             headerName: "Version",
             field: "version",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     instruments: [
@@ -88,22 +88,22 @@ const columns = {
         {
             headerName: "Internal Name",
             field: "internalName",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Model",
             field: "model",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Serial Nb",
             field: "serialNb",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsSequencer",
-            field: "isSequencer",
-            headerCellRenderer :headerRenderer
+            field: "issequencer",
+            headerCellRenderer: headerRenderer
         }
     ],
     library_adapters: [
@@ -111,12 +111,12 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Length",
             field: "length",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     lib_protocols: [
@@ -124,32 +124,32 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Short Name",
             field: "shortName",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Ref Nb",
             field: "refNb",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Release Month",
             field: "releaseMonth",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "HasInsertSizeSelection",
             field: "hasinsertsizeselection",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsDeprecated",
             field: "isdeprecated",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     library_states: [
@@ -157,17 +157,17 @@ const columns = {
         {
             headerName: "State Order",
             field: "stateOrder",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     mapping_tools: [
@@ -175,17 +175,17 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Version",
             field: "version",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Reference",
             field: "reference",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     multiplex_indexes: [
@@ -193,32 +193,32 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Manufacturer",
             field: "manufacturer",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Sequence",
             field: "sequence",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Index Group",
             field: "indexGroup",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsMultiplexing",
             field: "ismultiplexing",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsDeprecated",
             field: "isdeprecated",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     pipeline_versions: [
@@ -226,17 +226,17 @@ const columns = {
         {
             headerName: "Software Name",
             field: "softwareName",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Number",
             field: "number",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     project_analysis: [
@@ -244,17 +244,17 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsReported",
             field: "isreported",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     project_states: [
@@ -262,17 +262,17 @@ const columns = {
         {
             headerName: "State Order",
             field: "stateOrder",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
     ],
     quantif_methods: [
@@ -280,7 +280,7 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -289,7 +289,7 @@ const columns = {
         {
             headerName: "Length",
             field: "length",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -298,7 +298,7 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -307,17 +307,17 @@ const columns = {
         {
             headerName: "Run Type",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Read Length",
             field: "length",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Discarded",
             field: "isdeprecated",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -326,7 +326,7 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -335,12 +335,12 @@ const columns = {
         {
             headerName: "Version",
             field: "version",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Ref Number",
             field: "refNumber",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -349,17 +349,17 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "pass QC",
             field: "passQc",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Delivered",
             field: "delivered",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -368,17 +368,17 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Ref Name",
             field: "refName",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Ncbi Id",
             field: "ncbiId",
-            headerCellRenderer :headerRenderer
+            headerCellRenderer: headerRenderer
         }
 
     ],
