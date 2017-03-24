@@ -19,7 +19,7 @@ export default {
     QUERY_PROJECTS_FORM: "QUERY_PROJECTS_FORM",
     RUNS_INSERT_FORM: "RUNS_INSERT_FORM",
     //AdminSubmitForms
-    ANALYSIS_TYPE_INSERT_FORM:"ANALYSIS_TYPE_INSERT_FORM",
+    PROJECT_SHARINGS_INSERT_FORM:"PROJECT_SHARINGS_INSERT_FORM",
 
     // Suffixes (unique within a form)
     suffixes: {

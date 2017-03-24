@@ -36,6 +36,29 @@ var headerRenderer = function(params)
 };
 
 const columns = {
+    users: [
+        idColumnWithUpdateLink("users","admin"),
+        {
+            headerName: "Login",
+            field: "login",
+            headerCellRenderer: headerRenderer
+        },
+        {
+            headerName: "Role",
+            field: "role",
+            headerCellRenderer: headerRenderer
+        },
+        {
+            headerName: "User",
+            field: "perosonId",
+            headerCellRenderer: headerRenderer
+        },
+        {
+            headerName: "Laboratory",
+            field: "laboratory",
+            headerCellRenderer: headerRenderer
+        }
+    ],
     //add admin tables columns
     project_sharings: [
         idColumnWithUpdateLink("project_sharings","admin"),

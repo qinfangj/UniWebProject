@@ -6,24 +6,25 @@ import CommonAdminForms from '../../forms/adminData/CommonAdminForms';
 
 import AdminData from '../../pages/AdminData';
 import ProjectSharingSubmitForm from '../../forms/adminData/ProjectSharingSubmitForm';
-
-
-export class UserPage extends React.Component {
-
-    render() {
-        return (
-            <div>Account page in construction</div>
-        );
-    }
-
-}
+import {i} from "react-fontawesome";
 
 export class LimsUserPage extends React.Component {
     render() {
         return (
             <div>
-                Account page in construction
+                <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                <span >Loading...</span>
             </div>
+        );
+    }
+}
+
+export class LimsUserListRoute extends React.Component {
+    render() {
+        return (
+            <AdminData title="LIMS User" name="users" content={
+                <CommonTable dataStoreKey="users" table="users" columnsKey="users" />
+            }/>
         );
     }
 }
