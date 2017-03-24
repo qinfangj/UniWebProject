@@ -15,9 +15,9 @@ export function changeFormValue(form, field, value, valid) {
     }
 }
 
-export function emptyForm(form) {
+export function resetForm(form) {
     return {
-        type: types.forms.EMPTY_FORM,
+        type: types.forms.RESET_FORM,
         form: form,
     }
 }

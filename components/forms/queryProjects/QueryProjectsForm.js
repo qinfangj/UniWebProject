@@ -17,7 +17,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import Collapse from 'react-bootstrap/lib/Collapse';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
-import Icon from 'react-fontawesome'
+import Icon from 'react-fontawesome';
 
 
 /**
@@ -38,7 +38,6 @@ class QueryProjectsForm extends React.Component {
             sampleIds: null,   // idem
             visible: true,
         };
-        forms.initForm(this.form);
     }
 
     componentWillMount() {

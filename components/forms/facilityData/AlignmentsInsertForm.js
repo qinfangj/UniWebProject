@@ -18,6 +18,8 @@ import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 
+//import facilityDataModels from './formModels';
+//const models = facilityDataModels.alignments;
 
 
 class AlignmentsInsertForm extends React.PureComponent {
@@ -26,7 +28,6 @@ class AlignmentsInsertForm extends React.PureComponent {
         this.table = "alignments";
         this.form = formStoreKeys.ALIGNMENTS_INSERT_FORM;
         this.state = forms.defaultFormState;
-        forms.initForm(this.form);
     }
 
     static propTypes = {

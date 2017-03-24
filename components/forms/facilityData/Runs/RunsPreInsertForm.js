@@ -41,7 +41,6 @@ class RunsPreInsertForm extends React.PureComponent {
                 pool: null,
             }
         });
-        forms.initForm(this.form);
     }
 
     onSubmit() {

@@ -21,7 +21,6 @@ class TextField extends React.PureComponent {
             msg: "",  // error message from the validator
         };
         let valid = this.validate(this.props.defaultValue).valid;
-        forms.initFormField(this.props.form, this.props.field, this.props.defaultValue, valid);
     }
 
     getValue() {

@@ -35,7 +35,9 @@ if (process.env.NODE_ENV !== 'TEST') {
     middleware = [ ...middleware, logger ]
 }
 
-
+/**
+ * Fills an object `initalData` with the initial form values (always '' in the case of admin forms).
+ */
 function initialAdminForms(table) {
     var initalData = {};
     adminDataConstants[table].fields.map(
@@ -50,7 +52,6 @@ let reducer = combineReducers({
     common: commonReducers,
     auth: authReducers,
     queryProjects: queryProjectsReducers,
-    forms: formReducers,
 
     adminForms:combineForms(
         {
@@ -75,7 +76,8 @@ let reducer = combineReducers({
             taxonomiesForm : initialAdminForms("taxonomies"),
             projectSharingsForm : initialAdminForms("project_sharings")
         }
-    ,'adminForms')
+    ,'adminForms'),
+    forms: formReducers,
 
 });
 

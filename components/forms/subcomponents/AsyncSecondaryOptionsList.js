@@ -1,9 +1,8 @@
 "use strict";
 import React from 'react';
 import { connect } from 'react-redux';
-import * as forms from '../forms';
 
-import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
+import { getSecondaryOptionsListAsync, changeFormValue} from '../../actions/actionCreators/formsActionCreators';
 import Select from '../elements/Select';
 
 
@@ -41,10 +40,7 @@ class AsyncSecondaryOptionsList extends React.PureComponent {
             this.referenceValue = refValue;  // avoids infinite callback loop
             this.props.getSecondaryOptionsListAsync(this.props.table, refValue, this.props.storeKey);
         }
-    }
-
-    componentDidUpdate() {
-        forms.initFormField(this.props.form, this.props.field, this.props.value);
+        this.props.changeFormValue(this.props.form, this.props.field, nextProps.value);
     }
 
     getList() {
@@ -69,6 +65,7 @@ const mapStateToProps = (state, ownProps) => {
     let formData = state.forms[ownProps.form];  // to get the reference field value
     let list = state.forms[ownProps.storeKey];
     let value = (list && list.length > 0) ? list[0].id : null;
+    if (!formData) { throw "Form initial state not defined for '"+ ownProps.form +"'"; }
     return {
         list: list,
         value: value,
@@ -79,6 +76,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getSecondaryOptionsListAsync: (table, refValue, storeKey) => dispatch(getSecondaryOptionsListAsync(table, refValue, storeKey)),
+        changeFormValue: (form, field, value, valid) => dispatch(changeFormValue(form, field, value, valid)),
     };
 };
 

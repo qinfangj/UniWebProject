@@ -15,7 +15,6 @@ import fields from '../fields';
  * List available basecallings output folders for a given run ID.
  */
 export class BasecallingsOutputFolders extends React.Component {
-    getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.outputDir]; }
     render() {
         let {form, ...otherProps} = this.props;
@@ -26,7 +25,7 @@ export class BasecallingsOutputFolders extends React.Component {
             label="Unaligned data output folder"
             referenceField={fields.RUN_ID}
             storeKey={form + '_' + dataStoreKeys.BASECALLINGS_OUTPUT_FOLDERS}
-            formatter={this.formatter} ref={(c) => {this._select = c;}}
+            formatter={this.formatter}
             {...otherProps}
         />);
     }
@@ -41,7 +40,6 @@ BasecallingsOutputFolders.propTypes = {
  * Used in UserRequests and Librairies insert forms.
  */
 export class SamplesForProject extends React.Component {
-    getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name + (v.shortName ? " ("+v.shortName+")" : "")]; }
     render() {
         let {form, ...otherProps} = this.props;
@@ -52,7 +50,7 @@ export class SamplesForProject extends React.Component {
             label="Sample"
             referenceField={this.props.referenceField}
             storeKey={form + '_' + dataStoreKeys.SAMPLES_FROM_PROJECT}
-            formatter={this.formatter} ref={(c) => {this._select = c;}}
+            formatter={this.formatter}
             {...otherProps}
         />);
     }
@@ -71,7 +69,6 @@ SamplesForProject.defaultProps = {
  * Used in Pre-Runs insert.
  */
 export class ProjectPools extends React.Component {
-    getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.pool]; }
     render() {
         let {field, form, referenceField, ...otherProps} = this.props;
@@ -82,7 +79,7 @@ export class ProjectPools extends React.Component {
             table="user_requests"
             label={null}
             storeKey={this.props.storeKey ? this.props.storeKey : form + '_' + dataStoreKeys.POOLS_FROM_PROJECT}
-            formatter={this.formatter} ref={(c) => {this._select = c;}}
+            formatter={this.formatter}
             {...otherProps}
         />);
     }
@@ -102,7 +99,6 @@ ProjectPools.defaultProps = {
  * List available libraries for a given project ID.
  */
 export class ProjectLibraries extends React.Component {
-    getValue() { return this._select.getValue(); }
     formatter(v) { return [v.id, v.name]; }
     render() {
         let {field, form, ...otherProps} = this.props;
@@ -112,7 +108,7 @@ export class ProjectLibraries extends React.Component {
             table="libraries" label={null}
             referenceField={this.props.referenceField}
             storeKey={this.props.storeKey ? this.props.storeKey : this.props.form +'_'+ dataStoreKeys.LIBRAIRIES_FROM_PROJECT}
-            formatter={this.formatter} ref={(c) => {this._select = c;}}
+            formatter={this.formatter}
             {...otherProps}
         />);
     }

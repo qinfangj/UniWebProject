@@ -1,14 +1,14 @@
 "use strict";
 import React from 'react';
-import { Link } from 'react-router';
-import cx from 'classnames';
 import css from './Footer.css';
+import projectInfo from '../../../package.json';
 
 
 function Footer() {
+    let version = projectInfo["version"];
     return (
         <div className={css.footer}>
-            <span>Powered by Lausanne Genomic Technologies Facility (LGTF), University of Lausanne</span>
+            <span>Powered by Lausanne Genomic Technologies Facility (LGTF), University of Lausanne | v.{version}</span>
         </div>
   );
 }

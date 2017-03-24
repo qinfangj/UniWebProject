@@ -82,7 +82,7 @@ export class MappingTools extends React.Component {
 export class MultiplexIndexes extends React.Component {
     formatter(v) { return [v.id, v.name +" - "+ v.sequence]; }
     render() {
-        return <AsyncOptionsList field={fields.MULTIPLEX_INDEX_ID} table="multiplex_indexes"
+        return <AsyncOptionsList table="multiplex_indexes"
                                  storeKey={dataStoreKeys.MULTIPLEX_INDEXES}
                                  formatter={this.formatter}
                                  {...this.props}
@@ -91,6 +91,7 @@ export class MultiplexIndexes extends React.Component {
 }
 MultiplexIndexes.propTypes = {
     suffix: React.PropTypes.string.isRequired,
+    field: React.PropTypes.string.isRequired,
 };
 
 /** In Project sharings(?) */

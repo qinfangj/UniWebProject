@@ -65,7 +65,8 @@ const fields = {
     IS_CUSTOMER_MADE: "iscustomerMade",
     IS_ROBOT_MADE: "isRobot_made",
     ADAPTER_ID: "adapterId",
-    MULTIPLEX_INDEX_ID: "multiplexIndexId",
+    MULTIPLEX_INDEX_7_ID: "multiplexIndexId",
+    MULTIPLEX_INDEX_5_ID: "index5primeId",
     LIBRARY_STATE_ID: "libraryStateId",
     LIB_PROTOCOL_ID: "libProtocolId",
     SAMPLE_ID: "sampleId",
@@ -99,6 +100,7 @@ const fields = {
     ANALYSIS_TYPE_ID: "analysisTypeId",
 
     // Runs
+    RUN_NUMBER: "ga_run_nb",
     INSTRUMENT_ID: "instrumentId",
     SEQUENCING_KIT_VERSION_ID: "sequencingKitVersionId",
     FLOWCELL_TYPE_ID: "flowcellTypeId",

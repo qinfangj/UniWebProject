@@ -21,7 +21,6 @@ class ProjectInsertForm extends React.PureComponent {
         this.table = "people";
         this.form = formStoreKeys.PEOPLE_INSERT_FORM;
         this.state = forms.defaultFormState;
-        forms.initForm(this.form);
     }
 
     static propTypes = {
@@ -59,25 +58,37 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* First name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field={fields.FIRST_NAME} label="PI first name" form={this.form} required
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.FIRST_NAME}
+                            label="PI first name"
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Last name */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field={fields.LAST_NAME} label="PI last name" form={this.form} required
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.LAST_NAME}
+                            label="PI last name"
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Email */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field={fields.EMAIL} label="PI email" form={this.form} required
-                                   validator = {validators.emailValidator}
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.EMAIL}
+                            label="PI email"
+                            required
+                            validator = {validators.emailValidator}
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -87,17 +98,25 @@ class ProjectInsertForm extends React.PureComponent {
                     {/* Address */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField field={fields.ADDRESS} label="PI address" form={this.form} required
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.ADDRESS}
+                            label="PI address"
+                            required
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
                     {/* Phone */}
 
                     <Col sm={4} className={css.formCol}>
-                        <TextField field={fields.PHONE} label="PI phone" form={this.form} required
-                                   validator={validators.phoneValidator}
-                                   submissionError = {this.state.submissionError}
+                        <TextField
+                            form={this.form}
+                            field={fields.PHONE}
+                            label="PI phone"
+                            required
+                            validator={validators.phoneValidator}
+                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

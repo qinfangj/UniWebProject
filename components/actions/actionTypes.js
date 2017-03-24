@@ -8,7 +8,7 @@ const actionTypes = {
     GOTO: "GOTO",
 
     forms: {
-        EMPTY_FORM: "EMPTY_FORM",
+        RESET_FORM: "RESET_FORM",
         CHANGE_FORM_VALUE: "CHANGE_FORM_VALUE",
         FILL_UPDATE_FORM: "FILL_UPDATE_FORM",
         GET_OPTIONS_LIST: "GET_OPTIONS_LIST",
