@@ -95,7 +95,7 @@ const adminData = {
             },
             {
                 "label": "IsSequencer",
-                "name":  "isSequencer",
+                "name":  "issequencer",
                 "size":  1,
                 "required": false,
                 "type": "Boolean"
@@ -491,6 +491,32 @@ const adminData = {
             }
         ],
         "model": "taxonomiesForm"
+    },
+    "project_sharings": {
+        "fields": [
+            {
+                "label": "Project",
+                "name":  "projectId",
+                "size":  6,
+                "required": true,
+                "type": "Int"
+            },
+            {
+                "label": "Collaborator",
+                "name":  "personId",
+                "size":  6,
+                "required": true,
+                "type": "Int"
+            },
+            {
+                "label": "Description",
+                "name":  "description",
+                "size":  12,
+                "required": true,
+                "type": ""
+            }
+        ],
+        "model": "projectSharingsForm"
     }
 };
 

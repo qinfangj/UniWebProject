@@ -8,14 +8,10 @@ import * as messages from '../messages';
 import store from '../../../core/store';
 import { insertAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { findByIdAsync} from '../../actions/actionCreators/facilityDataActionCreators';
-
-
+import { Button } from 'react-bootstrap/lib';
 
 import { dateNow, parseDateString } from '../../../utils/time';
-
-
 import Col from 'react-bootstrap/lib/Col';
-
 import adminData from './AdminDataConstants';
 
 
@@ -35,46 +31,41 @@ class CommonAdminForms extends React.Component {
         const modelName = "adminForms.";
         this.modelName = modelName.concat(adminData[this.props.table].model);
 
-
         if (this.props.updateId === '' || this.props.updateId === undefined) {
             this.state.isInsert = true;
-        }else{
+        } else {
             this.state.isInsert = false;
         }
     }
     //if updatedId has value fetch the data from backend
     //otherwise show empty insert form
     newOrUpdate(table,updateId){
-        let state = {serverError: {}};
+        //let state = {serverError: {}};
         if (this.props.updateId) {
 
             let future = store.dispatch(findByIdAsync(table, updateId));
-            state = Object.assign(state, {submissionError: false, submissionFuture: future});
-            let model= adminData[table].model;
+            //state = Object.assign(state, {submissionError: false, submissionFuture: future});
+            //let model= adminData[table].model;
 
             future
                 .done((data) => {
                     console.log(data);
-
                     store.dispatch(actions.merge(this.modelName,data));
-
                 });
 
         } else {
             //empty the admin forms
             store.dispatch(actions.reset(this.modelName));
-
         }
     }
 
     componentWillMount() {
         this.newOrUpdate(this.table,this.props.updateId);
-
     }
     componentWillReceiveProps() {
        this.newOrUpdate(this.table,this.props.updateId);
-
     }
+
     //Format adminFormData as the adminFormConstants defined before submission
     formatFormData(formData) {
         let table = this.props.table;
@@ -99,22 +90,21 @@ class CommonAdminForms extends React.Component {
             }
         }
 
-        console.log(formData);
+        //console.log(formData);
         return formData
     }
 
     handleSubmit(values){
 
         let state = {serverError: {}};
-        var formData = Object.assign({}, values);
+        let formData = Object.assign({}, values);
         console.info(JSON.stringify(formData, null, 2));
-
 
         if (!this.state.isInsert) {
             this.setState({isInsert:true});
         } else {
 
-            var formatFormData = this.formatFormData(formData)
+            let formatFormData = this.formatFormData(formData);
 
             let future = store.dispatch(insertAsync(this.table, formatFormData));
             state = Object.assign(state, {submissionError: false, submissionFuture: future});
@@ -144,8 +134,6 @@ class CommonAdminForms extends React.Component {
         let formFields = adminData[this.props.table].fields;
 
         return (
-
-
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
                 <messages.SubmissionErrorMessage error={this.state.submissionError} />
                 <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
@@ -154,20 +142,20 @@ class CommonAdminForms extends React.Component {
                     {
                         formFields.map((s)=> {
 
-                             return (
-                                 <Col sm={s.size} className={css.formCol} key={s.name}>
-                                     <label className={admincss.label}>{s.label}:</label>
-                                     <Control.text model={".".concat(s.name)} disabled={!this.state.isInsert} className={admincss.input} required={s.required}/>
-                                 </Col>
-                             )
+                            return (
+                                <Col sm={s.size} className={css.formCol} key={s.name}>
+                                    <label className={admincss.label}>{s.label}:</label>
+                                    <Control.text model={".".concat(s.name)} disabled={!this.state.isInsert} className={admincss.input} required={s.required}/>
+                                </Col>
+                            );
 
-                         })
-                     }
+                        })
+                    }
 
                 <Col sm={6} className={css.formCol}>
-                    <button type="submit"  className={admincss.button} style={{float:'center'}}>
+                    <Button bsStyle="primary" className={admincss.button} type="submit" style={{float:'center'}}>
                         {this.state.isInsert ? 'Submit':'ActivateForm'}
-                    </button>
+                    </Button>
                 </Col>
             </Form>
         );

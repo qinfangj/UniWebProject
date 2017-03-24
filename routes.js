@@ -116,7 +116,9 @@ const routes = (
             {/*<Route path="admin" component={admin.AdminPage} onEnter={requireAuth} />*/}
             <Route path="admin" component={admin.UsersPage} onEnter={requireAuth} />
             <Route path="admin/users" component={admin.LimsUserPage} onEnter={requireAuth} />
-            <Route path="admin/project_sharings" component={admin.UsersPage} onEnter={requireAuth} />
+            <Route path="admin/project_sharings/list" component={admin.projectSharingsListRoute} onEnter={requireAuth} />
+            <Route path="admin/project_sharings/new" component={admin.projectSharingsNewPage} onEnter={requireAuth} />
+            <Route path="admin/project_sharings/update/:id" component={admin.projectSharingsUpdatePage} onEnter={requireAuth} />
             <Route path="admin/analysis_types/list" component={admin.AnalysisTypeListRoute} onEnter={requireAuth} />
             <Route path="admin/analysis_types/new" component={admin.AnalysisTypeNewPage} onEnter={requireAuth} />
             <Route path="admin/analysis_types/update/:id" component={admin.AnalysisTypeUpdatePage} onEnter={requireAuth} />
