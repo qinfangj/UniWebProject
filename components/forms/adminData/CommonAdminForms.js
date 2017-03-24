@@ -8,6 +8,7 @@ import * as messages from '../messages';
 import store from '../../../core/store';
 import { insertAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { findByIdAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+import { Button } from 'react-bootstrap/lib';
 
 
 
@@ -35,7 +36,7 @@ class CommonAdminForms extends React.Component {
         const modelName = "adminForms.";
         this.modelName = modelName.concat(adminData[this.props.table].model);
 
-
+        console.log(this.props.updateId);
         if (this.props.updateId ==='' || this.props.updateId ==undefined) {
             this.state.isInsert= true;
         }else{
@@ -68,6 +69,7 @@ class CommonAdminForms extends React.Component {
     }
 
     componentWillMount() {
+
         this.newOrUpdate(this.table,this.props.updateId);
 
     }
@@ -75,6 +77,7 @@ class CommonAdminForms extends React.Component {
        this.newOrUpdate(this.table,this.props.updateId);
 
     }
+
     //Format adminFormData as the adminFormConstants defined before submission
     formatFormData(formData) {
         let table = this.props.table;
@@ -165,9 +168,9 @@ class CommonAdminForms extends React.Component {
                      }
 
                 <Col sm={6} className={css.formCol}>
-                    <button type="submit"  className={admincss.button} style={{float:'center'}}>
+                    <Button bsStyle="primary" className={admincss.button} type="submit" style={{float:'center'}}>
                         {this.state.isInsert ? 'Submit':'ActivateForm'}
-                    </button>
+                    </Button>
                 </Col>
             </Form>
         );

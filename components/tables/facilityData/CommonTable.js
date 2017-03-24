@@ -12,7 +12,7 @@ import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
 import { ID_COLUMN } from '../constants';
-
+import {i} from "react-fontawesome";
 
 class CommonTable extends React.PureComponent {
     constructor(props) {
@@ -22,9 +22,7 @@ class CommonTable extends React.PureComponent {
             searchValue: "",
             renderme: false,
         };
-        console.log("dataStoreKey="+this.props.dataStoreKey)
-        console.log("columnsKey="+ this.props.columnsKey)
-        console.log("table=" +this.props.table)
+
     }
 
     static propTypes = {
@@ -81,6 +79,8 @@ class CommonTable extends React.PureComponent {
     }
 
     render() {
+        {/* get state from store for loading icon */}
+        let showLoading = store.getState().facilityData.showLoading;
         let data = this.state.data;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
@@ -99,6 +99,10 @@ class CommonTable extends React.PureComponent {
                 <div className="clearfix"/>
 
                 {/* If no data, no table but fill the space */}
+                { showLoading ?<div style={{width: '100%',textAlign:'center'}}>
+                        <i className="fa fa-spinner fa-pulse fa-3x fa-w"></i>
+                        <span>Loading...</span></div> : null}
+
 
                 { data.length > 0 ?
                     <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>
