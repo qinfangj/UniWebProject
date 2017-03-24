@@ -15,6 +15,7 @@ import { insertAsync,findByIdAsync } from '../../actions/actionCreators/facility
 import adminData from './AdminDataConstants';
 
 import { dateNow, parseDateString } from '../../../utils/time';
+import { Button } from 'react-bootstrap/lib';
 
 
 
@@ -110,7 +111,6 @@ class ProjectSharingSubmitForm extends React.PureComponent {
     //otherwise show empty insert form
     newOrUpdate(table,updateId){
         let state = {serverError: {}};
-         console.log(this.props.updateId);
         if (this.props.updateId) {
 
             let future = store.dispatch(findByIdAsync(table, updateId));
@@ -223,32 +223,33 @@ class ProjectSharingSubmitForm extends React.PureComponent {
                 <messages.SubmissionErrorMessage error={this.state.submissionError} />
                 <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
                 <messages.ServerErrorMessage error={this.state.serverError} />
+
                 <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label} >Project:</label>
+                    <label className={admincss.label}>Project:</label>
                     <Control.select model=".projectId">
                         {projectOptions}
                     </Control.select>
                 </Col>
 
                 <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label} >People:</label>
+                    <label className={admincss.label}>People:</label>
                     <Control.select model=".personId">
                         {peopleOptions}
                     </Control.select>
                 </Col>
 
                 <Col sm={12} className={css.formCol}>
-                    <label className={admincss.label} >Description:</label>
-                    <Control.text model= ".description"  disabled={!this.state.isInsert} className={admincss.input} />
+                    <label className={admincss.label}>Description:</label>
+                    <Control.text model=".description" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 {/* Submit */}
 
-                <Col sm={6} className={css.formCol}>
-                    <button type="submit"  className={admincss.button} style={{float:'center'}}>
-                        {this.state.isInsert ? 'Submit':'ActivateForm'}
-                    </button>
-                </Col>
+
+                <Button bsStyle="primary" className={admincss.button} type="submit" style={{float: 'center'}}>
+                    {this.state.isInsert ? 'Submit' : 'ActivateForm'}
+                </Button>
+
 
             </Form>
         );
