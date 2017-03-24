@@ -36,10 +36,10 @@ class CommonAdminForms extends React.Component {
         this.modelName = modelName.concat(adminData[this.props.table].model);
 
 
-        if (this.props.updateId ==='' || this.props.updateId ==undefined) {
-            this.state.isInsert= true;
+        if (this.props.updateId === '' || this.props.updateId === undefined) {
+            this.state.isInsert = true;
         }else{
-            this.state.isInsert= false;
+            this.state.isInsert = false;
         }
     }
     //if updatedId has value fetch the data from backend
