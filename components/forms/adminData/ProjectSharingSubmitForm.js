@@ -64,11 +64,7 @@ class ProjectSharingSubmitForm extends React.PureComponent {
             let future = store.dispatch(getOptionsListAsync(projectTable, projectStoreKey));
             future
                 .done((data) => {
-                    /*this.setState({
-                        projectList: data.map((v) => {
-                            return [v.id, v.lastName + " - " + v.name];
-                        })
-                    });*/
+
                     this.setState({
                         projectList: data
                     });
@@ -82,7 +78,7 @@ class ProjectSharingSubmitForm extends React.PureComponent {
         }
 
         if (!peopleList) {
-            let future = store.dispatch(getOptionsListAsync(peopleTable, peopleStoreKey));
+            let future = store.dispatch(getOptionsListAsync(peopleTable,peopleStoreKey));
             future
                 .done((data) => {
 
@@ -119,10 +115,7 @@ class ProjectSharingSubmitForm extends React.PureComponent {
 
             future
                 .done((data) => {
-                    console.log(data);
-
                     store.dispatch(actions.merge(this.modelName,data));
-
                 });
 
         } else {
@@ -132,11 +125,12 @@ class ProjectSharingSubmitForm extends React.PureComponent {
         }
     }
 
-    formatter(v) { return [v.id, v.lastName +" - "+ v.name]; }
+    formatterProject(v) { return [v.id, v.lastName +" - "+ v.name]; }
+    formatterPeople(v) { return [v.id, v.lastName +" - "+ v.firstName]; }
 
-    makeOptions(list) {
+    makeOptions(list,formatter) {
 
-        let options = list.map(v => this.formatter(v));
+        let options = list.map(v => formatter(v));
         if (this.props.hasNoneValue) {
             options.unshift([-1, '-']);
         }
@@ -213,10 +207,10 @@ class ProjectSharingSubmitForm extends React.PureComponent {
     render() {
         let projectList=this.state.projectList;
 
-        let projectOptions =this.makeOptions(projectList);
+        let projectOptions =this.makeOptions(projectList,this.formatterProject);
         let peopleList=this.state.peopleList;
 
-        let peopleOptions =this.makeOptions(peopleList);
+        let peopleOptions =this.makeOptions(peopleList,this.formatterPeople);
         return (
 
             <Form model={this.modelName} className={css.form} onSubmit={(v) => this.handleSubmit(v)}>
