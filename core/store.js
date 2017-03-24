@@ -52,7 +52,6 @@ let reducer = combineReducers({
     common: commonReducers,
     auth: authReducers,
     queryProjects: queryProjectsReducers,
-    forms: formReducers,
 
     adminForms:combineForms(
         {
@@ -76,7 +75,8 @@ let reducer = combineReducers({
             seqQualitiesForm : initialAdminForms("sequencing_qualities"),
             taxonomiesForm : initialAdminForms("taxonomies")
         }
-    ,'adminForms')
+    ,'adminForms'),
+    forms: formReducers,
 
 });
 
