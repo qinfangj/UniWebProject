@@ -12,7 +12,7 @@ import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
 import { ID_COLUMN } from '../constants';
-import {i} from "react-fontawesome";
+import Icon from "react-fontawesome";
 
 class CommonTable extends React.PureComponent {
     constructor(props) {
@@ -89,6 +89,9 @@ class CommonTable extends React.PureComponent {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
+        let spinner = (<div style={{width: '100%',textAlign:'center'}}>
+                <Icon name="spinner" size="3x" pulse spin/>
+            </div>);
         //let cssHeight = (Math.max(1200, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -98,12 +101,9 @@ class CommonTable extends React.PureComponent {
                 />
                 <div className="clearfix"/>
 
+                { showLoading ? spinner : null}
+
                 {/* If no data, no table but fill the space */}
-                { showLoading ?<div style={{width: '100%',textAlign:'center'}}>
-                        <i className="fa fa-spinner fa-pulse fa-3x fa-w"></i>
-                        <span>Loading...</span></div> : null}
-
-
                 { data.length > 0 ?
                     <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>
                         <AgGridReact
