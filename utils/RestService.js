@@ -76,7 +76,7 @@ class RestService {
     specialSelect(tableName, activeOnly, limit, offset, orderBy, orderDir) {
         let url = `${BACKEND}/table/${tableName}/select`;
         let options = [];
-        if (activeOnly !== undefined && activeOnly !== null) {
+        if (activeOnly) {
             options.push("active=true");
         }
         if (limit !== undefined && limit !== null) {
