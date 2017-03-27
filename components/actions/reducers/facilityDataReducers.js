@@ -21,6 +21,9 @@ let facilityDataReducers = (state = defaultState, action) => {
         case types.facilityData.INSERT:
             return returnList(action, state, action.args.storeKey, []);
 
+        case types.forms.CHANGE_FORM_VALUE:
+            return defaultState;
+
         default:
             return state;
     }
