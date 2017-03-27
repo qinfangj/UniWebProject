@@ -36,13 +36,19 @@ if (process.env.NODE_ENV !== 'TEST') {
 }
 
 /**
- * Fills an object `initalData` with the initial form values (always '' in the case of admin forms).
+ * Fills an object `initalData` with the initial form values.
+ * when field is string type (text input), will be initialized to empty string
+ * when fields is Boolean (checkbox),will be initialized to false
  */
 function initialAdminForms(table) {
     var initalData = {};
     adminDataConstants[table].fields.map(
         (s) => {
-            initalData[s.name] = '';
+            if (s.type === "") {
+                initalData[s.name] = '';
+            }else if (s.type === "Boolean"){
+                initalData[s.name] = false;
+            }
         });
     return initalData;
 }
