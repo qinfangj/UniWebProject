@@ -3,9 +3,10 @@ import React from 'react';
 import css from '../tables.css';
 import cx from 'classnames';
 import store from '../../../core/store';
+import connect from 'react-redux';
 import * as tables from '../tables.js';
-import * as actions from '../../actions/actionCreators/facilityDataActionCreators';
 import * as constants from '../constants';
+import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
@@ -41,7 +42,7 @@ class CommonTable extends React.PureComponent {
         if (data && data.length > 0) {
             this.setState({ data });
         } else {
-            store.dispatch(actions.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, 100, 0, null, null))
+            store.dispatch(getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, 100, 0, null, null))
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
         }
     }
@@ -133,6 +134,23 @@ class CommonTable extends React.PureComponent {
 CommonTable.defaultProps = {
     activeOnly: false,
 };
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        data: store.facilityData[ownProps.dataStoreKey],
+        showLoading: store.facilityData.showLoading,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    //this.props.table, this.props.dataStoreKey, this.props.activeOnly, 100, 0, null, null
+        getTableDataAsync: (table, storeKey, active, limit, offset, orderBy, orderDir) =>
+            dispatch(getTableDataAsync(table, storeKey, active, limit, offset, orderBy, orderDir)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AsyncOptionsList);
 
 
 export default Dimensions()(CommonTable);
