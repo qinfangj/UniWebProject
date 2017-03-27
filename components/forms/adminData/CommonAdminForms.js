@@ -1,5 +1,7 @@
 "use strict";
 import React from 'react';
+import { withRouter } from 'react-router';
+
 import { Control, Form, actions} from 'react-redux-form';
 import admincss from '../adminForm.css';
 import css from '../forms.css';
@@ -13,6 +15,7 @@ import { Button } from 'react-bootstrap/lib';
 import { dateNow, parseDateString } from '../../../utils/time';
 import Col from 'react-bootstrap/lib/Col';
 import adminData from './AdminDataConstants';
+
 
 
 class CommonAdminForms extends React.Component {
@@ -51,6 +54,7 @@ class CommonAdminForms extends React.Component {
                 .done((data) => {
                     console.log(data);
                     store.dispatch(actions.merge(this.modelName,data));
+
                 });
 
         } else {
@@ -115,10 +119,12 @@ class CommonAdminForms extends React.Component {
             let future = store.dispatch(insertAsync(this.table, formatFormData));
             state = Object.assign(state, {submissionError: false, submissionFuture: future});
             future
-                .done((insertId) => console.debug(200, "Inserted ID <" + insertId + ">"))
+                .done((insertId) => {
+                    console.debug(200, "Inserted ID <" + insertId + ">");
+                })
                 .fail(() => console.warn("Uncaught form validation error"));
 
-            let {submissionError, submissionFuture} =state;
+            let {submissionError, submissionFuture} = state;
             if (submissionError) {
                 this.setState({submissionError, serverError: {}});
             } else {
@@ -129,6 +135,18 @@ class CommonAdminForms extends React.Component {
                         submissionError: false,
                         serverError: {}
                     });
+                    let currentPath = window.location.pathname + window.location.hash.substr(2);
+                    if (this.props.updateId === '' || this.props.updateId === undefined) {
+                        this.props.router.push(currentPath.replace('/new', '/list'));
+                        //store.dispatch(push(currentPath.replace('/new', '/list')));
+                        //browserHistory.push(currentPath.replace('/new', '/list'));
+                    }else {
+                        this.props.router.push(currentPath.replace('/update/'+ this.props.updateId, '/list'));
+                        //store.dispatch(push(currentPath.replace('/update/'+ this.props.updateId, '/list')));
+                        //browserHistory.push(currentPath.replace('/update/'+ this.props.updateId, '/list'));
+                    }
+
+
                 }).fail((err) => {
                     this.setState({serverError: err, submissionError: false, submissionSuccess: false});
                 });
@@ -162,12 +180,6 @@ class CommonAdminForms extends React.Component {
                 {
                     formFields.map((s) => {
 
-                            return (
-                                <Col sm={s.size} className={css.formCol} key={s.name}>
-                                    <label className={admincss.label}>{s.label}:</label>
-                                    <Control.text model={".".concat(s.name)} disabled={!this.state.isInsert} className={admincss.input} required={s.required}/>
-                                </Col>
-                            );
                         return (
                             <Col sm={s.size} className={css.formCol} key={s.name}>
                                 <label className={admincss.label}>{s.label}:</label>
@@ -175,10 +187,8 @@ class CommonAdminForms extends React.Component {
                             </Col>
                         )
 
-                        })
-                    }
-
                     })
+
                 }
                 <div className="clearfix"/>
                 <Col sm={6} className={css.formCol}>
@@ -191,6 +201,6 @@ class CommonAdminForms extends React.Component {
     }
 }
 
-export default CommonAdminForms
+export default withRouter(CommonAdminForms)
 
-
+//export default CommonAdminForms
