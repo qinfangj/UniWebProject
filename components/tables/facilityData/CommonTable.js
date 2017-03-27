@@ -98,7 +98,7 @@ class CommonTable extends React.PureComponent {
                 />
                 <div className="clearfix"/>
 
-                { this.state.showLoading ? spinner : null}
+                {/*{ this.state.showLoading ? spinner : null}*/}
 
                 {/* If no data, no table but fill the space */}
                 { data.length > 0 ?
