@@ -11,7 +11,6 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
-import { ID_COLUMN } from '../constants';
 import Icon from "react-fontawesome";
 
 class CommonTable extends React.PureComponent {

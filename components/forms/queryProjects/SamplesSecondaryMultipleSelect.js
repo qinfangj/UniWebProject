@@ -95,8 +95,9 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
                 } else {
                     let project = referenceProjects.filter(p => p.id === v.projectId)[0];
                     let term = this.props.searchTerm;
-                    return project.name.toLowerCase().indexOf(term) >= 0
-                        || project.lastName.toLowerCase().indexOf(term) >= 0;
+                    return project && (
+                           project.name.toLowerCase().indexOf(term) >= 0
+                        || project.lastName.toLowerCase().indexOf(term) >= 0);
                 }
             });
         }
