@@ -21,7 +21,6 @@ class CommonTable extends React.PureComponent {
             searchValue: "",
             renderme: false,
         };
-
     }
 
     static propTypes = {
@@ -41,7 +40,7 @@ class CommonTable extends React.PureComponent {
         if (data && data.length > 0) {
             this.setState({ data });
         } else {
-            store.dispatch(actions.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, 5, 0, null, null))
+            store.dispatch(actions.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, 100, 0, null, null))
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
         }
     }
