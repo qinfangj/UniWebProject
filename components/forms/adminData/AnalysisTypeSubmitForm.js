@@ -85,7 +85,7 @@ const adminData = {
                 "required": false
             }
         ],
-        "model": "adminSubmitForm"
+        "model": "analysisTypeForm"
     }
 };
 
@@ -149,25 +149,23 @@ class AnalysisTypeSubmitForm extends React.Component {
         //let values = this.props.values || {};  // values = {description: ""mycomment, viewable: true, ...}
         let formModel= "adminForms.";
         formModel=formModel.concat(this.formModel);
+        //console.log("formModel=" + formModel);
         return (
-            <Form model={formModel} className={css.form} onSubmit={(v) => this.handleSubmit(v)}>
+            <Form model={formModel} className={css.form} onSubmit={(v) => console.log(v)}>
                 <messages.SubmissionErrorMessage error={this.state.submissionError} /> 
                 <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} /> 
                 <messages.ServerErrorMessage error={this.state.serverError} />
-                {
-                     this.fields.map((s)=> {
-                         return (
-                            <Col sm={s.size} className={css.formCol} key={s.name}>
-                                <label className={admincss.label}>{s.label}:</label>
-                                <Control.text model={s.name}  disabled={!this.state.isInsert} className={admincss.input} required/>
-                            </Col>
-                         )
-
-                    })
-                }
+                {      this.fields.map((s)=> { 
+                        return ( 
+                            <Col sm={s.size} className={css.formCol} key={s.name}> 
+                                <label className={admincss.label}>{s.label}:</label> 
+                                <Control.text model={".".concat(s.name)}  disabled={!this.state.isInsert} className={admincss.input} required/> 
+                            </Col> 
+                        )}  )
+                 }
 
 
-                    <Col sm={6} className={css.formCol}>
+ {/*                   <Col sm={6} className={css.formCol}>
                         <label className={admincss.label}>Description:</label>
                         <Control.text  model=".description" disabled={!this.state.isInsert} className={admincss.input} required/>
                     </Col>
@@ -186,7 +184,7 @@ class AnalysisTypeSubmitForm extends React.Component {
                         <label className={admincss.label}>Comment:</label>
                         <Control.text model=".comment" disabled={!this.state.isInsert} className={admincss.input}/>
                     </Col>
-
+*/}
                 <Col sm={6} className={css.formCol}>
                     {this.state.isInsert ?
                 <button type="submit"  className={admincss.button} style={{float:'right'}}>
