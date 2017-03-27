@@ -19,7 +19,7 @@ class CommonTable extends React.PureComponent {
         this.state = {
             data: [],
             searchValue: "",
-            renderme: false,
+            showLoading: false,
         };
     }
 
@@ -33,7 +33,8 @@ class CommonTable extends React.PureComponent {
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
             let data = store.getState().facilityData[this.props.dataStoreKey];
-            this.setState({ data });
+            let showLoading = store.getState().facilityData.showLoading;
+            this.setState({ data, showLoading });
         });
         /* If data is already in store, use that one. Otherwise, call backend API. */
         let data = store.getState().facilityData[this.props.dataStoreKey];
@@ -77,8 +78,6 @@ class CommonTable extends React.PureComponent {
     }
 
     render() {
-        {/* get state from store for loading icon */}
-        let showLoading = store.getState().facilityData.showLoading;
         let data = this.state.data;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
@@ -87,7 +86,7 @@ class CommonTable extends React.PureComponent {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
-        let spinner = (<div style={{width: '100%',textAlign:'center'}}>
+        let spinner = (<div style={{margin: '0 auto', width: '42px'}}>
                 <Icon name="spinner" size="3x" pulse spin/>
             </div>);
         //let cssHeight = (Math.max(1200, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
@@ -99,7 +98,7 @@ class CommonTable extends React.PureComponent {
                 />
                 <div className="clearfix"/>
 
-                { showLoading ? spinner : null}
+                { this.state.showLoading ? spinner : null}
 
                 {/* If no data, no table but fill the space */}
                 { data.length > 0 ?
