@@ -1,9 +1,8 @@
 "use strict";
 import React from 'react';
+import { connect } from 'react-redux';
 import css from '../tables.css';
 import cx from 'classnames';
-import store from '../../../core/store';
-import connect from 'react-redux';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
@@ -14,13 +13,15 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
 import Icon from "react-fontawesome";
 
+
+/**
+ * The Ag-grid table used in most data display pages.
+ */
 class CommonTable extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
             searchValue: "",
-            showLoading: false,
         };
     }
 
@@ -29,25 +30,19 @@ class CommonTable extends React.PureComponent {
         columnsKey: React.PropTypes.string.isRequired,  // key in the columns definition dict
         table: React.PropTypes.string.isRequired,  // database table name
         activeOnly: React.PropTypes.bool,
+        data: React.PropTypes.array,
+        showLoading: React.PropTypes.bool,
     };
 
     componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let data = store.getState().facilityData[this.props.dataStoreKey];
-            let showLoading = store.getState().facilityData.showLoading;
-            this.setState({ data, showLoading });
-        });
         /* If data is already in store, use that one. Otherwise, call backend API. */
-        let data = store.getState().facilityData[this.props.dataStoreKey];
+        let data = this.props.data;
         if (data && data.length > 0) {
             this.setState({ data });
         } else {
-            store.dispatch(getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, 100, 0, null, null))
+            this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, 100, 0, null, null)
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
         }
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
     componentDidMount() {
         this.api && this.api.doLayout();  // recalculate layout to fill the container div
@@ -79,7 +74,7 @@ class CommonTable extends React.PureComponent {
     }
 
     render() {
-        let data = this.state.data;
+        let data = this.props.data;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
@@ -91,6 +86,7 @@ class CommonTable extends React.PureComponent {
                 <Icon name="spinner" size="3x" pulse spin/>
             </div>);
         //let cssHeight = (Math.max(1200, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
+
         return (
             <div style={{width: '100%', height: '100%'}}>
                 <FormControl type="text" placeholder="Search" className={css.searchField}
@@ -99,7 +95,7 @@ class CommonTable extends React.PureComponent {
                 />
                 <div className="clearfix"/>
 
-                {/*{ this.state.showLoading ? spinner : null}*/}
+                {/*{ this.props.showLoading ? spinner : null}*/}
 
                 {/* If no data, no table but fill the space */}
                 { data.length > 0 ?
@@ -131,26 +127,26 @@ class CommonTable extends React.PureComponent {
     }
 }
 
+
 CommonTable.defaultProps = {
     activeOnly: false,
+    data: [],
+    showLoading: false,
 };
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        data: store.facilityData[ownProps.dataStoreKey],
-        showLoading: store.facilityData.showLoading,
+        data: state.facilityData[ownProps.dataStoreKey],
+        showLoading: state.facilityData.showLoading,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-    //this.props.table, this.props.dataStoreKey, this.props.activeOnly, 100, 0, null, null
         getTableDataAsync: (table, storeKey, active, limit, offset, orderBy, orderDir) =>
             dispatch(getTableDataAsync(table, storeKey, active, limit, offset, orderBy, orderDir)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AsyncOptionsList);
+export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(CommonTable));
 
-
-export default Dimensions()(CommonTable);
