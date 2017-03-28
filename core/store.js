@@ -44,7 +44,7 @@ function initialAdminForms(table) {
     var initalData = {};
     adminDataConstants[table].fields.map(
         (s) => {
-            if (s.type === "") {
+            if (s.type === "" || s.type === undefined) {
                 initalData[s.name] = '';
             }else if (s.type === "Boolean"){
                 initalData[s.name] = false;
@@ -80,7 +80,8 @@ let reducer = combineReducers({
             seqKitVersionForm : initialAdminForms("sequencing_kit_versions"),
             seqQualitiesForm : initialAdminForms("sequencing_qualities"),
             taxonomiesForm : initialAdminForms("taxonomies"),
-            projectSharingsForm : initialAdminForms("project_sharings")
+            projectSharingsForm : initialAdminForms("project_sharings"),
+            limsUsersForm : initialAdminForms("users")
         }
     ,'adminForms'),
     forms: formReducers,
