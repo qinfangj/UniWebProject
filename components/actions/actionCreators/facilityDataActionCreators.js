@@ -6,9 +6,13 @@ import { asyncAction } from './base';
 
 
 /* Facility data table */
-export function getTableDataAsync(tableName, activeOnly, storeKey) {
+export function getTableDataAsync(tableName, storeKey, activeOnly, limit, offset, orderBy, orderDir) {
     let args = {tableName, storeKey};
-    return asyncAction(types.facilityData.GET_TABLE_DATA, RestService.specialSelect.bind(null, tableName, activeOnly), args);
+    return asyncAction(
+        types.facilityData.GET_TABLE_DATA,
+        RestService.specialSelect.bind(null, tableName, activeOnly, limit, offset, orderBy, orderDir),
+        args
+    );
 }
 
 

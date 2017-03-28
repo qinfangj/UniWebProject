@@ -40,6 +40,7 @@ class CommonAdminForms extends React.Component {
             this.state.isInsert = false;
         }
     }
+
     //if updatedId has value fetch the data from backend
     //otherwise show empty insert form
     newOrUpdate(table,updateId){

@@ -23,5 +23,3 @@ export function checkData(data) {
         throw("Received invalid data to display:" + JSON.stringify(data, null, 2));
     }
 }
-
-

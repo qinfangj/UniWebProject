@@ -73,10 +73,26 @@ class RestService {
 
     /* Table data */
 
-    specialSelect(tableName, activeOnly) {
+    specialSelect(tableName, activeOnly, limit, offset, orderBy, orderDir) {
         let url = `${BACKEND}/table/${tableName}/select`;
+        let options = [];
         if (activeOnly) {
-            url += "?active=true";
+            options.push("active=true");
+        }
+        if (limit !== undefined && limit !== null) {
+            options.push("limit="+ limit);
+        }
+        if (offset !== undefined && offset !== null) {
+            options.push("offset="+ offset);
+        }
+        if (orderBy) {
+            options.push("orderBy="+ orderBy);
+        }
+        if (orderDir) {
+            options.push("orderDir="+ orderDir);
+        }
+        if (options.length > 0) {
+            url += "?" + options.join("&");
         }
         return get(url);
     }

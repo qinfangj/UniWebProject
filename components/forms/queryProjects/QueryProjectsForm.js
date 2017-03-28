@@ -10,7 +10,6 @@ import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
 import formStoreKeys from '../../constants/formStoreKeys';
 import dataStoreKeys from '../../constants/dataStoreKeys';
-import * as forms from '../forms.js';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -42,7 +41,7 @@ class QueryProjectsForm extends React.Component {
 
     componentWillMount() {
         this.unsubscribe = store.subscribe(() => {
-            let searched = store.getState().forms[this.searchedStoreKey];
+            let searched = store.getState().queryProjects[this.searchedStoreKey];
             if (searched) {
                 let {projectIds, sampleIds} = searched;
                 if (projectIds !== undefined) {

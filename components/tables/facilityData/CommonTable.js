@@ -1,28 +1,28 @@
 "use strict";
 import React from 'react';
+import { connect } from 'react-redux';
 import css from '../tables.css';
 import cx from 'classnames';
-import store from '../../../core/store';
 import * as tables from '../tables.js';
-import * as actions from '../../actions/actionCreators/facilityDataActionCreators';
 import * as constants from '../constants';
+import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
-import { ID_COLUMN } from '../constants';
-import {i} from "react-fontawesome";
+import Icon from "react-fontawesome";
 
+
+/**
+ * The Ag-grid table used in most data display pages.
+ */
 class CommonTable extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
             searchValue: "",
-            renderme: false,
         };
-
     }
 
     static propTypes = {
@@ -30,24 +30,19 @@ class CommonTable extends React.PureComponent {
         columnsKey: React.PropTypes.string.isRequired,  // key in the columns definition dict
         table: React.PropTypes.string.isRequired,  // database table name
         activeOnly: React.PropTypes.bool,
+        data: React.PropTypes.array,
+        showLoading: React.PropTypes.bool,
     };
 
     componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let data = store.getState().facilityData[this.props.dataStoreKey];
-            this.setState({ data });
-        });
         /* If data is already in store, use that one. Otherwise, call backend API. */
-        let data = store.getState().facilityData[this.props.dataStoreKey];
+        let data = this.props.data;
         if (data && data.length > 0) {
             this.setState({ data });
         } else {
-            store.dispatch(actions.getTableDataAsync(this.props.table, this.props.activeOnly, this.props.dataStoreKey))
+            this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, 100, 0, null, null)
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
         }
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
     componentDidMount() {
         this.api && this.api.doLayout();  // recalculate layout to fill the container div
@@ -79,9 +74,7 @@ class CommonTable extends React.PureComponent {
     }
 
     render() {
-        {/* get state from store for loading icon */}
-        let showLoading = store.getState().facilityData.showLoading;
-        let data = this.state.data;
+        let data = this.props.data;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
@@ -89,7 +82,11 @@ class CommonTable extends React.PureComponent {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
+        let spinner = (<div style={{margin: '0 auto', width: '42px'}}>
+                <Icon name="spinner" size="3x" pulse spin/>
+            </div>);
         //let cssHeight = (Math.max(1200, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
+
         return (
             <div style={{width: '100%', height: '100%'}}>
                 <FormControl type="text" placeholder="Search" className={css.searchField}
@@ -98,12 +95,9 @@ class CommonTable extends React.PureComponent {
                 />
                 <div className="clearfix"/>
 
+                {/*{ this.props.showLoading ? spinner : null}*/}
+
                 {/* If no data, no table but fill the space */}
-                { showLoading ?<div style={{width: '100%',textAlign:'center'}}>
-                        <i className="fa fa-spinner fa-pulse fa-3x fa-w"></i>
-                        <span>Loading...</span></div> : null}
-
-
                 { data.length > 0 ?
                     <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>
                         <AgGridReact
@@ -133,9 +127,26 @@ class CommonTable extends React.PureComponent {
     }
 }
 
+
 CommonTable.defaultProps = {
     activeOnly: false,
+    data: [],
+    showLoading: false,
 };
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        data: state.facilityData[ownProps.dataStoreKey],
+        showLoading: state.facilityData.showLoading,
+    };
+};
 
-export default Dimensions()(CommonTable);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getTableDataAsync: (table, storeKey, active, limit, offset, orderBy, orderDir) =>
+            dispatch(getTableDataAsync(table, storeKey, active, limit, offset, orderBy, orderDir)),
+    };
+};
+
+export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(CommonTable));
+
