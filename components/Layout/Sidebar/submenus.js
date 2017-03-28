@@ -46,7 +46,7 @@ export const queryProjectsSubmenu = [
 
 export const adminSubmenu = [
     { text: "LIMS users",
-      to: "/admin/users",
+      to: "/admin/users/list",
     },{
       text: "Project sharings",
       to: "/admin/project_sharings/list",

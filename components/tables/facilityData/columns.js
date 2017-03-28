@@ -40,7 +40,7 @@ const columns = {
         idColumnWithUpdateLink("users","admin"),
         {
             headerName: "Login",
-            field: "login",
+            field: "username",
             headerCellRenderer: headerRenderer
         },
         {
@@ -50,12 +50,12 @@ const columns = {
         },
         {
             headerName: "User",
-            field: "perosonId",
+            field: "firstName",
             headerCellRenderer: headerRenderer
         },
         {
             headerName: "Laboratory",
-            field: "laboratory",
+            field: "piFirstName",
             headerCellRenderer: headerRenderer
         }
     ],
