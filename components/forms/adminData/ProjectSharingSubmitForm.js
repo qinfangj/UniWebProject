@@ -143,15 +143,17 @@ class ProjectSharingSubmitForm extends React.PureComponent {
     //Format adminFormData as the adminFormConstants defined before submission
     formatFormData(formData) {
         let table = this.props.table;
+        let fieldsNames = adminData[table].fields.map(s=> {return s.name});
 
         Object.keys(formData).forEach(function (key, index) {
             // key: the name of the object key
             // index: the ordinal position of the key within the object
+            if (fieldsNames.indexOf(key) > -1) {
+                let ind = fieldsNames.indexOf(key)
 
-            if (adminData[table].fields[index]) {
-                if (adminData[table].fields[index].type === "Int") {
+                if (adminData[table].fields[ind].type === "Int") {
                     formData[key] = parseInt(formData[key]);
-                } else if (adminData[table].fields[index].type === "Boolean") {
+                } else if (adminData[table].fields[ind].type === "Boolean") {
                     formData[key] = !!parseInt(formData[key]);
                 }
             }
@@ -219,14 +221,14 @@ class ProjectSharingSubmitForm extends React.PureComponent {
 
                 <Col sm={6} className={css.formCol}>
                     <label className={admincss.label}>Project:</label>
-                    <Control.select model=".projectId">
+                    <Control.select model=".projectId" disabled={!this.state.isInsert}>
                         {projectOptions}
                     </Control.select>
                 </Col>
 
                 <Col sm={6} className={css.formCol}>
                     <label className={admincss.label}>People:</label>
-                    <Control.select model=".personId">
+                    <Control.select model=".personId" disabled={!this.state.isInsert}>
                         {peopleOptions}
                     </Control.select>
                 </Col>
