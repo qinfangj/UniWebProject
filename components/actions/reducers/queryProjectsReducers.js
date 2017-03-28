@@ -35,6 +35,22 @@ let queryProjectsReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {sampleIds: {}, projectsIds: {}});
 
         /**
+         * Since these two options lists are stored in the forms reducer, cannot access
+         * to that part of the store tree from here. So we store it twice, instead of
+         * maybe better but super complicated solutions like this:
+         * http://redux.js.org/docs/recipes/ComputingDerivedData.html
+         * https://github.com/reactjs/redux/issues/749
+         */
+        case types.forms.GET_OPTIONS_LIST:
+        case types.forms.GET_SECONDARY_OPTIONS_LIST:
+            if (action.args.storeKey === dataStoreKeys.PROJECTS_HAVING_A_SAMPLE ||
+                action.args.storeKey === dataStoreKeys.SAMPLES_FOR_PROJECTS) {
+                return returnList(action, state, action.args.storeKey, []);
+            } else {
+                return state;
+            }
+
+        /**
          * Search for samples having a given term in their name.
          * The search returns all samples containing the term,
          * but what we want is options from both projects and samples lists,
