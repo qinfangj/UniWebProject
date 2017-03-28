@@ -1,8 +1,8 @@
 "use strict";
 import React from 'react';
 import css from '../forms.css';
-import store from '../../../core/store';
-import * as forms from '../forms';
+import { connect } from 'react-redux';
+import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -14,33 +14,16 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 class MyCheckBox extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            checked: this.props.defaultValue
-        };
-    }
-
-    componentDidMount() {
-        // Listen to value change from the store
-        this.unsubscribe = store.subscribe(() => {
-            let value = forms.getFormValue(this.props.form, this.props.field);
-            if (value) {
-                this.setState({ value });
-            }
-        });
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     onChange() {
-        let value = !this.state.checked;
-        forms.changeValue(this.props.form, this.props.field, value);
+        this.props.changeFormValue(this.props.form, this.props.field, !this.props.value);
     }
 
     render() {
         return (
             <FormGroup controlId={this.props.field} bsSize="small" >
-                <Checkbox onChange={this.onChange.bind(this)} value={this.state.checked} className={css.checkbox}>
+                <Checkbox onChange={this.onChange.bind(this)} checked={this.props.value} className={css.checkbox}>
                     <div className={css.checkboxLabel}>{this.props.label}</div>
                 </Checkbox>
             </FormGroup>
@@ -51,13 +34,25 @@ MyCheckBox.propTypes = {
     form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
     label: React.PropTypes.string,
-    defaultValue: React.PropTypes.bool,
+    value: React.PropTypes.bool,
 };
 MyCheckBox.defaultProps = {
     label: "",
-    defaultValue: false,
+    value: false,
 };
 
 
-export default MyCheckBox;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        value: state.forms[ownProps.form][ownProps.field],
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeFormValue: (form, field, value, valid) => dispatch(changeFormValue(form, field, value, valid)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyCheckBox);
 
