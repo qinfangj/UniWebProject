@@ -1,6 +1,59 @@
 //in order to define all the Admin data forms
 //define the props such as model,label,name,size etc for CommonAdminForm
 const adminData = {
+    "users": {
+        "fields": [
+            {
+                "label": "Login Name",
+                "name":  "username",
+                "size":  3,
+                "required": true
+            },
+            {
+                "label": "LIMS Access",
+                "name":  "personId",
+                "size":  3,
+                "required": false
+            },
+            {
+                "label": "First Name",
+                "name":  "firstName",
+                "size":  3,
+                "required": true
+            },
+            {
+                "label": "Last Name",
+                "name":  "lastName",
+                "size":  3,
+                "required": true
+            },
+            {
+                "label": "Phone",
+                "name": "phone",
+                "size": 3,
+                required: false
+            },
+            {
+                "label": "Email",
+                "name": "email",
+                "size": 3,
+                required: false
+            },
+            {
+                "label": "Address",
+                "name": "address",
+                "size": 6,
+                required: false
+            },
+            {
+                "label": "Labortory",
+                "name": "personId",
+                "size": 6,
+                required: true
+            }
+        ],
+        "model": "projectSharingsForm"
+    },
     "project_sharings": {
         "fields": [
             {
@@ -491,32 +544,6 @@ const adminData = {
             }
         ],
         "model": "taxonomiesForm"
-    },
-    "project_sharings": {
-        "fields": [
-            {
-                "label": "Project",
-                "name":  "projectId",
-                "size":  6,
-                "required": true,
-                "type": "Int"
-            },
-            {
-                "label": "Collaborator",
-                "name":  "personId",
-                "size":  6,
-                "required": true,
-                "type": "Int"
-            },
-            {
-                "label": "Description",
-                "name":  "description",
-                "size":  12,
-                "required": true,
-                "type": ""
-            }
-        ],
-        "model": "projectSharingsForm"
     }
 };
 
