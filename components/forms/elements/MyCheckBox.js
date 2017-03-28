@@ -30,12 +30,14 @@ class MyCheckBox extends React.PureComponent {
         );
     }
 }
+
 MyCheckBox.propTypes = {
     form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
     label: React.PropTypes.string,
     value: React.PropTypes.bool,
 };
+
 MyCheckBox.defaultProps = {
     label: "",
     value: false,

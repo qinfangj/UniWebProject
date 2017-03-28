@@ -33,6 +33,7 @@ class DatePicker extends React.PureComponent {
         );
     }
 }
+
 DatePicker.propTypes = {
     form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
@@ -40,6 +41,7 @@ DatePicker.propTypes = {
 // maybe use later:
     required: React.PropTypes.bool,
 };
+
 DatePicker.defaultProps = {
     value: "1970-01-01",
 // maybe use later:
