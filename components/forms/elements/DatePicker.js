@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
-import store from '../../../core/store';
-import * as forms from '../forms';
+import { connect } from 'react-redux';
+import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -12,27 +12,11 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 class DatePicker extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            value: this.props.defaultValue,
-        };
-    }
-
-    componentDidMount() {
-        // Listen to value change from the store
-        this.unsubscribe = store.subscribe(() => {
-            let value = forms.getFormValue(this.props.form, this.props.field);
-            if (value) {
-                this.setState({ value });
-            }
-        });
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     onChange(e) {
         let value = e.target.value;
-        forms.changeValue(this.props.form, this.props.field, value);
+        this.props.changeFormValue(this.props.form, this.props.field, value);
     }
 
     render() {
@@ -42,7 +26,7 @@ class DatePicker extends React.PureComponent {
                 <FormControl
                     type="date"
                     placeholder={this.props.label}
-                    value={this.state.value}
+                    value={this.props.value}
                     onChange={this.onChange.bind(this)}
                 />
             </FormGroup>
@@ -53,16 +37,27 @@ DatePicker.propTypes = {
     form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
     label: React.PropTypes.string.isRequired,
-    defaultValue: React.PropTypes.string,
 // maybe use later:
     required: React.PropTypes.bool,
 };
 DatePicker.defaultProps = {
-    defaultValue: "1970-01-01",
+    value: "1970-01-01",
 // maybe use later:
     required: false,
 };
 
 
-export default DatePicker;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        value: state.forms[ownProps.form][ownProps.field],
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeFormValue: (form, field, value, valid) => dispatch(changeFormValue(form, field, value, valid)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DatePicker);
 
