@@ -5,15 +5,9 @@ const adminData = {
         "fields": [
             {
                 "label": "Login Name",
-                "name":  "username",
+                "name":  "login",
                 "size":  3,
                 "required": true
-            },
-            {
-                "label": "LIMS Access",
-                "name":  "personId",
-                "size":  3,
-                "required": false
             },
             {
                 "label": "First Name",
@@ -31,48 +25,56 @@ const adminData = {
                 "label": "Phone",
                 "name": "phone",
                 "size": 3,
-                required: false
+                "required": false
             },
             {
                 "label": "Email",
                 "name": "email",
                 "size": 3,
-                required: false
+                "required": false
             },
             {
                 "label": "Address",
                 "name": "address",
                 "size": 6,
-                required: false
+                "required": false
             },
             {
-                "label": "Labortory",
-                "name": "personId",
+                "label": "Laboratory",
+                "name": "laboratoryId",
                 "size": 6,
-                required: true
+                "required": true
+            },{
+                "label": "LIMS Access",
+                "name":  "role",
+                "size":  3,
+                "required": false
             }
         ],
-        "model": "projectSharingsForm"
+        "model": "limsUsersForm"
     },
     "project_sharings": {
         "fields": [
             {
-                "label": "Project",
-                "name":  "project_id",
-                "size":  6,
-                "required": true
-            },
-            {
-                "label": "Collaborator",
-                "name":  "person_id",
-                "size":  6,
-                "required": true
-            },
-            {
                 "label": "Description",
                 "name":  "description",
                 "size":  12,
-                "required": true
+                "required": true,
+                "type": ""
+            },
+            {
+                "label": "Project",
+                "name":  "projectId",
+                "size":  6,
+                "required": true,
+                "type": "Int"
+            },
+            {
+                "label": "Collaborator",
+                "name":  "personId",
+                "size":  6,
+                "required": true,
+                "type": "Int"
             }
         ],
         "model": "projectSharingsForm"
