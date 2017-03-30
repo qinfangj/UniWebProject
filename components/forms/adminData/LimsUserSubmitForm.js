@@ -51,7 +51,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
     componentWillMount() {
         let laboratoryTable = "people";
-        let suffix = "lab";
+        let suffix = "labs";
         let laboratoryStoreKey = dataStoreKeys.PEOPLE;
         let laboratoryList = store.getState().forms[laboratoryStoreKey];
 
@@ -60,6 +60,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
             let future = store.dispatch(getConditionalOptionsListAsync(laboratoryTable, suffix, laboratoryStoreKey));
             future
                 .done((data) => {
+                    //console.log(data);
 
                     this.setState({
                         laboratoryList: data
@@ -79,6 +80,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
     }
 
     componentWillReceiveProps() {
+
         this.newOrUpdate(this.table,this.props.updateId);
 
     }
@@ -95,6 +97,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
             future
                 .done((data) => {
+                    console.log(data);
                     store.dispatch(actions.merge(this.modelName,data));
                 });
 
@@ -198,20 +201,10 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
                 <Col sm={6} className={css.formCol}>
                     <label className={admincss.label}>Login Name:</label>
-                    <Control.text model=".username">
+                    <Control.text model=".login">
                     </Control.text>
                 </Col>
 
-                <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label}>Lims Access:</label>
-                    <Control.select model=".role">
-                        <option selected="selected"></option>
-                        <option value = "customer">customer</option>
-                        <option value = "no access">no access</option>
-                        <option value = "facility">facility</option>
-                        <option value = "admin">admin</option>
-                    </Control.select>
-                </Col>
 
                 <Col sm={3} className={css.formCol}>
                     <label className={admincss.label}>First Name:</label>
@@ -241,8 +234,19 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
                 <Col sm={6} className={css.formCol}>
                     <label className={admincss.label}>Laboratory:</label>
-                    <Control.select model=".personId">
+                    <Control.select model=".personId" disabled={!this.state.isInsert}>
                         {laboratoryOptions}
+                    </Control.select>
+                </Col>
+
+                <Col sm={6} className={css.formCol}>
+                    <label className={admincss.label}>Lims Access:</label>
+                    <Control.select model=".role" disabled={!this.state.isInsert}>
+                        <option value=""></option>
+                        <option value = "customer">customer</option>
+                        <option value = "no access">no access</option>
+                        <option value = "facility">facility</option>
+                        <option value = "admin">admin</option>
                     </Control.select>
                 </Col>
 
@@ -260,7 +264,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
 }
 
 
-ProjectSharingSubmitForm.defaultProps = {
+LimsUsersSubmitForm.defaultProps = {
     hasNoneValue: true,
 };
 

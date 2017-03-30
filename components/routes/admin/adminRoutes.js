@@ -6,13 +6,13 @@ import CommonAdminForms from '../../forms/adminData/CommonAdminForms';
 
 import AdminData from '../../pages/AdminData';
 import ProjectSharingSubmitForm from '../../forms/adminData/ProjectSharingSubmitForm';
-import {i} from "react-fontawesome";
+import LimsUsersSubmitForm from '../../forms/adminData/LimsUserSubmitForm';
+
 
 export class LimsUserPage extends React.Component {
     render() {
         return (
             <div>
-                <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
                 <span >Loading...</span>
             </div>
         );
@@ -28,6 +28,17 @@ export class LimsUserListRoute extends React.Component {
         );
     }
 }
+
+export class LimsUsersUpdatePage extends React.Component {
+    render() {
+        return (
+            <AdminData title="LIMS Users" name="users" content={
+                <LimsUsersSubmitForm table="users"  updateId={this.props.params.id}/>
+            } />
+        );
+    }
+}
+
 
 export class AnalysisTypeListRoute extends React.Component {
     render() {
