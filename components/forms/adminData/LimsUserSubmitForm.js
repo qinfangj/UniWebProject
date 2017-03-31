@@ -1,5 +1,7 @@
 "use strict";
 import React from 'react';
+import { withRouter } from 'react-router';
+
 import css from '../forms.css';
 import admincss from '../adminForm.css';
 import { connect } from 'react-redux';
@@ -155,9 +157,14 @@ class LimsUsersSubmitForm extends React.PureComponent {
     handleSubmit(values){
 
         let state = {serverError: {}};
-        var formData = Object.assign({}, values);
-        console.info(JSON.stringify(formData, null, 2));
 
+        var formData = Object.assign({}, values);
+
+        //change submit data' key: 'login' -> 'username'
+        Object.defineProperty(formData, 'username',
+            Object.getOwnPropertyDescriptor(formData, 'login'));
+        delete formData['login'];
+        console.info(JSON.stringify(formData, null, 2));
 
         if (!this.state.isInsert) {
             this.setState({isInsert:true});
@@ -180,6 +187,10 @@ class LimsUsersSubmitForm extends React.PureComponent {
                         submissionError: false,
                         serverError: {}
                     });
+                    let currentPath = window.location.pathname + window.location.hash.substr(2);
+                    if (this.props.updateId !== '' || this.props.updateId != undefined) {
+                        this.props.router.push(currentPath.replace('/update/'+ this.props.updateId, '/list'));
+                    }
                 }).fail((err) => {
                     this.setState({serverError: err, submissionError: false, submissionSuccess: false});
                 });
@@ -199,13 +210,6 @@ class LimsUsersSubmitForm extends React.PureComponent {
                 <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
                 <messages.ServerErrorMessage error={this.state.serverError} />
 
-                <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label}>Login Name:</label>
-                    <Control.text model=".login">
-                    </Control.text>
-                </Col>
-
-
                 <Col sm={3} className={css.formCol}>
                     <label className={admincss.label}>First Name:</label>
                     <Control.text model=".firstName" disabled={!this.state.isInsert} className={admincss.input}/>
@@ -215,6 +219,12 @@ class LimsUsersSubmitForm extends React.PureComponent {
                 <Col sm={3} className={css.formCol}>
                     <label className={admincss.label}>Last Name:</label>
                     <Control.text model=".lastName" disabled={!this.state.isInsert} className={admincss.input}/>
+                </Col>
+
+                <Col sm={6} className={css.formCol}>
+                    <label className={admincss.label}>Login Name:</label>
+                    <Control.text model=".login" disabled={!this.state.isInsert} className={admincss.input}>
+                    </Control.text>
                 </Col>
 
                 <Col sm={3} className={css.formCol}>
@@ -234,7 +244,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
                 <Col sm={6} className={css.formCol}>
                     <label className={admincss.label}>Laboratory:</label>
-                    <Control.select model=".personId" disabled={!this.state.isInsert}>
+                    <Control.select model=".laboratoryId" disabled={!this.state.isInsert} >
                         {laboratoryOptions}
                     </Control.select>
                 </Col>
@@ -268,5 +278,4 @@ LimsUsersSubmitForm.defaultProps = {
     hasNoneValue: true,
 };
 
-
-export default LimsUsersSubmitForm;
+export default withRouter(LimsUsersSubmitForm)
