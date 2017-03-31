@@ -36,7 +36,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
         const modelName = "adminForms.";
         this.modelName = modelName.concat(adminData[this.props.table].model);
 
-        if (this.props.updateId ==='' || this.props.updateId ==undefined) {
+        if (this.props.updateId === '' || this.props.updateId === undefined) {
             this.state.isInsert = true;
         }else{
             this.state.isInsert = false;
@@ -158,7 +158,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
         let state = {serverError: {}};
 
-        var formData = Object.assign({}, values);
+        let formData = Object.assign({}, values);
 
         //change submit data' key: 'login' -> 'username'
         Object.defineProperty(formData, 'username',
@@ -169,7 +169,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
         if (!this.state.isInsert) {
             this.setState({isInsert:true});
         } else {
-            var formatFormData = this.formatFormData(formData);
+            let formatFormData = this.formatFormData(formData);
             let future = store.dispatch(insertAsync(this.table, formatFormData));
             state = Object.assign(state, {submissionError: false, submissionFuture: future});
             future
@@ -188,7 +188,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
                         serverError: {}
                     });
                     let currentPath = window.location.pathname + window.location.hash.substr(2);
-                    if (this.props.updateId !== '' || this.props.updateId != undefined) {
+                    if (this.props.updateId !== '' || this.props.updateId !== undefined) {
                         this.props.router.push(currentPath.replace('/update/'+ this.props.updateId, '/list'));
                     }
                 }).fail((err) => {
@@ -252,7 +252,6 @@ class LimsUsersSubmitForm extends React.PureComponent {
                 <Col sm={6} className={css.formCol}>
                     <label className={admincss.label}>Lims Access:</label>
                     <Control.select model=".role" disabled={!this.state.isInsert}>
-                        <option value=""></option>
                         <option value = "customer">customer</option>
                         <option value = "no access">no access</option>
                         <option value = "facility">facility</option>
