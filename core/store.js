@@ -10,9 +10,6 @@ import queryProjectsReducers from '../components/actions/reducers/queryProjectsR
 import formReducers from '../components/actions/reducers/formReducers';
 import adminFormReducers from '../components/actions/reducers/adminFormReducers';
 
-//import {combineForms,formReducer} from  'react-redux-form'
-//import adminDataConstants from '../components/forms/adminData/adminDataConstants';
-
 /*
  * Redux store
  */
@@ -41,7 +38,7 @@ let reducer = combineReducers({
     common: commonReducers,
     auth: authReducers,
     queryProjects: queryProjectsReducers,
-    adminForms:adminFormReducers,
+    adminForms: adminFormReducers,
     forms: formReducers,
 
 });

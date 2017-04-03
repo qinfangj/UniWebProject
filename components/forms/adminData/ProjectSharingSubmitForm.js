@@ -1,22 +1,19 @@
 "use strict";
 import React from 'react';
-import { withRouter } from 'react-router';
-
+import store from '../../../core/store';
 import css from '../forms.css';
 import admincss from './adminForm.css';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import Col from 'react-bootstrap/lib/Col';
 
-import { Control, Form, actions} from 'react-redux-form';
 import * as messages from '../messages';
+import * as submit from './submit';
 import dataStoreKeys from '../../constants/dataStoreKeys';
-
-import store from '../../../core/store';
+import adminData from './adminDataModels';
+import { Control, Form, actions} from 'react-redux-form';
 import { getOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
 import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
-import adminData from './adminDataModels';
-import * as submit from './submit';
-import { Button } from 'react-bootstrap/lib';
+import { Button, Col } from 'react-bootstrap/lib';
 
 
 
@@ -36,12 +33,11 @@ class ProjectSharingSubmitForm extends React.PureComponent {
         const modelName = "adminForms.";
         this.modelName = modelName.concat(adminData[this.props.table].model);
 
-        if (this.props.updateId ==='' || this.props.updateId ==undefined) {
+        if (this.props.updateId ==='' || this.props.updateId === undefined) {
             this.state.isInsert = true;
-        }else{
+        } else {
             this.state.isInsert = false;
         }
-
     }
 
     static propTypes = {
@@ -64,14 +60,11 @@ class ProjectSharingSubmitForm extends React.PureComponent {
             let future = store.dispatch(getOptionsListAsync(projectTable, projectStoreKey));
             future
                 .done((data) => {
-
                     this.setState({
                         projectList: data
                     });
-
                 })
-
-        }else{
+        } else {
             this.setState({
                 projectList
             });
@@ -88,40 +81,31 @@ class ProjectSharingSubmitForm extends React.PureComponent {
 
                 })
 
-        }else{
+        } else {
             this.setState({
                 peopleList
             });
         }
 
         this.newOrUpdate(this.table,this.props.updateId);
-
     }
 
     componentWillReceiveProps() {
         this.newOrUpdate(this.table,this.props.updateId);
-
     }
 
     //if updatedId has value fetch the data from backend
     //otherwise show empty insert form
     newOrUpdate(table,updateId){
-        let state = {serverError: {}};
         if (this.props.updateId) {
-
             let future = store.dispatch(findByIdAsync(table, updateId));
-            state = Object.assign(state, {submissionError: false, submissionFuture: future});
-            let model= adminData[table].model;
-
             future
                 .done((data) => {
-                    store.dispatch(actions.merge(this.modelName,data));
+                    store.dispatch(actions.merge(this.modelName, data));
                 });
-
         } else {
             //empty the admin forms
             store.dispatch(actions.reset(this.modelName));
-
         }
     }
 
@@ -129,7 +113,6 @@ class ProjectSharingSubmitForm extends React.PureComponent {
     formatterPeople(v) { return [v.id, v.lastName +" - "+ v.firstName]; }
 
     makeOptions(list,formatter) {
-
         let options = list.map(v => formatter(v));
         if (this.props.hasNoneValue) {
             options.unshift([-1, '-']);
@@ -137,7 +120,6 @@ class ProjectSharingSubmitForm extends React.PureComponent {
         let results = options.map((v,i) => {
             return <option value={v[0]} key={i}>{v[1]}</option>;
         });
-
         return results;
     }
 
@@ -151,6 +133,7 @@ class ProjectSharingSubmitForm extends React.PureComponent {
 
         let peopleList = this.state.peopleList;
         let peopleOptions = this.makeOptions(peopleList,this.formatterPeople);
+
         return (
 
             <Form model={this.modelName} className={css.form} onSubmit={(v) => this.handleSubmit(v)}>
@@ -196,5 +179,4 @@ ProjectSharingSubmitForm.defaultProps = {
 };
 
 
-//export default ProjectSharingSubmitForm;
 export default withRouter(ProjectSharingSubmitForm)
