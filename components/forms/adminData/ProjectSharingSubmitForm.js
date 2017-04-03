@@ -141,70 +141,8 @@ class ProjectSharingSubmitForm extends React.PureComponent {
         return results;
     }
 
-    // //Format adminFormData as the adminFormConstants defined before submission
-    // formatFormData(formData) {
-    //     let table = this.props.table;
-    //     let fieldsNames = adminData[table].fields.map(s=> {return s.name});
-    //
-    //     Object.keys(formData).forEach(function (key, index) {
-    //         // key: the name of the object key
-    //         // index: the ordinal position of the key within the object
-    //         if (fieldsNames.indexOf(key) > -1) {
-    //             let ind = fieldsNames.indexOf(key)
-    //
-    //             if (adminData[table].fields[ind].type === "Int") {
-    //                 formData[key] = parseInt(formData[key]);
-    //             } else if (adminData[table].fields[ind].type === "Boolean") {
-    //                 formData[key] = !!parseInt(formData[key]);
-    //             }
-    //         }
-    //     });
-    //
-    //     if (formData.id && formData.id !== 0) {
-    //         formData.updatedAt = dateNow();
-    //         if (formData.createdAt) {
-    //             formData.createdAt = parseDateString(formData.createdAt);
-    //         }
-    //     }
-    //
-    //     console.log(formData);
-    //     return formData
-    // }
-
     handleSubmit(values){
         submit.submit(this, values, this.table, this.props.updateId, this.state.isInsert);
-
-        // let state = {serverError: {}};
-        // let formData = Object.assign({}, values);
-        // console.info(JSON.stringify(formData, null, 2));
-        //
-        //
-        // if (!this.state.isInsert) {
-        //     this.setState({isInsert:true});
-        // } else {
-        //     let formatFormData = this.formatFormData(formData);
-        //     let future = store.dispatch(insertAsync(this.table, formatFormData));
-        //     state = Object.assign(state, {submissionError: false, submissionFuture: future});
-        //     future
-        //         .done((insertId) => console.debug(200, "Inserted ID <" + insertId + ">"))
-        //         .fail(() => console.warn("Uncaught form validation error"));
-        //
-        //     let {submissionError, submissionFuture} =state;
-        //     if (submissionError) {
-        //         this.setState({submissionError, serverError: {}});
-        //     } else {
-        //         submissionFuture.done((insertId) => {
-        //             this.setState({
-        //                 submissionSuccess: true,
-        //                 submissionId: insertId,
-        //                 submissionError: false,
-        //                 serverError: {}
-        //             });
-        //         }).fail((err) => {
-        //             this.setState({serverError: err, submissionError: false, submissionSuccess: false});
-        //         });
-        //     }
-        // }
     }
 
     render() {

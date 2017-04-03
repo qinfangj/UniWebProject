@@ -43,7 +43,8 @@ const adminData = {
                 "label": "Laboratory",
                 "name": "laboratoryId",
                 "size": 6,
-                "required": true
+                "required": true,
+                "type" : "Int"
             },{
                 "label": "LIMS Access",
                 "name":  "role",
