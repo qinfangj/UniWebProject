@@ -32,6 +32,7 @@ class CommonTable extends React.PureComponent {
         activeOnly: React.PropTypes.bool,
         data: React.PropTypes.array,
         showLoading: React.PropTypes.bool,
+        formatter: React.PropTypes.func,
     };
 
     componentWillMount() {
@@ -74,7 +75,7 @@ class CommonTable extends React.PureComponent {
     }
 
     render() {
-        let data = this.props.data;
+        let data = this.props.formatter(this.props.data);
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
@@ -132,6 +133,7 @@ CommonTable.defaultProps = {
     activeOnly: false,
     data: [],
     showLoading: false,
+    formatter: (data) => data,
 };
 
 const mapStateToProps = (state, ownProps) => {
