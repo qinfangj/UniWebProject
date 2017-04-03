@@ -3,18 +3,17 @@ import React from 'react';
 import { withRouter } from 'react-router';
 
 import { Control, Form, actions} from 'react-redux-form';
-import admincss from '../adminForm.css';
+import admincss from './adminForm.css';
 import css from '../forms.css';
 import * as messages from '../messages';
+import * as submit from './submit';
 
 import store from '../../../core/store';
-import { insertAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { findByIdAsync} from '../../actions/actionCreators/facilityDataActionCreators';
 import { Button } from 'react-bootstrap/lib';
 
-import { dateNow, parseDateString } from '../../../utils/time';
 import Col from 'react-bootstrap/lib/Col';
-import adminData from './AdminDataConstants';
+import adminData from './adminDataModels';
 
 
 
@@ -71,88 +70,9 @@ class CommonAdminForms extends React.Component {
        this.newOrUpdate(this.table,this.props.updateId);
     }
 
-    //Format adminFormData as the adminFormConstants defined before submission
-    formatFormData(formData) {
-        let table = this.props.table;
-
-        Object.keys(formData).forEach(function (key, index) {
-            // key: the name of the object key
-            // index: the ordinal position of the key within the object
-
-            if (adminData[table].fields[index]) {
-                if (adminData[table].fields[index].type === "Int") {
-                    formData[key] = parseInt(formData[key]);
-                } else if (adminData[table].fields[index].type === "Boolean") {
-                    let formDataKey = JSON.parse(formData[key]);
-                    if (typeof (formDataKey ) === "number") {
-                        formData[key] = !!parseInt(formDataKey);
-                    } else {
-                        formData[key] = formDataKey;
-                    }
-                }
-            }
-        });
-
-
-        if (formData.id && formData.id !== 0) {
-            formData.updatedAt = dateNow();
-            if (formData.createdAt) {
-                formData.createdAt = parseDateString(formData.createdAt);
-            }
-        }
-
-        //console.log(formData);
-        return formData
-    }
-
     handleSubmit(values){
+        submit.submit(this, values, this.table, this.props.updateId, this.state.isInsert);
 
-        let state = {serverError: {}};
-        let formData = Object.assign({}, values);
-        console.info(JSON.stringify(formData, null, 2));
-
-        if (!this.state.isInsert) {
-            this.setState({isInsert:true});
-        } else {
-
-            let formatFormData = this.formatFormData(formData);
-
-            let future = store.dispatch(insertAsync(this.table, formatFormData));
-            state = Object.assign(state, {submissionError: false, submissionFuture: future});
-            future
-                .done((insertId) => {
-                    console.debug(200, "Inserted ID <" + insertId + ">");
-                })
-                .fail(() => console.warn("Uncaught form validation error"));
-
-            let {submissionError, submissionFuture} = state;
-            if (submissionError) {
-                this.setState({submissionError, serverError: {}});
-            } else {
-                submissionFuture.done((insertId) => {
-                    this.setState({
-                        submissionSuccess: true,
-                        submissionId: insertId,
-                        submissionError: false,
-                        serverError: {}
-                    });
-                    let currentPath = window.location.pathname + window.location.hash.substr(2);
-                    if (this.props.updateId === '' || this.props.updateId === undefined) {
-                        this.props.router.push(currentPath.replace('/new', '/list'));
-                        //store.dispatch(push(currentPath.replace('/new', '/list')));
-                        //browserHistory.push(currentPath.replace('/new', '/list'));
-                    }else {
-                        this.props.router.push(currentPath.replace('/update/'+ this.props.updateId, '/list'));
-                        //store.dispatch(push(currentPath.replace('/update/'+ this.props.updateId, '/list')));
-                        //browserHistory.push(currentPath.replace('/update/'+ this.props.updateId, '/list'));
-                    }
-
-
-                }).fail((err) => {
-                    this.setState({serverError: err, submissionError: false, submissionSuccess: false});
-                });
-            }
-        }
     }
 
 
@@ -203,5 +123,3 @@ class CommonAdminForms extends React.Component {
 }
 
 export default withRouter(CommonAdminForms)
-
-//export default CommonAdminForms

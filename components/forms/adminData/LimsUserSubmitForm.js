@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 
 import css from '../forms.css';
-import admincss from '../adminForm.css';
+import admincss from './adminForm.css';
 import { connect } from 'react-redux';
 import Col from 'react-bootstrap/lib/Col';
 
@@ -13,13 +13,11 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 
 import store from '../../../core/store';
 import { getConditionalOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
-import { insertAsync,findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
-import adminData from './AdminDataConstants';
+import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import adminData from './adminDataModels';
+import * as submit from './submit';
 
-import { dateNow, parseDateString } from '../../../utils/time';
 import { Button } from 'react-bootstrap/lib';
-
-
 
 class LimsUsersSubmitForm extends React.PureComponent {
     constructor(props) {
@@ -126,82 +124,20 @@ class LimsUsersSubmitForm extends React.PureComponent {
         return results;
     }
 
-    //Format adminFormData as the adminFormConstants defined before submission
-    formatFormData(formData) {
-        let table = this.props.table;
-
-        Object.keys(formData).forEach(function (key, index) {
-            // key: the name of the object key
-            // index: the ordinal position of the key within the object
-
-            if (adminData[table].fields[index]) {
-                if (adminData[table].fields[index].type === "Int") {
-                    formData[key] = parseInt(formData[key]);
-                } else if (adminData[table].fields[index].type === "Boolean") {
-                    formData[key] = !!parseInt(formData[key]);
-                }
-            }
-        });
-
-        if (formData.id && formData.id !== 0) {
-            formData.updatedAt = dateNow();
-            if (formData.createdAt) {
-                formData.createdAt = parseDateString(formData.createdAt);
-            }
-        }
-
-        console.log(formData);
-        return formData
-    }
-
     handleSubmit(values){
-
-        let state = {serverError: {}};
-
         let formData = Object.assign({}, values);
-
         //change submit data' key: 'login' -> 'username'
-        Object.defineProperty(formData, 'username',
-            Object.getOwnPropertyDescriptor(formData, 'login'));
-        delete formData['login'];
-        console.info(JSON.stringify(formData, null, 2));
+         Object.defineProperty(formData, 'username',
+             Object.getOwnPropertyDescriptor(formData, 'login'));
+         delete formData['login'];
 
-        if (!this.state.isInsert) {
-            this.setState({isInsert:true});
-        } else {
-            let formatFormData = this.formatFormData(formData);
-            let future = store.dispatch(insertAsync(this.table, formatFormData));
-            state = Object.assign(state, {submissionError: false, submissionFuture: future});
-            future
-                .done((insertId) => console.debug(200, "Inserted ID <" + insertId + ">"))
-                .fail(() => console.warn("Uncaught form validation error"));
-
-            let {submissionError, submissionFuture} =state;
-            if (submissionError) {
-                this.setState({submissionError, serverError: {}});
-            } else {
-                submissionFuture.done((insertId) => {
-                    this.setState({
-                        submissionSuccess: true,
-                        submissionId: insertId,
-                        submissionError: false,
-                        serverError: {}
-                    });
-                    let currentPath = window.location.pathname + window.location.hash.substr(2);
-                    if (this.props.updateId !== '' || this.props.updateId !== undefined) {
-                        this.props.router.push(currentPath.replace('/update/'+ this.props.updateId, '/list'));
-                    }
-                }).fail((err) => {
-                    this.setState({serverError: err, submissionError: false, submissionSuccess: false});
-                });
-            }
-        }
+        submit.submit(this, formData, this.table, this.props.updateId, this.state.isInsert);
     }
 
     render() {
-        let laboratoryList=this.state.laboratoryList;
+        let laboratoryList = this.state.laboratoryList;
 
-        let laboratoryOptions =this.makeOptions(laboratoryList,this.formatterLabortory);
+        let laboratoryOptions = this.makeOptions(laboratoryList,this.formatterLabortory);
 
         return (
 
