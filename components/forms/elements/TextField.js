@@ -20,11 +20,6 @@ class TextField extends React.PureComponent {
             valid: true,  // boolean, is the field valid
             msg: "",  // error message from the validator
         };
-        let valid = this.validate(this.props.defaultValue).valid;
-    }
-
-    getValue() {
-        return (this.state.value && this.state.valid) ? this.state.value.trim() : null;
     }
 
     /**
