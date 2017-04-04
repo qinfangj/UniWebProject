@@ -11,7 +11,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
-import DataLoadingIcon from '../../forms/DataLoadingIcon';
+import DataLoadingIcon from '../../../utils/DataLoadingIcon';
 
 
 /**
