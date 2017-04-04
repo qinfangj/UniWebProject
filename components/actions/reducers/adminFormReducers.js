@@ -8,7 +8,7 @@ import adminDataConstants from '../../forms/adminData/adminDataModels';
  * when fields is Boolean (checkbox),will be initialized to false
  */
 function initialAdminForms(table) {
-    var initalData = {};
+    let initalData = {};
     adminDataConstants[table].fields.map(
         (s) => {
             if (s.type === "" || s.type === undefined) {
