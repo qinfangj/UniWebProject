@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import store from '../../../core/store';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 import css from './Header.css';
 import commonCss from '../../../styles/common.css';
@@ -17,32 +17,17 @@ import { LinkContainer } from 'react-router-bootstrap';
 class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isAuthenticated: false,
-            sidebarOpen: true,
-        };
-    }
-
-    componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let isAuthenticated = store.getState().auth.isAuthenticated;
-            let sidebarOpen = store.getState().common.sidebarOpen;
-            this.setState({isAuthenticated, sidebarOpen});
-        });
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     render() {
-        let login = this.state.isAuthenticated ? <LogoutButton/> : <LoginButton/>;
+        let login = this.props.isAuthenticated ? <LogoutButton/> : <LoginButton/>;
         return (
             <div className={cx(css.header)}>
                 <div className={cx(css.headerRow, commonCss.fullwidth)}>
 
                     {/* Menu toggling button */}
 
-                    <div className={css.menuToggleButton} onClick={() => store.dispatch(toggleSidebar(true))}>
+                    <div className={css.menuToggleButton} onClick={() => this.props.toggleSidebar(true)}>
                         <Icon name='bars'/>
                     </div>
 
@@ -77,4 +62,19 @@ class Header extends React.Component {
 
 }
 
-export default Header;
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        //sidebarOpen: state.common.sidebarOpen,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        toggleSidebar: (open) => dispatch(toggleSidebar(open)),
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
