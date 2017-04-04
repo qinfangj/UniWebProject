@@ -11,7 +11,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
-import Icon from "react-fontawesome";
+import DataLoadingIcon from '../../forms/DataLoadingIcon';
 
 
 /**
@@ -83,9 +83,7 @@ class CommonTable extends React.PureComponent {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
-        let spinner = (<div style={{margin: '0 auto', width: '42px'}}>
-                <Icon name="spinner" size="3x" pulse spin/>
-            </div>);
+
         //let cssHeight = (Math.max(1200, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
 
         return (
@@ -96,8 +94,7 @@ class CommonTable extends React.PureComponent {
                 />
                 <div className="clearfix"/>
 
-                {/*{ this.props.showLoading ? spinner : null}*/}
-
+                <DataLoadingIcon />
                 {/* If no data, no table but fill the space */}
                 { data.length > 0 ?
                     <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>
