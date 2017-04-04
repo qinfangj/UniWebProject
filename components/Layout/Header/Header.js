@@ -49,9 +49,9 @@ class Header extends React.Component {
                         <Nav bsStyle="pills">
                             {login}
                             <LinkContainer to='/account'><NavItem>Account</NavItem></LinkContainer>
-                            <NavItem disabled>---</NavItem>
-                            <NavItem disabled>---</NavItem>
-                            <NavItem disabled>---</NavItem>
+                            {/*<NavItem disabled> </NavItem>*/}
+                            {/*<NavItem disabled> </NavItem>*/}
+                            {/*<NavItem disabled> </NavItem>*/}
                         </Nav>
                     </div>
 
