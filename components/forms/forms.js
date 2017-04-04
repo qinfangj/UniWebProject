@@ -2,7 +2,7 @@
 import React from 'react';
 import store from '../../core/store';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import { changeFormValue } from '../actions/actionCreators/formsActionCreators';
+import { changeFormValue, formSubmissionSuccess, formSubmissionError, formServerError } from '../actions/actionCreators/formsActionCreators';
 import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { resetForm } from '../actions/actionCreators/formsActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
@@ -100,6 +100,7 @@ export function submit(component, form, table, formatFormData=null) {
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
         submissionError = true;
+        store.dispatch(formSubmissionError(form));
     // Valid form: format and send
     } else {
         if (formatFormData) {
@@ -134,8 +135,10 @@ export function submit(component, form, table, formatFormData=null) {
         component.setState({ submissionError: true, serverError: {} });
     } else {
         submissionFuture.done((insertId) => {
+            store.dispatch(formSubmissionSuccess(form));
             component.setState({ submissionSuccess: true, submissionId: insertId, submissionError: false, serverError: {} });
         }).fail((err) =>{
+            store.dispatch(formServerError(form, err));
             component.setState({ serverError: err, submissionError: false, submissionSuccess: false });
         });
     }
