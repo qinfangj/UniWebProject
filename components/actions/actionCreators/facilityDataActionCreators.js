@@ -22,6 +22,12 @@ export function insertAsync(tableName, formData, storeKey) {
     return asyncAction(types.facilityData.INSERT, RestService.insert.bind(null, tableName, formData), args);
 }
 
+/* Delete */
+export function deleteAsync(tableName, id) {
+    let args = {tableName,id};
+    return asyncAction(types.facilityData.DELETE, RestService.delete.bind(null, tableName, id), args);
+}
+
 
 /* Fetch one item info (database row) */
 export function findByIdAsync(tableName, id) {

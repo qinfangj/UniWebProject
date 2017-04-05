@@ -15,7 +15,7 @@ import store from '../../../core/store';
 import { getConditionalOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
 import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import adminData from './adminDataModels';
-import * as submit from './submit';
+import {submit, userDelete} from './submit';
 
 import { Button } from 'react-bootstrap/lib';
 
@@ -28,7 +28,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
             submissionError: false,
             submissionSuccess: false,
             submissionId: undefined,
-            laboratoryList: []
+            laboratoryList: [],
         };
 
         const modelName = "adminForms.";
@@ -131,7 +131,13 @@ class LimsUsersSubmitForm extends React.PureComponent {
              Object.getOwnPropertyDescriptor(formData, 'login'));
          delete formData['login'];
 
-        submit.submit(this, formData, this.table, this.props.updateId, this.state.isInsert);
+         submit(this, formData, this.table, this.props.updateId, this.state.isInsert);
+
+    }
+
+    userDelete(){
+        console.log(this.props.updateId);
+        userDelete(this, this.table, this.props.updateId);
     }
 
     render() {
@@ -141,7 +147,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
         return (
 
-            <Form model={this.modelName} className={css.form} onSubmit={(v) => this.handleSubmit(v)}>
+        <Form model={this.modelName} className={css.form} onSubmit = {v => this.handleSubmit(v)}>
                 <messages.SubmissionErrorMessage error={this.state.submissionError} />
                 <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
                 <messages.ServerErrorMessage error={this.state.serverError} />
@@ -195,16 +201,21 @@ class LimsUsersSubmitForm extends React.PureComponent {
                     </Control.select>
                 </Col>
 
-                {/* Submit */}
+
+                                {/* Submit */}
 
 
-                <Button bsStyle="primary" className={admincss.button} type="submit" style={{float: 'center'}}>
+                <Button bsStyle="primary" className={admincss.button} type ="submit" >
                     {this.state.isInsert ? 'Submit' : 'ActivateForm'}
                 </Button>
-
-
+                {this.state.isInsert && this.props.updateId ?
+                 <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userDelete.bind(this)}>Delete</Button> : null}
             </Form>
+
+
+
         );
+
     }
 }
 
