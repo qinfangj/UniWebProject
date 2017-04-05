@@ -20,8 +20,7 @@ class SignupForm extends React.Component {
             lastName: "",
             email: "",
             address: "",
-            phone: "",
-            fax: "",
+            phone: ""
         };
     }
 
@@ -34,8 +33,7 @@ class SignupForm extends React.Component {
                 lastName: this.state.lastName,
                 email: this.state.email,
                 address: this.state.address,
-                phone: this.state.phone,
-                fax: this.state.fax,
+                phone: this.state.phone
             }
         ));
     }
@@ -61,9 +59,6 @@ class SignupForm extends React.Component {
     }
     onChangePhone(e) {
         this.setState({phone: e.target.value});
-    }
-    onChangeFax(e) {
-        this.setState({fax: e.target.value});
     }
 
     render() {
@@ -144,16 +139,6 @@ class SignupForm extends React.Component {
                         <FormControl
                             value={this.state.phone}
                             onChange={this.onChangePhone.bind(this)}
-                        />
-                    </FormGroup>
-
-                    {/* Fax */}
-
-                    <FormGroup className={css.formGroup}>
-                        <ControlLabel>Fax</ControlLabel>
-                        <FormControl
-                            value={this.state.fax}
-                            onChange={this.onChangeFax.bind(this)}
                         />
                     </FormGroup>
 
