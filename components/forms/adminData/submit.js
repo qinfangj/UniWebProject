@@ -1,6 +1,6 @@
 "use strict";
 
-import { insertAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { insertAsync, deleteAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import store from '../../../core/store';
 import adminData from './adminDataModels';
 import { dateNow, parseDateString } from '../../../utils/time';
@@ -12,16 +12,6 @@ export function formatFormData(formData, table) {
     let fieldsNames = adminData[table].fields.map(s=> {return s.name});
 
     Object.keys(formData).forEach(function (key, index) {
-        // key: the name of the object key
-        // index: the ordinal position of the key within the object
-
-        // if (adminData[table].fields[index]) {
-        //     if (adminData[table].fields[index].type === "Int") {
-        //         formData[key] = parseInt(formData[key]);
-        //     } else if (adminData[table].fields[index].type === "Boolean") {
-        //         formData[key] = !!parseInt(formData[key]);
-        //     }
-        // }
 
         if (fieldsNames.indexOf(key) > -1) {
             let ind = fieldsNames.indexOf(key)
