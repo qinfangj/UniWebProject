@@ -32,7 +32,7 @@ let queryProjectsReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {sampleIds: action.sampleIds});
 
         case types.queryProjects.RESET_SELECTION:
-            return Object.assign({}, state, {sampleIds: {}, projectsIds: {}});
+            return Object.assign({}, state, {sampleIds: {}, projectsIds: {}, searchTerm: ""});
 
         /**
          * Since these two options lists are stored in the forms reducer, cannot access

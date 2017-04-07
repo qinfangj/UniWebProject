@@ -69,6 +69,11 @@ class QueryProjectsForm extends React.Component {
         store.dispatch(searchSamplesByTerm(term, this.searchedStoreKey));
     }
 
+    onReset() {
+        store.dispatch(resetSelection());
+        store.dispatch(searchSamplesByTerm("", this.searchedStoreKey));
+    }
+
     toggleVisible() {
         this.setState({ visible: ! this.state.visible });
     }
@@ -95,6 +100,14 @@ class QueryProjectsForm extends React.Component {
                         </Button>
                     </div>
 
+                {/* Reset button */}
+
+                    <div className={css.reset}>
+                        <Button bsStyle="primary" className={css.resetButton} onClick={this.onReset.bind(this)}>
+                            Reset
+                        </Button>
+                    </div>
+
                 </div>
 
                 {/* Multiple selects */}
@@ -107,7 +120,6 @@ class QueryProjectsForm extends React.Component {
                                 label="Projects"
                                 form={this.form}
                                 field={this.projectsFormKey}
-                                suffix="samples"
                                 filterByProjectIds={this.state.projectIds}
                             />
                         </Col>

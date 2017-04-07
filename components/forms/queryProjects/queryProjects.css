@@ -21,7 +21,11 @@
     height: 34px;
     padding: 0;
 }
-.toggleVisible::after {
+.reset {
+    margin-left: 20px;
+    float: left;
+}
+.reset::after {
     clear: both;
 }
 
