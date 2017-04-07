@@ -80,7 +80,7 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
         if (selectedProjectIds) {
             let projectIds = Object.keys(selectedProjectIds).join(",");
             /* The value it depends on changed, ask for new data */
-            if (projectIds !== this.projectIds) {
+            if (projectIds !== this.projectIds && projectIds.length > 0) {
                 this.projectIds = projectIds;  // avoids infinite callback loop
                 this.props.getSecondaryOptionsListAsync(projectIds);
             }
