@@ -3,7 +3,7 @@ import React from 'react';
 import tablesCss from '../tables.css';
 import css from './queryProjectsTable.css';
 import cx from 'classnames';
-import store from '../../../core/store';
+import { connect } from 'react-redux';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
 import dataStoreKeys from '../../constants/dataStoreKeys';
@@ -19,15 +19,16 @@ import columns from './columns';
 class QueryProjectsTable extends React.Component {
     constructor(props) {
         super(props);
-        this.selectedSampleIds = this.getSelectedSampleIdsFromStore();
-        this.state = {
-            renderme: false,
-            tableData: this.getTableDataFromStore(),
-        };
+        this.selectedSampleIds = "";
     }
 
     static propTypes = {
         queryType: React.PropTypes.string.isRequired,  // from router, see parent (route) component
+        selectedSampleIds: React.PropTypes.object.isRequired,
+        selectedProjectIds: React.PropTypes.object.isRequired,
+        searchTerm: React.PropTypes.string,
+        searched: React.PropTypes.object,
+        samplesList: React.PropTypes.array,
     };
 
     /**
@@ -36,22 +37,20 @@ class QueryProjectsTable extends React.Component {
      * If not, it reflects the searched terms.
      * If no filter is applied, returns an empty array.
      */
-    getSelectedSampleIdsFromStore() {
-        let selectedSampleIds = store.getState().queryProjects.sampleIds;  // object {id: true, ...}
-        let selectedProjectIds = store.getState().queryProjects.projectIds;  // object {id: true, ...}
-        let isSamplesSelected = selectedSampleIds && (Object.keys(selectedSampleIds).length !== 0);
-        let isProjectsSelected = selectedProjectIds && (Object.keys(selectedProjectIds).length !== 0);
-
+    getSelectedSampleIdsFromStore(sampleIds, projectIds) {
+        let isSamplesSelected = sampleIds && (Object.keys(sampleIds).length !== 0);
+        let isProjectsSelected = projectIds && (Object.keys(projectIds).length !== 0);
+        let selectedSampleIds = [];
         /* If there is a samples selection, display these. */
-        if (selectedSampleIds && Object.keys(selectedSampleIds).length !== 0) {
-            return Object.keys(selectedSampleIds);
+        if (isSamplesSelected) {
+            return Object.keys(sampleIds);
         }
         /* If there is no samples selection, there may be projects selected.
          * Use the secondaryOptionsList for this projects selection to have the same list of ids
          * as in the samples selection input. */
         else {
             if (isProjectsSelected) {
-                let samples = store.getState().forms[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // options list, array of samples [{id, name}, ..]
+                let samples = this.props.samplesList;  // options list, array of samples [{id, name}, ..]
                 if (samples) {
                     assertIsArray(samples, "getSelectedSampleIdsFromStore::samples");
                     selectedSampleIds = samples.map(v => v.id);
@@ -59,13 +58,13 @@ class QueryProjectsTable extends React.Component {
             }
         }
         /* Check if there is a search by term */
-        let term = store.getState().queryProjects.searchTerm;
-        let searched = store.getState().queryProjects[dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
+        let term = this.props.searchTerm;
+        let searched = this.props.searched;  // {projectIds(set), sampleIds(set)}
         if (term && term.length > 0 && searched && searched.projectIds) {
             let searchedSamples = searched.sampleIds;
             /* If there was something in the projects/samples selection above, filter the result by term */
             if (isSamplesSelected) {
-                selectedSampleIds = selectedSampleIds.filter(v => searchedSamples.has(v));
+                selectedSampleIds = sampleIds.filter(v => searchedSamples.has(v));
             }
             /* Otherwise, use the result of the search by term directly */
             else {
@@ -76,42 +75,13 @@ class QueryProjectsTable extends React.Component {
         else {
             selectedSampleIds = [];
         }
-        return selectedSampleIds || [];
+        return selectedSampleIds;
     }
 
-    getTableDataFromStore() {
-        return store.getState().queryProjects[this.props.queryType] || [];
-    }
-
-    isUpdated(selectedSampleIds) {
-        let samplesChanged = selectedSampleIds.join(",") !== this.selectedSampleIds.join(",");
-        let queryTypeChanged = this.queryType !== this.props.queryType;
+    isUpdated(selectedSampleIds, queryType) {
+        let samplesChanged = selectedSampleIds !== this.selectedSampleIds;
+        let queryTypeChanged = queryType !== this.queryType;
         return samplesChanged || queryTypeChanged;
-    }
-
-    componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let tableData = this.getTableDataFromStore();
-            let selectedSampleIds = this.getSelectedSampleIdsFromStore();
-            /* Shortcut */
-            if (! selectedSampleIds || selectedSampleIds.length === 0) {
-                this.setState({ tabledata: [] });
-            }
-            /* If selected ids have changed, query new data */
-            else if (this.isUpdated(selectedSampleIds)) {
-                this.selectedSampleIds = selectedSampleIds;
-                this.queryType = this.props.queryType;
-                store.dispatch(queryProjectsAsync(selectedSampleIds, this.props.queryType, this.props.queryType))
-                    .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
-            }
-            /* Otherwise, load the table data from store */
-            else {
-                this.setState({ tableData });
-            }
-        });
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     componentWillUpdate() {
@@ -119,6 +89,21 @@ class QueryProjectsTable extends React.Component {
     }
     componentDidUpdate() {
         this.api && this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
+    }
+
+    componentWillReceiveProps(newProps) {
+        let queryType = newProps.queryType;
+        let selectedSampleIds = this.getSelectedSampleIdsFromStore(newProps.selectedSampleIds, newProps.selectedProjectIds);
+        selectedSampleIds = selectedSampleIds.join(",");
+        /* If selected ids have changed, query new data */
+        if (this.isUpdated(selectedSampleIds, queryType)) {
+            this.selectedSampleIds = selectedSampleIds;
+            this.queryType = queryType;
+            if (selectedSampleIds.length > 0) {
+                this.props.queryProjectsAsync(selectedSampleIds, queryType)
+                .fail(() => console.error("queryProjectsAsync() failed to load data."));
+            }
+        }
     }
 
     onGridReady(params) {
@@ -137,7 +122,7 @@ class QueryProjectsTable extends React.Component {
 
     render() {
         console.debug(this.props.queryType)
-        let data = this.state.tableData;
+        let data = this.props.tableData;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
@@ -172,4 +157,34 @@ class QueryProjectsTable extends React.Component {
 }
 
 
-export default Dimensions()(QueryProjectsTable);
+
+QueryProjectsTable.defaultProps = {
+    tableData: [],
+    selectedSampleIds: {},
+    selectedProjectIds: {},
+    searchTerm: "",
+    searched: {},
+    samplesList: [],
+};
+
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        tableData: state.queryProjects[ownProps.queryType],
+        selectedSampleIds: state.queryProjects.sampleIds,  // object {id: true, ...}
+        selectedProjectIds: state.queryProjects.projectIds,  // object {id: true, ...}
+        searchTerm: state.queryProjects.searchTerm,
+        searched: state.queryProjects[dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM],  // {projectIds(set), sampleIds(set)}
+        samplesList: state.queryProjects[dataStoreKeys.SAMPLES_FOR_PROJECTS],  // options list, array of samples [{id, name}, ..]
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        queryProjectsAsync: (selectedSampleIds, queryType) =>
+            dispatch(queryProjectsAsync(selectedSampleIds, queryType, queryType)),
+    };
+};
+
+
+export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(QueryProjectsTable));

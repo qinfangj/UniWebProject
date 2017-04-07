@@ -130,7 +130,7 @@ class RestService {
         if (ids === "") {
             throw "Empty ids list passed to queryProjects";
         }
-        let url = `${BACKEND}/query/projects/${queryType}/${ids.join(",")}`;
+        let url = `${BACKEND}/query/projects/${queryType}/${ids}`;
         return get(url);
     }
     searchSamplesByTerm(term) {
