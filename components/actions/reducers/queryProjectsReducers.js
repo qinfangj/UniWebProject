@@ -5,7 +5,15 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 import constants from '../../constants/constants';
 
 
-const defaultState = {};
+const defaultState = {
+    tableData: [],
+    [dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM]: {},
+    [dataStoreKeys.PROJECTS_HAVING_A_SAMPLE]: [],
+    [dataStoreKeys.SAMPLES_FOR_PROJECTS]: [],
+    sampleIds: {},
+    projectsIds: {},
+    searchTerm: "",
+};
 
 
 let queryProjectsReducers = (state = defaultState, action) => {
@@ -16,7 +24,7 @@ let queryProjectsReducers = (state = defaultState, action) => {
          * Return an array of sample objects with added info, for display in the table.
          */
         case types.queryProjects.QUERY_PROJECTS:
-            return returnList(action, state, action.args.storeKey, []);
+            return returnList(action, state, "tableData", []);
 
         /**
          * Expects an object `action.projectIds` of the form {id: true} for each selected id.
@@ -32,7 +40,13 @@ let queryProjectsReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {sampleIds: action.sampleIds});
 
         case types.queryProjects.RESET_SELECTION:
-            return Object.assign({}, state, {sampleIds: {}, projectsIds: {}, searchTerm: ""});
+            return Object.assign({}, state,
+                {
+                    [dataStoreKeys.SAMPLES_FOR_PROJECTS]: [],
+                    sampleIds: {}, projectsIds: {}, searchTerm: "",
+                    tableData: []
+                }
+            );
 
         /**
          * Since these two options lists are stored in the forms reducer, cannot access
@@ -70,8 +84,8 @@ let queryProjectsReducers = (state = defaultState, action) => {
                     //console.debug(searchedSamples)
                     //console.debug(state[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE])
                 // The options lists in both dropdowns:: [{id, name, lastName}, ...]
-                let projects = state[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE] || [];  // options from the 'multiple' projects selection field
-                let samples = state[dataStoreKeys.SAMPLES_FOR_PROJECTS] || [];  // options from the 'multiple' samples selection field
+                let projects = state[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE];  // options from the 'multiple' projects selection field
+                let samples = state[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // options from the 'multiple' samples selection field
                 // IE can't do that - Sets -, but who needs IE anyway?
                 let sampleIdsWithTerm = new Set(searchedSamples.map(v => v.id));
                 let projectIdsWithTerm = new Set(projects.filter(v => {

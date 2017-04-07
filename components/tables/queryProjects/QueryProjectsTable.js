@@ -20,6 +20,7 @@ class QueryProjectsTable extends React.Component {
     constructor(props) {
         super(props);
         this.selectedSampleIds = "";
+        this.queryType = "";
     }
 
     static propTypes = {
@@ -172,7 +173,7 @@ QueryProjectsTable.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        tableData: state.queryProjects[ownProps.queryType],
+        tableData: state.queryProjects.tableData,
         selectedSampleIds: state.queryProjects.sampleIds,  // object {id: true, ...}
         selectedProjectIds: state.queryProjects.projectIds,  // object {id: true, ...}
         searchTerm: state.queryProjects.searchTerm,
