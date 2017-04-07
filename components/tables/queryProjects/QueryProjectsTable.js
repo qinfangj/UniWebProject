@@ -37,7 +37,9 @@ class QueryProjectsTable extends React.Component {
      * If not, it reflects the searched terms.
      * If no filter is applied, returns an empty array.
      */
-    getSelectedSampleIdsFromStore(sampleIds, projectIds) {
+    getSelectedSampleIdsFromStore(props) {
+        let sampleIds = props.selectedSampleIds;
+        let projectIds = props.selectedProjectIds;
         let isSamplesSelected = sampleIds && (Object.keys(sampleIds).length !== 0);
         let isProjectsSelected = projectIds && (Object.keys(projectIds).length !== 0);
         let selectedSampleIds = [];
@@ -50,7 +52,7 @@ class QueryProjectsTable extends React.Component {
          * as in the samples selection input. */
         else {
             if (isProjectsSelected) {
-                let samples = this.props.samplesList;  // options list, array of samples [{id, name}, ..]
+                let samples = props.samplesList;  // options list, array of samples [{id, name}, ..]
                 if (samples) {
                     assertIsArray(samples, "getSelectedSampleIdsFromStore::samples");
                     selectedSampleIds = samples.map(v => v.id);
@@ -58,8 +60,8 @@ class QueryProjectsTable extends React.Component {
             }
         }
         /* Check if there is a search by term */
-        let term = this.props.searchTerm;
-        let searched = this.props.searched;  // {projectIds(set), sampleIds(set)}
+        let term = props.searchTerm;
+        let searched = props.searched;  // {projectIds(set), sampleIds(set)}
         if (term && term.length > 0 && searched && searched.projectIds) {
             let searchedSamples = searched.sampleIds;
             /* If there was something in the projects/samples selection above, filter the result by term */
@@ -91,11 +93,11 @@ class QueryProjectsTable extends React.Component {
         this.api && this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
     }
 
+    /* If selected ids or query type have changed, query new data */
     componentWillReceiveProps(newProps) {
         let queryType = newProps.queryType;
-        let selectedSampleIds = this.getSelectedSampleIdsFromStore(newProps.selectedSampleIds, newProps.selectedProjectIds);
+        let selectedSampleIds = this.getSelectedSampleIdsFromStore(newProps);
         selectedSampleIds = selectedSampleIds.join(",");
-        /* If selected ids have changed, query new data */
         if (this.isUpdated(selectedSampleIds, queryType)) {
             this.selectedSampleIds = selectedSampleIds;
             this.queryType = queryType;
