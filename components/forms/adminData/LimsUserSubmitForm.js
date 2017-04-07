@@ -13,9 +13,9 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 
 import store from '../../../core/store';
 import { getConditionalOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
-import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { findByIdAsync,deleteAsync} from '../../actions/actionCreators/facilityDataActionCreators';
 import adminData from './adminDataModels';
-import * as submit from './submit';
+import {submit} from './submit';
 
 import { Button } from 'react-bootstrap/lib';
 
@@ -28,7 +28,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
             submissionError: false,
             submissionSuccess: false,
             submissionId: undefined,
-            laboratoryList: []
+            laboratoryList: [],
         };
 
         const modelName = "adminForms.";
@@ -131,7 +131,45 @@ class LimsUsersSubmitForm extends React.PureComponent {
              Object.getOwnPropertyDescriptor(formData, 'login'));
          delete formData['login'];
 
-        submit.submit(this, formData, this.table, this.props.updateId, this.state.isInsert);
+         submit(this, formData, this.table, this.props.updateId, this.state.isInsert);
+
+    }
+
+    userDelete(component,table,userId){
+        console.log(userId);
+        //userDelete(this, this.table, this.props.updateId);
+        let state = {serverError: {}};
+
+        if (userId) {
+
+            let future = store.dispatch(deleteAsync(table, userId));
+            state = Object.assign(state, {submissionError: false, submissionFuture: future});
+            future
+                .done((deleteId) => console.debug(200, "Delete ID <" + deleteId + ">"))
+                .fail(() => console.warn("Uncaught form validation error"));
+
+            let {submissionError, submissionFuture} =state;
+            if (submissionError) {
+                component.setState({submissionError, serverError: {}});
+            } else {
+                submissionFuture.done((insertId) => {
+                    component.setState({
+                        submissionSuccess: true,
+                        submissionId: insertId,
+                        submissionError: false,
+                        serverError: {}
+                    });
+                    let currentPath = window.location.pathname + window.location.hash.substr(2);
+                    if (userId !== '' || userId !== undefined) {
+
+                        component.props.router.push(currentPath.replace('/update/'+ userId, '/list'));
+
+                    }
+                }).fail((err) => {
+                    component.setState({serverError: err, submissionError: false, submissionSuccess: false});
+                });
+            }
+        }
     }
 
     render() {
@@ -141,7 +179,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
         return (
 
-            <Form model={this.modelName} className={css.form} onSubmit={(v) => this.handleSubmit(v)}>
+        <Form model={this.modelName} className={css.form} onSubmit = {v => this.handleSubmit(v)}>
                 <messages.SubmissionErrorMessage error={this.state.submissionError} />
                 <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
                 <messages.ServerErrorMessage error={this.state.serverError} />
@@ -195,16 +233,21 @@ class LimsUsersSubmitForm extends React.PureComponent {
                     </Control.select>
                 </Col>
 
-                {/* Submit */}
+
+                                {/* Submit */}
 
 
-                <Button bsStyle="primary" className={admincss.button} type="submit" style={{float: 'center'}}>
+                <Button bsStyle="primary" className={admincss.button} type ="submit" >
                     {this.state.isInsert ? 'Submit' : 'ActivateForm'}
                 </Button>
-
-
+                {this.state.isInsert && this.props.updateId ?
+                 <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userDelete.bind(this,this.table,this.props.updateId)}>Delete</Button> : null}
             </Form>
+
+
+
         );
+
     }
 }
 

@@ -105,6 +105,14 @@ class RestService {
         return post(url, formData);
     }
 
+    /* Delete */
+
+    delete(tableName, id) {
+        let url = `${BACKEND}/table/${tableName}/delete/${id}`;
+        console.info(url);
+        return post(url);
+    }
+
     /* Find a row details by ID */
 
     findById(tableName, id) {

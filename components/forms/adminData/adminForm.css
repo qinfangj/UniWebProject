@@ -33,6 +33,7 @@
 
 .button {
     margin: 15px 0;
+    margin-left : 15px;
 }
 
 .button:hover{

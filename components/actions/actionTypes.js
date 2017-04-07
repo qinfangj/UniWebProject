@@ -25,6 +25,7 @@ const actionTypes = {
     facilityData: {
         SELECT: "SELECT",
         INSERT: "INSERT",
+        DELETE: "DELETE",
         FIND_BY_ID: "FIND_BY_ID",
         GET_TABLE_DATA: "GET_TABLE_DATA",
     },
