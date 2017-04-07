@@ -17,6 +17,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
     static propTypes = {
         form: React.PropTypes.string.isRequired,  // form name
         field: React.PropTypes.string.isRequired,  // the store key for the selected values
+        options: React.PropTypes.array.isRequired,  // the list of options
         label: React.PropTypes.string,  // title on top of the input
         filterByProjectIds: React.PropTypes.any,  // set. keep only these ones
     };
