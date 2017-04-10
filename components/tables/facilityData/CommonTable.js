@@ -86,8 +86,6 @@ class CommonTable extends React.PureComponent {
         }
         tables.checkData(data);
 
-        let feedback = this.props.form ? <SubmissionFeedback form={this.props.form}/> : null;
-
         //let cssHeight = (Math.max(1200, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
 
         return (
@@ -98,7 +96,9 @@ class CommonTable extends React.PureComponent {
                 />
                 <div className="clearfix"/>
 
-                {feedback}
+                { !this.props.form ? null :
+                    <SubmissionFeedback form={this.props.form}/>
+                }
 
                 <DataLoadingIcon />
 

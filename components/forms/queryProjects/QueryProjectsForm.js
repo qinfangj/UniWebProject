@@ -3,7 +3,6 @@ import React from 'react';
 import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
-//import store from '../../../core/store';
 import { connect } from 'react-redux';
 import { searchSamplesByTerm, resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 

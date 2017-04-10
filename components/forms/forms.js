@@ -99,7 +99,6 @@ export function submit(component, form, table, formatFormData=null) {
     delete formData._isValid;
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
-        submissionError = true;
         store.dispatch(formSubmissionError(form));
     // Valid form: format and send
     } else {
@@ -116,31 +115,21 @@ export function submit(component, form, table, formatFormData=null) {
         }
         console.info(JSON.stringify(formData, null, 2));
         submissionFuture = store.dispatch(insertAsync(table, formData));
-        submissionError = false;
         submissionFuture
             .done((insertId) => {
                 // Signal that it was a success
                 console.debug(200, "Inserted ID <"+insertId+">");
                 // Clear the form data in store
+                store.dispatch(formSubmissionSuccess(form, "Inserted ID <"+insertId+">"));
                 store.dispatch(resetForm(form));
                 // Redirect to table by replacing '/new' by '/list' in the router state
                 let currentPath = window.location.pathname + window.location.hash.substr(2);
                 hashHistory.push(currentPath.replace('/new', '/list'));
             })
-            .fail(() => console.warn("Uncaught form validation error"));
-    }
-
-    // Now set the component state to show error/warning/success
-    if (submissionError) {
-        component.setState({ submissionError: true, serverError: {} });
-    } else {
-        submissionFuture.done((insertId) => {
-            store.dispatch(formSubmissionSuccess(form));
-            component.setState({ submissionSuccess: true, submissionId: insertId, submissionError: false, serverError: {} });
-        }).fail((err) =>{
-            store.dispatch(formServerError(form, err));
-            component.setState({ serverError: err, submissionError: false, submissionSuccess: false });
-        });
+            .fail((err) => {
+                console.warn("Uncaught form validation error");
+                store.dispatch(formServerError(form, err, "Uncaught form validation error"));
+            });
     }
 }
 

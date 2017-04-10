@@ -13,6 +13,7 @@ import * as forms from '../../forms.js';
 import * as Options from '../../subcomponents/Options';
 import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
 import * as messages from '../../messages';
+import SubmissionFeedback from '../../messages';
 
 import Button from 'react-bootstrap/lib/Button';
 

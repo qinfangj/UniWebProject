@@ -7,10 +7,12 @@ import Alert from 'react-bootstrap/lib/Alert';
 import constants from '../constants/constants';
 
 
-class SubmissionFeedback extends React.PureComponent {
+export class SubmissionFeedback extends React.PureComponent {
 
     static propTypes = {
-        form: React.PropTypes.string
+        form: React.PropTypes.string.isRequired,
+        status: React.PropTypes.string,
+        msg: React.PropTypes.string,
     };
 
     render() {
@@ -44,6 +46,12 @@ class SubmissionFeedback extends React.PureComponent {
     }
 }
 
+
+SubmissionFeedback.defaultProps = {
+    status: "",
+    msg: "",
+};
+
 const mapStateToProps = (state, ownProps) => {
     let submission = state.forms[ownProps.form]._submission;
     return {
@@ -60,6 +68,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmissionFeedback);
+
+
+
+
+
+
+
+
+/************************ OLDER VERSION ******************************/
+
+
 
 
 /**
