@@ -84,7 +84,6 @@ export function getFormData(form) {
 export function submit(form, table, formatFormData=null) {
     let formData = getFormData(form);
     let fields = Object.keys(formData);
-    let submissionError = false;
     let submissionFuture = null;
     // Check if some fields have an invalid value
     let invalidFields = fields.filter(k => formData._isValid[k] === false);
