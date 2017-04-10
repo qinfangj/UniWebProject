@@ -1,7 +1,7 @@
 "use strict";
 import fields from '../fields';
 import formStoreKeys from '../../constants/formStoreKeys';
-
+import constants from '../../constants/constants';
 
 export const inputTypes = {
     DROPDOWN: "Dropdown",
@@ -571,6 +571,11 @@ export function initFacilityData() {
     for (let form of Object.keys(facilityDataModels)) {
         initialData[form] = {};
         initialData[form]._isValid = {};
+        initialData[form]._submission = {
+            status: constants.NONE,
+            msg: "",
+            error: null,
+        };
         let fields = Object.keys(facilityDataModels[form]);
         for (let field of fields) {
             let model = facilityDataModels[form][field];

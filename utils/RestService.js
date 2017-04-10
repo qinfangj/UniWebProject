@@ -105,6 +105,14 @@ class RestService {
         return post(url, formData);
     }
 
+    /* Delete */
+
+    delete(tableName, id) {
+        let url = `${BACKEND}/table/${tableName}/delete/${id}`;
+        console.info(url);
+        return post(url);
+    }
+
     /* Find a row details by ID */
 
     findById(tableName, id) {
@@ -122,7 +130,7 @@ class RestService {
         if (ids === "") {
             throw "Empty ids list passed to queryProjects";
         }
-        let url = `${BACKEND}/query/projects/${queryType}/${ids.join(",")}`;
+        let url = `${BACKEND}/query/projects/${queryType}/${ids}`;
         return get(url);
     }
     searchSamplesByTerm(term) {

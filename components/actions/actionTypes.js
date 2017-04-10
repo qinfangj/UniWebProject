@@ -2,12 +2,19 @@
 
 
 const actionTypes = {
-    ERROR: "ERROR",
 
     TOGGLE_SIDEBAR: "TOGGLE_SIDEBAR",
     GOTO: "GOTO",
 
+    messages: {
+        ERROR: "ERROR",
+    },
+
     forms: {
+        FORM_SUBMISSION_ERROR: "FORM_SUBMISSION_ERROR",
+        FORM_SERVER_ERROR: "FORM_SERVER_ERROR",
+        FORM_SUBMISSION_SUCCESS: "FORM_SUBMISSION_SUCCESS",
+        FORM_FEEDBACK_RESET: "FORM_FEEDBACK_RESET",
         RESET_FORM: "RESET_FORM",
         CHANGE_FORM_VALUE: "CHANGE_FORM_VALUE",
         FILL_UPDATE_FORM: "FILL_UPDATE_FORM",
@@ -18,6 +25,7 @@ const actionTypes = {
     facilityData: {
         SELECT: "SELECT",
         INSERT: "INSERT",
+        DELETE: "DELETE",
         FIND_BY_ID: "FIND_BY_ID",
         GET_TABLE_DATA: "GET_TABLE_DATA",
     },

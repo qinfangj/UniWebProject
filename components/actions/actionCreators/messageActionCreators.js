@@ -1,11 +1,12 @@
 "use strict";
-import actions from '../actionTypes';
+import types from '../actionTypes';
 
 
 export function sendError(error, origin) {
     return {
-        type: actions.ERROR,
+        type: types.messages.ERROR,
         error: error,
         origin: origin,
     };
 }
+

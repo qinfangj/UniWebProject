@@ -6,9 +6,7 @@ import cx from 'classnames';
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckBox';
 import DatePicker from '../elements/DatePicker';
-import validators from '../validators';
 import * as forms from '../forms.js';
-import * as messages from '../messages';
 import * as Options from '../subcomponents/Options';
 import formStoreKeys from '../../constants/formStoreKeys';
 import fields from '../fields';
@@ -16,6 +14,7 @@ import fields from '../fields';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import SubmissionFeedback from '../messages';
 
 
 
@@ -47,9 +46,8 @@ class GenomesInsertForm extends React.PureComponent {
     render() {
         return (
             <form className={css.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -59,7 +57,6 @@ class GenomesInsertForm extends React.PureComponent {
                         <Options.Taxonomies
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -71,7 +68,6 @@ class GenomesInsertForm extends React.PureComponent {
                             field={fields.ASSEMBLY}
                             label="Assembly"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -83,7 +79,6 @@ class GenomesInsertForm extends React.PureComponent {
                             field={fields.GENOME_FOLDER}
                             label="Genome folder"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -98,7 +93,6 @@ class GenomesInsertForm extends React.PureComponent {
                             field={fields.URL}
                             label="URL"
                             required
-                            submissionError = {this.state.submissionError}
                             defaultValue = "http://"
                         />
                     </Col>
@@ -124,7 +118,6 @@ class GenomesInsertForm extends React.PureComponent {
                             field={fields.FILES}
                             label="File names"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -139,7 +132,6 @@ class GenomesInsertForm extends React.PureComponent {
                             field={fields.COMMENT}
                             label="Comment"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

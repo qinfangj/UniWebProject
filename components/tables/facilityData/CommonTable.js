@@ -11,7 +11,8 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from './columns';
-import DataLoadingIcon from '../../forms/DataLoadingIcon';
+import SubmissionFeedback from '../../forms/messages';
+import DataLoadingIcon from '../../../utils/DataLoadingIcon';
 
 
 /**
@@ -28,11 +29,12 @@ class CommonTable extends React.PureComponent {
     static propTypes = {
         dataStoreKey: React.PropTypes.string.isRequired,  // store key for the table data (in "async")
         columnsKey: React.PropTypes.string.isRequired,  // key in the columns definition dict
-        table: React.PropTypes.string.isRequired,  // database table name
-        activeOnly: React.PropTypes.bool,
-        data: React.PropTypes.array,
-        showLoading: React.PropTypes.bool,
-        formatter: React.PropTypes.func,
+        table: React.PropTypes.string.isRequired,  // database table name - to fetch the content
+        activeOnly: React.PropTypes.bool,  // whether it should call ?active=true when fetching the content
+        data: React.PropTypes.array,  // the table content (an array of row objects)
+        showLoading: React.PropTypes.bool,  // loading spinner
+        formatter: React.PropTypes.func,  // to reformat the data so that it fits the columns definition
+        form: React.PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
     };
 
     componentWillMount() {
@@ -94,7 +96,12 @@ class CommonTable extends React.PureComponent {
                 />
                 <div className="clearfix"/>
 
+                { !this.props.form ? null :
+                    <SubmissionFeedback form={this.props.form}/>
+                }
+
                 <DataLoadingIcon />
+
                 {/* If no data, no table but fill the space */}
                 { data.length > 0 ?
                     <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>

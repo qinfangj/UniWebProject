@@ -9,13 +9,13 @@ import TextArea from '../elements/Textarea';
 import validators from '../validators';
 import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
-import * as messages from '../messages';
 import formStoreKeys from '../../constants/formStoreKeys';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import SubmissionFeedback from '../messages';
 
 
 
@@ -47,9 +47,8 @@ class ProjectInsertForm extends React.PureComponent {
     render() {
         return (
             <form className={css.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -61,7 +60,6 @@ class ProjectInsertForm extends React.PureComponent {
                             field={fields.NAME}
                             required
                             label="Project name"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -71,7 +69,6 @@ class ProjectInsertForm extends React.PureComponent {
                         <Options.Laboratories
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -84,7 +81,6 @@ class ProjectInsertForm extends React.PureComponent {
                             required
                             label="Code name"
                             validator = {validators.codeNameValidator}
-                            submissionError = {this.state.submissionError}
                             placeholder = "[name]_[initials] Ex: Tcells_EG."
                         />
                     </Col>
@@ -100,8 +96,6 @@ class ProjectInsertForm extends React.PureComponent {
                             field={fields.DESCRIPTION}
                             label="Description"
                             validator = {validators.descriptionValidator}
-                            submissionError = {this.state.submissionError}
-                            defaultValue = ""
                         />
                     </Col>
 
@@ -114,7 +108,6 @@ class ProjectInsertForm extends React.PureComponent {
                         <Options.ProjectStates
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
 
                         {/* Is control */}
@@ -143,7 +136,6 @@ class ProjectInsertForm extends React.PureComponent {
                         <Options.ProjectAnalyses
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

@@ -2,6 +2,7 @@
 import types from '../actionTypes';
 import returnList from './base';
 import { initFacilityData } from '../../forms/facilityData/formModels';
+import constants from '../../constants/constants';
 
 
 const defaultState = Object.freeze(Object.assign({},
@@ -18,7 +19,7 @@ let formReducers = (state = defaultState, action) => {
 
     switch (action.type) {
 
-        /* Select options list */
+        /* Select options list for dropdowns */
 
         case types.forms.GET_OPTIONS_LIST:
             return returnList(action, state, action.args.storeKey, []);
@@ -26,17 +27,59 @@ let formReducers = (state = defaultState, action) => {
         case types.forms.GET_SECONDARY_OPTIONS_LIST:
             return returnList(action, state, action.args.storeKey, []);
 
+        /* Messages */
+
+        case types.forms.FORM_SUBMISSION_SUCCESS:
+            newState = {...state};
+            newState[action.form]._submission = {
+                status: constants.SUBMISSION_SUCCESS,
+                msg: action.msg,
+                error: null,
+            };
+            return newState;
+
+        case types.forms.FORM_SUBMISSION_ERROR:
+            newState = {...state};
+            newState[action.form]._submission = {
+                status: constants.SUBMISSION_ERROR,
+                msg: action.msg,
+                error: action.error,
+            };
+            return newState;
+
+        case types.forms.FORM_SERVER_ERROR:
+            newState = {...state};
+            newState[action.form]._submission = {
+                status: constants.SERVER_ERROR,
+                msg: action.msg,
+                error: action.error,
+            };
+            return newState;
+
+        case types.forms.FORM_FEEDBACK_RESET:
+            newState = {...state};
+            newState[action.form]._submission = {
+                status: constants.NONE,
+                msg: "",
+                error: null,
+            };
+            return newState;
+
+        /* Change form data */
+
         /**
          * Reset form data. Expects `action.form` (form name).
          */
         case types.forms.RESET_FORM:
-            newState = Object.assign({}, state);
+            newState = {...state};
             form = action.form;
             newState[form] = initFacilityData()[form];
+            // Keep the submission state
+            newState[form]._submission = state[form]._submission;
             return newState;
 
         case types.forms.CHANGE_FORM_VALUE:
-            newState = Object.assign({}, state);
+            newState = {...state};
             form = action.form;
             let field = action.field;
             // Create if not exists
@@ -53,7 +96,7 @@ let formReducers = (state = defaultState, action) => {
          * Expects `action.form` (form name), `action.data` (row data).
          */
         case types.forms.FILL_UPDATE_FORM:
-            newState = Object.assign({}, state);
+            newState = {...state};
             form = action.form;
             formData = state[form] || {};  // current state
             Object.assign(formData, action.data);  // updated state

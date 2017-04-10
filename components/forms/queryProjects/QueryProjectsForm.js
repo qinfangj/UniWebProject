@@ -3,7 +3,7 @@ import React from 'react';
 import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
-import store from '../../../core/store';
+import { connect } from 'react-redux';
 import { searchSamplesByTerm, resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
@@ -30,30 +30,14 @@ class QueryProjectsForm extends React.Component {
         // Build store keys for selected form values
         this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
         this.samplesFormKey = this.form + formStoreKeys.suffixes.SAMPLES;
-        this.searchedStoreKey = dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM;
         this.state = {
-            searchTerm: "",
-            projectIds: null,  // if filtered by term, a restriction on the selection (not the selection itself)
-            sampleIds: null,   // idem
             visible: true,
         };
     }
 
     componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            let searched = store.getState().queryProjects[this.searchedStoreKey];
-            if (searched) {
-                let {projectIds, sampleIds} = searched;
-                if (projectIds !== undefined) {
-                    this.setState({ projectIds, sampleIds });
-                }
-            }
-        });
         // Initialize with all samples - filtering with empty term
-        store.dispatch(searchSamplesByTerm("", this.searchedStoreKey));
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
+        this.props.searchSamplesByTerm("");
     }
 
     /**
@@ -63,10 +47,14 @@ class QueryProjectsForm extends React.Component {
      */
     onSearch(e) {
         let term = e.target.value.toLowerCase();
-        this.setState({ searchTerm: term });
         // Clear the current projects/samples selection
-        store.dispatch(resetSelection());
-        store.dispatch(searchSamplesByTerm(term, this.searchedStoreKey));
+        this.props.resetSelection();
+        this.props.searchSamplesByTerm(term);
+    }
+
+    onReset() {
+        this.props.resetSelection();
+        this.props.searchSamplesByTerm("");
     }
 
     toggleVisible() {
@@ -83,7 +71,7 @@ class QueryProjectsForm extends React.Component {
                     <FormControl className={css.searchField}
                         type="text"
                         placeholder="Search"
-                        value={this.state.searchTerm}
+                        value={this.props.searchTerm}
                         onChange={this.onSearch.bind(this)}
                     />
 
@@ -92,6 +80,14 @@ class QueryProjectsForm extends React.Component {
                     <div className={css.toggleVisible}>
                         <Button className={css.toggleVisibleButton} onClick={this.toggleVisible.bind(this)}>
                             <Icon name={this.state.visible ? "angle-double-up" : "angle-double-down"} />
+                        </Button>
+                    </div>
+
+                {/* Reset button */}
+
+                    <div className={css.reset}>
+                        <Button bsStyle="primary" className={css.resetButton} onClick={this.onReset.bind(this)}>
+                            Reset
                         </Button>
                     </div>
 
@@ -107,8 +103,7 @@ class QueryProjectsForm extends React.Component {
                                 label="Projects"
                                 form={this.form}
                                 field={this.projectsFormKey}
-                                suffix="samples"
-                                filterByProjectIds={this.state.projectIds}
+                                filterByProjectIds={this.props.projectIds}
                             />
                         </Col>
                         <Col sm={6} className={css.col6}>
@@ -117,8 +112,8 @@ class QueryProjectsForm extends React.Component {
                                 form={this.form}
                                 referenceField={this.projectsFormKey}
                                 field={this.samplesFormKey}
-                                filterBySampleIds={this.state.sampleIds}
-                                searchTerm={this.state.searchTerm}
+                                filterBySampleIds={this.props.sampleIds}
+                                searchTerm={this.props.searchTerm}
                             />
                         </Col>
                     </Form>
@@ -129,4 +124,31 @@ class QueryProjectsForm extends React.Component {
 }
 
 
-export default QueryProjectsForm;
+QueryProjectsForm.defaultProps = {
+    projectIds: {},
+    sampleIds: {},
+    searchTerm: "",
+};
+
+
+const mapStateToProps = (state, ownProps) => {
+    let searched = state.queryProjects[dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
+    let searchTerm = state.queryProjects.searchTerm;
+    let projectIds = searched.projectIds || [];
+    let sampleIds = searched.sampleIds || [];
+    return {
+        projectIds,
+        sampleIds,
+        searchTerm,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        searchSamplesByTerm: (term) => dispatch(searchSamplesByTerm(term, dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM)),
+        resetSelection: () => dispatch(resetSelection()),
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(QueryProjectsForm);
