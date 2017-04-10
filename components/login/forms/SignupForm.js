@@ -4,6 +4,7 @@ import cx from 'classnames';
 import css from '../login.css';
 import store from '../../../core/store';
 import { signupUser } from '../../actions/actionCreators/authActionCreators';
+import Validators  from '../../forms/validators';
 
 import {Form, FormControl, InputGroup, FormGroup, ControlLabel, Button, HelpBlock} from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
@@ -21,10 +22,16 @@ class SignupForm extends React.Component {
             email: "",
             address: "",
             phone: "",
-            feedback: null,
-            feedback2: null,
+            fbPassword: null,
+            fbPassword2: null,
+            fbFirstNm: null,
+            fbLastNm: null,
+            fbEmail: null,
             msg: "",
-            msg2: ""
+            msg2: "",
+            msgFirstNm: "",
+            msgLastNm:"",
+            msgEmail: "",
         };
     }
 
@@ -47,7 +54,7 @@ class SignupForm extends React.Component {
         let confirmPassword = this.state.confirmPassword;
         let pwdChecked = this.validatePwd(password, confirmPassword);
         this.setState({password: password, msg: pwdChecked.msg, msg2: pwdChecked.msg2,
-            feedback: pwdChecked.feedback, feedback2: pwdChecked.feedback2});
+            fbPassword: pwdChecked.feedback, fbPassword2: pwdChecked.feedback2});
     }
     onChangeConfirmPassword(e) {
         //this.setState({confirmPassword: e.target.value});
@@ -55,16 +62,29 @@ class SignupForm extends React.Component {
         let password = this.state.password;
         let pwdChecked2 = this.validatePwd(password, confirmPassword);
         this.setState({confirmPassword: confirmPassword, msg: pwdChecked2.msg, msg2: pwdChecked2.msg2,
-            feedback: pwdChecked2.feedback, feedback2: pwdChecked2.feedback2});
+            fbPassword: pwdChecked2.feedback, fbPassword2: pwdChecked2.feedback2});
     }
     onChangeFirstName(e) {
-        this.setState({firstName: e.target.value});
+        //this.setState({firstName: e.target.value});
+        let firstName = e.target.value;
+        let fieldCheck = this.validateField(firstName);
+        this.setState({firstName: firstName, msgFirstNm: fieldCheck.msg,
+            fbFirstNm: fieldCheck.feedback});
     }
     onChangeLastName(e) {
         this.setState({lastName: e.target.value});
+        let lastName = e.target.value;
+        let fieldCheck2 = this.validateField(lastName);
+        //console.log(fieldCheck2.feedback);
+        this.setState({LastName: lastName, msgLastNm: fieldCheck2.msg,
+            fbLastNm: fieldCheck2.feedback});
     }
     onChangeEmail(e) {
         this.setState({email: e.target.value});
+        let email = e.target.value;
+        let emailCheck = this.validateEmail(email);
+        this.setState({email: email, msgEmail: emailCheck.msg,
+            fbEmail: emailCheck.feedback});
     }
     onChangeAddress(e) {
         this.setState({address: e.target.value});
@@ -90,8 +110,32 @@ class SignupForm extends React.Component {
         }
     }
 
+    validateField(field) {
+        if (field.length === 0) {
+            //Check if input is empty. Set appropriate feedbacks and error messages
+            //Set appropriate feedbacks and error messages.
+            return {msg: "Field can't be empty!", feedback: "warning" };
+        } else {
+            return {msg: "", feedback: "success" };
+        }
+    }
+
+    validateEmail(field) {
+        let checkEmail = Validators.emailValidator(field);
+
+        if (checkEmail.valid == true) {
+            //return checkEmail object. if validator is true
+            //Set appropriate feedbacks and error messages.
+            return {msg: "", feedback: "success" };
+        } else {
+            return {msg: checkEmail.msg, feedback: "warning" };
+        }
+    }
+
     isDisabledButton(){
-        let disabled = ! (this.state.feedback === "success" && this.state.feedback2 === "success");
+        let disabled = ! (this.state.fbPassword === "success" && this.state.fbPassword2 === "success"
+                            && this.state.fbFirstNm === "success" && this.state.fbLastNm === "success"
+                            && this.state.fbEmail ==="success");
         return disabled;
     }
 
@@ -103,7 +147,7 @@ class SignupForm extends React.Component {
 
                     {/* Password */}
 
-                    <FormGroup className={css.formGroup}>
+                    <FormGroup className={css.formGroup} validationState={this.state.fbPassword}>
                         <ControlLabel>Password</ControlLabel>
                         <InputGroup>
                             <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
@@ -119,7 +163,7 @@ class SignupForm extends React.Component {
 
                     {/* Confirm Password */}
 
-                    <FormGroup className={css.formGroup}>
+                    <FormGroup className={css.formGroup} validationState={this.state.fbPassword2}>
                         <ControlLabel>Re-enter Password</ControlLabel>
                         <InputGroup>
                             <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
@@ -135,32 +179,38 @@ class SignupForm extends React.Component {
 
                     {/* First name */}
 
-                    <FormGroup className={css.formGroup}>
+                    <FormGroup className={css.formGroup} validationState={this.state.fbFirstNm}>
                         <ControlLabel>First name</ControlLabel>
                         <FormControl
                             value={this.state.firstName}
                             onChange={this.onChangeFirstName.bind(this)}
                         />
+                        <FormControl.Feedback />
+                        <HelpBlock>{this.state.msgFirstNm}</HelpBlock>
                     </FormGroup>
 
                     {/* Last name */}
 
-                    <FormGroup className={css.formGroup}>
+                    <FormGroup className={css.formGroup} validationState={this.state.fbLastNm}>
                         <ControlLabel>Last name</ControlLabel>
                         <FormControl
                             value={this.state.lastName}
                             onChange={this.onChangeLastName.bind(this)}
                         />
+                        <FormControl.Feedback />
+                        <HelpBlock>{this.state.msgLastNm}</HelpBlock>
                     </FormGroup>
 
                     {/* Email */}
 
-                    <FormGroup className={css.formGroup}>
+                    <FormGroup className={css.formGroup} validationState={this.state.fbEmail}>
                         <ControlLabel>Email</ControlLabel>
                         <FormControl
                             value={this.state.email}
                             onChange={this.onChangeEmail.bind(this)}
                         />
+                        <FormControl.Feedback />
+                        <HelpBlock>{this.state.msgEmail}</HelpBlock>
                     </FormGroup>
 
                     {/* Address */}
