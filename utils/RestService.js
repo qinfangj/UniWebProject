@@ -73,7 +73,7 @@ class RestService {
 
     /* Table data */
 
-    specialSelect(tableName, activeOnly, limit, offset, orderBy, orderDir) {
+    specialSelect(tableName, activeOnly, limit, offset, orderBy, orderDir, filterBy) {
         let url = `${BACKEND}/table/${tableName}/select`;
         let options = [];
         if (activeOnly) {
@@ -90,6 +90,9 @@ class RestService {
         }
         if (orderDir) {
             options.push("orderDir="+ orderDir);
+        }
+        if (filterBy) {
+            options.push("filterBy="+ filterBy);
         }
         if (options.length > 0) {
             url += "?" + options.join("&");
