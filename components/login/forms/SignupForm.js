@@ -5,7 +5,7 @@ import css from '../login.css';
 import store from '../../../core/store';
 import { signupUser } from '../../actions/actionCreators/authActionCreators';
 
-import {Form, FormControl, InputGroup, FormGroup, ControlLabel, Button} from 'react-bootstrap/lib';
+import {Form, FormControl, InputGroup, FormGroup, ControlLabel, Button, HelpBlock} from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
 
 
@@ -14,20 +14,23 @@ class SignupForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
             password: "",
+            confirmPassword: "",
             firstName: "",
             lastName: "",
             email: "",
             address: "",
-            phone: ""
+            phone: "",
+            feedback: null,
+            feedback2: null,
+            msg: "",
+            msg2: ""
         };
     }
 
     submit() {
         store.dispatch(signupUser(
             {
-                username: this.state.username,
                 password: this.state.password,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
@@ -38,12 +41,21 @@ class SignupForm extends React.Component {
         ));
     }
 
-
-    onChangeUsername(e) {
-        this.setState({username: e.target.value});
-    }
     onChangePassword(e) {
-        this.setState({password: e.target.value});
+        //this.setState({password: e.target.value});
+        let password = e.target.value;
+        let confirmPassword = this.state.confirmPassword;
+        let pwdChecked = this.validatePwd(password, confirmPassword);
+        this.setState({password: password, msg: pwdChecked.msg, msg2: pwdChecked.msg2,
+            feedback: pwdChecked.feedback, feedback2: pwdChecked.feedback2});
+    }
+    onChangeConfirmPassword(e) {
+        //this.setState({confirmPassword: e.target.value});
+        let confirmPassword = e.target.value;
+        let password = this.state.password;
+        let pwdChecked2 = this.validatePwd(password, confirmPassword);
+        this.setState({confirmPassword: confirmPassword, msg: pwdChecked2.msg, msg2: pwdChecked2.msg2,
+            feedback: pwdChecked2.feedback, feedback2: pwdChecked2.feedback2});
     }
     onChangeFirstName(e) {
         this.setState({firstName: e.target.value});
@@ -61,27 +73,38 @@ class SignupForm extends React.Component {
         this.setState({phone: e.target.value});
     }
 
+    validatePwd (pwd,pwd2) {
+
+        if (pwd.length === 0) {
+            //Check if new password is empty. Set appropriate feedbacks and error messages
+            //Set appropriate feedbacks and error messages.
+            return {msg: "Password can't be empty!", msg2: "", feedback: "warning", feedback2: null};
+        } else if (pwd.length !== 0 && pwd !== pwd2) {
+            //Check if re-entered password is matched with the entered password.
+            //Set appropriate feedbacks and error messages.
+            return {msg: "", msg2: "Re-entered password is not matched.", feedback: null, feedback2: "warning"};
+        } else if (pwd.length !== 0 && pwd2.length !== 0 && pwd === pwd2) {
+            //Check if re-entered password is matched.
+            //Set appropriate feedbacks and error messages
+            return {msg: "", msg2: "", feedback: "success", feedback2: "success"};
+        }
+    }
+
+    isDisabledButton(){
+        let disabled = ! (this.state.feedback === "success" && this.state.feedback2 === "success");
+        return disabled;
+    }
+
     render() {
         return (
             <div className={css.formContainer}>
 
                 <Form className={css.form}>
 
-                    {/* Username */}
-
-                    <FormGroup className={css.formGroup}>
-                        <InputGroup>
-                            <InputGroup.Addon><Icon name="user"/></InputGroup.Addon>
-                            <FormControl
-                                value={this.state.username}
-                                onChange={this.onChangeUsername.bind(this)}
-                            />
-                        </InputGroup>
-                    </FormGroup>
-
                     {/* Password */}
 
                     <FormGroup className={css.formGroup}>
+                        <ControlLabel>Password</ControlLabel>
                         <InputGroup>
                             <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
                             <FormControl
@@ -90,6 +113,24 @@ class SignupForm extends React.Component {
                                 onChange={this.onChangePassword.bind(this)}
                             />
                         </InputGroup>
+                        <FormControl.Feedback />
+                        <HelpBlock>{this.state.msg}</HelpBlock>
+                    </FormGroup>
+
+                    {/* Confirm Password */}
+
+                    <FormGroup className={css.formGroup}>
+                        <ControlLabel>Re-enter Password</ControlLabel>
+                        <InputGroup>
+                            <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
+                            <FormControl
+                                type="password"
+                                value={this.state.confirmPassword}
+                                onChange={this.onChangeConfirmPassword.bind(this)}
+                            />
+                        </InputGroup>
+                        <FormControl.Feedback />
+                        <HelpBlock>{this.state.msg2}</HelpBlock>
                     </FormGroup>
 
                     {/* First name */}
@@ -153,7 +194,7 @@ class SignupForm extends React.Component {
 
                 </Form>
 
-                <Button onClick={this.submit.bind(this)} className={css.loginButton}>
+                <Button onClick={this.submit.bind(this)} className={css.loginButton} disabled={this.isDisabledButton()}>
                     Submit >
                 </Button>
 
