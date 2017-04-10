@@ -25,7 +25,7 @@ class Select extends React.PureComponent {
 
     getFeedbackValue() {
         let feedback = null;
-        if (this.props.submissionError && !this.props.valid) {
+        if (this.props.submissionError && this.props.valid === false) {
             feedback = "error";
         }
         return feedback;
@@ -33,7 +33,7 @@ class Select extends React.PureComponent {
 
     getErrorMessage() {
         let msg = "";
-        if (this.props.submissionError && !this.props.valid) {
+        if (this.props.submissionError && this.props.valid === false) {
             msg = this.props.label + " is required.";
         }
         return msg;
@@ -59,7 +59,7 @@ class Select extends React.PureComponent {
 
         // Display a star if the field is required and no valud has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
-        let requireString = (this.props.required && !this.isValid(this.props.value)) ?
+        let requireString = (this.props.required && this.props.valid === false) ?
             <span className={css.requiredString}>{" *"}</span>: null;
 
         let label = this.props.label ? <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel> : null;
