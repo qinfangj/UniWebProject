@@ -90,6 +90,7 @@ class Select extends React.PureComponent {
     }
 }
 
+
 Select.propTypes = {
     form: React.PropTypes.string.isRequired,  // form name
     field: React.PropTypes.string.isRequired,  // FormGroup controlId + name of the field in store
@@ -106,7 +107,6 @@ Select.defaultProps = {
     value: -1,
     required: false,
 };
-
 
 
 const mapStateToProps = (state, ownProps) => {

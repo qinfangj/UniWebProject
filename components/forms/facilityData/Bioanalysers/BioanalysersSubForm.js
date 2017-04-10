@@ -5,8 +5,6 @@ import cx from 'classnames';
 import store from '../../../../core/store';
 
 import TextField from '../../elements/TextField';
-import * as forms from '../../forms';
-import validators from '../../validators';
 import * as Options from '../../subcomponents/Options';
 import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
 import formStoreKeys from '../../../constants/formStoreKeys';
@@ -25,13 +23,14 @@ class BioanalysersSubForm extends React.PureComponent {
 
     getFormValues() {
         let data = [];
+        let formData = store.getState().forms[this.form];
         for (let i=0; i < 12; i++) {
             data.push({
                 id: 0,
                 laneNb: i+1,
-                projectId: forms.getFormValue(this.form, "project_"+i),
-                libraryId: forms.getFormValue(this.form, "library_"+i),
-                comment: forms.getFormValue(this.form, fields.COMMENT),
+                projectId: formData["project_"+i],
+                libraryId: formData["library_"+i],
+                comment: formData[fields.COMMENT],
             });
         }
         return data;

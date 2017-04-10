@@ -91,7 +91,7 @@ class RunsPreInsertForm extends React.PureComponent {
                 lane_nb: lane.lane_nb,
                 nlibs: lane.nlibs.getValue(),
                 nqc: lane.nqc.getValue(),
-                projectId: forms.getFormValue(this.form, this._projectsFormKey(i)),
+                projectId: store.getState().forms[this.form][this._projectsFormKey(i)],
                 libraryPoolId: lane.pool.getValue(),
             };
         });

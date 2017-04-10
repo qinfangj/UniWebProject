@@ -2,34 +2,12 @@
 import React from 'react';
 import store from '../../core/store';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import { changeFormValue, formSubmissionSuccess, formSubmissionError, formServerError } from '../actions/actionCreators/formsActionCreators';
+import { formSubmissionSuccess, formSubmissionError, formServerError } from '../actions/actionCreators/formsActionCreators';
 import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { resetForm } from '../actions/actionCreators/formsActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
 
-
-
-/**
- * Get the value of that input from the store.
- */
-export function getFormValue(form, field) {
-    let storeData = store.getState().forms[form];
-    if (storeData) {
-        return storeData[field];
-    }
-}
-export function getIsValid(form, field) {
-    let storeData = store.getState().forms[form];
-    if (storeData) {
-        return storeData._isValid[field];
-    }
-}
-export function changeValue(form, field, value, valid) {
-    if (form !== undefined) {
-        store.dispatch(changeFormValue(form, field, value, valid));
-    }
-}
 
 
 /**
