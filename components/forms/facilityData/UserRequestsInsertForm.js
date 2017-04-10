@@ -25,7 +25,6 @@ class UserRequestsInsertForm extends React.PureComponent {
         super();
         this.table = "user_requests";
         this.form = formStoreKeys.USER_REQUESTS_INSERT_FORM;
-        this.state = forms.defaultFormState;
         this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
     }
 

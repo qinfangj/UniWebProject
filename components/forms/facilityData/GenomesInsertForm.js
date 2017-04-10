@@ -23,7 +23,6 @@ class GenomesInsertForm extends React.PureComponent {
         super();
         this.table = "genomes";
         this.form = formStoreKeys.GENOMES_INSERT_FORM;
-        this.state = forms.defaultFormState;
     }
 
     static propTypes = {

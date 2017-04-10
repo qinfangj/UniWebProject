@@ -20,7 +20,6 @@ class ProjectInsertForm extends React.PureComponent {
         super();
         this.table = "people";
         this.form = formStoreKeys.PEOPLE_INSERT_FORM;
-        this.state = forms.defaultFormState;
     }
 
     static propTypes = {

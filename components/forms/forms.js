@@ -9,12 +9,6 @@ import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
 
 
-export const defaultFormState = {
-    serverError: {},
-    submissionError: false,
-    submissionSuccess: false,
-    submissionId: undefined,
-};
 
 /**
  * Get the value of that input from the store.

@@ -29,7 +29,7 @@ class RunsInsertForm extends React.PureComponent {
         this.table = "runs";
         this.form = "runs";
         this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];
-        this.state = forms.defaultFormState;
+        this.state = {};
         this.state.lanes = store.getState().common.route.data || {};
     }
 
@@ -46,16 +46,7 @@ class RunsInsertForm extends React.PureComponent {
 
     onSubmit() {
         let formData = this.getFormValues();
-        let newState = forms.submit(this.table, formData, this.required, null);
-        this.setState(newState);
-        if (!newState.submissionError) {
-            newState.submissionFuture.done((insertId) => {
-                this.setState({ submissionSuccess: true, submissionId: insertId });
-            }).fail(() =>{
-                console.warn("Uncaught form validation error");
-                this.setState({ submissionError: true });
-            });
-        }
+        forms.submit(this.table, formData, this.required, null);
     }
 
     getFormValues() {
@@ -91,8 +82,8 @@ class RunsInsertForm extends React.PureComponent {
     render() {
         return (
             <form className={formsCss.form}>
-                <forms.SubmissionErrorMessage error={this.state.submissionError} />
-                <forms.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 

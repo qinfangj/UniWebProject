@@ -7,9 +7,7 @@ import store from '../../../../core/store';
 
 import TextField from '../../elements/TextField';
 import DatePicker from '../../elements/DatePicker';
-import validators from '../../validators';
 import * as forms from '../../forms.js';
-import * as messages from '../../messages';
 import BioanalysersSubForm from './BioanalysersSubForm';
 import formStoreKeys from '../../../constants/formStoreKeys';
 import fields from '../../fields';
@@ -28,7 +26,6 @@ class BioanalysersInsertForm extends React.PureComponent {
         this.table = "bioanalysers";
         this.form = formStoreKeys.BIOANALYSERS_INSERT_FORM;
         this.required = [];
-        this.state = forms.defaultFormState;
     }
 
     static propTypes = {
@@ -55,24 +52,14 @@ class BioanalysersInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        let {submissionError, submissionFuture} = forms.submit(this.form, this.table, this.formatFormData.bind(this));
-        if (submissionError) {
-            this.setState({ submissionError, serverError: {} });
-        } else {
-            submissionFuture.done((insertId) => {
-                this.setState({ submissionSuccess: true, submissionId: insertId, submissionError: false, serverError: {} });
-            }).fail((err) =>{
-                this.setState({ serverError: err, submissionError: false, submissionSuccess: false });
-            });
-        }
+        forms.submit(this.form, this.table, this.formatFormData.bind(this));
     }
 
     render() {
         return (
             <form className={css.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -84,7 +71,6 @@ class BioanalysersInsertForm extends React.PureComponent {
                             field={fields.FILENAME}
                             label="Bioanalyser file"
                             type="file"
-                            submissionError = {this.state.submissionError}
                             ref = {(c) => this._file = c}
                         />
                     </Col>
@@ -110,7 +96,6 @@ class BioanalysersInsertForm extends React.PureComponent {
                             field={fields.DESCRIPTION}
                             label="Description"
                             defaultValue = ""
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

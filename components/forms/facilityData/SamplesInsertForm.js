@@ -25,7 +25,6 @@ class SamplesInsertForm extends React.PureComponent {
         super();
         this.table = "samples";
         this.form = formStoreKeys.SAMPLES_INSERT_FORM;
-        this.state = forms.defaultFormState;
     }
 
     static propTypes = {

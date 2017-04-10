@@ -24,7 +24,6 @@ class AlignmentsInsertForm extends React.PureComponent {
         super();
         this.table = "alignments";
         this.form = formStoreKeys.ALIGNMENTS_INSERT_FORM;
-        this.state = forms.defaultFormState;
     }
 
     static propTypes = {
