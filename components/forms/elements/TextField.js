@@ -1,10 +1,8 @@
 "use strict";
 import React from 'react';
 import css from '../forms.css';
-import store from '../../../core/store';
 import { connect } from 'react-redux';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
-import * as forms from '../forms';
 import constants from '../../constants/constants';
 
 /* React-bootstrap */
@@ -160,6 +158,7 @@ const mapStateToProps = (state, ownProps) => {
     let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
     return {
         value: state.forms[ownProps.form][ownProps.field],
+        valid: state.forms[ownProps.form]._isValid[ownProps.field],
         submissionError: submissionError,
     };
 };

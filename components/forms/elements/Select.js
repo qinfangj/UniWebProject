@@ -1,8 +1,9 @@
 "use strict";
 import React from 'react';
 import css from '../forms.css';
-import store from '../../../core/store';
-import * as forms from '../forms';
+import { connect } from 'react-redux';
+import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
+import constants from '../../constants/constants';
 
 /* React-bootstrap */
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap/lib';
@@ -12,25 +13,6 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap
 class Select extends React.PureComponent {
     constructor(props) {
         super(props);
-        let initValue = this.defaultOption(props.options);
-        this.state = {
-            value: initValue,
-            valid: true,
-        };
-    }
-
-    componentDidMount() {
-        // Listen to value change from the store
-        this.unsubscribe = store.subscribe(() => {
-            let value = forms.getFormValue(this.props.form, this.props.field);
-            let valid = forms.getIsValid(this.props.form, this.props.field);
-            if (value) {
-                this.setState({ value, valid });
-            }
-        });
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     isValid(value) {
@@ -41,17 +23,9 @@ class Select extends React.PureComponent {
         }
     }
 
-    /* Return the initial option index */
-    defaultOption(options) {
-        if (!options || options.length === 0) {
-            return -1;
-        }
-        return options[0][0];
-    }
-
     getFeedbackValue() {
         let feedback = null;
-        if (this.props.submissionError && !this.isValid(this.state.value)) {
+        if (this.props.submissionError && !this.props.valid) {
             feedback = "error";
         }
         return feedback;
@@ -59,7 +33,7 @@ class Select extends React.PureComponent {
 
     getErrorMessage() {
         let msg = "";
-        if (this.props.submissionError && !this.isValid(this.state.value)) {
+        if (this.props.submissionError && !this.props.valid) {
             msg = this.props.label + " is required.";
         }
         return msg;
@@ -67,7 +41,7 @@ class Select extends React.PureComponent {
 
     onChange(e) {
         let value = parseInt(e.target.value);
-        forms.changeValue(this.props.form, this.props.field, value, this.isValid(value));
+        this.props.changeFormValue(this.props.form, this.props.field, value, this.isValid(value));
     }
 
     makeOptions() {
@@ -85,7 +59,7 @@ class Select extends React.PureComponent {
 
         // Display a star if the field is required and no valud has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
-        let requireString = (this.props.required && !this.isValid(this.state.value)) ?
+        let requireString = (this.props.required && !this.isValid(this.props.value)) ?
             <span className={css.requiredString}>{" *"}</span>: null;
 
         let label = this.props.label ? <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel> : null;
@@ -104,7 +78,7 @@ class Select extends React.PureComponent {
                 <FormControl componentClass="select"
                     placeholder={label}
                     onChange={this.onChange.bind(this)}
-                    value={this.state.value}
+                    value={this.props.value}
                     {...this.props.inputProps}
                 >
                     {options}
@@ -119,6 +93,7 @@ class Select extends React.PureComponent {
 Select.propTypes = {
     form: React.PropTypes.string.isRequired,  // form name
     field: React.PropTypes.string.isRequired,  // FormGroup controlId + name of the field in store
+    value: React.PropTypes.number.isRequired,  // field value
     options: React.PropTypes.array.isRequired,  // an array of the type [[1,"yes"], [2,"no"], [3,"maybe"]]
     label: React.PropTypes.string,  // title - visible
     defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),  // Option index or item name
@@ -128,9 +103,30 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
+    value: -1,
     required: false,
 };
 
 
-export default Select;
+
+const mapStateToProps = (state, ownProps) => {
+    let submissionStatus = state.forms[ownProps.form]._submission.status;
+    let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
+    let options = ownProps.options;
+    let defaultValue = (!options || options.length === 0) ? -1 : options[0][0];
+    let value = state.forms[ownProps.form][ownProps.field] || defaultValue;
+    return {
+        value: value,
+        valid: state.forms[ownProps.form]._isValid[ownProps.field],
+        submissionError: submissionError,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeFormValue: (form, field, value, valid) => dispatch(changeFormValue(form, field, value, valid)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Select);
 

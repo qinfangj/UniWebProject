@@ -3,6 +3,7 @@ import React from 'react';
 import css from '../forms.css';
 import { connect } from 'react-redux';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
+import constants from '../../constants/constants';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -94,8 +95,12 @@ Textarea.defaultProps = {
 
 
 const mapStateToProps = (state, ownProps) => {
+    let submissionStatus = state.forms[ownProps.form]._submission.status;
+    let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
     return {
         value: state.forms[ownProps.form][ownProps.field],
+        valid: state.forms[ownProps.form]._isValid[ownProps.field],
+        submissionError: submissionError,
     };
 };
 
