@@ -301,6 +301,21 @@ export const facilityDataModels = Object.freeze({
             label: "Internal comment",
             type: inputTypes.TEXTAREA,
             value: "",
+        },
+        [fields.IS_CUSTOMER_MADE]: {
+            label: "Made by user",
+            type: inputTypes.CHECKBOX,
+            value: false,
+        },
+        [fields.IS_ROBOT_MADE]: {
+            label: "Made by robot",
+            type: inputTypes.CHECKBOX,
+            value: false,
+        },
+        [fields.IS_TRASHED]: {
+            label: "Discarded",
+            type: inputTypes.CHECKBOX,
+            value: false,
         }
     },
 

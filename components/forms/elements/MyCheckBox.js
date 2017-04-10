@@ -17,7 +17,7 @@ class MyCheckBox extends React.PureComponent {
     }
 
     onChange() {
-        this.props.changeFormValue(this.props.form, this.props.field, !this.props.value);
+        this.props.changeFormValue(this.props.form, this.props.field, !this.props.value, true);
     }
 
     render() {
@@ -46,7 +46,7 @@ MyCheckBox.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        value: state.forms[ownProps.form][ownProps.field],
+        value: !!state.forms[ownProps.form][ownProps.field],
     };
 };
 

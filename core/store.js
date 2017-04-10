@@ -40,7 +40,6 @@ let reducer = combineReducers({
     queryProjects: queryProjectsReducers,
     adminForms: adminFormReducers,
     forms: formReducers,
-
 });
 
 

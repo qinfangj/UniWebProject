@@ -39,7 +39,7 @@ class Textarea extends React.PureComponent {
         let value = e.target.value;
         // The default value is automatically escaped, so do this to allow a multiline default value.
         value = value.replace("\\n", "\n");
-        this.props.changeFormValue(this.props.form, this.props.field, value);
+        this.props.changeFormValue(this.props.form, this.props.field, value, true);
     }
 
     render() {
@@ -98,7 +98,7 @@ const mapStateToProps = (state, ownProps) => {
     let submissionStatus = state.forms[ownProps.form]._submission.status;
     let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
     return {
-        value: state.forms[ownProps.form][ownProps.field],
+        value: state.forms[ownProps.form][ownProps.field] || "",
         valid: state.forms[ownProps.form]._isValid[ownProps.field],
         submissionError: submissionError,
     };

@@ -1,5 +1,5 @@
 "use strict";
-import {combineForms,formReducer} from  'react-redux-form'
+import { combineForms } from  'react-redux-form'
 import adminDataConstants from '../../forms/adminData/adminDataModels';
 
 /**

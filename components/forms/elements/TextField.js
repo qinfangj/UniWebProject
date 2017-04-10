@@ -50,7 +50,7 @@ class TextField extends React.PureComponent {
         let valid = true;
         let msg;
         // No value: valid only if not required.
-        if (!value) {
+        if (value === "") {
             // different from `if (!value && this.props.required)`:
             // we do not want any warning while fields are empty (the little star should help already)
             valid = !this.props.required;
@@ -66,7 +66,7 @@ class TextField extends React.PureComponent {
     /** For bootstrap validationState: can be "success", "warning", "error", or null */
     getFeedbackValue() {
         let feedback = null;
-        if (!this.state.value || this.state.value === "") {
+        if (this.props.value === "") {
             // Again, separate conditions because we do not want any warning while fields are empty
             if (this.props.required && this.props.submissionError) {
                 feedback = "error"
@@ -74,6 +74,8 @@ class TextField extends React.PureComponent {
         } else if (!this.state.valid) {
             feedback = this.props.submissionError ? "error" : "warning";
         }
+        if (this.props.field === "fragSizeMax")
+            console.debug(this.props.submissionError, this.props.value, this.props.required)
         return feedback;
     }
 
@@ -98,7 +100,8 @@ class TextField extends React.PureComponent {
     }
 
     render() {
-        // Display a star if the field is required and no valud has been entered yet
+
+        // Display a star if the field is required and no value has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
         let requireString = (this.props.required && !this.props.value) ?
             <span className={css.requiredString}>{" *"}</span> : null;
@@ -113,6 +116,9 @@ class TextField extends React.PureComponent {
         // Help block: text info on error or warning
         let msg = this.getErrorMessage();
         let help = <HelpBlock bsClass={css.feedback}>{msg}</HelpBlock>;
+
+        if (this.props.field === "fragSizeMax")
+            console.debug(this.props.required, this.props.value, this.state.valid, feedbackValue)
 
         return (
             <FormGroup controlId={this.props.field} validationState={feedbackValue} bsSize="small" >
@@ -133,7 +139,7 @@ class TextField extends React.PureComponent {
 TextField.propTypes = {
     form: React.PropTypes.string.isRequired,  // form name
     field: React.PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
-    value: React.PropTypes.string.isRequired,  // field value
+    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]).isRequired,  // field value
     label: React.PropTypes.string,  // title - visible
     type: React.PropTypes.string,  // input type (defaults to "text")
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
@@ -156,9 +162,12 @@ TextField.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     let submissionStatus = state.forms[ownProps.form]._submission.status;
     let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
+    let value = state.forms[ownProps.form][ownProps.field];
+    if (value === undefined || value === null) {
+        value = "";
+    }
     return {
-        value: state.forms[ownProps.form][ownProps.field],
-        valid: state.forms[ownProps.form]._isValid[ownProps.field],
+        value: value,
         submissionError: submissionError,
     };
 };

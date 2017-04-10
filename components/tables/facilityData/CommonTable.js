@@ -10,7 +10,7 @@ import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActi
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import columns from './columns';
+import columns from '../columns';
 import SubmissionFeedback from '../../forms/SubmissionFeedback';
 import DataLoadingIcon from '../../../utils/DataLoadingIcon';
 
@@ -47,11 +47,13 @@ class CommonTable extends React.PureComponent {
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
         }
     }
+
     componentDidMount() {
         this.api && this.api.doLayout();  // recalculate layout to fill the container div
         this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
         //this.columnApi && this.columnApi.autoSizeColumns(["ID"]);  // recalculate columnsKey width to fill the content
     }
+
     /**
      * Need to update columnsKey width here, just before rendering, and not in `onGridReady`
      * as the docs suggest, because `onGridReady` happens before data arrives
@@ -60,6 +62,7 @@ class CommonTable extends React.PureComponent {
     componentWillUpdate() {
         this.api && this.api.doLayout();  // recalculate layout to fill the container div
     }
+
     componentDidUpdate() {
         this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
         //this.columnApi && this.columnApi.autoSizeColumns(["ID"]);  // recalculate columnsKey width to fill the content
@@ -142,7 +145,7 @@ CommonTable.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        data: state.facilityData[ownProps.dataStoreKey],
+        data: state.facilityData[ownProps.dataStoreKey].data,
         showLoading: state.facilityData.showLoading,
     };
 };
