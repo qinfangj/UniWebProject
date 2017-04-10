@@ -122,7 +122,7 @@ class SignupForm extends React.Component {
 
     validateEmail(field) {
         let checkEmail = Validators.emailValidator(field);
-        console.log(checkEmail);
+
         if (checkEmail.valid == true) {
             //return checkEmail object. if validator is true
             //Set appropriate feedbacks and error messages.
