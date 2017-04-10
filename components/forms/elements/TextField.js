@@ -74,8 +74,6 @@ class TextField extends React.PureComponent {
         } else if (!this.state.valid) {
             feedback = this.props.submissionError ? "error" : "warning";
         }
-        if (this.props.field === "fragSizeMax")
-            console.debug(this.props.submissionError, this.props.value, this.props.required)
         return feedback;
     }
 
@@ -116,9 +114,6 @@ class TextField extends React.PureComponent {
         // Help block: text info on error or warning
         let msg = this.getErrorMessage();
         let help = <HelpBlock bsClass={css.feedback}>{msg}</HelpBlock>;
-
-        if (this.props.field === "fragSizeMax")
-            console.debug(this.props.required, this.props.value, this.state.valid, feedbackValue)
 
         return (
             <FormGroup controlId={this.props.field} validationState={feedbackValue} bsSize="small" >
@@ -163,7 +158,7 @@ const mapStateToProps = (state, ownProps) => {
     let submissionStatus = state.forms[ownProps.form]._submission.status;
     let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
     let value = state.forms[ownProps.form][ownProps.field];
-    if (value === undefined || value === null) {
+    if (value === undefined || value === null) {  // can be 0
         value = "";
     }
     return {
