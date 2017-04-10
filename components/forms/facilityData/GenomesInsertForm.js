@@ -39,7 +39,7 @@ class GenomesInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        forms.submit(this, this.form, this.table, null);
+        forms.submit(this.form, this.table, null);
     }
 
     render() {

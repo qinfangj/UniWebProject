@@ -81,7 +81,7 @@ export function getFormData(form) {
  * A custom formatter `formatFormData` can be given to transform the data before submission.
  * Return an object `{invalid: (bool), submissionError: (bool), submissionFuture: (Promise)}`.
  */
-export function submit(component, form, table, formatFormData=null) {
+export function submit(form, table, formatFormData=null) {
     let formData = getFormData(form);
     let fields = Object.keys(formData);
     let submissionError = false;

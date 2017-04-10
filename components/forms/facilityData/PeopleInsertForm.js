@@ -42,7 +42,7 @@ class ProjectInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        forms.submit(this, this.form, this.table, this.formatFormData);
+        forms.submit(this.form, this.table, this.formatFormData);
     }
 
     render() {
