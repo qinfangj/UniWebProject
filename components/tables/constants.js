@@ -19,4 +19,5 @@ export const ID_COLUMN = {
 };
 
 export const ROW_HEIGTH = 25;
+export const GRID_HEIGTH = 1200;
 

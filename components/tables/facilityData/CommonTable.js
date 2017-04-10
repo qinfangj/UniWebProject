@@ -6,6 +6,7 @@ import cx from 'classnames';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import _ from 'lodash';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
@@ -21,6 +22,10 @@ import DataLoadingIcon from '../../../utils/DataLoadingIcon';
 class CommonTable extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.nrowsPerBatch = 300;
+        this.gridHeight = 1200;
+        this.nVisibleRows = (constants.GRID_HEIGTH / constants.ROW_HEIGTH) - 1;
+        console.debug("n visible rows:", this.nVisibleRows)
         this.state = {
             searchValue: "",
         };
@@ -43,7 +48,7 @@ class CommonTable extends React.PureComponent {
         if (data && data.length > 0) {
             this.setState({ data });
         } else {
-            this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, 100, 0, null, null)
+            this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerPage, 0, null, null)
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
         }
     }
@@ -52,6 +57,7 @@ class CommonTable extends React.PureComponent {
         this.api && this.api.doLayout();  // recalculate layout to fill the container div
         this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
         //this.columnApi && this.columnApi.autoSizeColumns(["ID"]);  // recalculate columnsKey width to fill the content
+        // this.api.addRenderedRowListener('renderedRowRemoved', rowIndex, callback)
     }
 
     /**
@@ -71,6 +77,7 @@ class CommonTable extends React.PureComponent {
     onGridReady(params) {
         this.api = params.api;
         this.columnApi = params.columnApi;
+        // api.setDatasource(this.dataSource);
     }
 
     onSearch(e) {
@@ -78,6 +85,54 @@ class CommonTable extends React.PureComponent {
         this.api.setQuickFilter(value);
         this.setState({searchValue: value});
     }
+
+    // /* Because onScrollEnd only knows startPixel and endPixel, and refers to the first displayed row,
+    //  it is not trival to recover the currend row index, even knowing the row height. So we record the
+    //  row index in rowGetter and use it here. */
+    // _onScrollEnd() {
+    //     var nVariants = VariantStore.size();
+    //     var rowIndex = this.rowIndex;
+    //     if (!VariantStore.isLoadingNextRowBatch() && !VariantStore.noMoreVariantsToLoad()
+    //         && nVariants > 0 && rowIndex+1 === nVariants) {
+    //         VariantActions.loadNextRowBatch(Api.getDb(), nVariants, Api.variantUrlArgs());
+    //     }
+    // }
+
+    // _createDataSource() {
+    //     let _this = this;
+    //     console.debug("init data source")
+    //     return {
+    //         rowCount: null, // behave as infinite scroll
+    //         getRows: function (params) {
+    //             console.log('asking for ' + params.startRow + ' to ' + params.endRow);
+    //             _this.props.getTableDataAsync(_this.props.table, _this.props.dataStoreKey, _this.props.activeOnly,
+    //                 params.endRow - params.startRow, params.startRow, null, null)
+    //             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."))
+    //             .done((data) => {
+    //                 // It will only continue fetching if lastRow == -1
+    //                 let lastRow = -1;
+    //                 if (data.length <= params.endRow) {
+    //                     lastRow = data.length;
+    //                 }
+    //                 params.successCallback(data, lastRow);
+    //             }, 500);
+    //         }
+    //     };
+    // };
+
+    onScroll(e) {
+        let _this = this;
+        let nodes = this.api.getRenderedNodes();
+        let dataLength = this.props.data.length;
+        let lastRowIndex = nodes[nodes.length-1].id;
+        let threshold = dataLength - this.nrowsPerPage;
+        console.debug(nodes.length, nodes[0].id, nodes[nodes.length-1].id, threshold)
+        if (lastRowIndex + 1 === threshold) {
+           _this.props.getTableDataAsync(_this.props.table, _this.props.dataStoreKey, _this.props.activeOnly,
+               dataLength, dataLength + this.nrowsPerPage, null, null)
+        }
+    }
+
 
     render() {
         let data = this.props.formatter(this.props.data);
@@ -89,7 +144,7 @@ class CommonTable extends React.PureComponent {
         }
         tables.checkData(data);
 
-        //let cssHeight = (Math.max(1200, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
+        //let cssHeight = (Math.max(constants.GRID_HEIGTH, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
 
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -107,7 +162,7 @@ class CommonTable extends React.PureComponent {
 
                 {/* If no data, no table but fill the space */}
                 { data.length > 0 ?
-                    <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: '1200px', width: '100%'}}>
+                    <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: constants.GRID_HEIGTH+'px', width: '100%'}}>
                         <AgGridReact
                             onGridReady={this.onGridReady.bind(this)}
                             rowData={data}
@@ -117,11 +172,14 @@ class CommonTable extends React.PureComponent {
                             rowHeight={constants.ROW_HEIGTH}
                             headerHeight={constants.ROW_HEIGTH}
                             overlayNoRowsTemplate='<span/>'
+                            onBodyScroll={_.throttle(this.onScroll.bind(this), 100)}
+                            // rowModelType='infinite'
+                            // datasource={this.dataSource}
                         >
                         </AgGridReact>
                     </div>
                 :
-                    <div style={{height: '1200px', width: '100%'}}/>
+                    <div style={{height: constants.GRID_HEIGTH+'px', width: '100%'}}/>
                 }
 
                 {/* Show number of rows in result */}
