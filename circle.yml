@@ -4,6 +4,7 @@ machine:
     REMOTE_URL: $REMOTE_URL
     REMOTE_DIR: $WWW_DIR
 
+<<<<<<< Updated upstream
 #deployment:
 #  val:
 #    branch: val
@@ -13,4 +14,14 @@ machine:
 #      - ssh ${REMOTE_URL} "rm -rf ${REMOTE_DIR}/*"
 #      - scp -r public/* ${REMOTE_URL}:${REMOTE_DIR}/
 #      - ssh ${REMOTE_URL} "cd ${REMOTE_DIR} && cp ../conf/conf.js conf/conf.js"
+=======
+deployment:
+  val:
+    branch: val
+    commands:
+      - node run build --debug
+      - ssh -v -o ServerAliveInterval=10 ${REMOTE_URL} "rm -rf ${REMOTE_DIR}/*"
+      - scp -r public/* ${REMOTE_URL}:${REMOTE_DIR}/
+      - ssh ${REMOTE_URL} "cd ${REMOTE_DIR} && cp ../conf/conf.js conf/conf.js"
+>>>>>>> Stashed changes
 
