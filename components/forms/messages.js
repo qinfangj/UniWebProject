@@ -73,9 +73,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(SubmissionFeedback);
 
 
 
-
-
-
 /************************ OLDER VERSION ******************************/
 
 
@@ -176,20 +173,3 @@ export class ServerErrorMessage extends React.PureComponent {
 }
 
 
-// export class FeedbackMessages extends React.PureComponent {
-//     static propTypes = {
-//         submissionError: React.PropTypes.object.bool,
-//         submissionSuccess: React.PropTypes.object.bool,
-//         serverError: React.PropTypes.object.object,
-//         submissionId: React.PropTypes.number,
-//     };
-//     render() {
-//         return (
-//             <div>
-//                 <SubmissionErrorMessage error={this.props.submissionError} />
-//                 <SubmissionSuccessfulMessage success={this.props.submissionSuccess} id={this.props.submissionId} />
-//                 <ServerErrorMessage error={this.props.serverError} />
-//             </div>
-//         );
-//     }
-// }

@@ -72,7 +72,6 @@ class CommonAdminForms extends React.Component {
 
     handleSubmit(values){
         submit.submit(this, values, this.table, this.props.updateId, this.state.isInsert);
-
     }
 
 
