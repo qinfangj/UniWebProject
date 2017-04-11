@@ -27,7 +27,7 @@ class CommonTable extends React.PureComponent {
         this.nrowsPerQuery = 40;
         if (this.nrowsPerQuery < this.nVisibleRows) {
             console.warn("Must query at least as many rows as we can display to enable scrolling",
-                         `${this.nrowsPerQuery} < ${this.nVisibleRows}`);
+                         `(${this.nrowsPerQuery} < ${this.nVisibleRows})`);
         }
         this.state = {
             searchValue: "",
@@ -54,6 +54,11 @@ class CommonTable extends React.PureComponent {
             this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerQuery, 0, null, null)
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
         }
+    }
+
+    componentWillUnmount() {
+        /* Clear additional data pages from infinite scrolling */
+        // ...
     }
 
     componentDidMount() {
@@ -89,8 +94,7 @@ class CommonTable extends React.PureComponent {
         this.setState({searchValue: value});
     }
 
-    onScroll(e) {
-        let _this = this;
+    onScroll() {
         let nodes = this.api.getRenderedNodes();
         let dataLength = this.props.data.length;
         let lastRowIndex = parseInt(nodes[nodes.length-1].id);
@@ -99,8 +103,10 @@ class CommonTable extends React.PureComponent {
         /* If past the threshold, query the next batch of rows. Lock until the current query is done. */
         if (!this.props.isLoading && !this.props.allLoaded && lastRowIndex > threshold) {
             console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
-            _this.props.getTableDataAsync(_this.props.table, _this.props.dataStoreKey, _this.props.activeOnly,
-                dataLength + this.nrowsPerQuery, dataLength, null, null);
+            let limit = dataLength + this.nrowsPerQuery;
+            let offset = dataLength;
+            this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
+                limit, offset, null, null);
         }
     }
 
@@ -129,25 +135,20 @@ class CommonTable extends React.PureComponent {
                     <SubmissionFeedback form={this.props.form}/>
                 }
 
-                {/* If no data, no table but fill the space */}
-                { data.length > 0 ?
-                    <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>
-                        <AgGridReact
-                            onGridReady={this.onGridReady.bind(this)}
-                            rowData={data}
-                            enableFilter={true}
-                            enableSorting={true}
-                            columnDefs={columns[this.props.columnsKey]}
-                            rowHeight={constants.ROW_HEIGTH}
-                            headerHeight={constants.ROW_HEIGTH}
-                            overlayNoRowsTemplate='<span/>'
-                            onBodyScroll={_.throttle(this.onScroll.bind(this), 100)}
-                        >
-                        </AgGridReact>
-                    </div>
-                :
-                    <div style={{height: this.gridHeight+'px', width: '100%'}}/>
-                }
+                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>
+                    <AgGridReact
+                        onGridReady={this.onGridReady.bind(this)}
+                        rowData={data}
+                        enableFilter={true}
+                        enableSorting={true}
+                        columnDefs={columns[this.props.columnsKey]}
+                        rowHeight={constants.ROW_HEIGTH}
+                        headerHeight={constants.ROW_HEIGTH}
+                        overlayNoRowsTemplate='<span/>'
+                        onBodyScroll={_.throttle(this.onScroll.bind(this), 100)}
+                    >
+                    </AgGridReact>
+                </div>
 
                 <DataLoadingIcon />
 
