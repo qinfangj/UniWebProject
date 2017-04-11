@@ -30,8 +30,14 @@ class AccountTable extends React.Component {
     displayProfile(s) {
         let data = this.props.accountProfile;
         let table;
-
-        table = <tr key={s.name}><th className={adminCss.th}>{s.label}</th><td className={adminCss.td}>{data[s.name]}</td></tr>
+        if (s.label === "Laboratory") {
+            table = <tr key={s.label}><th className={adminCss.th}>{s.label}</th><td className={adminCss.td}>{data[s.name[0]] + " " + data[s.name[1]]}</td></tr>
+        }else {
+            table = <tr key={s.label}>
+                <th className={adminCss.th}>{s.label}</th>
+                <td className={adminCss.td}>{data[s.name]}</td>
+            </tr>
+        }
 
         return table
     }
