@@ -144,7 +144,7 @@ class CommonTable extends React.PureComponent {
                         rowHeight={constants.ROW_HEIGTH}
                         headerHeight={constants.ROW_HEIGTH}
                         overlayNoRowsTemplate='<span/>'
-                        onBodyScroll={_.throttle(this.onScroll.bind(this), 100)}
+                        onBodyScroll={_.debounce(this.onScroll.bind(this), 100)}
                     >
                     </AgGridReact>
                 </div>
