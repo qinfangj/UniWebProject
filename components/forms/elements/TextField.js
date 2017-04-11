@@ -1,8 +1,9 @@
 "use strict";
 import React from 'react';
 import css from '../forms.css';
-import store from '../../../core/store';
-import * as forms from '../forms';
+import { connect } from 'react-redux';
+import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
+import constants from '../../constants/constants';
 
 /* React-bootstrap */
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -15,7 +16,6 @@ class TextField extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.defaultValue,  // field value. Cannot have a default since React 15... Set `defaultValue` instead.
             files: null,  // if type="file", the FilesList
             valid: true,  // boolean, is the field valid
             msg: "",  // error message from the validator
@@ -31,23 +31,16 @@ class TextField extends React.PureComponent {
 
     componentWillMount() {
         // Initial validation of default value
-        let {valid, msg} = this.validate(this.state.value);
+        let {valid, msg} = this.validate(this.props.value);
         this.setState({valid, msg});
     }
 
-    componentDidMount() {
-        // Listen to value change from the store
-        this.unsubscribe = store.subscribe(() => {
-            let value = forms.getFormValue(this.props.form, this.props.field);
-            if (value !== undefined) {
-                value = value || "";
-                let {valid, msg} = this.validate(value);
-                this.setState({ value, valid, msg });
-            }
-        });
-    }
-    componentWillUnmount() {
-        this.unsubscribe();
+    /**
+     * Validate the value as we are typing.
+     */
+    componentWillReceiveProps(newProps) {
+        let {valid, msg} = this.validate(newProps.value);
+        this.setState({ valid, msg });
     }
 
     /**
@@ -57,7 +50,7 @@ class TextField extends React.PureComponent {
         let valid = true;
         let msg;
         // No value: valid only if not required.
-        if (!value) {
+        if (value === "") {
             // different from `if (!value && this.props.required)`:
             // we do not want any warning while fields are empty (the little star should help already)
             valid = !this.props.required;
@@ -73,7 +66,7 @@ class TextField extends React.PureComponent {
     /** For bootstrap validationState: can be "success", "warning", "error", or null */
     getFeedbackValue() {
         let feedback = null;
-        if (!this.state.value || this.state.value === "") {
+        if (this.props.value === "") {
             // Again, separate conditions because we do not want any warning while fields are empty
             if (this.props.required && this.props.submissionError) {
                 feedback = "error"
@@ -87,7 +80,7 @@ class TextField extends React.PureComponent {
     /** Info text on error/warning */
     getErrorMessage() {
         let msg = "";
-        if (!this.state.value && this.props.required && this.props.submissionError) {
+        if (this.props.value === "" && this.props.required && this.props.submissionError) {
             msg = this.props.label + " is required.";
         } else {
             msg = this.state.msg;
@@ -101,14 +94,15 @@ class TextField extends React.PureComponent {
             this.setState({ files: e.target.files });
         }
         let valid = this.validate(value).valid;
-        forms.changeValue(this.props.form, this.props.field, value, valid);
+        this.props.changeFormValue(this.props.form, this.props.field, value, valid);
     }
 
     render() {
-        // Display a star if the field is required and no valud has been entered yet
+
+        // Display a star if the field is required and no value has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
-        let requireString = (this.props.required && !this.state.value) ?
-            <span className={css.requiredString}>{" *"}</span>: null;
+        let requireString = (this.props.required && !this.props.value) ?
+            <span className={css.requiredString}>{" *"}</span> : null;
 
         // Descriptive text above the field
         let label = this.props.label ? <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel> : null;
@@ -126,7 +120,7 @@ class TextField extends React.PureComponent {
                 {label}
                 <FormControl
                     type={this.props.type}
-                    value={this.state.value}
+                    value={this.props.value}
                     onChange={this.onChange.bind(this)}
                     placeholder={this.props.placeholder}
                     {...this.props.inputProps}
@@ -140,6 +134,7 @@ class TextField extends React.PureComponent {
 TextField.propTypes = {
     form: React.PropTypes.string.isRequired,  // form name
     field: React.PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
+    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]).isRequired,  // field value
     label: React.PropTypes.string,  // title - visible
     type: React.PropTypes.string,  // input type (defaults to "text")
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
@@ -150,14 +145,34 @@ TextField.propTypes = {
     submissionError: React.PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
 };
 TextField.defaultProps = {
+    value: "",
     type: "text",
     validator: ((_) => {return {valid: true, msg: ""}}),
     required: false,
     placeholder: "",
-    defaultValue: "",
     submissionError: false,
 };
 
 
-export default TextField;
+const mapStateToProps = (state, ownProps) => {
+    let submissionStatus = state.forms[ownProps.form]._submission.status;
+    let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
+    let value = state.forms[ownProps.form][ownProps.field];
+    if (value === undefined || value === null) {  // can be 0
+        value = "";
+    }
+    return {
+        value: value,
+        submissionError: submissionError,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeFormValue: (form, field, value, valid) => dispatch(changeFormValue(form, field, value, valid)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TextField);
+
 

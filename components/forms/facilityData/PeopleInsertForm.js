@@ -5,13 +5,13 @@ import css from '../forms.css';
 import TextField from '../elements/TextField';
 import validators from '../validators';
 import * as forms from '../forms.js';
-import * as messages from '../messages';
 import formStoreKeys from '../../constants/formStoreKeys';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import SubmissionFeedback from '../SubmissionFeedback';
 
 
 
@@ -20,7 +20,6 @@ class ProjectInsertForm extends React.PureComponent {
         super();
         this.table = "people";
         this.form = formStoreKeys.PEOPLE_INSERT_FORM;
-        this.state = forms.defaultFormState;
     }
 
     static propTypes = {
@@ -43,15 +42,14 @@ class ProjectInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        forms.submit(this, this.form, this.table, this.formatFormData);
+        forms.submit(this.form, this.table, this.formatFormData);
     }
 
     render() {
         return (
             <form className={css.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -63,7 +61,6 @@ class ProjectInsertForm extends React.PureComponent {
                             field={fields.FIRST_NAME}
                             label="PI first name"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -75,7 +72,6 @@ class ProjectInsertForm extends React.PureComponent {
                             field={fields.LAST_NAME}
                             label="PI last name"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -88,7 +84,6 @@ class ProjectInsertForm extends React.PureComponent {
                             label="PI email"
                             required
                             validator = {validators.emailValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -103,7 +98,6 @@ class ProjectInsertForm extends React.PureComponent {
                             field={fields.ADDRESS}
                             label="PI address"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -116,7 +110,6 @@ class ProjectInsertForm extends React.PureComponent {
                             label="PI phone"
                             required
                             validator={validators.phoneValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

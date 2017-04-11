@@ -13,7 +13,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 
 import * as messages from '../messages';
-import columns from '../../tables/facilityData/columns';
+import columns from '../../tables/columns';
 
 var analysisTypes = columns["analysis_types"].slice(1);
 

@@ -9,7 +9,6 @@ import Checkbox from '../elements/MyCheckBox';
 import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as forms from '../forms.js';
-import * as messages from '../messages';
 import * as Options from '../subcomponents/Options';
 import formStoreKeys from '../../constants/formStoreKeys';
 import fields from '../fields';
@@ -17,6 +16,7 @@ import fields from '../fields';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import SubmissionFeedback from '../SubmissionFeedback';
 
 
 
@@ -25,7 +25,6 @@ class SamplesInsertForm extends React.PureComponent {
         super();
         this.table = "samples";
         this.form = formStoreKeys.SAMPLES_INSERT_FORM;
-        this.state = forms.defaultFormState;
     }
 
     static propTypes = {
@@ -42,15 +41,14 @@ class SamplesInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        forms.submit(this, this.form, this.table, null);
+        forms.submit(this.form, this.table, null);
     }
 
     render() {
         return (
             <form className={css.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -63,7 +61,6 @@ class SamplesInsertForm extends React.PureComponent {
                             label="Name"
                             required
                             validator = {validators.mediumStringValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -76,7 +73,6 @@ class SamplesInsertForm extends React.PureComponent {
                             label="Short name"
                             required
                             validator = {validators.shortStringValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -87,7 +83,6 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             suffix="all"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -100,7 +95,6 @@ class SamplesInsertForm extends React.PureComponent {
                         <Options.Taxonomies
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -110,7 +104,6 @@ class SamplesInsertForm extends React.PureComponent {
                         <Options.SampleTypes
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -130,7 +123,6 @@ class SamplesInsertForm extends React.PureComponent {
                         <Options.QuantifMethods
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -146,7 +138,6 @@ class SamplesInsertForm extends React.PureComponent {
                             label="Concentration"
                             required
                             validator = {validators.numberValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -159,7 +150,6 @@ class SamplesInsertForm extends React.PureComponent {
                             label="Volume"
                             required
                             validator = {validators.numberValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -172,7 +162,6 @@ class SamplesInsertForm extends React.PureComponent {
                             label="RIN"
                             required
                             validator = {validators.numberValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -183,7 +172,6 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.RATIO_260_280}
                             label="Ratio 260/280"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -194,7 +182,6 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.RATIO_260_230}
                             label="Ratio 260/230"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -209,7 +196,6 @@ class SamplesInsertForm extends React.PureComponent {
                             field={fields.DESCRIPTION}
                             label="Description"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -223,7 +209,6 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT}
                             label="Comment"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -237,7 +222,6 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT_CUSTOMER}
                             label="Internal comment"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

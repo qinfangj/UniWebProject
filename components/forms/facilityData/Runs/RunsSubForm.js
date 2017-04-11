@@ -66,7 +66,7 @@ class RunsSubForm extends React.PureComponent {
             // fill
             libsArray.map((lib, libIdx) => {
                 // One library
-                let project = forms.getFormValue(this.form, this._projectsFormKey(N, libIdx));
+                let project = store.getState().forms[this.form][this._projectsFormKey(N, libIdx)];
                 let library = lib.library.getValue();
                 let quantity = lib.quantity.getValue();
                 let quality = lib.quality.getValue();

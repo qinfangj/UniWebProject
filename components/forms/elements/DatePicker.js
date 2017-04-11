@@ -16,7 +16,7 @@ class DatePicker extends React.PureComponent {
 
     onChange(e) {
         let value = e.target.value;
-        this.props.changeFormValue(this.props.form, this.props.field, value);
+        this.props.changeFormValue(this.props.form, this.props.field, value, true);
     }
 
     render() {

@@ -74,6 +74,8 @@ let formReducers = (state = defaultState, action) => {
             newState = {...state};
             form = action.form;
             newState[form] = initFacilityData()[form];
+            // Keep the submission state
+            newState[form]._submission = state[form]._submission;
             return newState;
 
         case types.forms.CHANGE_FORM_VALUE:

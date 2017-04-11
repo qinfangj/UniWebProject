@@ -8,7 +8,6 @@ import Checkbox from '../elements/MyCheckBox';
 import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as forms from '../forms.js';
-import * as messages from '../messages';
 import * as Options from '../subcomponents/Options';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 import formStoreKeys from '../../constants/formStoreKeys';
@@ -17,6 +16,7 @@ import fields from '../fields';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import SubmissionFeedback from '../SubmissionFeedback';
 
 
 
@@ -25,7 +25,6 @@ class LibrariesInsertForm extends React.PureComponent {
         super();
         this.table = "libraries";
         this.form = formStoreKeys.LIBRARIES_INSERT_FORM;
-        this.state = forms.defaultFormState;
         this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
     }
 
@@ -52,15 +51,14 @@ class LibrariesInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        forms.submit(this, this.form, this.table, this.formatFormData);
+        forms.submit(this.form, this.table, this.formatFormData);
     }
 
     render() {
         return (
             <form className={css.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -70,7 +68,6 @@ class LibrariesInsertForm extends React.PureComponent {
                         <Options.ProjectsWithSamples
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -80,7 +77,6 @@ class LibrariesInsertForm extends React.PureComponent {
                         <SecondaryOptions.SamplesForProject
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -93,7 +89,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             label="Name"
                             required
                             validator = {validators.mediumStringValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -103,7 +98,6 @@ class LibrariesInsertForm extends React.PureComponent {
                         <Options.LibProtocols
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -115,7 +109,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             field={fields.STARTING_MATERIAL}
                             label="Starting material"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -141,7 +134,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             field={fields.BIOANALYSER_PEAK}
                             label="Bioanalyser peak"
                             validator = {validators.numberValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -154,7 +146,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             label="Frag.size(min)"
                             required
                             validator = {validators.numberValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -167,7 +158,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             label="Frag.size(max)"
                             required
                             validator = {validators.numberValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -179,7 +169,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             field={fields.CONCENTRATION}
                             label="Concentration"
                             validator = {validators.numberValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -190,7 +179,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.QUANTIF_METHOD_ID}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -206,7 +194,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             required
                             label="Multiplex index (I7)"
                             suffix="all"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -219,7 +206,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             required
                             label="Second index (I5)"
                             suffix="all"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -231,7 +217,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             field={fields.VOLUME}
                             label="Volume"
                             validator = {validators.numberValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -242,7 +227,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.ADAPTER_ID}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -253,7 +237,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.KITS_LOTS}
                             label="Illumina kits and lots"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -267,7 +250,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT}
                             label="Comment"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -290,7 +272,6 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT_CUSTOMER}
                             label="Internal comment"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

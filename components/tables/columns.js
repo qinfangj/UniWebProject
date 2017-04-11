@@ -1,18 +1,18 @@
 "use strict";
 import React from 'react';
-import * as formatters from '../formatters';
-import { CENTER, ID_COLUMN } from '../constants';
+import * as formatters from './formatters';
+import { CENTER, ID_COLUMN } from './constants';
 import { Link } from 'react-router';
+import tableNames from './tableNames';
 
 
 // See React cell rendering with Ag-Grid: https://www.ag-grid.com/javascript-grid-cell-rendering/
 function idColumnWithUpdateLink(tableName,domain) {
-    //make different category links: facilityData,AdminData, etc
-    let linkName= (domain===undefined? 'data/'.concat(tableName): domain + '/' + tableName);
+    // Make different category links: facilityData, AdminData, etc
+    let linkName = (domain === undefined ? 'data/'.concat(tableName) : domain +'/'+ tableName);
     return Object.assign({}, ID_COLUMN, {
         cellRendererFramework: IdColumnWithUpdateLink,
         cellRendererParams: {tableName: linkName}
-
     });
 }
 
@@ -24,19 +24,17 @@ class IdColumnWithUpdateLink extends React.Component {
     }
 }
 
-var headerRenderer = function(params)
-{
-    var eHeader = document.createElement('span');
-    var eTitle = document.createTextNode(params.colDef.headerName);
-
+function headerRenderer(params) {
+    let eHeader = document.createElement('span');
+    let eTitle = document.createTextNode(params.colDef.headerName);
     eHeader.appendChild(eTitle);
     eHeader.style.float = 'left';
-
     return eHeader;
-};
+}
+
 
 const columns = {
-    users: [
+    [tableNames.USERS]: [
         idColumnWithUpdateLink("users","admin"),
         {
             headerName: "Login",
@@ -78,7 +76,7 @@ const columns = {
         },
     ],
     //add admin tables columns
-    project_sharings: [
+    [tableNames.PROJECT_SHARINGS]: [
         idColumnWithUpdateLink("project_sharings","admin"),
         {
             headerName: "Collaborator",
@@ -96,7 +94,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    analysis_types: [
+    [tableNames.ANALYSIS_TYPES]: [
         idColumnWithUpdateLink("analysis_types","admin"),
         {
             headerName: "Description",
@@ -116,7 +114,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    flowcell_types: [
+    [tableNames.FLOWCELL_TYPES]: [
         idColumnWithUpdateLink("flowcell_types","admin"),
         {
             headerName: "Version",
@@ -124,7 +122,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    instruments: [
+    [tableNames.INSTRUMENTS]: [
         idColumnWithUpdateLink("instruments","admin"),
         {
             headerName: "Internal Name",
@@ -147,7 +145,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    library_adapters: [
+    [tableNames.LIBRARY_ADAPTERS]: [
         idColumnWithUpdateLink("library_adapters","admin"),
         {
             headerName: "Name",
@@ -160,7 +158,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    lib_protocols: [
+    [tableNames.LIB_PROTOCOLS]: [
         idColumnWithUpdateLink("library_protocols","admin"),
         {
             headerName: "Name",
@@ -193,7 +191,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    library_states: [
+    [tableNames.LIBRARY_STATES]: [
         idColumnWithUpdateLink("library_states","admin"),
         {
             headerName: "State Order",
@@ -211,7 +209,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    mapping_tools: [
+    [tableNames.MAPPING_TOOLS]: [
         idColumnWithUpdateLink("mapping_tools","admin"),
         {
             headerName: "Name",
@@ -229,7 +227,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    multiplex_indexes: [
+    [tableNames.MULTIPLEX_INDEXES]: [
         idColumnWithUpdateLink("multiplex_indexes","admin"),
         {
             headerName: "Name",
@@ -262,7 +260,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    pipeline_versions: [
+    [tableNames.PIPELINE_VERSIONS]: [
         idColumnWithUpdateLink("pipeline_versions","admin"),
         {
             headerName: "Software Name",
@@ -280,7 +278,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    project_analysis: [
+    [tableNames.PROJECT_ANALYSIS]: [
         idColumnWithUpdateLink("project_analysis","admin"),
         {
             headerName: "Name",
@@ -298,7 +296,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    project_states: [
+    [tableNames.PROJECT_STATES]: [
         idColumnWithUpdateLink("project_states","admin"),
         {
             headerName: "State Order",
@@ -316,7 +314,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    quantif_methods: [
+    [tableNames.QUANTIF_METHODS]: [
         idColumnWithUpdateLink("quantif_methods","admin"),
         {
             headerName: "Name",
@@ -325,7 +323,7 @@ const columns = {
         }
 
     ],
-    read_lengths: [
+    [tableNames.READ_LENGTHS]: [
         idColumnWithUpdateLink("read_lengths","admin"),
         {
             headerName: "Length",
@@ -334,7 +332,7 @@ const columns = {
         }
 
     ],
-    run_types: [
+    [tableNames.RUN_TYPES]: [
         idColumnWithUpdateLink("run_types","admin"),
         {
             headerName: "Name",
@@ -343,7 +341,7 @@ const columns = {
         }
 
     ],
-    run_types_lengths: [
+    [tableNames.RUN_TYPES_LENGTHS]: [
         idColumnWithUpdateLink("run_types_lengths","admin"),
         {
             headerName: "Run Type",
@@ -362,7 +360,7 @@ const columns = {
         }
 
     ],
-    sample_types: [
+    [tableNames.SAMPLE_TYPES]: [
         idColumnWithUpdateLink("sample_types","admin"),
         {
             headerName: "Name",
@@ -371,7 +369,7 @@ const columns = {
         }
 
     ],
-    sequencing_kit_versions: [
+    [tableNames.SEQUENCING_KIT_VERSIONS]: [
         idColumnWithUpdateLink("sequencing_kit_versions","admin"),
         {
             headerName: "Version",
@@ -385,7 +383,7 @@ const columns = {
         }
 
     ],
-    sequencing_qualities: [
+    [tableNames.SEQUENCING_QUALITIES]: [
         idColumnWithUpdateLink("sequencing_qualities","admin"),
         {
             headerName: "Name",
@@ -404,7 +402,7 @@ const columns = {
         }
 
     ],
-    taxonomies: [
+    [tableNames.TAXONOMIES]: [
         idColumnWithUpdateLink("taxonomies","admin"),
         {
             headerName: "Name",
@@ -423,7 +421,7 @@ const columns = {
         }
 
     ],
-    projects: [
+    [tableNames.PROJECTS]: [
         idColumnWithUpdateLink("projects"),
         {
             headerName: "Name",
@@ -439,7 +437,7 @@ const columns = {
             field: "author",
         },
     ],
-    people: [
+    [tableNames.PEOPLE]: [
         idColumnWithUpdateLink("people"),
         {
             headerName: "PI name",
@@ -452,7 +450,7 @@ const columns = {
             field: "email",
         }
     ],
-    genomes: [
+    [tableNames.GENOMES]: [
         idColumnWithUpdateLink("genomes"),
         {
             headerName: "Organism",
@@ -474,7 +472,7 @@ const columns = {
             field: "genome_folder",
         },
     ],
-    samples: [
+    [tableNames.SAMPLES]: [
         idColumnWithUpdateLink("samples"),
         {
             headerName: "Short name",
@@ -500,7 +498,7 @@ const columns = {
             field: "laboratory",
         },
     ],
-    libraries: [
+    [tableNames.LIBRARIES]: [
         idColumnWithUpdateLink("libraries"),
         {
             headerName: "Name",
@@ -533,7 +531,7 @@ const columns = {
             cellStyle: CENTER,
         },
     ],
-    runs: [
+    [tableNames.RUNS]: [
         idColumnWithUpdateLink("runs"),
         {
             headerName: "Run folder",
@@ -559,7 +557,7 @@ const columns = {
             cellStyle: CENTER,
         },
     ],
-    user_requests: [
+    [tableNames.USER_REQUESTS]: [
         idColumnWithUpdateLink("user_requests"),
         {
             headerName: "Sample",
@@ -590,7 +588,7 @@ const columns = {
             field: "submitter",
         },
     ],
-    bioanalysers: [
+    [tableNames.BIOANALYSERS]: [
         idColumnWithUpdateLink("bioanalysers"),
         {
             headerName: "Date",
@@ -601,7 +599,7 @@ const columns = {
             field: "filename",
         },
     ],
-    basecallings: [
+    [tableNames.BASECALLINGS]: [
         idColumnWithUpdateLink("basecallings"),
         {
             headerName: "Run folder",
@@ -622,7 +620,7 @@ const columns = {
             field: "analysis_type",
         },
     ],
-    alignments: [
+    [tableNames.ALIGNMENTS]: [
         idColumnWithUpdateLink("alignments"),
         {
             headerName: "Run folder",

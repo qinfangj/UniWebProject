@@ -21,17 +21,3 @@ ReactDOM.render(routesWithStore, container);
 // https://github.com/ftlabs/fastclick
 FastClick.attach(document.body);
 
-// // Enable Hot Module Replacement (HMR)
-// if (module.hot) {
-//   module.hot.accept('./routes.json', () => {
-//     routes = require('./routes.json'); // eslint-disable-line global-require
-//     render(history.getCurrentLocation());
-//   });
-// }
-// if (module.hot) {
-//     module.hot.accept('./App', () => {
-//         // Require the new version and render it instead
-//         var NextApp = require('./App');
-//         ReactDOM.render(<NextApp />, rootEl);
-//     });
-// }

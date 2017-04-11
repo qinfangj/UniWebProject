@@ -22,7 +22,6 @@ let authReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
-                user: action.creds,
             });
 
         case types.LOGIN_SUCCESS:
@@ -53,7 +52,6 @@ let authReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
-                user: action.creds,
             });
 
         case types.SIGNUP_SUCCESS:

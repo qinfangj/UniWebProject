@@ -9,7 +9,6 @@ import TextArea from '../elements/Textarea';
 import * as Options from '../subcomponents/Options';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 import * as forms from '../forms.js';
-import * as messages from '../messages';
 import validators from '../validators';
 import formStoreKeys from '../../constants/formStoreKeys';
 import fields from '../fields';
@@ -17,6 +16,7 @@ import fields from '../fields';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import SubmissionFeedback from '../SubmissionFeedback';
 
 
 
@@ -25,7 +25,6 @@ class UserRequestsInsertForm extends React.PureComponent {
         super();
         this.table = "user_requests";
         this.form = formStoreKeys.USER_REQUESTS_INSERT_FORM;
-        this.state = forms.defaultFormState;
         this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
     }
 
@@ -51,15 +50,14 @@ class UserRequestsInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        forms.submit(this, this.form, this.table, this.formatFormData);
+        forms.submit(this.form, this.table, this.formatFormData);
     }
 
     render() {
         return (
             <form className={css.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -69,7 +67,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                         <Options.ProjectsWithSamples
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -79,7 +76,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                         <SecondaryOptions.SamplesForProject
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -91,7 +87,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                             field={fields.INSERT_SIZE_MIN}
                             label="Insert size min"
                             validator = {validators.integerValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
                     <Col sm={2} className={css.formCol}>
@@ -100,7 +95,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                             field={fields.INSERT_SIZE_MAX}
                             label="Insert size max"
                             validator = {validators.integerValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -113,7 +107,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                         <Options.LibProtocols
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -126,7 +119,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                             label="Multiplexing group"
                             required
                             validator = {validators.shortStringValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -137,7 +129,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                             form={this.form}
                             required
                             suffix="all"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -150,7 +141,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                             label="Nb of lanes"
                             required
                             validator={validators.integerValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -163,7 +153,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                             label="Multiplex#"
                             required
                             validator={validators.integerValidator}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -187,7 +176,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT}
                             label="Comment"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

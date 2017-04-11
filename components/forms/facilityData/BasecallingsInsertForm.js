@@ -9,14 +9,13 @@ import TextArea from '../elements/Textarea';
 import Select from '../elements/Select';
 import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
-import * as messages from '../messages';
-import validators from '../validators';
 import formStoreKeys from '../../constants/formStoreKeys';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import SubmissionFeedback from '../SubmissionFeedback';
 
 
 
@@ -25,7 +24,6 @@ class BasecallingsInsertForm extends React.PureComponent {
         super();
         this.table = "basecallings";
         this.form = formStoreKeys.BASECALLINGS_INSERT_FORM;
-        this.state = forms.defaultFormState;
     }
 
     static propTypes = {
@@ -42,15 +40,14 @@ class BasecallingsInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        forms.submit(this, this.form, this.table, null);
+        forms.submit(this.form, this.table, null);
     }
 
     render() {
         return (
             <form className={css.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -60,7 +57,6 @@ class BasecallingsInsertForm extends React.PureComponent {
                         <Options.RunsOutputFolders
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -70,7 +66,6 @@ class BasecallingsInsertForm extends React.PureComponent {
                         <Options.PipelineVersions
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -80,7 +75,6 @@ class BasecallingsInsertForm extends React.PureComponent {
                         <Options.PipelineAnalysisTypes
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -93,7 +87,6 @@ class BasecallingsInsertForm extends React.PureComponent {
                             required
                             label="Control lane"
                             options={[[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']]}
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -104,7 +97,6 @@ class BasecallingsInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.IS_DEMULTIPLEXING}
                             label="Demultiplexing"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -120,7 +112,6 @@ class BasecallingsInsertForm extends React.PureComponent {
                             field={fields.UNALIGNED_OUTPUT_DIR}
                             label="Unaligned data output folder"
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -134,7 +125,6 @@ class BasecallingsInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT}
                             label="Comment"
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 

@@ -9,17 +9,14 @@ import TextArea from '../elements/Textarea';
 import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
 import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
-import * as messages from '../messages';
-import validators from '../validators';
 import formStoreKeys from '../../constants/formStoreKeys';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import SubmissionFeedback from '../SubmissionFeedback';
 
-//import facilityDataModels from './formModels';
-//const models = facilityDataModels.alignments;
 
 
 class AlignmentsInsertForm extends React.PureComponent {
@@ -27,7 +24,6 @@ class AlignmentsInsertForm extends React.PureComponent {
         super();
         this.table = "alignments";
         this.form = formStoreKeys.ALIGNMENTS_INSERT_FORM;
-        this.state = forms.defaultFormState;
     }
 
     static propTypes = {
@@ -44,15 +40,14 @@ class AlignmentsInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        forms.submit(this, this.form, this.table, null);
+        forms.submit(this.form, this.table, null);
     }
 
     render() {
         return (
             <form className={css.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -62,7 +57,6 @@ class AlignmentsInsertForm extends React.PureComponent {
                         <Options.PipelineAnalysisTypes
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -72,7 +66,6 @@ class AlignmentsInsertForm extends React.PureComponent {
                         <Options.RunsOutputFolders
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -82,7 +75,6 @@ class AlignmentsInsertForm extends React.PureComponent {
                         <SecondaryOptions.BasecallingsOutputFolders
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -95,7 +87,6 @@ class AlignmentsInsertForm extends React.PureComponent {
                         <Options.MappingTools
                             form={this.form}
                             required
-                            submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -106,7 +97,6 @@ class AlignmentsInsertForm extends React.PureComponent {
                                    field={fields.ELAND_OUTPUT_DIR}
                                    label="Alignment output folder"
                                    required
-                                   submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -114,7 +104,6 @@ class AlignmentsInsertForm extends React.PureComponent {
                         <Checkbox form={this.form}
                                   field={fields.HAS_QC_PDFS}
                                   label="QC report"
-                                  submissionError = {this.state.submissionError}
                         />
                     </Col>
 
@@ -125,7 +114,6 @@ class AlignmentsInsertForm extends React.PureComponent {
 
                     <Col sm={12} className={css.formCol}>
                         <TextArea form={this.form} field={fields.CONFIG_FILE_CONTENT} label="Config file content" required
-                                  submissionError = {this.state.submissionError}
                                   defaultValue = "ANALYSIS xxx\nUSE_BASES xxx"
                         />
                     </Col>
@@ -137,7 +125,6 @@ class AlignmentsInsertForm extends React.PureComponent {
 
                     <Col sm={12} className={css.formCol}>
                         <TextArea field={fields.COMMENT} label="Comment" form={this.form}
-                                  submissionError = {this.state.submissionError}
                         />
                     </Col>
 

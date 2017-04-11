@@ -12,7 +12,7 @@ import validators from '../../validators';
 import * as forms from '../../forms.js';
 import * as Options from '../../subcomponents/Options';
 import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
-import * as messages from '../../messages';
+import SubmissionFeedback from '../../messages';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -31,7 +31,6 @@ class RunsPreInsertForm extends React.PureComponent {
         this.table = "runs";
         this.form = "pre-runs";
         this.required = [""];
-        this.state = forms.defaultFormState;
         this.lanesRefs = range8.map((i) => {
             return {
                 lane_nb: i + 1,
@@ -92,7 +91,7 @@ class RunsPreInsertForm extends React.PureComponent {
                 lane_nb: lane.lane_nb,
                 nlibs: lane.nlibs.getValue(),
                 nqc: lane.nqc.getValue(),
-                projectId: forms.getFormValue(this.form, this._projectsFormKey(i)),
+                projectId: store.getState().forms[this.form][this._projectsFormKey(i)],
                 libraryPoolId: lane.pool.getValue(),
             };
         });
@@ -145,7 +144,8 @@ class RunsPreInsertForm extends React.PureComponent {
 
         return (
             <form className={formsCss.form}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
+
+                <SubmissionFeedback form={this.form} />
 
                 <table className={css.preRunsInsertTable}>
                     <thead><tr>
