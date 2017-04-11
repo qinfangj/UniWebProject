@@ -34,7 +34,7 @@ function headerRenderer(params) {
 
 
 const columns = {
-    users: [
+    [tableNames.USERS]: [
         idColumnWithUpdateLink("users","admin"),
         {
             headerName: "Login",
@@ -63,7 +63,7 @@ const columns = {
         }
     ],
     //add admin tables columns
-    project_sharings: [
+    [tableNames.PROJECT_SHARINGS]: [
         idColumnWithUpdateLink("project_sharings","admin"),
         {
             headerName: "Collaborator",
@@ -81,7 +81,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    analysis_types: [
+    [tableNames.ANALYSIS_TYPES]: [
         idColumnWithUpdateLink("analysis_types","admin"),
         {
             headerName: "Description",
@@ -101,7 +101,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    flowcell_types: [
+    [tableNames.FLOWCELL_TYPES]: [
         idColumnWithUpdateLink("flowcell_types","admin"),
         {
             headerName: "Version",
@@ -109,7 +109,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    instruments: [
+    [tableNames.INSTRUMENTS]: [
         idColumnWithUpdateLink("instruments","admin"),
         {
             headerName: "Internal Name",
@@ -132,7 +132,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    library_adapters: [
+    [tableNames.LIBRARY_ADAPTERS]: [
         idColumnWithUpdateLink("library_adapters","admin"),
         {
             headerName: "Name",
@@ -145,7 +145,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    lib_protocols: [
+    [tableNames.LIB_PROTOCOLS]: [
         idColumnWithUpdateLink("library_protocols","admin"),
         {
             headerName: "Name",
@@ -178,7 +178,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    library_states: [
+    [tableNames.LIBRARY_STATES]: [
         idColumnWithUpdateLink("library_states","admin"),
         {
             headerName: "State Order",
@@ -196,7 +196,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    mapping_tools: [
+    [tableNames.MAPPING_TOOLS]: [
         idColumnWithUpdateLink("mapping_tools","admin"),
         {
             headerName: "Name",
@@ -214,7 +214,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    multiplex_indexes: [
+    [tableNames.MULTIPLEX_INDEXES]: [
         idColumnWithUpdateLink("multiplex_indexes","admin"),
         {
             headerName: "Name",
@@ -247,7 +247,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    pipeline_versions: [
+    [tableNames.PIPELINE_VERSIONS]: [
         idColumnWithUpdateLink("pipeline_versions","admin"),
         {
             headerName: "Software Name",
@@ -265,7 +265,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    project_analysis: [
+    [tableNames.PROJECT_ANALYSIS]: [
         idColumnWithUpdateLink("project_analysis","admin"),
         {
             headerName: "Name",
@@ -283,7 +283,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    project_states: [
+    [tableNames.PROJECT_STATES]: [
         idColumnWithUpdateLink("project_states","admin"),
         {
             headerName: "State Order",
@@ -301,7 +301,7 @@ const columns = {
             headerCellRenderer: headerRenderer
         }
     ],
-    quantif_methods: [
+    [tableNames.QUANTIF_METHODS]: [
         idColumnWithUpdateLink("quantif_methods","admin"),
         {
             headerName: "Name",
@@ -310,7 +310,7 @@ const columns = {
         }
 
     ],
-    read_lengths: [
+    [tableNames.READ_LENGTHS]: [
         idColumnWithUpdateLink("read_lengths","admin"),
         {
             headerName: "Length",
@@ -319,7 +319,7 @@ const columns = {
         }
 
     ],
-    run_types: [
+    [tableNames.RUN_TYPES]: [
         idColumnWithUpdateLink("run_types","admin"),
         {
             headerName: "Name",
@@ -328,7 +328,7 @@ const columns = {
         }
 
     ],
-    run_types_lengths: [
+    [tableNames.RUN_TYPES_LENGTHS]: [
         idColumnWithUpdateLink("run_types_lengths","admin"),
         {
             headerName: "Run Type",
@@ -347,7 +347,7 @@ const columns = {
         }
 
     ],
-    sample_types: [
+    [tableNames.SAMPLE_TYPES]: [
         idColumnWithUpdateLink("sample_types","admin"),
         {
             headerName: "Name",
@@ -356,7 +356,7 @@ const columns = {
         }
 
     ],
-    sequencing_kit_versions: [
+    [tableNames.SEQUENCING_KIT_VERSIONS]: [
         idColumnWithUpdateLink("sequencing_kit_versions","admin"),
         {
             headerName: "Version",
@@ -370,7 +370,7 @@ const columns = {
         }
 
     ],
-    sequencing_qualities: [
+    [tableNames.SEQUENCING_QUALITIES]: [
         idColumnWithUpdateLink("sequencing_qualities","admin"),
         {
             headerName: "Name",
@@ -389,7 +389,7 @@ const columns = {
         }
 
     ],
-    taxonomies: [
+    [tableNames.TAXONOMIES]: [
         idColumnWithUpdateLink("taxonomies","admin"),
         {
             headerName: "Name",
