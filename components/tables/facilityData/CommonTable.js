@@ -40,7 +40,7 @@ class CommonTable extends React.PureComponent {
         table: React.PropTypes.string.isRequired,  // database table name - to fetch the content
         activeOnly: React.PropTypes.bool,  // whether it should call ?active=true when fetching the content
         data: React.PropTypes.array,  // the table content (an array of row objects)
-        showLoading: React.PropTypes.bool,  // loading spinner
+        isLoading: React.PropTypes.bool,  // loading spinner
         formatter: React.PropTypes.func,  // to reformat the data so that it fits the columns definition
         form: React.PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
     };
@@ -89,40 +89,6 @@ class CommonTable extends React.PureComponent {
         this.setState({searchValue: value});
     }
 
-    // /* Because onScrollEnd only knows startPixel and endPixel, and refers to the first displayed row,
-    //  it is not trival to recover the currend row index, even knowing the row height. So we record the
-    //  row index in rowGetter and use it here. */
-    // _onScrollEnd() {
-    //     var nVariants = VariantStore.size();
-    //     var rowIndex = this.rowIndex;
-    //     if (!VariantStore.isLoadingNextRowBatch() && !VariantStore.noMoreVariantsToLoad()
-    //         && nVariants > 0 && rowIndex+1 === nVariants) {
-    //         VariantActions.loadNextRowBatch(Api.getDb(), nVariants, Api.variantUrlArgs());
-    //     }
-    // }
-
-    // _createDataSource() {
-    //     let _this = this;
-    //     console.debug("init data source")
-    //     return {
-    //         rowCount: null, // behave as infinite scroll
-    //         getRows: function (params) {
-    //             console.log('asking for ' + params.startRow + ' to ' + params.endRow);
-    //             _this.props.getTableDataAsync(_this.props.table, _this.props.dataStoreKey, _this.props.activeOnly,
-    //                 params.endRow - params.startRow, params.startRow, null, null)
-    //             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."))
-    //             .done((data) => {
-    //                 // It will only continue fetching if lastRow == -1
-    //                 let lastRow = -1;
-    //                 if (data.length <= params.endRow) {
-    //                     lastRow = data.length;
-    //                 }
-    //                 params.successCallback(data, lastRow);
-    //             }, 500);
-    //         }
-    //     };
-    // };
-
     onScroll(e) {
         let _this = this;
         let nodes = this.api.getRenderedNodes();
@@ -130,16 +96,11 @@ class CommonTable extends React.PureComponent {
         let lastRowIndex = parseInt(nodes[nodes.length-1].id);
         let threshold = dataLength - 10;
         //console.debug(nodes.length, nodes[0].id, nodes[nodes.length-1].id, [threshold, lastRowIndex + 1], this.wait)
-        if (!this.wait && lastRowIndex > threshold) {
-            /* Lock until the current query is done */
-            this.wait = true;
-            console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`)
+        /* If past the threshold, query the next batch of rows. Lock until the current query is done. */
+        if (!this.props.isLoading && !this.props.allLoaded && lastRowIndex > threshold) {
+            console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
             _this.props.getTableDataAsync(_this.props.table, _this.props.dataStoreKey, _this.props.activeOnly,
-                dataLength + this.nrowsPerQuery, dataLength, null, null)
-            .done(() => {
-                /* Unlock, unless if no more data to load */
-                this.wait = this.props.allLoaded;
-            });
+                dataLength + this.nrowsPerQuery, dataLength, null, null);
         }
     }
 
@@ -205,7 +166,7 @@ class CommonTable extends React.PureComponent {
 CommonTable.defaultProps = {
     activeOnly: false,
     data: [],
-    showLoading: false,
+    isLoading: false,
     formatter: (data) => data,
 };
 
@@ -213,7 +174,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         data: state.facilityData[ownProps.dataStoreKey].data,
         allLoaded: state.facilityData[ownProps.dataStoreKey].allLoaded,
-        showLoading: state.facilityData.showLoading,
+        isLoading: state.facilityData.isLoading,
     };
 };
 

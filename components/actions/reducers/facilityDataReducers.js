@@ -22,9 +22,9 @@ let facilityDataReducers = (state = defaultState, action) => {
         case types.facilityData.GET_TABLE_DATA:
             let storeKey = action.args.storeKey;
             if (action.status === constants.PENDING) {
-                return {...state, showLoading: true, error: null};
+                return {...state, isLoading: true, error: null};
             } else if (action.status === constants.ERROR) {
-                return {...state, ...{[storeKey]: {data: []}, showLoading: false, error: action.response}};
+                return {...state, ...{[storeKey]: {data: []}, isLoading: false, error: action.response}};
             } else if (action.status === constants.SUCCESS) {
 
                 let current = state[storeKey];
@@ -32,19 +32,16 @@ let facilityDataReducers = (state = defaultState, action) => {
                 let newData = action.response;
 
                 let allLoaded = newData.length === 0;
-                if (allLoaded) {
-                    console.info("End of data!")
-                }
+                if (allLoaded) { console.info("End of data!"); }
 
                 /* We want infinite scrolling, so
-                    - reset the data if no offset is queried
-                    - keep the previous data if we ask for more
+                    - reset the data if no offset is queried;
+                    - append to the previous data if we ask for more.
                  */
                 if (action.args.offset !== 0) {
-                    //console.debug("Extend data", currentData.length, '+', newData.length, '->', currentData.length + newData.length);
                     newData = [...currentData, ...newData];
                 }
-                return {...state, ...{[storeKey]: {data: newData, allLoaded}, showLoading: false, error: null}};
+                return {...state, ...{[storeKey]: {data: newData, allLoaded}, isLoading: false, error: null}};
 
             } else {
                 return state;
