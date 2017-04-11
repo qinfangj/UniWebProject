@@ -54,3 +54,23 @@
     margin: 0.5rem 0;
 }
 
+.table {
+    width:50%;
+    margin-left:25%;
+    margin-right:25%;
+    border: 1px solid grey;
+    border-collapse: collapse;
+}
+.th {
+    width: 30%;
+    background :#66afe9;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.td {
+    width: 70%;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+

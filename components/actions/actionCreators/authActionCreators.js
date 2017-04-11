@@ -3,6 +3,7 @@ import actions from '../actionTypes';
 let types = actions.login;
 import RestService from '../../../utils/RestService';
 import AuthService from '../../../utils/AuthService';
+import { asyncAction } from './base';
 
 
 /* Login */
@@ -139,6 +140,12 @@ export function changePassword(code, email, newPassword) {
             }).catch(err => console.log('Error changing password: ' + JSON.stringify(err, null, 2)));
     }
 }
+
+export function getLoginDetails() {
+    let args = {storeKey:'accountProfile'};
+    return asyncAction(types.GET_ACCOUNT_PROFILE, RestService.getLoginDetails.bind(null), args);
+}
+
 
 
 

@@ -1,6 +1,7 @@
 "use strict";
 import actionTypes from '../actionTypes';
 import constants from '../../constants/constants';
+import returnList from './base';
 import AuthService from '../../../utils/AuthService';
 const types = actionTypes.login;
 
@@ -71,6 +72,12 @@ let authReducers = (state = defaultState, action) => {
 
         case types.RESET_PASSWORD_REQUEST:
             return state;
+
+        /* Get login details */
+
+        case types.GET_ACCOUNT_PROFILE:
+            return returnList(action, state, action.args.storeKey, []);
+
 
         default:
             return state;
