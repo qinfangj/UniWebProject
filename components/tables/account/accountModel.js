@@ -4,7 +4,7 @@ const accountModel = {
         [
             {
                 "label": "Login Name",
-                "name": "login"
+                "name": "username"
             },
             {
                 "label": "First Name",
@@ -16,8 +16,7 @@ const accountModel = {
             },
             {
                 "label": "Laboratory",
-                "name": "laboratory"
-
+                "name": ["piFirstName", "piLastName"]
             },
             {
                 "label": "Phone",
