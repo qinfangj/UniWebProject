@@ -14,6 +14,11 @@ class AdminData extends React.PureComponent {
         content: React.PropTypes.node,             // the component (table, form, etc.) to display inside.
     };
 
+    open (messege){
+//        window.open('aa', 'sharer', 'toolbar=0,status=0,width=548,height=325');
+        window.confirm("Do you accept?");
+
+    }
     render() {
         let name = this.props.name;
         return (
@@ -29,7 +34,9 @@ class AdminData extends React.PureComponent {
                             <li><Link to={`/admin/${name}/list`} activeClassName={css.active}>{"All "+ name}</Link></li>
                             { name !== "users" ?
                                 <div><li> · </li>
-                                <li><Link to={`/admin/${name}/new`} activeClassName={css.active}>{"New "+ name}</Link></li> </div>: null}
+                                <li><Link to={`/admin/${name}/new`} activeClassName={css.active}>{"New "+ name}</Link></li> </div>:
+                                <div><li> · </li>
+                                <li><Link to={`/admin/${name}/unvalidated`} activeClassName={css.active} onClick={this.open}>{"delete unvalidated "+ name} </Link></li> </div>}
                         </ul>
                     </div>
 

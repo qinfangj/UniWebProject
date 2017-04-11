@@ -62,7 +62,20 @@ const columns = {
             headerName: "Laboratory",
             field: "piFirstName",
             headerCellRenderer: headerRenderer
-        }
+        },
+        {
+            headerName: "Validated",
+            field: "isvalidated",
+            headerCellRenderer: headerRenderer,
+            cellStyle: function(params) {
+                if (params.value == true) {
+                    //mark validated user as red
+                    return {backgroundColor: 'lightblue'};
+                } else {
+                    return {backgroundColor: 'red'};
+                }
+            }
+        },
     ],
     //add admin tables columns
     project_sharings: [
