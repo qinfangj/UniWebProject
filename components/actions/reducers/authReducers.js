@@ -1,6 +1,7 @@
 "use strict";
 import actionTypes from '../actionTypes';
 import constants from '../../constants/constants';
+import returnList from './base';
 import AuthService from '../../../utils/AuthService';
 const types = actionTypes.login;
 
@@ -73,6 +74,24 @@ let authReducers = (state = defaultState, action) => {
 
         case types.RESET_PASSWORD_REQUEST:
             return state;
+
+        /* Get login details */
+
+        case types.GET_LOGIN_DETAILS:
+            return returnList(action, state, action.args.storeKey, []);
+
+
+        // return Object.assign({}, state, {
+            //    loginDetails: action.response
+            // loginDetails: {
+            //     firstName:'Qinfang',
+            //     lastName: 'Jolliet',
+            //     laboratory: 'Lausanne Genomic Technologies Facility',
+            //     address: 'Genopode',
+            //     email: 'qinfang.jolliet@unil.ch',
+            //     login: 'qinfang'
+            // }}
+        //);
 
         default:
             return state;

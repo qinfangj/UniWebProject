@@ -179,6 +179,13 @@ class RestService {
         return fetch(window.ENV.BACKEND_URL + '/account/changePassword', config);
     }
 
+    getLoginDetails() {
+        let url = `${BACKEND}/account/profile`;
+        console.info(url);
+        return get(url);
+    }
+
+
 }
 
 
