@@ -3,17 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import adminCss from '../../forms/adminData/adminForm.css';
-import cx from 'classnames';
-import store from '../../../core/store';
-import * as constants from '../constants';
-import dataStoreKeys from '../../constants/dataStoreKeys';
 import { getLoginDetails } from '../../actions/actionCreators/authActionCreators';
-import accountModel from './accountModel'
-
-import Dimensions from 'react-dimensions';
-
-
-
+import accountModel from './accountModel';
 
 class AccountTable extends React.Component {
     constructor(props) {
@@ -21,32 +12,23 @@ class AccountTable extends React.Component {
 
     }
     static propTypes = {
-        loginDetails: React.PropTypes.object,
+        accountProfile: React.PropTypes.object,
     };
 
 
     componentWillMount() {
-        /* If data is already in store, use that one. Otherwise, call backend API. */
-        let loginDetails = this.props.loginDetails;
 
-        if (loginDetails && loginDetails.length > 0) {
-            this.setState({ loginDetails });
-        } else {
+        let accountProfile = this.props.accountProfile;
+
+        if (accountProfile !== undefined || accountProfile.length > 0) {
             this.props.getLoginDetails()
                 .fail(() => console.error("AccountTable.getLoginDetails() failed to load data."));
         }
 
     }
 
-    componentWillUpdate() {
-        this.api && this.api.doLayout();  // recalculate layout to fill the container div
-    }
-    componentDidUpdate() {
-        this.api && this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
-    }
-
     displayProfile(s) {
-        let data = this.props.loginDetails;
+        let data = this.props.accountProfile;
         let table;
 
         table = <tr key={s.name}><th className={adminCss.th}>{s.label}</th><td className={adminCss.td}>{data[s.name]}</td></tr>
@@ -57,9 +39,9 @@ class AccountTable extends React.Component {
     render() {
         let displayProfile;
         let userInfo = accountModel['userInfo'];
-        if (this.props.loginDetails !== undefined ) {
-            if (Object.keys(this.props.loginDetails).length > 0) {
-                let displayProfile = this.displayProfile(this.props.loginDetails);
+        if (this.props.accountProfile !== undefined ) {
+            if (Object.keys(this.props.accountProfile).length > 0) {
+                let displayProfile = this.displayProfile(this.props.accountProfile);
             }
         }
         return (
@@ -81,12 +63,12 @@ class AccountTable extends React.Component {
 }
 
 AccountTable.defaultProps = {
-    loginDetails: {}
+    accountProfile: {}
 };
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        loginDetails: Object.assign({},state.auth['loginDetails'])
+        accountProfile: Object.assign({},state.auth['accountProfile'])
     };
 };
 
@@ -97,4 +79,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(AccountTable));
+export default connect(mapStateToProps, mapDispatchToProps)(AccountTable);

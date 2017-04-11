@@ -77,21 +77,9 @@ let authReducers = (state = defaultState, action) => {
 
         /* Get login details */
 
-        case types.GET_LOGIN_DETAILS:
+        case types.GET_ACCOUNT_PROFILE:
             return returnList(action, state, action.args.storeKey, []);
 
-
-        // return Object.assign({}, state, {
-            //    loginDetails: action.response
-            // loginDetails: {
-            //     firstName:'Qinfang',
-            //     lastName: 'Jolliet',
-            //     laboratory: 'Lausanne Genomic Technologies Facility',
-            //     address: 'Genopode',
-            //     email: 'qinfang.jolliet@unil.ch',
-            //     login: 'qinfang'
-            // }}
-        //);
 
         default:
             return state;

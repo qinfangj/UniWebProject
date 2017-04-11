@@ -142,8 +142,8 @@ export function changePassword(code, email, newPassword) {
 }
 
 export function getLoginDetails() {
-    let args = {storeKey:'loginDetails'};
-    return asyncAction(types.GET_LOGIN_DETAILS, RestService.getLoginDetails.bind(null), args);
+    let args = {storeKey:'accountProfile'};
+    return asyncAction(types.GET_ACCOUNT_PROFILE, RestService.getLoginDetails.bind(null), args);
 }
 
 
