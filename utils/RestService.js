@@ -84,6 +84,9 @@ class RestService {
         }
         if (offset !== undefined && offset !== null) {
             options.push("offset="+ offset);
+            if (!limit) {
+                throw "Cannot OFFSET without a LIMIT";
+            }
         }
         if (orderBy) {
             options.push("orderBy="+ orderBy);

@@ -21,16 +21,13 @@ export function syncAction(type, status, response, args) {
 export function asyncAction(type, action, args) {
     return dispatch => {
         dispatch(syncAction(type, constants.PENDING, null, args));
-
-            return action(args)
-                .done(response => {
-                    dispatch(syncAction(type, constants.SUCCESS, response, args));
-                })
-                .fail(error => {
-                    dispatch(syncAction(type, constants.ERROR, error, args));
-                    //dispatch(sendError(error, "asyncAction"));
-                });
-
-
+        return action(args)
+            .done(response => {
+                dispatch(syncAction(type, constants.SUCCESS, response, args));
+            })
+            .fail(error => {
+                dispatch(syncAction(type, constants.ERROR, error, args));
+                //dispatch(sendError(error, "asyncAction"));
+            });
     }
 }

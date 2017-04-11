@@ -22,10 +22,13 @@ import DataLoadingIcon from '../../../utils/DataLoadingIcon';
 class CommonTable extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.nrowsPerBatch = 300;
-        this.gridHeight = 1200;
-        this.nVisibleRows = (constants.GRID_HEIGTH / constants.ROW_HEIGTH) - 1;
-        console.debug("n visible rows:", this.nVisibleRows)
+        this.gridHeight = 400;
+        this.nVisibleRows = (this.gridHeight / constants.ROW_HEIGTH) - 1;
+        this.nrowsPerQuery = 40;
+        if (this.nrowsPerQuery < this.nVisibleRows) {
+            console.warn("Must query at least as many rows as we can display to enable scrolling",
+                         `${this.nrowsPerQuery} < ${this.nVisibleRows}`);
+        }
         this.state = {
             searchValue: "",
         };
@@ -48,7 +51,7 @@ class CommonTable extends React.PureComponent {
         if (data && data.length > 0) {
             this.setState({ data });
         } else {
-            this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerPage, 0, null, null)
+            this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerQuery, 0, null, null)
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
         }
     }
@@ -77,7 +80,7 @@ class CommonTable extends React.PureComponent {
     onGridReady(params) {
         this.api = params.api;
         this.columnApi = params.columnApi;
-        // api.setDatasource(this.dataSource);
+        //this.api.setDatasource(this._createDataSource());
     }
 
     onSearch(e) {
@@ -124,12 +127,19 @@ class CommonTable extends React.PureComponent {
         let _this = this;
         let nodes = this.api.getRenderedNodes();
         let dataLength = this.props.data.length;
-        let lastRowIndex = nodes[nodes.length-1].id;
-        let threshold = dataLength - this.nrowsPerPage;
-        console.debug(nodes.length, nodes[0].id, nodes[nodes.length-1].id, threshold)
-        if (lastRowIndex + 1 === threshold) {
-           _this.props.getTableDataAsync(_this.props.table, _this.props.dataStoreKey, _this.props.activeOnly,
-               dataLength, dataLength + this.nrowsPerPage, null, null)
+        let lastRowIndex = parseInt(nodes[nodes.length-1].id);
+        let threshold = dataLength - 10;
+        //console.debug(nodes.length, nodes[0].id, nodes[nodes.length-1].id, [threshold, lastRowIndex + 1], this.wait)
+        if (!this.wait && lastRowIndex > threshold) {
+            /* Lock until the current query is done */
+            this.wait = true;
+            console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`)
+            _this.props.getTableDataAsync(_this.props.table, _this.props.dataStoreKey, _this.props.activeOnly,
+                dataLength + this.nrowsPerQuery, dataLength, null, null)
+            .done(() => {
+                /* Unlock, unless if no more data to load */
+                this.wait = this.props.allLoaded;
+            });
         }
     }
 
@@ -158,11 +168,9 @@ class CommonTable extends React.PureComponent {
                     <SubmissionFeedback form={this.props.form}/>
                 }
 
-                <DataLoadingIcon />
-
                 {/* If no data, no table but fill the space */}
                 { data.length > 0 ?
-                    <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: constants.GRID_HEIGTH+'px', width: '100%'}}>
+                    <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>
                         <AgGridReact
                             onGridReady={this.onGridReady.bind(this)}
                             rowData={data}
@@ -173,14 +181,14 @@ class CommonTable extends React.PureComponent {
                             headerHeight={constants.ROW_HEIGTH}
                             overlayNoRowsTemplate='<span/>'
                             onBodyScroll={_.throttle(this.onScroll.bind(this), 100)}
-                            // rowModelType='infinite'
-                            // datasource={this.dataSource}
                         >
                         </AgGridReact>
                     </div>
                 :
-                    <div style={{height: constants.GRID_HEIGTH+'px', width: '100%'}}/>
+                    <div style={{height: this.gridHeight+'px', width: '100%'}}/>
                 }
+
+                <DataLoadingIcon />
 
                 {/* Show number of rows in result */}
 
@@ -204,6 +212,7 @@ CommonTable.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     return {
         data: state.facilityData[ownProps.dataStoreKey].data,
+        allLoaded: state.facilityData[ownProps.dataStoreKey].allLoaded,
         showLoading: state.facilityData.showLoading,
     };
 };
