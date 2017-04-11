@@ -85,7 +85,6 @@ class CommonTable extends React.PureComponent {
     onGridReady(params) {
         this.api = params.api;
         this.columnApi = params.columnApi;
-        //this.api.setDatasource(this._createDataSource());
     }
 
     onSearch(e) {
