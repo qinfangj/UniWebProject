@@ -106,7 +106,9 @@ const fields = {
     FLOWCELL_TYPE_ID: "flowcellTypeId",
     MAPPING_TOOL_ID: "mappingToolId",
     QUALITY_ID: "qualityId",
-
+    USER_REQUEST_ID: "userRequestId",
+    LIBRARY_ID: "libraryId",
+    POOL_ID: "poolId",
 };
 
 export default fields;

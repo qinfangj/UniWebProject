@@ -8,7 +8,7 @@ import Checkbox from '../elements/MyCheckBox';
 import DatePicker from '../elements/DatePicker';
 import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -22,7 +22,7 @@ class GenomesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "genomes";
-        this.form = formStoreKeys.GENOMES_INSERT_FORM;
+        this.form = formNames.GENOMES_INSERT_FORM;
     }
 
     static propTypes = {

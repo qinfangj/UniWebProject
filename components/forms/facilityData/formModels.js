@@ -1,6 +1,6 @@
 "use strict";
 import fields from '../fields';
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import constants from '../../constants/constants';
 
 export const inputTypes = {
@@ -30,7 +30,7 @@ function isValid(value, type, required, setValid) {
 
 
 export const facilityDataModels = Object.freeze({
-    [formStoreKeys.ALIGNMENTS_INSERT_FORM]: {
+    [formNames.ALIGNMENTS_INSERT_FORM]: {
         [fields.ANALYSIS_TYPE_ID]: {
             label: "Analysis type",
             type: inputTypes.DROPDOWN,
@@ -80,7 +80,7 @@ export const facilityDataModels = Object.freeze({
         }
     },
 
-    [formStoreKeys.BASECALLINGS_INSERT_FORM]: {
+    [formNames.BASECALLINGS_INSERT_FORM]: {
         [fields.RUN_ID]: {
             label: "Run",
             type: inputTypes.DROPDOWN,
@@ -122,7 +122,7 @@ export const facilityDataModels = Object.freeze({
         }
     },
 
-    [formStoreKeys.BIOANALYSERS_INSERT_FORM]: {
+    [formNames.BIOANALYSERS_INSERT_FORM]: {
         [fields.FILENAME]: {
             label: "Bioanalysers file",
             type: inputTypes.TEXT,
@@ -141,7 +141,7 @@ export const facilityDataModels = Object.freeze({
         // sub-form
     },
 
-    [formStoreKeys.GENOMES_INSERT_FORM]: {
+    [formNames.GENOMES_INSERT_FORM]: {
         [fields.TAXO_ID]: {
             label: "Organism",
             type: inputTypes.DROPDOWN,
@@ -195,7 +195,7 @@ export const facilityDataModels = Object.freeze({
         }
     },
 
-    [formStoreKeys.LIBRARIES_INSERT_FORM]: {
+    [formNames.LIBRARIES_INSERT_FORM]: {
         [fields.PROJECT_ID]: {
             label: "Project",
             type: inputTypes.DROPDOWN,
@@ -319,7 +319,7 @@ export const facilityDataModels = Object.freeze({
         }
     },
 
-    [formStoreKeys.PEOPLE_INSERT_FORM]: {
+    [formNames.PEOPLE_INSERT_FORM]: {
         [fields.FIRST_NAME]: {
             label: "First name",
             type: inputTypes.TEXT,
@@ -352,7 +352,7 @@ export const facilityDataModels = Object.freeze({
         }
     },
 
-    [formStoreKeys.PROJECTS_INSERT_FORM]: {
+    [formNames.PROJECTS_INSERT_FORM]: {
         [fields.NAME]: {
             label: "Project name",
             type: inputTypes.TEXT,
@@ -405,7 +405,7 @@ export const facilityDataModels = Object.freeze({
         }
     },
 
-    [formStoreKeys.SAMPLES_INSERT_FORM]: {
+    [formNames.SAMPLES_INSERT_FORM]: {
         [fields.NAME]: {
             label: "Name",
             type: inputTypes.TEXT,
@@ -500,11 +500,11 @@ export const facilityDataModels = Object.freeze({
         }
     },
 
-    [formStoreKeys.RUNS_INSERT_FORM]: {
+    [formNames.RUNS_INSERT_FORM]: {
         // ......
     },
 
-    [formStoreKeys.USER_REQUESTS_INSERT_FORM]: {
+    [formNames.USER_REQUESTS_INSERT_FORM]: {
         [fields.PROJECT_ID]: {
             label: "Project",
             type: inputTypes.DROPDOWN,

@@ -6,10 +6,10 @@ import cx from 'classnames';
 import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckBox';
 import TextArea from '../elements/Textarea';
-import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
+import BasecallingsOutputFolders from '../subcomponents/secondarySelects/BasecallingsOutputFolders';
 import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -23,7 +23,7 @@ class AlignmentsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "alignments";
-        this.form = formStoreKeys.ALIGNMENTS_INSERT_FORM;
+        this.form = formNames.ALIGNMENTS_INSERT_FORM;
     }
 
     static propTypes = {
@@ -72,7 +72,7 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Unaligned data output folder (aka basecallingId) */}
 
                     <Col sm={7} className={css.formCol}>
-                        <SecondaryOptions.BasecallingsOutputFolders
+                        <BasecallingsOutputFolders
                             form={this.form}
                             required
                         />

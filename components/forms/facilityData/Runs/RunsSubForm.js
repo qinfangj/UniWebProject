@@ -7,8 +7,8 @@ import store from '../../../../core/store';
 import TextField from '../../elements/TextField';
 import validators from '../../validators';
 import * as Options from '../../subcomponents/Options';
-import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
-import * as forms from '../../forms';
+import fields from '../../fields';
+import LibrariesForProject from '../../subcomponents/secondarySelects/LibrariesForProject';
 
 
 /**
@@ -88,7 +88,7 @@ class RunsSubForm extends React.PureComponent {
     }
 
     _projectsFormKey(laneNb, libIdx) {
-        return this.form + libIdx +"_"+ laneNb +"_project";
+        return this.form +'_'+ fields.PROJECT_ID +'_'+ libIdx +"_"+ laneNb;
     }
 
     /**
@@ -101,7 +101,7 @@ class RunsSubForm extends React.PureComponent {
         let N = lane.lane_nb;
         let qcBsClass = isQC ? cx('form-control', css.qcCell) : 'form-control';
         let projectFormKey = this._projectsFormKey(N, libIdx);
-        let libFormKey = this.form + libIdx +"_"+ N +"_library";
+        let libFormKey = this.form +'_'+ fields.LIBRARY_ID +'_'+ libIdx +"_"+ N;
         return (<tr key={N +'-'+ libIdx}
                     className={libIdx===0 ? css.topRow : (libIdx===lane.nlibs + lane.nqc -1 ? css.bottomRow : null)}>
 
@@ -117,14 +117,10 @@ class RunsSubForm extends React.PureComponent {
                 />
             </td>
             <td className={cx(css.libCell, css.libraryCell)}>
-                <SecondaryOptions.ProjectLibraries
+                <LibrariesForProject
                     form={this.form}
-                    referenceField={projectFormKey}
-                    storeKey={libFormKey}
-                    selectProps={{
-                        inputProps: {bsClass: qcBsClass},                 // add the blue background
-                    }}
-                    ref={(c) => this.librariesRefs[N][libIdx]["library"] = c}
+                    field={libFormKey}
+                    refFieldName={projectFormKey}
                 />
             </td>
             <td className={cx(css.libCell, css.quantityCell)}>

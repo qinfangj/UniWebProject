@@ -11,9 +11,10 @@ import constants from '../constants/constants';
 export class SubmissionFeedback extends React.PureComponent {
 
     static propTypes = {
-        status: React.PropTypes.string,
+        form: React.PropTypes.string,  // expecting that as a store key, see `connect`
+        status: React.PropTypes.string,  // one of the three constants in the switch below, or ""
         msg: React.PropTypes.string,
-        error: React.PropTypes.object,
+        error: React.PropTypes.object,  // an error object such as returned by fetch() or jQuery $.ajax().
     };
 
     render() {
@@ -51,6 +52,7 @@ export class SubmissionFeedback extends React.PureComponent {
 SubmissionFeedback.defaultProps = {
     status: "",
     msg: "",
+    error: {},
 };
 
 const mapStateToProps = (state, ownProps) => {

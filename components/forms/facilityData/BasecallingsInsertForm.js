@@ -9,7 +9,7 @@ import TextArea from '../elements/Textarea';
 import Select from '../elements/Select';
 import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -23,7 +23,7 @@ class BasecallingsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "basecallings";
-        this.form = formStoreKeys.BASECALLINGS_INSERT_FORM;
+        this.form = formNames.BASECALLINGS_INSERT_FORM;
     }
 
     static propTypes = {

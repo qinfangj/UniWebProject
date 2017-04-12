@@ -9,10 +9,10 @@ import { goTo } from '../../../actions/actionCreators/commonActionCreators';
 
 import TextField from '../../elements/TextField';
 import validators from '../../validators';
-import * as forms from '../../forms.js';
 import * as Options from '../../subcomponents/Options';
-import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
-import SubmissionFeedback from '../../messages';
+import fields from '../../fields';
+import PoolsForProject from '../../subcomponents/secondarySelects/PoolsForProject';
+import SubmissionFeedback from '../../SubmissionFeedback';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -98,7 +98,7 @@ class RunsPreInsertForm extends React.PureComponent {
     }
 
     _projectsFormKey(i) {
-        return this.form + i +"_project";
+        return this.form +'_'+ fields.PROJECT_ID +'_'+ i;
     }
 
     render() {
@@ -126,13 +126,12 @@ class RunsPreInsertForm extends React.PureComponent {
                             form={this.form}
                             field={projectsFromKey}
                         />
-
                     </td>
                     <td key="pool">
-                        <SecondaryOptions.ProjectPools
+                        <PoolsForProject
                             form={this.form}
-                            referenceField={projectsFromKey}     // the store key to the form value
-                            storeKey={this.form + i +"_pool"}    // the store key for the result list
+                            field={this.form +''+ fields.POOL_ID + i}
+                            refFieldName={projectsFromKey}
                             ref={(c) => this.lanesRefs[i]["pool"] = c}
                         />
                     </td>
