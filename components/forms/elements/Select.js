@@ -75,7 +75,8 @@ class Select extends React.PureComponent {
         return (
             <FormGroup controlId={this.props.field} validationState={feedbackValue} bsSize="small" >
                 {label}
-                <FormControl componentClass="select"
+                <FormControl
+                    componentClass="select"
                     placeholder={label}
                     onChange={this.onChange.bind(this)}
                     value={this.props.value}
@@ -106,12 +107,16 @@ Select.propTypes = {
 Select.defaultProps = {
     value: -1,
     required: false,
+    options: [],
 };
 
 
 const mapStateToProps = (state, ownProps) => {
-    let submissionStatus = state.forms[ownProps.form]._submission.status;
-    let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
+    if (! state.forms[ownProps.form]) {
+        console.warn("Uninitialized form");
+        return {};
+    }
+    let submissionError = state.forms[ownProps.form]._submission.status === constants.SUBMISSION_ERROR;
     let options = ownProps.options;
     let defaultValue = (!options || options.length === 0) ? -1 : options[0][0];
     let value = state.forms[ownProps.form][ownProps.field] || defaultValue;

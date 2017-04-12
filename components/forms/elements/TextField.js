@@ -155,6 +155,10 @@ TextField.defaultProps = {
 
 
 const mapStateToProps = (state, ownProps) => {
+    if (! state.forms[ownProps.form]) {
+        console.warn("Uninitialized form");
+        return {};
+    }
     let submissionStatus = state.forms[ownProps.form]._submission.status;
     let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
     let value = state.forms[ownProps.form][ownProps.field];

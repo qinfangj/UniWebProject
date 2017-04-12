@@ -6,8 +6,8 @@ import store from '../../../../core/store';
 
 import TextField from '../../elements/TextField';
 import * as Options from '../../subcomponents/Options';
-import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
-import formStoreKeys from '../../../constants/formStoreKeys';
+import LibrariesForProject from '../../subcomponents/secondarySelects/LibrariesForProject';
+import formNames from '../../../constants/formNames';
 import fields from '../../fields';
 
 
@@ -18,7 +18,7 @@ class BioanalysersSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
         this.table = "bioanalysers";
-        this.form = formStoreKeys.BIOANALYSERS_LANES_INSERT_FORM;
+        this.form = formNames.BIOANALYSERS_LANES_INSERT_FORM;
     }
 
     getFormValues() {
@@ -28,8 +28,8 @@ class BioanalysersSubForm extends React.PureComponent {
             data.push({
                 id: 0,
                 laneNb: i+1,
-                projectId: formData["project_"+i],
-                libraryId: formData["library_"+i],
+                projectId: formData[fields.PROJECT_ID + "_" +i],
+                libraryId: formData[fields.LIBRARY_ID + "_" +i],
                 comment: formData[fields.COMMENT],
             });
         }
@@ -37,7 +37,7 @@ class BioanalysersSubForm extends React.PureComponent {
     }
 
     makeRow(i) {
-        let referenceField_i = "project_"+i;
+        let referenceField_i = fields.PROJECT_ID + "_" +i;
         return <tr key={i}>
             <td key="id" className={css.laneId}>
                 {i + 1}
@@ -46,15 +46,14 @@ class BioanalysersSubForm extends React.PureComponent {
                 <Options.ProjectsWithLibraries
                     form={this.form}
                     field={referenceField_i}
-                    storeKey={this.form+"_project_"+i}
+                    storeKey={this.form + fields.PROJECT_ID +'_'+ i}
                 />
             </td>
             <td key="library" className={css.cell}>
-                <SecondaryOptions.ProjectLibraries
+                <LibrariesForProject
                     form={this.form}
-                    field={"library_"+i}
-                    referenceField={referenceField_i}  // the store key to the other field's value
-                    storeKey={this.form+"_library_"+i}   // whatever; the store key for the result list
+                    field={fields.LIBRARY_ID +'_'+ i}
+                    refFieldName={referenceField_i}
                 />
             </td>
             <td key="comment" className={css.cell}>

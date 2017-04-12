@@ -7,10 +7,10 @@ import TextField from '../elements/TextField';
 import Checkbox from '../elements/MyCheckBox';
 import TextArea from '../elements/Textarea';
 import * as Options from '../subcomponents/Options';
-import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
+import SamplesForProject from '../subcomponents/secondarySelects/SamplesForProject';
 import * as forms from '../forms.js';
 import validators from '../validators';
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -24,8 +24,8 @@ class UserRequestsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "user_requests";
-        this.form = formStoreKeys.USER_REQUESTS_INSERT_FORM;
-        this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
+        this.form = formNames.USER_REQUESTS_INSERT_FORM;
+        this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
     }
 
     static propTypes = {
@@ -73,7 +73,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
-                        <SecondaryOptions.SamplesForProject
+                        <SamplesForProject
                             form={this.form}
                             required
                         />

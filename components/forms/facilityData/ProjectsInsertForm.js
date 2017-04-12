@@ -9,7 +9,7 @@ import TextArea from '../elements/Textarea';
 import validators from '../validators';
 import * as Options from '../subcomponents/Options';
 import * as forms from '../forms.js';
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -23,7 +23,7 @@ class ProjectInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "projects";
-        this.form = formStoreKeys.PROJECTS_INSERT_FORM;
+        this.form = formNames.PROJECTS_INSERT_FORM;
     }
 
     static propTypes = {

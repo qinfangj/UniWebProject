@@ -3,11 +3,12 @@ import React from 'react';
 import cx from 'classnames';
 import css from '../login.css';
 import commonCss from '../../../styles/common.css';
-import store from '../../../core/store';
-import { loginUser } from '../../actions/actionCreators/authActionCreators';
+import { connect } from 'react-redux';
+import { loginUser, resetFeedback } from '../../actions/actionCreators/authActionCreators';
 import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
 
-import {Form, FormControl, InputGroup, FormGroup, Button} from 'react-bootstrap/lib';
+import {Form, FormControl, InputGroup, FormGroup, Button, Alert} from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
 
 
@@ -24,12 +25,12 @@ class LoginForm extends React.Component {
 
     submit(e) {
         e.preventDefault();
-        store.dispatch(loginUser(
+        this.props.loginUser(
             {
                 username: this.state.username,
                 password: this.state.password,
             }
-        ));
+        );
     }
 
     onChangeUsername(e) {
@@ -40,9 +41,27 @@ class LoginForm extends React.Component {
         this.setState({password: e.target.value});
     }
 
+    getFeedback() {
+        let feedback = "";
+        if (this.props.isError) {
+            let message = this.props.errorMessage;
+            if (message === "Unauthorized") {
+                feedback = "Wrong username or password";
+            } else {
+                feedback = "Unexpected error: " + message;
+            }
+        }
+        return feedback;
+    }
+
     render() {
+        let feedback = this.getFeedback();
+        let alert = this.props.isError ? <Alert bsStyle="info" onClick={() => this.props.resetFeedback()}>{feedback}</Alert> : null;
+
         return (
             <div className={css.formContainer}>
+
+                {alert}
 
                 <Form className={css.form} onSubmit={this.submit.bind(this)}>
 
@@ -71,20 +90,11 @@ class LoginForm extends React.Component {
                         <Link to='/forgotPassword' className={cx(css.forgotPasswordLink, commonCss.nolink)}>Don't remember your password?</Link>
                     </div>
 
-                        {/*<button type="submit" className="submit-button btn btn-primary"*/}
-                                {/*onClick={this.login} disabled={!this.formValid()}>Login</button>*/}
-                        {/*{!this.isDemo ?*/}
-                            {/*<Link id='signup-link' to='/signup'>Register</Link> : '' }*/}
-                        {/*{!this.isDemo ?*/}
-                            {/*<Link id='forget-password-link' to='/forgetPassword'>I forgot my password</Link> : '' }*/}
-
                     <Button type="submit" className={css.loginButton}>
                         Log in >
                     </Button>
 
                 </Form>
-
-
 
             </div>
         );
@@ -93,5 +103,19 @@ class LoginForm extends React.Component {
 }
 
 
-export default LoginForm;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        errorMessage: state.auth.errorMessage,
+        isFetching: state.auth.isFetching,
+        isAuthenticated: state.auth.isAuthenticated,
+        isError: state.auth.isError,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ loginUser, resetFeedback }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 

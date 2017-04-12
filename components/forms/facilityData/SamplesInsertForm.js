@@ -10,7 +10,7 @@ import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -24,7 +24,7 @@ class SamplesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "samples";
-        this.form = formStoreKeys.SAMPLES_INSERT_FORM;
+        this.form = formNames.SAMPLES_INSERT_FORM;
     }
 
     static propTypes = {

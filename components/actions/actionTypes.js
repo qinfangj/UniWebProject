@@ -31,6 +31,7 @@ const actionTypes = {
     },
 
     login: {
+        RESET_FEEDBACK: 'RESET_FEEDBACK',
         LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
         LOGIN_REQUEST: 'LOGIN_REQUEST',
         LOGIN_SUCCESS: 'LOGIN_SUCCESS',

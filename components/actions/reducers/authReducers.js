@@ -16,18 +16,29 @@ let authReducers = (state = defaultState, action) => {
 
     switch (action.type) {
 
+        case types.RESET_FEEDBACK:
+            return Object.assign({}, state, {
+                isFetching: false,
+                isAuthenticated: false,
+                isError: false,
+                errorMessage: '',
+            });
+
         /* Login */
 
         case types.LOGIN_REQUEST:
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
+                isError: false,
+                errorMessage: '',
             });
 
         case types.LOGIN_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: true,
+                isError: false,
                 errorMessage: '',
             });
 
@@ -35,6 +46,7 @@ let authReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false,
+                isError: true,
                 errorMessage: action.message
             });
 
@@ -44,6 +56,8 @@ let authReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false,
+                isError: false,
+                errorMessage: '',
             });
 
         /* Signup */
@@ -52,12 +66,15 @@ let authReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
+                isError: false,
+                errorMessage: '',
             });
 
         case types.SIGNUP_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: true,
+                isError: false,
                 errorMessage: '',
             });
 
@@ -65,6 +82,7 @@ let authReducers = (state = defaultState, action) => {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false,
+                isError: true,
                 errorMessage: action.message
             });
 

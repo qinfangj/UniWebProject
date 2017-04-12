@@ -2,18 +2,18 @@
 import types from '../actionTypes';
 import RestService from '../../../utils/RestService';
 import { assertStoreKey, asyncAction } from './base';
-import constants from '../../constants/constants';
-
 
 
 export function changeFormValue(form, field, value, valid) {
-    return {
-        type: types.forms.CHANGE_FORM_VALUE,
-        form: form,
-        field: field,
-        value: value,
-        valid: valid,
-    }
+    return (dispatch) => {
+        return dispatch({
+            type: types.forms.CHANGE_FORM_VALUE,
+            form: form,
+            field: field,
+            value: value,
+            valid: valid,
+        });
+    };
 }
 
 export function resetForm(form) {
@@ -33,13 +33,13 @@ export function getOptionsListAsync(tableName, storeKey) {
 
 export function getConditionalOptionsListAsync(tableName, suffix, storeKey) {
     assertStoreKey(storeKey);
-    let args = {storeKey};
+    let args = {storeKey, suffix};
     return asyncAction(types.forms.GET_OPTIONS_LIST, RestService.getConditionalOptionsList.bind(null, tableName, suffix), args)
 }
 
 export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
     assertStoreKey(storeKey);
-    let args = {storeKey};
+    let args = {storeKey, id};
     return asyncAction(types.forms.GET_SECONDARY_OPTIONS_LIST, RestService.getSecondaryOptionsList.bind(null, tableName, id), args)
 }
 

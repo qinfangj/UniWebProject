@@ -95,7 +95,7 @@ export function submit(form, table, formatFormData=null) {
                 store.dispatch(resetForm(form));
                 // Redirect to table by replacing '/new' by '/list' in the router state
                 let currentPath = window.location.pathname + window.location.hash.substr(2);
-                hashHistory.push(currentPath.replace('/new', '/list'));
+                hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
             })
             .fail((err) => {
                 console.warn("Uncaught form validation error");

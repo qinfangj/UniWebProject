@@ -6,6 +6,13 @@ import AuthService from '../../../utils/AuthService';
 import { asyncAction } from './base';
 
 
+
+export function resetFeedback() {
+    return {
+        type: types.RESET_FEEDBACK
+    }
+}
+
 /* Login */
 
 export function _loginRequest(creds) {

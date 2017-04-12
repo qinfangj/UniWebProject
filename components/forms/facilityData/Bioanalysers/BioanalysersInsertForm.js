@@ -9,14 +9,14 @@ import TextField from '../../elements/TextField';
 import DatePicker from '../../elements/DatePicker';
 import * as forms from '../../forms.js';
 import BioanalysersSubForm from './BioanalysersSubForm';
-import formStoreKeys from '../../../constants/formStoreKeys';
+import formNames from '../../../constants/formNames';
 import fields from '../../fields';
 import { findForUpdateAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
-import SubmissionFeedback from '../../messages';
+import SubmissionFeedback from '../../SubmissionFeedback';
 
 
 
@@ -24,7 +24,7 @@ class BioanalysersInsertForm extends React.PureComponent {
     constructor(props) {
         super(props);
         this.table = "bioanalysers";
-        this.form = formStoreKeys.BIOANALYSERS_INSERT_FORM;
+        this.form = formNames.BIOANALYSERS_INSERT_FORM;
         this.required = [];
     }
 
