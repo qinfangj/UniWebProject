@@ -4,7 +4,7 @@ import FacilityDataHome from '../../pages/FacilityDataHome';
 import FacilityData from '../../pages/FacilityData';
 import CommonTable from '../../tables/facilityData/CommonTable';
 
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import ProjectsInsertForm from '../../forms/facilityData/ProjectsInsertForm';
 import PeopleInsertForm from '../../forms/facilityData/PeopleInsertForm';
 import GenomesInsertForm from '../../forms/facilityData/GenomesInsertForm';
@@ -28,7 +28,7 @@ export class ProjectsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
             <CommonTable dataStoreKey="projects" table="projects" columnsKey="projects"
-                         form={formStoreKeys.PROJECTS_INSERT_FORM}
+                         form={formNames.PROJECTS_INSERT_FORM}
             />
         } />
     );}
@@ -38,7 +38,7 @@ export class ProjectsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
             <CommonTable activeOnly dataStoreKey="projectsActive" table="projects" columnsKey="projects"
-                         form={formStoreKeys.PROJECTS_INSERT_FORM}
+                         form={formNames.PROJECTS_INSERT_FORM}
             />
         } />
     );}
@@ -65,7 +65,7 @@ export class PeopleListRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
             <CommonTable dataStoreKey="people" table="people" columnsKey="people"
-                         form={formStoreKeys.PEOPLE_INSERT_FORM}
+                         form={formNames.PEOPLE_INSERT_FORM}
             />
         } />
     );}
@@ -75,7 +75,7 @@ export class PeopleActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
             <CommonTable activeOnly dataStoreKey="peopleActive" table="people" columnsKey="people"
-                         form={formStoreKeys.PEOPLE_INSERT_FORM}
+                         form={formNames.PEOPLE_INSERT_FORM}
             />
         } />
     );}
@@ -102,7 +102,7 @@ export class GenomesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
             <CommonTable dataStoreKey="genomes" table="genomes" columnsKey="genomes"
-                         form={formStoreKeys.GENOMES_INSERT_FORM}
+                         form={formNames.GENOMES_INSERT_FORM}
             />
         } />
     );}
@@ -112,7 +112,7 @@ export class GenomesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
             <CommonTable activeOnly dataStoreKey="genomesActive" table="genomes" columnsKey="genomes"
-                         form={formStoreKeys.GENOMES_INSERT_FORM}
+                         form={formNames.GENOMES_INSERT_FORM}
             />
         } />
     );}
@@ -139,7 +139,7 @@ export class SamplesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
             <CommonTable dataStoreKey="samples" table="samples" columnsKey="samples"
-                         form={formStoreKeys.SAMPLES_INSERT_FORM}
+                         form={formNames.SAMPLES_INSERT_FORM}
             />
         } />
     );}
@@ -149,7 +149,7 @@ export class SamplesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
             <CommonTable activeOnly dataStoreKey="samplesActive" table="samples" columnsKey="samples"
-                         form={formStoreKeys.SAMPLES_INSERT_FORM}
+                         form={formNames.SAMPLES_INSERT_FORM}
             />
         } />
     );}
@@ -176,7 +176,7 @@ export class LibrariesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
             <CommonTable dataStoreKey="libraries" table="libraries" columnsKey="libraries"
-                         form={formStoreKeys.LIBRARIES_INSERT_FORM}
+                         form={formNames.LIBRARIES_INSERT_FORM}
             />
         } />
     );}
@@ -186,7 +186,7 @@ export class LibrariesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
             <CommonTable activeOnly dataStoreKey="librariesActive" table="libraries" columnsKey="libraries"
-                         form={formStoreKeys.LIBRARIES_INSERT_FORM}
+                         form={formNames.LIBRARIES_INSERT_FORM}
             />
         } />
     );}
@@ -213,7 +213,7 @@ export class RunsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
             <CommonTable dataStoreKey="runs" table="runs" columnsKey="runs"
-                         form={formStoreKeys.RUNS_INSERT_FORM}
+                         form={formNames.RUNS_INSERT_FORM}
             />
         } />
     );}
@@ -223,7 +223,7 @@ export class RunsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
             <CommonTable activeOnly dataStoreKey="runsActive" table="runs" columnsKey="runs"
-                         form={formStoreKeys.RUNS_INSERT_FORM}
+                         form={formNames.RUNS_INSERT_FORM}
             />
         } />
     );}
@@ -257,7 +257,7 @@ export class UserRequestsListRoute extends React.Component {
     render() {return (
         <FacilityData title="User requests" name="user_requests" content={
             <CommonTable dataStoreKey="user_requests" table="user_requests" columnsKey="user_requests"
-                         form={formStoreKeys.USER_REQUESTS_INSERT_FORM}
+                         form={formNames.USER_REQUESTS_INSERT_FORM}
             />
         } />
     );}
@@ -267,7 +267,7 @@ export class UserRequestsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="User requests" name="user_requests" content={
             <CommonTable activeOnly dataStoreKey="user_requestsActive" table="user_requests" columnsKey="user_requests"
-                         form={formStoreKeys.USER_REQUESTS_INSERT_FORM}
+                         form={formNames.USER_REQUESTS_INSERT_FORM}
             />
         } />
     );}
@@ -294,7 +294,7 @@ export class BioanalysersListRoute extends React.Component {
     render() {return (
         <FacilityData title="Bioanalysers" name="bioanalysers" content={
             <CommonTable dataStoreKey="bioanalysers" table="bioanalysers" columnsKey="bioanalysers"
-                         form={formStoreKeys.BIOANALYSERS_INSERT_FORM}
+                         form={formNames.BIOANALYSERS_INSERT_FORM}
             />
         } />
     );}
@@ -304,7 +304,7 @@ export class BioanalysersActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Bioanalysers" name="bioanalysers" content={
             <CommonTable activeOnly dataStoreKey="bioanalysersActive" table="bioanalysers" columnsKey="bioanalysers"
-                         form={formStoreKeys.BIOANALYSERS_INSERT_FORM}
+                         form={formNames.BIOANALYSERS_INSERT_FORM}
             />
         } />
     );}
@@ -331,7 +331,7 @@ export class BasecallingsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Basecallings" name="basecallings" content={
             <CommonTable dataStoreKey="basecallings" table="basecallings" columnsKey="basecallings"
-                         form={formStoreKeys.BASECALLINGS_INSERT_FORM}
+                         form={formNames.BASECALLINGS_INSERT_FORM}
             />
         } />
     );}
@@ -341,7 +341,7 @@ export class BasecallingsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Basecallings" name="basecallings" content={
             <CommonTable activeOnly dataStoreKey="basecallingsActive" table="basecallings" columnsKey="basecallings"
-                         form={formStoreKeys.BASECALLINGS_INSERT_FORM}
+                         form={formNames.BASECALLINGS_INSERT_FORM}
             />
         } />
     );}
@@ -368,7 +368,7 @@ export class AlignmentsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Alignments" name="alignments" content={
             <CommonTable dataStoreKey="alignments" table="alignments" columnsKey="alignments"
-                         form={formStoreKeys.ALIGNMENTS_INSERT_FORM}
+                         form={formNames.ALIGNMENTS_INSERT_FORM}
             />
         } />
     );}
@@ -378,7 +378,7 @@ export class AlignmentsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Alignments" name="alignments" content={
             <CommonTable activeOnly dataStoreKey="alignmentsActive" table="alignments" columnsKey="alignments"
-                         form={formStoreKeys.ALIGNMENTS_INSERT_FORM}
+                         form={formNames.ALIGNMENTS_INSERT_FORM}
             />
         } />
     );}

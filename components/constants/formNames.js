@@ -1,11 +1,7 @@
 "use strict";
 
-/**
- * Store keys to selected form values.
- */
 
 export default {
-    // Form identifiers
     ALIGNMENTS_INSERT_FORM: "ALIGNMENTS_INSERT_FORM",
     BASECALLINGS_INSERT_FORM: "BASECALLINGS_INSERT_FORM",
     BIOANALYSERS_INSERT_FORM: "BIOANALYSERS_INSERT_FORM",
@@ -18,8 +14,9 @@ export default {
     USER_REQUESTS_INSERT_FORM: "USER_REQUESTS_INSERT_FORM",
     QUERY_PROJECTS_FORM: "QUERY_PROJECTS_FORM",
     RUNS_INSERT_FORM: "RUNS_INSERT_FORM",
-    //AdminSubmitForms
-    PROJECT_SHARINGS_INSERT_FORM:"PROJECT_SHARINGS_INSERT_FORM",
+    // Admin forms
+    PROJECT_SHARINGS_INSERT_FORM: "PROJECT_SHARINGS_INSERT_FORM",
+    USERS_INSERT_FORM: "USERS_INSERT_FORM",
 
     // Suffixes (unique within a form)
     suffixes: {

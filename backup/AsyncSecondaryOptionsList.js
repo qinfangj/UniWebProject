@@ -2,8 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getSecondaryOptionsListAsync, changeFormValue} from '../../actions/actionCreators/formsActionCreators';
-import Select from '../elements/Select';
+import { getSecondaryOptionsListAsync, changeFormValue} from '../components/actions/actionCreators/formsActionCreators';
+import Select from '../components/forms/elements/Select';
 
 
 /**

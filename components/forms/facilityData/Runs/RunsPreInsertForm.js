@@ -11,7 +11,7 @@ import TextField from '../../elements/TextField';
 import validators from '../../validators';
 import * as forms from '../../forms.js';
 import * as Options from '../../subcomponents/Options';
-import * as SecondaryOptions from '../../subcomponents/SecondaryOptions';
+import * as SecondaryOptions from '../../../../backup/SecondaryOptions';
 import SubmissionFeedback from '../../messages';
 
 import Button from 'react-bootstrap/lib/Button';

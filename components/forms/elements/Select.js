@@ -110,8 +110,7 @@ Select.defaultProps = {
 
 
 const mapStateToProps = (state, ownProps) => {
-    let submissionStatus = state.forms[ownProps.form]._submission.status;
-    let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
+    let submissionError = state.forms[ownProps.form]._submission.status === constants.SUBMISSION_ERROR;
     let options = ownProps.options;
     let defaultValue = (!options || options.length === 0) ? -1 : options[0][0];
     let value = state.forms[ownProps.form][ownProps.field] || defaultValue;

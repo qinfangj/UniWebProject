@@ -34,7 +34,7 @@ class AsyncOptionsList extends React.PureComponent {
     }
 
     getList() {
-        let options = this.props.list.map(v => this.props.formatter(v));
+        let options = this.props.options.map(v => this.props.formatter(v));
         if (this.props.hasNoneValue) {
             options.unshift([-1, '-']);
         }
@@ -43,9 +43,9 @@ class AsyncOptionsList extends React.PureComponent {
 
     render() {
         return (
-            <Select {...this.props}
-                    ref={(c) => {this._select = c;}}
-                    options={this.getList()}
+            <Select
+                {...this.props}
+                options={this.getList()}
             />
         );
     }
@@ -55,12 +55,12 @@ class AsyncOptionsList extends React.PureComponent {
 
 AsyncOptionsList.defaultProps = {
     hasNoneValue: true,
-    list: [],
+    options: [],
 };
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        list: state.forms[ownProps.storeKey],
+        options: state.forms[ownProps.storeKey],
     };
 };
 

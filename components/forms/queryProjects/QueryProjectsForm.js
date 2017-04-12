@@ -8,7 +8,7 @@ import { searchSamplesByTerm, resetSelection } from '../../actions/actionCreator
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import dataStoreKeys from '../../constants/dataStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -26,10 +26,10 @@ import Icon from 'react-fontawesome';
 class QueryProjectsForm extends React.Component {
     constructor() {
         super();
-        this.form = formStoreKeys.QUERY_PROJECTS_FORM;
+        this.form = formNames.QUERY_PROJECTS_FORM;
         // Build store keys for selected form values
-        this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
-        this.samplesFormKey = this.form + formStoreKeys.suffixes.SAMPLES;
+        this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
+        this.samplesFormKey = this.form + formNames.suffixes.SAMPLES;
         this.state = {
             visible: true,
         };

@@ -1,8 +1,8 @@
 "use strict";
 import React from 'react';
 import AsyncSecondaryOptionsList from './AsyncSecondaryOptionsList';
-import dataStoreKeys from '../../constants/dataStoreKeys';
-import fields from '../fields';
+import dataStoreKeys from '../components/constants/dataStoreKeys';
+import fields from '../components/forms/fields';
 
 
 /*
@@ -13,6 +13,7 @@ import fields from '../fields';
 
 /**
  * List available basecallings output folders for a given run ID.
+ * Used in Alignemnts insert form.
  */
 export class BasecallingsOutputFolders extends React.Component {
     formatter(v) { return [v.id, v.outputDir]; }
@@ -24,7 +25,7 @@ export class BasecallingsOutputFolders extends React.Component {
             table="basecallings"
             label="Unaligned data output folder"
             referenceField={fields.RUN_ID}
-            storeKey={form + '_' + dataStoreKeys.BASECALLINGS_OUTPUT_FOLDERS}
+            storeKey={form + '_' + dataStoreKeys.BASECALLINGS_OUTPUT_FOLDERS_FOR_RUN}
             formatter={this.formatter}
             {...otherProps}
         />);
@@ -49,7 +50,7 @@ export class SamplesForProject extends React.Component {
             table="samples"
             label="Sample"
             referenceField={this.props.referenceField}
-            storeKey={form + '_' + dataStoreKeys.SAMPLES_FROM_PROJECT}
+            storeKey={form + '_' + dataStoreKeys.SAMPLES_FOR_PROJECT}
             formatter={this.formatter}
             {...otherProps}
         />);
@@ -78,7 +79,7 @@ export class ProjectPools extends React.Component {
             referenceField={referenceField}
             table="user_requests"
             label={null}
-            storeKey={this.props.storeKey ? this.props.storeKey : form + '_' + dataStoreKeys.POOLS_FROM_PROJECT}
+            storeKey={this.props.storeKey || form + '_' + dataStoreKeys.POOLS_FOR_PROJECT}
             formatter={this.formatter}
             {...otherProps}
         />);
@@ -105,9 +106,10 @@ export class ProjectLibraries extends React.Component {
         return (<AsyncSecondaryOptionsList
             form={form}
             field={field}
-            table="libraries" label={null}
+            table="libraries"
+            label={null}
             referenceField={this.props.referenceField}
-            storeKey={this.props.storeKey ? this.props.storeKey : this.props.form +'_'+ dataStoreKeys.LIBRAIRIES_FROM_PROJECT}
+            storeKey={this.props.storeKey || this.props.form +'_'+ dataStoreKeys.LIBRAIRIES_FOR_PROJECT}
             formatter={this.formatter}
             {...otherProps}
         />);

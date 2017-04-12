@@ -2,7 +2,7 @@
 import React from 'react';
 import css from '../forms.css';
 import admincss from '../adminForm.css';
-//import formStoreKeys from '../../constants/formStoreKeys';
+//import formNames from '../../constants/formNames';
 import * as forms from '../forms.js';
 import store from '../../../core/store';
 import { insertAsync } from '../../actions/actionCreators/facilityDataActionCreators';

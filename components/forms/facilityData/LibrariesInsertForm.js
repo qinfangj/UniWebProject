@@ -9,8 +9,8 @@ import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
-import * as SecondaryOptions from '../subcomponents/SecondaryOptions';
-import formStoreKeys from '../../constants/formStoreKeys';
+import * as SecondaryOptions from '../../../backup/SecondaryOptions';
+import formNames from '../../constants/formNames';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -24,8 +24,8 @@ class LibrariesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "libraries";
-        this.form = formStoreKeys.LIBRARIES_INSERT_FORM;
-        this.projectsFormKey = this.form + formStoreKeys.suffixes.PROJECTS;
+        this.form = formNames.LIBRARIES_INSERT_FORM;
+        this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
     }
 
     static propTypes = {

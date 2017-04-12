@@ -5,7 +5,7 @@ import css from '../forms.css';
 import TextField from '../elements/TextField';
 import validators from '../validators';
 import * as forms from '../forms.js';
-import formStoreKeys from '../../constants/formStoreKeys';
+import formNames from '../../constants/formNames';
 import fields from '../fields';
 
 import Form from 'react-bootstrap/lib/Form';
@@ -19,7 +19,7 @@ class ProjectInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "people";
-        this.form = formStoreKeys.PEOPLE_INSERT_FORM;
+        this.form = formNames.PEOPLE_INSERT_FORM;
     }
 
     static propTypes = {
