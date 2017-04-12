@@ -53,6 +53,10 @@ PoolsForProject.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     // Need to specify the form in the store key because there is a different one
     // for each different selected project.
+    if (! state.forms[ownProps.form]) {
+        console.warn("Uninitialized form");
+        return {options: []};
+    }
     let storeKey = ownProps.form +'_'+ dataStoreKeys.POOLS_FOR_PROJECT +'_'+ ownProps.refFieldName;
     let options = state.options[storeKey] || [];
     let refValue = state.forms[ownProps.form][fields.PROJECT_ID];
