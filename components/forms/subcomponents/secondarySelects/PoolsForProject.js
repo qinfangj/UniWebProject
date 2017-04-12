@@ -43,7 +43,7 @@ const mapStateToProps = (state, ownProps) => {
     // Need to specify the form in the store key because there is a different one
     // for each different selected project.
     let storeKey = ownProps.form +'_'+ dataStoreKeys.POOLS_FOR_PROJECT +'_'+ ownProps.refFieldName;
-    let options = state.forms[storeKey] || [];
+    let options = state.options[storeKey] || [];
     return {
         options: options,
     };

@@ -1,6 +1,5 @@
 "use strict";
 import types from '../actionTypes';
-import returnList from './base';
 import { initFacilityData } from '../../forms/facilityData/formModels';
 import constants from '../../constants/constants';
 
@@ -18,14 +17,6 @@ let formReducers = (state = defaultState, action) => {
     let form;
 
     switch (action.type) {
-
-        /* Select options list for dropdowns */
-
-        case types.forms.GET_OPTIONS_LIST:
-            return returnList(action, state, action.args.storeKey, []);
-
-        case types.forms.GET_SECONDARY_OPTIONS_LIST:
-            return returnList(action, state, action.args.storeKey, []);
 
         /* Messages */
 

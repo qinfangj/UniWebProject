@@ -75,7 +75,8 @@ class Select extends React.PureComponent {
         return (
             <FormGroup controlId={this.props.field} validationState={feedbackValue} bsSize="small" >
                 {label}
-                <FormControl componentClass="select"
+                <FormControl
+                    componentClass="select"
                     placeholder={label}
                     onChange={this.onChange.bind(this)}
                     value={this.props.value}
