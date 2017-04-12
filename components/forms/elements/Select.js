@@ -107,10 +107,15 @@ Select.propTypes = {
 Select.defaultProps = {
     value: -1,
     required: false,
+    options: [],
 };
 
 
 const mapStateToProps = (state, ownProps) => {
+    if (! state.forms[ownProps.form]) {
+        console.warn("Uninitialized form");
+        return {};
+    }
     let submissionError = state.forms[ownProps.form]._submission.status === constants.SUBMISSION_ERROR;
     let options = ownProps.options;
     let defaultValue = (!options || options.length === 0) ? -1 : options[0][0];

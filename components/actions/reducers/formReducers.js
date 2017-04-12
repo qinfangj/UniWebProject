@@ -76,6 +76,8 @@ let formReducers = (state = defaultState, action) => {
             // Create if not exists
             if (! (form in state)) {
                 newState[form] = {};
+                newState[form]._isValid = {};
+                newState[form]._submission = {};
             }
             //console.debug("Change form value:", field, action.valid, action.value)
             newState[form][field] = action.value;

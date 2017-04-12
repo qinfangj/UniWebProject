@@ -15,12 +15,13 @@ import { getSecondaryOptionsListAsync } from '../../../actions/actionCreators/fo
  * Used in Alignemnts insert form.
  */
 class BasecallingsOutputFolders extends React.PureComponent {
+
     formatter(v) { return [v.id, v.outputDir]; }
 
     componentWillReceiveProps(newProps) {
-        let refValue = this.props.refValue;
-        if (refValue && refValue !== newProps.refValue) {
-            this.props.getSecondaryOptionsListAsync(tableNames.BASECALLINGS, newProps.refValue, this.props.storeKey);
+        let refValue = newProps.refValue;
+        if (refValue && refValue !== this.props.refValue) {
+            this.props.getSecondaryOptionsListAsync(tableNames.BASECALLINGS, refValue, newProps.storeKey);
         }
     }
 

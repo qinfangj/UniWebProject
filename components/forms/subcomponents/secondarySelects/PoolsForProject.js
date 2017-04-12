@@ -3,8 +3,10 @@ import React from 'react';
 import Select from '../../elements/Select';
 import dataStoreKeys from '../../../constants/dataStoreKeys';
 import fields from '../../fields';
+import tableNames from '../../../tables/tableNames';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { getSecondaryOptionsListAsync } from '../../../actions/actionCreators/formsActionCreators';
 
 
 /**
@@ -14,7 +16,16 @@ import { connect } from 'react-redux';
  * The `refFieldName` prop is the name of the projects selection field.
  */
 class PoolsForProject extends React.PureComponent {
+
     formatter(v) { return [v.id, v.pool]; }
+
+    componentWillReceiveProps(newProps) {
+        let refValue = newProps.refValue;
+        if (refValue && refValue !== this.props.refValue) {
+            this.props.getSecondaryOptionsListAsync(tableNames.USER_REQUESTS, refValue, newProps.storeKey);
+        }
+    }
+
     render() {
         let {options, ...otherProps} = this.props;
         options = options.map((v) => this.formatter(v));
@@ -44,11 +55,18 @@ const mapStateToProps = (state, ownProps) => {
     // for each different selected project.
     let storeKey = ownProps.form +'_'+ dataStoreKeys.POOLS_FOR_PROJECT +'_'+ ownProps.refFieldName;
     let options = state.options[storeKey] || [];
+    let refValue = state.forms[ownProps.form][fields.PROJECT_ID];
     return {
         options: options,
+        refValue: refValue,
+        storeKey: storeKey,
     };
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ getSecondaryOptionsListAsync }, dispatch);
+};
 
-export default connect(mapStateToProps)(PoolsForProject);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PoolsForProject);
 

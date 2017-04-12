@@ -28,8 +28,8 @@ class BioanalysersSubForm extends React.PureComponent {
             data.push({
                 id: 0,
                 laneNb: i+1,
-                projectId: formData["project_"+i],
-                libraryId: formData["library_"+i],
+                projectId: formData[fields.PROJECT_ID + "_" +i],
+                libraryId: formData[fields.LIBRARY_ID + "_" +i],
                 comment: formData[fields.COMMENT],
             });
         }
@@ -52,7 +52,7 @@ class BioanalysersSubForm extends React.PureComponent {
             <td key="library" className={css.cell}>
                 <LibrariesForProject
                     form={this.form}
-                    field={this.form + fields.LIBRARY_ID +'_'+ i}
+                    field={fields.LIBRARY_ID +'_'+ i}
                     refFieldName={referenceField_i}
                 />
             </td>

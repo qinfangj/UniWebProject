@@ -14,12 +14,13 @@ import { getSecondaryOptionsListAsync } from '../../../actions/actionCreators/fo
  * Used in User requests and Libraries insert forms.
  */
 class SamplesForProject extends React.PureComponent {
+
     formatter(v) { return [v.id, v.name + (v.shortName ? " ("+v.shortName+")" : "")]; }
 
     componentWillReceiveProps(newProps) {
-        let refValue = this.props.refValue;
-        if (refValue && refValue !== newProps.refValue) {
-            this.props.getSecondaryOptionsListAsync(tableNames.SAMPLES, newProps.refValue, this.props.storeKey);
+        let refValue = newProps.refValue;
+        if (refValue && refValue !== this.props.refValue) {
+            this.props.getSecondaryOptionsListAsync(tableNames.SAMPLES, refValue, newProps.storeKey);
         }
     }
 
