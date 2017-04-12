@@ -1,16 +1,16 @@
 "use strict";
 import React from 'react';
-import { withRouter } from 'react-router';
-
-import { Control, Form, actions} from 'react-redux-form';
-import admincss from './adminForm.css';
 import css from '../forms.css';
-import * as messages from '../messages';
-import * as submit from './submit';
-
+import admincss from './adminForm.css';
+import { withRouter } from 'react-router';
 import store from '../../../core/store';
-import { findByIdAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+
+import * as submit from './submit';
 import adminData from './adminDataModels';
+import constants from '../../constants/constants';
+import { Control, Form, actions} from 'react-redux-form';
+import { findByIdAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+import { SubmissionFeedback } from '../SubmissionFeedback';
 
 /* React-bootstrap */
 import { Button, Col, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap/lib';
@@ -97,12 +97,15 @@ class CommonAdminForms extends React.Component {
 
     render() {
         let formFields = adminData[this.props.table].fields;
+        let feedbackStatus = this.state.submissionError ? constants.SUBMISSION_ERROR :
+                            (this.state.submissionSuccess ? constants.SUBMISSION_SUCCESS :
+                            (Object.keys(this.state.serverError).length > 0 ? constants.SERVER_ERROR : ""));
+        let error = this.state.serverError;
 
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
-                <messages.SubmissionErrorMessage error={this.state.submissionError} />
-                <messages.SubmissionSuccessfulMessage success={this.state.submissionSuccess} id={this.state.submissionId} />
-                <messages.ServerErrorMessage error={this.state.serverError} />
+
+                <SubmissionFeedback status={feedbackStatus} error={error} />
 
                 {
                     formFields.map((s) => {

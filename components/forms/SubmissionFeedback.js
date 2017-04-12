@@ -11,7 +11,6 @@ import constants from '../constants/constants';
 export class SubmissionFeedback extends React.PureComponent {
 
     static propTypes = {
-        form: React.PropTypes.string,  // expecting that as a store key, see `connect`
         status: React.PropTypes.string,  // one of the three constants in the switch below, or ""
         msg: React.PropTypes.string,
         error: React.PropTypes.object,  // an error object such as returned by fetch() or jQuery $.ajax().
