@@ -25,6 +25,8 @@ export function changeFormValue(form, field, value, valid) {
         /* For the next two, the field is not enough: there are several in one form.
             So rather check that the field contains "projectId", then append the field name to the
             store key so that it is unique to the reference field.
+            "secondarySelects" are programmed to read from these keys with appended field name
+            when passed the field name as "refFieldName".
          */
 
         // Library pools select in Runs form

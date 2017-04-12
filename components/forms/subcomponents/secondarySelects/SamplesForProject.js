@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 
 /**
- * The list of Samples that corresponds to a selected Project (see `changeFormValue` action).
+ * The list of Samples that corresponds to a selected project (see `changeFormValue` action).
  * This is a simple Select with specific formatter and default store keys.
  * Used in User requests and Libraries insert forms.
  */

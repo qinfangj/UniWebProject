@@ -8,8 +8,10 @@ import { connect } from 'react-redux';
 
 
 /**
- * List available libraries for a given project.
+ * List available libraries for a selected project.
+ * This is a simple Select with specific formatter and default store keys.
  * Used in Runs and Bioanalysers insert (sub-) forms.
+ * The `refFieldName` prop is the name of the projects selection field.
  */
 class LibrariesForProject extends React.PureComponent {
     formatter(v) { return [v.id, v.name]; }

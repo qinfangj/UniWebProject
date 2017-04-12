@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 
 
 /**
- * List available basecallings output folders for a given run ID.
+ * List available basecallings output folders for a selected run.
+ * This is a simple Select with specific formatter and default store keys.
  * Used in Alignemnts insert form.
  */
 class BasecallingsOutputFolders extends React.PureComponent {

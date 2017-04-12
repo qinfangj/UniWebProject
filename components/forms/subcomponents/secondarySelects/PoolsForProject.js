@@ -8,8 +8,10 @@ import { connect } from 'react-redux';
 
 
 /**
- * List available library pools for a given project.
+ * List available library pools for a selected project.
+ * This is a simple Select with specific formatter and default store keys.
  * Used in Runs insert (sub-) form.
+ * The `refFieldName` prop is the name of the projects selection field.
  */
 class PoolsForProject extends React.PureComponent {
     formatter(v) { return [v.id, v.pool]; }
