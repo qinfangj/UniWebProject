@@ -9,7 +9,7 @@ import DatePicker from '../elements/DatePicker';
 import validators from '../validators';
 import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
-import * as SecondaryOptions from '../../../backup/SecondaryOptions';
+import SamplesForProject from '../../forms/subcomponents/secondarySelects/SamplesForProject';
 import formNames from '../../constants/formNames';
 import fields from '../fields';
 
@@ -74,7 +74,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Sample */}
 
                     <Col sm={3} className={css.formCol}>
-                        <SecondaryOptions.SamplesForProject
+                        <SamplesForProject
                             form={this.form}
                             required
                         />
