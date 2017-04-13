@@ -191,6 +191,12 @@ class RestService {
         return get(url);
     }
 
+    deleteUnvalidatedUsers(){
+        let url = `${BACKEND}/account/deleteUnvalidated`;
+        console.info(url);
+        return post(url);
+    }
+
 
 }
 

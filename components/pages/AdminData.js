@@ -5,6 +5,8 @@ import css from './FacilityData.css';
 import commonCss from '../../styles/common.css';
 import { Link } from 'react-router';
 
+import { deleteUnvalidatedUsers} from '../actions/actionCreators/adminActionCreator';
+import RestService from '../../utils/RestService';
 
 class AdminData extends React.PureComponent {
 
@@ -14,9 +16,14 @@ class AdminData extends React.PureComponent {
         content: React.PropTypes.node,             // the component (table, form, etc.) to display inside.
     };
 
-    open (messege){
-//        window.open('aa', 'sharer', 'toolbar=0,status=0,width=548,height=325');
-        window.confirm("Do you accept?");
+    comfirmDelete(){
+
+        //store.dispatch(deleteUnvalidatedUsers);
+        if (confirm("Are you sure to delete those users?")) { // Clic sur OK
+            RestService.deleteUnvalidatedUsers();
+        }
+
+
 
     }
     render() {
@@ -36,7 +43,7 @@ class AdminData extends React.PureComponent {
                                 <div><li> · </li>
                                 <li><Link to={`/admin/${name}/new`} activeClassName={css.active}>{"New "+ name}</Link></li> </div>:
                                 <div><li> · </li>
-                                <li><Link to={`/admin/${name}/unvalidated`} activeClassName={css.active} onClick={this.open}>{"delete unvalidated "+ name} </Link></li> </div>}
+                                <li><a href='Javascript:void(0)' onClick={this.comfirmDelete.bind(this)}>{"delete unvalidated "+ name} </a></li> </div>}
                         </ul>
                     </div>
 

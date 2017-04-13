@@ -65,13 +65,13 @@ const columns = {
             headerName: "Validated",
             field: "isvalidated",
             headerCellRenderer: headerRenderer,
-            cellStyle: function(params) {
-                if (params.value == true) {
-                    //mark validated user as red
-                    return {backgroundColor: 'lightblue'};
-                } else {
-                    return {backgroundColor: 'red'};
-                }
+            cellRenderer: function(params) {
+                let eDiv = document.createElement('div');
+                return params.value ?
+                     '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>'
+
+
+
             }
         },
     ],
