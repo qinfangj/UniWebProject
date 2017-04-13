@@ -135,8 +135,8 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
     }
 
-    userDelete(component,table,userId){
-        console.log(userId);
+    userDelete(table,userId){
+
         //userDelete(this, this.table, this.props.updateId);
         let state = {serverError: {}};
 
@@ -150,10 +150,10 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
             let {submissionError, submissionFuture} =state;
             if (submissionError) {
-                component.setState({submissionError, serverError: {}});
+                this.setState({submissionError, serverError: {}});
             } else {
                 submissionFuture.done((insertId) => {
-                    component.setState({
+                    this.setState({
                         submissionSuccess: true,
                         submissionId: insertId,
                         submissionError: false,
@@ -162,11 +162,11 @@ class LimsUsersSubmitForm extends React.PureComponent {
                     let currentPath = window.location.pathname + window.location.hash.substr(2);
                     if (userId !== '' || userId !== undefined) {
 
-                        component.props.router.push(currentPath.replace('/update/'+ userId, '/list'));
+                        this.props.router.push(currentPath.replace('/update/'+ userId, '/list'));
 
                     }
                 }).fail((err) => {
-                    component.setState({serverError: err, submissionError: false, submissionSuccess: false});
+                    this.setState({serverError: err, submissionError: false, submissionSuccess: false});
                 });
             }
         }
