@@ -153,6 +153,24 @@ export function getLoginDetails() {
     return asyncAction(types.GET_ACCOUNT_PROFILE, RestService.getLoginDetails.bind(null), args);
 }
 
+export function deleteUnvalidatedUsers() {
+    return dispatch => {
+        //dispatch(() => {return {type: types.CHANGE_PASSWORD_REQUEST}});
+        console.log("authActionCreator");
+        return RestService.deleteUnvalidatedUsers()
+            .then(response => {
+                if (response.ok) {
+                    console.log("response ok");
+                    dispatch(() => {return {type: actions.admin.DELETE_UNVALIDATED_SUCCESS}});
+                } else {
+                    dispatch(() => {return {type: actions.admin.DELETE_UNVALIDATED_FAILURE}});
+                    return Promise.reject(response);
+                }
+            }).catch(err => console.log('Error delete unvalidated users: ' + JSON.stringify(err, null, 2)));
+    }
+}
+
+
 
 
 

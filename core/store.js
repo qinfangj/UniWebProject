@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import facilityDataReducers from '../components/actions/reducers/facilityDataReducers';
 import commonReducers from '../components/actions/reducers/commonReducers';
 import authReducers from '../components/actions/reducers/authReducers';
+import adminReducers from '../components/actions/reducers/adminReducers';
 import queryProjectsReducers from '../components/actions/reducers/queryProjectsReducers';
 import formReducers from '../components/actions/reducers/formReducers';
 import selectOptionsReducers from '../components/actions/reducers/selectOptionsReducers';
@@ -38,6 +39,7 @@ let reducer = combineReducers({
     facilityData: facilityDataReducers,
     common: commonReducers,
     auth: authReducers,
+    admin: adminReducers,
     queryProjects: queryProjectsReducers,
     adminForms: adminFormReducers,
     options: selectOptionsReducers,
