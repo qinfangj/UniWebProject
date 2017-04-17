@@ -59,7 +59,7 @@ class AdminData extends React.PureComponent {
 
     }
     render() {
-        // let name = this.props.name;
+         let name = this.props.name;
         // let feedbackStatus = this.state.submissionError ? constants.SUBMISSION_ERROR :
         //     (this.state.submissionSuccess ? constants.SUBMISSION_SUCCESS :
         //         (Object.keys(this.state.serverError).length > 0 ? constants.SERVER_ERROR : ""));
