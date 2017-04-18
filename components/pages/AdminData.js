@@ -80,7 +80,7 @@ class AdminData extends React.PureComponent {
                                 <div><li> · </li>
                                 <li><Link to={`/admin/${name}/new`} activeClassName={css.active}>{"New "+ name}</Link></li> </div>:
                                 <div><li> · </li>
-                                <li><a href="Javascript:void(0)" onClick={this.comfirmDelete.bind(this)}>{"delete unvalidated "+ name} </a></li> </div>}
+                                <li><a href="Javascript:void(0)" onClick={this.comfirmDelete.bind(this)}>{"delete all unvalidated "+ name} </a></li> </div>}
                         </ul>
                     </div>
                     <div className="clearfix"/>

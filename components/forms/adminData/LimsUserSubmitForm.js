@@ -13,7 +13,7 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 
 import store from '../../../core/store';
 import { getConditionalOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
-import { findByIdAsync,deleteAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+import { findByIdAsync,deleteAsync,validateAsync} from '../../actions/actionCreators/facilityDataActionCreators';
 import adminData from './adminDataModels';
 import {submit} from './submit';
 
@@ -29,6 +29,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
             submissionSuccess: false,
             submissionId: undefined,
             laboratoryList: [],
+            isValidated: undefined,
         };
 
         const modelName = "adminForms.";
@@ -131,6 +132,9 @@ class LimsUsersSubmitForm extends React.PureComponent {
              Object.getOwnPropertyDescriptor(formData, 'login'));
          delete formData['login'];
 
+         let isValidated = formData['isvalidated'];
+         this.setState({isValidated :isValidated})
+
          submit(this, formData, this.table, this.props.updateId, this.state.isInsert);
 
     }
@@ -140,36 +144,75 @@ class LimsUsersSubmitForm extends React.PureComponent {
         //userDelete(this, this.table, this.props.updateId);
         let state = {serverError: {}};
 
-        if (userId) {
+        if (confirm("Are you sure to delete this user?")) { // Clic sur OK
+            if (userId) {
 
-            let future = store.dispatch(deleteAsync(table, userId));
-            state = Object.assign(state, {submissionError: false, submissionFuture: future});
-            future
-                .done((deleteId) => console.debug(200, "Delete ID <" + deleteId + ">"))
-                .fail(() => console.warn("Uncaught form validation error"));
+                let future = store.dispatch(deleteAsync(table, userId));
+                state = Object.assign(state, {submissionError: false, submissionFuture: future});
+                future
+                    .done((deleteId) => console.debug(200, "Delete ID <" + deleteId + ">"))
+                    .fail(() => console.warn("Uncaught form validation error"));
 
-            let {submissionError, submissionFuture} =state;
-            if (submissionError) {
-                this.setState({submissionError, serverError: {}});
-            } else {
-                submissionFuture.done((insertId) => {
-                    this.setState({
-                        submissionSuccess: true,
-                        submissionId: insertId,
-                        submissionError: false,
-                        serverError: {}
+                let {submissionError, submissionFuture} =state;
+                if (submissionError) {
+                    this.setState({submissionError, serverError: {}});
+                } else {
+                    submissionFuture.done((deleteId) => {
+                        this.setState({
+                            submissionSuccess: true,
+                            submissionId: deleteId,
+                            submissionError: false,
+                            serverError: {}
+                        });
+                        let currentPath = window.location.pathname + window.location.hash.substr(2);
+                        if (userId !== '' || userId !== undefined) {
+
+                            this.props.router.push(currentPath.replace('/update/' + userId, '/list'));
+
+                        }
+                    }).fail((err) => {
+                        this.setState({serverError: err, submissionError: false, submissionSuccess: false});
                     });
-                    let currentPath = window.location.pathname + window.location.hash.substr(2);
-                    if (userId !== '' || userId !== undefined) {
-
-                        this.props.router.push(currentPath.replace('/update/'+ userId, '/list'));
-
-                    }
-                }).fail((err) => {
-                    this.setState({serverError: err, submissionError: false, submissionSuccess: false});
-                });
+                }
             }
         }
+    }
+
+    userValidate(userId){
+        let state = {serverError: {}};
+        if (confirm("Are you sure to activate this user?")) { // Clic sur OK
+            if (userId) {
+
+                let future = store.dispatch(validateAsync(userId));
+                state = Object.assign(state, {submissionError: false, submissionFuture: future});
+                future
+                    .done((validateId) => console.debug(200, "Validated ID <" + validateId + ">"))
+                    .fail(() => console.warn("Uncaught form validation error"));
+
+                let {submissionError, submissionFuture} =state;
+                if (submissionError) {
+                    this.setState({submissionError, serverError: {}});
+                } else {
+                    submissionFuture.done((validateId) => {
+                        this.setState({
+                            submissionSuccess: true,
+                            submissionId: validateId,
+                            submissionError: false,
+                            serverError: {}
+                        });
+                        let currentPath = window.location.pathname + window.location.hash.substr(2);
+                        if (userId !== '' || userId !== undefined) {
+
+                            this.props.router.push(currentPath.replace('/update/' + userId, '/list'));
+
+                        }
+                    }).fail((err) => {
+                        this.setState({serverError: err, submissionError: false, submissionSuccess: false});
+                    });
+                }
+            }
+        }
+
     }
 
     render() {
@@ -234,15 +277,18 @@ class LimsUsersSubmitForm extends React.PureComponent {
                 </Col>
 
 
-                                {/* Submit */}
-
+                {/* Submit */}
 
                 <Button bsStyle="primary" className={admincss.button} type ="submit" >
                     {this.state.isInsert ? 'Submit' : 'ActivateForm'}
                 </Button>
-                {this.state.isInsert && this.props.updateId ?
-                 <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userDelete.bind(this,this.table,this.props.updateId)}>Delete</Button> : null}
-            </Form>
+                { this.state.isInsert && this.props.updateId && !this.state.isValidated ?
+                    <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userValidate.bind(this,this.props.updateId)}>Validate</Button>
+                : null}
+                { this.state.isInsert && this.props.updateId && !this.state.isValidated ?
+                     <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userDelete.bind(this,this.table,this.props.updateId)}>Delete</Button>
+                    : null}
+             </Form>
 
 
 

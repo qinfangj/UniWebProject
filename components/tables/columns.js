@@ -68,7 +68,7 @@ const columns = {
             cellRenderer: function(params) {
                 let eDiv = document.createElement('div');
                 return params.value ?
-                     '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>'
+                     '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" style="color:red" aria-hidden="true"></i>'
 
 
 

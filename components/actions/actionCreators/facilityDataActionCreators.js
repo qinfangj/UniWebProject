@@ -53,3 +53,8 @@ export function fillUpdateForm(form, data) {
     };
 }
 
+/* Validate */
+export function validateAsync(id) {
+    let args = {id};
+    return asyncAction(types.facilityData.VALIDATE, RestService.validateUser.bind(null, id), args);
+}

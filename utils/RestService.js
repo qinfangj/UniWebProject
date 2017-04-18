@@ -197,6 +197,12 @@ class RestService {
         return post(url);
     }
 
+    validateUser(id){
+        let url = `${BACKEND}/table/users/validate/${id}`;
+        console.info(url);
+        return post(url);
+    }
+
 
 }
 
