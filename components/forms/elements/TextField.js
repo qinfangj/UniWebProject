@@ -66,7 +66,7 @@ class TextField extends React.PureComponent {
     /** For bootstrap validationState: can be "success", "warning", "error", or null */
     getFeedbackValue() {
         let feedback = null;
-        if (this.props.value === "") {
+        if (this.props.value === "" || this.props.value == null) {
             // Again, separate conditions because we do not want any warning while fields are empty
             if (this.props.required && this.props.submissionError) {
                 feedback = "error"
@@ -80,7 +80,7 @@ class TextField extends React.PureComponent {
     /** Info text on error/warning */
     getErrorMessage() {
         let msg = "";
-        if (this.props.value === "" && this.props.required && this.props.submissionError) {
+        if ((this.props.value === "" || this.props.value == null) && this.props.required && this.props.submissionError) {
             msg = this.props.label + " is required.";
         } else {
             msg = this.state.msg;
@@ -124,6 +124,7 @@ class TextField extends React.PureComponent {
                     onChange={this.onChange.bind(this)}
                     placeholder={this.props.placeholder}
                     {...this.props.inputProps}
+                    {...this.props}
                 />
                 {feedback}
                 {help}

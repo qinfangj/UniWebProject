@@ -592,7 +592,7 @@ const columns = {
         idColumnWithUpdateLink("bioanalysers"),
         {
             headerName: "Date",
-            field: "bioanalyser_date",
+            field: "date",
         },
         {
             headerName: "File name",

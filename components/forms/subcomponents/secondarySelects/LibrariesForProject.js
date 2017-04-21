@@ -29,6 +29,7 @@ class LibrariesForProject extends React.PureComponent {
     render() {
         let {options, ...otherProps} = this.props;
         options = options.map((v) => this.formatter(v));
+        options.unshift([-1, '-']);
         return (
             <Select
                 options={options}
