@@ -17,7 +17,7 @@ import Button from 'react-bootstrap/lib/Button';
 /**
  * The mutable part of the Bioanalysers insert form, with the lanes.
  */
-class BioanalysersSubFormTest extends React.PureComponent {
+class BioanalysersSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
         this.table = "bioanalysers";
@@ -111,4 +111,4 @@ class BioanalysersSubFormTest extends React.PureComponent {
 }
 
 
-export default BioanalysersSubFormTest;
+export default BioanalysersSubForm;
