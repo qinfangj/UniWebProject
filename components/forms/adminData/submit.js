@@ -1,8 +1,9 @@
 "use strict";
-
+import { actions } from 'react-redux-form';
 import { insertAsync, deleteAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import store from '../../../core/store';
 import adminData from './adminDataModels';
+import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { dateNow, parseDateString } from '../../../utils/time';
 import { withRouter } from 'react-router';
 
@@ -35,9 +36,10 @@ export function formatFormData(formData, table) {
     return formData
 }
 
-export function submit(component, values, table, updateId, isInsert) {
+export function submit(component, form, values, table, updateId, isInsert) {
 
     let state = {serverError: {}};
+    let submissionFuture = null;
 
     let data = Object.assign({}, values);
 
@@ -47,23 +49,14 @@ export function submit(component, values, table, updateId, isInsert) {
         component.setState({isInsert:true});
     } else {
         let formData = formatFormData(data, table);
-        let future = store.dispatch(insertAsync(table, formData));
-        state = Object.assign(state, {submissionError: false, submissionFuture: future});
-        future
-            .done((insertId) => console.debug(200, "Inserted ID <" + insertId + ">"))
-            .fail(() => console.warn("Uncaught form validation error"));
-
-        let {submissionError, submissionFuture} =state;
-        if (submissionError) {
-            component.setState({submissionError, serverError: {}});
-        } else {
-            submissionFuture.done((insertId) => {
-                component.setState({
-                    submissionSuccess: true,
-                    submissionId: insertId,
-                    submissionError: false,
-                    serverError: {}
-                });
+        let submissionFuture = store.dispatch(insertAsync(table, formData));
+        //state = Object.assign(state, {submissionError: false, submissionFuture: future});
+        submissionFuture
+            .done((insertId) => {
+                console.debug(200, "Inserted ID <" + insertId + ">");
+                // Clear the form data in store
+                store.dispatch(feedbackSuccess(form, "Inserted ID <"+insertId+">"));
+                store.dispatch(actions.reset(form));
                 let currentPath = window.location.pathname + window.location.hash.substr(2);
                 if (updateId === '' || updateId === undefined) {
                     component.props.router.push(currentPath.replace('/new', '/list'));
@@ -72,10 +65,11 @@ export function submit(component, values, table, updateId, isInsert) {
                     component.props.router.push(currentPath.replace('/update/'+ updateId, '/list'));
 
                 }
-            }).fail((err) => {
-                component.setState({serverError: err, submissionError: false, submissionSuccess: false});
+            })
+            .fail(() => {
+                console.warn("Uncaught form validation error");
+                store.dispatch(feedbackError(form, "Uncaught form validation error", err));
             });
-        }
     }
 
 }
