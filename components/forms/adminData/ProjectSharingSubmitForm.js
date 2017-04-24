@@ -6,7 +6,7 @@ import admincss from './adminForm.css';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import * as messages from '../messages';
+import * as messages from './messages';
 import * as submit from './submit';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import adminData from './adminDataModels';

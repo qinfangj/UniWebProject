@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Col from 'react-bootstrap/lib/Col';
 
 import { Control, Form, actions} from 'react-redux-form';
-import * as messages from '../messages';
+import * as messages from './messages';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 import store from '../../../core/store';
