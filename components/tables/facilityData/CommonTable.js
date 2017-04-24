@@ -151,12 +151,6 @@ class CommonTable extends React.PureComponent {
 
                 <DataLoadingIcon />
 
-                {/* Show number of rows in result */}
-
-                { data.length === 0 ? null :
-                    <tables.Nrows data={data}/>
-                }
-
             </div>
         );
     }
