@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import Col from 'react-bootstrap/lib/Col';
 
 import { Control, Form, actions} from 'react-redux-form';
-import * as messages from '../messages';
 import Feedback from '../../utils/Feedback';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
