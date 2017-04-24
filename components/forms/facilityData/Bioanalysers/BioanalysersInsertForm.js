@@ -19,8 +19,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Feedback from '../../../utils/Feedback';
 
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import SubmissionFeedback from '../../SubmissionFeedback';
-import { formSubmissionSuccess, formSubmissionError, formServerError } from '../../../actions/actionCreators/formsActionCreators';
+import { feedbackSuccess,  feedbackError } from '../../../actions/actionCreators/feedbackActionCreators';
 import { resetForm } from '../../../actions/actionCreators/formsActionCreators';
 import { Link } from 'react-router';
 import { hashHistory } from 'react-router';
@@ -74,10 +73,8 @@ class BioanalysersInsertForm extends React.PureComponent {
 
     bioanalyserDelete(){
 
-        //userDelete(this, this.table, this.props.updateId);
-        //let state = {serverError: {}};
         let submissionFuture = null;
-        if (confirm("Are you sure to delete this user?")) { // Clic sur OK
+        if (confirm("Are you sure that you want to delete this user?")) { // Clic sur OK
             if (this.props.updateId) {
 
                 let submissionFuture = store.dispatch(deleteAsync(this.table, this.props.updateId));
@@ -87,7 +84,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                         // Signal that it was a success
                         console.debug(200, "DeleteId ID <"+deleteId+">");
                         // Clear the form data in store
-                        store.dispatch(formSubmissionSuccess(this.form, "Inserted ID <"+deleteId+">"));
+                        store.dispatch(feedbackSuccess(this.form, "Inserted ID <"+deleteId+">"));
                         store.dispatch(resetForm(this.form));
                         // Redirect to table by replacing '/new' by '/list' in the router state
                         let currentPath = window.location.pathname + window.location.hash.substr(2);
@@ -95,7 +92,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                     })
                     .fail((err) => {
                         console.warn("Uncaught form validation error");
-                        store.dispatch(formServerError(this.form, err, "Uncaught form validation error"));
+                        store.dispatch(feedbackError(this.form, err, "Uncaught form validation error"));
                     });
             }
         }
@@ -164,7 +161,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                 {/* Submit */}
 
                 <Button action="submit" bsStyle="primary" className={css.button} onClick={this.onSubmit.bind(this)}>
-                    {this.state.isInsert ? 'Submit':'ActivateForm'}
+                    {this.state.isInsert ? 'Submit':'Activate Form'}
                 </Button>
                 { this.state.isInsert && this.props.updateId ?
                     <Button bsStyle="primary"  className={css.button} type = "button" onClick={this.bioanalyserDelete.bind(this)}>Delete</Button>
