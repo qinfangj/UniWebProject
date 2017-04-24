@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/lib/Col';
 
 import { Control, Form, actions} from 'react-redux-form';
 import * as messages from '../messages';
-import dataStoreKeys from '../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 import store from '../../../core/store';
 import { getConditionalOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
@@ -52,7 +52,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
     componentWillMount() {
         let laboratoryTable = "people";
         let suffix = "labs";
-        let laboratoryStoreKey = dataStoreKeys.PEOPLE;
+        let laboratoryStoreKey = optionsStoreKeys.PEOPLE;
         let laboratoryList = store.getState().forms[laboratoryStoreKey];
 
 

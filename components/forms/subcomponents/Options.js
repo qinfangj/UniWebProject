@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import AsyncOptionsList from './AsyncOptionsList';
-import dataStoreKeys from '../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import fields from '../fields';
 
 
@@ -11,7 +11,7 @@ export class Instruments extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.INSTRUMENT_ID} table="instruments" label="Machine"
-                                 storeKey={dataStoreKeys.INSTRUMENTS}
+                                 storeKey={optionsStoreKeys.INSTRUMENTS}
                                  formatter={this.formatter}
                                  {...this.props}
                                   />;
@@ -23,7 +23,7 @@ export class LibProtocols extends React.Component {
     formatter(v) { return [v.id, v.shortName]; }
     render() {
         return <AsyncOptionsList field={fields.LIB_PROTOCOL_ID} table="lib_protocols" label="Library type"
-                                 storeKey={dataStoreKeys.LIB_PROTOCOLS}
+                                 storeKey={optionsStoreKeys.LIB_PROTOCOLS}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -35,7 +35,7 @@ export class LibraryAdapters extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.ADAPTER_ID} table="library_adapters" label="Adapter"
-                                 storeKey={dataStoreKeys.LIB_ADAPTERS}
+                                 storeKey={optionsStoreKeys.LIB_ADAPTERS}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -47,7 +47,7 @@ export class LibraryStates extends React.Component {
     formatter(v) { return [v.id, v.stateOrder +" - "+ v.name]; }
     render() {
         return <AsyncOptionsList field={fields.LIBRARY_STATE_ID} table="library_states" label="Library state"
-                                 storeKey={dataStoreKeys.LIB_STATES}
+                                 storeKey={optionsStoreKeys.LIB_STATES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -59,7 +59,7 @@ export class FlowcellTypes extends React.Component {
     formatter(v) { return [v.id, v.version]; }
     render() {
         return <AsyncOptionsList field={fields.FLOWCELL_TYPE_ID} table="flowcell_types" label="Version"
-                                 storeKey={dataStoreKeys.FLOWCELL_TYPES}
+                                 storeKey={optionsStoreKeys.FLOWCELL_TYPES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -71,7 +71,7 @@ export class MappingTools extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.MAPPING_TOOL_ID} table="mapping_tools" label="Mapping tool"
-                                 storeKey={dataStoreKeys.MAPPING_TOOLS}
+                                 storeKey={optionsStoreKeys.MAPPING_TOOLS}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -83,7 +83,7 @@ export class MultiplexIndexes extends React.Component {
     formatter(v) { return [v.id, v.name +" - "+ v.sequence]; }
     render() {
         return <AsyncOptionsList table="multiplex_indexes"
-                                 storeKey={dataStoreKeys.MULTIPLEX_INDEXES}
+                                 storeKey={optionsStoreKeys.MULTIPLEX_INDEXES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -99,7 +99,7 @@ export class People extends React.Component {
     formatter(v) { return [v.id, v.lastName +" "+ v.firstName]; }
     render() {
         return <AsyncOptionsList field={fields.PERSON_ID} table="people" label="Collaborator"
-                                 storeKey={dataStoreKeys.PEOPLE}
+                                 storeKey={optionsStoreKeys.PEOPLE}
                                  formatter={this.formatter}
                                  suffix="all"
                                  {...this.props}
@@ -112,7 +112,7 @@ export class Laboratories extends React.Component {
     formatter(v) { return [v.id, v.lastName +" "+ v.firstName]; }
     render() {
         return <AsyncOptionsList field={fields.PERSON_ID} table="people" label="Laboratory"
-                                 storeKey={dataStoreKeys.PEOPLE}
+                                 storeKey={optionsStoreKeys.PEOPLE}
                                  formatter={this.formatter}
                                  suffix="labs"
                                  {...this.props}
@@ -125,7 +125,7 @@ export class PipelineAnalysisTypes extends React.Component {
     formatter(v) { return [v.id, v.description]; }
     render() {
         return <AsyncOptionsList field={fields.ANALYSIS_TYPE_ID} table="pipeline_analysis_types" label="Analysis type"
-                                 storeKey={dataStoreKeys.PIPELINE_ANALYSIS_TYPES}
+                                 storeKey={optionsStoreKeys.PIPELINE_ANALYSIS_TYPES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -137,7 +137,7 @@ export class PipelineVersions extends React.Component {
     formatter(v) { return [v.id, v.softwareName +" - "+ v.number]; }
     render() {
         return <AsyncOptionsList field={fields.PIPELINE_VERSION_ID} table="pipeline_versions" label="Pipeline version"
-                                 storeKey={dataStoreKeys.PIPELINE_VERSIONS}
+                                 storeKey={optionsStoreKeys.PIPELINE_VERSIONS}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -149,7 +149,7 @@ export class ProjectAnalyses extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.PROJECT_ANALYSIS_ID} table="project_analysis" label="Project analysis"
-                                 storeKey={dataStoreKeys.PROJECT_ANALYSES}
+                                 storeKey={optionsStoreKeys.PROJECT_ANALYSES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -163,7 +163,7 @@ export class ProjectsWithSamples extends React.Component {
     }
 }
 ProjectsWithSamples.defaultProps = {
-    storeKey: dataStoreKeys.PROJECTS_HAVING_A_SAMPLE,
+    storeKey: optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE,
     field: fields.PROJECT_ID,
 };
 
@@ -176,7 +176,7 @@ export class ProjectsWithLibraries extends React.Component {
     }
 }
 ProjectsWithLibraries.defaultProps = {
-    storeKey: dataStoreKeys.PROJECTS_HAVING_A_LIBRARY,
+    storeKey: optionsStoreKeys.PROJECTS_HAVING_A_LIBRARY,
     field: fields.PROJECT_ID,
 };
 
@@ -189,7 +189,7 @@ export class ProjectsWithPool extends React.Component {
     }
 }
 ProjectsWithPool.defaultProps = {
-    storeKey: dataStoreKeys.PROJECTS_HAVING_A_POOL,
+    storeKey: optionsStoreKeys.PROJECTS_HAVING_A_POOL,
     field: fields.PROJECT_ID,
 };
 
@@ -211,7 +211,7 @@ Projects.propTypes = {
 };
 Projects.defaultProps = {
     field: fields.PROJECT_ID,
-    storeKey: dataStoreKeys.PROJECTS,
+    storeKey: optionsStoreKeys.PROJECTS,
     suffix: "all",
     label: "Project",
 };
@@ -222,7 +222,7 @@ export class ProjectStates extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.PROJECT_STATE_ID} table="project_states" label="Project state"
-                                 storeKey={dataStoreKeys.PROJECT_STATES}
+                                 storeKey={optionsStoreKeys.PROJECT_STATES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -234,7 +234,7 @@ export class QuantifMethods extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.QUANTIF_METHOD_ID} table="quantif_methods" label="Quantification"
-                                 storeKey={dataStoreKeys.QUANTIF_METHODS}
+                                 storeKey={optionsStoreKeys.QUANTIF_METHODS}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -246,7 +246,7 @@ export class RunsOutputFolders extends React.Component {
     formatter(v) { return [v.id, v.runFolder]; }
     render() {
         return <AsyncOptionsList field={fields.RUN_ID} table="runs" label="Run"
-                                 storeKey={dataStoreKeys.RUNS_OUTPUT_FOLDERS}
+                                 storeKey={optionsStoreKeys.RUNS_OUTPUT_FOLDERS}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -259,7 +259,7 @@ export class RunTypesLengths extends React.Component {
     render() {
         return <AsyncOptionsList field={fields.RUN_TYPES_LENGTH_ID} table="run_types_lengths" label="Run type"
                                  suffix={this.props.suffix}
-                                 storeKey={dataStoreKeys.RUN_TYPES_LENGTHS}
+                                 storeKey={optionsStoreKeys.RUN_TYPES_LENGTHS}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -274,7 +274,7 @@ export class SampleTypes extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.SAMPLE_TYPE_ID} table="sample_types" label="Sample type"
-                                 storeKey={dataStoreKeys.SAMPLE_TYPES}
+                                 storeKey={optionsStoreKeys.SAMPLE_TYPES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -286,7 +286,7 @@ export class SequencingKitVersions extends React.Component {
     formatter(v) { return [v.id, v.version]; }
     render() {
         return <AsyncOptionsList field={fields.SEQUENCING_KIT_VERSION_ID} table="sequencing_kit_versions" label="Kit"
-                                 storeKey={dataStoreKeys.SEQUENCING_KIT_VERSIONS}
+                                 storeKey={optionsStoreKeys.SEQUENCING_KIT_VERSIONS}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -298,7 +298,7 @@ export class SequencingQualities extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.QUALITY_ID} table="sequencing_qualities"
-                                 storeKey={dataStoreKeys.SEQUENCING_QUALITIES}
+                                 storeKey={optionsStoreKeys.SEQUENCING_QUALITIES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
@@ -310,7 +310,7 @@ export class Taxonomies extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.TAXO_ID} table="taxonomies" label="Organism"
-                                 storeKey={dataStoreKeys.TAXONOMIES}
+                                 storeKey={optionsStoreKeys.TAXONOMIES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;

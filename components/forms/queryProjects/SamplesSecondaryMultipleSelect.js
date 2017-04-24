@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import { changeSamplesSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
-import dataStoreKeys from '../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import MultipleSelect from '../elements/MultipleSelect';
 import { assertIsArray } from '../../../utils/common';
 
@@ -108,16 +108,16 @@ SamplesSecondaryMultipleSelect.defaultProps = {
 
 const mapStateToProps = (state) => {
     return {
-        options: state.queryProjects[dataStoreKeys.SAMPLES_FOR_PROJECTS],
+        options: state.queryProjects[optionsStoreKeys.SAMPLES_FOR_PROJECTS],
         selectedProjectIds: state.queryProjects.projectIds,
-        referenceProjects: state.queryProjects[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE],
+        referenceProjects: state.queryProjects[optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE],
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getSecondaryOptionsListAsync: (id) =>
-            dispatch(getSecondaryOptionsListAsync("samples", id, dataStoreKeys.SAMPLES_FOR_PROJECTS)),
+            dispatch(getSecondaryOptionsListAsync("samples", id, optionsStoreKeys.SAMPLES_FOR_PROJECTS)),
     };
 };
 

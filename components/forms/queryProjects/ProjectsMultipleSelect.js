@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getConditionalOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import { resetSelection, changeProjectsSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
-import dataStoreKeys from '../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import constants from '../../constants/constants';
 import MultipleSelect from '../elements/MultipleSelect';
 
@@ -60,19 +60,20 @@ class ProjectsMultipleSelect extends React.PureComponent {
 
 ProjectsMultipleSelect.defaultProps = {
     options: [],
+    filterByProjectIds: null,
 };
 
 
 const mapStateToProps = (state) => {
     return {
-        options: state.queryProjects[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE],
+        options: state.queryProjects[optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE],
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getConditionalOptionsListAsync: () =>
-            dispatch(getConditionalOptionsListAsync("projects", "samples", dataStoreKeys.PROJECTS_HAVING_A_SAMPLE)),
+            dispatch(getConditionalOptionsListAsync("projects", "samples", optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE)),
     };
 };
 

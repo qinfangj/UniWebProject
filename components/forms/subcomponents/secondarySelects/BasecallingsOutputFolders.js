@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import Select from '../../elements/Select';
-import dataStoreKeys from '../../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import fields from '../../fields';
 import tableNames from '../../../tables/tableNames';
 import { connect } from 'react-redux';
@@ -45,7 +45,7 @@ BasecallingsOutputFolders.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     // Need to specify the form in the store key because there is a different one
     // for each different selected project.
-    let storeKey = ownProps.form +'_'+ dataStoreKeys.BASECALLINGS_OUTPUT_FOLDERS_FOR_RUN;
+    let storeKey = ownProps.form +'_'+ optionsStoreKeys.BASECALLINGS_OUTPUT_FOLDERS_FOR_RUN;
     let options = state.options[storeKey] || [];
     let refValue = state.forms[ownProps.form][fields.RUN_ID];
     return {
