@@ -86,6 +86,7 @@ class BioanalysersSubForm extends React.PureComponent {
                                     storeKey={this.form + fields.PROJECT_ID +'_'+ idx}
                                 />
                             </td>
+
                             <td key="library" className={css.cell}>
                                 <LibrariesForProject
                                     form={this.form}

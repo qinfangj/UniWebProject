@@ -1,45 +1,46 @@
 "use strict";
 import React from 'react';
 import { connect } from 'react-redux';
-import { resetFeedback } from '../actions/actionCreators/formsActionCreators';
-import css from './forms.css';
+import { resetFeedback } from '../actions/actionCreators/feedbackActionCreators';
+import css from './Feedback.css';
 import Alert from 'react-bootstrap/lib/Alert';
 import constants from '../constants/constants';
 
 
 
-export class SubmissionFeedback extends React.PureComponent {
+export class Feedback extends React.PureComponent {
 
     static propTypes = {
+        reference: React.PropTypes.string.isRequired,  // to connect with redux (see at the bottom), a key to identify the source
         status: React.PropTypes.string,  // one of the three constants in the switch below, or ""
-        msg: React.PropTypes.string,
+        message: React.PropTypes.string,  // the message to display
         error: React.PropTypes.object,  // an error object such as returned by fetch() or jQuery $.ajax().
     };
 
     render() {
-        let bsStyle = undefined, show = true, msg = "";
+        let bsStyle = undefined, show = true, message = this.props.message;
+        let error = this.props.error;
+
         switch (this.props.status) {
-            case constants.SUBMISSION_SUCCESS:
+            case constants.SUCCESS:
                 bsStyle = "success";
-                msg = "Submission successful";
                 break;
-            case constants.SUBMISSION_ERROR:
+            case constants.WARNING:
                 bsStyle = "warning";
-                msg = "Some required fields are missing or ill-formatted. Please review the form and submit again.";
                 break;
-            case constants.SERVER_ERROR:
+            case constants.ERROR:
                 bsStyle = "danger";
-                let error = this.props.error;
-                msg = `${error.statusText} (${error.status}): ${error.responseText}`;
+                message = `${error.statusText} (${error.status}): ${error.responseText}`;
                 break;
             default:
                 show = false;
                 break;
         }
+
         if (show) {
             return (
                 <Alert bsStyle={bsStyle} onClick={this.props.resetFeedback}>
-                    {msg}
+                    {message}
                     <span className={css.alertOk} onClick={this.props.resetFeedback}><a>OK</a></span>
                 </Alert>
             );
@@ -48,26 +49,33 @@ export class SubmissionFeedback extends React.PureComponent {
 }
 
 
-SubmissionFeedback.defaultProps = {
+Feedback.defaultProps = {
     status: "",
-    msg: "",
+    message: "",
     error: {},
 };
 
 const mapStateToProps = (state, ownProps) => {
-    let submission = state.forms[ownProps.form]._submission;
+    let submission = state.feedback[ownProps.reference];
+    if (!submission) {
+        submission = {
+            status: null,
+            message: "",
+            error: {},
+        };
+    }
     return {
         status: submission.status,
-        msg: submission.msg,
+        message: submission.message,
         error: submission.error,
     };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        resetFeedback: () => dispatch(resetFeedback(ownProps.form)),
+        resetFeedback: () => dispatch(resetFeedback(ownProps.reference)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubmissionFeedback);
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);
 

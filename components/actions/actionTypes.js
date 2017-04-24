@@ -10,6 +10,13 @@ const actionTypes = {
         ERROR: "ERROR",
     },
 
+    feedback: {
+        FEEDBACK_SUCCESS: "FEEDBACK_SUCCESS",
+        FEEDBACK_ERROR: "FEEDBACK_ERROR",
+        FEEDBACK_WARNING: "FEEDBACK_WARNING",
+        FEEDBACK_RESET: "FEEDBACK_RESET",
+    },
+
     forms: {
         FORM_SUBMISSION_ERROR: "FORM_SUBMISSION_ERROR",
         FORM_SERVER_ERROR: "FORM_SERVER_ERROR",

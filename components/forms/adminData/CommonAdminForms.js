@@ -10,7 +10,7 @@ import adminData from './adminDataModels';
 import constants from '../../constants/constants';
 import { Control, Form, actions} from 'react-redux-form';
 import { findByIdAsync} from '../../actions/actionCreators/facilityDataActionCreators';
-import { SubmissionFeedback } from '../SubmissionFeedback';
+import Feedback from '../../utils/Feedback';
 
 /* React-bootstrap */
 import { Button, Col, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap/lib';
@@ -105,7 +105,7 @@ class CommonAdminForms extends React.Component {
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
 
-                <SubmissionFeedback status={feedbackStatus} error={error} />
+                <Feedback reference={this.modelName} status={feedbackStatus} error={error} />
 
                 {
                     formFields.map((s) => {

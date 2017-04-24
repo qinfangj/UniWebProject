@@ -2,12 +2,11 @@
 import React from 'react';
 import store from '../../core/store';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import { formSubmissionSuccess, formSubmissionError, formServerError } from '../actions/actionCreators/formsActionCreators';
+import { feedbackError, feedbackSuccess, feedbackWarning } from '../actions/actionCreators/feedbackActionCreators';
 import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { resetForm } from '../actions/actionCreators/formsActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
-
 
 
 /**
@@ -70,8 +69,8 @@ export function submit(form, table, formatFormData=null) {
     delete formData._isValid;
     // Invalid form: don't submit, return an error
     if (invalidFields.length !== 0) {
-        store.dispatch(formSubmissionError(form));
-    // Valid form: format and send
+        store.dispatch(feedbackWarning(form, "Some required fields are missing or ill-formatted. Please review the form and submit again."));
+// Valid form: format and send
     } else {
         if (formatFormData) {
             formData = formatFormData(formData);
@@ -91,7 +90,7 @@ export function submit(form, table, formatFormData=null) {
                 // Signal that it was a success
                 console.debug(200, "Inserted ID <"+insertId+">");
                 // Clear the form data in store
-                store.dispatch(formSubmissionSuccess(form, "Inserted ID <"+insertId+">"));
+                store.dispatch(feedbackSuccess(form, "Inserted ID <"+insertId+">"));
                 store.dispatch(resetForm(form));
                 // Redirect to table by replacing '/new' by '/list' in the router state
                 let currentPath = window.location.pathname + window.location.hash.substr(2);
@@ -99,7 +98,7 @@ export function submit(form, table, formatFormData=null) {
             })
             .fail((err) => {
                 console.warn("Uncaught form validation error");
-                store.dispatch(formServerError(form, err, "Uncaught form validation error"));
+                store.dispatch(feedbackError(form, "Uncaught form validation error", err));
             });
     }
 }

@@ -80,6 +80,7 @@ class Select extends React.PureComponent {
                     placeholder={label}
                     onChange={this.onChange.bind(this)}
                     value={this.props.value}
+                    disabled={this.props.disabled}
                     {...this.props.inputProps}
                 >
                     {options}

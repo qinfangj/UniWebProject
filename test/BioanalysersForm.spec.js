@@ -4,6 +4,7 @@ import {shallow, mount, render} from 'enzyme';
 
 import {expect} from 'chai';
 import BioanalysersInsertForm from '../components/forms/facilityData/Bioanalysers/BioanalysersInsertForm';
+import BioanalyserInsertForm from '../components/forms/facilityData/Bioanalysers/BioanalysersInsertFormTest';
 import BioanalysersSubForm from '../components/forms/facilityData/Bioanalysers/BioanalysersSubForm';
 
 

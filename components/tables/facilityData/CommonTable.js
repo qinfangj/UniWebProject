@@ -12,7 +12,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from '../columns';
-import SubmissionFeedback from '../../forms/SubmissionFeedback';
+import Feedback from '../../utils/Feedback';
 import DataLoadingIcon from '../../../utils/DataLoadingIcon';
 
 
@@ -131,7 +131,7 @@ class CommonTable extends React.PureComponent {
                 <div className="clearfix"/>
 
                 { !this.props.form ? null :
-                    <SubmissionFeedback form={this.props.form}/>
+                    <Feedback reference={this.props.form}/>
                 }
 
                 <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>

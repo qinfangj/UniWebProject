@@ -16,6 +16,8 @@ import { findForUpdateAsync,deleteAsync} from '../../../actions/actionCreators/f
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import Feedback from '../../../utils/Feedback';
+
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import SubmissionFeedback from '../../SubmissionFeedback';
 import { formSubmissionSuccess, formSubmissionError, formServerError } from '../../../actions/actionCreators/formsActionCreators';
@@ -100,11 +102,10 @@ class BioanalysersInsertForm extends React.PureComponent {
     }
 
     render() {
-
         return (
             <form className={css.form}>
 
-                <SubmissionFeedback form={this.form} />
+                <Feedback reference={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 

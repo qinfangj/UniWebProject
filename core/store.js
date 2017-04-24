@@ -1,6 +1,5 @@
 "use strict";
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-//import { routerMiddleware } from 'react-router-redux'
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import facilityDataReducers from '../components/actions/reducers/facilityDataReducers';
@@ -11,6 +10,7 @@ import queryProjectsReducers from '../components/actions/reducers/queryProjectsR
 import formReducers from '../components/actions/reducers/formReducers';
 import selectOptionsReducers from '../components/actions/reducers/selectOptionsReducers';
 import adminFormReducers from '../components/actions/reducers/adminFormReducers';
+import feedbackReducers from '../components/actions/reducers/feedbackReducers';
 
 /*
  * Redux store
@@ -30,7 +30,7 @@ const logger = createLogger({
 });
 
 let middleware = [thunk];
-console.log("store.js :: NODE_ENV:", process.env.NODE_ENV)
+console.log("store.js :: NODE_ENV:", process.env.NODE_ENV);
 if (process.env.NODE_ENV !== 'TEST') {
     middleware = [ ...middleware, logger ]
 }
@@ -44,6 +44,7 @@ let reducer = combineReducers({
     adminForms: adminFormReducers,
     options: selectOptionsReducers,
     forms: formReducers,
+    feedback: feedbackReducers,
 });
 
 

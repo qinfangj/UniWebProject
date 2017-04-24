@@ -12,8 +12,11 @@ import SamplesInsertForm from '../../forms/facilityData/SamplesInsertForm';
 import LibrariesInsertForm from '../../forms/facilityData/LibrariesInsertForm';
 import RunsPreInsertForm from '../../forms/facilityData/Runs/RunsPreInsertForm';
 import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertForm';
+import RunsInsertFormTest from '../../forms/facilityData/Runs/RunsInsertFormTest';
 import UserRequestsInsertForm from '../../forms/facilityData/UserRequestsInsertForm';
 import BioanalysersInsertForm from '../../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
+import BioanalysersInsertFormTest from '../../forms/facilityData/Bioanalysers/BioanalysersInsertFormTest';
+
 import BasecallingsInsertForm from '../../forms/facilityData/BasecallingsInsertForm';
 import AlignmentsInsertForm from '../../forms/facilityData/AlignmentsInsertForm';
 
@@ -237,9 +240,13 @@ export class RunsPreNewRoute extends React.Component {
     );}
 }
 export class RunsNewRoute extends React.Component {
-    render() {return (
+    render() {
+        console.log("hello");
+
+        return (
+
         <FacilityData title="Runs" name="runs" content={
-            <RunsInsertForm/>
+            <RunsInsertForm form={formNames.RUNS_INSERT_FORM}/>
         } />
     );}
 }

@@ -1,0 +1,7 @@
+
+
+/* The message printing on top of the screen when submission was a success/failure */
+.alertOk {
+    margin-left: 10px;
+    cursor: pointer;
+}

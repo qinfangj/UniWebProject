@@ -71,8 +71,10 @@ const routes = (
             <Route path="data/runs" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/list" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/active" component={fdata.RunsActiveRoute} onEnter={requireAuth} />
-            <Route path="data/runs/new" component={fdata.RunsPreNewRoute} onEnter={requireAuth} />
-            <Route path="data/runs/postnew" component={fdata.RunsNewRoute} onEnter={requireAuth} />
+            {/*<Route path="data/runs/new" component={fdata.RunsPreNewRoute} onEnter={requireAuth} />*/}
+            <Route path="data/runs/new" component={fdata.RunsNewRoute} onEnter={requireAuth} />
+
+            {/*<Route path="data/runs/postnew" component={fdata.RunsNewRoute} onEnter={requireAuth} />*/}
             <Route path="data/runs/update/:id" component={fdata.RunsUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/user_requests" component={fdata.UserRequestsListRoute} onEnter={requireAuth} />
