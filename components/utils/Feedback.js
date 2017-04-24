@@ -73,7 +73,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        resetFeedback: () => dispatch(resetFeedback(ownProps.key)),
+        resetFeedback: () => dispatch(resetFeedback(ownProps.reference)),
     };
 };
 
