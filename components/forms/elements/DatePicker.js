@@ -28,7 +28,7 @@ class DatePicker extends React.PureComponent {
                     placeholder={this.props.label}
                     value={this.props.value}
                     onChange={this.onChange.bind(this)}
-                    {...this.props}
+                    disabled={this.props.disabled}
                 />
             </FormGroup>
         );

@@ -121,7 +121,10 @@ class BioanalysersInsertForm extends React.PureComponent {
                         </Col>:
                         <Col sm={6} className={formsCss.formCol}>
                             <ControlLabel>Bioanalyser file</ControlLabel>
-                            <div><a href={`/bioanalysers/pdf/${this.props.updateId}/${store.getState().forms[this.form].filename}`}>{store.getState().forms[this.form].filename}</a></div>
+                            <div>
+                                <a href={`/bioanalysers/pdf/${this.props.updateId}/${store.getState().forms[this.form].filename}`}>
+                                {store.getState().forms[this.form].filename}</a>
+                            </div>
                         </Col>
                     }
                     {/* Bioanalyser date */}

@@ -123,8 +123,8 @@ class TextField extends React.PureComponent {
                     value={this.props.value}
                     onChange={this.onChange.bind(this)}
                     placeholder={this.props.placeholder}
+                    disabled={this.props.disabled}
                     {...this.props.inputProps}
-                    {...this.props}
                 />
                 {feedback}
                 {help}
