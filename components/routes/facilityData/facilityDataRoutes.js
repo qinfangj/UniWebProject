@@ -12,7 +12,6 @@ import SamplesInsertForm from '../../forms/facilityData/SamplesInsertForm';
 import LibrariesInsertForm from '../../forms/facilityData/LibrariesInsertForm';
 import RunsPreInsertForm from '../../forms/facilityData/Runs/RunsPreInsertForm';
 import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertForm';
-import RunsInsertFormTest from '../../forms/facilityData/Runs/RunsInsertFormTest';
 import UserRequestsInsertForm from '../../forms/facilityData/UserRequestsInsertForm';
 import BioanalysersInsertForm from '../../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
 import BioanalysersInsertFormTest from '../../forms/facilityData/Bioanalysers/BioanalysersInsertFormTest';
