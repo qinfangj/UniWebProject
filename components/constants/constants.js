@@ -5,6 +5,7 @@ export default {
     PENDING: "PENDING",
     SUCCESS: "SUCCESS",
     ERROR: "ERROR",
+    WARNING: "WARNING",
 
     NONE: "NONE",
     SERVER_ERROR: "SERVER_ERROR",
