@@ -19,7 +19,7 @@ import RunsSubForm from './RunsSubForm';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
-import SubmissionFeedback from '../../SubmissionFeedback';
+import Feedback from '../../../utils/Feedback';
 
 
 
@@ -83,7 +83,7 @@ class RunsInsertForm extends React.PureComponent {
         return (
             <form className={formsCss.form}>
 
-                <SubmissionFeedback form={this.form} />
+                <Feedback reference={this.form} />
 
                 <Form componentClass="fieldset" horizontal>
 

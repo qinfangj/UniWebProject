@@ -17,13 +17,13 @@ function checkStatus(status) {
 
 let feedbackReducers = (state = {}, action) => {
     let newState;
-    checkStatus(action.status);
 
     switch (action.type) {
 
         case types.feedback.FEEDBACK_SUCCESS:
+            checkStatus(action.status);
             newState = {...state};
-            newState[action.key] = {
+            newState[action.reference] = {
                 status: action.status || constants.SUCCESS,
                 message: action.message,
                 error: {},
@@ -31,8 +31,9 @@ let feedbackReducers = (state = {}, action) => {
             return newState;
 
         case types.feedback.FEEDBACK_WARNING:
+            checkStatus(action.status);
             newState = {...state};
-            newState[action.key] = {
+            newState[action.reference] = {
                 status: action.status || constants.WARNING,
                 message: action.message,
                 error: {},
@@ -40,8 +41,9 @@ let feedbackReducers = (state = {}, action) => {
             return newState;
 
         case types.feedback.FEEDBACK_ERROR:
+            checkStatus(action.status);
             newState = {...state};
-            newState[action.key] = {
+            newState[action.reference] = {
                 status: action.status || constants.ERROR,
                 message: action.message,
                 error: action.error,
@@ -49,8 +51,9 @@ let feedbackReducers = (state = {}, action) => {
             return newState;
 
         case types.feedback.FEEDBACK_RESET:
+            checkStatus(action.status);
             newState = {...state};
-            newState[action.key] = {
+            newState[action.reference] = {
                 status: constants.NONE,
                 message: "",
                 error: {},

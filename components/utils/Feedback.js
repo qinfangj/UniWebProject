@@ -11,7 +11,7 @@ import constants from '../constants/constants';
 export class Feedback extends React.PureComponent {
 
     static propTypes = {
-        key: React.PropTypes.string,  // to connect with redux (see at the bottom), a key to identify the source
+        reference: React.PropTypes.string.isRequired,  // to connect with redux (see at the bottom), a key to identify the source
         status: React.PropTypes.string,  // one of the three constants in the switch below, or ""
         message: React.PropTypes.string,  // the message to display
         error: React.PropTypes.object,  // an error object such as returned by fetch() or jQuery $.ajax().
@@ -22,15 +22,15 @@ export class Feedback extends React.PureComponent {
         let error = this.props.error;
 
         switch (this.props.status) {
-            case constants.SUBMISSION_SUCCESS:
+            case constants.SUCCESS:
                 bsStyle = "success";
                 break;
-            case constants.SUBMISSION_ERROR:
+            case constants.WARNING:
                 bsStyle = "warning";
                 break;
-            case constants.SERVER_ERROR:
+            case constants.ERROR:
                 bsStyle = "danger";
-                message = this.props.message || `${error.statusText} (${error.status}): ${error.responseText}`;
+                message = `${error.statusText} (${error.status}): ${error.responseText}`;
                 break;
             default:
                 show = false;
@@ -56,7 +56,14 @@ Feedback.defaultProps = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    let submission = state.feedback[ownProps.key];
+    let submission = state.feedback[ownProps.reference];
+    if (!submission) {
+        submission = {
+            status: null,
+            message: "",
+            error: {},
+        };
+    }
     return {
         status: submission.status,
         message: submission.message,

@@ -12,7 +12,7 @@ import validators from '../../validators';
 import * as Options from '../../subcomponents/Options';
 import fields from '../../fields';
 import PoolsForProject from '../../subcomponents/secondarySelects/PoolsForProject';
-import SubmissionFeedback from '../../SubmissionFeedback';
+import Feedback from '../../../utils/Feedback';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -144,7 +144,7 @@ class RunsPreInsertForm extends React.PureComponent {
         return (
             <form className={formsCss.form}>
 
-                <SubmissionFeedback form={this.form} />
+                <Feedback reference={this.form} />
 
                 <table className={css.preRunsInsertTable}>
                     <thead><tr>

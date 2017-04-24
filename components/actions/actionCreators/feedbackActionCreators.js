@@ -2,35 +2,36 @@
 import types from '../actionTypes';
 
 
-export function resetFeedback(key) {
+export function resetFeedback(reference) {
     return {
         type: types.feedback.FEEDBACK_RESET,
-        key: key,
+        reference: reference,
     }
 }
 
-export function feedbackSuccess(key, msg) {
+export function feedbackSuccess(reference, message) {
     return {
         type: types.feedback.FEEDBACK_SUCCESS,
-        key: key,
-        msg: msg,
+        reference: reference,
+        message: message,
     };
 }
 
-export function feedbackWarning(key, msg, error) {
+export function feedbackWarning(reference, message, error) {
+    console.debug(reference, message, error)
     return {
         type: types.feedback.FEEDBACK_WARNING,
-        key: key,
-        msg: msg,
+        reference: reference,
+        message: message,
         error: error,
     };
 }
 
-export function feedbackError(key, msg, error) {
+export function feedbackError(reference, message, error) {
     return {
         type: types.feedback.FEEDBACK_ERROR,
-        key: key,
-        msg: msg,
+        reference: reference,
+        message: message,
         error: error,
     };
 }
