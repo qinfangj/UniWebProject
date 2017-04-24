@@ -53,8 +53,8 @@ export function fillUpdateForm(form, data) {
     };
 }
 
-/* Validate */
-export function validateAsync(id) {
+/* Validate User*/
+export function validateUserAsync(id) {
     let args = {id};
-    return asyncAction(types.facilityData.VALIDATE, RestService.validateUser.bind(null, id), args);
+    return asyncAction(types.facilityData.VALIDATE_USER, RestService.validateUser.bind(null, id), args);
 }

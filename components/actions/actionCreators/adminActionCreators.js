@@ -19,7 +19,9 @@ export function deleteUnvalidatedUsers() {
                     dispatch( {type: types.DELETE_UNVALIDATED_FAILURE});
                     return Promise.reject(response);
                 }
-            }).catch(err => console.log('Error changing password: ' + JSON.stringify(err, null, 2)));
+            }).catch(err => console.log('Error delete unvalidated users: ' + JSON.stringify(err, null, 2)));
     };
     //return asyncAction(types.DELETE_UNVALIDATED_USER, RestService.deleteUnvalidatedUsers.bind(null), {});
 }
+
+

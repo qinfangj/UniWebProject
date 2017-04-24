@@ -13,11 +13,11 @@ import dataStoreKeys from '../../constants/dataStoreKeys';
 
 import store from '../../../core/store';
 import { getConditionalOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
-import { findByIdAsync,deleteAsync,validateAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+import { findByIdAsync,deleteAsync,validateUserAsync} from '../../actions/actionCreators/facilityDataActionCreators';
 import adminData from './adminDataModels';
 import {submit} from './submit';
 
-import { Button } from 'react-bootstrap/lib';
+import { Button,FormControl } from 'react-bootstrap/lib';
 
 class LimsUsersSubmitForm extends React.PureComponent {
     constructor(props) {
@@ -180,10 +180,10 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
     userValidate(userId){
         let state = {serverError: {}};
-        if (confirm("Are you sure to activate this user?")) { // Clic sur OK
+        if (confirm("Are you sure that you want to activate this user?")) { // Clic sur OK
             if (userId) {
 
-                let future = store.dispatch(validateAsync(userId));
+                let future = store.dispatch(validateUserAsync(userId));
                 state = Object.assign(state, {submissionError: false, submissionFuture: future});
                 future
                     .done((validateId) => console.debug(200, "Validated ID <" + validateId + ">"))
@@ -220,6 +220,8 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
         let laboratoryOptions = this.makeOptions(laboratoryList,this.formatterLabortory);
 
+        const BSTextInput = (props) => <FormControl {...props} />;
+
         return (
 
         <Form model={this.modelName} className={css.form} onSubmit = {v => this.handleSubmit(v)}>
@@ -229,34 +231,33 @@ class LimsUsersSubmitForm extends React.PureComponent {
 
                 <Col sm={3} className={css.formCol}>
                     <label className={admincss.label}>First Name:</label>
-                    <Control.text model=".firstName" disabled={!this.state.isInsert} className={admincss.input}/>
+                    <Control component={BSTextInput} model=".firstName" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
 
                 <Col sm={3} className={css.formCol}>
                     <label className={admincss.label}>Last Name:</label>
-                    <Control.text model=".lastName" disabled={!this.state.isInsert} className={admincss.input}/>
+                    <Control component={BSTextInput} model=".lastName" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={6} className={css.formCol}>
                     <label className={admincss.label}>Login Name:</label>
-                    <Control.text model=".login" disabled={!this.state.isInsert} className={admincss.input}>
-                    </Control.text>
+                    <Control component={BSTextInput} model=".login" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={3} className={css.formCol}>
                     <label className={admincss.label}>Phone:</label>
-                    <Control.text model=".phone" disabled={!this.state.isInsert} className={admincss.input}/>
+                    <Control component={BSTextInput} model=".phone" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={3} className={css.formCol}>
                     <label className={admincss.label}>Email:</label>
-                    <Control.text model=".email" disabled={!this.state.isInsert} className={admincss.input}/>
+                    <Control component={BSTextInput} model=".email" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={6} className={css.formCol}>
                     <label className={admincss.label}>Address:</label>
-                    <Control.text model=".address" disabled={!this.state.isInsert} className={admincss.input}/>
+                    <Control component={BSTextInput} model=".address" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={6} className={css.formCol}>
@@ -280,7 +281,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
                 {/* Submit */}
 
                 <Button bsStyle="primary" className={admincss.button} type ="submit" >
-                    {this.state.isInsert ? 'Submit' : 'ActivateForm'}
+                    {this.state.isInsert ? 'Submit' : 'Activate Form'}
                 </Button>
                 { this.state.isInsert && this.props.updateId && !this.state.isValidated ?
                     <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userValidate.bind(this,this.props.updateId)}>Validate</Button>
