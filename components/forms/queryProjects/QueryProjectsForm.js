@@ -46,7 +46,7 @@ class QueryProjectsForm extends React.Component {
      *  and where the sample either contains the term of its project contains it.
      */
     onSearch(e) {
-        let term = e.target.value.toLowerCase();
+        let term = e.target.value;
         // Clear the current projects/samples selection
         this.props.resetSelection();
         this.props.searchSamplesByTerm(term);
