@@ -171,6 +171,7 @@ CommonTable.defaultProps = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+    console.debug(ownProps.dataStoreKey);
     return {
         data: state.facilityData[ownProps.dataStoreKey].data,
         allLoaded: state.facilityData[ownProps.dataStoreKey].allLoaded,

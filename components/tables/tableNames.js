@@ -13,6 +13,17 @@ const tableNames = {
     ALIGNMENTS: "alignments",
     GENOMES: "genomes",
 
+    PEOPLE_ACTIVE: "peopleActive",
+    PROJECTS_ACTIVE: "projectsActive",
+    SAMPLES_ACTIVE: "samplesActive",
+    USER_REQUESTS_ACTIVE: "user_requestsActive",
+    LIBRARIES_ACTIVE: "librariesActive",
+    BIOANALYSERS_ACTIVE: "bioanalysersActive",
+    RUNS_ACTIVE: "runsActive",
+    BASECALLINGS_ACTIVE: "basecallingsActive",
+    ALIGNMENTS_ACTIVE: "alignmentsActive",
+    GENOMES_ACTIVE: "genomesActive",
+
     // Attributes
     USERS: "users",
     PROJECT_SHARINGS: "project_sharings",
