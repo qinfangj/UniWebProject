@@ -18,7 +18,6 @@ export function feedbackSuccess(reference, message) {
 }
 
 export function feedbackWarning(reference, message, error) {
-    console.debug(reference, message, error)
     return {
         type: types.feedback.FEEDBACK_WARNING,
         reference: reference,

@@ -1,7 +1,6 @@
 "use strict";
 import types from '../actionTypes';
 import { initFacilityData } from '../../forms/facilityData/formModels';
-import constants from '../../constants/constants';
 
 
 const defaultState = Object.freeze(Object.assign({},
@@ -17,44 +16,6 @@ let formReducers = (state = defaultState, action) => {
     let form;
 
     switch (action.type) {
-
-        /* Messages */
-
-        case types.forms.FORM_SUBMISSION_SUCCESS:
-            newState = {...state};
-            newState[action.form]._submission = {
-                status: constants.SUBMISSION_SUCCESS,
-                msg: action.msg,
-                error: null,
-            };
-            return newState;
-
-        case types.forms.FORM_SUBMISSION_ERROR:
-            newState = {...state};
-            newState[action.form]._submission = {
-                status: constants.SUBMISSION_ERROR,
-                msg: action.msg,
-                error: action.error,
-            };
-            return newState;
-
-        case types.forms.FORM_SERVER_ERROR:
-            newState = {...state};
-            newState[action.form]._submission = {
-                status: constants.SERVER_ERROR,
-                msg: action.msg,
-                error: action.error,
-            };
-            return newState;
-
-        case types.forms.FORM_FEEDBACK_RESET:
-            newState = {...state};
-            newState[action.form]._submission = {
-                status: constants.NONE,
-                msg: "",
-                error: null,
-            };
-            return newState;
 
         /* Change form data */
 

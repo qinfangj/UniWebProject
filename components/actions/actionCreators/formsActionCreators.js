@@ -43,38 +43,3 @@ export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
     return asyncAction(types.forms.GET_SECONDARY_OPTIONS_LIST, RestService.getSecondaryOptionsList.bind(null, tableName, id), args)
 }
 
-/* Feedback */
-
-export function resetFeedback(form) {
-    return {
-        type: types.forms.FORM_FEEDBACK_RESET,
-        form: form,
-    }
-}
-
-export function formSubmissionSuccess(form, msg) {
-    return {
-        type: types.forms.FORM_SUBMISSION_SUCCESS,
-        form: form,
-        msg: msg,
-    };
-}
-
-export function formServerError(form, error, msg) {
-    return {
-        type: types.forms.FORM_SERVER_ERROR,
-        form: form,
-        error: error,
-        msg: msg,
-    };
-}
-
-export function formSubmissionError(form, error, msg) {
-    return {
-        type: types.forms.FORM_SUBMISSION_ERROR,
-        form: form,
-        error: error,
-        msg: msg,
-    };
-}
-
