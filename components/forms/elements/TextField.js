@@ -12,7 +12,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 
-class TextField extends React.PureComponent {
+class TextField extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -84,13 +84,21 @@ class TextField extends React.PureComponent {
     onChange(e) {
         let value = e.target.value;
         if (this.props.type === "file") {
-            this.props.changeFormValue(this.props.form, this.props.field, e.target.files[0], valid);
+            let file = e.target.files[0];
+            let filename = (file.name || "").replace(/.*[\/\\]/, '');
+            this.props.changeFormValue(this.props.form, this.props.field, {file, filename, value});
+        } else {
+            let valid = this.validate(value).valid;
+            this.props.changeFormValue(this.props.form, this.props.field, value, valid);
         }
-        let valid = this.validate(value).valid;
-        this.props.changeFormValue(this.props.form, this.props.field, value, valid);
     }
 
     render() {
+
+        let value = this.props.value;
+        if (this.props.type === "file" && typeof(this.props.value) === "object") {
+            value = this.props.value.value;
+        }
 
         // Display a star if the field is required and no value has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
@@ -113,7 +121,7 @@ class TextField extends React.PureComponent {
                 {label}
                 <FormControl
                     type={this.props.type}
-                    value={this.props.value}
+                    value={value}
                     onChange={this.onChange.bind(this)}
                     placeholder={this.props.placeholder}
                     disabled={this.props.disabled}
@@ -128,7 +136,7 @@ class TextField extends React.PureComponent {
 TextField.propTypes = {
     form: React.PropTypes.string.isRequired,  // form name
     field: React.PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
-    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]).isRequired,  // field value
+    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number, React.PropTypes.object]).isRequired,  // field value
     label: React.PropTypes.string,  // title - visible
     type: React.PropTypes.string,  // input type (defaults to "text")
     validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
