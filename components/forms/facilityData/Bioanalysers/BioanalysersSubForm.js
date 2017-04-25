@@ -30,7 +30,6 @@ class BioanalysersSubForm extends React.PureComponent {
     getFormValues() {
         let data = [];
         let formData = store.getState().forms[this.form];
-        console.log(store.getState().forms);
         for (let i=0; i < this.state.lanesInfo.length; i++) {
             data.push({
                 id: 0,

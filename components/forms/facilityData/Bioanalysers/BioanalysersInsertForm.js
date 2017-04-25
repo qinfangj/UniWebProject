@@ -51,13 +51,8 @@ class BioanalysersInsertForm extends React.PureComponent {
      */
     formatFormData(formData) {
         formData["lanes"] = this._lanes.getFormValues();
-        console.log(this._lanes.getFormValues());
-        console.log(this._file);
-        //console.log(this._file.getFile());
-        //formData["file"] = btoa(this._file.getFile());
-
+        formData["file"] = btoa(formData["file"]);
         //formData["filename"] = (this._file.getValue() || "").replace(/.*[\/\\]/, '');
-
         console.debug(formData);
         return formData;
     }

@@ -22,13 +22,6 @@ class TextField extends React.PureComponent {
         };
     }
 
-    /**
-     * If type="file", get the FilesList
-     */
-    getFile() {
-        return this.state.files ? this.state.files[0] : null;
-    }
-
     componentWillMount() {
         // Initial validation of default value
         let {valid, msg} = this.validate(this.props.value);
@@ -66,7 +59,7 @@ class TextField extends React.PureComponent {
     /** For bootstrap validationState: can be "success", "warning", "error", or null */
     getFeedbackValue() {
         let feedback = null;
-        if (this.props.value === "" || this.props.value == null) {
+        if (this.props.value === "" || this.props.value === null) {
             // Again, separate conditions because we do not want any warning while fields are empty
             if (this.props.required && this.props.submissionError) {
                 feedback = "error"
@@ -80,7 +73,7 @@ class TextField extends React.PureComponent {
     /** Info text on error/warning */
     getErrorMessage() {
         let msg = "";
-        if ((this.props.value === "" || this.props.value == null) && this.props.required && this.props.submissionError) {
+        if ((this.props.value === "" || this.props.value === null) && this.props.required && this.props.submissionError) {
             msg = this.props.label + " is required.";
         } else {
             msg = this.state.msg;
@@ -91,7 +84,7 @@ class TextField extends React.PureComponent {
     onChange(e) {
         let value = e.target.value;
         if (this.props.type === "file") {
-            this.setState({ files: e.target.files });
+            this.props.changeFormValue(this.props.form, this.props.field, e.target.files[0], valid);
         }
         let valid = this.validate(value).valid;
         this.props.changeFormValue(this.props.form, this.props.field, value, valid);
