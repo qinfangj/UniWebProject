@@ -4,7 +4,7 @@ import React from 'react';
 import css from './FacilityData.css';
 import commonCss from '../../styles/common.css';
 import { Link } from 'react-router';
-import * as messages from '../forms/messages';
+import * as messages from '../forms/adminData/messages';
 // import constants from '../constants/constants';
 // import { SubmissionFeedback } from '../forms/SubmissionFeedback';
 
@@ -88,7 +88,7 @@ class AdminData extends React.PureComponent {
                         </ul>
                     </div>
                     <div className="clearfix"/>
-                    {/*<SubmissionFeedback status={feedbackStatus} error={error}/>*/}
+
                     {this.props.content}
 
                 </div>
