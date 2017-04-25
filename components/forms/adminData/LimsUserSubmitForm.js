@@ -11,8 +11,6 @@ import Col from 'react-bootstrap/lib/Col';
 import { Control, Form, actions} from 'react-redux-form';
 import Feedback from '../../utils/Feedback';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
-import dataStoreKeys from '../../constants/dataStoreKeys';
-import * as messages from './messages';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 import store from '../../../core/store';
