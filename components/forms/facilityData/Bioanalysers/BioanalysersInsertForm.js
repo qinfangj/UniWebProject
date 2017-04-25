@@ -110,6 +110,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                                 label="Bioanalyser file"
                                 type="file"
                                 ref = {(c) => this._file = c}
+                                required
                             />
                         </Col>:
                         <Col sm={6} className={formsCss.formCol}>
