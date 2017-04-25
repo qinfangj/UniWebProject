@@ -51,8 +51,6 @@ DatePicker.defaultProps = {
 
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps.form);
-    console.log(ownProps.field);
     return {
         value: state.forms[ownProps.form][ownProps.field],
     };
