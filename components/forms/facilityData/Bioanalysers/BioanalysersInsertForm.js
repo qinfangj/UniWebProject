@@ -51,8 +51,8 @@ class BioanalysersInsertForm extends React.PureComponent {
      */
     formatFormData(formData) {
         formData["lanes"] = this._lanes.getFormValues();
-        formData["file"] = btoa(formData["file"]);
-        //formData["filename"] = (this._file.getValue() || "").replace(/.*[\/\\]/, '');
+        formData["file"] = btoa(formData[fields.FILENAME].file);
+        formData["filename"] = formData[fields.FILENAME].filename;
         console.debug(formData);
         return formData;
     }
@@ -102,24 +102,27 @@ class BioanalysersInsertForm extends React.PureComponent {
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Bioanalyser file */}
-                    { !this.props.updateId ?
+                    { this.props.updateId ?
+
+                        <Col sm={6} className={formsCss.formCol}>
+                            <ControlLabel>Bioanalyser file</ControlLabel>
+                            <div>
+                                <a href={`/bioanalysers/pdf/${this.props.updateId}/${store.getState().forms[this.form].filename}`}>
+                                    {store.getState().forms[this.form].filename}</a>
+                            </div>
+                        </Col>
+
+                        :
+
                         <Col sm={6} className={formsCss.formCol}>
                             <TextField
                                 form={this.form}
                                 field={fields.FILENAME}
                                 label="Bioanalyser file"
                                 type="file"
-                                ref = {(c) => this._file = c}
-                                required
                             />
-                        </Col>:
-                        <Col sm={6} className={formsCss.formCol}>
-                            <ControlLabel>Bioanalyser file</ControlLabel>
-                            <div>
-                                <a href={`/bioanalysers/pdf/${this.props.updateId}/${store.getState().forms[this.form].filename}`}>
-                                {store.getState().forms[this.form].filename}</a>
-                            </div>
                         </Col>
+
                     }
                     {/* Bioanalyser date */}
 
