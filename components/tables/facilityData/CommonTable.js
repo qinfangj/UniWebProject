@@ -13,7 +13,7 @@ import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from '../columns';
 import Feedback from '../../utils/Feedback';
-import DataLoadingIcon from '../../../utils/DataLoadingIcon';
+import DataLoadingIcon from '../../utils/DataLoadingIcon';
 
 
 /**
