@@ -193,7 +193,7 @@ ProjectsWithPool.defaultProps = {
     field: fields.PROJECT_ID,
 };
 
-/** All projects */
+    /** All projects */
 export class Projects extends React.Component {
     formatter(v) { return [v.id, v.lastName +" - "+ v.name]; }
     render() {

@@ -1,5 +1,7 @@
 "use strict";
 import React from 'react';
+//import { Control, Field, Form, actions} from 'react-redux-form';
+
 import formsCss from '../../forms.css';
 import css from './runs.css';
 import cx from 'classnames';
@@ -13,8 +15,10 @@ import DatePicker from '../../elements/DatePicker';
 import validators from '../../validators';
 import * as forms from '../../forms.js';
 import * as Options from '../../subcomponents/Options';
+import PoolsForProject from '../../subcomponents/secondarySelects/PoolsForProject';
 import fields from '../../fields';
 import RunsSubForm from './RunsSubForm';
+import formNames from '../../../constants/formNames';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -27,7 +31,7 @@ class RunsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "runs";
-        this.form = "runs";
+        this.form = formNames.RUNS_INSERT_FORM;
         this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];
         this.state = {};
         this.state.lanes = store.getState().common.route.data || {};
@@ -83,7 +87,7 @@ class RunsInsertForm extends React.PureComponent {
         return (
             <form className={formsCss.form}>
 
-                <Feedback reference={this.form} />
+                {/*<Feedback reference={this.form} />*/}
 
                 <Form componentClass="fieldset" horizontal>
 
@@ -117,12 +121,12 @@ class RunsInsertForm extends React.PureComponent {
                             form={this.form} ref={(c) => this._flowcell_type_id = c} />
                     </Col>
 
-                    {/* Cluster date (aka "flowcell_loading_date") */}
+                     {/*Cluster date (aka "flowcell_loading_date") */}
 
                     <Col sm={3} className={formsCss.formCol}>
                         <DatePicker
                             form={this.form}
-                            field="cluster_date" label="Cluster date"
+                            field={fields.CLUSTER_DATE} label="Cluster date"
                                     ref = {(c) => this._clusterDate = c}
                         />
                     </Col>
@@ -139,7 +143,7 @@ class RunsInsertForm extends React.PureComponent {
                     <Col sm={3} className={formsCss.formCol}>
                         <DatePicker
                             form={this.form}
-                            field="run_date" label="Run date"
+                            field={fields.RUN_DATE} label="Run date"
                                     ref = {(c) => this._runDate = c}
                         />
                     </Col>
@@ -181,7 +185,7 @@ class RunsInsertForm extends React.PureComponent {
                             <Col sm={3} className={cx(formsCss.formCol)}>
                                 <CheckBox
                                     form={this.form}
-                                    ref={(c) => this._isFailed = c} field="isFailed" label="Run failed" />
+                                    ref={(c) => this._isFailed = c} field={fields.IS_FAILED} label="Run failed" />
                             </Col>
 
                         </Form>
@@ -197,33 +201,75 @@ class RunsInsertForm extends React.PureComponent {
 
                 </Form>
                 <Form componentClass="fieldset" horizontal>
-
-                    <Col sm={7} style={{padding: 0}}>
-                        <Form componentClass="fieldset" horizontal>
-
-                            {/* Lanes sub form */}
-
-                            <Col sm={12} className={cx(formsCss.formCol, css.subformCol)}>
-                                <RunsSubForm lanes={this.state.lanes}
-                                             ref = {(c) => this._lanes = c} />
-                            </Col>
-
-                        </Form>
-                    </Col>
-                    <Col sm={5} className={formsCss.formCol}>
-
-                        {/* Comment */}
-
-                        <TextArea form={this.form}
-                            field="lanes_comment" label="Comment"
-                                  ref = {(c) => this._lanesComment = c}
-                        />
-
-                    </Col>
-
+                <table className={css.preRunsInsertTable}>
+                    <thead><tr>
+                        <th>Add Lane</th>
+                        <th className={css.laneId}>Lane</th>
+                        <th className={css.numeric}>#Libraries</th>
+                        <th className={css.numeric}>#QC Libraries</th>
+                        <th>Project</th>
+                        <th>Library pool</th>
+                    </tr></thead>
+                    <tbody>
+                    <tr>
+                        <td><button>+</button></td>
+                        <td key="id" className={css.laneId}>
+                            <TextField form={this.form} field="id"  required
+                                       validator = {validators.integerValidator}
+                            />
+                        </td>
+                        <td key="nlibs" className={css.numeric}>
+                            <TextField form={this.form} field="nlibs" defaultValue="0" required
+                                       validator = {validators.integerValidator}
+                            />
+                        </td>
+                        <td key="nqc" className={css.numeric}>
+                            <TextField form={this.form} field="nqc" defaultValue="0" required
+                                       validator = {validators.integerValidator}
+                            />
+                        </td>
+                        <td key="project">
+                            <Options.ProjectsWithPool
+                                form={this.form}
+                            />
+                        </td>
+                        <td key="pool">
+                            <PoolsForProject
+                                form={this.form}
+                            />
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
                 </Form>
+                {/*<Form componentClass="fieldset" horizontal>*/}
 
-                {/* Submit */}
+                    {/*<Col sm={7} style={{padding: 0}}>*/}
+                        {/*<Form componentClass="fieldset" horizontal>*/}
+
+                            {/*/!* Lanes sub form *!/*/}
+
+                            {/*<Col sm={12} className={cx(formsCss.formCol, css.subformCol)}>*/}
+                                {/*<RunsSubForm lanes={this.state.lanes}*/}
+                                             {/*ref = {(c) => this._lanes = c} />*/}
+                            {/*</Col>*/}
+
+                        {/*</Form>*/}
+                    {/*</Col>*/}
+                    {/*<Col sm={5} className={formsCss.formCol}>*/}
+
+                        {/*/!* Comment *!/*/}
+
+                        {/*<TextArea form={this.form}*/}
+                            {/*field="lanes_comment" label="Comment"*/}
+                                  {/*ref = {(c) => this._lanesComment = c}*/}
+                        {/*/>*/}
+
+                    {/*</Col>*/}
+
+                {/*</Form>*/}
+
+                 {/*Submit */}
 
                 <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={formsCss.submitButton}>
                     Submit

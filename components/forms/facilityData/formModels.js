@@ -2,6 +2,7 @@
 import fields from '../fields';
 import formNames from '../../constants/formNames';
 import constants from '../../constants/constants';
+import { dateNow } from '../../../utils/time';
 
 export const inputTypes = {
     DROPDOWN: "Dropdown",
@@ -501,7 +502,48 @@ export const facilityDataModels = Object.freeze({
     },
 
     [formNames.RUNS_INSERT_FORM]: {
-        // ......
+        [fields.RUN_NUMBER]: {
+            label: "Run#",
+            type: inputTypes.TEXT,
+            value: "",
+            required: true,
+        },
+        [fields.FLOWCELL_ID]: {
+            label: "Flowcell ID",
+            type: inputTypes.TEXT,
+            value: "",
+            required: true,
+        },
+        [fields.SEQUENCING_KIT_VERSION_ID]: {
+            label: "Version",
+            type: inputTypes.DROPDOWN,
+            value: -1,
+            required: false,
+        },
+        [fields.INSTRUMENT_ID]: {
+            label: "Machine",
+            type: inputTypes.DROPDOWN,
+            value: -1,
+            required: false,
+        },
+        [fields.RUN_DATE]: {
+            label: "Run Date",
+            type: inputTypes.DATE,
+            value: dateNow(),
+            required: true,
+        },
+        [fields.CLUSTER_DATE]: {
+            label: "Cluster Date",
+            type: inputTypes.DATE,
+            value: dateNow(),
+            required: true,
+        },
+        [fields.IS_FAILED]: {
+            label: "Run failed",
+            type: Boolean,
+            value: false,
+        },
+
     },
 
     [formNames.USER_REQUESTS_INSERT_FORM]: {

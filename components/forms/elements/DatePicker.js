@@ -28,6 +28,7 @@ class DatePicker extends React.PureComponent {
                     placeholder={this.props.label}
                     value={this.props.value}
                     onChange={this.onChange.bind(this)}
+                    disabled={this.props.disabled}
                 />
             </FormGroup>
         );
@@ -50,6 +51,8 @@ DatePicker.defaultProps = {
 
 
 const mapStateToProps = (state, ownProps) => {
+    console.log(ownProps.form);
+    console.log(ownProps.field);
     return {
         value: state.forms[ownProps.form][ownProps.field],
     };

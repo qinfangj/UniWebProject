@@ -13,7 +13,13 @@ import adminData from './adminDataModels';
 import { Control, Form, actions} from 'react-redux-form';
 import { getOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
 import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
-import { Button, Col } from 'react-bootstrap/lib';
+import { Button, Col, FormControl} from 'react-bootstrap/lib';
+
+import * as Options from '../subcomponents/Options';
+import Select from '../elements/Select';
+import AsyncOptionsList from '../subcomponents/AsyncOptionsList'
+import fields from '../../forms/fields';
+
 
 
 
@@ -130,9 +136,34 @@ class ProjectSharingSubmitForm extends React.PureComponent {
     render() {
         let projectList = this.state.projectList;
         let projectOptions = this.makeOptions(projectList,this.formatterProject);
-
+        let options = projectList.map(v=> this.formatterProject(v))
         let peopleList = this.state.peopleList;
         let peopleOptions = this.makeOptions(peopleList,this.formatterPeople);
+
+        // const BSSelectProjects = (props) => <AsyncOptionsList
+        //     table="projects"
+        //     form="projectSharingsForm"
+        //     storeKey={dataStoreKeys.PROJECTS}
+        //     field={fields.PROJECT_ID}
+        //     formatter={this.formatterProject}
+        //     {...props} />;
+        // const BSSelectProjects = (props) => <Options.Projects
+        //                                 form="projectSharingsForm"
+        //                                 suffix="all"
+        //                                 {...props} />;
+        //const BSSelect = (props) => <Select form="projectSharingsForm" field={fields.PROJECT_ID} {...props} />;
+
+        const BSSelectProjects = (props) => <Select form="projectSharingsForm"
+                                                    field={fields.PROJECT_ID}
+                                                    options={options}
+                                                    disabled={!this.state.isInsert}/>;
+
+        const BSSelectPeople = (props) => <Options.People
+                                            form="projectSharingsForm"
+                                            disabled={!this.state.isInsert}
+                                            {...props} />;
+
+        const BSTextInput = (props) => <FormControl {...props} />;
 
         return (
 
@@ -142,22 +173,24 @@ class ProjectSharingSubmitForm extends React.PureComponent {
                 <messages.ServerErrorMessage error={this.state.serverError} />
 
                 <Col sm={6} className={css.formCol}>
+                    {/*<Control.select model=".projectId" component={BSSelectProjects} disabled={!this.state.isInsert}/>*/}
                     <label className={admincss.label}>Project:</label>
-                    <Control.select model=".projectId" disabled={!this.state.isInsert}>
-                        {projectOptions}
-                    </Control.select>
+                    <Control model=".projectId" component={BSSelectProjects} />
+                        {/*{projectOptions}*/}
+                    {/*</Control>*/}
                 </Col>
 
+
                 <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label}>People:</label>
-                    <Control.select model=".personId" disabled={!this.state.isInsert}>
-                        {peopleOptions}
-                    </Control.select>
+                    <Control model=".personId" component={BSSelectPeople} />
+                    {/*<Control.select model=".personId" disabled={!this.state.isInsert}>*/}
+                        {/*{peopleOptions}*/}
+                    {/*</Control.select>*/}
                 </Col>
 
                 <Col sm={12} className={css.formCol}>
                     <label className={admincss.label}>Description:</label>
-                    <Control.text model=".description" disabled={!this.state.isInsert} className={admincss.input}/>
+                    <Control component={BSTextInput} model=".description" disabled={!this.state.isInsert} />
                 </Col>
 
                 {/* Submit */}

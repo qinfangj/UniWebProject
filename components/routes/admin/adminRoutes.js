@@ -23,7 +23,7 @@ export class LimsUserListRoute extends React.Component {
     render() {
         return (
             <AdminData title="LIMS User" name="users" content={
-                <CommonTable dataStoreKey="users" table="users" columnsKey="users" />
+                    <CommonTable dataStoreKey="users" table="users" columnsKey="users" />
             }/>
         );
     }
@@ -32,9 +32,11 @@ export class LimsUserListRoute extends React.Component {
 export class LimsUsersUpdatePage extends React.Component {
     render() {
         return (
+
             <AdminData title="LIMS Users" name="users" content={
                 <LimsUsersSubmitForm table="users"  updateId={this.props.params.id}/>
             } />
+
         );
     }
 }

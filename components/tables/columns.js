@@ -60,7 +60,20 @@ const columns = {
             headerName: "Laboratory",
             field: "piFirstName",
             headerCellRenderer: headerRenderer
-        }
+        },
+        {
+            headerName: "Validated",
+            field: "isvalidated",
+            headerCellRenderer: headerRenderer,
+            cellRenderer: function(params) {
+                let eDiv = document.createElement('div');
+                return params.value ?
+                     '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" style="color:red" aria-hidden="true"></i>'
+
+
+
+            }
+        },
     ],
     //add admin tables columns
     [tableNames.PROJECT_SHARINGS]: [
@@ -574,7 +587,7 @@ const columns = {
         idColumnWithUpdateLink("bioanalysers"),
         {
             headerName: "Date",
-            field: "bioanalyser_date",
+            field: "date",
         },
         {
             headerName: "File name",

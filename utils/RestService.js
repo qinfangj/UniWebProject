@@ -191,6 +191,18 @@ class RestService {
         return get(url);
     }
 
+    deleteUnvalidatedUsers(){
+        let url = `${BACKEND}/account/deleteUnvalidated`;
+        console.info(url);
+        return post(url);
+    }
+
+    validateUser(id){
+        let url = `${BACKEND}/table/users/validate/${id}`;
+        console.info(url);
+        return post(url);
+    }
+
 
 }
 
