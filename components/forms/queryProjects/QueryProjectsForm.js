@@ -9,7 +9,7 @@ import { searchSamplesByTerm, resetSelection } from '../../actions/actionCreator
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
 import formNames from '../../constants/formNames';
-import dataStoreKeys from '../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -46,7 +46,7 @@ class QueryProjectsForm extends React.Component {
      *  and where the sample either contains the term of its project contains it.
      */
     onSearch(e) {
-        let term = e.target.value.toLowerCase();
+        let term = e.target.value;
         // Clear the current projects/samples selection
         this.props.resetSelection();
         this.props.searchSamplesByTerm(term);
@@ -132,7 +132,7 @@ QueryProjectsForm.defaultProps = {
 
 
 const mapStateToProps = (state, ownProps) => {
-    let searched = state.queryProjects[dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
+    let searched = state.queryProjects[optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
     let searchTerm = state.queryProjects.searchTerm;
     let projectIds = searched.projectIds || [];
     let sampleIds = searched.sampleIds || [];
@@ -145,7 +145,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        searchSamplesByTerm: (term) => dispatch(searchSamplesByTerm(term, dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM)),
+        searchSamplesByTerm: (term) => dispatch(searchSamplesByTerm(term, optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM)),
         resetSelection: () => dispatch(resetSelection()),
     };
 };

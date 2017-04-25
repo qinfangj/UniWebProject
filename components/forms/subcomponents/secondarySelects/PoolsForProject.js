@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import Select from '../../elements/Select';
-import dataStoreKeys from '../../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import fields from '../../fields';
 import tableNames from '../../../tables/tableNames';
 import { connect } from 'react-redux';
@@ -57,7 +57,7 @@ const mapStateToProps = (state, ownProps) => {
         console.warn("Uninitialized form");
         return {options: []};
     }
-    let storeKey = ownProps.form +'_'+ dataStoreKeys.POOLS_FOR_PROJECT +'_'+ ownProps.refFieldName;
+    let storeKey = ownProps.form +'_'+ optionsStoreKeys.POOLS_FOR_PROJECT +'_'+ ownProps.refFieldName;
     let options = state.options[storeKey] || [];
     let refValue = state.forms[ownProps.form][fields.PROJECT_ID];
     return {

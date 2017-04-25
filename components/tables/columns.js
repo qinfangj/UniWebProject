@@ -459,11 +459,6 @@ const columns = {
             headerName: "Assembly",
             field: "assembly",
         },{
-            headerName: "Masked",
-            field: "is_masked",
-            cellRenderer: formatters.boolean,
-            cellStyle: CENTER,
-        },{
             headerName: "Download date",
             field: "downloaded_date",
             //cellRenderer: formatters.date,

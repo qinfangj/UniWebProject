@@ -10,6 +10,7 @@ import * as messages from '../forms/messages';
 
 import {deleteUnvalidatedUsers} from '../actions/actionCreators/adminActionCreators';
 import store from '../../core/store';
+//import Feedback from '../../utils/Feedback';
 
 class AdminData extends React.PureComponent {
 
@@ -35,7 +36,10 @@ class AdminData extends React.PureComponent {
             let future = store.dispatch(deleteUnvalidatedUsers());
             state = Object.assign(state, {submissionError: false, submissionFuture: future});
             future
-                .done((delNum) => console.debug(200, "Delete Unvalidated Users successfully: " + JSON.stringify(delNum)))
+                .done((delNum) => {
+                    console.debug(200, "Delete Unvalidated Users successfully: " + JSON.stringify(delNum))
+
+                })
                 .fail(() => console.warn("Uncaught form validation error"));
 
             let {submissionError, submissionFuture} = state;

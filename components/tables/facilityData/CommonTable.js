@@ -151,12 +151,6 @@ class CommonTable extends React.PureComponent {
 
                 <DataLoadingIcon />
 
-                {/* Show number of rows in result */}
-
-                { data.length === 0 ? null :
-                    <tables.Nrows data={data}/>
-                }
-
             </div>
         );
     }
@@ -171,6 +165,7 @@ CommonTable.defaultProps = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+    console.debug(ownProps.dataStoreKey);
     return {
         data: state.facilityData[ownProps.dataStoreKey].data,
         allLoaded: state.facilityData[ownProps.dataStoreKey].allLoaded,

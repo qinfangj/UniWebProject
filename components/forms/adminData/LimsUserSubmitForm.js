@@ -12,6 +12,8 @@ import { Control, Form, actions} from 'react-redux-form';
 import Feedback from '../../utils/Feedback';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import dataStoreKeys from '../../constants/dataStoreKeys';
+import * as messages from './messages';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 import store from '../../../core/store';
 import { getConditionalOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
@@ -55,7 +57,7 @@ class LimsUsersSubmitForm extends React.PureComponent {
     componentWillMount() {
         let laboratoryTable = "people";
         let suffix = "labs";
-        let laboratoryStoreKey = dataStoreKeys.PEOPLE;
+        let laboratoryStoreKey = optionsStoreKeys.PEOPLE;
         let laboratoryList = store.getState().forms[laboratoryStoreKey];
 
 

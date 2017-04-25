@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import css from './forms.css';
+import css from '../forms.css';
 import Alert from 'react-bootstrap/lib/Alert';
 
 

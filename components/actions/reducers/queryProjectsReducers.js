@@ -1,15 +1,15 @@
 "use strict";
 import types from '../actionTypes';
 import returnList from './base';
-import dataStoreKeys from '../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import constants from '../../constants/constants';
 
 
 const defaultState = {
     tableData: [],
-    [dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM]: {},
-    [dataStoreKeys.PROJECTS_HAVING_A_SAMPLE]: [],
-    [dataStoreKeys.SAMPLES_FOR_PROJECTS]: [],
+    [optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM]: {},
+    [optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE]: [],
+    [optionsStoreKeys.SAMPLES_FOR_PROJECTS]: [],
     sampleIds: {},
     projectsIds: {},
     searchTerm: "",
@@ -42,7 +42,7 @@ let queryProjectsReducers = (state = defaultState, action) => {
         case types.queryProjects.RESET_SELECTION:
             return Object.assign({}, state,
                 {
-                    [dataStoreKeys.SAMPLES_FOR_PROJECTS]: [],
+                    [optionsStoreKeys.SAMPLES_FOR_PROJECTS]: [],
                     sampleIds: {}, projectsIds: {}, searchTerm: "",
                     tableData: []
                 }
@@ -57,8 +57,8 @@ let queryProjectsReducers = (state = defaultState, action) => {
          */
         case types.forms.GET_OPTIONS_LIST:
         case types.forms.GET_SECONDARY_OPTIONS_LIST:
-            if (action.args.storeKey === dataStoreKeys.PROJECTS_HAVING_A_SAMPLE ||
-                action.args.storeKey === dataStoreKeys.SAMPLES_FOR_PROJECTS) {
+            if (action.args.storeKey === optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE ||
+                action.args.storeKey === optionsStoreKeys.SAMPLES_FOR_PROJECTS) {
                 return returnList(action, state, action.args.storeKey, []);
             } else {
                 return state;
@@ -82,10 +82,10 @@ let queryProjectsReducers = (state = defaultState, action) => {
                 // The list of samples we get from backend:: [{id, name, projectId, shortName}, ...]
                 let searchedSamples = action.response;
                     //console.debug(searchedSamples)
-                    //console.debug(state[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE])
+                    //console.debug(state[optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE])
                 // The options lists in both dropdowns:: [{id, name, lastName}, ...]
-                let projects = state[dataStoreKeys.PROJECTS_HAVING_A_SAMPLE];  // options from the 'multiple' projects selection field
-                let samples = state[dataStoreKeys.SAMPLES_FOR_PROJECTS];  // options from the 'multiple' samples selection field
+                let projects = state[optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE];  // options from the 'multiple' projects selection field
+                let samples = state[optionsStoreKeys.SAMPLES_FOR_PROJECTS];  // options from the 'multiple' samples selection field
                 // IE can't do that - Sets -, but who needs IE anyway?
                 let sampleIdsWithTerm = new Set(searchedSamples.map(v => v.id));
                 let projectIdsWithTerm = new Set(projects.filter(v => {

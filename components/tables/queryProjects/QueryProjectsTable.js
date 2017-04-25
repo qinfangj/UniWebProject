@@ -6,7 +6,7 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
-import dataStoreKeys from '../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
 import { assertIsArray } from '../../../utils/common';
 
@@ -177,8 +177,8 @@ const mapStateToProps = (state, ownProps) => {
         selectedSampleIds: state.queryProjects.sampleIds,  // object {id: true, ...}
         selectedProjectIds: state.queryProjects.projectIds,  // object {id: true, ...}
         searchTerm: state.queryProjects.searchTerm,
-        searched: state.queryProjects[dataStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM],  // {projectIds(set), sampleIds(set)}
-        samplesList: state.queryProjects[dataStoreKeys.SAMPLES_FOR_PROJECTS],  // options list, array of samples [{id, name}, ..]
+        searched: state.queryProjects[optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM],  // {projectIds(set), sampleIds(set)}
+        samplesList: state.queryProjects[optionsStoreKeys.SAMPLES_FOR_PROJECTS],  // options list, array of samples [{id, name}, ..]
     };
 };
 

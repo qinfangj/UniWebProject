@@ -6,9 +6,9 @@ import admincss from './adminForm.css';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import * as messages from '../messages';
+import * as messages from './messages';
 import * as submit from './submit';
-import dataStoreKeys from '../../constants/dataStoreKeys';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import adminData from './adminDataModels';
 import { Control, Form, actions} from 'react-redux-form';
 import { getOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
@@ -55,9 +55,9 @@ class ProjectSharingSubmitForm extends React.PureComponent {
 
     componentWillMount() {
         let projectTable = "projects";
-        let projectStoreKey = dataStoreKeys.PROJECTS;
+        let projectStoreKey = optionsStoreKeys.PROJECTS;
         let peopleTable = "people";
-        let peopleStoreKey = dataStoreKeys.PEOPLE;
+        let peopleStoreKey = optionsStoreKeys.PEOPLE;
 
         let projectList = store.getState().forms[projectStoreKey];
         let peopleList = store.getState().forms[peopleStoreKey];
