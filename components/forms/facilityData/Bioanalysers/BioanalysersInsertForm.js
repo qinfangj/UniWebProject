@@ -11,18 +11,12 @@ import BioanalysersSubForm from './BioanalysersSubForm';
 
 import formNames from '../../../constants/formNames';
 import fields from '../../fields';
-import { findForUpdateAsync,deleteAsync} from '../../../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Feedback from '../../../utils/Feedback';
-
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import { feedbackSuccess,  feedbackError } from '../../../actions/actionCreators/feedbackActionCreators';
-import { resetForm } from '../../../actions/actionCreators/formsActionCreators';
-import { Link } from 'react-router';
-import { hashHistory } from 'react-router';
 
 
 class BioanalysersInsertForm extends React.PureComponent {
@@ -53,7 +47,6 @@ class BioanalysersInsertForm extends React.PureComponent {
         formData["lanes"] = this._lanes.getFormValues();
         formData["file"] = btoa(formData[fields.FILENAME].file);
         formData["filename"] = formData[fields.FILENAME].filename;
-        console.debug(formData);
         return formData;
     }
 
@@ -66,34 +59,10 @@ class BioanalysersInsertForm extends React.PureComponent {
         }
     }
 
-    bioanalyserDelete(){
-
-        let submissionFuture = null;
-        if (confirm("Are you sure that you want to delete this user?")) { // Clic sur OK
-            if (this.props.updateId) {
-
-                let submissionFuture = store.dispatch(deleteAsync(this.table, this.props.updateId));
-
-                submissionFuture
-                    .done((deleteId) => {
-                        // Signal that it was a success
-                        console.debug(200, "DeleteId ID <"+deleteId+">");
-                        // Clear the form data in store
-                        store.dispatch(feedbackSuccess(this.form, "Inserted ID <"+deleteId+">"));
-                        store.dispatch(resetForm(this.form));
-                        // Redirect to table by replacing '/new' by '/list' in the router state
-                        let currentPath = window.location.pathname + window.location.hash.substr(2);
-                        hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
-                    })
-                    .fail((err) => {
-                        console.warn("Uncaught form validation error");
-                        store.dispatch(feedbackError(this.form, err, "Uncaught form validation error"));
-                    });
-            }
-        }
-    }
-
     render() {
+        let formData = store.getState().forms[this.form][fields.FILENAME];
+        let updateFilename = formData ? ` (${formData.filename})` : "";
+
         return (
             <form className={css.form}>
 
@@ -102,28 +71,18 @@ class BioanalysersInsertForm extends React.PureComponent {
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Bioanalyser file */}
-                    { this.props.updateId ?
 
-                        <Col sm={6} className={formsCss.formCol}>
-                            <ControlLabel>Bioanalyser file</ControlLabel>
-                            <div>
-                                <a href={`/bioanalysers/pdf/${this.props.updateId}/${store.getState().forms[this.form].filename}`}>
-                                    {store.getState().forms[this.form].filename}</a>
-                            </div>
-                        </Col>
+                    <Col sm={6} className={formsCss.formCol}>
+                        <TextField
+                            form={this.form}
+                            field={fields.FILENAME}
+                            label={"Bioanalyser file" + updateFilename}
+                            type="file"
+                            disabled={!this.state.isInsert}
+                        />
+                    </Col>
 
-                        :
 
-                        <Col sm={6} className={formsCss.formCol}>
-                            <TextField
-                                form={this.form}
-                                field={fields.FILENAME}
-                                label="Bioanalyser file"
-                                type="file"
-                            />
-                        </Col>
-
-                    }
                     {/* Bioanalyser date */}
 
                     <Col sm={6} className={formsCss.formCol}>
@@ -160,11 +119,8 @@ class BioanalysersInsertForm extends React.PureComponent {
                 {/* Submit */}
 
                 <Button action="submit" bsStyle="primary" className={css.button} onClick={this.onSubmit.bind(this)}>
-                    {this.state.isInsert ? 'Submit':'Activate Form'}
+                    {this.state.isInsert ? 'Submit' : 'Activate Form'}
                 </Button>
-                { this.state.isInsert && this.props.updateId ?
-                    <Button bsStyle="primary"  className={css.button} type = "button" onClick={this.bioanalyserDelete.bind(this)}>Delete</Button>
-                    : null}
 
             </form>
         );

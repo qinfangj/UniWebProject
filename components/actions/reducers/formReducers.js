@@ -1,6 +1,8 @@
 "use strict";
 import types from '../actionTypes';
 import { initFacilityData } from '../../forms/facilityData/formModels';
+import formNames from '../../constants/formNames';
+import fields from '../../forms/fields';
 
 
 const defaultState = Object.freeze(Object.assign({},
@@ -60,6 +62,11 @@ let formReducers = (state = defaultState, action) => {
             // Above we supposed that the keys returned by the backend (Slick auto-generated models)
             // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
             // -- [exceptions] --
+            if (form === formNames.BIOANALYSERS_INSERT_FORM) {
+                newState[form][fields.FILENAME] = {value: "", filename: formData.filename, file: formData.file};
+                // Cannot do that:  new File([""], formData.filename)
+                //  because for security reasons, it can only be set to the empty string.
+            }
             return newState;
 
         default:
