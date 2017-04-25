@@ -116,7 +116,7 @@ const mapStateToProps = (state, ownProps) => {
         console.warn("Uninitialized form");
         return {};
     }
-    let submissionError = state.forms[ownProps.form]._submission.status === constants.SUBMISSION_ERROR;
+    let submissionError = state.feedback[ownProps.form].status === constants.WARNING;
     let options = ownProps.options;
     let defaultValue = (!options || options.length === 0) ? -1 : options[0][0];
     let value = state.forms[ownProps.form][ownProps.field] || defaultValue;

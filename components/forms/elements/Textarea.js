@@ -95,8 +95,8 @@ Textarea.defaultProps = {
 
 
 const mapStateToProps = (state, ownProps) => {
-    let submissionStatus = state.forms[ownProps.form]._submission.status;
-    let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
+    let submissionStatus = state.feedback[ownProps.form].status;
+    let submissionError = submissionStatus === constants.WARNING;
     return {
         value: state.forms[ownProps.form][ownProps.field] || "",
         valid: state.forms[ownProps.form]._isValid[ownProps.field],

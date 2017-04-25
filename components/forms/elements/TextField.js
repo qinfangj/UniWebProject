@@ -159,8 +159,8 @@ const mapStateToProps = (state, ownProps) => {
         console.warn("Uninitialized form");
         return {};
     }
-    let submissionStatus = state.forms[ownProps.form]._submission.status;
-    let submissionError = submissionStatus === constants.SUBMISSION_ERROR;
+    let submissionStatus = state.feedback[ownProps.form].status;
+    let submissionError = submissionStatus === constants.WARNING;
     let value = state.forms[ownProps.form][ownProps.field];
     if (value === undefined || value === null) {  // can be 0
         value = "";

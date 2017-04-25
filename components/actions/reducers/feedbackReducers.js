@@ -1,6 +1,7 @@
 "use strict";
 import types from '../actionTypes';
 import constants from '../../constants/constants';
+import formNames from '../../constants/formNames';
 
 function checkStatus(status) {
     if (!
@@ -14,8 +15,19 @@ function checkStatus(status) {
     }
 }
 
+const neutralStatus = {
+    status: constants.NONE,
+    message: "",
+    error: {},
+};
 
-let feedbackReducers = (state = {}, action) => {
+const defaultState = {};
+for (let form in formNames) {
+    defaultState[form] = {...neutralStatus};
+}
+
+
+let feedbackReducers = (state = defaultState, action) => {
     let newState;
 
     switch (action.type) {
@@ -53,11 +65,7 @@ let feedbackReducers = (state = {}, action) => {
         case types.feedback.FEEDBACK_RESET:
             checkStatus(action.status);
             newState = {...state};
-            newState[action.reference] = {
-                status: constants.NONE,
-                message: "",
-                error: {},
-            };
+            newState[action.reference] = neutralStatus;
             return newState;
 
         default:
