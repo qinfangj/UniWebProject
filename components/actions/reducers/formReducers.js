@@ -28,8 +28,6 @@ let formReducers = (state = defaultState, action) => {
             newState = {...state};
             form = action.form;
             newState[form] = initFacilityData()[form];
-            // Keep the submission state
-            newState[form]._submission = state[form]._submission;
             return newState;
 
         case types.forms.CHANGE_FORM_VALUE:
@@ -40,7 +38,6 @@ let formReducers = (state = defaultState, action) => {
             if (! (form in state)) {
                 newState[form] = {};
                 newState[form]._isValid = {};
-                newState[form]._submission = {};
             }
             //console.debug("Change form value:", field, action.valid, action.value)
             newState[form][field] = action.value;
@@ -63,7 +60,7 @@ let formReducers = (state = defaultState, action) => {
             // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
             // -- [exceptions] --
             if (form === formNames.BIOANALYSERS_INSERT_FORM) {
-                newState[form][fields.FILENAME] = {value: "", filename: formData.filename, file: formData.file};
+                newState[form][fields.BIOANALYSER_FILE] = {value: "", filename: formData.filename, file: formData.file};
                 // Cannot do that:  new File([""], formData.filename)
                 //  because for security reasons, it can only be set to the empty string.
             }

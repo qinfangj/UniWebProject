@@ -94,7 +94,7 @@ const fields = {
 
 
     // Bioanalysers
-    FILENAME: "filename",
+    BIOANALYSER_FILE: "bioanalyserFile",
     BIOANALYSER_DATE: "bioanalyserDate",
     PIPELINE_VERSION_ID: "pipelineVersionId",
     ANALYSIS_TYPE_ID: "analysisTypeId",

@@ -45,8 +45,8 @@ class BioanalysersInsertForm extends React.PureComponent {
      */
     formatFormData(formData) {
         formData["lanes"] = this._lanes.getFormValues();
-        formData["file"] = btoa(formData[fields.FILENAME].file);
-        formData["filename"] = formData[fields.FILENAME].filename;
+        formData["file"] = btoa(formData[fields.BIOANALYSER_FILE].file);
+        formData["filename"] = formData[fields.BIOANALYSER_FILE].filename;
         return formData;
     }
 
@@ -60,7 +60,7 @@ class BioanalysersInsertForm extends React.PureComponent {
     }
 
     render() {
-        let formData = store.getState().forms[this.form][fields.FILENAME];
+        let formData = store.getState().forms[this.form][fields.BIOANALYSER_FILE];
         let updateFilename = formData ? ` (${formData.filename})` : "";
 
         return (
@@ -75,7 +75,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                     <Col sm={6} className={formsCss.formCol}>
                         <TextField
                             form={this.form}
-                            field={fields.FILENAME}
+                            field={fields.BIOANALYSER_FILE}
                             label={"Bioanalyser file" + updateFilename}
                             type="file"
                             disabled={!this.state.isInsert}

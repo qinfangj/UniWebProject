@@ -100,6 +100,8 @@ class TextField extends React.Component {
             value = this.props.value.value;
         }
 
+        //console.debug(this.props.field, this.props.value, value)
+
         // Display a star if the field is required and no value has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
         let requireString = (this.props.required && !this.props.value) ?
