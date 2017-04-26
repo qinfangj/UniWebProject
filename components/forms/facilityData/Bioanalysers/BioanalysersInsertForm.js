@@ -3,6 +3,7 @@ import React from 'react';
 import formsCss from '../../forms.css';
 import css from './bioanalysers.css';
 import store from '../../../../core/store';
+import { connect } from 'react-redux';
 
 import TextField from '../../elements/TextField';
 import DatePicker from '../../elements/DatePicker';
@@ -40,11 +41,27 @@ class BioanalysersInsertForm extends React.PureComponent {
         }
     }
 
+    formatLanesForSubmit() {
+        let values = this.props.lanesValues;
+        let lanesInfo = this.props.lanesInfo.map((lane) => {
+            let laneNb = lane.laneNb;
+            return {
+                id: lane.id,
+                laneNb: laneNb,
+                projectId: values[fields.PROJECT_ID +"_"+ laneNb],   // cannot use just lane.projectId in case of new insert
+                libraryId: values[fields.LIBRARY_ID +"_"+ laneNb],   // same
+                comment: lane.comment || "",
+            };
+        });
+        return lanesInfo;
+    }
+
     /**
      * Use this to add lanes info - nothing to validate there anyway.
      */
     formatFormData(formData) {
-        formData["lanes"] = this._lanes.getFormValues();
+        let lanesInfo = this.formatLanesForSubmit();
+        formData["lanes"] = lanesInfo;
         formData["file"] = btoa(formData[fields.BIOANALYSER_FILE].file);
         formData["filename"] = formData[fields.BIOANALYSER_FILE].filename;
         return formData;
@@ -62,7 +79,6 @@ class BioanalysersInsertForm extends React.PureComponent {
     render() {
         let formData = store.getState().forms[this.form][fields.BIOANALYSER_FILE];
         let updateFilename = formData ? ` (${formData.filename})` : "";
-
         return (
             <form className={css.form}>
 
@@ -128,5 +144,19 @@ class BioanalysersInsertForm extends React.PureComponent {
 }
 
 
-export default BioanalysersInsertForm;
+BioanalysersInsertForm.defaultProps = {
+    lanesInfo: [],
+};
+
+
+const mapStateToProps = (state, ownProps) => {
+    let lanesInfo = state.forms[formNames.BIOANALYSERS_INSERT_FORM]["lanes"] || [];
+    let lanesValues = state.forms[formNames.BIOANALYSERS_LANES_INSERT_FORM] || {};
+    return {
+        lanesInfo: lanesInfo,
+        lanesValues: lanesValues,
+    };
+};
+
+export default connect(mapStateToProps)(BioanalysersInsertForm);
 

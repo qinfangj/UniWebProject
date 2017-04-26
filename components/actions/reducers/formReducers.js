@@ -59,7 +59,7 @@ let formReducers = (state = defaultState, action) => {
             // Above we supposed that the keys returned by the backend (Slick auto-generated models)
             // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
             // -- [exceptions] --
-            //console.debug(newState);
+
             if (form === formNames.BIOANALYSERS_INSERT_FORM) {
                 newState[form][fields.BIOANALYSER_FILE] = {value: "", filename: formData.filename, file: formData.file};
                 // Cannot do that:  new File([""], formData.filename)
@@ -67,14 +67,13 @@ let formReducers = (state = defaultState, action) => {
                 let subform = formNames.BIOANALYSERS_LANES_INSERT_FORM;
                 newState[subform] = newState[subform] || {};
                 newState[subform]._isvalid = {};
-                newState[subform]["lanes"] = newState[form]["lanes"];
                 for (let lane of newState[form]["lanes"]) {
                     newState[subform][fields.PROJECT_ID +"_"+ lane.laneNb] = lane.projectId;
                     newState[subform][fields.LIBRARY_ID +"_"+ lane.laneNb] = lane.libId;
                     newState[subform][fields.COMMENT +"_"+ lane.laneNb] = lane.comment || "";
                 }
             }
-            //console.debug(newState)
+
             return newState;
 
         /**
@@ -82,21 +81,28 @@ let formReducers = (state = defaultState, action) => {
          */
         case types.forms.ADD_BIOLANE:
             newState = {...state};
-            form = formNames.BIOANALYSERS_LANES_INSERT_FORM;
-            formData = state[form];
-            //console.debug(formData)
-            let lanes = state[form]["lanes"];
-            let lastLaneNb = lanes[lanes.length - 1].laneNb;
-            lanes.push({laneNb: lastLaneNb + 1, projectId: null, libId: null, comment: ''});
-            newState[form]["lanes"] = lanes;
+            form = formNames.BIOANALYSERS_INSERT_FORM;
+            let lanes = state[form]["lanes"] || [];
+            let lastLaneNb = lanes.length > 0 ? lanes[lanes.length - 1].laneNb : 0;
+            lanes.push({
+                id: 0,
+                laneNb: lastLaneNb + 1,
+                projectId: undefined,
+                libId: undefined,
+                comment: '',
+            });
+            newState[form]["lanes"] = [...lanes];
             return newState;
 
         /**
          * Remove a lane from the bioanalysers sub form.
-         * Expects action.laneNb
+         * Expects `action.laneNb`, the lane number to remove.
          */
         case types.forms.REMOVE_BIOLANE:
-            return state;
+            newState = {...state};
+            form = formNames.BIOANALYSERS_INSERT_FORM;
+            newState[form]["lanes"] = state[form]["lanes"].filter((lane) => lane.laneNb !== action.laneNb) || [];
+            return newState;
 
         default:
             return state;

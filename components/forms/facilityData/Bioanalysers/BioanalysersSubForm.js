@@ -31,22 +31,7 @@ class BioanalysersSubForm extends React.PureComponent {
         lanesInfo: React.PropTypes.array,
     };
 
-    // getFormValues() {
-    //     let data = [];
-    //     let formData = store.getState().forms[this.form];
-    //     for (let i=0; i < this.state.lanesInfo.length; i++) {
-    //         data.push({
-    //             id: 0,
-    //             laneNb: i+1,
-    //             projectId: formData[fields.PROJECT_ID +"_"+ i],
-    //             libraryId: formData[fields.LIBRARY_ID +"_"+ i],
-    //             comment: formData[fields.COMMENT + i],
-    //         });
-    //     }
-    //     return data;
-    // }
-
-    removeLane = (laneNb) => () => {
+    removeLane = (laneNb) => {
         this.props.removeLaneFromBioanalysers(laneNb);
     };
 
@@ -56,14 +41,14 @@ class BioanalysersSubForm extends React.PureComponent {
 
     render() {
 
-        //console.debug("lanesInfo: ", this.props.lanesInfo)
+        console.debug("lanesInfo: ", this.props.lanesInfo)
 
         let lanes = this.props.lanesInfo.map((lane, idx) => {
             let laneNb = lane.laneNb;
             return (
                 <tr key={idx}>
                     <td key="del" className={css.laneId}>
-                        <button type="button" onClick={this.removeLane(laneNb)} className="small">-</button>
+                        <button type="button" onClick={this.removeLane.bind(null, laneNb)} className="small">-</button>
                     </td>
                     <td key="laneNb" className={css.laneId}>
                         {lane.laneNb}
@@ -95,6 +80,9 @@ class BioanalysersSubForm extends React.PureComponent {
         return (
 
             <Col sm={12} className={cx(formsCss.formCol, css.subformCol)} >
+
+                <Button type="button" onClick={this.addLane} bsStyle="primary">+ Add Lane</Button>
+
                 <table className={css.lanesTable}>
                     <thead><tr>
                         <th className={css.laneId}>Del</th>
@@ -108,9 +96,7 @@ class BioanalysersSubForm extends React.PureComponent {
                         {lanes}
 
                     </tbody>
-
                 </table>
-                <Button type="button" onClick={this.addLane} bsStyle="primary">+ Add Lane</Button>
 
             </Col>);
     }
@@ -138,29 +124,3 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(BioanalysersSubForm);
 
-
-
-
-// const mapStateToProps = (state, ownProps) => {
-//     // Need to specify the form in the store key because there is a different one
-//     // for each different selected project.
-//     if (! state.forms[ownProps.form]) {
-//         console.warn("Uninitialized form");
-//         return {options: []};
-//     }
-//     let storeKey = ownProps.form +'_'+ optionsStoreKeys.LIBRAIRIES_FOR_PROJECT +'_'+ ownProps.refFieldName;
-//     let options = state.options[storeKey] || [];
-//     let refValue = state.forms[ownProps.form][ownProps.refFieldName];
-//     return {
-//         options: options,
-//         refValue: refValue,
-//         storeKey: storeKey,
-//     };
-// };
-//
-// const mapDispatchToProps = (dispatch) => {
-//     return bindActionCreators({ getSecondaryOptionsListAsync, changeFormValue }, dispatch);
-// };
-//
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(LibrariesForProject);
