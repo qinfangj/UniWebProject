@@ -2,16 +2,19 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
+
 import facilityDataReducers from '../components/actions/reducers/facilityDataReducers';
 import commonReducers from '../components/actions/reducers/commonReducers';
 import authReducers from '../components/actions/reducers/authReducers';
 import adminReducers from '../components/actions/reducers/adminReducers';
 import queryProjectsReducers from '../components/actions/reducers/queryProjectsReducers';
-import runsFormReducers from '../components/actions/reducers/runsFormReducers';
-import formReducers from '../components/actions/reducers/formReducers';
 import selectOptionsReducers from '../components/actions/reducers/selectOptionsReducers';
-import adminFormReducers from '../components/actions/reducers/adminFormReducers';
 import feedbackReducers from '../components/actions/reducers/feedbackReducers';
+
+import formReducers from '../components/actions/reducers/forms/formReducers';
+import runsFormReducers from '../components/actions/reducers/forms/runsFormReducers';
+import adminFormReducers from '../components/actions/reducers/forms/adminFormReducers';
+
 
 /*
  * Redux store

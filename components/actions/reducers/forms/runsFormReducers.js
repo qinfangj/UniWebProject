@@ -1,6 +1,6 @@
 "use strict";
 import { combineForms } from  'react-redux-form'
-import { dateNow } from '../../../utils/time';
+import { dateNow } from '../../../../utils/time';
 
 let runsFormReducers = combineForms(
     {

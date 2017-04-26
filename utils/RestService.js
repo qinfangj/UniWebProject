@@ -191,18 +191,25 @@ class RestService {
         return get(url);
     }
 
-    deleteUnvalidatedUsers(){
+    deleteUnvalidatedUsers() {
         let url = `${BACKEND}/account/deleteUnvalidated`;
         console.info(url);
         return post(url);
     }
 
-    validateUser(id){
+    validateUser(id) {
         let url = `${BACKEND}/table/users/validate/${id}`;
         console.info(url);
         return post(url);
     }
 
+    /* Static files (pdf, qc/ivc, etc,) */
+
+    bioanalyserPdf(id) {
+        let url = `${BACKEND}/pdf/bioanalyser/${id}`;
+        console.info(url);
+        return get(url);
+    }
 
 }
 

@@ -6,7 +6,6 @@ import cx from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addEmptyLaneToBioanalysers, removeLaneFromBioanalysers, changeFormValue } from '../../../actions/actionCreators/formsActionCreators';
-import tableNames from '../../../tables/tableNames';
 
 import TextField from '../../elements/TextField';
 import { ProjectsWithLibraries } from '../../subcomponents/OptionsWith';

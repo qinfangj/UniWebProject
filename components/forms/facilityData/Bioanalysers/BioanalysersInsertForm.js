@@ -4,6 +4,7 @@ import formsCss from '../../forms.css';
 import css from './bioanalysers.css';
 import store from '../../../../core/store';
 import { connect } from 'react-redux';
+import RestService from '../../../../utils/RestService';
 
 import TextField from '../../elements/TextField';
 import DatePicker from '../../elements/DatePicker';
@@ -11,8 +12,10 @@ import * as forms from '../../forms.js';
 import BioanalysersSubForm from './BioanalysersSubForm';
 
 import formNames from '../../../constants/formNames';
+import tableNames from '../../../tables/tableNames';
 import fields from '../../fields';
 import { findForUpdateAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
+import downloadPdf from '../../../../utils/downloadPdf';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -25,7 +28,6 @@ class BioanalysersInsertForm extends React.PureComponent {
         super(props);
         this.table = "bioanalysers";
         this.form = formNames.BIOANALYSERS_INSERT_FORM;
-        //this.required = [];
         this.state = {isInsert: this.props.updateId === '' || this.props.updateId === undefined}
     }
 
@@ -76,9 +78,13 @@ class BioanalysersInsertForm extends React.PureComponent {
         }
     }
 
+    getPdf() {
+        RestService.bioanalyserPdf(this.props.updateId).then((blob) => downloadPdf(blob));
+    }
+
     render() {
-        let formData = store.getState().forms[this.form][fields.BIOANALYSER_FILE];
-        let updateFilename = formData ? ` (${formData.filename})` : "";
+        let pdfName = this.props.pdf ? this.props.pdf.filename : "";
+
         return (
             <form className={css.form}>
 
@@ -89,10 +95,13 @@ class BioanalysersInsertForm extends React.PureComponent {
                     {/* Bioanalyser file */}
 
                     <Col sm={6} className={formsCss.formCol}>
+
+                        {this.props.updateId ? <a href="javascript:void(0);" onClick={this.getPdf.bind(this)}>{pdfName}</a> : null}
+
                         <TextField
                             form={this.form}
                             field={fields.BIOANALYSER_FILE}
-                            label={"Bioanalyser file" + updateFilename}
+                            label={"Bioanalyser file"}
                             type="file"
                             disabled={!this.state.isInsert}
                         />
@@ -150,11 +159,15 @@ BioanalysersInsertForm.defaultProps = {
 
 
 const mapStateToProps = (state, ownProps) => {
-    let lanesInfo = state.forms[formNames.BIOANALYSERS_INSERT_FORM]["lanes"] || [];
-    let lanesValues = state.forms[formNames.BIOANALYSERS_LANES_INSERT_FORM] || {};
+    let thisFrom = formNames.BIOANALYSERS_INSERT_FORM;
+    let subForm = formNames.BIOANALYSERS_LANES_INSERT_FORM;
+    let pdf = state.forms[thisFrom][fields.BIOANALYSER_FILE];
+    let lanesInfo = state.forms[thisFrom]["lanes"] || [];
+    let lanesValues = state.forms[subForm] || {};
     return {
         lanesInfo: lanesInfo,
         lanesValues: lanesValues,
+        pdf: pdf,
     };
 };
 

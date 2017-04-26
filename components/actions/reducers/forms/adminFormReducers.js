@@ -1,6 +1,6 @@
 "use strict";
 import { combineForms } from  'react-redux-form'
-import adminDataConstants from '../../forms/adminData/adminDataModels';
+import adminDataConstants from '../../../forms/adminData/adminDataModels';
 
 /**
  * Fills an object `initalData` with the initial form values.
