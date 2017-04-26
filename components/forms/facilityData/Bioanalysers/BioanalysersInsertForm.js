@@ -96,7 +96,10 @@ class BioanalysersInsertForm extends React.PureComponent {
 
                     <Col sm={6} className={formsCss.formCol}>
 
-                        {this.props.updateId ? <a href="javascript:void(0);" onClick={this.getPdf.bind(this)}>{pdfName}</a> : null}
+                        {this.props.updateId ? <span>{"Current file: "}<a
+                                href="javascript:void(0);"
+                                onClick={this.getPdf.bind(this)}>{pdfName}</a>
+                            </span> : null}
 
                         <TextField
                             form={this.form}
