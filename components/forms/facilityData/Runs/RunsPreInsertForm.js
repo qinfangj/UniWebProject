@@ -9,8 +9,8 @@ import { goTo } from '../../../actions/actionCreators/commonActionCreators';
 
 import TextField from '../../elements/TextField';
 import validators from '../../validators';
-import * as Options from '../../subcomponents/Options';
 import fields from '../../fields';
+import { ProjectsWithPool } from '../../subcomponents/OptionsWith';
 import PoolsForProject from '../../subcomponents/secondarySelects/PoolsForProject';
 import Feedback from '../../../utils/Feedback';
 
@@ -122,7 +122,7 @@ class RunsPreInsertForm extends React.PureComponent {
                         />
                     </td>
                     <td key="project">
-                        <Options.ProjectsWithPool
+                        <ProjectsWithPool
                             form={this.form}
                             field={projectsFromKey}
                         />

@@ -6,7 +6,7 @@ import fields from '../../fields';
 import tableNames from '../../../tables/tableNames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getSecondaryOptionsListAsync } from '../../../actions/actionCreators/formsActionCreators';
+import { getSecondaryOptionsListAsync, changeFormValue } from '../../../actions/actionCreators/formsActionCreators';
 
 
 /**
@@ -19,8 +19,9 @@ class LibrariesForProject extends React.PureComponent {
 
     formatter(v) { return [v.id, v.name]; }
 
-    componentWillReceiveProps(newProps) {
+    componentDidMount(newProps) {
         let refValue = newProps.refValue;
+        console.debug(5, refValue, this.props.refValue)
         if (refValue && refValue !== this.props.refValue) {
             this.props.getSecondaryOptionsListAsync(tableNames.LIBRARIES, refValue, newProps.storeKey);
         }
@@ -30,6 +31,7 @@ class LibrariesForProject extends React.PureComponent {
         let {options, ...otherProps} = this.props;
         options = options.map((v) => this.formatter(v));
         options.unshift([-1, '-']);
+        console.debug(4, options)
         return (
             <Select
                 options={options}
@@ -50,6 +52,7 @@ LibrariesForProject.defaultProps = {
     label: null,
     refFieldName: fields.PROJECT_ID,
     options: [],
+    refValue: -1,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -70,7 +73,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getSecondaryOptionsListAsync }, dispatch);
+    return bindActionCreators({ getSecondaryOptionsListAsync, changeFormValue }, dispatch);
 };
 
 

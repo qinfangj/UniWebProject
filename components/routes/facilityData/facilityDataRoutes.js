@@ -15,7 +15,6 @@ import RunsPreInsertForm from '../../forms/facilityData/Runs/RunsPreInsertForm';
 import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertForm';
 import UserRequestsInsertForm from '../../forms/facilityData/UserRequestsInsertForm';
 import BioanalysersInsertForm from '../../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
-import BioanalysersInsertFormTest from '../../forms/facilityData/Bioanalysers/BioanalysersInsertFormTest';
 
 import BasecallingsInsertForm from '../../forms/facilityData/BasecallingsInsertForm';
 import AlignmentsInsertForm from '../../forms/facilityData/AlignmentsInsertForm';

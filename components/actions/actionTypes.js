@@ -27,6 +27,8 @@ const actionTypes = {
         FILL_UPDATE_FORM: "FILL_UPDATE_FORM",
         GET_OPTIONS_LIST: "GET_OPTIONS_LIST",
         GET_SECONDARY_OPTIONS_LIST: "GET_SECONDARY_OPTIONS_LIST",
+        ADD_BIOLANE: "ADD_BIOLANE",
+        REMOVE_BIOLANE: "REMOVE_BIOLANE",
     },
 
     facilityData: {

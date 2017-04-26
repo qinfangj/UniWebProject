@@ -10,6 +10,7 @@ import validators from '../validators';
 import * as forms from '../forms.js';
 import * as Options from '../subcomponents/Options';
 import SamplesForProject from '../../forms/subcomponents/secondarySelects/SamplesForProject';
+import { ProjectsWithSamples } from '../../forms/subcomponents/OptionsWith';
 import formNames from '../../constants/formNames';
 import fields from '../fields';
 
@@ -65,7 +66,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        <Options.ProjectsWithSamples
+                        <ProjectsWithSamples
                             form={this.form}
                             required
                         />

@@ -59,12 +59,44 @@ let formReducers = (state = defaultState, action) => {
             // Above we supposed that the keys returned by the backend (Slick auto-generated models)
             // correspond to what is defined in ./fields.js. Otherwise, add exceptions here.
             // -- [exceptions] --
+            //console.debug(newState);
             if (form === formNames.BIOANALYSERS_INSERT_FORM) {
                 newState[form][fields.BIOANALYSER_FILE] = {value: "", filename: formData.filename, file: formData.file};
                 // Cannot do that:  new File([""], formData.filename)
                 //  because for security reasons, it can only be set to the empty string.
+                let subform = formNames.BIOANALYSERS_LANES_INSERT_FORM;
+                newState[subform] = newState[subform] || {};
+                newState[subform]._isvalid = {};
+                newState[subform]["lanes"] = newState[form]["lanes"];
+                for (let lane of newState[form]["lanes"]) {
+                    newState[subform][fields.PROJECT_ID +"_"+ lane.laneNb] = lane.projectId;
+                    newState[subform][fields.LIBRARY_ID +"_"+ lane.laneNb] = lane.libId;
+                    newState[subform][fields.COMMENT +"_"+ lane.laneNb] = lane.comment || "";
+                }
             }
+            //console.debug(newState)
             return newState;
+
+        /**
+         * Add an empty lane to the bioanalysers sub form.
+         */
+        case types.forms.ADD_BIOLANE:
+            newState = {...state};
+            form = formNames.BIOANALYSERS_LANES_INSERT_FORM;
+            formData = state[form];
+            //console.debug(formData)
+            let lanes = state[form]["lanes"];
+            let lastLaneNb = lanes[lanes.length - 1].laneNb;
+            lanes.push({laneNb: lastLaneNb + 1, projectId: null, libId: null, comment: ''});
+            newState[form]["lanes"] = lanes;
+            return newState;
+
+        /**
+         * Remove a lane from the bioanalysers sub form.
+         * Expects action.laneNb
+         */
+        case types.forms.REMOVE_BIOLANE:
+            return state;
 
         default:
             return state;

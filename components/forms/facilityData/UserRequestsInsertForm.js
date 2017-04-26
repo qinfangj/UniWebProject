@@ -8,6 +8,7 @@ import Checkbox from '../elements/MyCheckBox';
 import TextArea from '../elements/Textarea';
 import * as Options from '../subcomponents/Options';
 import SamplesForProject from '../subcomponents/secondarySelects/SamplesForProject';
+import { ProjectsWithSamples } from '../../forms/subcomponents/OptionsWith';
 import * as forms from '../forms.js';
 import validators from '../validators';
 import formNames from '../../constants/formNames';
@@ -64,7 +65,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     {/* Project */}
 
                     <Col sm={5} className={css.formCol}>
-                        <Options.ProjectsWithSamples
+                        <ProjectsWithSamples
                             form={this.form}
                             required
                         />

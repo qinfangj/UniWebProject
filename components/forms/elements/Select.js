@@ -2,6 +2,7 @@
 import React from 'react';
 import css from '../forms.css';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 import constants from '../../constants/constants';
 
@@ -72,6 +73,8 @@ class Select extends React.PureComponent {
         let msg = this.getErrorMessage();
         let help = <HelpBlock bsClass={css.feedback}>{msg}</HelpBlock>;
 
+        //console.debug(this.props.field, this.props.value);
+
         return (
             <FormGroup controlId={this.props.field} validationState={feedbackValue} bsSize="small" >
                 {label}
@@ -129,9 +132,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        changeFormValue: (form, field, value, valid) => dispatch(changeFormValue(form, field, value, valid)),
-    };
+    return bindActionCreators({ changeFormValue }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Select);

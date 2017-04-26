@@ -20,8 +20,6 @@ class DatePicker extends React.PureComponent {
     }
 
     render() {
-        console.debug(this.props.field, this.props.value, typeof(this.props.value))
-
         return (
             <FormGroup controlId={this.props.field} bsSize="small" >
                 <ControlLabel>{this.props.label}</ControlLabel>
