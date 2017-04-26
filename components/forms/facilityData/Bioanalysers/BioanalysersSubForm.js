@@ -6,6 +6,7 @@ import cx from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addEmptyLaneToBioanalysers, removeLaneFromBioanalysers, changeFormValue } from '../../../actions/actionCreators/formsActionCreators';
+import tableNames from '../../../tables/tableNames';
 
 import TextField from '../../elements/TextField';
 import { ProjectsWithLibraries } from '../../subcomponents/OptionsWith';
@@ -24,9 +25,6 @@ class BioanalysersSubForm extends React.PureComponent {
         super(props);
         this.table = "bioanalysers";
         this.form = formNames.BIOANALYSERS_LANES_INSERT_FORM;
-        // this.state = {
-        //     lanesInfo: [{id: 0, projectId: undefined, libraryId: undefined, comment: ''}],
-        // };
     }
 
     static propTypes = {
@@ -56,11 +54,6 @@ class BioanalysersSubForm extends React.PureComponent {
         this.props.addEmptyLaneToBioanalysers();
     };
 
-    componentWillReceiveProps(newProps) {
-        let newLanes = newProps.lanesInfo;
-    }
-
-
     render() {
 
         //console.debug("lanesInfo: ", this.props.lanesInfo)
@@ -79,8 +72,6 @@ class BioanalysersSubForm extends React.PureComponent {
                         <ProjectsWithLibraries
                             form={this.form}
                             field={fields.PROJECT_ID +"_"+ laneNb}
-                            //storeKey={this.form + fields.PROJECT_ID +'_'+ laneNb}
-                            //value={lane.projectId}
                         />
                     </td>
                     <td key="library" className={css.cell}>
@@ -88,14 +79,13 @@ class BioanalysersSubForm extends React.PureComponent {
                             form={this.form}
                             field={fields.LIBRARY_ID +"_"+ laneNb}
                             refFieldName={fields.PROJECT_ID +"_"+ laneNb}
-                            options={this.props.libOptions[idx]}
+                            onMount={true}
                         />
                     </td>
                     <td key="comment" className={css.cell}>
                         <TextField
                             form={this.form}
                             field={fields.COMMENT +"_"+ laneNb}
-                            //value={lane.comment || ""}
                         />
                     </td>
                 </tr>
@@ -131,27 +121,10 @@ BioanalysersSubForm.defaultProps = {
     lanesInfo: [],
 };
 
-import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-
 const mapStateToProps = (state, ownProps) => {
     let lanesInfo = state.forms[formNames.BIOANALYSERS_INSERT_FORM]["lanes"] || [];
-
-    // Make sure it reacts when the projectId selection changes
-    let thisForm = formNames.BIOANALYSERS_LANES_INSERT_FORM;
-    let laneNbs = lanesInfo.map((lane) => lane.laneNb);
-    let projectIds = laneNbs.map((laneNb) => state.forms[thisForm][fields.PROJECT_ID +"_"+ laneNb]);
-
-    console.debug(state.options)
-
-    let refFieldNames = lanesInfo.map((lane) => fields.PROJECT_ID +"_"+ lane.laneNb);
-    console.debug(1, refFieldNames)
-    let storeKeys = refFieldNames.map((ref) => thisForm +'_'+ optionsStoreKeys.LIBRAIRIES_FOR_PROJECT +'_'+ ref);
-    console.debug(2, storeKeys)
-    let libOptions = storeKeys.map((optsKey) => state.options[optsKey] || []);
-    console.debug(3, libOptions)
     return {
         lanesInfo: lanesInfo,
-        libOptions: libOptions,
     };
 };
 

@@ -16,14 +16,6 @@ export function changeFormValue(form, field, value, valid) {
     };
 }
 
-// export function changeSelectOptionWith(form, field, value, valid,
-//                                        tableName, storeKey) {
-//     return (dispatch) => {
-//         dispatch(changeFormValue(form, field, value, valid));
-//         dispatch(getSecondaryOptionsListAsync(tableName, value, storeKey))
-//     };
-// }
-
 export function resetForm(form) {
     return {
         type: types.forms.RESET_FORM,

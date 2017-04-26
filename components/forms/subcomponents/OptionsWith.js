@@ -2,8 +2,6 @@
 import React from 'react';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import fields from '../fields';
-import store from '../../../core/store';
-import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 import { Projects } from './Options';
 
 
@@ -15,14 +13,6 @@ import { Projects } from './Options';
 
 /** Projects with samples, for User requests and Libraries */
 export class ProjectsWithSamples extends React.Component {
-
-    // // Make sure that if the value prop is passed directly, the secondary options list is fetched right away.
-    // // This only updated the value, which is not async, so it costs nothing.
-    // componentDidMount() {
-    //     if (this.props.value) {
-    //         store.dispatch(changeFormValue(this.props.form, this.props.field, this.props.value));
-    //     }
-    // }
 
     render() {
         return <Projects suffix="samples" {...this.props} />;
@@ -40,12 +30,6 @@ ProjectsWithSamples.defaultProps = {
  */
 export class ProjectsWithLibraries extends React.Component {
 
-    // componentDidMount() {
-    //     if (this.props.value) {
-    //         store.dispatch(changeFormValue(this.props.form, this.props.field, this.props.value));
-    //     }
-    // }
-
     render() {
         return <Projects suffix="libs" label={null} {...this.props} />;
     }
@@ -61,14 +45,6 @@ ProjectsWithLibraries.defaultProps = {
  * In pre-Runs it is used in many rows, so we must set a special form key.
  */
 export class ProjectsWithPool extends React.Component {
-
-    // // Make sure that if the value prop is passed directly, the secondary options list is fetched right away.
-    // // This only updated the value, which is not async, so it costs nothing.
-    // componentDidMount() {
-    //     if (this.props.value) {
-    //         store.dispatch(changeFormValue(this.props.form, this.props.field, this.props.value));
-    //     }
-    // }
 
     render() {
         return <Projects suffix="pools" label={null} {...this.props} />;
