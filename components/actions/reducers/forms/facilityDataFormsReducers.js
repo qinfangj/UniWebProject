@@ -2,9 +2,18 @@
 import { combineForms } from  'react-redux-form'
 import { dateNow } from '../../../../utils/time';
 
-let runsFormReducers = combineForms(
+
+/**
+ * React-redux-forms reducer - Initial form data for facilityData.
+ */
+let facilityDataFormsReducers = combineForms(
     {
-        insertForm: {
+        bioanalysers: {
+            filename: null,
+            bioanalyserDate: "1970-01-01",
+            description: "",
+        },
+        runs: {
             runNb: "",
             flowcellId: "",
             flowcellTypeId: "",
@@ -16,10 +25,11 @@ let runsFormReducers = combineForms(
             kit: "",
             isFailed: false,
             comment: ""
-        }
+        },
 
-    },'runsForms'
+    },'facilityDataForms'
 );
 
 
-export default runsFormReducers;
+export default facilityDataFormsReducers;
+

@@ -20,29 +20,32 @@ function initialAdminForms(table) {
     return initalData;
 }
 
+/**
+ * React-redux-forms reducer - Initial form data for adminData.
+ */
 let adminFormReducers = combineForms(
     {
         analysisTypeForm: initialAdminForms("pipeline_analysis_types"),
         flowcellTypesForm: initialAdminForms("flowcell_types"),
         instrumentsForm: initialAdminForms("instruments"),
-        libAdaptersForm:  initialAdminForms("library_adapters"),
-        libProtocolsForm:  initialAdminForms("lib_protocols"),
-        libStatesForm:  initialAdminForms("library_states"),
-        mappingToolsForm:initialAdminForms("mapping_tools"),
-        multiplexIndexesForm :initialAdminForms("multiplex_indexes"),
-        pipelineVersionForm :initialAdminForms("pipeline_versions"),
-        projectAnalysisForm : initialAdminForms("project_analysis"),
-        projectStatesForm:initialAdminForms("project_states"),
-        quantifMethodsForm :initialAdminForms("quantif_methods"),
-        readLengthsForm : initialAdminForms("read_lengths"),
-        runTypesForm : initialAdminForms("run_types"),
-        runTypesLengthsForm :initialAdminForms("run_types_lengths"),
-        samplesTypesForm : initialAdminForms("sample_types"),
-        seqKitVersionForm : initialAdminForms("sequencing_kit_versions"),
-        seqQualitiesForm : initialAdminForms("sequencing_qualities"),
-        taxonomiesForm : initialAdminForms("taxonomies"),
-        projectSharingsForm : initialAdminForms("project_sharings"),
-        limsUsersForm : initialAdminForms("users")
+        libAdaptersForm: initialAdminForms("library_adapters"),
+        libProtocolsForm: initialAdminForms("lib_protocols"),
+        libStatesForm: initialAdminForms("library_states"),
+        mappingToolsForm: initialAdminForms("mapping_tools"),
+        multiplexIndexesForm: initialAdminForms("multiplex_indexes"),
+        pipelineVersionForm: initialAdminForms("pipeline_versions"),
+        projectAnalysisForm: initialAdminForms("project_analysis"),
+        projectStatesForm: initialAdminForms("project_states"),
+        quantifMethodsForm: initialAdminForms("quantif_methods"),
+        readLengthsForm: initialAdminForms("read_lengths"),
+        runTypesForm: initialAdminForms("run_types"),
+        runTypesLengthsForm: initialAdminForms("run_types_lengths"),
+        samplesTypesForm: initialAdminForms("sample_types"),
+        seqKitVersionForm: initialAdminForms("sequencing_kit_versions"),
+        seqQualitiesForm: initialAdminForms("sequencing_qualities"),
+        taxonomiesForm: initialAdminForms("taxonomies"),
+        projectSharingsForm: initialAdminForms("project_sharings"),
+        limsUsersForm: initialAdminForms("users")
     }
     ,'adminForms');
 

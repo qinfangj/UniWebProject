@@ -12,7 +12,7 @@ import selectOptionsReducers from '../components/actions/reducers/selectOptionsR
 import feedbackReducers from '../components/actions/reducers/feedbackReducers';
 
 import formReducers from '../components/actions/reducers/forms/formReducers';
-import runsFormReducers from '../components/actions/reducers/forms/runsFormReducers';
+import facilityDataFormsReducers from '../components/actions/reducers/forms/facilityDataFormsReducers';
 import adminFormReducers from '../components/actions/reducers/forms/adminFormReducers';
 
 
@@ -46,7 +46,7 @@ let reducer = combineReducers({
     admin: adminReducers,
     queryProjects: queryProjectsReducers,
     adminForms: adminFormReducers,
-    runsForms: runsFormReducers,
+    facilityDataForms: facilityDataFormsReducers,
     options: selectOptionsReducers,
     forms: formReducers,
     feedback: feedbackReducers,
