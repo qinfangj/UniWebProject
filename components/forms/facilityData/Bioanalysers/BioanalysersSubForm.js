@@ -28,6 +28,7 @@ class BioanalysersSubForm extends React.PureComponent {
 
     static propTypes = {
         lanesInfo: React.PropTypes.array,
+        disabled: React.PropTypes.bool,
     };
 
     removeLane = (laneNb) => {
@@ -56,6 +57,7 @@ class BioanalysersSubForm extends React.PureComponent {
                         <ProjectsWithLibraries
                             form={this.form}
                             field={fields.PROJECT_ID +"_"+ laneNb}
+                            disabled={this.props.disabled}
                         />
                     </td>
                     <td key="library" className={css.cell}>
@@ -63,6 +65,7 @@ class BioanalysersSubForm extends React.PureComponent {
                             form={this.form}
                             field={fields.LIBRARY_ID +"_"+ laneNb}
                             refFieldName={fields.PROJECT_ID +"_"+ laneNb}
+                            disabled={this.props.disabled}
                             onMount={true}
                         />
                     </td>
@@ -70,6 +73,7 @@ class BioanalysersSubForm extends React.PureComponent {
                         <TextField
                             form={this.form}
                             field={fields.COMMENT +"_"+ laneNb}
+                            disabled={this.props.disabled}
                         />
                     </td>
                 </tr>
@@ -104,6 +108,7 @@ class BioanalysersSubForm extends React.PureComponent {
 
 BioanalysersSubForm.defaultProps = {
     lanesInfo: [],
+    disabled: false,
 };
 
 const mapStateToProps = (state, ownProps) => {

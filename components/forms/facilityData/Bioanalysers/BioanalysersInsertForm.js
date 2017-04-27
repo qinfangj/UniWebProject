@@ -28,7 +28,9 @@ class BioanalysersInsertForm extends React.PureComponent {
         super(props);
         this.table = "bioanalysers";
         this.form = formNames.BIOANALYSERS_INSERT_FORM;
-        this.state = {isInsert: this.props.updateId === '' || this.props.updateId === undefined}
+        this.state = {
+            disabled: false,
+        }
     }
 
     static propTypes = {
@@ -39,6 +41,9 @@ class BioanalysersInsertForm extends React.PureComponent {
 
     componentWillMount() {
         if (this.props.updateId) {
+            this.setState({
+                disabled: true,
+            });
             store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }
     }
@@ -70,10 +75,11 @@ class BioanalysersInsertForm extends React.PureComponent {
     }
 
     onSubmit() {
-        if (!this.state.isInsert){
-            this.setState({isInsert: true});
-        }
-        else {
+        // If it is an update, this enables the form
+        if (this.state.disabled){
+            this.setState({disabled: false});
+        // If it is an insert, just submit
+        } else {
             forms.submit(this.form, this.table, this.formatFormData.bind(this));
         }
     }
@@ -106,7 +112,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                             field={fields.BIOANALYSER_FILE}
                             label={"Bioanalyser file"}
                             type="file"
-                            disabled={!this.state.isInsert}
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -118,7 +124,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.BIOANALYSER_DATE}
                             label="Bioanalyser date"
-                            disabled={!this.state.isInsert}
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -132,7 +138,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.DESCRIPTION}
                             label="Description"
-                            disabled={!this.state.isInsert}
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -140,14 +146,14 @@ class BioanalysersInsertForm extends React.PureComponent {
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Lanes sub form */}
-                    <BioanalysersSubForm ref={(c) => this._lanes = c} disabled={!this.state.isInsert}/>
+                    <BioanalysersSubForm ref={(c) => this._lanes = c} disabled={this.state.disabled}/>
 
                 </Form>
 
                 {/* Submit */}
 
                 <Button action="submit" bsStyle="primary" className={css.button} onClick={this.onSubmit.bind(this)}>
-                    {this.state.isInsert ? 'Submit' : 'Activate Form'}
+                    {this.state.disabled ? "Activate form" : "Submit"}
                 </Button>
 
             </form>
