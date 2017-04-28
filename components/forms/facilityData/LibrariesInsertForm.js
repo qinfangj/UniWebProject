@@ -65,7 +65,7 @@ class LibrariesInsertForm extends React.PureComponent {
 
                     {/* Project */}
 
-                    <Col sm={5} className={css.formCol}>
+                    <Col sm={4} className={css.formCol}>
                         <ProjectsWithSamples
                             form={this.form}
                             required
@@ -74,7 +74,7 @@ class LibrariesInsertForm extends React.PureComponent {
 
                     {/* Sample */}
 
-                    <Col sm={3} className={css.formCol}>
+                    <Col sm={2} className={css.formCol}>
                         <SamplesForProject
                             form={this.form}
                             required

@@ -60,7 +60,7 @@ class Select extends React.PureComponent {
 
         // Display a star if the field is required and no valud has been entered yet
         //  (better than an ugly warning, see comment in `validate`).
-        let requireString = (this.props.required && this.props.valid === false) ?
+        let requireString = (this.props.required && this.props.value === -1) ?
             <span className={css.requiredString}>{" *"}</span>: null;
 
         let label = this.props.label ? <ControlLabel>{this.props.label+" "}{requireString}</ControlLabel> : null;
