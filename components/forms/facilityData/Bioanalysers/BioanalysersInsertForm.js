@@ -40,12 +40,14 @@ class BioanalysersInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
+        //forms.newOrUpdate(this.form, this.table, this.props.updateId);
         if (this.props.updateId) {
-            this.setState({
-                disabled: true,
-            });
             store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
+            this.setState({ disabled: true });
         }
+    }
+    componentWillReceiveProps() {
+        //forms.newOrUpdate(this.form, this.table, this.props.updateId);
     }
 
     formatLanesForSubmit() {
@@ -86,6 +88,10 @@ class BioanalysersInsertForm extends React.PureComponent {
 
     getPdf() {
         RestService.bioanalyserPdf(this.props.updateId).then((blob) => downloadPdf(blob));
+    }
+
+    activateForm() {
+        this.setState({ disabled: false });
     }
 
     render() {
@@ -152,9 +158,15 @@ class BioanalysersInsertForm extends React.PureComponent {
 
                 {/* Submit */}
 
-                <Button action="submit" bsStyle="primary" className={css.button} onClick={this.onSubmit.bind(this)}>
-                    {this.state.disabled ? "Activate form" : "Submit"}
-                </Button>
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </form>
         );

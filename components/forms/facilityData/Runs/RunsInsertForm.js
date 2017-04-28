@@ -33,24 +33,30 @@ class RunsInsertForm extends React.PureComponent {
         this.table = "runs";
         this.form = formNames.RUNS_INSERT_FORM;
         this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];
-        this.state = {};
-        this.state.lanes = store.getState().common.route.data || {};
+        this.state = {
+            disabled: false,
+            lanes: store.getState().common.route.data || {}
+        };
     }
 
     componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            this.setState({
-                lanes: store.getState().common.route.data,
-            });
-        });
+        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
     }
-    componentWillUnmount() {
-        this.unsubscribe();
+
+    componentWillReceiveProps() {
+        forms.newOrUpdate(this.form, this.table, this.props.updateId);
     }
 
     onSubmit() {
         let formData = this.getFormValues();
         forms.submit(this.table, formData, this.required, null);
+    }
+
+    activateForm() {
+        this.setState({ disabled: false });
     }
 
     getFormValues() {
@@ -271,9 +277,15 @@ class RunsInsertForm extends React.PureComponent {
 
                  {/*Submit */}
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={formsCss.submitButton}>
-                    Submit
-                </Button>
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </form>
         );

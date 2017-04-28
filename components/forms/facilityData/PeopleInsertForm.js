@@ -20,6 +20,9 @@ class ProjectInsertForm extends React.PureComponent {
         super();
         this.table = "people";
         this.form = formNames.PEOPLE_INSERT_FORM;
+        this.state = {
+            disabled: false,
+        };
     }
 
     static propTypes = {
@@ -30,6 +33,9 @@ class ProjectInsertForm extends React.PureComponent {
 
     componentWillMount() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
     }
     componentWillReceiveProps() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
@@ -43,6 +49,10 @@ class ProjectInsertForm extends React.PureComponent {
 
     onSubmit() {
         forms.submit(this.form, this.table, this.formatFormData);
+    }
+
+    activateForm() {
+        this.setState({ disabled: false });
     }
 
     render() {
@@ -60,6 +70,7 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.FIRST_NAME}
                             label="PI first name"
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -71,6 +82,7 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.LAST_NAME}
                             label="PI last name"
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -82,6 +94,7 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.EMAIL}
                             label="PI email"
+                            disabled={this.state.disabled}
                             required
                             validator = {validators.emailValidator}
                         />
@@ -97,6 +110,7 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.ADDRESS}
                             label="PI address"
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -108,6 +122,7 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.PHONE}
                             label="PI phone"
+                            disabled={this.state.disabled}
                             required
                             validator={validators.phoneValidator}
                         />
@@ -117,9 +132,15 @@ class ProjectInsertForm extends React.PureComponent {
 
                 {/* Submit */}
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                    Submit
-                </Button>
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </form>
         );

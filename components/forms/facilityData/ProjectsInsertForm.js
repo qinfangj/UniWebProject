@@ -24,6 +24,9 @@ class ProjectInsertForm extends React.PureComponent {
         super();
         this.table = "projects";
         this.form = formNames.PROJECTS_INSERT_FORM;
+        this.state = {
+            disabled: false,
+        };
     }
 
     static propTypes = {
@@ -34,6 +37,9 @@ class ProjectInsertForm extends React.PureComponent {
 
     componentWillMount() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
     }
     componentWillReceiveProps() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
@@ -41,6 +47,10 @@ class ProjectInsertForm extends React.PureComponent {
 
     onSubmit() {
         forms.submit(this.form, this.table, null);
+    }
+
+    activateForm() {
+        this.setState({ disabled: false });
     }
 
     render() {
@@ -57,6 +67,7 @@ class ProjectInsertForm extends React.PureComponent {
                         <TextField
                             form={this.form}
                             field={fields.NAME}
+                            disabled={this.state.disabled}
                             required
                             label="Project name"
                         />
@@ -67,6 +78,7 @@ class ProjectInsertForm extends React.PureComponent {
                     <Col sm={4} className={css.formCol}>
                         <Options.Laboratories
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -77,6 +89,7 @@ class ProjectInsertForm extends React.PureComponent {
                         <TextField
                             form={this.form}
                             field={fields.CODE_NAME}
+                            disabled={this.state.disabled}
                             required
                             label="Code name"
                             validator = {validators.codeNameValidator}
@@ -95,6 +108,7 @@ class ProjectInsertForm extends React.PureComponent {
                             field={fields.DESCRIPTION}
                             label="Description"
                             validator = {validators.descriptionValidator}
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -106,6 +120,7 @@ class ProjectInsertForm extends React.PureComponent {
 
                         <Options.ProjectStates
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
 
@@ -115,6 +130,7 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.IS_CONTROL}
                             label="Control Project"
+                            disabled={this.state.disabled}
                         />
 
                     </Col>
@@ -126,6 +142,7 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.USER_MEETING_DATE}
                             label="User meeting date"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -134,6 +151,7 @@ class ProjectInsertForm extends React.PureComponent {
                     <Col sm={4} className={css.formCol}>
                         <Options.ProjectAnalyses
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -148,6 +166,7 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT}
                             label="Comment"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -155,9 +174,15 @@ class ProjectInsertForm extends React.PureComponent {
 
                 {/* Submit */}
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                    Submit
-                </Button>
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </form>
         );

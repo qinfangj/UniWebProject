@@ -34,7 +34,7 @@ class IdColumnWithUpdateLink extends React.PureComponent {
  * (as in idColumnWithUpdateLink above).
  */
 export function defaultHeaderRenderer(params) {
-    return "<span style='float: left'>" + params.colDef.headerName + "</span>";
+    return '<span style="float: left">' + params.colDef.headerName + '</span>';
 }
 
 
