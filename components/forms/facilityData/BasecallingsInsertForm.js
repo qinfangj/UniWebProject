@@ -53,7 +53,7 @@ class BasecallingsInsertForm extends React.PureComponent {
 
                     {/* Run */}
 
-                    <Col sm={3} className={css.formCol}>
+                    <Col sm={5} className={css.formCol}>
                         <Options.RunsOutputFolders
                             form={this.form}
                             required
@@ -90,28 +90,27 @@ class BasecallingsInsertForm extends React.PureComponent {
                         />
                     </Col>
 
-                    {/* Demultiplexing */}
+                </Form>
+                <Form componentClass="fieldset" horizontal>
+
+                    {/* Unaligned data output folder */}
+
+                    <Col sm={10} className={css.formCol}>
+                        <TextField
+                            form={this.form}
+                            field={fields.UNALIGNED_OUTPUT_DIR}
+                            label="Unaligned data output folder"
+                            required
+                        />
+                    </Col>
+
+                    {/* Is demultiplexing? */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
                         <Checkbox
                             form={this.form}
                             field={fields.IS_DEMULTIPLEXING}
                             label="Demultiplexing"
-                        />
-                    </Col>
-
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Unaligned data output folder */}
-
-                    <Col sm={12} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.UNALIGNED_OUTPUT_DIR}
-                            label="Unaligned data output folder"
-                            required
                         />
                     </Col>
 
