@@ -1,19 +1,11 @@
 "use strict";
 import fields from '../fields';
 import formNames from '../../constants/formNames';
-import constants from '../../constants/constants';
 import { dateNow } from '../../../utils/time';
+import inputTypes from '../inputTypes';
+import { DEFAULT_DATE } from '../inputTypes';
 
-export const inputTypes = {
-    DROPDOWN: "Dropdown",
-    SEC_DROPDOWN: "Secondary dropdown",
-    TEXT: "Text field",
-    TEXTAREA: "Text area",
-    CHECKBOX: "Checkbox",
-    DATE: "Date",
-};
 
-const DEFAULT_DATE = "1970-01-01";
 
 function isValid(value, type, required, setValid) {
     let valid = true;

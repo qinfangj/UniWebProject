@@ -213,7 +213,7 @@ const adminData = {
                 "name":  "hasInsertSizeSelection",
                 "size":  3,
                 "required": true,
-                "type":"Boolean"
+                "type":"checkbox"
             },
             {
                 "label": "IsDeprecated",
