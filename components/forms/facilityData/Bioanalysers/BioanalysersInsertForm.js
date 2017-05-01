@@ -119,6 +119,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                             label={"Bioanalyser file"}
                             type="file"
                             disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 

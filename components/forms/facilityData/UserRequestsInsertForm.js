@@ -134,7 +134,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                             field={fields.MULTIPLEXING_GROUP}
                             label="Multiplexing group"
                             disabled={this.state.disabled}
-                            required
                             validator = {validators.shortStringValidator}
                         />
                     </Col>
@@ -171,7 +170,6 @@ class UserRequestsInsertForm extends React.PureComponent {
                             field={fields.MILLION_READS}
                             label="Multiplex#"
                             disabled={this.state.disabled}
-                            required
                             validator={validators.integerValidator}
                         />
                     </Col>

@@ -139,6 +139,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             field={fields.LIBRARY_DATE}
                             label="Library date"
                             disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
@@ -152,6 +153,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             label="Bioanalyser peak"
                             validator = {validators.numberValidator}
                             disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
@@ -190,6 +192,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             label="Concentration"
                             validator = {validators.numberValidator}
                             disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
@@ -288,6 +291,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.LIBRARY_STATE_ID}
                             disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 

@@ -147,7 +147,6 @@ class GenomesInsertForm extends React.PureComponent {
                             field={fields.COMMENT}
                             label="Comment"
                             disabled={this.state.disabled}
-                            required
                         />
                     </Col>
 

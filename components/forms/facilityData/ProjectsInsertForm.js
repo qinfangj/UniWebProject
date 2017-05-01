@@ -68,8 +68,8 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.NAME}
                             disabled={this.state.disabled}
-                            required
                             label="Project name"
+                            required
                         />
                     </Col>
 
@@ -90,10 +90,10 @@ class ProjectInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.CODE_NAME}
                             disabled={this.state.disabled}
-                            required
                             label="Code name"
                             validator = {validators.codeNameValidator}
                             placeholder = "[name]_[initials] Ex: Tcells_EG."
+                            required
                         />
                     </Col>
 

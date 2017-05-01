@@ -170,7 +170,7 @@ const columns = {
         },{
             headerName: "Vol [μl]",
             field: "volume",
-            cellRenderer: formatters.nullable,
+            cellRenderer: formatters.clipFloat,
             cellStyle: MULTIROW,
         },{
             headerName: "Project",
