@@ -39,6 +39,7 @@ DatePicker.propTypes = {
     form: React.PropTypes.string.isRequired,
     field: React.PropTypes.string.isRequired,
     label: React.PropTypes.string.isRequired,
+    value: React.PropTypes.string.isRequired,
 // maybe use later:
     required: React.PropTypes.bool,
 };
@@ -52,7 +53,7 @@ DatePicker.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        value: state.forms[ownProps.form][ownProps.field],
+        value: state.forms[ownProps.form][ownProps.field] || "1970-01-01",
     };
 };
 

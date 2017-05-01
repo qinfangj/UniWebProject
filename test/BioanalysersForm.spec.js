@@ -1,14 +1,20 @@
 "use strict";
 import React from 'react';
 import {shallow, mount, render} from 'enzyme';
+import store from '../core/store';
+import { Provider } from 'react-redux';
 
 import {expect} from 'chai';
 import BioanalysersInsertForm from '../components/forms/facilityData/Bioanalysers/BioanalysersInsertForm';
-//import BioanalyserInsertForm from '../components/forms/facilityData/Bioanalysers/BioanalysersInsertFormTest';
 import BioanalysersSubForm from '../components/forms/facilityData/Bioanalysers/BioanalysersSubForm';
 
 
-const wrapper1 = shallow(<BioanalysersInsertForm/>);
+const wrapper1 = shallow(
+    <Provider store={store}>
+        <BioanalysersInsertForm/>
+    </Provider>
+);
+
 describe('(Component) BioanalysersInsertForm =>', () => {
 
     it('renders without exploding', () => {
@@ -16,7 +22,13 @@ describe('(Component) BioanalysersInsertForm =>', () => {
     });
 });
 
-const wrapper2 = shallow(<BioanalysersSubForm/>);
+
+const wrapper2 = shallow(
+    <Provider store={store}>
+        <BioanalysersSubForm/>
+    </Provider>
+);
+
 describe('(Component) BioanalysersSubForm =>', () => {
 
     it('renders without exploding', () => {

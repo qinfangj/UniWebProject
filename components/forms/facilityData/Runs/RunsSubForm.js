@@ -9,6 +9,7 @@ import validators from '../../validators';
 import * as Options from '../../subcomponents/Options';
 import fields from '../../fields';
 import LibrariesForProject from '../../subcomponents/secondarySelects/LibrariesForProject';
+import { ProjectsWithLibraries } from '../../subcomponents/OptionsWith';
 
 
 /**
@@ -111,7 +112,7 @@ class RunsSubForm extends React.PureComponent {
             : null}
 
             <td className={cx(css.libCell, css.projectCell)}>
-                <Options.ProjectsWithLibraries
+                <ProjectsWithLibraries
                     form={this.form}
                     field={projectFormKey}
                 />

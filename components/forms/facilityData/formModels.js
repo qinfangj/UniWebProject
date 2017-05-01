@@ -124,7 +124,7 @@ export const facilityDataModels = Object.freeze({
     },
 
     [formNames.BIOANALYSERS_INSERT_FORM]: {
-        [fields.FILENAME]: {
+        [fields.BIOANALYSER_FILE]: {
             label: "Bioanalysers file",
             type: inputTypes.TEXT,
             value: null,
@@ -625,14 +625,11 @@ export const facilityDataModels = Object.freeze({
 
 export function initFacilityData() {
     let initialData = {};
-    for (let form of Object.keys(facilityDataModels)) {
+    for (let form of Object.keys(formNames)) {
         initialData[form] = {};
         initialData[form]._isValid = {};
-        initialData[form]._submission = {
-            status: constants.NONE,
-            msg: "",
-            error: null,
-        };
+    }
+    for (let form of Object.keys(facilityDataModels)) {
         let fields = Object.keys(facilityDataModels[form]);
         for (let field of fields) {
             let model = facilityDataModels[form][field];

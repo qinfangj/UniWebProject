@@ -47,12 +47,12 @@ const columns = {
             headerCellRenderer: headerRenderer
         },
         {
-            headerName: "FirstName",
+            headerName: "First Name",
             field: "firstName",
             headerCellRenderer: headerRenderer
         },
         {
-            headerName: "LastName",
+            headerName: "Last Name",
             field: "lastName",
             headerCellRenderer: headerRenderer
         },

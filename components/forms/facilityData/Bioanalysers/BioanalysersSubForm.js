@@ -3,10 +3,12 @@ import React from 'react';
 import css from './bioanalysers.css';
 import formsCss from '../../forms.css';
 import cx from 'classnames';
-import store from '../../../../core/store';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addEmptyLaneToBioanalysers, removeLaneFromBioanalysers, changeFormValue } from '../../../actions/actionCreators/formsActionCreators';
 
 import TextField from '../../elements/TextField';
-import * as Options from '../../subcomponents/Options';
+import { ProjectsWithLibraries } from '../../subcomponents/OptionsWith';
 import LibrariesForProject from '../../subcomponents/secondarySelects/LibrariesForProject';
 import formNames from '../../../constants/formNames';
 import fields from '../../fields';
@@ -22,45 +24,68 @@ class BioanalysersSubForm extends React.PureComponent {
         super(props);
         this.table = "bioanalysers";
         this.form = formNames.BIOANALYSERS_LANES_INSERT_FORM;
-        this.state = {
-            lanesInfo: [{id:0, projectId: undefined, libraryId: undefined, comment: ''}]
-        };
     }
 
-    getFormValues() {
-        let data = [];
-        let formData = store.getState().forms[this.form];
-        for (let i=0; i < this.state.lanesInfo.length; i++) {
-            data.push({
-                id: 0,
-                laneNb: i+1,
-                projectId: formData[fields.PROJECT_ID + "_" +i],
-                libraryId: formData[fields.LIBRARY_ID + "_" +i],
-                comment: formData[fields.COMMENT + i],
-            });
-        }
-        return data;
-    }
-
-    handleRemoveLaneInfo = (idx) => () => {
-        this.setState({
-            lanesInfo: this.state.lanesInfo.filter((s, sidx) => idx !== sidx)
-        });
+    static propTypes = {
+        lanesInfo: React.PropTypes.array,
+        disabled: React.PropTypes.bool,
     };
 
-    handleAddLaneInfo = () => {
-
-        this.setState({
-            laneInfo: this.state.lanesInfo.push({id:0, projectId: undefined, libraryId: undefined, comment: '' })
-        });
+    removeLane = (laneNb) => {
+        this.props.removeLaneFromBioanalysers(laneNb);
     };
 
+    addLane = () => {
+        this.props.addEmptyLaneToBioanalysers();
+    };
 
     render() {
+
+        console.debug("lanesInfo: ", this.props.lanesInfo)
+
+        let lanes = this.props.lanesInfo.map((lane, idx) => {
+            let laneNb = lane.laneNb;
+            return (
+                <tr key={idx}>
+                    <td key="del" className={css.laneId}>
+                        <button type="button" onClick={this.removeLane.bind(null, laneNb)} className="small">-</button>
+                    </td>
+                    <td key="laneNb" className={css.laneId}>
+                        {lane.laneNb}
+                    </td>
+                    <td key="project" className={css.cell}>
+                        <ProjectsWithLibraries
+                            form={this.form}
+                            field={fields.PROJECT_ID +"_"+ laneNb}
+                            disabled={this.props.disabled}
+                        />
+                    </td>
+                    <td key="library" className={css.cell}>
+                        <LibrariesForProject
+                            form={this.form}
+                            field={fields.LIBRARY_ID +"_"+ laneNb}
+                            refFieldName={fields.PROJECT_ID +"_"+ laneNb}
+                            disabled={this.props.disabled}
+                            onMount={true}
+                        />
+                    </td>
+                    <td key="comment" className={css.cell}>
+                        <TextField
+                            form={this.form}
+                            field={fields.COMMENT +"_"+ laneNb}
+                            disabled={this.props.disabled}
+                        />
+                    </td>
+                </tr>
+            )
+        });
 
         return (
 
             <Col sm={12} className={cx(formsCss.formCol, css.subformCol)} >
+
+                <Button type="button" onClick={this.addLane} bsStyle="primary">+ Add Lane</Button>
+
                 <table className={css.lanesTable}>
                     <thead><tr>
                         <th className={css.laneId}>Del</th>
@@ -70,45 +95,40 @@ class BioanalysersSubForm extends React.PureComponent {
                         <th className={css.commentHead}>Comment</th>
                     </tr></thead>
                     <tbody>
-                    {this.state.lanesInfo.map((laneInfo, idx) => (
-                        <tr key={idx}>
-                            <td key="del" className={css.laneId}>
-                                <button type="button" onClick={this.handleRemoveLaneInfo(idx)} className="small">-</button>
-                            </td>
-                            <td key="id" className={css.laneId}>
-                                {idx + 1}
-                            </td>
-                            <td key="project" className={css.cell}>
-                                <Options.ProjectsWithLibraries
-                                    form={this.form}
-                                    field={fields.PROJECT_ID + "_" + idx}
-                                    storeKey={this.form + fields.PROJECT_ID +'_'+ idx}
-                                />
-                            </td>
 
-                            <td key="library" className={css.cell}>
-                                <LibrariesForProject
-                                    form={this.form}
-                                    field={fields.LIBRARY_ID +'_'+ idx}
-                                    refFieldName={fields.PROJECT_ID + "_" + idx}
-                                />
-                            </td>
-                            <td key="comment" className={css.cell}>
-                                <TextField form={this.form}
-                                           field={fields.COMMENT + idx}
-                                />
-                            </td>
-                        </tr>
-                    ))}
+                        {lanes}
 
                     </tbody>
-
                 </table>
+<<<<<<< HEAD
                 <Button type="button" onClick={this.handleAddLaneInfo} bsStyle="primary" disabled= {this.props.disabled}>+Add Lane</Button>
+=======
+>>>>>>> 6dc6983eb2ba25d80e6ff6ea6d1e7ebff54a8ba3
 
             </Col>);
     }
 }
 
 
-export default BioanalysersSubForm;
+BioanalysersSubForm.defaultProps = {
+    lanesInfo: [],
+    disabled: false,
+};
+
+const mapStateToProps = (state, ownProps) => {
+    let lanesInfo = state.forms[formNames.BIOANALYSERS_INSERT_FORM]["lanes"] || [];
+    return {
+        lanesInfo: lanesInfo,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+            addEmptyLaneToBioanalysers,
+            removeLaneFromBioanalysers,
+            changeFormValue
+        }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BioanalysersSubForm);
+

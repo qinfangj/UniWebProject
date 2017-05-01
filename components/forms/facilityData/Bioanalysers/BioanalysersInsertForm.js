@@ -3,6 +3,8 @@ import React from 'react';
 import formsCss from '../../forms.css';
 import css from './bioanalysers.css';
 import store from '../../../../core/store';
+import { connect } from 'react-redux';
+import RestService from '../../../../utils/RestService';
 
 import TextField from '../../elements/TextField';
 import DatePicker from '../../elements/DatePicker';
@@ -10,19 +12,15 @@ import * as forms from '../../forms.js';
 import BioanalysersSubForm from './BioanalysersSubForm';
 
 import formNames from '../../../constants/formNames';
+import tableNames from '../../../tables/tableNames';
 import fields from '../../fields';
-import { findForUpdateAsync,deleteAsync} from '../../../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
+import downloadPdf from '../../../../utils/downloadPdf';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Feedback from '../../../utils/Feedback';
-
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import { feedbackSuccess,  feedbackError } from '../../../actions/actionCreators/feedbackActionCreators';
-import { resetForm } from '../../../actions/actionCreators/formsActionCreators';
-import { Link } from 'react-router';
-import { hashHistory } from 'react-router';
 
 
 class BioanalysersInsertForm extends React.PureComponent {
@@ -30,8 +28,9 @@ class BioanalysersInsertForm extends React.PureComponent {
         super(props);
         this.table = "bioanalysers";
         this.form = formNames.BIOANALYSERS_INSERT_FORM;
-        //this.required = [];
-        this.state = {isInsert: this.props.updateId === '' || this.props.updateId === undefined}
+        this.state = {
+            disabled: false,
+        }
     }
 
     static propTypes = {
@@ -42,58 +41,56 @@ class BioanalysersInsertForm extends React.PureComponent {
 
     componentWillMount() {
         if (this.props.updateId) {
+            this.setState({
+                disabled: true,
+            });
             store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
         }
+    }
+
+    formatLanesForSubmit() {
+        let values = this.props.lanesValues;
+        let lanesInfo = this.props.lanesInfo.map((lane) => {
+            let laneNb = lane.laneNb;
+            return {
+                id: lane.id,
+                laneNb: laneNb,
+                projectId: values[fields.PROJECT_ID +"_"+ laneNb],   // cannot use just lane.projectId in case of new insert
+                libraryId: values[fields.LIBRARY_ID +"_"+ laneNb],   // same
+                comment: lane.comment || "",
+            };
+        });
+        return lanesInfo;
     }
 
     /**
      * Use this to add lanes info - nothing to validate there anyway.
      */
     formatFormData(formData) {
-        formData["lanes"] = this._lanes.getFormValues();
-        formData["file"] = btoa(formData[fields.FILENAME].file);
-        formData["filename"] = formData[fields.FILENAME].filename;
-        console.debug(formData);
+        let lanesInfo = this.formatLanesForSubmit();
+        formData["lanes"] = lanesInfo;
+        formData["file"] = btoa(formData[fields.BIOANALYSER_FILE].file);
+        formData["filename"] = formData[fields.BIOANALYSER_FILE].filename;
         return formData;
     }
 
     onSubmit() {
-        if (!this.state.isInsert){
-            this.setState({isInsert: true});
-        }
-        else {
+        // If it is an update, this enables the form
+        if (this.state.disabled){
+            this.setState({disabled: false});
+        // If it is an insert, just submit
+        } else {
             forms.submit(this.form, this.table, this.formatFormData.bind(this));
         }
     }
 
-    bioanalyserDelete(){
-
-        let submissionFuture = null;
-        if (confirm("Are you sure that you want to delete this user?")) { // Clic sur OK
-            if (this.props.updateId) {
-
-                let submissionFuture = store.dispatch(deleteAsync(this.table, this.props.updateId));
-
-                submissionFuture
-                    .done((deleteId) => {
-                        // Signal that it was a success
-                        console.debug(200, "DeleteId ID <"+deleteId+">");
-                        // Clear the form data in store
-                        store.dispatch(feedbackSuccess(this.form, "Inserted ID <"+deleteId+">"));
-                        store.dispatch(resetForm(this.form));
-                        // Redirect to table by replacing '/new' by '/list' in the router state
-                        let currentPath = window.location.pathname + window.location.hash.substr(2);
-                        hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
-                    })
-                    .fail((err) => {
-                        console.warn("Uncaught form validation error");
-                        store.dispatch(feedbackError(this.form, err, "Uncaught form validation error"));
-                    });
-            }
-        }
+    getPdf() {
+        RestService.bioanalyserPdf(this.props.updateId).then((blob) => downloadPdf(blob));
     }
 
     render() {
+        let pdfName = this.props.pdf ? this.props.pdf.filename : "";
+
         return (
             <form className={css.form}>
 
@@ -102,28 +99,24 @@ class BioanalysersInsertForm extends React.PureComponent {
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Bioanalyser file */}
-                    { this.props.updateId ?
 
-                        <Col sm={6} className={formsCss.formCol}>
-                            <ControlLabel>Bioanalyser file</ControlLabel>
-                            <div>
-                                <a href={`/bioanalysers/pdf/${this.props.updateId}/${store.getState().forms[this.form].filename}`}>
-                                    {store.getState().forms[this.form].filename}</a>
-                            </div>
-                        </Col>
+                    <Col sm={6} className={formsCss.formCol}>
 
-                        :
+                        {this.props.updateId ? <span>{"Current file: "}<a
+                                href="javascript:void(0);"
+                                onClick={this.getPdf.bind(this)}>{pdfName}</a>
+                            </span> : null}
 
-                        <Col sm={6} className={formsCss.formCol}>
-                            <TextField
-                                form={this.form}
-                                field={fields.FILENAME}
-                                label="Bioanalyser file"
-                                type="file"
-                            />
-                        </Col>
+                        <TextField
+                            form={this.form}
+                            field={fields.BIOANALYSER_FILE}
+                            label={"Bioanalyser file"}
+                            type="file"
+                            disabled={this.state.disabled}
+                        />
+                    </Col>
 
-                    }
+
                     {/* Bioanalyser date */}
 
                     <Col sm={6} className={formsCss.formCol}>
@@ -131,7 +124,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.BIOANALYSER_DATE}
                             label="Bioanalyser date"
-                            disabled={!this.state.isInsert}
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -145,7 +138,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.DESCRIPTION}
                             label="Description"
-                            disabled={!this.state.isInsert}
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -153,18 +146,15 @@ class BioanalysersInsertForm extends React.PureComponent {
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Lanes sub form */}
-                    <BioanalysersSubForm ref={(c) => this._lanes = c} disabled={!this.state.isInsert}/>
+                    <BioanalysersSubForm ref={(c) => this._lanes = c} disabled={this.state.disabled}/>
 
                 </Form>
 
                 {/* Submit */}
 
                 <Button action="submit" bsStyle="primary" className={css.button} onClick={this.onSubmit.bind(this)}>
-                    {this.state.isInsert ? 'Submit':'Activate Form'}
+                    {this.state.disabled ? "Activate form" : "Submit"}
                 </Button>
-                { this.state.isInsert && this.props.updateId ?
-                    <Button bsStyle="primary"  className={css.button} type = "button" onClick={this.bioanalyserDelete.bind(this)}>Delete</Button>
-                    : null}
 
             </form>
         );
@@ -172,5 +162,23 @@ class BioanalysersInsertForm extends React.PureComponent {
 }
 
 
-export default BioanalysersInsertForm;
+BioanalysersInsertForm.defaultProps = {
+    lanesInfo: [],
+};
+
+
+const mapStateToProps = (state, ownProps) => {
+    let thisFrom = formNames.BIOANALYSERS_INSERT_FORM;
+    let subForm = formNames.BIOANALYSERS_LANES_INSERT_FORM;
+    let pdf = state.forms[thisFrom][fields.BIOANALYSER_FILE];
+    let lanesInfo = state.forms[thisFrom]["lanes"] || [];
+    let lanesValues = state.forms[subForm] || {};
+    return {
+        lanesInfo: lanesInfo,
+        lanesValues: lanesValues,
+        pdf: pdf,
+    };
+};
+
+export default connect(mapStateToProps)(BioanalysersInsertForm);
 

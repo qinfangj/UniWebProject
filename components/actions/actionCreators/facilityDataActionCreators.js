@@ -46,11 +46,13 @@ export function findForUpdateAsync(tableName, id, form) {
 }
 /* Used only in findForUpdateAsync, dealt with in reducer "forms" */
 export function fillUpdateForm(form, data) {
-    return {
-        type: types.forms.FILL_UPDATE_FORM,
-        form: form,
-        data: data,
-    };
+    return (dispatch) => {
+        dispatch({
+            type: types.forms.FILL_UPDATE_FORM,
+            form: form,
+            data: data,
+        });
+    }
 }
 
 /* Validate User*/
