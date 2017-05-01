@@ -130,7 +130,7 @@ class ProjectSharingSubmitForm extends React.PureComponent {
     }
 
     handleSubmit(values){
-        submit.submit(this, values, this.table, this.props.updateId, this.state.isInsert);
+        submit.submit(this, this.modelName, values, this.table, this.props.updateId, this.state.isInsert);
     }
 
     render() {
