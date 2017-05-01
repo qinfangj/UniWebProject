@@ -1,6 +1,6 @@
 "use strict";
-import { combineForms } from  'react-redux-form'
-import adminDataConstants from '../../../forms/adminData/adminDataModels';
+import { combineForms } from  'react-redux-form';
+import adminDataModels from '../../../forms/adminData/adminDataModels';
 
 /**
  * Fills an object `initalData` with the initial form values.
@@ -9,7 +9,7 @@ import adminDataConstants from '../../../forms/adminData/adminDataModels';
  */
 function initialAdminForms(table) {
     let initalData = {};
-    adminDataConstants[table].fields.map(
+    adminDataModels[table].fields.map(
         (s) => {
             if (s.type === "" || s.type === undefined) {
                 initalData[s.name] = '';

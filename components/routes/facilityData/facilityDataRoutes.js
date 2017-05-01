@@ -12,7 +12,7 @@ import GenomesInsertForm from '../../forms/facilityData/GenomesInsertForm';
 import SamplesInsertForm from '../../forms/facilityData/SamplesInsertForm';
 import LibrariesInsertForm from '../../forms/facilityData/LibrariesInsertForm';
 import RunsPreInsertForm from '../../forms/facilityData/Runs/RunsPreInsertForm';
-import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertForm';
+import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertFormRedux';
 import UserRequestsInsertForm from '../../forms/facilityData/UserRequestsInsertForm';
 import BioanalysersInsertForm from '../../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
 
@@ -239,11 +239,7 @@ export class RunsPreNewRoute extends React.Component {
     );}
 }
 export class RunsNewRoute extends React.Component {
-    render() {
-        console.log("hello");
-
-        return (
-
+    render() {return (
         <FacilityData title="Runs" name="runs" content={
             <RunsInsertForm form={formNames.RUNS_INSERT_FORM}/>
         } />

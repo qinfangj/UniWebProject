@@ -113,6 +113,8 @@ const fields = {
     USER_REQUEST_ID: "userRequestId",
     LIBRARY_ID: "libraryId",
     POOL_ID: "poolId",
+    STAGE: "stage",
+    LANES: "lanes",
 };
 
 export default fields;
