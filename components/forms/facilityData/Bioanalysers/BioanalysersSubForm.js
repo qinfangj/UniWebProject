@@ -100,10 +100,6 @@ class BioanalysersSubForm extends React.PureComponent {
 
                     </tbody>
                 </table>
-<<<<<<< HEAD
-                <Button type="button" onClick={this.handleAddLaneInfo} bsStyle="primary" disabled= {this.props.disabled}>+Add Lane</Button>
-=======
->>>>>>> 6dc6983eb2ba25d80e6ff6ea6d1e7ebff54a8ba3
 
             </Col>);
     }
