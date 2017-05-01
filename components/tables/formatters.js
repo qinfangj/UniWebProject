@@ -43,7 +43,7 @@ export function date(v) {
  */
 export function nullable(v) {
     if (!v) {
-        console.warn(`Encountered undefined value v=${v} in formatters.nullable(v)`);
+        console.warn(`Encountered undefined value v=${v} (${typeof(v)}) in formatters.nullable(v)`);
         return v;
     }
     else if (!v.value || v.value === "") { return "-"; }
@@ -52,6 +52,7 @@ export function nullable(v) {
 
 /**
  * Round floats to a number of significant digits.
+ * Handles undefined/missing values.
  */
 export function clipFloat(v) {
     if (!v) return v;
@@ -59,7 +60,7 @@ export function clipFloat(v) {
     if (!isNaN(parsed)) {
         return Math.round(parsed * 100) / 100;
     } else {
-        return nullable(v.value);
+        return nullable(v);
     }
 }
 
