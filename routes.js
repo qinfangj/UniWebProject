@@ -4,6 +4,8 @@ import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
 import App from './components/routes/App';
 import HomePage from './components/routes/HomePage';
+import * as tkdata from './components/routes/tracking/trackingRoutes';
+
 import * as fdata from './components/routes/facilityData/facilityDataRoutes';
 import * as qprojects from './components/routes/queryProjects/queryProjectsRoutes';
 import * as login from './components/routes/login/loginRoutes';
@@ -100,6 +102,9 @@ const routes = (
             <Route path="data/alignments/active" component={fdata.AlignmentsActiveRoute} onEnter={requireAuth} />
             <Route path="data/alignments/new" component={fdata.AlignmentsNewRoute} onEnter={requireAuth} />
             <Route path="data/alignments/update/:id" component={fdata.AlignmentsUpdateRoute} onEnter={requireAuth} />
+
+            {/* Tracking */}
+            <Route path="tracking" component={tkdata.trackingTable}/>
 
             {/* QUERY PROJECTS */}
 
