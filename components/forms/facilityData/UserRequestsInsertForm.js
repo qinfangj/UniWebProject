@@ -27,6 +27,9 @@ class UserRequestsInsertForm extends React.PureComponent {
         this.table = "user_requests";
         this.form = formNames.USER_REQUESTS_INSERT_FORM;
         this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
+        this.state = {
+            disabled: false,
+        };
     }
 
     static propTypes = {
@@ -37,6 +40,9 @@ class UserRequestsInsertForm extends React.PureComponent {
 
     componentWillMount() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
     }
     componentWillReceiveProps() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
@@ -54,6 +60,10 @@ class UserRequestsInsertForm extends React.PureComponent {
         forms.submit(this.form, this.table, this.formatFormData);
     }
 
+    activateForm() {
+        this.setState({ disabled: false });
+    }
+
     render() {
         return (
             <form className={css.form}>
@@ -67,6 +77,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     <Col sm={5} className={css.formCol}>
                         <ProjectsWithSamples
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -76,6 +87,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     <Col sm={3} className={css.formCol}>
                         <SamplesForProject
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -88,6 +100,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                             field={fields.INSERT_SIZE_MIN}
                             label="Insert size min"
                             validator = {validators.integerValidator}
+                            disabled={this.state.disabled}
                         />
                     </Col>
                     <Col sm={2} className={css.formCol}>
@@ -96,6 +109,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                             field={fields.INSERT_SIZE_MAX}
                             label="Insert size max"
                             validator = {validators.integerValidator}
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -107,6 +121,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     <Col sm={2} className={css.formCol}>
                         <Options.LibProtocols
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -118,7 +133,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.MULTIPLEXING_GROUP}
                             label="Multiplexing group"
-                            required
+                            disabled={this.state.disabled}
                             validator = {validators.shortStringValidator}
                         />
                     </Col>
@@ -128,6 +143,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                     <Col sm={2} className={css.formCol}>
                         <Options.RunTypesLengths
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                             suffix="all"
                         />
@@ -140,6 +156,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.NB_LANES}
                             label="Nb of lanes"
+                            disabled={this.state.disabled}
                             required
                             validator={validators.integerValidator}
                         />
@@ -152,7 +169,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.MILLION_READS}
                             label="Multiplex#"
-                            required
+                            disabled={this.state.disabled}
                             validator={validators.integerValidator}
                         />
                     </Col>
@@ -164,6 +181,7 @@ class UserRequestsInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.WITH_LIB_QC}
                             label="is QC"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -177,23 +195,36 @@ class UserRequestsInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT}
                             label="Comment"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
                     {/* Is discarded / is done */}
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox form={this.form} field={fields.IS_TRASHED} label="Discarded"/>
-                        <Checkbox form={this.form} field={fields.IS_FULFILLED} label="DONE"/>
+                        <Checkbox
+                            form={this.form} field={fields.IS_TRASHED} label="Discarded"
+                            disabled={this.props.disabled}
+                        />
+                        <Checkbox
+                            form={this.form} field={fields.IS_FULFILLED} label="DONE"
+                            disabled={this.props.disabled}
+                        />
                     </Col>
 
                 </Form>
 
                 {/* Submit */}
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                    Submit
-                </Button>
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </form>
         );

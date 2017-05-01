@@ -22,7 +22,7 @@ export class LimsUserPage extends React.Component {
 export class LimsUserListRoute extends React.Component {
     render() {
         return (
-            <AdminData title="LIMS User" name="users" content={
+            <AdminData title="LIMS Users" name="users" content={
                     <CommonTable dataStoreKey="users" table="users" columnsKey="users" />
             }/>
         );
@@ -135,7 +135,7 @@ export class InstrumentsUpdatePage extends React.Component {
 export class libAdaptersListRoute extends React.Component {
     render() {
         return (
-            <AdminData title="Library Adapter" name="library_adapters" content={
+            <AdminData title="Library Adapters" name="library_adapters" content={
                 <CommonTable dataStoreKey="library_adapters" table="library_adapters" columnsKey="library_adapters" />
             } />
         );
@@ -145,7 +145,7 @@ export class libAdaptersListRoute extends React.Component {
 export class libAdaptersNewPage extends React.Component {
     render() {
         return (
-            <AdminData title="Library Adapter" name="library_adapters" content={
+            <AdminData title="Library Adapters" name="library_adapters" content={
                 <CommonAdminForms table="library_adapters" />
             } />
         );
@@ -155,7 +155,7 @@ export class libAdaptersNewPage extends React.Component {
 export class libAdaptersUpdatePage extends React.Component {
     render() {
         return (
-            <AdminData title="Library Adapter" name="library_adapters" content={
+            <AdminData title="Library Adapters" name="library_adapters" content={
                 <CommonAdminForms table="library_adapters" updateId={this.props.params.id}/>
             } />
         );
@@ -285,7 +285,7 @@ export class multiplexIndexesUpdatePage extends React.Component {
 export class pipelineVersionListRoute extends React.Component {
     render() {
         return (
-            <AdminData title="Pipeline Version" name="pipeline_versions" content={
+            <AdminData title="Pipeline Versions" name="pipeline_versions" content={
                 <CommonTable dataStoreKey="pipeline_versions" table="pipeline_versions" columnsKey="pipeline_versions" />
             } />
         );
@@ -295,7 +295,7 @@ export class pipelineVersionListRoute extends React.Component {
 export class pipelineVersionNewPage extends React.Component {
     render() {
         return (
-            <AdminData title="Pipeline Version" name="pipeline_versions" content={
+            <AdminData title="Pipeline Versions" name="pipeline_versions" content={
                 <CommonAdminForms table="pipeline_versions" />
             } />
         );
@@ -305,7 +305,7 @@ export class pipelineVersionNewPage extends React.Component {
 export class pipelineVersionUpdatePage extends React.Component {
     render() {
         return (
-            <AdminData title="Pipeline Version" name="pipeline_versions" content={
+            <AdminData title="Pipeline Versions" name="pipeline_versions" content={
                 <CommonAdminForms table="pipeline_versions" updateId={this.props.params.id}/>
             } />
         );
@@ -525,7 +525,7 @@ export class samplesTypesUpdatePage extends React.Component {
 export class seqKitVersionListRoute extends React.Component {
     render() {
         return (
-            <AdminData title="Sequencing Kit Version" name="sequencing_kit_versions" content={
+            <AdminData title="Sequencing Kit Versions" name="sequencing_kit_versions" content={
                 <CommonTable dataStoreKey="sequencing_kit_versions" table="sequencing_kit_versions" columnsKey="sequencing_kit_versions" />
             } />
         );
@@ -535,7 +535,7 @@ export class seqKitVersionListRoute extends React.Component {
 export class seqKitVersionNewPage extends React.Component {
     render() {
         return (
-            <AdminData title="Sequencing Kit Version" name="sequencing_kit_versions" content={
+            <AdminData title="Sequencing Kit Versions" name="sequencing_kit_versions" content={
                 <CommonAdminForms table="sequencing_kit_versions" />
             } />
         );
@@ -545,7 +545,7 @@ export class seqKitVersionNewPage extends React.Component {
 export class seqKitVersionUpdatePage extends React.Component {
     render() {
         return (
-            <AdminData title="Sequencing Kit Version" name="sequencing_kit_versions" content={
+            <AdminData title="Sequencing Kit Versions" name="sequencing_kit_versions" content={
                 <CommonAdminForms table="sequencing_kit_versions" updateId={this.props.params.id}/>
             } />
         );
@@ -625,7 +625,7 @@ export class projectSharingsListRoute extends React.Component {
 export class projectSharingsNewPage extends React.Component {
     render() {
         return (
-            <AdminData title="Project Sharing" name="project_sharings" content={
+            <AdminData title="Project Sharings" name="project_sharings" content={
                 <ProjectSharingSubmitForm table="project_sharings" />
             } />
         );
@@ -635,7 +635,7 @@ export class projectSharingsNewPage extends React.Component {
 export class projectSharingsUpdatePage extends React.Component {
     render() {
         return (
-            <AdminData title="Project Sharing" name="project_sharings" content={
+            <AdminData title="Project Sharings" name="project_sharings" content={
                 <ProjectSharingSubmitForm table="project_sharings" updateId={this.props.params.id}/>
             } />
         );

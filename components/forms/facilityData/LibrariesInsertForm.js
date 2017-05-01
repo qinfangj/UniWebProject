@@ -27,6 +27,9 @@ class LibrariesInsertForm extends React.PureComponent {
         this.table = "libraries";
         this.form = formNames.LIBRARIES_INSERT_FORM;
         this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
+        this.state = {
+            disabled: false,
+        };
     }
 
     static propTypes = {
@@ -37,6 +40,9 @@ class LibrariesInsertForm extends React.PureComponent {
 
     componentWillMount() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
     }
     componentWillReceiveProps() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
@@ -55,6 +61,10 @@ class LibrariesInsertForm extends React.PureComponent {
         forms.submit(this.form, this.table, this.formatFormData);
     }
 
+    activateForm() {
+        this.setState({ disabled: false });
+    }
+
     render() {
         return (
             <form className={css.form}>
@@ -65,18 +75,20 @@ class LibrariesInsertForm extends React.PureComponent {
 
                     {/* Project */}
 
-                    <Col sm={5} className={css.formCol}>
+                    <Col sm={4} className={css.formCol}>
                         <ProjectsWithSamples
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
 
                     {/* Sample */}
 
-                    <Col sm={3} className={css.formCol}>
+                    <Col sm={2} className={css.formCol}>
                         <SamplesForProject
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -88,6 +100,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.NAME}
                             label="Name"
+                            disabled={this.state.disabled}
                             required
                             validator = {validators.mediumStringValidator}
                         />
@@ -98,6 +111,7 @@ class LibrariesInsertForm extends React.PureComponent {
                     <Col sm={2} className={css.formCol}>
                         <Options.LibProtocols
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -109,6 +123,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.STARTING_MATERIAL}
                             label="Starting material"
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -123,6 +138,8 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.LIBRARY_DATE}
                             label="Library date"
+                            disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
@@ -135,6 +152,8 @@ class LibrariesInsertForm extends React.PureComponent {
                             field={fields.BIOANALYSER_PEAK}
                             label="Bioanalyser peak"
                             validator = {validators.numberValidator}
+                            disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
@@ -145,6 +164,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.FRAG_SIZE_MIN}
                             label="Frag.size(min)"
+                            disabled={this.state.disabled}
                             required
                             validator = {validators.numberValidator}
                         />
@@ -157,6 +177,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.FRAG_SIZE_MAX}
                             label="Frag.size(max)"
+                            disabled={this.state.disabled}
                             required
                             validator = {validators.numberValidator}
                         />
@@ -170,6 +191,8 @@ class LibrariesInsertForm extends React.PureComponent {
                             field={fields.CONCENTRATION}
                             label="Concentration"
                             validator = {validators.numberValidator}
+                            disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
@@ -179,6 +202,7 @@ class LibrariesInsertForm extends React.PureComponent {
                         <Options.QuantifMethods
                             form={this.form}
                             field={fields.QUANTIF_METHOD_ID}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -192,9 +216,10 @@ class LibrariesInsertForm extends React.PureComponent {
                         <Options.MultiplexIndexes
                             form={this.form}
                             field={fields.MULTIPLEX_INDEX_7_ID}
-                            required
                             label="Multiplex index (I7)"
                             suffix="all"
+                            disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
@@ -204,9 +229,10 @@ class LibrariesInsertForm extends React.PureComponent {
                         <Options.MultiplexIndexes
                             form={this.form}
                             field={fields.MULTIPLEX_INDEX_5_ID}
-                            required
                             label="Second index (I5)"
                             suffix="all"
+                            disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
@@ -218,6 +244,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             field={fields.VOLUME}
                             label="Volume"
                             validator = {validators.numberValidator}
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -227,6 +254,7 @@ class LibrariesInsertForm extends React.PureComponent {
                         <Options.LibraryAdapters
                             form={this.form}
                             field={fields.ADAPTER_ID}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -238,6 +266,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.KITS_LOTS}
                             label="Illumina kits and lots"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -251,6 +280,7 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT}
                             label="Comment"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -260,6 +290,8 @@ class LibrariesInsertForm extends React.PureComponent {
                         <Options.LibraryStates
                             form={this.form}
                             field={fields.LIBRARY_STATE_ID}
+                            disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
@@ -273,17 +305,24 @@ class LibrariesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT_CUSTOMER}
                             label="Internal comment"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
                     {/* Is made by user / by robot / trashed */}
 
                     <Col sm={2} className={css.formCol}>
-                        <Checkbox form={this.form} field={fields.IS_CUSTOMER_MADE} label="Made by user"
+                        <Checkbox
+                            form={this.form} field={fields.IS_CUSTOMER_MADE} label="Made by user"
+                            disabled={this.state.disabled}
                         />
-                        <Checkbox form={this.form} field={fields.IS_ROBOT_MADE} label="Made by robot"
+                        <Checkbox
+                            form={this.form} field={fields.IS_ROBOT_MADE} label="Made by robot"
+                            disabled={this.state.disabled}
                         />
-                        <Checkbox form={this.form} field={fields.IS_TRASHED} label="Discarded"
+                        <Checkbox
+                            form={this.form} field={fields.IS_TRASHED} label="Discarded"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -291,9 +330,15 @@ class LibrariesInsertForm extends React.PureComponent {
 
                 {/* Submit */}
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                    Submit
-                </Button>
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </form>
         );

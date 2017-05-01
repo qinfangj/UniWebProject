@@ -15,7 +15,8 @@ class FacilityData extends React.PureComponent {
     };
 
     render() {
-        let name = this.props.name;
+        let tableName = this.props.name;
+        let linkName = this.props.name === 'people' ? 'laboratories' : 'people';
         return (
             <div className={css.pageWrapper}>
 
@@ -26,11 +27,11 @@ class FacilityData extends React.PureComponent {
 
                     <div className={css.navbar}>
                         <ul>
-                            <li><Link to={`/data/${name}/list`} activeClassName={css.active}>{"All "+ name}</Link></li>
+                            <li><Link to={`/data/${tableName}/list`} activeClassName={css.active}>{"All "+ linkName}</Link></li>
                             <li> · </li>
-                            <li><Link to={`/data/${name}/active`} activeClassName={css.active}>{"Active "+ name}</Link></li>
+                            <li><Link to={`/data/${tableName}/active`} activeClassName={css.active}>{"Active "+ linkName}</Link></li>
                             <li> · </li>
-                            <li><Link to={`/data/${name}/new`} activeClassName={css.active}>{"New "+ name}</Link></li>
+                            <li><Link to={`/data/${tableName}/new`} activeClassName={css.active}>{"New "+ linkName}</Link></li>
                         </ul>
                     </div>
 

@@ -24,6 +24,9 @@ class AlignmentsInsertForm extends React.PureComponent {
         super();
         this.table = "alignments";
         this.form = formNames.ALIGNMENTS_INSERT_FORM;
+        this.state = {
+            disabled: false,
+        };
     }
 
     static propTypes = {
@@ -34,6 +37,9 @@ class AlignmentsInsertForm extends React.PureComponent {
 
     componentWillMount() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
     }
     componentWillReceiveProps() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
@@ -41,6 +47,10 @@ class AlignmentsInsertForm extends React.PureComponent {
 
     onSubmit() {
         forms.submit(this.form, this.table, null);
+    }
+
+    activateForm() {
+        this.setState({ disabled: false });
     }
 
     render() {
@@ -56,24 +66,27 @@ class AlignmentsInsertForm extends React.PureComponent {
                     <Col sm={2} className={css.formCol}>
                         <Options.PipelineAnalysisTypes
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
 
                     {/* Run */}
 
-                    <Col sm={3} className={css.formCol}>
+                    <Col sm={5} className={css.formCol}>
                         <Options.RunsOutputFolders
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
 
                     {/* Unaligned data output folder (aka basecallingId) */}
 
-                    <Col sm={7} className={css.formCol}>
+                    <Col sm={5} className={css.formCol}>
                         <BasecallingsOutputFolders
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -86,6 +99,7 @@ class AlignmentsInsertForm extends React.PureComponent {
                     <Col sm={2} className={css.formCol}>
                         <Options.MappingTools
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -93,17 +107,21 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Alignment output folder */}
 
                     <Col sm={8} className={css.formCol}>
-                        <TextField form={this.form}
-                                   field={fields.ELAND_OUTPUT_DIR}
-                                   label="Alignment output folder"
-                                   required
+                        <TextField
+                            form={this.form}
+                            field={fields.ELAND_OUTPUT_DIR}
+                            label="Alignment output folder"
+                            disabled={this.state.disabled}
+                            required
                         />
                     </Col>
 
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox form={this.form}
-                                  field={fields.HAS_QC_PDFS}
-                                  label="QC report"
+                        <Checkbox
+                            form={this.form}
+                            field={fields.HAS_QC_PDFS}
+                            disabled={this.state.disabled}
+                            label="QC report"
                         />
                     </Col>
 
@@ -113,8 +131,13 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Config file content */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea form={this.form} field={fields.CONFIG_FILE_CONTENT} label="Config file content" required
-                                  defaultValue = "ANALYSIS xxx\nUSE_BASES xxx"
+                        <TextArea
+                            form={this.form}
+                            field={fields.CONFIG_FILE_CONTENT}
+                            label="Config file content"
+                            disabled={this.state.disabled}
+                            required
+                            defaultValue = "ANALYSIS xxx\nUSE_BASES xxx"
                         />
                     </Col>
 
@@ -124,7 +147,11 @@ class AlignmentsInsertForm extends React.PureComponent {
                     {/* Comment */}
 
                     <Col sm={12} className={css.formCol}>
-                        <TextArea field={fields.COMMENT} label="Comment" form={this.form}
+                        <TextArea
+                            form={this.form}
+                            field={fields.COMMENT}
+                            label="Comment"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -132,9 +159,15 @@ class AlignmentsInsertForm extends React.PureComponent {
 
                 {/* Submit */}
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                    Submit
-                </Button>
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </form>
         );

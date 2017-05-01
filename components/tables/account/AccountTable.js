@@ -11,20 +11,18 @@ class AccountTable extends React.Component {
         super(props);
 
     }
+
     static propTypes = {
         accountProfile: React.PropTypes.object,
     };
 
-
     componentWillMount() {
-
         let accountProfile = this.props.accountProfile;
 
         if (accountProfile !== undefined || accountProfile.length > 0) {
             this.props.getLoginDetails()
                 .fail(() => console.error("AccountTable.getLoginDetails() failed to load data."));
         }
-
     }
 
     displayProfile(s) {
@@ -32,13 +30,12 @@ class AccountTable extends React.Component {
         let table;
         if (s.label === "Laboratory") {
             table = <tr key={s.label}><th className={adminCss.th}>{s.label}</th><td className={adminCss.td}>{data[s.name[0]] + " " + data[s.name[1]]}</td></tr>
-        }else {
+        } else {
             table = <tr key={s.label}>
                 <th className={adminCss.th}>{s.label}</th>
                 <td className={adminCss.td}>{data[s.name]}</td>
             </tr>
         }
-
         return table
     }
 
@@ -55,9 +52,7 @@ class AccountTable extends React.Component {
                 <table className={adminCss.table}>
                     <tbody>
                         {
-                            userInfo.map((s) => {
-                                return (this.displayProfile(s))
-                            })
+                            userInfo.map((s) => this.displayProfile(s))
                         }
                      </tbody>
                 </table>
@@ -80,8 +75,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getLoginDetails: () =>
-            dispatch(getLoginDetails()),
+        getLoginDetails: () => dispatch(getLoginDetails()),
     };
 };
 

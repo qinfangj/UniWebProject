@@ -12,8 +12,10 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import columns from '../columns';
+import { defaultHeaderRenderer } from '../columns';
 import Feedback from '../../utils/Feedback';
 import DataLoadingIcon from '../../utils/DataLoadingIcon';
+
 
 
 /**
@@ -145,6 +147,9 @@ class CommonTable extends React.PureComponent {
                         headerHeight={constants.ROW_HEIGTH}
                         overlayNoRowsTemplate='<span/>'
                         onBodyScroll={_.debounce(this.onScroll.bind(this), 100)}
+                        defaultColDef={{
+                          headerCellRenderer: defaultHeaderRenderer,
+                        }}
                     >
                     </AgGridReact>
                 </div>

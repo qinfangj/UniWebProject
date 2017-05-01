@@ -33,24 +33,30 @@ class RunsInsertForm extends React.PureComponent {
         this.table = "runs";
         this.form = formNames.RUNS_INSERT_FORM;
         this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];
-        this.state = {};
-        this.state.lanes = store.getState().common.route.data || {};
+        this.state = {
+            disabled: false,
+            lanes: store.getState().common.route.data || {}
+        };
     }
 
     componentWillMount() {
-        this.unsubscribe = store.subscribe(() => {
-            this.setState({
-                lanes: store.getState().common.route.data,
-            });
-        });
+        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
     }
-    componentWillUnmount() {
-        this.unsubscribe();
+
+    componentWillReceiveProps() {
+        forms.newOrUpdate(this.form, this.table, this.props.updateId);
     }
 
     onSubmit() {
         let formData = this.getFormValues();
         forms.submit(this.table, formData, this.required, null);
+    }
+
+    activateForm() {
+        this.setState({ disabled: false });
     }
 
     getFormValues() {
@@ -109,8 +115,9 @@ class RunsInsertForm extends React.PureComponent {
                     <Col sm={2} className={formsCss.formCol}>
                         <TextField  
                             form={this.form}
-                            field="flowcell_ref_name" label="Flowcell ID" required
-                                   ref = {(c) => this._flowcell = c}
+                            field="flowcell_ref_name"
+                            label="Flowcell ID"
+                            required
                         />
                     </Col>
 
@@ -118,16 +125,20 @@ class RunsInsertForm extends React.PureComponent {
 
                     <Col sm={1} className={formsCss.formCol}>
                         <Options.FlowcellTypes 
-                            form={this.form} ref={(c) => this._flowcell_type_id = c} />
+                            form={this.form}
+                            field={fields.FLOWCELL_TYPE_ID}
+                            required
+                        />
                     </Col>
 
-                     {/*Cluster date (aka "flowcell_loading_date") */}
+                     {/* Cluster date (aka "flowcell_loading_date") */}
 
                     <Col sm={3} className={formsCss.formCol}>
                         <DatePicker
                             form={this.form}
-                            field={fields.CLUSTER_DATE} label="Cluster date"
-                                    ref = {(c) => this._clusterDate = c}
+                            field={fields.CLUSTER_DATE}
+                            label="Cluster date"
+                            required
                         />
                     </Col>
 
@@ -135,7 +146,9 @@ class RunsInsertForm extends React.PureComponent {
 
                     <Col sm={2} className={formsCss.formCol}>
                         <Options.Instruments 
-                            form={this.form} ref={(c) => this._instrument = c} />
+                            form={this.form}
+                            field={fields.INSTRUMENT_ID}
+                        />
                     </Col>
 
                     {/* Run date (aka "ga_run_date") */}
@@ -143,8 +156,9 @@ class RunsInsertForm extends React.PureComponent {
                     <Col sm={3} className={formsCss.formCol}>
                         <DatePicker
                             form={this.form}
-                            field={fields.RUN_DATE} label="Run date"
-                                    ref = {(c) => this._runDate = c}
+                            field={fields.RUN_DATE}
+                            label="Run date"
+                            required
                         />
                     </Col>
 
@@ -159,7 +173,10 @@ class RunsInsertForm extends React.PureComponent {
 
                             <Col sm={12} className={formsCss.formCol}>
                                 <Options.RunTypesLengths 
-                                    suffix="all" form={this.form} ref={(c) => this._runTypesLengths = c} />
+                                    suffix="all"
+                                    form={this.form}
+                                    required
+                                />
                             </Col>
 
                             {/* Run stage */}
@@ -167,9 +184,9 @@ class RunsInsertForm extends React.PureComponent {
                             <Col sm={4} className={formsCss.formCol}>
                                 <Select
                                     form={this.form}
-                                    field="stage" label="Stage"
-                                        options={[[1,'--'], [2,'A'], [3,'B']]}
-                                        ref={(c) => this._stage = c}
+                                    field="stage"
+                                    label="Stage"
+                                    options={[[1,'--'], [2,'A'], [3,'B']]}
                                 />
                             </Col>
 
@@ -177,7 +194,10 @@ class RunsInsertForm extends React.PureComponent {
 
                             <Col sm={4} className={formsCss.formCol}>
                                 <Options.SequencingKitVersions 
-                                    form={this.form} ref={(c) => this._kit = c} />
+                                    form={this.form}
+                                    field={fields.SEQUENCING_KIT_VERSION_ID}
+                                    required
+                                />
                             </Col>
 
                             {/* Is failed */}
@@ -185,7 +205,9 @@ class RunsInsertForm extends React.PureComponent {
                             <Col sm={3} className={cx(formsCss.formCol)}>
                                 <CheckBox
                                     form={this.form}
-                                    ref={(c) => this._isFailed = c} field={fields.IS_FAILED} label="Run failed" />
+                                    field={fields.IS_FAILED}
+                                    label="Run failed"
+                                />
                             </Col>
 
                         </Form>
@@ -194,8 +216,8 @@ class RunsInsertForm extends React.PureComponent {
                     <Col sm={8} className={formsCss.formCol}>
                         <TextArea
                             form={this.form}
-                            field="comment" label="Comment"
-                                  ref = {(c) => this._comment = c}
+                            field={fields.COMMENT}
+                            label="Comment"
                         />
                     </Col>
 
@@ -271,9 +293,15 @@ class RunsInsertForm extends React.PureComponent {
 
                  {/*Submit */}
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={formsCss.submitButton}>
-                    Submit
-                </Button>
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </form>
         );

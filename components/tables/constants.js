@@ -2,6 +2,7 @@
 
 
 export const CENTER = {textAlign: "center"};
+export const LEFT = {textAlign: "left"};
 export const MULTIROW = {
     'text-overflow': 'ellipsis',  // 'clip', 'ellipsis', '…' (string)
     //'overflow': 'visible',

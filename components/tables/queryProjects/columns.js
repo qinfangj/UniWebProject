@@ -39,21 +39,22 @@ const columns = {
         },{
             headerName: "Vol. [μl]",
             field: "volume",
+            cellRenderer: formatters.clipFloat,
             cellStyle: MULTIROW,
         },{
             headerName: "Ratio 260/280",
             field: "ratio_260_280",
-            cellRenderer: formatters.nullable,
+            cellRenderer: formatters.clipFloat,
             cellStyle: MULTIROW,
         },{
             headerName: "Ratio 260/230",
             field: "ratio_260_230",
-            cellRenderer: formatters.nullable,
+            cellRenderer: formatters.clipFloat,
             cellStyle: MULTIROW,
         },{
             headerName: "RIN",
             field: "rin",
-            cellRenderer: formatters.nullable,
+            cellRenderer: formatters.clipFloat,
             cellStyle: MULTIROW,
         },{
             headerName: "Method",
@@ -169,7 +170,7 @@ const columns = {
         },{
             headerName: "Vol [μl]",
             field: "volume",
-            cellRenderer: formatters.nullable,
+            cellRenderer: formatters.clipFloat,
             cellStyle: MULTIROW,
         },{
             headerName: "Project",

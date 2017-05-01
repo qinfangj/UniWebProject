@@ -67,6 +67,7 @@ class Textarea extends React.PureComponent {
                 <FormControl componentClass="textarea"
                     placeholder={this.props.label}
                     onChange={this.onChange.bind(this)}
+                    disabled={this.props.disabled}
                     value={value}
                     {...this.props.inputProps}
                 />

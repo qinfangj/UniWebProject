@@ -1,35 +1,40 @@
 "use strict";
 import React from 'react';
 import * as formatters from './formatters';
-import { CENTER, ID_COLUMN } from './constants';
+import { CENTER, LEFT, ID_COLUMN } from './constants';
 import { Link } from 'react-router';
 import tableNames from './tableNames';
 
 
 // See React cell rendering with Ag-Grid: https://www.ag-grid.com/javascript-grid-cell-rendering/
-function idColumnWithUpdateLink(tableName,domain) {
+function idColumnWithUpdateLink(tableName, domain) {
     // Make different category links: facilityData, AdminData, etc
-    let linkName = (domain === undefined ? 'data/'.concat(tableName) : domain +'/'+ tableName);
+    let linkName = domain +'/'+ tableName;
     return Object.assign({}, ID_COLUMN, {
         cellRendererFramework: IdColumnWithUpdateLink,
-        cellRendererParams: {tableName: linkName}
+        cellRendererParams: {tableName: linkName},
+        headerCellRenderer: null,
     });
 }
 
-class IdColumnWithUpdateLink extends React.Component {
+class IdColumnWithUpdateLink extends React.PureComponent {
     render() {
-        return <Link to = {`/${this.props.tableName}/update/${this.props.value}`}>
-                    {this.props.value}
-               </Link>;
+        return (
+            <Link to = {`/${this.props.tableName}/update/${this.props.value}`}>
+                {this.props.value}
+           </Link>
+        );
     }
 }
 
-function headerRenderer(params) {
-    let eHeader = document.createElement('span');
-    let eTitle = document.createTextNode(params.colDef.headerName);
-    eHeader.appendChild(eTitle);
-    eHeader.style.float = 'left';
-    return eHeader;
+/**
+ * Left-align header labels by default.
+ * To deactivate, add this to the column definition:
+ *         headerCellRenderer: null
+ * (as in idColumnWithUpdateLink above).
+ */
+export function defaultHeaderRenderer(params) {
+    return '<span style="float: left">' + params.colDef.headerName + '</span>';
 }
 
 
@@ -39,39 +44,30 @@ const columns = {
         {
             headerName: "Login",
             field: "username",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Role",
             field: "role",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "First Name",
             field: "firstName",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Last Name",
             field: "lastName",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Laboratory",
             field: "piFirstName",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Validated",
             field: "isvalidated",
-            headerCellRenderer: headerRenderer,
             cellRenderer: function(params) {
-                let eDiv = document.createElement('div');
                 return params.value ?
-                     '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" style="color:red" aria-hidden="true"></i>'
-
-
-
+                     '<i class="fa fa-check" aria-hidden="true"></i>'
+                   : '<i class="fa fa-times" style="color:red" aria-hidden="true"></i>'
             }
         },
     ],
@@ -81,17 +77,14 @@ const columns = {
         {
             headerName: "Collaborator",
             field: "collaborator",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Project",
             field: "project",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Project Owner",
             field: "laboratory",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.ANALYSIS_TYPES]: [
@@ -99,19 +92,15 @@ const columns = {
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer: headerRenderer
         },{
             headerName: "Customer Viewable",
             field: "customerViewable",
-            headerCellRenderer: headerRenderer
         },{
             headerName: "UseAllReads",
             field: "useallreads",
-            headerCellRenderer: headerRenderer
         },{
             headerName: "Comment",
             field: "comment",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.FLOWCELL_TYPES]: [
@@ -119,7 +108,6 @@ const columns = {
         {
             headerName: "Version",
             field: "version",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.INSTRUMENTS]: [
@@ -127,22 +115,18 @@ const columns = {
         {
             headerName: "Internal Name",
             field: "internalName",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Model",
             field: "model",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Serial Nb",
             field: "serialNb",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsSequencer",
             field: "issequencer",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.LIBRARY_ADAPTERS]: [
@@ -150,12 +134,10 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Length",
             field: "length",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.LIB_PROTOCOLS]: [
@@ -163,32 +145,26 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Short Name",
             field: "shortName",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Ref Nb",
             field: "refNb",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Release Month",
             field: "releaseMonth",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "HasInsertSizeSelection",
             field: "hasinsertsizeselection",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsDeprecated",
             field: "isdeprecated",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.LIBRARY_STATES]: [
@@ -196,17 +172,14 @@ const columns = {
         {
             headerName: "State Order",
             field: "stateOrder",
-            headerCellRenderer: headerRenderer
-        },
+        },  
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.MAPPING_TOOLS]: [
@@ -214,17 +187,14 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Version",
             field: "version",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Reference",
             field: "reference",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.MULTIPLEX_INDEXES]: [
@@ -232,32 +202,26 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Manufacturer",
             field: "manufacturer",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Sequence",
             field: "sequence",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Index Group",
             field: "indexGroup",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsMultiplexing",
             field: "ismultiplexing",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsDeprecated",
             field: "isdeprecated",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.PIPELINE_VERSIONS]: [
@@ -265,17 +229,14 @@ const columns = {
         {
             headerName: "Software Name",
             field: "softwareName",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Number",
             field: "number",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.PROJECT_ANALYSIS]: [
@@ -283,17 +244,14 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "IsReported",
             field: "isreported",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.PROJECT_STATES]: [
@@ -301,17 +259,14 @@ const columns = {
         {
             headerName: "State Order",
             field: "stateOrder",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Description",
             field: "description",
-            headerCellRenderer: headerRenderer
         }
     ],
     [tableNames.QUANTIF_METHODS]: [
@@ -319,7 +274,6 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -328,7 +282,6 @@ const columns = {
         {
             headerName: "Length",
             field: "length",
-            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -337,7 +290,6 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -346,17 +298,14 @@ const columns = {
         {
             headerName: "Run Type",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Read Length",
             field: "length",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Discarded",
             field: "isdeprecated",
-            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -365,7 +314,6 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -374,12 +322,10 @@ const columns = {
         {
             headerName: "Version",
             field: "version",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Ref Number",
             field: "refNumber",
-            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -388,17 +334,14 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "pass QC",
             field: "passQc",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Delivered",
             field: "delivered",
-            headerCellRenderer: headerRenderer
         }
 
     ],
@@ -407,22 +350,19 @@ const columns = {
         {
             headerName: "Name",
             field: "name",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Ref Name",
             field: "refName",
-            headerCellRenderer: headerRenderer
         },
         {
             headerName: "Ncbi Id",
             field: "ncbiId",
-            headerCellRenderer: headerRenderer
         }
 
     ],
     [tableNames.PROJECTS]: [
-        idColumnWithUpdateLink("projects"),
+        idColumnWithUpdateLink("projects", "data"),
         {
             headerName: "Name",
             field: "name",
@@ -438,7 +378,7 @@ const columns = {
         },
     ],
     [tableNames.PEOPLE]: [
-        idColumnWithUpdateLink("people"),
+        idColumnWithUpdateLink("people", "data"),
         {
             headerName: "PI name",
             field: "name",
@@ -451,7 +391,7 @@ const columns = {
         }
     ],
     [tableNames.GENOMES]: [
-        idColumnWithUpdateLink("genomes"),
+        idColumnWithUpdateLink("genomes", "data"),
         {
             headerName: "Organism",
             field: "organism",
@@ -468,7 +408,7 @@ const columns = {
         },
     ],
     [tableNames.SAMPLES]: [
-        idColumnWithUpdateLink("samples"),
+        idColumnWithUpdateLink("samples", "data"),
         {
             headerName: "Short name",
             field: "short_name",
@@ -494,7 +434,7 @@ const columns = {
         },
     ],
     [tableNames.LIBRARIES]: [
-        idColumnWithUpdateLink("libraries"),
+        idColumnWithUpdateLink("libraries", "data"),
         {
             headerName: "Name",
             field: "name",
@@ -527,7 +467,7 @@ const columns = {
         },
     ],
     [tableNames.RUNS]: [
-        idColumnWithUpdateLink("runs"),
+        idColumnWithUpdateLink("runs", "data"),
         {
             headerName: "Run folder",
             field: "run_folder",
@@ -553,7 +493,7 @@ const columns = {
         },
     ],
     [tableNames.USER_REQUESTS]: [
-        idColumnWithUpdateLink("user_requests"),
+        idColumnWithUpdateLink("user_requests", "data"),
         {
             headerName: "Sample",
             field: "sample",
@@ -584,7 +524,7 @@ const columns = {
         },
     ],
     [tableNames.BIOANALYSERS]: [
-        idColumnWithUpdateLink("bioanalysers"),
+        idColumnWithUpdateLink("bioanalysers", "data"),
         {
             headerName: "Date",
             field: "date",
@@ -595,7 +535,7 @@ const columns = {
         },
     ],
     [tableNames.BASECALLINGS]: [
-        idColumnWithUpdateLink("basecallings"),
+        idColumnWithUpdateLink("basecallings", "data"),
         {
             headerName: "Run folder",
             field: "run_folder",
@@ -616,7 +556,7 @@ const columns = {
         },
     ],
     [tableNames.ALIGNMENTS]: [
-        idColumnWithUpdateLink("alignments"),
+        idColumnWithUpdateLink("alignments", "data"),
         {
             headerName: "Run folder",
             field: "run_folder",

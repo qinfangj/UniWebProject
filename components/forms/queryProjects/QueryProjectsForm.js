@@ -134,8 +134,8 @@ QueryProjectsForm.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     let searched = state.queryProjects[optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
     let searchTerm = state.queryProjects.searchTerm;
-    let projectIds = searched.projectIds || [];
-    let sampleIds = searched.sampleIds || [];
+    let projectIds = searched.projectIds || new Set();
+    let sampleIds = searched.sampleIds || new Set();
     return {
         projectIds,
         sampleIds,

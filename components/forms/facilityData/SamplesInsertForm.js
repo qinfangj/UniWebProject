@@ -25,6 +25,9 @@ class SamplesInsertForm extends React.PureComponent {
         super();
         this.table = "samples";
         this.form = formNames.SAMPLES_INSERT_FORM;
+        this.state = {
+            disabled: false,
+        };
     }
 
     static propTypes = {
@@ -35,6 +38,9 @@ class SamplesInsertForm extends React.PureComponent {
 
     componentWillMount() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
     }
     componentWillReceiveProps() {
         forms.newOrUpdate(this.form, this.table, this.props.updateId);
@@ -42,6 +48,10 @@ class SamplesInsertForm extends React.PureComponent {
 
     onSubmit() {
         forms.submit(this.form, this.table, null);
+    }
+
+    activateForm() {
+        this.setState({ disabled: false });
     }
 
     render() {
@@ -59,6 +69,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.NAME}
                             label="Name"
+                            disabled={this.state.disabled}
                             required
                             validator = {validators.mediumStringValidator}
                         />
@@ -71,6 +82,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.SHORT_NAME}
                             label="Short name"
+                            disabled={this.state.disabled}
                             required
                             validator = {validators.shortStringValidator}
                         />
@@ -82,6 +94,7 @@ class SamplesInsertForm extends React.PureComponent {
                         <Options.Projects
                             form={this.form}
                             suffix="all"
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -94,6 +107,7 @@ class SamplesInsertForm extends React.PureComponent {
                     <Col sm={3} className={css.formCol}>
                         <Options.Taxonomies
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -103,6 +117,7 @@ class SamplesInsertForm extends React.PureComponent {
                     <Col sm={3} className={css.formCol}>
                         <Options.SampleTypes
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -114,6 +129,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.RECEIVED_DATE}
                             label="Received date"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -122,6 +138,7 @@ class SamplesInsertForm extends React.PureComponent {
                     <Col sm={3} className={css.formCol}>
                         <Options.QuantifMethods
                             form={this.form}
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -136,6 +153,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.CONCENTRATION}
                             label="Concentration"
+                            disabled={this.state.disabled}
                             required
                             validator = {validators.numberValidator}
                         />
@@ -148,6 +166,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.VOLUME}
                             label="Volume"
+                            disabled={this.state.disabled}
                             required
                             validator = {validators.numberValidator}
                         />
@@ -160,6 +179,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.RIN}
                             label="RIN"
+                            disabled={this.state.disabled}
                             required
                             validator = {validators.numberValidator}
                         />
@@ -172,6 +192,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.RATIO_260_280}
                             label="Ratio 260/280"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -182,6 +203,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.RATIO_260_230}
                             label="Ratio 260/230"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -195,6 +217,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.DESCRIPTION}
                             label="Description"
+                            disabled={this.state.disabled}
                             required
                         />
                     </Col>
@@ -209,6 +232,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT}
                             label="Comment"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -222,6 +246,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.COMMENT_CUSTOMER}
                             label="Internal comment"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -232,6 +257,7 @@ class SamplesInsertForm extends React.PureComponent {
                             form={this.form}
                             field={fields.IS_TRASHED}
                             label="Discarded"
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
@@ -239,9 +265,15 @@ class SamplesInsertForm extends React.PureComponent {
 
                 {/* Submit */}
 
-                <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                    Submit
-                </Button>
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </form>
         );
