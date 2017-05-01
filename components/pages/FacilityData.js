@@ -16,7 +16,7 @@ class FacilityData extends React.PureComponent {
 
     render() {
         let tableName = this.props.name;
-        let linkName = this.props.name === 'people' ? 'laboratories' : 'people';
+        let linkName = this.props.name === 'people' ? 'laboratories' : this.props.name;
         return (
             <div className={css.pageWrapper}>
 

@@ -8,7 +8,6 @@ const tableNames = {
     USER_REQUESTS: "user_requests",
     LIBRARIES: "libraries",
     BIOANALYSERS: "bioanalysers",
-    BIOANALYSERS_ACTIVE: "bioanalysersActive",
     RUNS: "runs",
     BASECALLINGS: "basecallings",
     ALIGNMENTS: "alignments",
