@@ -3,7 +3,7 @@ import React from 'react';
 import { Control, Field, Form, actions} from 'react-redux-form';
 
 import formsCss from '../../forms.css';
-// import css from './runs.css';
+import css from './runs.css';
 import cx from 'classnames';
 // import store from '../../../../core/store';
 //
@@ -23,12 +23,13 @@ import fields from '../../fields';
 // import RunsSubForm from './RunsSubForm';
 import formNames from '../../../constants/formNames';
 
-// import Button from 'react-bootstrap/lib/Button';
+import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 // import Feedback from '../../../utils/Feedback';
 
 import runsModel from './runsModel';
 import { makeRRFInput } from '../../bootstrapWrappers/bs.js';
+import inputTypes from '../../inputTypes';
 
 
 class RunsInsertFormRedux extends React.PureComponent {
@@ -39,6 +40,7 @@ class RunsInsertFormRedux extends React.PureComponent {
         this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];
         this.state = {
             disabled: false,
+            model: runsModel,
             //lanes: store.getState().common.route.data || {}
         };
     }
@@ -63,11 +65,23 @@ class RunsInsertFormRedux extends React.PureComponent {
         //this.setState({ disabled: false });
     }
 
+    addField() {
+        let model = {...this.state.model};
+        model.newField = {
+            width: 5,
+            type: inputTypes.CHECKBOX,
+            label: "New Field",
+            initValue: "AAAAA",
+            required: true,
+        };
+        this.setState({ model: model });
+    }
+
     render() {
 
         let formFields = [];
-        for (let modelName of Object.keys(runsModel)) {
-            let model = runsModel[modelName];
+        for (let modelName of Object.keys(this.state.model)) {
+            let model = this.state.model[modelName];
             let {type, initValue, ...otherProps} = model;
             otherProps.key = modelName;
             let input = makeRRFInput(type, "facilityDataForms.runs."+modelName, otherProps);
@@ -82,6 +96,20 @@ class RunsInsertFormRedux extends React.PureComponent {
             <Form model="facilityDataForms.runs">
 
                 {formFields}
+
+                <div className="clearfix"/>
+
+                <Button onClick={this.addField.bind(this)}>Add field</Button>
+
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </Form>
         );
@@ -102,16 +130,6 @@ class RunsInsertFormRedux extends React.PureComponent {
     {/*/!*</Form>*!/*/}
 
     {/*/!*Submit *!/*/}
-
-    {/*{false || this.state.disabled ?*/}
-        {/*<Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>*/}
-            {/*Activate form*/}
-        {/*</Button>*/}
-        {/*:*/}
-        {/*<Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>*/}
-            {/*Submit*/}
-        {/*</Button>*/}
-    {/*}*/}
 
 {/*</Form>*/}
 
