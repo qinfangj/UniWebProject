@@ -6,12 +6,6 @@ import formsCss from '../../forms.css';
 import css from './runs.css';
 import cx from 'classnames';
 // import store from '../../../../core/store';
-//
-// import TextField from '../../elements/TextField';
-// import CheckBox from '../../elements/MyCheckBox';
-// import Select from '../../elements/Select';
-// import TextArea from '../../elements/Textarea';
-// import DatePicker from '../../elements/DatePicker';
 // import validators from '../../validators';
 
 // import * as forms from '../../forms.js';
@@ -38,6 +32,7 @@ class RunsInsertFormRedux extends React.PureComponent {
         this.table = "runs";
         this.form = formNames.RUNS_INSERT_FORM;
         this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];
+        this.modelName = "facilityDataForms.runs";
         this.state = {
             disabled: false,
             model: runsModel,
@@ -84,7 +79,7 @@ class RunsInsertFormRedux extends React.PureComponent {
             let model = this.state.model[modelName];
             let {type, initValue, ...otherProps} = model;
             otherProps.key = modelName;
-            let input = makeRRFInput(type, "facilityDataForms.runs."+modelName, otherProps);
+            let input = makeRRFInput(type, this.modelName + modelName, otherProps);
             formFields.push(
                 <Col key={modelName} sm={model.width} className={cx(formsCss.formCol)}>
                     {input}
@@ -93,13 +88,21 @@ class RunsInsertFormRedux extends React.PureComponent {
         }
 
         return (
-            <Form model="facilityDataForms.runs">
+            <Form model={this.modelName}>
+
+                {/* <Feedback reference={this.modelName} /> */}
+
+                {/*<form className={formsCss.form}>*/}
+                {/*<Form componentClass="fieldset" horizontal>*/}
+
 
                 {formFields}
 
                 <div className="clearfix"/>
 
                 <Button onClick={this.addField.bind(this)}>Add field</Button>
+
+                {/* Submit */}
 
                 {this.state.disabled ?
                     <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
@@ -116,22 +119,6 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 }
 
-
-
-
-    {/*/!*<form className={formsCss.form}>*!/*/}
-
-    {/*/!* <Feedback reference={this.form} /> *!/*/}
-
-    {/*/!*<Form componentClass="fieldset" horizontal>*!/*/}
-
-    {/*{formFields}*/}
-
-    {/*/!*</Form>*!/*/}
-
-    {/*/!*Submit *!/*/}
-
-{/*</Form>*/}
 
 export default RunsInsertFormRedux;
 
