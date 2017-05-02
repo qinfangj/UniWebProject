@@ -101,7 +101,6 @@ class CommonAdminForms extends React.Component {
                             (this.state.submissionSuccess ? constants.SUBMISSION_SUCCESS :
                             (Object.keys(this.state.serverError).length > 0 ? constants.SERVER_ERROR : ""));
         let error = this.state.serverError;
-
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
 

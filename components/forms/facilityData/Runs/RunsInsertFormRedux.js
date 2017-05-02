@@ -68,16 +68,18 @@ class RunsInsertFormRedux extends React.PureComponent {
         let formFields = [];
         for (let modelName of Object.keys(runsModel)) {
             let model = runsModel[modelName];
-            let {type, ...otherProps} = model;
+            let {type, initValue, ...otherProps} = model;
             otherProps.key = modelName;
-            let input = makeRRFInput(type, modelName, otherProps);
+            let input = makeRRFInput(type, "facilityDataForms.runs."+modelName, otherProps);
             formFields.push(
-                <Col key={modelName} sm={model.width} className={cx(formsCss.formCol)}>{input}</Col>
+                <Col key={modelName} sm={model.width} className={cx(formsCss.formCol)}>
+                    {input}
+                </Col>
             );
         }
 
         return (
-            <Form model="runs">
+            <Form model="facilityDataForms.runs">
 
                 {formFields}
 

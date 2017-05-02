@@ -19,7 +19,7 @@ let runsFormReducers = combineForms(
     {
         runs: initialize(),
     },
-    "runs"
+    "runsForm"
 );
 
 export default runsFormReducers;

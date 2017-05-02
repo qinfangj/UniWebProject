@@ -50,7 +50,7 @@ let reducer = combineReducers({
     queryProjects: queryProjectsReducers,
     adminForms: adminFormReducers,
     facilityDataForms: facilityDataFormsReducers,
-    runs: runsFormReducers,
+    //runsForm: runsFormReducers,
     options: selectOptionsReducers,
     forms: formReducers,
     feedback: feedbackReducers,

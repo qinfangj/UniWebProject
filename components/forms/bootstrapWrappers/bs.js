@@ -10,80 +10,89 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock, Checkbox } from 'react
  * Use React-bootstrap visual input components in React-redux-forms functional components.
  */
 
-function BSTextInput(props) {
-    let {label, ...otherProps} = props;
-    let title = label ? <ControlLabel>{label}</ControlLabel> : null;
-
-    return (
-        <FormGroup>
-            {title}
-            <FormControl bsSize="small" {...otherProps} />
-        </FormGroup>
-    );
+class BSTextInput extends React.PureComponent {
+    render() {
+        let {label, ...otherProps} = this.props;
+        let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+        
+        return (
+            <FormGroup>
+                {title}
+                <FormControl bsSize="small" {...otherProps} />
+            </FormGroup>
+        );
+    }
 }
 
-function BSTextArea(props) {
-    let {label, ...otherProps} = props;
-    let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+class BSTextArea extends React.PureComponent {
+    render() {
+        let {label, ...otherProps} = props;
+        let title = label ? <ControlLabel>{label}</ControlLabel> : null;
 
-    return (
-        <FormGroup>
-            {title}
-            <FormControl componentClass="textarea" bsSize="small" {...otherProps} />
-        </FormGroup>
-    );
+        return (
+            <FormGroup>
+                {title}
+                <FormControl componentClass="textarea" bsSize="small" {...otherProps} />
+            </FormGroup>
+        );
+    }
 }
 
-function BSSelect(props) {
-    let {options, label, validationState, helpMsg, ...otherProps} = props;
-    let title = label ? <ControlLabel>{label}</ControlLabel> : null;
-    let help = helpMsg ? <HelpBlock bsClass={css.feedback}>{helpMsg}</HelpBlock> : null;
-    let feedback = validationState !== null ? <FormControl.Feedback /> : null;
+class BSSelect extends React.PureComponent {
+    render() {
+        let {options, label, validationState, helpMsg, ...otherProps} = props;
+        let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let help = helpMsg ? <HelpBlock bsClass={css.feedback}>{helpMsg}</HelpBlock> : null;
+        let feedback = validationState !== null ? <FormControl.Feedback /> : null;
 
-    return (
-        <FormGroup validationState={validationState} bsSize="small" >
-            {title}
-            <FormControl
-                componentClass="select"
-                placeholder={label}
-                {...otherProps}
-            >
-            {options}
-            </FormControl>
-            {feedback}
-            {help}
-        </FormGroup>
-    );
+        return (
+            <FormGroup validationState={validationState} bsSize="small" >
+                {title}
+                <FormControl
+                    componentClass="select"
+                    placeholder={label}
+                    {...otherProps}
+                >
+                {options}
+                </FormControl>
+                {feedback}
+                {help}
+            </FormGroup>
+        );
+    }
 }
 
-function BSDate(props) {
-    let {label, ...otherProps} = props;
-    let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+class BSDate extends React.PureComponent {
+    render() {
+        let {label, ...otherProps} = props;
+        let title = label ? <ControlLabel>{label}</ControlLabel> : null;
 
-    return (
-        <FormGroup bsSize="small" >
-            {title}
-            <FormControl
-                type="date"
-                {...otherProps}
-            />
-        </FormGroup>
-    );
+        return (
+            <FormGroup bsSize="small" >
+                {title}
+                <FormControl
+                    type="date"
+                    {...otherProps}
+                />
+            </FormGroup>
+        );
+    }
 }
 
-function BSCheckbox(props) {
-    let {label, ...otherProps} = props;
-
-    return (
-        <FormGroup bsSize="small">
-            <Checkbox
-                className={css.checkbox}
-                {...otherProps}
-            >
-            <div className={css.checkboxLabel}>{label}</div>
-            </Checkbox>
-        </FormGroup>
-    );
+class BSCheckbox extends React.PureComponent {
+    render() {
+        let {label, ...otherProps} = this.props;
+        return (
+            <FormGroup bsSize="small">
+                <Checkbox
+                    className={css.checkbox}
+                    {...otherProps}
+                >
+                <div className={css.checkboxLabel}>{label}</div>
+                </Checkbox>
+            </FormGroup>
+        );
+    }
 }
 
 
@@ -106,7 +115,7 @@ export function makeRRFInput(type, modelName, inputProps) {
         <Control
             className={css.input}
             component={component}
-            model={"."+ modelName}
+            model={modelName}
             {...inputProps}
         />
     );
