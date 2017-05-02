@@ -31,21 +31,21 @@ const adminData = {
                 "label": "Phone",
                 "name": "phone",
                 "size": 3,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             },
             {
                 "label": "Email",
                 "name": "email",
                 "size": 3,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             },
             {
                 "label": "Address",
                 "name": "address",
                 "size": 6,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             },
             {
@@ -96,14 +96,14 @@ const adminData = {
                 "label": "Description",
                 "name":  "description",
                 "size":  3,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             },
             {
                 "label": "Customer Viewable",
                 "name":  "customerViewable",
                 "size":  3,
-                "required": false,
+                "required": true,
                 "type": inputTypes.CHECKBOX
             },
             {
@@ -117,7 +117,7 @@ const adminData = {
                 "label": "Comment",
                 "name":  "comment",
                 "size":  12,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             }
         ],
@@ -163,7 +163,7 @@ const adminData = {
                 "label": "IsSequencer",
                 "name":  "issequencer",
                 "size":  1,
-                "required": false,
+                "required": true,
                 "type": inputTypes.CHECKBOX
             }
         ],
@@ -255,7 +255,7 @@ const adminData = {
                 "label": "Description",
                 "name":  "description",
                 "size":  12,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             }
         ],
@@ -300,21 +300,21 @@ const adminData = {
                 "label": "Manufacturer",
                 "name":  "manufacturer",
                 "size":  4,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             },
             {
                 "label": "Sequence",
                 "name":  "sequence",
                 "size":  4,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             },
             {
                 "label": "Index Group",
                 "name":  "indexGroup",
                 "size":  4,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             },
             {
@@ -328,7 +328,7 @@ const adminData = {
                 "label": "IsDeprecated",
                 "name":  "isDeprecated",
                 "size":  4,
-                "required": false,
+                "required": true,
                 "type": inputTypes.CHECKBOX
             },
         ],
@@ -340,7 +340,7 @@ const adminData = {
                 "label": "Software Name",
                 "name":  "softwareName",
                 "size":  4,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             },
             {
@@ -354,7 +354,7 @@ const adminData = {
                 "label": "Description",
                 "name":  "description",
                 "size":  6,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             }
         ],
@@ -406,7 +406,7 @@ const adminData = {
                 "label": "Description",
                 "name":  "description",
                 "size":  12,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             }
 
@@ -500,7 +500,7 @@ const adminData = {
                 "label": "Ref Number",
                 "name":  "refNumber",
                 "size":  6,
-                "required": false,
+                "required": true,
                 "type": inputTypes.TEXT
             }
         ],

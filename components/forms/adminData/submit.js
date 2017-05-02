@@ -16,7 +16,7 @@ export function formatFormData(formData, table) {
     Object.keys(formData).forEach(function (key, index) {
 
         if (fieldsNames.indexOf(key) > -1) {
-            let ind = fieldsNames.indexOf(key)
+            let ind = fieldsNames.indexOf(key);
 
             if (adminData[table].fields[ind].type === inputTypes.DROPDOWN) {
                 formData[key] = parseInt(formData[key]);
