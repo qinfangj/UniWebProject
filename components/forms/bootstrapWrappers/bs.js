@@ -14,7 +14,7 @@ class BSTextInput extends React.PureComponent {
     render() {
         let {label, ...otherProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
-        
+
         return (
             <FormGroup>
                 {title}
@@ -26,7 +26,7 @@ class BSTextInput extends React.PureComponent {
 
 class BSTextArea extends React.PureComponent {
     render() {
-        let {label, ...otherProps} = props;
+        let {label, ...otherProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
 
         return (
@@ -40,7 +40,7 @@ class BSTextArea extends React.PureComponent {
 
 class BSSelect extends React.PureComponent {
     render() {
-        let {options, label, validationState, helpMsg, ...otherProps} = props;
+        let {options, label, validationState, helpMsg, ...otherProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
         let help = helpMsg ? <HelpBlock bsClass={css.feedback}>{helpMsg}</HelpBlock> : null;
         let feedback = validationState !== null ? <FormControl.Feedback /> : null;
@@ -64,7 +64,7 @@ class BSSelect extends React.PureComponent {
 
 class BSDate extends React.PureComponent {
     render() {
-        let {label, ...otherProps} = props;
+        let {label, ...otherProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
 
         return (
