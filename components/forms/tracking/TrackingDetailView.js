@@ -31,7 +31,12 @@ class TrackingDetailView extends React.PureComponent {
         );
 
         return (
-                 <tr width='100%' key={k}>{makeBody}</tr>
+                 <tbody key={k}>
+                 <tr >{makeBody}</tr>
+                 <tr ><td colSpan='9'>
+                     <span className="label-info">Comment: </span>{(v['comment'] !== undefined)? v['comment'] : '--'}</td></tr>
+                 </tbody>
+
              )
     }
 
@@ -68,13 +73,15 @@ class TrackingDetailView extends React.PureComponent {
                     <div className={trackCss.div3}>
                         <h4>Open Request(s)</h4>
                         <table width='100%' style = {{border:'1px solid grey'}}>
-                            <tbody>
+                            <thead>
                             <tr>{makeRequstsHeader}</tr>
+                            </thead>
+
                             {
                                 Object.keys(dataRequests).map(
-                                    (s) => this.RequestsDetailsTbs(s,dataRequests[s]))
+                                    (s) => this.RequestsDetailsTbs(s,dataRequests[s])
+                                            )
                             }
-                            </tbody>
                         </table>
                     </div>
                     </div>

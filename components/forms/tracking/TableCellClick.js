@@ -227,13 +227,13 @@ class TableCellClick extends React.PureComponent {
         // }
 
         return (data[key][row] !== undefined)?
-                (<tr key={row +1}><td colSpan={Object.keys(data).length} className= {trackCss.td}><div className={trackCss.showmore}>
+                (<tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}><div className={trackCss.showmore}>
 
                         {/*JSON.stringify(data[key][row])*/}
                     {/*{stringDetails}*/}
                     <TrackingDetailView detailData={data[key][row]} />
                      </div></td></tr>)
-                  :(<tr key={row +1}><td colSpan={Object.keys(data).length} className= {trackCss.td}><p className={trackCss.showmore}>No details</p></td></tr>)
+                  :(<tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}><p className={trackCss.showmore}>No details</p></td></tr>)
     }
 
     render() {
@@ -246,27 +246,27 @@ class TableCellClick extends React.PureComponent {
         let rows =[];
         if (this.state.isShowDetails) {
             for (let i = 0; i < this.state.insertRow + 1; i++) {
-                rows.push(<tr key={i} >{this.makeTr(dataSummary, i)}</tr>);
+                rows.push(<tr key={i} ><td style={{textAlign:'center'}}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
             }
 
             rows.push(this.makeDetailedTr(this.state.insertRow, this.state.insertCol, dataDetail));
 
             for (let i = this.state.insertRow+1; i < maxlength; i++) {
-                rows.push(<tr key={i+2}>{this.makeTr(dataSummary, i)}</tr>);
+                rows.push(<tr key={i+2}><td style={{textAlign:'center'}}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
             }
 
             let row = document.getElementById("myTable").rows;
             row[this.state.insertRow].scrollIntoView(true);
         } else {
             for (let i = 0; i < maxlength; i++) {
-                rows.push(<tr key={i}>{this.makeTr(dataSummary, i)}</tr>);
+                rows.push(<tr key={i}><td>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
             }
         }
 
         return (
                 <table id="myTable" className={trackCss.table} >
                     <thead>
-                        <tr>
+                        <tr><th></th>
                         {
                             fieldsHead.map((s) =>
                                     {
