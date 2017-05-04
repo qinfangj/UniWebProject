@@ -1,64 +1,59 @@
 
 let largeDataA =[];
-for (let i = 0; i < 1000; i++){
-    largeDataA.push({id: i});
+for (let i = 0; i < 5; i++){
+    largeDataA.push({
+                         lab: "Ablasser ",
+                         project: "CRISPR screen II - mmMacrophages",
+                         data: "2017-04-26",
+                         name: "aaa",
+                         type: "total RNA",
+                         comment: "aa"
+
+                     });
 }
 //console.log(largeDataA);
 const trackingData = {
 
     summaryData : {
-        'classA': largeDataA,
-        'classB': [{code: '002'},{code: '003'},{code: '004'}],
-        'classC': [{type: 'C01'},{type: 'C02'}],
+        'MiSeq SR 150': largeDataA,
+        'paired-end reads 100': [{code: '002'},{code: '003'},{code: '004'}],
+        'single read 100': [{type: 'C01'},{type: 'C02'}],
         'classD': [{type: 'D01'},{type: 'D02'}]
     },
     detailData:{
-        'classA': [
+        'MiSeq SR 150': [
             {
                 id: 1,
-                contents: ["Push successful","Push successful"]
+                sample: {id:'22764',name:'ML3',Protocol:'Commercial',Date:'2016-08-23',index:'#iA_08',asLiberary:'yes',
+                            project:'HCF Human',lab:'Herr',madeonRobot:'',facilityComment:'',
+                            CustomerComment:'Diagenode Microplex library preparation Kit. No size selection. Fragment analyzer peak is not realiable because peak is very wide'},
+                requests: [{ID:'25352',Sample:'ML3',Laboratory:'Herr',Libratory:'Commecial',
+                                Runtype:'paried-end reads',LanesNb: '1',Mutiplex:'3',Group: 'group 1',Submitter: 'mlopes',
+                                comment:'to be sequenced with library test_D2 which has Index N716/S510'},
+                           {ID:'25353',Sample:'ML4',Laboratory:'Herr1',Libratory:'Commecial1',
+                                Runtype:'paried-end reads',LanesNb: '1',Mutiplex:'3',Group: 'group 1',Submitter: 'mlopes',
+                                comment:'to be sequenced with library test_D2 which has Index N716/S510'}]
             },
             {
                 id: 2,
-                contents: ["Plugin Updates","Plugin Updates","Plugin Updates","Plugin Updates"]
+                sample: {id:'22765',name:'ML3',Protocol:'Commercial',date:'2016-08-23'},
+                requests: [{id:'25354',sample:'ML3',laboratory:'Herr',libratory:'Commecial'},
+                            {id:'25355',sample:'ML4',laboratory:'Herr1',libratory:'Commecial1'}]
             },
             {
                 id: 3,
-                contents: ["Git Pull Failed","Git Pull Failed","Git Pull Failed","Git Pull Failed"]
+                sample: {id:'22766',name:'ML3',Protocol:'Commercial',date:'2016-08-23'},
+                requests: [{id:'25356',sample:'ML3',laboratory:'Herr',libratory:'Commecial'},
+                            {id:'25357',sample:'ML4',laboratory:'Herr1',libratory:'Commecial1'}]
             },
             {
                 id: 4,
-                contents: ["Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-                    "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch"]
+                sample: {id:'22767',name:'ML3',Protocol:'Commercial',date:'2016-08-23'},
+                requests: [{id:'25358',sample:'ML3',laboratory:'Herr',libratory:'Commecial'},
+                    {id:'25359',sample:'ML4',laboratory:'Herr1',libratory:'Commecial1'}]
             }
         ],
-        'classB': [
+        'paired-end reads 100': [
             {
                 code: '002',
                 contents: ["AAAAAAAAAAAAAAA","BBBBBBBBBBBBB"]
@@ -72,7 +67,7 @@ const trackingData = {
                 contents: ["HHHHHHHHHHHH","LLLLLLLLLLLL","MMMMMMMMMMMM","KKKKKKKKKKKKKKK"]
             },
         ],
-        'classC': [
+        'single read 100': [
             {
                 type: 'C01',
                 contents: ["AAAAAAAAAAAAAAA","BBBBBBBBBBBBB"]

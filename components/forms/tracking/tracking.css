@@ -4,8 +4,9 @@
 
 .table {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     border-collapse: collapse;
+    background-color: #E0E0E0;
 
 }
 .tr {
@@ -23,7 +24,6 @@
 .td {
     padding: 1px;
     height: 50px;
-    cursor: pointer;
 }
 
 .header {
@@ -31,40 +31,140 @@
     padding:2px;
     height:100%;
     background-color:var(--yellow);
-    border-radius: 4px;
+
 
 }
 
 .showmore {
     margin: 0px;
-    padding: 5px;
+    padding: 10px;
     background-color: #f9f9f9;
-    border: solid 1px lightgray;
+    border: solid 1px #999;
     border-radius: 4px;
 }
 
 .selectedCell {
-    padding: 3px;
-}
-
-.toolTip {
-    position:relative;
-}
-
-.p {
-    margin:0px;
-    padding:5px;
-    height: 50px;
-    background-color:#dddddd;
+    padding: 10px;
+    min-height: 150px;
+    background-color:#ebf2f9;
+    border: solid 1px #3572B0;
     border-radius: 4px;
+    white-space: pre;
 }
 
-.p.selectedCell {
+.cell {
     margin:0px;
-    padding:5px;
-    height: 50px;
-    background-color:lightgrey;
-    border: solid 2px black;
+    padding:10px;
+    min-height: 150px;
+    background-color:#fff;
     border-radius: 4px;
+    border: solid 1px #ccc;
+    cursor: pointer;
+    transition: background-color 140ms ease-in-out, border-color 75ms ease-in-out;
+    white-space: pre;
+}
+
+.cell:hover{
+    border-color: #999;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.div1 {
+    width:auto;
+    height: auto;
+    border-radius: 4px;
+    background-color: white;
+    display: flex;
+    align-items: flex-start;
+}
+
+.div2 {
+    width:30%;
+    padding: 10px;
+    align-self: stretch;
+}
+
+.div2 table{
+    border: #66afe9;
+}
+
+.div2 tr{
+    border-bottom: 1px solid #ddd;
+}
+
+.div2 th{
+    padding:5px;
+}
+
+.div2 td{
+    padding:5px;
+}
+
+.div3 {
+    width:70%;
+    background-color: #FFFFE0;
+    border-radius: 4px;
+    padding: 10px;
+    align-self: stretch;
+}
+
+.div3 table{
+    border-collapse: collapse;
+    margin: 5px;
+    border: 1px solid grey;
+
+}
+
+.div3 tr{
+
+}
+
+.div3 th{
+    padding:5px;
+    border: 1px solid grey;
+    background-color: var(--yellow);
+}
+
+.div3 td {
+    padding: 5px;
+    border: 1px solid grey;
 }
 
