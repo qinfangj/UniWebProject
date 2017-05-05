@@ -1,0 +1,170 @@
+
+
+@import '../../../styles/colors.css';
+
+.table {
+    width: 100%;
+    padding: 10px;
+    border-collapse: collapse;
+    background-color: #E0E0E0;
+
+}
+.tr {
+    padding: 0px
+
+}
+
+.th {
+    margin: 1px;
+    padding: 1px;
+    height: 30px;
+    text-align: center;
+}
+
+.td {
+    padding: 1px;
+    height: 50px;
+}
+
+.header {
+    margin:0px;
+    padding:2px;
+    height:100%;
+    background-color:var(--yellow);
+
+
+}
+
+.showmore {
+    margin: 0px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: solid 1px #999;
+    border-radius: 4px;
+}
+
+.selectedCell {
+    padding: 10px;
+    min-height: 150px;
+    background-color:#ebf2f9;
+    border: solid 1px #3572B0;
+    border-radius: 4px;
+    white-space: pre;
+}
+
+.cell {
+    margin:0px;
+    padding:10px;
+    min-height: 150px;
+    background-color:#fff;
+    border-radius: 4px;
+    border: solid 1px #ccc;
+    cursor: pointer;
+    transition: background-color 140ms ease-in-out, border-color 75ms ease-in-out;
+    white-space: pre;
+}
+
+.cell:hover{
+    border-color: #999;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.div1 {
+    width:auto;
+    height: auto;
+    border-radius: 4px;
+    background-color: white;
+    display: flex;
+    align-items: flex-start;
+}
+
+.div2 {
+    width:30%;
+    padding: 10px;
+    align-self: stretch;
+}
+
+.div2 table{
+    border: #66afe9;
+}
+
+.div2 tr{
+    border-bottom: 1px solid #ddd;
+}
+
+.div2 th{
+    padding:5px;
+}
+
+.div2 td{
+    padding:5px;
+}
+
+.div3 {
+    width:70%;
+    background-color: #FFFFE0;
+    border-radius: 4px;
+    padding: 10px;
+    align-self: stretch;
+}
+
+.div3 table{
+    border-collapse: collapse;
+    margin: 5px;
+    border: 1px solid grey;
+
+}
+
+.div3 tr{
+
+}
+
+.div3 th{
+    padding:5px;
+    border: 1px solid grey;
+    background-color: var(--yellow);
+}
+
+.div3 td {
+    padding: 5px;
+    border: 1px solid grey;
+}
+

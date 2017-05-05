@@ -32,6 +32,6 @@ const accountModel = {
             }
         ]
 
-}
+};
 
 export default accountModel;
