@@ -1,17 +1,7 @@
 "use strict";
 import { combineForms } from  'react-redux-form'
-import { dateNow } from '../../../../utils/time';
-import runsModel from '../../../../components/forms/facilityData/Runs/runsModel';
-
-
-
-function initialize() {
-    let initialData = {};
-    for (let field of Object.keys(runsModel)) {
-        initialData[field] = runsModel[field].initValue;
-    }
-    return initialData;
-}
+// import { dateNow } from '../../../../utils/time';
+import { initializeRunsReducers } from '../../../../components/forms/facilityData/Runs/runsModel';
 
 
 /**
@@ -19,12 +9,12 @@ function initialize() {
  */
 let facilityDataFormsReducers = combineForms(
     {
+        runs: initializeRunsReducers(),
         // bioanalysers: {
         //     filename: null,
         //     bioanalyserDate: "1970-01-01",
         //     description: "",
         // },
-        runs: initialize(),
         // runs: {
         //     runNb: "",
         //     flowcellId: "",
@@ -38,7 +28,6 @@ let facilityDataFormsReducers = combineForms(
         //     isFailed: false,
         //     comment: ""
         // },
-
     },
     'facilityDataForms'
 );

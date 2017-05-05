@@ -88,5 +88,15 @@ const runsModel = {
 
 };
 
+
+export function initializeRunsReducers() {
+    let initialData = {};
+    for (let field of Object.keys(runsModel)) {
+        initialData[field] = runsModel[field].initValue;
+    }
+    return initialData;
+}
+
+
 export default runsModel;
 
