@@ -71,6 +71,10 @@ const actionTypes = {
         CHANGE_PROJECTS_SELECTION: "CHANGE_PROJECT_SELECTION",
         CHANGE_SAMPLES_SELECTION: "CHANGE_SAMPLES_SELECTION",
     },
+
+    options: {
+        OPTIONS_INSTRUMENTS: "OPTIONS_INSTRUMENTS",
+    }
 };
 
 export default actionTypes;

@@ -1,6 +1,10 @@
 "use strict";
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Control, Field, Form, actions} from 'react-redux-form';
+import requestOptions from '../../../actions/actionCreators/optionsActionCreators';
+import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 import formsCss from '../../forms.css';
 import css from './runs.css';
@@ -45,6 +49,17 @@ class RunsInsertFormRedux extends React.PureComponent {
         // if (this.props.updateId) {
         //     this.setState({ disabled: true });
         // }
+
+        // for (let field of Object.keys(runsModel)) {
+        //
+        // }
+        //     let storeKey = this.props.storeKey;
+        // if (this.props.suffix) {
+        //     this.props.getConditionalOptionsListAsync(this.props.table, this.props.suffix, storeKey);
+        // } else {
+        //     this.props.getOptionsListAsync(this.props.table, storeKey);
+        // }
+        this.props.requestOptions(optionsStoreKeys.INSTRUMENTS);
     }
 
     componentWillReceiveProps() {
@@ -77,11 +92,14 @@ class RunsInsertFormRedux extends React.PureComponent {
         let formFields = [];
         for (let modelName of Object.keys(this.state.model)) {
             let model = this.state.model[modelName];
-            let {type, initValue, ...otherProps} = model;
+            let {type, initValue, optionsKey, ...otherProps} = model;
             otherProps.key = modelName;
+            if (optionsKey) {
+                otherProps.options = this.props.options[optionsKey];
+            }
             let input = makeRRFInput(type, this.modelName + modelName, otherProps);
             formFields.push(
-                <Col key={modelName} sm={model.width} className={cx(formsCss.formCol)}>
+                <Col key={modelName} sm={model.width} className={cx(css.col)}>
                     {input}
                 </Col>
             );
@@ -120,5 +138,24 @@ class RunsInsertFormRedux extends React.PureComponent {
 }
 
 
-export default RunsInsertFormRedux;
+const mapStateToProps = (state) => {
+    let options = {};
+    for (let field of Object.keys(runsModel)) {
+        let model = runsModel[field];
+        if (model.optionsKey) {
+            options[model.optionsKey] = state.options[model.optionsKey] || [];
+        }
+    }
+    return {
+        //instrumentOptions: state.options[optionsStoreKeys.INSTRUMENTS],
+        options: options,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ requestOptions }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RunsInsertFormRedux);
 

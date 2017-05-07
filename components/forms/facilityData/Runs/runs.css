@@ -6,6 +6,10 @@
     --border: 1px solid var(--blue);
 }
 
+.col {
+    padding: 0 5px;
+}
+
 
 .preRunsInsertTable {
     width: 100%;

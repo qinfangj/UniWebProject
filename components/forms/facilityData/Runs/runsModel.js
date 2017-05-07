@@ -4,6 +4,7 @@ import fields from '../../fields';
 import { dateNow } from '../../../../utils/time';
 import inputTypes from '../../inputTypes';
 // import { DEFAULT_DATE } from '../../inputTypes';
+import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 
 
@@ -40,6 +41,7 @@ const runsModel = {
         width: 3,
         label: "Machine",
         type: inputTypes.DROPDOWN,
+        optionsKey: optionsStoreKeys.INSTRUMENTS,
         initValue: -1,
         required: false,
     },

@@ -2,26 +2,8 @@
 import types from '../actionTypes';
 import RestService from '../../../utils/RestService';
 import { assertStoreKey, asyncAction } from './base';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
-
-export function changeFormValue(form, field, value, valid) {
-    return (dispatch) => {
-        return dispatch({
-            type: types.forms.CHANGE_FORM_VALUE,
-            form: form,
-            field: field,
-            value: value,
-            valid: valid,
-        });
-    };
-}
-
-export function resetForm(form) {
-    return {
-        type: types.forms.RESET_FORM,
-        form: form,
-    }
-}
 
 /* Select options. */
 
@@ -43,17 +25,22 @@ export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
     return asyncAction(types.forms.GET_SECONDARY_OPTIONS_LIST, RestService.getSecondaryOptionsList.bind(null, tableName, id), args)
 }
 
-/* Bioanalysers form */
+//---------------------------------------------------
 
-export function addEmptyLaneToBioanalysers() {
-    return {
-        type: types.forms.ADD_BIOLANE,
-    };
+function requestOptionsListAsync(actionType, tableName, suffix) {
+    if (suffix) {
+        return asyncAction(actionType, RestService.getConditionalOptionsList.bind(null, tableName, suffix), {});
+    } else {
+        return asyncAction(actionType, RestService.getOptionsList.bind(null, tableName), {});
+    }
 }
 
-export function removeLaneFromBioanalysers(laneNb) {
-    return {
-        type: types.forms.REMOVE_BIOLANE,
-        laneNb,
-    };
+export default function requestOptions(storeKey, suffix) {
+    switch(storeKey) {
+        case optionsStoreKeys.INSTRUMENTS:
+            return requestOptionsListAsync(types.options.OPTIONS_INSTRUMENTS, "instruments");
+
+        default:
+            break;
+    }
 }
