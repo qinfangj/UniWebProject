@@ -1,32 +1,18 @@
 "use strict";
 import types from '../actionTypes';
 import RestService from '../../../utils/RestService';
-import { assertStoreKey, asyncAction } from './base';
+import { asyncAction } from './base';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 
-/* Select options. */
+/*
+ * Actions to GET a select input options list from backend.
+ */
 
-export function getOptionsListAsync(tableName, storeKey) {
-    assertStoreKey(storeKey);
-    let args = {storeKey};
-    return asyncAction(types.forms.GET_OPTIONS_LIST, RestService.getOptionsList.bind(null, tableName), args)
-}
-
-export function getConditionalOptionsListAsync(tableName, suffix, storeKey) {
-    assertStoreKey(storeKey);
-    let args = {storeKey, suffix};
-    return asyncAction(types.forms.GET_OPTIONS_LIST, RestService.getConditionalOptionsList.bind(null, tableName, suffix), args)
-}
-
-export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
-    assertStoreKey(storeKey);
-    let args = {storeKey, id};
-    return asyncAction(types.forms.GET_SECONDARY_OPTIONS_LIST, RestService.getSecondaryOptionsList.bind(null, tableName, id), args)
-}
-
-//---------------------------------------------------
-
+ 
+/**
+ * Calls /table/:table/list[/suffix]
+ */
 function requestOptionsListAsync(actionType, tableName, suffix) {
     if (suffix) {
         return asyncAction(actionType, RestService.getConditionalOptionsList.bind(null, tableName, suffix), {});
@@ -35,7 +21,6 @@ function requestOptionsListAsync(actionType, tableName, suffix) {
     }
 }
 
-//===
 
 export function requestFlowcellTypes() {
     return requestOptionsListAsync(types.options.OPTIONS_FLOWCELL_TYPES, "flowcell_types");
@@ -125,7 +110,6 @@ export function requestTaxonomies() {
     return requestOptionsListAsync(types.options.OPTIONS_TAXONOMIES, "taxonomies");
 }
 
-//===
 
 export default function requestOptions(storeKey) {
     switch(storeKey) {
