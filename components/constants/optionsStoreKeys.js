@@ -14,6 +14,7 @@ export default {
 
     // primary lists
     INSTRUMENTS: "INSTRUMENTS_OPTIONS",
+    LABORATORIES: "LABORATORIES",  // people, but only labs
     LIB_PROTOCOLS: "LIB_PROTOCOLS_OPTIONS",
     LIB_ADAPTERS: "LIB_ADAPTERS_OPTIONS",
     LIB_STATES: "LIB_STATES_OPTIONS",

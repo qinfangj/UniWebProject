@@ -44,6 +44,7 @@ class BSSelect extends React.PureComponent {
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
         let help = helpMsg ? <HelpBlock bsClass={css.feedback}>{helpMsg}</HelpBlock> : null;
         let feedback = validationState !== null ? <FormControl.Feedback /> : null;
+
         options = this.props.options ? this.props.options.map((v,i) => {
             return <option value={v[0]} key={i}>{v[1]}</option>;
         }) : [];
