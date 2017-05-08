@@ -16,9 +16,9 @@ class BSTextInput extends React.PureComponent {
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
 
         return (
-            <FormGroup>
+            <FormGroup bsSize="small" >
                 {title}
-                <FormControl bsSize="small" {...inputProps} />
+                <FormControl {...inputProps} />
             </FormGroup>
         );
     }
@@ -30,9 +30,9 @@ class BSTextArea extends React.PureComponent {
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
 
         return (
-            <FormGroup>
+            <FormGroup bsSize="small" >
                 {title}
-                <FormControl componentClass="textarea" bsSize="small" {...inputProps} />
+                <FormControl componentClass="textarea" {...inputProps} />
             </FormGroup>
         );
     }

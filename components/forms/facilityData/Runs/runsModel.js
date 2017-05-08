@@ -56,7 +56,7 @@ const runsModel = {
 
     /* Mini sub-form on the left, sharing 4 width units on the left */
     [fields.runs.RUN_TYPES_LENGTH_ID]: {
-        width: 12,
+        width: 4,
         label: "Run type",
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.RUN_TYPES_LENGTHS,
