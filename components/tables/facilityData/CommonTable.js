@@ -132,7 +132,7 @@ class CommonTable extends React.PureComponent {
 
         return (
             <div style={{width: '100%', height: '100%'}}>
-                <div className={css.searchWrapper}>
+                <div >
                 <div type="button" className={css.resetBtn} onClick={this.reset.bind(this)}>
                         <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </div>
