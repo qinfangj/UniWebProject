@@ -11,7 +11,7 @@ import formsCss from '../../forms.css';
 import css from './runs.css';
 import cx from 'classnames';
 // import store from '../../../../core/store';
-// import validators from '../../validators';
+import validators from '../../validators';
 
 // import * as forms from '../../forms.js';
 import fields from '../../fields';
@@ -85,7 +85,6 @@ class RunsInsertFormRedux extends React.PureComponent {
             type: inputTypes.CHECKBOX,
             label: "New Field",
             initValue: "AAAAA",
-            required: true,
         };
         this.setState({ model: model });
     }

@@ -1,9 +1,10 @@
 "use strict";
 import React from 'react';
-import css from '../forms.css';
+import css from './bs.css';
+import formsCss from '../forms.css';
 import inputTypes from '../inputTypes';
 import { DEFAULT_DATE } from '../inputTypes';
-import { Control } from 'react-redux-form';
+import { Control, Errors } from 'react-redux-form';
 import { FormGroup, FormControl, ControlLabel, HelpBlock, Checkbox } from 'react-bootstrap/lib';
 
 /**
@@ -42,7 +43,7 @@ class BSSelect extends React.PureComponent {
     render() {
         let {options, label, validationState, helpMsg, hasNoneValue, ...inputProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
-        let help = helpMsg ? <HelpBlock bsClass={css.feedback}>{helpMsg}</HelpBlock> : null;
+        let help = helpMsg ? <HelpBlock bsClass={formsCss.feedback}>{helpMsg}</HelpBlock> : null;
         let feedback = validationState !== null ? <FormControl.Feedback /> : null;
 
         options = options ? options.map((v,i) => {
@@ -93,10 +94,10 @@ class BSCheckbox extends React.PureComponent {
         return (
             <FormGroup bsSize="small">
                 <Checkbox
-                    className={css.checkbox}
+                    className={formsCss.checkbox}
                     {...inputProps}
                 >
-                <div className={css.checkboxLabel}>{label}</div>
+                <div className={formsCss.checkboxLabel}>{label}</div>
                 </Checkbox>
             </FormGroup>
         );
@@ -119,15 +120,30 @@ export function makeRRFInput(type, modelName, otherProps) {
     } else {
         throw "Unknown input type: '"+ type +"'";
     }
-    let {required, validator, ...inputProps} = otherProps;
+    let {required, validators, errors, errorMessages, ...inputProps} = otherProps;
+    console.debug(modelName, errorMessages, validators, errors)
+
     return (
-        <Control
-            className={css.input}
-            component={component}
-            model={modelName}
-            required={required}
-            {...inputProps}
-        />
+        <div>
+            <Control
+                className={formsCss.input}
+                component={component}
+                model={modelName}
+                required={required}
+                validators={validators}
+                errors={errors}
+                updateOn="change"
+                validateOn="change"
+                ignore={['focus', 'blur']}
+                {...inputProps}
+            />
+            <Errors
+                className={css.errors}
+                model={modelName}
+                show={true}
+                messages={errorMessages}
+            />
+        </div>
     );
 
 }

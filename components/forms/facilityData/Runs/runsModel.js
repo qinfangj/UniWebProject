@@ -5,8 +5,10 @@ import { dateNow } from '../../../../utils/time';
 import inputTypes from '../../inputTypes';
 // import { DEFAULT_DATE } from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
+import validators from '../../validators2';
 
 
+const intValidator = {isInteger: validators.integerValidator};
 
 const runsModel = {
     [fields.runs.GA_RUN_NUMBER]: {
@@ -15,6 +17,8 @@ const runsModel = {
         type: inputTypes.TEXT,
         initValue: "",
         required: true,
+        validators: intValidator,
+        errorMessages: {isInteger: "Must be an integer"}
     },
     [fields.runs.FLOWCELL_ID]: {
         width: 3,
