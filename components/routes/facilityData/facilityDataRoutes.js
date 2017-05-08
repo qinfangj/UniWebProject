@@ -241,7 +241,7 @@ export class RunsPreNewRoute extends React.Component {
 export class RunsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
-            <RunsInsertForm form={formNames.RUNS_INSERT_FORM}/>
+            <RunsInsertForm />
         } />
     );}
 }
@@ -249,7 +249,7 @@ export class RunsNewRoute extends React.Component {
 export class RunsUpdateRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
-            <RunsInsertForm/>
+            <RunsInsertForm updateId={this.props.params.id} />
         } />
     );}
 }

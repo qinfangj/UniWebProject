@@ -9,6 +9,7 @@ import validators from '../../validators2';
 
 
 const intValidator = {isInteger: validators.integerValidator};
+const selectRequired = {required: (v) => v !== -1};
 
 const runsModel = {
     [fields.runs.GA_RUN_NUMBER]: {
@@ -33,7 +34,7 @@ const runsModel = {
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.FLOWCELL_TYPES,
         initValue: -1,
-        required: false,
+        required: true,
     },
     [fields.runs.RELEASE_DATE]: {
         width: 3,
@@ -65,6 +66,7 @@ const runsModel = {
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.RUN_TYPES_LENGTHS,
         initValue: -1,
+        required: true,
     },
     [fields.runs.FC_STAGE]: {
         width: 3,
@@ -73,6 +75,7 @@ const runsModel = {
         initValue: -1,
         hasNoneValue: false,
         options: [[1,'--'], [2,'A'], [3,'B']],
+        required: false,
     },
     [fields.runs.SEQUENCING_KIT_VERSION_ID]: {
         width: 3,
@@ -80,6 +83,7 @@ const runsModel = {
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.SEQUENCING_KIT_VERSIONS,
         initValue: -1,
+        required: true,
     },
     [fields.runs.IS_FAILED]: {
         width: 2,
@@ -94,6 +98,7 @@ const runsModel = {
         label: "Comment",
         type: inputTypes.TEXTAREA,
         initValue: "",
+        required: false,
     },
 
 };

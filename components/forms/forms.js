@@ -3,10 +3,11 @@ import React from 'react';
 import store from '../../core/store';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../actions/actionCreators/feedbackActionCreators';
-import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync, findByIdAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { resetForm } from '../actions/actionCreators/formsActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
+import { actions } from 'react-redux-form';
 
 
 /**
@@ -19,6 +20,18 @@ export function newOrUpdate(form, table, updateId) {
         store.dispatch(findForUpdateAsync(table, updateId, form));
     } else {
         store.dispatch(resetForm(form));
+    }
+}
+
+export function newOrUpdate2(modelName, table, updateId){
+    if (updateId) {
+        store.dispatch(findByIdAsync(table, updateId))
+        .done((data) => {
+            console.log("Update with values:", data);
+            store.dispatch(actions.merge(modelName,data));
+        });
+    } else {
+        store.dispatch(actions.reset(modelName));
     }
 }
 

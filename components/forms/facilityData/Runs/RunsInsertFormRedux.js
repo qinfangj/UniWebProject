@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Control, Field, Form, actions} from 'react-redux-form';
 import { requestInstruments, requestFlowcellTypes, requestRunsTypesLengths, requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
-import optionsStoreKeys from '../../../constants/optionsStoreKeys';
+// import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 import formsCss from '../../forms.css';
 import css from './runs.css';
 import cx from 'classnames';
 // import store from '../../../../core/store';
-import validators from '../../validators';
+// import validators from '../../validators';
 
-// import * as forms from '../../forms.js';
-import fields from '../../fields';
+import * as forms from '../../forms.js';
+// import fields from '../../fields';
 
 // import * as Options from '../../subcomponents/Options';
 // import PoolsForProject from '../../subcomponents/secondarySelects/PoolsForProject';
@@ -46,10 +46,11 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 
     componentWillMount() {
+        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId);
         //forms.newOrUpdate(this.form, this.table, this.props.updateId);
-        // if (this.props.updateId) {
-        //     this.setState({ disabled: true });
-        // }
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
 
         this.props.requestInstruments();
         this.props.requestSequencingKitVersions();
@@ -58,7 +59,7 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 
     componentWillReceiveProps() {
-        //forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        //forms.newOrUpdate2(this.modelName, this.table, this.props.updateId);
     }
 
     postSubmit(values) {
@@ -75,7 +76,7 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 
     activateForm() {
-        //this.setState({ disabled: false });
+        this.setState({ disabled: false });
     }
 
     addField() {
@@ -95,6 +96,7 @@ class RunsInsertFormRedux extends React.PureComponent {
             let model = this.state.model[modelName];
             let {type, initValue, optionsKey, ...otherProps} = model;
             otherProps.key = modelName;
+            otherProps.disabled = model.disabled || this.state.disabled;
             if (optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }
@@ -127,6 +129,10 @@ class RunsInsertFormRedux extends React.PureComponent {
                     </Button>
                 }
 
+                {/* Sub-form */}
+
+                <div className="clearfix"/>
+
                 <Button onClick={this.addField.bind(this)}>Add field</Button>
 
             </Form>
@@ -144,7 +150,6 @@ const mapStateToProps = (state) => {
         }
     }
     return {
-        //instrumentOptions: state.options[optionsStoreKeys.INSTRUMENTS],
         options: options,
     };
 };
@@ -154,7 +159,7 @@ const mapDispatchToProps = (dispatch) => {
         requestInstruments,
         requestFlowcellTypes,
         requestRunsTypesLengths,
-        requestSequencingKitVersions
+        requestSequencingKitVersions,
         }, dispatch);
 };
 

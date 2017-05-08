@@ -107,12 +107,17 @@ class BSCheckbox extends React.PureComponent {
 
 export function makeRRFInput(type, modelName, otherProps) {
     let component;
+    let {required, validators, errors, errorMessages, updateOn, validateOn, ...inputProps} = otherProps;
+    let showError = (type === inputTypes.DROPDOWN) ? {touched: true, focus: false} : true;
+
     if (type === inputTypes.TEXT) {
         component = BSTextInput;
     } else if (type === inputTypes.CHECKBOX) {
         component = BSCheckbox;
     } else if (type === inputTypes.DROPDOWN || type === inputTypes.SEC_DROPDOWN) {
         component = BSSelect;
+        required = required ? (v) => v !== -1 : undefined;
+        validators = required ? {required: (v) => v !== -1} : undefined;
     } else if (type === inputTypes.TEXTAREA) {
         component = BSTextArea;
     } else if (type === inputTypes.DATE) {
@@ -120,8 +125,6 @@ export function makeRRFInput(type, modelName, otherProps) {
     } else {
         throw "Unknown input type: '"+ type +"'";
     }
-    let {required, validators, errors, errorMessages, ...inputProps} = otherProps;
-    console.debug(modelName, errorMessages, validators, errors)
 
     return (
         <div>
@@ -132,16 +135,16 @@ export function makeRRFInput(type, modelName, otherProps) {
                 required={required}
                 validators={validators}
                 errors={errors}
-                updateOn="change"
-                validateOn="change"
+                updateOn={updateOn || "change"}
+                validateOn={validateOn || "change"}
                 ignore={['focus', 'blur']}
                 {...inputProps}
             />
             <Errors
                 className={css.errors}
                 model={modelName}
-                show={true}
-                messages={errorMessages}
+                show={showError}
+                messages={errorMessages || {required: "Required"}}
             />
         </div>
     );
