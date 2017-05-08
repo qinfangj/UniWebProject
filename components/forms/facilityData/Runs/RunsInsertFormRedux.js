@@ -99,7 +99,7 @@ class RunsInsertFormRedux extends React.PureComponent {
             if (optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }
-            let input = makeRRFInput(type, this.modelName + modelName, otherProps);
+            let input = makeRRFInput(type, this.modelName +'.'+ modelName, otherProps);
             formFields.push(
                 <Col key={modelName} sm={model.width} className={cx(css.col)}>
                     {input}
