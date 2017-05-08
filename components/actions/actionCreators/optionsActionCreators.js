@@ -91,7 +91,7 @@ export function requestRunsOutputFolders() {
 }
 
 export function requestRunsTypesLengths() {
-    return requestOptionsListAsync(types.options.OPTIONS_RUN_TYPES_LENGTHS, "run_types_lengths");
+    return requestOptionsListAsync(types.options.OPTIONS_RUN_TYPES_LENGTHS, "run_types_lengths", "all");
 }
 
 export function requestSampleTypes() {

@@ -4,11 +4,16 @@
  * Return the current timstamp as a string such as "2017-03-13 11:08:56".
  * @returns {string}
  */
-export function dateNow() {
+export function timeNow() {
     return (new Date (
               (new Date((new Date(new Date())).toISOString() )).getTime()
             - ((new Date()).getTimezoneOffset()*60000)
-           )).toISOString().slice(0, 19).replace('T', ' ');
+           ))
+           .toISOString().slice(0, 19).replace('T', ' ');
+}
+
+export function dateNow() {
+    return timeNow().split(" ")[0];
 }
 
 /**

@@ -4,7 +4,7 @@ import { insertAsync, deleteAsync } from '../../actions/actionCreators/facilityD
 import store from '../../../core/store';
 import adminData from './adminDataModels';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
-import { dateNow, parseDateString } from '../../../utils/time';
+import { timeNow, parseDateString } from '../../../utils/time';
 import { withRouter } from 'react-router';
 import inputTypes from '../inputTypes';
 
@@ -27,7 +27,7 @@ export function formatFormData(formData, table) {
     });
 
     if (formData.id && formData.id !== 0) {
-        formData.updatedAt = dateNow();
+        formData.updatedAt = timeNow();
         if (formData.createdAt) {
             formData.createdAt = parseDateString(formData.createdAt);
         }
@@ -62,7 +62,7 @@ export function submit(component, form, values, table, updateId, isInsert) {
                 if (updateId === '' || updateId === undefined) {
                     component.props.router.push(currentPath.replace('/new', '/list'));
 
-                }else {
+                } else {
                     component.props.router.push(currentPath.replace('/update/'+ updateId, '/list'));
 
                 }

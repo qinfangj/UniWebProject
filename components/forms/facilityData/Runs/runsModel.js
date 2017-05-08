@@ -9,35 +9,36 @@ import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 
 const runsModel = {
-    [fields.RUN_NUMBER]: {
+    [fields.runs.GA_RUN_NUMBER]: {
         width: 1,
         label: "Run#",
         type: inputTypes.TEXT,
-        initValue: "default text",
+        initValue: "",
         required: true,
     },
-    [fields.FLOWCELL_ID]: {
+    [fields.runs.FLOWCELL_ID]: {
         width: 2,
         label: "Flowcell ID",
         type: inputTypes.TEXT,
         initValue: "",
         required: true,
     },
-    [fields.PIPELINE_VERSION_ID]: {
+    [fields.runs.FLOWCELL_TYPE_ID]: {
         width: 1,
         label: "Version",
         type: inputTypes.DROPDOWN,
+        optionsKey: optionsStoreKeys.FLOWCELL_TYPES,
         initValue: -1,
         required: false,
     },
-    [fields.CLUSTER_DATE]: {
+    [fields.runs.RELEASE_DATE]: {
         width: 3,
         label: "Cluster Date",
         type: inputTypes.DATE,
         initValue: dateNow(),
         required: true,
     },
-    [fields.INSTRUMENT_ID]: {
+    [fields.runs.INSTRUMENT_ID]: {
         width: 3,
         label: "Machine",
         type: inputTypes.DROPDOWN,
@@ -45,7 +46,7 @@ const runsModel = {
         initValue: -1,
         required: false,
     },
-    [fields.RUN_DATE]: {
+    [fields.runs.GA_RUN_DATE]: {
         width: 2,
         label: "Run Date",
         type: inputTypes.DATE,
@@ -54,26 +55,29 @@ const runsModel = {
     },
 
     /* Mini sub-form on the left, sharing 4 width units on the left */
-    [fields.RUN_TYPES_LENGTH_ID]: {
+    [fields.runs.RUN_TYPES_LENGTH_ID]: {
         width: 12,
         label: "Run type",
         type: inputTypes.DROPDOWN,
+        optionsKey: optionsStoreKeys.RUN_TYPES_LENGTHS,
         initValue: -1,
     },
-    [fields.STAGE]: {
+    [fields.runs.FC_STAGE]: {
         width: 4,
         label: "Stage",
         type: inputTypes.DROPDOWN,
         initValue: -1,
+        hasNoneValue: false,
         options: [[1,'--'], [2,'A'], [3,'B']],
     },
-    [fields.SEQUENCING_KIT_VERSION_ID]: {
+    [fields.runs.SEQUENCING_KIT_VERSION_ID]: {
         width: 4,
         label: "Kit",
         type: inputTypes.DROPDOWN,
+        optionsKey: optionsStoreKeys.SEQUENCING_KIT_VERSIONS,
         initValue: -1,
     },
-    [fields.IS_FAILED]: {
+    [fields.runs.IS_FAILED]: {
         width: 4,
         label: "Run failed",
         type: inputTypes.CHECKBOX,
@@ -81,11 +85,11 @@ const runsModel = {
     },
 
     /* Comment, using 8 units on the right */
-    [fields.COMMENT]: {
+    [fields.runs.COMMENT]: {
         width: 8,
         label: "Comment",
         type: inputTypes.TEXTAREA,
-        initValue: "default comment",
+        initValue: "",
     },
 
 };

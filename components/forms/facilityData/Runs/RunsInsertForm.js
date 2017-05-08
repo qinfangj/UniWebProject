@@ -156,7 +156,7 @@ class RunsInsertForm extends React.PureComponent {
                     <Col sm={3} className={formsCss.formCol}>
                         <DatePicker
                             form={this.form}
-                            field={fields.RUN_DATE}
+                            field={fields.GA_RUN_DATE}
                             label="Run date"
                             required
                         />

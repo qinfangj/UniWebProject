@@ -1,9 +1,10 @@
 "use strict";
 import React from 'react';
+import store from '../../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Control, Field, Form, actions} from 'react-redux-form';
-import { requestInstruments } from '../../../actions/actionCreators/optionsActionCreators';
+import { requestInstruments, requestFlowcellTypes, requestRunsTypesLengths, requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 import formsCss from '../../forms.css';
@@ -50,23 +51,25 @@ class RunsInsertFormRedux extends React.PureComponent {
         //     this.setState({ disabled: true });
         // }
 
-        // for (let field of Object.keys(runsModel)) {
-        //
-        // }
-        //     let storeKey = this.props.storeKey;
-        // if (this.props.suffix) {
-        //     this.props.getConditionalOptionsListAsync(this.props.table, this.props.suffix, storeKey);
-        // } else {
-        //     this.props.getOptionsListAsync(this.props.table, storeKey);
-        // }
         this.props.requestInstruments();
+        this.props.requestSequencingKitVersions();
+        this.props.requestRunsTypesLengths();
+        this.props.requestFlowcellTypes();
     }
 
     componentWillReceiveProps() {
         //forms.newOrUpdate(this.form, this.table, this.props.updateId);
     }
 
-    onSubmit() {
+    postSubmit(values) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => resolve(true), 0);
+        });
+    }
+
+    onSubmit(values) {
+        console.info("Submitted values: ", values);
+        store.dispatch(actions.submit(this.modelName, this.postSubmit(values)));
         //let formData = this.getFormValues();
         //forms.submit(this.table, formData, this.required, null);
     }
@@ -88,7 +91,6 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 
     render() {
-
         let formFields = [];
         for (let modelName of Object.keys(this.state.model)) {
             let model = this.state.model[modelName];
@@ -106,7 +108,7 @@ class RunsInsertFormRedux extends React.PureComponent {
         }
 
         return (
-            <Form model={this.modelName}>
+            <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                 {/* <Feedback reference={this.modelName} /> */}
 
@@ -127,7 +129,7 @@ class RunsInsertFormRedux extends React.PureComponent {
                         Activate form
                     </Button>
                     :
-                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
+                    <Button type="submit" bsStyle="primary" className={css.submitButton}>
                         Submit
                     </Button>
                 }
@@ -153,7 +155,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ requestInstruments }, dispatch);
+    return bindActionCreators({
+        requestInstruments,
+        requestFlowcellTypes,
+        requestRunsTypesLengths,
+        requestSequencingKitVersions
+        }, dispatch);
 };
 
 

@@ -12,13 +12,13 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock, Checkbox } from 'react
 
 class BSTextInput extends React.PureComponent {
     render() {
-        let {label, ...otherProps} = this.props;
+        let {label, ...inputProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
 
         return (
             <FormGroup>
                 {title}
-                <FormControl bsSize="small" {...otherProps} />
+                <FormControl bsSize="small" {...inputProps} />
             </FormGroup>
         );
     }
@@ -26,13 +26,13 @@ class BSTextInput extends React.PureComponent {
 
 class BSTextArea extends React.PureComponent {
     render() {
-        let {label, ...otherProps} = this.props;
+        let {label, ...inputProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
 
         return (
             <FormGroup>
                 {title}
-                <FormControl componentClass="textarea" bsSize="small" {...otherProps} />
+                <FormControl componentClass="textarea" bsSize="small" {...inputProps} />
             </FormGroup>
         );
     }
@@ -40,14 +40,15 @@ class BSTextArea extends React.PureComponent {
 
 class BSSelect extends React.PureComponent {
     render() {
-        let {options, label, validationState, helpMsg, ...otherProps} = this.props;
+        let {options, label, validationState, helpMsg, hasNoneValue, ...inputProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
         let help = helpMsg ? <HelpBlock bsClass={css.feedback}>{helpMsg}</HelpBlock> : null;
         let feedback = validationState !== null ? <FormControl.Feedback /> : null;
 
-        options = this.props.options ? this.props.options.map((v,i) => {
+        options = options ? options.map((v,i) => {
             return <option value={v[0]} key={i}>{v[1]}</option>;
         }) : [];
+        if (hasNoneValue && options) { options.unshift(<option value={-1} key="-">{'-'}</option>); }
 
         return (
             <FormGroup validationState={validationState} bsSize="small" >
@@ -55,7 +56,7 @@ class BSSelect extends React.PureComponent {
                 <FormControl
                     componentClass="select"
                     placeholder={label}
-                    {...otherProps}
+                    {...inputProps}
                 >
                 {options}
                 </FormControl>
@@ -65,10 +66,13 @@ class BSSelect extends React.PureComponent {
         );
     }
 }
+BSSelect.defaultProps = {
+    hasNoneValue: true,
+};
 
 class BSDate extends React.PureComponent {
     render() {
-        let {label, ...otherProps} = this.props;
+        let {label, ...inputProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
 
         return (
@@ -76,7 +80,7 @@ class BSDate extends React.PureComponent {
                 {title}
                 <FormControl
                     type="date"
-                    {...otherProps}
+                    {...inputProps}
                 />
             </FormGroup>
         );
@@ -85,12 +89,12 @@ class BSDate extends React.PureComponent {
 
 class BSCheckbox extends React.PureComponent {
     render() {
-        let {label, ...otherProps} = this.props;
+        let {label, ...inputProps} = this.props;
         return (
             <FormGroup bsSize="small">
                 <Checkbox
                     className={css.checkbox}
-                    {...otherProps}
+                    {...inputProps}
                 >
                 <div className={css.checkboxLabel}>{label}</div>
                 </Checkbox>
@@ -100,7 +104,7 @@ class BSCheckbox extends React.PureComponent {
 }
 
 
-export function makeRRFInput(type, modelName, inputProps) {
+export function makeRRFInput(type, modelName, otherProps) {
     let component;
     if (type === inputTypes.TEXT) {
         component = BSTextInput;
@@ -115,11 +119,13 @@ export function makeRRFInput(type, modelName, inputProps) {
     } else {
         throw "Unknown input type: '"+ type +"'";
     }
+    let {required, validator, ...inputProps} = otherProps;
     return (
         <Control
             className={css.input}
             component={component}
             model={modelName}
+            required={required}
             {...inputProps}
         />
     );

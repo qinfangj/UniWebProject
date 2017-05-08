@@ -123,7 +123,7 @@ class CommonAdminForms extends React.Component {
                 <div className="clearfix"/>
                 <Col sm={6} className={css.formCol}>
                     <Button bsStyle="primary" className={admincss.button} type="submit" >
-                        {this.state.isInsert ? 'Submit':'ActivateForm'}
+                        {this.state.isInsert ? 'Submit' : 'ActivateForm'}
                     </Button>
                 </Col>
             </Form>
