@@ -4,35 +4,40 @@
 
 .table {
     width: 100%;
-    padding: 10px;
-    border-collapse: collapse;
+
     background-color: #E0E0E0;
-
 }
-.tr {
-    padding: 0px
-
+.thead {
 }
 
 .th {
-    margin: 1px;
-    padding: 1px;
+    padding: 3px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
     height: 30px;
     text-align: center;
 }
 
+.tr {
+
+}
+
 .td {
-    padding: 1px;
-    height: 50px;
+    padding-top: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    min-height: 140px;
+
 }
 
 .header {
-    margin:0px;
-    padding:2px;
-    height:100%;
-    background-color:var(--yellow);
-
-
+    margin: 0px;
+    padding: 2px;
+    height: 100%;
+    background-color: var(--yellow);
+    border: solid 1px #ccc;
 }
 
 .showmore {
@@ -45,18 +50,17 @@
 
 .selectedCell {
     padding: 10px;
-    min-height: 150px;
-    background-color:#ebf2f9;
+    min-height: 140px;
+    background-color: #ebf2f9;
     border: solid 1px #3572B0;
     border-radius: 4px;
     white-space: pre;
 }
 
 .cell {
-    margin:0px;
-    padding:10px;
-    min-height: 150px;
-    background-color:#fff;
+    padding: 10px;
+    min-height: 140px;
+    background-color: #fff;
     border-radius: 4px;
     border: solid 1px #ccc;
     cursor: pointer;
@@ -71,7 +75,9 @@
 .tooltip {
     position: relative;
     display: inline-block;
-    text-align: center;
+    text-align: right;
+    right: 20px;
+    bottom: 20px;
 }
 
 .tooltip .tooltiptext {
@@ -107,8 +113,16 @@
     opacity: 1;
 }
 
+.menuUpDown {
+    position: relative;
+    display: inline-block;
+    float: right;
+    right: 5px;
+    vertical-align: bottom;
+}
+
 .div1 {
-    width:auto;
+    width: auto;
     height: auto;
     border-radius: 4px;
     background-color: white;
@@ -117,7 +131,7 @@
 }
 
 .div2 {
-    width:30%;
+    width: 35%;
     padding: 10px;
     align-self: stretch;
 }
@@ -131,16 +145,16 @@
 }
 
 .div2 th{
-    padding:5px;
+    padding: 5px;
 }
 
 .div2 td{
-    padding:5px;
+    padding: 5px;
 }
 
 .div3 {
-    width:70%;
-    background-color: #FFFFE0;
+    width: 65%;
+    background-color: #ebf2f9;
     border-radius: 4px;
     padding: 10px;
     align-self: stretch;
@@ -148,8 +162,9 @@
 
 .div3 table{
     border-collapse: collapse;
+    width: 100%;
     margin: 5px;
-    border: 1px solid grey;
+    border: 1px solid #ccc;
 
 }
 
@@ -158,13 +173,18 @@
 }
 
 .div3 th{
-    padding:5px;
-    border: 1px solid grey;
+    padding: 5px;
+    border: 1px solid #ccc;
     background-color: var(--yellow);
 }
 
 .div3 td {
     padding: 5px;
-    border: 1px solid grey;
+    border: 1px solid #ccc;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
 }
 
