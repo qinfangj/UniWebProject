@@ -26,8 +26,8 @@
 .resetBtn{
     position:relative;
     width: 15px;
-    top: 10px;
-    right: 20px;
+    top: 9px;
+    right: 22px;
     float: right;
     z-index: 1;
     cursor: pointer;
