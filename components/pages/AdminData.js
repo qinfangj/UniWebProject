@@ -31,9 +31,9 @@ class AdminData extends React.PureComponent {
             state = Object.assign(state, {submissionError: false, submissionFuture: future});
             future
                 .done((delNum) => {
-                    console.debug(200, "Deleted Unvalidated Users successfully: " + JSON.stringify(delNum));
+                    console.debug(200, "Deleted All Unvalidated Users successfully: " + JSON.stringify(delNum));
 
-                    store.dispatch(feedbackSuccess("limsUser", "Deleted Unvalidated Users successfully"));
+                    store.dispatch(feedbackSuccess("limsUser", "Deleted All Unvalidated Users successfully"));
 
                 })
                 .fail((err) => {
