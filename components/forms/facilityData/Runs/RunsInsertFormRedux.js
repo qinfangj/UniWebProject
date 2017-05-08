@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Control, Field, Form, actions} from 'react-redux-form';
-import requestOptions from '../../../actions/actionCreators/optionsActionCreators';
+import { requestInstruments } from '../../../actions/actionCreators/optionsActionCreators';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 import formsCss from '../../forms.css';
@@ -59,7 +59,7 @@ class RunsInsertFormRedux extends React.PureComponent {
         // } else {
         //     this.props.getOptionsListAsync(this.props.table, storeKey);
         // }
-        this.props.requestOptions(optionsStoreKeys.INSTRUMENTS);
+        this.props.requestInstruments();
     }
 
     componentWillReceiveProps() {
@@ -153,7 +153,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ requestOptions }, dispatch);
+    return bindActionCreators({ requestInstruments }, dispatch);
 };
 
 

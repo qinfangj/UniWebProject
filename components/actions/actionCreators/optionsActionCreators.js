@@ -45,6 +45,10 @@ export function requestInstruments() {
     return requestOptionsListAsync(types.options.OPTIONS_INSTRUMENTS, "instruments");
 }
 
+export function requestLibAdapters() {
+    return requestOptionsListAsync(types.options.OPTIONS_LIB_ADAPTERS, "library_adapters");
+}
+
 export function requestLibProtocols() {
     return requestOptionsListAsync(types.options.OPTIONS_LIB_PROTOCOLS, "lib_protocols");
 }
@@ -130,6 +134,9 @@ export default function requestOptions(storeKey) {
 
         case optionsStoreKeys.INSTRUMENTS:
             return requestInstruments();
+
+        case optionsStoreKeys.LIB_ADAPTERS:
+            return requestLibAdapters();
 
         case optionsStoreKeys.LIB_PROTOCOLS:
             return requestLibProtocols();

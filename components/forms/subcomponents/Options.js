@@ -30,24 +30,24 @@ export class Instruments extends React.Component {
     }
 }
 
-/** In Libraries and UserRequests ("Library type") */
-export class LibProtocols extends React.Component {
-    formatter(v) { return [v.id, v.shortName]; }
-    render() {
-        return <AsyncOptionsList field={fields.LIB_PROTOCOL_ID} table="lib_protocols" label="Library type"
-                                 storeKey={optionsStoreKeys.LIB_PROTOCOLS}
-                                 formatter={this.formatter}
-                                 {...this.props}
-        />;
-    }
-}
-
 /** In Libraries */
 export class LibraryAdapters extends React.Component {
     formatter(v) { return [v.id, v.name]; }
     render() {
         return <AsyncOptionsList field={fields.ADAPTER_ID} table="library_adapters" label="Adapter"
                                  storeKey={optionsStoreKeys.LIB_ADAPTERS}
+                                 formatter={this.formatter}
+                                 {...this.props}
+        />;
+    }
+}
+
+/** In Libraries and UserRequests ("Library type") */
+export class LibProtocols extends React.Component {
+    formatter(v) { return [v.id, v.shortName]; }
+    render() {
+        return <AsyncOptionsList field={fields.LIB_PROTOCOL_ID} table="lib_protocols" label="Library type"
+                                 storeKey={optionsStoreKeys.LIB_PROTOCOLS}
                                  formatter={this.formatter}
                                  {...this.props}
         />;
