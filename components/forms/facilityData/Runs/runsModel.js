@@ -17,14 +17,14 @@ const runsModel = {
         required: true,
     },
     [fields.runs.FLOWCELL_ID]: {
-        width: 2,
+        width: 3,
         label: "Flowcell ID",
         type: inputTypes.TEXT,
         initValue: "",
         required: true,
     },
     [fields.runs.FLOWCELL_TYPE_ID]: {
-        width: 1,
+        width: 2,
         label: "Version",
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.FLOWCELL_TYPES,
@@ -47,7 +47,7 @@ const runsModel = {
         required: false,
     },
     [fields.runs.GA_RUN_DATE]: {
-        width: 2,
+        width: 3,
         label: "Run Date",
         type: inputTypes.DATE,
         initValue: dateNow(),
@@ -56,14 +56,14 @@ const runsModel = {
 
     /* Mini sub-form on the left, sharing 4 width units on the left */
     [fields.runs.RUN_TYPES_LENGTH_ID]: {
-        width: 4,
+        width: 3,
         label: "Run type",
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.RUN_TYPES_LENGTHS,
         initValue: -1,
     },
     [fields.runs.FC_STAGE]: {
-        width: 4,
+        width: 3,
         label: "Stage",
         type: inputTypes.DROPDOWN,
         initValue: -1,
@@ -71,14 +71,14 @@ const runsModel = {
         options: [[1,'--'], [2,'A'], [3,'B']],
     },
     [fields.runs.SEQUENCING_KIT_VERSION_ID]: {
-        width: 4,
+        width: 3,
         label: "Kit",
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.SEQUENCING_KIT_VERSIONS,
         initValue: -1,
     },
     [fields.runs.IS_FAILED]: {
-        width: 4,
+        width: 2,
         label: "Run failed",
         type: inputTypes.CHECKBOX,
         initValue: false,
@@ -86,7 +86,7 @@ const runsModel = {
 
     /* Comment, using 8 units on the right */
     [fields.runs.COMMENT]: {
-        width: 8,
+        width: 10,
         label: "Comment",
         type: inputTypes.TEXTAREA,
         initValue: "",

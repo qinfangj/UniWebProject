@@ -112,15 +112,9 @@ class RunsInsertFormRedux extends React.PureComponent {
 
                 {/* <Feedback reference={this.modelName} /> */}
 
-                {/*<form className={formsCss.form}>*/}
-                {/*<Form componentClass="fieldset" horizontal>*/}
-
-
                 {formFields}
 
                 <div className="clearfix"/>
-
-                <Button onClick={this.addField.bind(this)}>Add field</Button>
 
                 {/* Submit */}
 
@@ -133,6 +127,8 @@ class RunsInsertFormRedux extends React.PureComponent {
                         Submit
                     </Button>
                 }
+
+                <Button onClick={this.addField.bind(this)}>Add field</Button>
 
             </Form>
         );
