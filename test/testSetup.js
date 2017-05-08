@@ -12,4 +12,6 @@ if (typeof document === 'undefined') {
     global.window.ENV = {BACKEND_URL: 'asdf'};
     //window.ENV.BACKEND_URL = 'asdf';
     global.navigator = global.window.navigator;
+    global.HTMLElement = global.window.HTMLElement;
+
 }

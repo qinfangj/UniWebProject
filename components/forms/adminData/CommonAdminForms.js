@@ -11,6 +11,7 @@ import constants from '../../constants/constants';
 import { Control, Form, actions} from 'react-redux-form';
 import { findByIdAsync} from '../../actions/actionCreators/facilityDataActionCreators';
 import Feedback from '../../utils/Feedback';
+import inputTypes from '../../forms/inputTypes';
 
 /* React-bootstrap */
 import { Button, Col, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap/lib';
@@ -64,13 +65,13 @@ class CommonAdminForms extends React.Component {
     }
 
     handleSubmit(values){
-        submit.submit(this, values, this.table, this.props.updateId, this.state.isInsert);
+        submit.submit(this, this.modelName, values, this.table, this.props.updateId, this.state.isInsert);
     }
 
 
     makeInput(s) {
         let input;
-        if (s.type === "Boolean") {
+        if (s.type === inputTypes.CHECKBOX) {
             input =
                 <Control.checkbox
                     model={".".concat(s.name)}

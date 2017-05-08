@@ -1,6 +1,7 @@
 "use strict";
-import { combineForms } from  'react-redux-form';
 import adminDataModels from '../../../forms/adminData/adminDataModels';
+import { combineForms } from  'react-redux-form'
+import inputTypes from '../../../forms/inputTypes';
 
 /**
  * Fills an object `initalData` with the initial form values.
@@ -11,10 +12,12 @@ function initialAdminForms(table) {
     let initalData = {};
     adminDataModels[table].fields.map(
         (s) => {
-            if (s.type === "" || s.type === undefined) {
+            if (s.type === inputTypes.TEXT) {
                 initalData[s.name] = '';
-            }else if (s.type === "Boolean"){
+            }else if (s.type === inputTypes.CHECKBOX){
                 initalData[s.name] = false;
+            }else if (s.type === inputTypes.DROPDOWN){
+                initalData[s.name] = -1;
             }
         });
     return initalData;
