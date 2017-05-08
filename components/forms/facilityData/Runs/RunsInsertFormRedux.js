@@ -86,12 +86,19 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 
     render() {
+        console.debug(this.props.formData)
+        console.debug(this.props.formModel)
+        let formData = this.props.formData;
+        let formModel = this.props.formModel;
+
         let formFields = [];
         for (let modelName of Object.keys(this.state.model)) {
             let model = this.state.model[modelName];
             let {type, initValue, optionsKey, ...otherProps} = model;
             otherProps.key = modelName;
             otherProps.disabled = model.disabled || this.state.disabled;
+            otherProps.submissionError = formModel[modelName].submitFailed && formModel[modelName].validated && (! formModel[modelName].valid);
+            console.debug(otherProps.submissionError);
             if (optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }
@@ -144,7 +151,11 @@ const mapStateToProps = (state) => {
             options[model.optionsKey] = state.options[model.optionsKey] || [];
         }
     }
+    let formData = state.facilityDataForms.runs;
+    let formModel = state.facilityDataForms.forms.runs;
     return {
+        formData: formData,
+        formModel: formModel,
         options: options,
     };
 };

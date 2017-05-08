@@ -5,7 +5,7 @@ import formsCss from '../forms.css';
 import inputTypes from '../inputTypes';
 import { DEFAULT_DATE } from '../inputTypes';
 import { Control, Errors } from 'react-redux-form';
-import { FormGroup, FormControl, ControlLabel, HelpBlock, Checkbox } from 'react-bootstrap/lib';
+import { FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap/lib';
 
 /**
  * Use React-bootstrap visual input components in React-redux-forms functional components.
@@ -13,11 +13,12 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock, Checkbox } from 'react
 
 class BSTextInput extends React.PureComponent {
     render() {
-        let {label, ...inputProps} = this.props;
+        let {label, submissionError, ...inputProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let validationState = submissionError ? "error" : this.props.validationState;
 
         return (
-            <FormGroup bsSize="small" >
+            <FormGroup validationState={validationState} bsSize="small" >
                 {title}
                 <FormControl {...inputProps} />
             </FormGroup>
@@ -27,11 +28,12 @@ class BSTextInput extends React.PureComponent {
 
 class BSTextArea extends React.PureComponent {
     render() {
-        let {label, ...inputProps} = this.props;
+        let {label, submissionError, ...inputProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let validationState = submissionError ? "error" : this.props.validationState;
 
         return (
-            <FormGroup bsSize="small" >
+            <FormGroup validationState={validationState} bsSize="small" >
                 {title}
                 <FormControl componentClass="textarea" {...inputProps} />
             </FormGroup>
@@ -41,10 +43,9 @@ class BSTextArea extends React.PureComponent {
 
 class BSSelect extends React.PureComponent {
     render() {
-        let {options, label, validationState, helpMsg, hasNoneValue, ...inputProps} = this.props;
+        let {options, label, submissionError, hasNoneValue, ...inputProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
-        let help = helpMsg ? <HelpBlock bsClass={formsCss.feedback}>{helpMsg}</HelpBlock> : null;
-        let feedback = validationState !== null ? <FormControl.Feedback /> : null;
+        let validationState = submissionError ? "error" : this.props.validationState;
 
         options = options ? options.map((v,i) => {
             return <option value={v[0]} key={i}>{v[1]}</option>;
@@ -61,8 +62,6 @@ class BSSelect extends React.PureComponent {
                 >
                 {options}
                 </FormControl>
-                {feedback}
-                {help}
             </FormGroup>
         );
     }
@@ -73,11 +72,12 @@ BSSelect.defaultProps = {
 
 class BSDate extends React.PureComponent {
     render() {
-        let {label, ...inputProps} = this.props;
+        let {label, submissionError, ...inputProps} = this.props;
         let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let validationState = submissionError ? "error" : this.props.validationState;
 
         return (
-            <FormGroup bsSize="small" >
+            <FormGroup validationState={validationState} bsSize="small" >
                 {title}
                 <FormControl
                     type="date"
@@ -90,9 +90,11 @@ class BSDate extends React.PureComponent {
 
 class BSCheckbox extends React.PureComponent {
     render() {
-        let {label, ...inputProps} = this.props;
+        let {label, submissionError, ...inputProps} = this.props;
+        let validationState = submissionError ? "error" : this.props.validationState;
+
         return (
-            <FormGroup bsSize="small">
+            <FormGroup validationState={validationState} bsSize="small">
                 <Checkbox
                     className={formsCss.checkbox}
                     {...inputProps}

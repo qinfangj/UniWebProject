@@ -1,5 +1,7 @@
+@import '../../../styles/colors.css';
+
 
 /* Error feedback component */
 .errors {
-    color: red;
+    color: var(--errorRed);
 }
