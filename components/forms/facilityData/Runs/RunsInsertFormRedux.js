@@ -47,22 +47,17 @@ class RunsInsertFormRedux extends React.PureComponent {
 
     componentWillMount() {
         forms.newOrUpdate2(this.modelName, this.table, this.props.updateId);
-        //forms.newOrUpdate(this.form, this.table, this.props.updateId);
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
-
         this.props.requestInstruments();
         this.props.requestSequencingKitVersions();
         this.props.requestRunsTypesLengths();
         this.props.requestFlowcellTypes();
     }
 
-    componentWillReceiveProps() {
-        //forms.newOrUpdate2(this.modelName, this.table, this.props.updateId);
-    }
-
     postSubmit(values) {
+        // Ex: http://codepen.io/davidkpiano/pen/c683e0cf7ee54736b49b2ce30aba956f?editors=0010
         return new Promise((resolve, reject) => {
             setTimeout(() => resolve(true), 0);
         });
