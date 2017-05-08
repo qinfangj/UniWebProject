@@ -18,23 +18,16 @@
 }
 
 .searchField {
+    margin-bottom: 15px;
     width: 225px;
-    float: right;
-}
-
-.searchWrapper {
-    position: relative;
-    width: 300px;
-    margin-bottom: 10px;
-    margin-top: -40px;
     float: right;
 }
 
 .resetBtn{
     position:relative;
     width: 15px;
-    right: 22px;
     top: 9px;
+    right: 22px;
     float: right;
     z-index: 1;
     cursor: pointer;
