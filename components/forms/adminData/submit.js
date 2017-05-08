@@ -6,6 +6,7 @@ import adminData from './adminDataModels';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { dateNow, parseDateString } from '../../../utils/time';
 import { withRouter } from 'react-router';
+import inputTypes from '../inputTypes';
 
 
 //Format adminFormData as the adminFormConstants defined before submission
@@ -15,11 +16,11 @@ export function formatFormData(formData, table) {
     Object.keys(formData).forEach(function (key, index) {
 
         if (fieldsNames.indexOf(key) > -1) {
-            let ind = fieldsNames.indexOf(key)
+            let ind = fieldsNames.indexOf(key);
 
-            if (adminData[table].fields[ind].type === "Int") {
+            if (adminData[table].fields[ind].type === inputTypes.DROPDOWN) {
                 formData[key] = parseInt(formData[key]);
-            } else if (adminData[table].fields[ind].type === "Boolean") {
+            } else if (adminData[table].fields[ind].type === inputTypes.CHECKBOX) {
                 formData[key] = !!parseInt(formData[key]);
             }
         }

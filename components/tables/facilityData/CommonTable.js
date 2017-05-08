@@ -11,6 +11,7 @@ import _ from 'lodash';
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
+
 import columns from '../columns';
 import { defaultHeaderRenderer } from '../columns';
 import Feedback from '../../utils/Feedback';
@@ -95,6 +96,11 @@ class CommonTable extends React.PureComponent {
         this.setState({searchValue: value});
     }
 
+    reset(){
+        this.api.setQuickFilter("");
+        this.setState({searchValue: ""});
+    }
+
     onScroll() {
         let nodes = this.api.getRenderedNodes();
         let dataLength = this.props.data.length;
@@ -126,10 +132,15 @@ class CommonTable extends React.PureComponent {
 
         return (
             <div style={{width: '100%', height: '100%'}}>
-                <FormControl type="text" placeholder="Search" className={css.searchField}
+                <div className={css.searchWrapper}>
+                <div type="button" className={css.resetBtn} onClick={this.reset.bind(this)}>
+                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </div>
+                <FormControl type="text" className={css.searchField} placeholder="Search"
                     value={this.state.searchValue}
                     onChange={this.onSearch.bind(this)}
                 />
+                </div>
                 <div className="clearfix"/>
 
                 { !this.props.form ? null :

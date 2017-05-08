@@ -10,7 +10,7 @@ class DataLoadingIcon extends React.PureComponent {
     }
 
     render() {
-        return this.props.isLoading ? <div style ={{margin: '0 auto', width: '42px'}}>
+        return this.props.isLoading ? <div style ={{margin: '0 auto',position:'fixed',top:'35%',left:'50%', width: '42px'}}>
                 <svg width='70px' height='70px'  viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" className="uil-default">
                     <rect x="0" y="0" width="100" height="100" fill="none" className="bk"/>
                     <rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#96d5f0' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect>

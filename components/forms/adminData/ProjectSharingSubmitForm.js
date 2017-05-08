@@ -123,14 +123,14 @@ class ProjectSharingSubmitForm extends React.PureComponent {
         if (this.props.hasNoneValue) {
             options.unshift([-1, '-']);
         }
-        let results = options.map((v,i) => {
+        let optionList = options.map((v,i) => {
             return <option value={v[0]} key={i}>{v[1]}</option>;
         });
-        return results;
+        return optionList;
     }
 
     handleSubmit(values){
-        submit.submit(this, values, this.table, this.props.updateId, this.state.isInsert);
+        submit.submit(this, this.modelName, values, this.table, this.props.updateId, this.state.isInsert);
     }
 
     render() {
@@ -140,28 +140,7 @@ class ProjectSharingSubmitForm extends React.PureComponent {
         let peopleList = this.state.peopleList;
         let peopleOptions = this.makeOptions(peopleList,this.formatterPeople);
 
-        // const BSSelectProjects = (props) => <AsyncOptionsList
-        //     table="projects"
-        //     form="projectSharingsForm"
-        //     storeKey={dataStoreKeys.PROJECTS}
-        //     field={fields.PROJECT_ID}
-        //     formatter={this.formatterProject}
-        //     {...props} />;
-        // const BSSelectProjects = (props) => <Options.Projects
-        //                                 form="projectSharingsForm"
-        //                                 suffix="all"
-        //                                 {...props} />;
-        //const BSSelect = (props) => <Select form="projectSharingsForm" field={fields.PROJECT_ID} {...props} />;
-
-        const BSSelectProjects = (props) => <Select form="projectSharingsForm"
-                                                    field={fields.PROJECT_ID}
-                                                    options={options}
-                                                    disabled={!this.state.isInsert}/>;
-
-        const BSSelectPeople = (props) => <Options.People
-                                            form="projectSharingsForm"
-                                            disabled={!this.state.isInsert}
-                                            {...props} />;
+        const BSSelect = (props) => <FormControl componentClass= "select" {...props} />;
 
         const BSTextInput = (props) => <FormControl {...props} />;
 
@@ -173,19 +152,22 @@ class ProjectSharingSubmitForm extends React.PureComponent {
                 <messages.ServerErrorMessage error={this.state.serverError} />
 
                 <Col sm={6} className={css.formCol}>
-                    {/*<Control.select model=".projectId" component={BSSelectProjects} disabled={!this.state.isInsert}/>*/}
                     <label className={admincss.label}>Project:</label>
-                    <Control model=".projectId" component={BSSelectProjects} />
-                        {/*{projectOptions}*/}
-                    {/*</Control>*/}
+                    {/*<Control.select model=".projectId" disabled={!this.state.isInsert} >*/}
+
+                    <Control.select model=".projectId" component={BSSelect} disabled={!this.state.isInsert} >
+                        {projectOptions}
+                    </Control.select>
                 </Col>
 
 
                 <Col sm={6} className={css.formCol}>
-                    <Control model=".personId" component={BSSelectPeople} />
+
+                    <label className={admincss.label}>Colaborator:</label>
+                    <Control.select model=".personId" component={BSSelect} disabled={!this.state.isInsert} >
                     {/*<Control.select model=".personId" disabled={!this.state.isInsert}>*/}
-                        {/*{peopleOptions}*/}
-                    {/*</Control.select>*/}
+                        {peopleOptions}
+                    </Control.select>
                 </Col>
 
                 <Col sm={12} className={css.formCol}>
