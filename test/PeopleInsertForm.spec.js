@@ -61,27 +61,5 @@ describe('peopleInsertForm =>', () => {
 
     });
 
-    it('Fill the valid data and click Submit button should not have submission error and submission is passed through ', () => {
-        // const mockOnclick=sinon.spy();
-
-        const component = renderIntoDocument(
-            <Provider store={store}>
-                <PeopleInsertFrom/>
-            </Provider>
-        );
-
-        const submitBtn = scryRenderedDOMComponentsWithTag(component,"button");
-        const textFields = scryRenderedDOMComponentsWithTag(component, "input");
-
-        Simulate.change(textFields[0],{target: {value: 'giraffe'}});
-        Simulate.change(textFields[1],{target: {value: 'bear'}});
-        Simulate.change(textFields[2],{target: {value: 'aa@xxx.com'}});
-        Simulate.change(textFields[3],{target: {value: 'chemin address'}});
-        Simulate.change(textFields[4],{target: {value: '0000000000'}});
-
-        Simulate.click(submitBtn[0]);
-
-    });
-
 
 });
