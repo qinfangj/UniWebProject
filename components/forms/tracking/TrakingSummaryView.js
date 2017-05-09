@@ -142,7 +142,7 @@ class TrackingSummaryView extends React.PureComponent {
                                     {(o[s][index]['comment'] !== "" && o[s][index]['comment'] !== undefined)?
                                         <div className={trackCss.tooltip}>
                                             <span className={trackCss.tooltiptext}>{o[s][index]['comment']}</span>
-                                            <Icon name="comments"  style={{color: '#337ab7', fontSize:20}} />
+                                            <Icon name="comments"  style={{color: '#337ab7', fontSize:25}} />
                                         </div>: null }
                                         <div className={trackCss.menuUpDown}>
                                             <Icon name="chevron-down" />
@@ -161,12 +161,9 @@ class TrackingSummaryView extends React.PureComponent {
 
                                                 <div className={trackCss.tooltip}>
                                                     <span className={trackCss.tooltiptext}>{o[s][index]['comment']}</span>
-                                                    <Icon name="comments" style={{color: '#337ab7',fontSize:20}} />
+                                                    <Icon name="comments" style={{color: '#337ab7',fontSize:25}} />
                                                 </div>
                                              : null}
-                                            <div className={trackCss.menuUpDown}>
-                                                <Icon name="chevron-up" />
-                                            </div>
                                         </div>
 
                                     </div>

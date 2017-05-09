@@ -105,6 +105,9 @@ const routes = (
 
             {/* Tracking */}
             <Route path="tracking" component={tkdata.trackingTable} onEnter={requireAuth} />
+            <Route path="tracking/samples" component={tkdata.trackingTable} onEnter={requireAuth} />
+            <Route path="tracking/libraries" component={tkdata.trackingTable} onEnter={requireAuth} />
+            <Route path="tracking/runs" component={tkdata.trackingTable} onEnter={requireAuth} />
 
             {/* QUERY PROJECTS */}
 

@@ -38,7 +38,7 @@ class TrackingDetailView extends React.PureComponent {
                  <tbody key={k}>
                  <tr >{makeBody}</tr>
                  <tr ><td colSpan='9'>
-                     <Icon name="comment" style={{color:'pink',padding:'5px'}}/> {(v['Comment'] !== undefined)? v['Comment'] : '--'}</td></tr>
+                     <Icon name="comment" style={{color:'#337ab7',padding:'5px'}}/> {(v['Comment'] !== undefined)? v['Comment'] : '--'}</td></tr>
                  </tbody>
 
              )
