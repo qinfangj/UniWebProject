@@ -7,7 +7,7 @@ import Icon from "react-fontawesome";
 import TrackingDetailView from './TrackingDetailView';
 
 
-class TableCellClick extends React.PureComponent {
+class TrackingSummaryView extends React.PureComponent {
     constructor() {
         super();
         this.state = {
@@ -15,58 +15,7 @@ class TableCellClick extends React.PureComponent {
                         insertRow : -1,
                         insertCol: "",
                       };
-        // this.summaryData = {
-        //     'classA': [{id: 1},{id: 2},{id: 3},{id: 4}],
-        //     'classB': [{code: '002'},{code: '003'},{code: '004'}],
-        //     'classC': [{type: 'C01'},{type: 'C02'}]
-        // };
-        // this.detailData = {
-        //     'classA': [
-        //                 {
-        //                     id: 1,
-        //                     contents: ["Push successful","Push successful"]
-        //                 },
-        //                 {
-        //                     id: 2,
-        //                     contents: ["Plugin Updates","Plugin Updates","Plugin Updates","Plugin Updates"]
-        //                 },
-        //                 {
-        //                     id: 3,
-        //                     contents: ["Git Pull Failed","Git Pull Failed","Git Pull Failed","Git Pull Failed"]
-        //                 },
-        //                 {
-        //                     id: 4,
-        //                     contents: ["Merge branch","Merge branch","Merge branch",
-        //                     "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch",
-        //                     "Merge branch","Merge branch","Merge branch","Merge branch","Merge branch"]
-        //                 }
-        //                 ],
-        //     'classB': [
-        //                 {
-        //                     code: '002',
-        //                     contents: ["AAAAAAAAAAAAAAA","BBBBBBBBBBBBB"]
-        //                 },
-        //                 {
-        //                     code: '003',
-        //                     contents: ["DDDDDDDDDD","FFFFFFFFFF","EEEEEEEEEE","GGGGGGGGGGGG"]
-        //                 },
-        //                 {
-        //                     code: '004',
-        //                     contents: ["HHHHHHHHHHHH","LLLLLLLLLLLL","MMMMMMMMMMMM","KKKKKKKKKKKKKKK"]
-        //                 },
-        //                 ],
-        //     'classC': [
-        //                 {
-        //                     type: 'C01',
-        //                     contents: ["AAAAAAAAAAAAAAA","BBBBBBBBBBBBB"]
-        //                 },
-        //                 {
-        //                     type: 'C02',
-        //                     contents: ["DDDDDDDDDD","FFFFFFFFFF","EEEEEEEEEE","GGGGGGGGGGGG"]
-        //                 },
-        //
-        //                 ]
-        // };
+
     }
 
     // static propTypes = {
@@ -81,8 +30,9 @@ class TableCellClick extends React.PureComponent {
         let arrA = o[fieldsHead[0]];
         let arrB = o[fieldsHead[1]];
         let arrC = o[fieldsHead[2]];
+        let arrD = o[fieldsHead[3]];
 
-        let lengthMax = Math.max(arrA.length,arrB.length,arrC.length);
+        let lengthMax = Math.max(arrA.length,arrB.length,arrC.length,arrD.length);
         //console.log(lengthMax);
         for (let i = 0; i< fieldsHead.length; i++) {
             while ((o[fieldsHead[i]]).length < lengthMax){
@@ -168,8 +118,9 @@ class TableCellClick extends React.PureComponent {
 
         let td = Object.keys(o).map(
             (s) => {
-                //console.log(o[s][index]);
-                let widthRate = 100/(Object.keys(o).length) + "%";
+
+                let widthRate = 98/(Object.keys(o).length) + "%";
+
                     if (o[s][index] !== null) {
 
                         let stringRlt = "";
@@ -178,59 +129,72 @@ class TableCellClick extends React.PureComponent {
                         {
                             if (key === "comment"){
                                 break;
-                            }else {
+                            } else {
                                 stringRlt = stringRlt + o[s][index][key] + "\r\n";
                             }
                         }
 
                         if (this.state.insertRow === index && this.state.insertCol == s){
-                            return (<td width={widthRate} className= {trackCss.td}  key={s}>
+                            return (<td className={trackCss.td} width={widthRate} key={s}>
                                 <div type="button" className={trackCss.selectedCell} width="100%" height="100%"
                                      onClick={this.insertDetailedRow.bind(this, s, index)}>{stringRlt}
-                                    {(o[s][index]['comment'] !== "" && o[s][index]['comment'] !== undefined)?
                                     <div style={{textAlign: 'right'}}>
+                                    {(o[s][index]['comment'] !== "" && o[s][index]['comment'] !== undefined)?
                                         <div className={trackCss.tooltip}>
                                             <span className={trackCss.tooltiptext}>{o[s][index]['comment']}</span>
-                                            <Icon name="comment"  style={{color: 'pink',textAlign:'right'}}></Icon>
-                                        </div></div> : null}
-                                     </div>
+                                            <Icon name="comments"  style={{color: '#337ab7', fontSize:20}} />
+                                        </div>: null }
+                                        <div className={trackCss.menuUpDown}>
+                                            <Icon name="chevron-down" />
+                                        </div>
+                                    </div>
+                                </div>
                             </td>)
                         } else {
-                                    return (<td className={trackCss.td} key={s}>
-                                                <div type="button" width="100%" height="100%"
-                                                     onClick={this.insertDetailedRow.bind(this, s, index)}>
-                                                    <div className={trackCss.cell}>
-                                                        {stringRlt}
-                                                        {(o[s][index]['comment'] !== "" && o[s][index]['comment'] !== undefined)?
-                                                        <div style={{textAlign: 'right'}}>
-                                                        <div className={trackCss.tooltip}>
-                                                            <span className={trackCss.tooltiptext}>{o[s][index]['comment']}</span>
-                                                            <Icon name="comment"  style={{color: 'pink',textAlign:'right'}}></Icon>
-                                                        </div></div> : null}
-                                                    </div>
+                            return (<td className={trackCss.td} width={widthRate} key={s}>
+                                <div type="button" width="100%" height="100%"
+                                     onClick={this.insertDetailedRow.bind(this, s, index)}>
+                                    <div className={trackCss.cell}>
+                                        {stringRlt}
+                                        <div style={{textAlign: 'right'}}>
+                                        {(o[s][index]['comment'] !== "" && o[s][index]['comment'] !== undefined)?
+
+                                                <div className={trackCss.tooltip}>
+                                                    <span className={trackCss.tooltiptext}>{o[s][index]['comment']}</span>
+                                                    <Icon name="comments" style={{color: '#337ab7',fontSize:20}} />
                                                 </div>
-                                            </td>)
+                                             : null}
+                                            <div className={trackCss.menuUpDown}>
+                                                <Icon name="chevron-up" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>)
 
                         }
-                    } else { return (<td width={widthRate} className= {trackCss.td} key={s}><div className={trackCss.cell}>&nbsp;</div></td>);}
+                    }
             }
         );
         //console.log(index);
         return td
     }
 
+    closeDetailsView(){
+        this.setState({
+            isShowDetails: false,
+            insertRow: -1,
+            insertCol: "",
+        })
+    }
+
     makeDetailedTr(row,key,data){
         let details = data[key][row];
-        // let stringDetails = "";
-        // for (let key in details){
-        //     stringDetails = stringDetails + key + ":" + details[key] + "\r\n";
-        // }
 
         return (data[key][row] !== undefined)?
                 (<tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}><div className={trackCss.showmore}>
-
-                        {/*JSON.stringify(data[key][row])*/}
-                    {/*{stringDetails}*/}
+                    <span className={trackCss.close} onClick={this.closeDetailsView.bind(this)} ><Icon name='times-circle' style={{fontSize:20}}></Icon></span>
                     <TrackingDetailView detailData={data[key][row]} />
                      </div></td></tr>)
                   :(<tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}><p className={trackCss.showmore}>No details</p></td></tr>)
@@ -246,31 +210,31 @@ class TableCellClick extends React.PureComponent {
         let rows =[];
         if (this.state.isShowDetails) {
             for (let i = 0; i < this.state.insertRow + 1; i++) {
-                rows.push(<tr key={i} ><td style={{textAlign:'center'}}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
+                rows.push(<tr className={trackCss.tr} width='2%' key={i} ><td className= {trackCss.td} style={{textAlign:'center'}}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
             }
 
             rows.push(this.makeDetailedTr(this.state.insertRow, this.state.insertCol, dataDetail));
 
             for (let i = this.state.insertRow+1; i < maxlength; i++) {
-                rows.push(<tr key={i+2}><td style={{textAlign:'center'}}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
+                rows.push(<tr className={trackCss.tr} width='2%' key={i+2}><td className= {trackCss.td} style={{textAlign:'center'}}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
             }
 
             let row = document.getElementById("myTable").rows;
-            row[this.state.insertRow].scrollIntoView(true);
+            row[this.state.insertRow+1].scrollIntoView(true);
         } else {
             for (let i = 0; i < maxlength; i++) {
-                rows.push(<tr key={i}><td>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
+                rows.push(<tr className={trackCss.tr} width='2%' key={i}><td className= {trackCss.td}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
             }
         }
 
         return (
                 <table id="myTable" className={trackCss.table} >
-                    <thead>
-                        <tr><th></th>
+                    <thead className={trackCss.thead}>
+                        <tr className={trackCss.tr}><th className={trackCss.th} width='2%' />
                         {
                             fieldsHead.map((s) =>
                                     {
-                                        return (<th className= {trackCss.th}  key={s}><p className={trackCss.header}>{s}</p> </th>)
+                                        return (<th className= {trackCss.th} width={98/(fieldsHead.length) + "%"} key={s}><p className={trackCss.header}>{s}</p> </th>)
                                     })
                         }
                     </tr>
@@ -286,6 +250,6 @@ class TableCellClick extends React.PureComponent {
 }
 
 
-export default TableCellClick;
+export default TrackingSummaryView;
 
 

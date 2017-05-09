@@ -5,7 +5,7 @@ import store from '../../../core/store';
 import adminData from './adminDataModels';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { dateNow, parseDateString } from '../../../utils/time';
-import { withRouter } from 'react-router';
+import { withRouter,hashHistory } from 'react-router';
 import inputTypes from '../inputTypes';
 
 
@@ -49,28 +49,32 @@ export function submit(component, form, values, table, updateId, isInsert) {
     if (!isInsert) {
         component.setState({isInsert:true});
     } else {
-        let formData = formatFormData(data, table);
-        let submissionFuture = store.dispatch(insertAsync(table, formData));
-        //state = Object.assign(state, {submissionError: false, submissionFuture: future});
-        submissionFuture
-            .done((insertId) => {
-                console.debug(200, "Inserted ID <" + insertId + ">");
-                // Clear the form data in store
-                store.dispatch(feedbackSuccess(form, "Inserted ID <"+insertId+">"));
-                store.dispatch(actions.reset(form));
-                let currentPath = window.location.pathname + window.location.hash.substr(2);
-                if (updateId === '' || updateId === undefined) {
-                    component.props.router.push(currentPath.replace('/new', '/list'));
 
-                }else {
-                    component.props.router.push(currentPath.replace('/update/'+ updateId, '/list'));
+        if (confirm("Are you sure that you want to submit the data?")) {
+            let formData = formatFormData(data, table);
+            let submissionFuture = store.dispatch(insertAsync(table, formData));
+            //state = Object.assign(state, {submissionError: false, submissionFuture: future});
+            submissionFuture
+                .done((insertId) => {
+                    console.debug(200, "Inserted ID <" + insertId + ">");
+                    // Clear the form data in store
+                    console.log(form);
+                    store.dispatch(feedbackSuccess(form, "Inserted ID <" + insertId + ">"));
+                    store.dispatch(actions.reset(form));
+                    let currentPath = window.location.pathname + window.location.hash.substr(2);
+                    if (updateId === '' || updateId === undefined) {
+                        component.props.router.push(currentPath.replace('/new', '/list'));
 
-                }
-            })
-            .fail(() => {
-                console.warn("Uncaught form validation error");
-                store.dispatch(feedbackError(form, "Uncaught form validation error", err));
-            });
+                    } else {
+                        component.props.router.push(currentPath.replace('/update/' + updateId, '/list'));
+
+                    }
+                })
+                .fail(() => {
+                    console.warn("Uncaught form validation error");
+                    store.dispatch(feedbackError(form, "Uncaught form validation error", err));
+                });
+        }
     }
 
 }

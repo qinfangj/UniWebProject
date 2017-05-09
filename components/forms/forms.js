@@ -72,34 +72,37 @@ export function submit(form, table, formatFormData=null) {
         store.dispatch(feedbackWarning(form, "Some required fields are missing or ill-formatted. Please review the form and submit again."));
 // Valid form: format and send
     } else {
-        if (formatFormData) {
-            formData = formatFormData(formData);
-        }
-        // CreatedAt: reformat so that it can be parsed as java.sql.Timestamp.
-        // Updated at: if update, set to current timestamp.
-        if (formData.id && formData.id !== 0) {
-            formData.updatedAt = dateNow();
-            if (formData.createdAt) {
-                formData.createdAt = parseDateString(formData.createdAt);
+        //before submission show the dialoge for confirm
+        if (confirm("Are you sure that you want to submit the data?")) {
+            if (formatFormData) {
+                formData = formatFormData(formData);
             }
+            // CreatedAt: reformat so that it can be parsed as java.sql.Timestamp.
+            // Updated at: if update, set to current timestamp.
+            if (formData.id && formData.id !== 0) {
+                formData.updatedAt = dateNow();
+                if (formData.createdAt) {
+                    formData.createdAt = parseDateString(formData.createdAt);
+                }
+            }
+            console.info(JSON.stringify(formData, null, 2));
+            submissionFuture = store.dispatch(insertAsync(table, formData));
+            submissionFuture
+                .done((insertId) => {
+                    // Signal that it was a success
+                    console.debug(200, "Inserted ID <" + insertId + ">");
+                    // Clear the form data in store
+                    store.dispatch(feedbackSuccess(form, "Inserted ID <" + insertId + ">"));
+                    store.dispatch(resetForm(form));
+                    // Redirect to table by replacing '/new' by '/list' in the router state
+                    let currentPath = window.location.pathname + window.location.hash.substr(2);
+                    hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
+                })
+                .fail((err) => {
+                    console.warn("Uncaught form validation error");
+                    store.dispatch(feedbackError(form, "Uncaught form validation error", err));
+                });
         }
-        console.info(JSON.stringify(formData, null, 2));
-        submissionFuture = store.dispatch(insertAsync(table, formData));
-        submissionFuture
-            .done((insertId) => {
-                // Signal that it was a success
-                console.debug(200, "Inserted ID <"+insertId+">");
-                // Clear the form data in store
-                store.dispatch(feedbackSuccess(form, "Inserted ID <"+insertId+">"));
-                store.dispatch(resetForm(form));
-                // Redirect to table by replacing '/new' by '/list' in the router state
-                let currentPath = window.location.pathname + window.location.hash.substr(2);
-                hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
-            })
-            .fail((err) => {
-                console.warn("Uncaught form validation error");
-                store.dispatch(feedbackError(form, "Uncaught form validation error", err));
-            });
     }
 }
 

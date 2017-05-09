@@ -4,23 +4,17 @@ import React from 'react';
 import css from './FacilityData.css';
 import commonCss from '../../styles/common.css';
 import { Link } from 'react-router';
-import * as messages from '../forms/adminData/messages';
-// import constants from '../constants/constants';
-// import { SubmissionFeedback } from '../forms/SubmissionFeedback';
+import { feedbackError, feedbackSuccess, feedbackWarning } from '../actions/actionCreators/feedbackActionCreators';
+
 
 import {deleteUnvalidatedUsers} from '../actions/actionCreators/adminActionCreators';
 import store from '../../core/store';
-//import Feedback from '../../utils/Feedback';
+import Feedback from '../utils/Feedback';
 
 class AdminData extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.state = {
-            serverError: {},
-            submissionError: false,
-            submissionSuccess: false,
-        };
     }
 
     static propTypes = {
@@ -37,38 +31,23 @@ class AdminData extends React.PureComponent {
             state = Object.assign(state, {submissionError: false, submissionFuture: future});
             future
                 .done((delNum) => {
-                    console.debug(200, "Delete Unvalidated Users successfully: " + JSON.stringify(delNum))
+                    console.debug(200, "Deleted All Unvalidated Users successfully: " + JSON.stringify(delNum));
+
+                    store.dispatch(feedbackSuccess("limsUser", "Deleted All Unvalidated Users successfully"));
 
                 })
-                .fail(() => console.warn("Uncaught form validation error"));
+                .fail((err) => {
+                    console.warn("Uncaught form validation error");
 
-            let {submissionError, submissionFuture} = state;
-            if (submissionError) {
-                this.setState({submissionError, serverError: {}});
-            } else {
-                submissionFuture.done(() => {
-                    this.setState({
-                        submissionSuccess: true,
-                        submissionError: false,
-                        serverError: {}
-                    });
-
-                }).fail((err) => {
-                    this.setState({serverError: err, submissionError: false, submissionSuccess: false});
+                    store.dispatch(feedbackError("limsUser", "Uncaught form validation error", err));
                 });
-            }
+
         }
-
-
 
     }
     render() {
          let name = this.props.name;
-        // let feedbackStatus = this.state.submissionError ? constants.SUBMISSION_ERROR :
-        //     (this.state.submissionSuccess ? constants.SUBMISSION_SUCCESS :
-        //         (Object.keys(this.state.serverError).length > 0 ? constants.SERVER_ERROR : ""));
-        //
-        // let error = this.state.serverError;
+
         return (
             <div className={css.pageWrapper}>
 
@@ -87,6 +66,9 @@ class AdminData extends React.PureComponent {
                                 <li><a href="Javascript:void(0)" onClick={this.comfirmDelete.bind(this)}>{"delete all unvalidated "+ name} </a></li> </div>}
                         </ul>
                     </div>
+
+                    <Feedback reference="limsUser" />
+
                     <div className="clearfix"/>
 
                     {this.props.content}
