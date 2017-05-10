@@ -9,7 +9,7 @@ import validators from '../../validators2';
 
 
 const intValidator = {isInteger: validators.integerValidator};
-const selectRequired = {required: (v) => v !== -1};
+const selectRequired = {required: (v) => v !== ""};
 
 const runsModel = {
     [fields.runs.GA_RUN_NUMBER]: {
@@ -33,7 +33,7 @@ const runsModel = {
         label: "Version",
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.FLOWCELL_TYPES,
-        initValue: -1,
+        initValue: "",
         required: true,
     },
     [fields.runs.RELEASE_DATE]: {
@@ -48,7 +48,7 @@ const runsModel = {
         label: "Machine",
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.INSTRUMENTS,
-        initValue: -1,
+        initValue: "",
         required: false,
     },
     [fields.runs.GA_RUN_DATE]: {
@@ -65,14 +65,14 @@ const runsModel = {
         label: "Run type",
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.RUN_TYPES_LENGTHS,
-        initValue: -1,
+        initValue: "",
         required: true,
     },
     [fields.runs.FC_STAGE]: {
         width: 3,
         label: "Stage",
         type: inputTypes.DROPDOWN,
-        initValue: -1,
+        initValue: "",
         hasNoneValue: false,
         options: [[1,'--'], [2,'A'], [3,'B']],
         required: false,
@@ -82,7 +82,7 @@ const runsModel = {
         label: "Kit",
         type: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.SEQUENCING_KIT_VERSIONS,
-        initValue: -1,
+        initValue: "",
         required: true,
     },
     [fields.runs.IS_FAILED]: {

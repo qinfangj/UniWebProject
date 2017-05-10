@@ -98,7 +98,6 @@ class RunsInsertFormRedux extends React.PureComponent {
             otherProps.key = modelName;
             otherProps.disabled = model.disabled || this.state.disabled;
             otherProps.submissionError = formModel[modelName].submitFailed && formModel[modelName].validated && (! formModel[modelName].valid);
-            console.debug(otherProps.submissionError);
             if (optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }

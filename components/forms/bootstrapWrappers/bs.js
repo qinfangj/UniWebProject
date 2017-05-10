@@ -50,7 +50,7 @@ class BSSelect extends React.PureComponent {
         options = options ? options.map((v,i) => {
             return <option value={v[0]} key={i}>{v[1]}</option>;
         }) : [];
-        if (hasNoneValue && options) { options.unshift(<option value={-1} key="-">{'-'}</option>); }
+        if (hasNoneValue && options) { options.unshift(<option value="" key="-">{'-'}</option>); }
 
         return (
             <FormGroup validationState={validationState} bsSize="small" >
@@ -110,7 +110,6 @@ class BSCheckbox extends React.PureComponent {
 export function makeRRFInput(type, modelName, otherProps) {
     let component;
     let {required, validators, errors, errorMessages, updateOn, validateOn, ...inputProps} = otherProps;
-    let showError = (type === inputTypes.DROPDOWN) ? {touched: true, focus: false} : true;
 
     if (type === inputTypes.TEXT) {
         component = BSTextInput;
@@ -118,8 +117,6 @@ export function makeRRFInput(type, modelName, otherProps) {
         component = BSCheckbox;
     } else if (type === inputTypes.DROPDOWN || type === inputTypes.SEC_DROPDOWN) {
         component = BSSelect;
-        required = required ? (v) => v !== -1 : undefined;
-        validators = required ? {required: (v) => v !== -1} : undefined;
     } else if (type === inputTypes.TEXTAREA) {
         component = BSTextArea;
     } else if (type === inputTypes.DATE) {
@@ -145,7 +142,7 @@ export function makeRRFInput(type, modelName, otherProps) {
             <Errors
                 className={css.errors}
                 model={modelName}
-                show={showError}
+                show={{touched: true, focus: false}}
                 messages={errorMessages || {required: "Required"}}
             />
         </div>
