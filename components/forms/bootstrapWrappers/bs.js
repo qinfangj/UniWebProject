@@ -11,10 +11,17 @@ import { FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap/
  * Use React-bootstrap visual input components in React-redux-forms functional components.
  */
 
+
+function makeLabel(label, required) {
+    let star = required ? <span className={css.requiredStar}>*</span> : null;
+    return label ? <ControlLabel>{label}{star}</ControlLabel> : null;
+}
+
+
 class BSTextInput extends React.PureComponent {
     render() {
         let {label, submissionError, ...inputProps} = this.props;
-        let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let title = makeLabel(label, this.props.required);
         let validationState = submissionError ? "error" : this.props.validationState;
 
         return (
@@ -29,7 +36,7 @@ class BSTextInput extends React.PureComponent {
 class BSTextArea extends React.PureComponent {
     render() {
         let {label, submissionError, ...inputProps} = this.props;
-        let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let title = makeLabel(label, this.props.required);
         let validationState = submissionError ? "error" : this.props.validationState;
 
         return (
@@ -44,7 +51,7 @@ class BSTextArea extends React.PureComponent {
 class BSSelect extends React.PureComponent {
     render() {
         let {options, label, submissionError, hasNoneValue, ...inputProps} = this.props;
-        let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let title = makeLabel(label, this.props.required);
         let validationState = submissionError ? "error" : this.props.validationState;
 
         options = options ? options.map((v,i) => {
@@ -73,7 +80,7 @@ BSSelect.defaultProps = {
 class BSDate extends React.PureComponent {
     render() {
         let {label, submissionError, ...inputProps} = this.props;
-        let title = label ? <ControlLabel>{label}</ControlLabel> : null;
+        let title = makeLabel(label, this.props.required);
         let validationState = submissionError ? "error" : this.props.validationState;
 
         return (
@@ -142,7 +149,7 @@ export function makeRRFInput(type, modelName, otherProps) {
             <Errors
                 className={css.errors}
                 model={modelName}
-                show={{touched: true, focus: false}}
+                show={true}
                 messages={errorMessages || {required: "Required"}}
             />
         </div>
