@@ -2,7 +2,6 @@
 import React from 'react';
 import css from './runs.css';
 import cx from 'classnames';
-import store from '../../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, actions} from 'react-redux-form';
@@ -25,7 +24,6 @@ import Button from 'react-bootstrap/lib/Button';
 class RunsSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.form = "runs";
         this.modelName = "facilityDataForms.subruns";
         this.lanes = {
             6: {
@@ -38,15 +36,11 @@ class RunsSubForm extends React.PureComponent {
         };
         this.state = {
             lanes: [],
-            disabled: false,
         };
     }
 
     componentWillMount() {
         forms.newOrUpdate2(this.modelName, this.table, this.props.updateId);
-        if (this.props.updateId) {
-            this.setState({ disabled: true });
-        }
         this.props.requestProjectsHavingAPool();
         this.props.requestProjectsHavingALibrary();
         this.props.requestSequencingQualities();
@@ -80,7 +74,7 @@ class RunsSubForm extends React.PureComponent {
             let modelName = prefix +'.'+ fieldName;
             let {inputType, optionsKey, ...otherProps} = model;
             otherProps.key = fieldName + k;
-            otherProps.disabled = model.disabled || this.state.disabled;
+            otherProps.disabled = model.disabled || this.props.disabled;
             if (optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }
@@ -181,10 +175,8 @@ const mapStateToProps = (state) => {
         }
     }
     let formData = state.facilityDataForms.subruns;
-    //let formModel = state.facilityDataForms.forms.subruns;
     return {
         lanes: formData.lanes,
-        //formModel: formModel,
         options: options,
     };
 };

@@ -12,6 +12,7 @@ const runsModel = {
     [fields.runs.GA_RUN_NUMBER]: {
         width: 1,
         label: "Run#",
+        type: "number",
         inputType: inputTypes.TEXT,
         required: true,
         validators: intValidator,

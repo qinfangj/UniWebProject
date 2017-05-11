@@ -24,7 +24,6 @@ class RunsInsertFormRedux extends React.PureComponent {
     constructor() {
         super();
         this.table = "runs";
-        this.form = formNames.RUNS_INSERT_FORM;
         this.modelName = "facilityDataForms.runs";
         this.state = {
             disabled: false,
@@ -61,11 +60,7 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 
     render() {
-        //console.debug(this.props.formData)
-        //console.debug(this.props.formModel)
-        let formData = this.props.formData;
         let formModel = this.props.formModel;
-
         let formFields = [];
         for (let modelName of Object.keys(runsModel)) {
             let model = runsModel[modelName];
@@ -111,7 +106,7 @@ class RunsInsertFormRedux extends React.PureComponent {
                     <div className="clearfix"/>
                 </Form>
 
-                <RunsSubForm />
+                <RunsSubForm disabled={this.state.disabled} />
 
             </div>
         );
