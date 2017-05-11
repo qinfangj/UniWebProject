@@ -84,6 +84,10 @@ class RunsSubForm extends React.PureComponent {
         store.dispatch(actions.merge(this.modelName+'.lanes', this.makeLane(laneNb)));
     }
 
+    addLibrary(laneNb) {
+        console.log("add library to lane", laneNb)
+    }
+
     /**
      * Remove one entire lane.
      */
@@ -96,8 +100,8 @@ class RunsSubForm extends React.PureComponent {
     /**
      * Remove a library row from the table.
      */
-    removeLibrary(library) {
-
+    removeLibrary(library, k) {
+        console.log("remove lib", k, library)
     }
 
     /**
@@ -153,7 +157,9 @@ class RunsSubForm extends React.PureComponent {
                     {qualityInput}
                 </td>
                 <td className={cx(css.libCell, css.buttonsCell)}>
-                    <Icon name='trash' className={css.removeLibrary}/>
+                    <div onClick={this.removeLibrary.bind(this, lib, k)}>
+                        <Icon name='trash' className={css.removeLibrary}/>
+                    </div>
                 </td>
             </tr>);
     }
@@ -173,7 +179,9 @@ class RunsSubForm extends React.PureComponent {
                 {commentInput}
                 </td>
                 <td className={cx(css.libCell, css.buttonsCell)} >
-                    <Icon name='plus-circle' className={css.addLibrary}/>
+                    <div onClick={this.addLibrary.bind(this, laneNb)}>
+                        <Icon name='plus-circle' className={css.addLibrary}/>
+                    </div>
                 </td>
             </tr>
         );
