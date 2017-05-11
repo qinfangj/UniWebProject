@@ -153,7 +153,7 @@ class RunsSubForm extends React.PureComponent {
     /**
      * Build the lane comment row.
      */
-    makeCommentRow(laneNb) {
+    makeLaneCommentRow(laneNb) {
         let commentModelName = `${this.modelName}.lanes[${laneNb}].comment`;
         let commentModel = lanesModel.lane.comment;
         let {inputType, ...otherProps} = commentModel;
@@ -183,13 +183,13 @@ class RunsSubForm extends React.PureComponent {
                 let row = this.makeLibRow(lane, lane.libs[k], k);
                 libRows.push(row);
             }
-            let commentRow = this.makeCommentRow(laneNb);
+            let commentRow = this.makeLaneCommentRow(laneNb);
             libRows.push(commentRow);
             laneRows.push(<tbody key={laneNb} className={css.lanesGroup}>{libRows}</tbody>);
         }
         return (
             <div>
-                <Button bsStyle="warning" disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
+                <Button bsStyle="info" disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
 
                 <div className="clearfix"/>
 
@@ -206,7 +206,7 @@ class RunsSubForm extends React.PureComponent {
                     </table>
                 </Col>
                 <Col sm={2}>
-                    aaa
+                    Buttons here
                 </Col>
 
                 <div className="clearfix"/>

@@ -90,10 +90,10 @@ td.projectCell {
     width: 25%;
 }
 .quantityCell {
-    /*width: 1px;*/  /* BS padding is enough... */
+    /* Will adapt to what is left */
 }
 .qualityCell {
-    width: 10%;
+    width: 15%;
 }
 td.qualityCell {
     border-right: var(--border);

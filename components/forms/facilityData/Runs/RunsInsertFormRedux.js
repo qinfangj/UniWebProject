@@ -15,9 +15,7 @@ import formNames from '../../../constants/formNames';
 import runsModel from './runsModel';
 import { makeRRFInput } from '../../bootstrapWrappers/bs.js';
 
-import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
-// import Feedback from '../../../utils/Feedback';
+import {Button, Col, Alert} from 'react-bootstrap/lib';
 
 
 class RunsInsertFormRedux extends React.PureComponent {
@@ -81,6 +79,9 @@ class RunsInsertFormRedux extends React.PureComponent {
 
         return (
             <div>
+
+                <Alert bsStyle="info">Not ready yet</Alert>
+
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                     {/* <Feedback reference={this.modelName} /> */}
