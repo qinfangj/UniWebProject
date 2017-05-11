@@ -14,24 +14,6 @@ let facilityDataFormsReducers = combineForms(
         //     bioanalyserDate: "1970-01-01",
         //     description: "",
         // },
-        subruns: {
-            lanes: {
-                1: {
-                    libs: [
-                        {
-                            "projectId": 1,
-                            "libraryId": 1,
-                            "concentration": "",
-                            "qualityId": 1,
-                        }
-                    ],
-                    libsQC: [
-
-                    ],
-                    comment: "",
-                }
-            },
-        },
         runs: {
             [fields.runs.GA_RUN_NUMBER]: "",
             [fields.runs.FLOWCELL]: "",
@@ -43,7 +25,21 @@ let facilityDataFormsReducers = combineForms(
             [fields.runs.FC_STAGE]: "",
             [fields.runs.SEQUENCING_KIT_VERSION_ID]: "",
             [fields.runs.IS_FAILED]: false,
-            [fields.runs.COMMENT]: ""
+            [fields.runs.COMMENT]: "",
+            lanes: {
+                1: {
+                    comment: "",
+                    libs: [
+                        {
+                            "projectId": 1,
+                            "libraryId": 1,
+                            "concentration": "",
+                            "qualityId": 1,
+                            "isQC": false,
+                        }
+                    ],
+                }
+            },
         },
     },
     'facilityDataForms'

@@ -12,7 +12,6 @@ const lanesModel = {
     lane: {
         "comment": {
             width: 4,
-            label: "Comment",
             inputType: inputTypes.TEXTAREA,
             required: false,
         },

@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import store from '../../../../core/store';
 import css from './runs.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
@@ -24,19 +25,7 @@ import Button from 'react-bootstrap/lib/Button';
 class RunsSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.modelName = "facilityDataForms.subruns";
-        this.lanes = {
-            6: {
-                "lane_nb": 6,
-                "nlibs": 4,
-                "nqc": 2,
-                "projectId": 3,
-                "libraryPoolId": 1
-            }
-        };
-        this.state = {
-            lanes: [],
-        };
+        this.modelName = "facilityDataForms.runs";
     }
 
     componentWillMount() {
@@ -44,30 +33,81 @@ class RunsSubForm extends React.PureComponent {
         this.props.requestProjectsHavingAPool();
         this.props.requestProjectsHavingALibrary();
         this.props.requestSequencingQualities();
-    }
-
-    addLane() {
-        let model = {...this.state.model};
-        model.newField = {
-            width: 5,
-            type: inputTypes.CHECKBOX,
-            label: "New Field",
-            initValue: "AAAAA",
-        };
-        this.setState({ model: model });
+        this.addLane()
     }
 
     /**
-     * One row of 4 fields (project, lib, pM, QC).
-     * @param lane: lane object.
-     * @param k: row index inside a lane ("library").
-     * @param isQC: [boolean] quality control library or not.
+     * Return a new empty library model object.
      */
-    makeLibRow(lane, lib, k, isQC) {
-        let laneNb = lane.laneNb;
-        let qcBsClass = isQC ? cx('form-control', css.qcCell) : 'form-control';
-        let prefix = `${this.modelName}.lanes[${laneNb}].${isQC ? "libsQC": "libs"}[${k}]`;
+    makeLib(projectId, libraryId, concentration, qualityId, isQC) {
+        return {
+            projectId: projectId || "",
+            libraryId: libraryId || "",
+            concentration: concentration || "",
+            qualityId: qualityId || "",
+            isQC: isQC || false,
+        };
+    }
 
+    /**
+     * Return a new empty lane model object.
+     */
+    makeLane(laneNb, comment) {
+        return {
+            [laneNb]: {
+                libs: [this.makeLib(),],
+                comment: comment || "",
+            }
+        };
+    }
+
+    /**
+     * Add one lane row to the table.
+     */
+    addLane() {
+        /* Find the min positive integer that is not contained in laneNbs */
+        let laneNbs = new Set(Object.keys(this.props.lanes).map(x => parseInt(x)));
+        let max = Math.max(...laneNbs);
+        let laneNb = 0;
+        for (let k=1; k < max; k++) {
+            if (! laneNbs.has(k)) {
+                laneNb = k;
+            }
+        }
+        if (laneNb === 0) {
+            laneNb = max + 1;
+        }
+        store.dispatch(actions.merge(this.modelName+'.lanes', this.makeLane(laneNb)));
+    }
+
+    /**
+     * Remove one entire lane.
+     */
+    removeLane(laneNb) {
+        if (confirm("Do you really want to delete entire lane "+ laneNb +"?")) {
+            store.dispatch(actions.remove(this.modelName+'.lanes', laneNb));
+        }
+    }
+
+    /**
+     * Remove a library row from the table.
+     */
+    removeLibrary(library) {
+
+    }
+
+    /**
+     * Construct one row of 4 fields (project, lib, pM, QC).
+     * @param lane: lane object.
+     * @param lib: library object.
+     * @param k: row index inside a lane ("library").
+     */
+    makeLibRow(lane, lib, k) {
+        let laneNb = lane.laneNb;
+        let qcBsClass = lib.isQC ? cx('form-control', css.qcCell) : 'form-control';
+        let prefix = `${this.modelName}.lanes[${laneNb}].${lib.isQC ? "libsQC": "libs"}[${k}]`;
+
+        // Construct the project-library-concentration-quality inputs for one Library row
         let formFields = [];
         for (let fieldName of Object.keys(lanesModel.lib)) {
             let model = lanesModel.lib[fieldName];
@@ -100,12 +140,12 @@ class RunsSubForm extends React.PureComponent {
         return (
             <tr key={laneNb+'-'+k}
                 className={cx(k === 0 ? css.topRow : null,
-                             (k === (lane.nlibs + lane.nqc - 1) ? css.bottomRow : null)
+                             (k === (lane.nlibs - 1) ? css.bottomRow : null)
                            )}
             >
                 { /* The lane number spans all lib rows */
                     k === 0 ?
-                        <td className={css.laneCell} rowSpan={lane.nlibs + lane.nqc}>{'L'+laneNb}</td>
+                        <td className={css.laneCell} rowSpan={lane.nlibs}>{'L'+laneNb}</td>
                     : null
                 }
                 <td className={cx(css.libCell, css.projectCell)}>
@@ -122,7 +162,7 @@ class RunsSubForm extends React.PureComponent {
                 </td>
                 { /* The lane comment spans nlibs rows */
                     k === 0 ?
-                        <td className={cx(css.libCell, css.commentCell)} rowSpan={lane.nlibs + lane.nqc}>
+                        <td className={cx(css.libCell, css.commentCell)} rowSpan={lane.nlibs}>
                             {commentInput}
                         </td>
                     : null
@@ -132,27 +172,24 @@ class RunsSubForm extends React.PureComponent {
 
     render() {
         let lanes = this.props.lanes;
+        //console.debug(lanes)
         let laneRows = [];
         for (let laneNb of Object.keys(lanes)) {
             let lane = lanes[laneNb];
             let nlibs = lane.libs.length;
-            let nqc = lane.libsQC.length;
-            // Report some info to the lane object we pass to makeLibRow
-            lane = {...lane, laneNb, nlibs, nqc};
-            // Construct lib rows
+            /* Report some info to the lane object we pass to makeLibRow */
+            lane = {...lane, laneNb, nlibs};
+            /* Construct lib rows */
             let libRows = [];
             for (let k=0; k < nlibs; k++) {
                 let row = this.makeLibRow(lane, lane.libs[k], k);
                 libRows.push(row);
             }
-            for (let k=nlibs; k < nlibs + nqc; k++) {
-                let row = this.makeLibRow(lane, lane.libsQC[k], k, true);
-                libRows.push(row);
-            }
             laneRows.push(<tbody key={laneNb} className={css.lanesGroup}>{libRows}</tbody>);
         }
         return (
-            <Form model={this.modelName} >
+            <div>
+                <Button disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
                 <table className={css.lanesTable}>
                 <thead><tr>
                     <th className={css.laneCell}>{null}</th>
@@ -160,11 +197,11 @@ class RunsSubForm extends React.PureComponent {
                     <th className={cx(css.libCell, css.libraryCell)}>Library</th>
                     <th className={cx(css.libCell, css.quantityCell)}>[pM]</th>
                     <th className={cx(css.libCell, css.qualityCell)}>QC</th>
+                    <th className={cx(css.libCell, css.commentCell)}>Comment</th>
                     </tr></thead>
                     {laneRows}
                 </table>
-                <Button disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
-            </Form>
+            </div>
         );
     }
 }
@@ -179,7 +216,7 @@ const mapStateToProps = (state) => {
             options[model.optionsKey] = state.options[model.optionsKey] || [];
         }
     }
-    let formData = state.facilityDataForms.subruns;
+    let formData = state.facilityDataForms.runs;
     return {
         lanes: formData.lanes,
         options: options,
