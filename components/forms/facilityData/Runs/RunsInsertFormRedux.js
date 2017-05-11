@@ -89,24 +89,25 @@ class RunsInsertFormRedux extends React.PureComponent {
 
                     <div className="clearfix"/>
 
-                    {/* Submit */}
-
-                    {this.state.disabled ?
-                        <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
-                            Activate form
-                        </Button>
-                        :
-                        <Button type="submit" bsStyle="primary" className={css.submitButton}>
-                            Submit
-                        </Button>
-                    }
-
-                    {/* Sub-form */}
-
-                    <div className="clearfix"/>
                 </Form>
 
+                {/* Sub-form */}
+
+                <div className="clearfix"/>
+
                 <RunsSubForm disabled={this.state.disabled} />
+
+                {/* Submit */}
+
+                {this.state.disabled ?
+                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        Activate form
+                    </Button>
+                    :
+                    <Button type="submit" bsStyle="primary" className={css.submitButton}>
+                        Submit
+                    </Button>
+                }
 
             </div>
         );

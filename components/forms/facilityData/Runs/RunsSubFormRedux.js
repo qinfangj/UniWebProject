@@ -87,10 +87,15 @@ class RunsSubForm extends React.PureComponent {
         let concentrationInput = formFields[2];
         let qualityInput = formFields[3];
 
-        let commentModelName = `${this.modelName}.lanes[${laneNb}].comment`;
-        let commentModel = lanesModel.lane.comment;
-        let {inputType, ...otherProps} = commentModel;
-        let commentInput = makeRRFInput(inputType, commentModelName, otherProps);
+        // Lane comment, spanning all lib rows
+        let commentInput = null;
+        if (k === 0) {
+            let commentModelName = `${this.modelName}.lanes[${laneNb}].comment`;
+            let commentModel = lanesModel.lane.comment;
+            let {inputType, ...otherProps} = commentModel;
+            otherProps.disabled = this.props.disabled;
+            commentInput = makeRRFInput(inputType, commentModelName, otherProps);
+        }
 
         return (
             <tr key={laneNb+'-'+k}
@@ -98,7 +103,7 @@ class RunsSubForm extends React.PureComponent {
                              (k === (lane.nlibs + lane.nqc - 1) ? css.bottomRow : null)
                            )}
             >
-                { /* The lane number spans nlibs rows */
+                { /* The lane number spans all lib rows */
                     k === 0 ?
                         <td className={css.laneCell} rowSpan={lane.nlibs + lane.nqc}>{'L'+laneNb}</td>
                     : null
@@ -158,7 +163,7 @@ class RunsSubForm extends React.PureComponent {
                     </tr></thead>
                     {laneRows}
                 </table>
-                <Button onClick={this.addLane.bind(this)}>Add lane</Button>
+                <Button disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
             </Form>
         );
     }
