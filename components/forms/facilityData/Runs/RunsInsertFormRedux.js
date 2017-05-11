@@ -1,34 +1,23 @@
 "use strict";
 import React from 'react';
-import store from '../../../../core/store';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Control, Field, Form, actions} from 'react-redux-form';
-import { requestInstruments, requestFlowcellTypes, requestRunsTypesLengths, requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
-// import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-
 import formsCss from '../../forms.css';
 import css from './runs.css';
 import cx from 'classnames';
-// import store from '../../../../core/store';
-// import validators from '../../validators';
+import store from '../../../../core/store';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form, actions} from 'react-redux-form';
+import { requestInstruments, requestFlowcellTypes, requestRunsTypesLengths, requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
 
 import * as forms from '../../forms.js';
-// import fields from '../../fields';
-
-// import * as Options from '../../subcomponents/Options';
-// import PoolsForProject from '../../subcomponents/secondarySelects/PoolsForProject';
-// import fields from '../../fields';
-// import RunsSubForm from './RunsSubForm';
+import RunsSubForm from './RunsSubFormRedux';
 import formNames from '../../../constants/formNames';
+import runsModel from './runsModel';
+import { makeRRFInput } from '../../bootstrapWrappers/bs.js';
 
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 // import Feedback from '../../../utils/Feedback';
-
-import runsModel from './runsModel';
-import { makeRRFInput } from '../../bootstrapWrappers/bs.js';
-import inputTypes from '../../inputTypes';
 
 
 class RunsInsertFormRedux extends React.PureComponent {
@@ -36,12 +25,9 @@ class RunsInsertFormRedux extends React.PureComponent {
         super();
         this.table = "runs";
         this.form = formNames.RUNS_INSERT_FORM;
-        this.required = ["ga_run_nb", "flowcell_ref_name", "lanes"];
         this.modelName = "facilityDataForms.runs";
         this.state = {
             disabled: false,
-            model: runsModel,
-            //lanes: store.getState().common.route.data || {}
         };
     }
 
@@ -74,27 +60,16 @@ class RunsInsertFormRedux extends React.PureComponent {
         this.setState({ disabled: false });
     }
 
-    addField() {
-        let model = {...this.state.model};
-        model.newField = {
-            width: 5,
-            type: inputTypes.CHECKBOX,
-            label: "New Field",
-            initValue: "AAAAA",
-        };
-        this.setState({ model: model });
-    }
-
     render() {
-        console.debug(this.props.formData)
-        console.debug(this.props.formModel)
+        //console.debug(this.props.formData)
+        //console.debug(this.props.formModel)
         let formData = this.props.formData;
         let formModel = this.props.formModel;
 
         let formFields = [];
-        for (let modelName of Object.keys(this.state.model)) {
-            let model = this.state.model[modelName];
-            let {type, initValue, optionsKey, ...otherProps} = model;
+        for (let modelName of Object.keys(runsModel)) {
+            let model = runsModel[modelName];
+            let {type, optionsKey, ...otherProps} = model;
             otherProps.key = modelName;
             otherProps.disabled = model.disabled || this.state.disabled;
             otherProps.submissionError = formModel[modelName].submitFailed && formModel[modelName].validated && (! formModel[modelName].valid);
@@ -110,33 +85,35 @@ class RunsInsertFormRedux extends React.PureComponent {
         }
 
         return (
-            <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
+            <div>
+                <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
-                {/* <Feedback reference={this.modelName} /> */}
+                    {/* <Feedback reference={this.modelName} /> */}
 
-                {formFields}
+                    {formFields}
 
-                <div className="clearfix"/>
+                    <div className="clearfix"/>
 
-                {/* Submit */}
+                    {/* Submit */}
 
-                {this.state.disabled ?
-                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
-                        Activate form
-                    </Button>
-                    :
-                    <Button type="submit" bsStyle="primary" className={css.submitButton}>
-                        Submit
-                    </Button>
-                }
+                    {this.state.disabled ?
+                        <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                            Activate form
+                        </Button>
+                        :
+                        <Button type="submit" bsStyle="primary" className={css.submitButton}>
+                            Submit
+                        </Button>
+                    }
 
-                {/* Sub-form */}
+                    {/* Sub-form */}
 
-                <div className="clearfix"/>
+                    <div className="clearfix"/>
+                </Form>
 
-                <Button onClick={this.addField.bind(this)}>Add field</Button>
+                <RunsSubForm />
 
-            </Form>
+            </div>
         );
     }
 }

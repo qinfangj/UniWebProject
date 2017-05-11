@@ -99,7 +99,7 @@ td.qualityCell {
     border-top: var(--border);
     padding-top: var(--mar);
 }
-.bottomRow td {
+.bottomRow td:not(:first-child) {
     border-bottom: var(--border);
     padding-bottom: var(--mar);
 }

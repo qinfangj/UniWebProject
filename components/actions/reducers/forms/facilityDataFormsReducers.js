@@ -1,7 +1,7 @@
 "use strict";
 import { combineForms } from  'react-redux-form'
-// import { dateNow } from '../../../../utils/time';
-import { initializeRunsReducers } from '../../../../components/forms/facilityData/Runs/runsModel';
+import { dateNow } from '../../../../utils/time';
+import fields from '../../../forms/fields';
 
 
 /**
@@ -9,25 +9,41 @@ import { initializeRunsReducers } from '../../../../components/forms/facilityDat
  */
 let facilityDataFormsReducers = combineForms(
     {
-        runs: initializeRunsReducers(),
         // bioanalysers: {
         //     filename: null,
         //     bioanalyserDate: "1970-01-01",
         //     description: "",
         // },
-        // runs: {
-        //     runNb: "",
-        //     flowcellId: "",
-        //     flowcellTypeId: "",
-        //     clusterDate: dateNow(),
-        //     instrument: "",
-        //     runDate: dateNow(),
-        //     runTypesLengths: "",
-        //     stage: "",
-        //     kit: "",
-        //     isFailed: false,
-        //     comment: ""
-        // },
+        subruns: {
+            lanes: {
+                1: {
+                    libs: [
+                        {
+                            "projectId": 1,
+                            "libraryId": 1,
+                            "concentration": 2.5,
+                            "qualityId": 1,
+                        }
+                    ],
+                    libsQC: [
+
+                    ],
+                }
+            },
+        },
+        runs: {
+            [fields.runs.GA_RUN_NUMBER]: "",
+            [fields.runs.FLOWCELL]: "",
+            [fields.runs.FLOWCELL_TYPE_ID]: "",
+            [fields.runs.RELEASE_DATE]: dateNow(),
+            [fields.runs.INSTRUMENT_ID]: "",
+            [fields.runs.GA_RUN_DATE]: dateNow(),
+            [fields.runs.RUN_TYPES_LENGTH_ID]: "",
+            [fields.runs.FC_STAGE]: "",
+            [fields.runs.SEQUENCING_KIT_VERSION_ID]: "",
+            [fields.runs.IS_FAILED]: false,
+            [fields.runs.COMMENT]: ""
+        },
     },
     'facilityDataForms'
 );

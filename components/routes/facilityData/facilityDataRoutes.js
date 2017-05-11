@@ -11,7 +11,7 @@ import PeopleInsertForm from '../../forms/facilityData/PeopleInsertForm';
 import GenomesInsertForm from '../../forms/facilityData/GenomesInsertForm';
 import SamplesInsertForm from '../../forms/facilityData/SamplesInsertForm';
 import LibrariesInsertForm from '../../forms/facilityData/LibrariesInsertForm';
-import RunsPreInsertForm from '../../forms/facilityData/Runs/RunsPreInsertForm';
+import RunsSubFormRedux from '../../forms/facilityData/Runs/RunsSubFormRedux';
 import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertFormRedux';
 import UserRequestsInsertForm from '../../forms/facilityData/UserRequestsInsertForm';
 import BioanalysersInsertForm from '../../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
@@ -231,13 +231,15 @@ export class RunsActiveRoute extends React.Component {
     );}
 }
 
-export class RunsPreNewRoute extends React.Component {
+// For testing of the sub-form
+export class SubRunsRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
-            <RunsPreInsertForm updateId={this.props.params.id} />
+            <RunsSubFormRedux updateId={this.props.params.id} />
         } />
     );}
 }
+
 export class RunsNewRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
