@@ -52,7 +52,7 @@ const runsModel = {
     },
     [fields.runs.RUN_TYPES_LENGTH_ID]: {
         width: 3,
-        label: "Run inputType",
+        label: "Run Input Type",
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.RUN_TYPES_LENGTHS,
         required: true,
