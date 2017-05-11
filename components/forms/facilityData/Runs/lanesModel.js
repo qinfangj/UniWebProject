@@ -9,32 +9,44 @@ import validators from '../../validators2';
 
 
 const lanesModel = {
-    "projectId": {
-        width: 4,
-        type: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.PROJECTS_HAVING_A_LIBRARY,
-        required: true,
+    lane: {
+        "comment": {
+            width: 4,
+            label: "Comment",
+            inputType: inputTypes.TEXTAREA,
+            required: false,
+        },
     },
-    "libraryId": {
-        width: 4,
-        type: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.LIBRAIRIES_FOR_PROJECT,
-        required: true,
-    },
-    "concentration": {
-        width: 4,
-        type: inputTypes.TEXT,
-        required: true,
-        validators: {isNumber: validators.numberValidator},
-        errorMessages: {isNumber: "Must be a number"}
-    },
-    "qualityId": {
-        width: 4,
-        type: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.SEQUENCING_QUALITIES,
-        hasNoneValue: false,
-        required: true,
-    },
+    lib: {
+        "projectId": {
+            width: 4,
+            inputType: inputTypes.DROPDOWN,
+            optionsKey: optionsStoreKeys.PROJECTS_HAVING_A_LIBRARY,
+            required: true,
+        },
+        "libraryId": {
+            width: 4,
+            inputType: inputTypes.DROPDOWN,
+            optionsKey: optionsStoreKeys.LIBRAIRIES_FOR_PROJECT,
+            required: true,
+        },
+        "concentration": {
+            width: 4,
+            inputType: inputTypes.TEXT,
+            required: true,
+            type: "number",
+            // validators: {isNumber: validators.numberValidator},
+            // errorMessages: {isNumber: "Must be a number"}
+        },
+        "qualityId": {
+            width: 4,
+            inputType: inputTypes.DROPDOWN,
+            optionsKey: optionsStoreKeys.SEQUENCING_QUALITIES,
+            hasNoneValue: false,
+            required: true,
+        },
+    }
 };
 
 export default lanesModel;
+

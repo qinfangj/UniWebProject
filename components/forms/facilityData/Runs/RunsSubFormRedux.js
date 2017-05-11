@@ -75,16 +75,16 @@ class RunsSubForm extends React.PureComponent {
         let prefix = `${this.modelName}.lanes[${laneNb}].${isQC ? "libsQC": "libs"}[${k}]`;
 
         let formFields = [];
-        for (let fieldName of Object.keys(lanesModel)) {
-            let model = lanesModel[fieldName];
-            let {type, optionsKey, ...otherProps} = model;
+        for (let fieldName of Object.keys(lanesModel.lib)) {
+            let model = lanesModel.lib[fieldName];
+            let modelName = prefix +'.'+ fieldName;
+            let {inputType, optionsKey, ...otherProps} = model;
             otherProps.key = fieldName + k;
             otherProps.disabled = model.disabled || this.state.disabled;
-            otherProps.submissionError = lanesModel[fieldName].submitFailed && lanesModel[fieldName].validated && (! lanesModel[fieldName].valid);
             if (optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }
-            let input = makeRRFInput(type, prefix +'.'+ fieldName, otherProps);
+            let input = makeRRFInput(inputType, modelName, otherProps);
             formFields.push(input);
         }
 
@@ -93,7 +93,11 @@ class RunsSubForm extends React.PureComponent {
         let concentrationInput = formFields[2];
         let qualityInput = formFields[3];
 
-console.debug(k, lane.nlibs + lane.nqc - 1)
+        let commentModelName = `${this.modelName}.lanes[${laneNb}].comment`;
+        let commentModel = lanesModel.lane.comment;
+        let {inputType, ...otherProps} = commentModel;
+        let commentInput = makeRRFInput(inputType, commentModelName, otherProps);
+
         return (
             <tr key={laneNb+'-'+k}
                 className={cx(k === 0 ? css.topRow : null,
@@ -117,6 +121,13 @@ console.debug(k, lane.nlibs + lane.nqc - 1)
                 <td className={cx(css.libCell, css.qualityCell)}>
                     {qualityInput}
                 </td>
+                { /* The lane comment spans nlibs rows */
+                    k === 0 ?
+                        <td className={cx(css.libCell, css.commentCell)} rowSpan={lane.nlibs + lane.nqc}>
+                            {commentInput}
+                        </td>
+                    : null
+                }
             </tr>);
     }
 
@@ -163,17 +174,17 @@ console.debug(k, lane.nlibs + lane.nqc - 1)
 
 const mapStateToProps = (state) => {
     let options = {};
-    for (let field of Object.keys(lanesModel)) {
-        let model = lanesModel[field];
+    for (let field of Object.keys(lanesModel.lib)) {
+        let model = lanesModel.lib[field];
         if (model.optionsKey) {
             options[model.optionsKey] = state.options[model.optionsKey] || [];
         }
     }
     let formData = state.facilityDataForms.subruns;
-    let formModel = state.facilityDataForms.forms.subruns;
+    //let formModel = state.facilityDataForms.forms.subruns;
     return {
         lanes: formData.lanes,
-        formModel: formModel,
+        //formModel: formModel,
         options: options,
     };
 };

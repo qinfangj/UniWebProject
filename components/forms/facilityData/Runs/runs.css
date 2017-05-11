@@ -69,7 +69,8 @@
 }
 .libCell > div {
     margin: 0;
-    padding: 0 calc(15px + var(--mar));  /* compensate the -15px left/right-margin in BS .form-horizontal .form-group */
+    /*padding: 0 calc(15px + var(--mar));  !* compensate the -15px left/right-margin in BS .form-horizontal .form-group *!*/
+    padding: 0 5px;
 }
 .qcCell {
     background-color: #E5F2FF;
@@ -80,26 +81,29 @@
     width: 20px;
 }
 .projectCell {
-    width: 40%;
+    width: 30%;
 }
 td.projectCell {
     border-left: var(--border);
 }
 .libraryCell {
-    width: 25%;
+    width: 15%;
 }
 .quantityCell {
     /*width: 1px;*/  /* BS padding is enough... */
 }
 td.qualityCell {
     border-right: var(--border);
-    width: 15%;
+    width: 10%;
 }
-.topRow td:not(:first-child) {
+.commentCell {
+    width: 30%;
+}
+.topRow td:not(:first-child):not(:last-child) {
     border-top: var(--border);
     padding-top: var(--mar);
 }
-.bottomRow td:not(:first-child) {
+.bottomRow td:not(:first-child):not(:last-child) {
     border-bottom: var(--border);
     padding-bottom: var(--mar);
 }

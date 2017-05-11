@@ -21,13 +21,14 @@ let facilityDataFormsReducers = combineForms(
                         {
                             "projectId": 1,
                             "libraryId": 1,
-                            "concentration": 2.5,
+                            "concentration": "",
                             "qualityId": 1,
                         }
                     ],
                     libsQC: [
 
                     ],
+                    comment: "",
                 }
             },
         },

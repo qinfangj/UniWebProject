@@ -1,9 +1,7 @@
 "use strict";
 import fields from '../../fields';
 // import formNames from '../../../constants/formNames';
-import { dateNow } from '../../../../utils/time';
 import inputTypes from '../../inputTypes';
-// import { DEFAULT_DATE } from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import validators from '../../validators2';
 
@@ -14,7 +12,7 @@ const runsModel = {
     [fields.runs.GA_RUN_NUMBER]: {
         width: 1,
         label: "Run#",
-        type: inputTypes.TEXT,
+        inputType: inputTypes.TEXT,
         required: true,
         validators: intValidator,
         errorMessages: {isInteger: "Must be an integer"}
@@ -22,46 +20,46 @@ const runsModel = {
     [fields.runs.FLOWCELL]: {
         width: 3,
         label: "Flowcell ID",
-        type: inputTypes.TEXT,
+        inputType: inputTypes.TEXT,
         required: true,
     },
     [fields.runs.FLOWCELL_TYPE_ID]: {
         width: 2,
         label: "Version",
-        type: inputTypes.DROPDOWN,
+        inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.FLOWCELL_TYPES,
         required: true,
     },
     [fields.runs.RELEASE_DATE]: {
         width: 3,
         label: "Cluster Date",
-        type: inputTypes.DATE,
+        inputType: inputTypes.DATE,
         required: true,
     },
     [fields.runs.INSTRUMENT_ID]: {
         width: 3,
         label: "Machine",
-        type: inputTypes.DROPDOWN,
+        inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.INSTRUMENTS,
         required: false,
     },
     [fields.runs.GA_RUN_DATE]: {
         width: 3,
         label: "Run Date",
-        type: inputTypes.DATE,
+        inputType: inputTypes.DATE,
         required: true,
     },
     [fields.runs.RUN_TYPES_LENGTH_ID]: {
         width: 3,
-        label: "Run type",
-        type: inputTypes.DROPDOWN,
+        label: "Run inputType",
+        inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.RUN_TYPES_LENGTHS,
         required: true,
     },
     [fields.runs.FC_STAGE]: {
         width: 3,
         label: "Stage",
-        type: inputTypes.DROPDOWN,
+        inputType: inputTypes.DROPDOWN,
         hasNoneValue: false,
         options: [[1,'--'], [2,'A'], [3,'B']],
         required: false,
@@ -69,19 +67,19 @@ const runsModel = {
     [fields.runs.SEQUENCING_KIT_VERSION_ID]: {
         width: 3,
         label: "Kit",
-        type: inputTypes.DROPDOWN,
+        inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.SEQUENCING_KIT_VERSIONS,
         required: true,
     },
     [fields.runs.IS_FAILED]: {
         width: 2,
         label: "Run failed",
-        type: inputTypes.CHECKBOX,
+        inputType: inputTypes.CHECKBOX,
     },
     [fields.runs.COMMENT]: {
         width: 10,
         label: "Comment",
-        type: inputTypes.TEXTAREA,
+        inputType: inputTypes.TEXTAREA,
         required: false,
     },
 };

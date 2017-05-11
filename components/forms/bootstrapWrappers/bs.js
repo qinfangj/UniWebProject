@@ -114,22 +114,22 @@ class BSCheckbox extends React.PureComponent {
 }
 
 
-export function makeRRFInput(type, modelName, otherProps) {
+export function makeRRFInput(inputType, modelName, otherProps) {
     let component;
     let {required, validators, errors, errorMessages, updateOn, validateOn, ...inputProps} = otherProps;
 
-    if (type === inputTypes.TEXT) {
+    if (inputType === inputTypes.TEXT) {
         component = BSTextInput;
-    } else if (type === inputTypes.CHECKBOX) {
+    } else if (inputType === inputTypes.CHECKBOX) {
         component = BSCheckbox;
-    } else if (type === inputTypes.DROPDOWN || type === inputTypes.SEC_DROPDOWN) {
+    } else if (inputType === inputTypes.DROPDOWN || inputType === inputTypes.SEC_DROPDOWN) {
         component = BSSelect;
-    } else if (type === inputTypes.TEXTAREA) {
+    } else if (inputType === inputTypes.TEXTAREA) {
         component = BSTextArea;
-    } else if (type === inputTypes.DATE) {
+    } else if (inputType === inputTypes.DATE) {
         component = BSDate;
     } else {
-        throw "Unknown input type: '"+ type +"'";
+        throw "Unknown input type: '"+ inputType +"'";
     }
 
     return (
