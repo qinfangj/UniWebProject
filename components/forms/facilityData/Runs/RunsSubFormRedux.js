@@ -10,10 +10,9 @@ import { requestProjectsHavingAPool, requestProjectsHavingALibrary, requestSeque
 
 import * as forms from '../../forms.js';
 import lanesModel from './lanesModel';
-import inputTypes from '../../inputTypes';
 import { makeRRFInput } from '../../bootstrapWrappers/bs.js';
 
-import Button from 'react-bootstrap/lib/Button';
+import {Button, Col} from 'react-bootstrap/lib';
 // import Feedback from '../../../utils/Feedback';
 
 /**
@@ -127,28 +126,16 @@ class RunsSubForm extends React.PureComponent {
         let concentrationInput = formFields[2];
         let qualityInput = formFields[3];
 
-        // Lane comment, spanning all lib rows
-        let commentInput = null;
-        if (k === 0) {
-            let commentModelName = `${this.modelName}.lanes[${laneNb}].comment`;
-            let commentModel = lanesModel.lane.comment;
-            let {inputType, ...otherProps} = commentModel;
-            otherProps.disabled = this.props.disabled;
-            commentInput = makeRRFInput(inputType, commentModelName, otherProps);
-        }
-
         return (
             <tr key={laneNb+'-'+k}
-                className={cx(k === 0 ? css.topRow : null,
-                             (k === (lane.nlibs - 1) ? css.bottomRow : null)
-                           )}
+                className={k === 0 ? css.topRow : null}
             >
-                { /* The lane number spans all lib rows */
+                { /* The lane number spans all lib rows + comment */
                     k === 0 ?
-                        <td className={css.laneCell} rowSpan={lane.nlibs}>{'L'+laneNb}</td>
+                        <td className={css.laneCell} rowSpan={lane.nlibs + 1}>{'L'+laneNb}</td>
                     : null
                 }
-                <td className={cx(css.libCell, css.projectCell)}>
+                <td className={cx(css.libCell, css.projectCell, css.leftCell)}>
                     {projectInput}
                 </td>
                 <td className={cx(css.libCell, css.libraryCell)}>
@@ -157,17 +144,28 @@ class RunsSubForm extends React.PureComponent {
                 <td className={cx(css.libCell, css.quantityCell)}>
                     {concentrationInput}
                 </td>
-                <td className={cx(css.libCell, css.qualityCell)}>
+                <td className={cx(css.libCell, css.qualityCell, css.rightCell)}>
                     {qualityInput}
                 </td>
-                { /* The lane comment spans nlibs rows */
-                    k === 0 ?
-                        <td className={cx(css.libCell, css.commentCell)} rowSpan={lane.nlibs}>
-                            {commentInput}
-                        </td>
-                    : null
-                }
             </tr>);
+    }
+
+    /**
+     * Build the lane comment row.
+     */
+    makeCommentRow(laneNb) {
+        let commentModelName = `${this.modelName}.lanes[${laneNb}].comment`;
+        let commentModel = lanesModel.lane.comment;
+        let {inputType, ...otherProps} = commentModel;
+        otherProps.disabled = this.props.disabled;
+        let commentInput = makeRRFInput(inputType, commentModelName, otherProps);
+        return (
+            <tr key={"comment"+laneNb} className={css.bottomRow}>
+                <td className={cx(css.libCell, css.commentCell, css.leftRow, css.rightRow)} colSpan={4}>
+                {commentInput}
+                </td>
+            </tr>
+        );
     }
 
     render() {
@@ -185,22 +183,34 @@ class RunsSubForm extends React.PureComponent {
                 let row = this.makeLibRow(lane, lane.libs[k], k);
                 libRows.push(row);
             }
+            let commentRow = this.makeCommentRow(laneNb);
+            libRows.push(commentRow);
             laneRows.push(<tbody key={laneNb} className={css.lanesGroup}>{libRows}</tbody>);
         }
         return (
             <div>
-                <Button disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
-                <table className={css.lanesTable}>
-                <thead><tr>
-                    <th className={css.laneCell}>{null}</th>
-                    <th className={cx(css.libCell, css.projectCell)}>Project</th>
-                    <th className={cx(css.libCell, css.libraryCell)}>Library</th>
-                    <th className={cx(css.libCell, css.quantityCell)}>[pM]</th>
-                    <th className={cx(css.libCell, css.qualityCell)}>QC</th>
-                    <th className={cx(css.libCell, css.commentCell)}>Comment</th>
-                    </tr></thead>
-                    {laneRows}
-                </table>
+                <Button bsStyle="warning" disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
+
+                <div className="clearfix"/>
+
+                <Col sm={10}>
+                    <table className={css.lanesTable}>
+                    <thead><tr>
+                        <th className={css.laneCell}>{null}</th>
+                        <th className={cx(css.libCell, css.projectCell)}>Project</th>
+                        <th className={cx(css.libCell, css.libraryCell)}>Library</th>
+                        <th className={cx(css.libCell, css.quantityCell)}>[pM]</th>
+                        <th className={cx(css.libCell, css.qualityCell)}>QC</th>
+                        </tr></thead>
+                        {laneRows}
+                    </table>
+                </Col>
+                <Col sm={2}>
+                    aaa
+                </Col>
+
+                <div className="clearfix"/>
+
             </div>
         );
     }

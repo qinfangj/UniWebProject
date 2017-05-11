@@ -81,31 +81,44 @@
     width: 20px;
 }
 .projectCell {
-    width: 30%;
+    width: 40%;
 }
 td.projectCell {
     border-left: var(--border);
 }
 .libraryCell {
-    width: 15%;
+    width: 25%;
 }
 .quantityCell {
     /*width: 1px;*/  /* BS padding is enough... */
 }
-td.qualityCell {
-    border-right: var(--border);
+.qualityCell {
     width: 10%;
 }
-.commentCell {
-    width: 30%;
+td.qualityCell {
+    border-right: var(--border);
 }
-.topRow td:not(:first-child):not(:last-child) {
+td.commentCell {
+    border-left: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
+    padding: 4px 0;
+}
+
+/* Border around a lane */
+.topRow td:not(:first-child) {
     border-top: var(--border);
     padding-top: var(--mar);
 }
-.bottomRow td:not(:first-child):not(:last-child) {
+.bottomRow td:not(:first-child) {
     border-bottom: var(--border);
     padding-bottom: var(--mar);
+}
+.leftRow {
+    border-left: var(--border);
+}
+.rightRow {
+    right: var(--border);
 }
 
 /* Column content style */
