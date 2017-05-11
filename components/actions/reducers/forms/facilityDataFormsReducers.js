@@ -26,20 +26,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.runs.SEQUENCING_KIT_VERSION_ID]: "",
             [fields.runs.IS_FAILED]: false,
             [fields.runs.COMMENT]: "",
-            lanes: {
-                1: {
-                    comment: "",
-                    libs: [
-                        {
-                            "projectId": 1,
-                            "libraryId": 1,
-                            "concentration": "",
-                            "qualityId": 1,
-                            "isQC": false,
-                        }
-                    ],
-                }
-            },
+            lanes: {},
         },
     },
     'facilityDataForms'

@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import store from '../../../../core/store';
-import css from './runs.css';
+import css from './subruns.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,6 +11,7 @@ import { requestProjectsHavingAPool, requestProjectsHavingALibrary, requestSeque
 import * as forms from '../../forms.js';
 import lanesModel from './lanesModel';
 import { makeRRFInput } from '../../bootstrapWrappers/bs.js';
+import Icon from 'react-fontawesome';
 
 import {Button, Col} from 'react-bootstrap/lib';
 // import Feedback from '../../../utils/Feedback';
@@ -64,17 +65,21 @@ class RunsSubForm extends React.PureComponent {
      * Add one lane row to the table.
      */
     addLane() {
-        /* Find the min positive integer that is not contained in laneNbs */
-        let laneNbs = new Set(Object.keys(this.props.lanes).map(x => parseInt(x)));
-        let max = Math.max(...laneNbs);
         let laneNb = 0;
-        for (let k=1; k < max; k++) {
-            if (! laneNbs.has(k)) {
-                laneNb = k;
+        if (Object.keys(this.props.lanes).length === 0) {
+            laneNb = 1;
+        } else {
+            /* Find the min positive integer that is not contained in laneNbs */
+            let laneNbs = new Set(Object.keys(this.props.lanes).map(x => parseInt(x)));
+            let max = Math.max(...laneNbs);
+            for (let k=1; k < max; k++) {
+                if (! laneNbs.has(k)) {
+                    laneNb = k;
+                }
             }
-        }
-        if (laneNb === 0) {
-            laneNb = max + 1;
+            if (laneNb === 0) {
+                laneNb = max + 1;
+            }
         }
         store.dispatch(actions.merge(this.modelName+'.lanes', this.makeLane(laneNb)));
     }
@@ -135,7 +140,7 @@ class RunsSubForm extends React.PureComponent {
                         <td className={css.laneCell} rowSpan={lane.nlibs + 1}>{'L'+laneNb}</td>
                     : null
                 }
-                <td className={cx(css.libCell, css.projectCell, css.leftCell)}>
+                <td className={cx(css.libCell, css.projectCell)}>
                     {projectInput}
                 </td>
                 <td className={cx(css.libCell, css.libraryCell)}>
@@ -144,8 +149,11 @@ class RunsSubForm extends React.PureComponent {
                 <td className={cx(css.libCell, css.quantityCell)}>
                     {concentrationInput}
                 </td>
-                <td className={cx(css.libCell, css.qualityCell, css.rightCell)}>
+                <td className={cx(css.libCell, css.qualityCell)}>
                     {qualityInput}
+                </td>
+                <td className={cx(css.libCell, css.buttonsCell)}>
+                    <Icon name='trash' className={css.removeLibrary}/>
                 </td>
             </tr>);
     }
@@ -161,8 +169,11 @@ class RunsSubForm extends React.PureComponent {
         let commentInput = makeRRFInput(inputType, commentModelName, otherProps);
         return (
             <tr key={"comment"+laneNb} className={css.bottomRow}>
-                <td className={cx(css.libCell, css.commentCell, css.leftRow, css.rightRow)} colSpan={4}>
+                <td className={cx(css.libCell, css.commentCell)} colSpan={4}>
                 {commentInput}
+                </td>
+                <td className={cx(css.libCell, css.buttonsCell)} >
+                    <Icon name='plus-circle' className={css.addLibrary}/>
                 </td>
             </tr>
         );
@@ -193,21 +204,17 @@ class RunsSubForm extends React.PureComponent {
 
                 <div className="clearfix"/>
 
-                <Col sm={10}>
-                    <table className={css.lanesTable}>
-                    <thead><tr>
-                        <th className={css.laneCell}>{null}</th>
-                        <th className={cx(css.libCell, css.projectCell)}>Project</th>
-                        <th className={cx(css.libCell, css.libraryCell)}>Library</th>
-                        <th className={cx(css.libCell, css.quantityCell)}>[pM]</th>
-                        <th className={cx(css.libCell, css.qualityCell)}>QC</th>
-                        </tr></thead>
-                        {laneRows}
-                    </table>
-                </Col>
-                <Col sm={2}>
-                    Buttons here
-                </Col>
+                <table className={css.lanesTable}>
+                <thead><tr>
+                    <th className={css.laneCell}>{null}</th>
+                    <th className={cx(css.libCell, css.projectCell)}>Project</th>
+                    <th className={cx(css.libCell, css.libraryCell)}>Library</th>
+                    <th className={cx(css.libCell, css.quantityCell)}>[pM]</th>
+                    <th className={cx(css.libCell, css.qualityCell)}>QC</th>
+                    <th className={css.laneCell}>{null}</th>
+                    </tr></thead>
+                    {laneRows}
+                </table>
 
                 <div className="clearfix"/>
 

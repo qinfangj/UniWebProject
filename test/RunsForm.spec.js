@@ -3,9 +3,9 @@ import React from 'react';
 import {shallow, mount, render} from 'enzyme';
 
 import {expect} from 'chai';
-import RunsInsertForm from '../components/forms/facilityData/Runs/RunsInsertForm';
-import RunsPreInsertForm from '../components/forms/facilityData/Runs/RunsPreInsertForm';
-import RunsSubForm from '../components/forms/facilityData/Runs/RunsSubForm';
+import RunsInsertForm from '../components/forms/facilityData/Runs/backup/RunsInsertForm';
+import RunsPreInsertForm from '../components/forms/facilityData/Runs/backup/RunsPreInsertForm';
+import RunsSubForm from '../components/forms/facilityData/Runs/backup/RunsSubForm';
 
 
 const wrapper1 = shallow(<RunsInsertForm/>);
