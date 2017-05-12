@@ -115,50 +115,6 @@ class BSCheckbox extends React.PureComponent {
 }
 
 
-export function makeRRFInput(inputType, modelName, otherProps) {
-    let component;
-    let {required, validators, errors, errorMessages, updateOn, validateOn, ...inputProps} = otherProps;
-
-    if (inputType === inputTypes.TEXT) {
-        component = BSTextInput;
-    } else if (inputType === inputTypes.CHECKBOX) {
-        component = BSCheckbox;
-    } else if (inputType === inputTypes.DROPDOWN || inputType === inputTypes.SEC_DROPDOWN) {
-        component = BSSelect;
-    } else if (inputType === inputTypes.TEXTAREA) {
-        component = BSTextArea;
-    } else if (inputType === inputTypes.DATE) {
-        component = BSDate;
-    } else {
-        throw "Unknown input type: '"+ inputType +"'";
-    }
-
-    return (
-        <div>
-            <Control
-                className={formsCss.input}
-                component={component}
-                model={modelName}
-                required={required}
-                validators={validators}
-                errors={errors}
-                updateOn={updateOn || "change"}
-                validateOn={validateOn || "change"}
-                ignore={['focus', 'blur']}
-                {...inputProps}
-            />
-            <Errors
-                className={css.errors}
-                model={modelName}
-                show={true}
-                messages={errorMessages || {required: "Required"}}
-            />
-        </div>
-    );
-
-}
-
-
 export default class RFFInput extends React.PureComponent {
 
     static propTypes = {

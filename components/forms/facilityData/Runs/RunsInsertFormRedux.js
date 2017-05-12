@@ -13,7 +13,7 @@ import * as forms from '../../forms.js';
 import RunsSubForm from './RunsSubFormRedux';
 import formNames from '../../../constants/formNames';
 import runsModel from './runsModel';
-import { makeRRFInput } from '../../bootstrapWrappers/bs.js';
+import RFFInput from '../../bootstrapWrappers/bs.js';
 
 import {Button, Col, Alert} from 'react-bootstrap/lib';
 
@@ -69,10 +69,9 @@ class RunsInsertFormRedux extends React.PureComponent {
             if (optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }
-            let input = makeRRFInput(inputType, this.modelName +'.'+ modelName, otherProps);
             formFields.push(
                 <Col key={modelName} sm={model.width} className={cx(css.col)}>
-                    {input}
+                    <RFFInput inputType={inputType} modelName={this.modelName +'.'+ modelName} {...otherProps} />
                 </Col>
             );
         }

@@ -10,7 +10,7 @@ import { requestProjectsHavingAPool, requestProjectsHavingALibrary, requestSeque
 
 import * as forms from '../../forms.js';
 import lanesModel from './lanesModel';
-import { makeRRFInput } from '../../bootstrapWrappers/bs.js';
+import RFFInput from '../../bootstrapWrappers/bs.js';
 import Icon from 'react-fontawesome';
 
 import {Button, Col} from 'react-bootstrap/lib';
@@ -133,7 +133,7 @@ class RunsSubForm extends React.PureComponent {
             if (optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }
-            let input = makeRRFInput(inputType, modelName, otherProps);
+            let input = <RFFInput inputType={inputType} modelName={modelName} {...otherProps} />;
             formFields.push(input);
         }
 
@@ -194,7 +194,7 @@ class RunsSubForm extends React.PureComponent {
         let commentModel = lanesModel.lane.comment;
         let {inputType, ...otherProps} = commentModel;
         otherProps.disabled = this.props.disabled;
-        let commentInput = makeRRFInput(inputType, commentModelName, otherProps);
+        let commentInput = <RFFInput inputType={inputType} modelName={commentModelName} {...otherProps} />;
         return (
             <tr key={"comment"+laneNb} className={css.bottomRow}>
                 <td className={cx(css.libCell, css.commentCell)} colSpan={4}>
