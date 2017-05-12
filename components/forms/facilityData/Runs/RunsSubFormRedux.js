@@ -84,11 +84,6 @@ class RunsSubForm extends React.PureComponent {
         store.dispatch(actions.merge(this.modelName+'.lanes', this.makeLane(laneNb)));
     }
 
-    addLibrary(laneNb) {
-        console.log("add library to lane", laneNb)
-        store.dispatch(actions.push(this.modelName+`.lanes[${laneNb}].libs`, this.makeLib()));
-    }
-
     /**
      * Remove one entire lane.
      */
@@ -96,6 +91,13 @@ class RunsSubForm extends React.PureComponent {
         if (confirm("Do you really want to delete the entire lane "+ laneNb +"?")) {
             store.dispatch(actions.omit(this.modelName+`.lanes`, laneNb));
         }
+    }
+
+    /**
+     * Add one library row to the table.
+     */
+    addLibrary(laneNb) {
+        store.dispatch(actions.push(this.modelName+`.lanes[${laneNb}].libs`, this.makeLib()));
     }
 
     /**
