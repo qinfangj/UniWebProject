@@ -10,7 +10,7 @@ import { requestProjectsHavingAPool, requestProjectsHavingALibrary, requestSeque
 
 import * as forms from '../../forms.js';
 import lanesModel from './lanesModel';
-import RFFInput from '../../bootstrapWrappers/bs.js';
+import RFFInput from '../../bootstrapWrappers/RFFInput.js';
 import Icon from 'react-fontawesome';
 
 import Button from 'react-bootstrap/lib/Button';

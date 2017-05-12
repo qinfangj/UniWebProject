@@ -13,7 +13,7 @@ import * as forms from '../../forms.js';
 import RunsSubForm from './RunsSubFormRedux';
 import formNames from '../../../constants/formNames';
 import runsModel from './runsModel';
-import RFFInput from '../../bootstrapWrappers/bs.js';
+import RFFInput from '../../bootstrapWrappers/RFFInput.js';
 
 import {Button, Col, Alert} from 'react-bootstrap/lib';
 
