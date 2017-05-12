@@ -4,8 +4,9 @@ import cx from 'classnames';
 import css from '../login.css';
 import store from '../../../core/store';
 import { requestResetPassword } from '../../actions/actionCreators/authActionCreators';
+import Validators  from '../../forms/validators';
 
-import {Form, FormControl, InputGroup, FormGroup, Button} from 'react-bootstrap/lib';
+import {Form, FormControl, InputGroup, FormGroup, Button, HelpBlock} from 'react-bootstrap/lib';
 
 
 
@@ -14,6 +15,8 @@ class ForgotPasswordForm extends React.Component {
         super(props);
         this.state = {
             email: "test@test.com",
+            fbEmail: null,
+            msgEmail: "",
         };
     }
 
@@ -23,6 +26,22 @@ class ForgotPasswordForm extends React.Component {
 
     onChangeEmail(e) {
         this.setState({email: e.target.value});
+        let email = e.target.value;
+        let emailCheck = this.validateEmail(email);
+        this.setState({email: email, msgEmail: emailCheck.msg,
+            fbEmail: emailCheck.feedback});
+    }
+
+    validateEmail(field) {
+        let checkEmail = Validators.emailValidator(field);
+
+        if (checkEmail.valid == true) {
+            //return checkEmail object. if validator is true
+            //Set appropriate feedbacks and error messages.
+            return {msg: "", feedback: "success" };
+        } else {
+            return {msg: checkEmail.msg, feedback: "warning" };
+        }
     }
 
     render() {
@@ -33,7 +52,7 @@ class ForgotPasswordForm extends React.Component {
 
                     To reset your password, submit your email address.
 
-                    <FormGroup className={css.formGroup}>
+                    <FormGroup className={css.formGroup} validationState={this.state.fbEmail}>
                         <InputGroup>
                         <InputGroup.Addon>@</InputGroup.Addon>
                         <FormControl
@@ -42,6 +61,8 @@ class ForgotPasswordForm extends React.Component {
                             onChange={this.onChangeEmail.bind(this)}
                         />
                         </InputGroup>
+                        <FormControl.Feedback />
+                        <HelpBlock>{this.state.msgEmail}</HelpBlock>
                     </FormGroup>
 
                 </Form>
