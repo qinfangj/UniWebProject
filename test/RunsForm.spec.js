@@ -4,8 +4,6 @@ import {shallow, mount, render} from 'enzyme';
 
 import {expect} from 'chai';
 import RunsInsertForm from '../components/forms/facilityData/Runs/backup/RunsInsertForm';
-import RunsPreInsertForm from '../components/forms/facilityData/Runs/backup/RunsPreInsertForm';
-import RunsSubForm from '../components/forms/facilityData/Runs/backup/RunsSubForm';
 
 
 const wrapper1 = shallow(<RunsInsertForm/>);
@@ -13,21 +11,5 @@ describe('(Component) RunsInsertForm =>', () => {
 
     it('renders without exploding', () => {
         expect(wrapper1).to.have.length(1);
-    });
-});
-
-const wrapper2 = shallow(<RunsPreInsertForm/>);
-describe('(Component) RunsPreInsertForm =>', () => {
-
-    it('renders without exploding', () => {
-        expect(wrapper2).to.have.length(1);
-    });
-});
-
-const wrapper3 = shallow(<RunsSubForm lanes={{}}/>);
-describe('(Component) RunsSubForm =>', () => {
-
-    it('renders without exploding', () => {
-        expect(wrapper3).to.have.length(1);
     });
 });

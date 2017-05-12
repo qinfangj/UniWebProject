@@ -93,7 +93,7 @@ class RunsSubForm extends React.PureComponent {
      */
     removeLane(laneNb) {
         if (confirm("Do you really want to delete entire lane "+ laneNb +"?")) {
-            store.dispatch(actions.remove(this.modelName+'.lanes', laneNb));
+            store.dispatch(actions.remove(this.modelName+`.lanes`, laneNb));
         }
     }
 
@@ -141,7 +141,9 @@ class RunsSubForm extends React.PureComponent {
             >
                 { /* The lane number spans all lib rows + comment */
                     k === 0 ?
-                        <td className={css.laneCell} rowSpan={lane.nlibs + 1}>{'L'+laneNb}</td>
+                        <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
+                            {'L'+laneNb}
+                        </td>
                     : null
                 }
                 <td className={cx(css.libCell, css.projectCell)}>
@@ -161,6 +163,15 @@ class RunsSubForm extends React.PureComponent {
                         <Icon name='trash' className={css.removeLibrary}/>
                     </div>
                 </td>
+                { /* The delete lane button spans all lib rows + comment */
+                    k === 0 ?
+                        <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
+                            <div onClick={this.removeLane.bind(this, laneNb)}>
+                                <Icon name="trash" className={css.removeLane}/>
+                            </div>
+                        </td>
+                    : null
+                }
             </tr>);
     }
 
@@ -183,13 +194,14 @@ class RunsSubForm extends React.PureComponent {
                         <Icon name='plus-circle' className={css.addLibrary}/>
                     </div>
                 </td>
+                <td/>
             </tr>
         );
     }
 
     render() {
         let lanes = this.props.lanes;
-        //console.debug(lanes)
+        console.debug(lanes)
         let laneRows = [];
         for (let laneNb of Object.keys(lanes)) {
             let lane = lanes[laneNb];
@@ -220,6 +232,7 @@ class RunsSubForm extends React.PureComponent {
                     <th className={cx(css.libCell, css.quantityCell)}>[pM]</th>
                     <th className={cx(css.libCell, css.qualityCell)}>QC</th>
                     <th className={css.laneCell}>{null}</th>
+                    <th className={css.laneCell}>{null}</th>
                     </tr></thead>
                     {laneRows}
                 </table>
@@ -242,6 +255,7 @@ const mapStateToProps = (state) => {
         }
     }
     let formData = state.facilityDataForms.runs;
+    console.debug(formData)
     return {
         lanes: formData.lanes,
         options: options,

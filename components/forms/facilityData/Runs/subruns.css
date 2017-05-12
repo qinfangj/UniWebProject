@@ -59,7 +59,7 @@
     /* Will adapt to what is left */
 }
 .qualityCell {
-    width: 15%;
+    min-width: 90px;
 }
 
 /* Border around a lane */
@@ -76,11 +76,11 @@ td.buttonsCell {
     padding-right: 4px;
 }
 
-.topRow td:not(:first-child) {
+.topRow td:not(:first-child):not(:last-child) {
     border-top: var(--border);
     padding-top: var(--mar);
 }
-.bottomRow td:not(:first-child) {
+.bottomRow td:not(:first-child):not(:last-child) {
     border-bottom: var(--border);
     padding-bottom: var(--mar);
 }
@@ -100,10 +100,13 @@ td.buttonsCell {
 .addLibrary:hover {
     color: black;
 }
-.removeLibrary {
+.removeLane {
+    margin-left: 5px;
+}
+.removeLibrary, .removeLane {
     cursor: pointer;
     font-size: 1.5em;
 }
-.removeLibrary:hover {
-    color: red;
+.removeLibrary:hover, .removeLane:hover {
+    color: var(--errorRed);
 }
