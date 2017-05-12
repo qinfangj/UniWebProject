@@ -39,7 +39,7 @@ const trackingData = {
     detailData:{
         'MiSeq SR 150': [
             {
-                id: 1,
+
                 sample: {'ID':'22764','Name':'ML3','Protocol':'Commercial','Recieve Date':'2016-08-23','Type':'genomic DNA','Organism':'Apis mellifera (honey bee)',
                             'project':'Honey bee gut metagenome','Lab':'Engel','Facility Comment':'',
                             'Customer Comment':'Diagenode Microplex library preparation Kit. No size selection. Fragment analyzer peak is not realiable because peak is very wide'},
@@ -51,7 +51,7 @@ const trackingData = {
                                'Comment':'to be sequenced with library test_D2 which has Index N716/S510'}]
             },
             {
-                id: 2,
+
                 sample: {'ID':'22765','Name':'ML3','Protocol':'Commercial','Recieve Date':'2016-08-23','Type':'genomic DNA','Organism':'Apis mellifera (honey bee)',
                     'project':'Honey bee gut metagenome','Lab':'Engel','Facility Comment':'',
                     'Customer Comment':'Diagenode Microplex library preparation Kit. No size selection. Fragment analyzer peak is not realiable because peak is very wide'},
@@ -63,7 +63,7 @@ const trackingData = {
                         'Comment':'to be sequenced with library test_D2 which has Index N716/S510'}]
             },
             {
-                id: 3,
+
                 sample: {'ID':'22766','Name':'ML3','Protocol':'Commercial','Recieve Date':'2016-08-23','Type':'genomic DNA','Organism':'Apis mellifera (honey bee)',
                     'project':'Honey bee gut metagenome','Lab':'Engel','Facility Comment':'',
                     'Customer Comment':'Diagenode Microplex library preparation Kit. No size selection. Fragment analyzer peak is not realiable because peak is very wide'},
@@ -75,7 +75,7 @@ const trackingData = {
                         'Comment':'to be sequenced with library test_D2 which has Index N716/S510'}]
             },
             {
-                id: 4,
+
                 sample: {id:'22767',name:'ML3',Protocol:'Commercial',date:'2016-08-23'},
                 requests: [{id:'25358',sample:'ML3',laboratory:'Herr',libratory:'Commecial'},
                     {id:'25359',sample:'ML4',laboratory:'Herr1',libratory:'Commecial1'}]
@@ -83,7 +83,7 @@ const trackingData = {
         ],
         'Paired-end reads 100': [
             {
-                code: '002',
+
                 sample: {'ID':'22766','Name':'ML3','Protocol':'Commercial','Recieve Date':'2016-08-23','Type':'genomic DNA','Organism':'Apis mellifera (honey bee)',
                     'project':'Honey bee gut metagenome','Lab':'Engel','Facility Comment':'',
                     'Customer Comment':'Diagenode Microplex library preparation Kit. No size selection. Fragment analyzer peak is not realiable because peak is very wide'},

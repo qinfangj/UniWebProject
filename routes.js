@@ -105,7 +105,10 @@ const routes = (
             <Route path="data/alignments/update/:id" component={fdata.AlignmentsUpdateRoute} onEnter={requireAuth} />
 
             {/* Tracking */}
-            <Route path="tracking" component={tkdata.trackingTable} onEnter={requireAuth} />
+            <Route path="tracking" component={tkdata.trackingSamples} onEnter={requireAuth} />
+            <Route path="tracking/samples" component={tkdata.trackingSamples} onEnter={requireAuth} />
+            <Route path="tracking/libraries" component={tkdata.trackingLibraries} onEnter={requireAuth} />
+            <Route path="tracking/runs" component={tkdata.trackingRuns} onEnter={requireAuth} />
 
             {/* QUERY PROJECTS */}
 

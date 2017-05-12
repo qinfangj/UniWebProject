@@ -26,11 +26,11 @@ class TrackingData extends React.PureComponent {
 
                     <div className={css.navbar}>
                         <ul>
-                            <li><Link to={`/data/${tableName}/samples`} activeClassName={css.active}>{"Sample to prepare"}</Link></li>
+                            <li><Link to={`/${tableName}/samples`} activeClassName={css.active}>{"Sample to prepare"}</Link></li>
                             <li> · </li>
-                            <li><Link to={`/data/${tableName}/libraries`} activeClassName={css.active}>{"Libraries to sequence "}</Link></li>
+                            <li><Link to={`/${tableName}/libraries`} activeClassName={css.active}>{"Libraries to sequence "}</Link></li>
                             <li> · </li>
-                            <li><Link to={`/data/${tableName}/runs`} activeClassName={css.active}>{"Libraries being sequenced"}</Link></li>
+                            <li><Link to={`/${tableName}/runs`} activeClassName={css.active}>{"Libraries being sequenced"}</Link></li>
                         </ul>
                     </div>
 
