@@ -39,13 +39,13 @@ class RunsSubForm extends React.PureComponent {
     /**
      * Return a new empty library model object.
      */
-    makeLib(projectId, libraryId, concentration, qualityId, isQC) {
+    makeLib(projectId = "", libraryId = "", concentration = "", qualityId = "", isQC = false) {
         return {
-            projectId: projectId || "",
-            libraryId: libraryId || "",
-            concentration: concentration || "",
-            qualityId: qualityId || "",
-            isQC: isQC || false,
+            projectId: projectId,
+            libraryId: libraryId,
+            concentration: concentration,
+            qualityId: qualityId,
+            isQC: isQC,
         };
     }
 
@@ -86,22 +86,28 @@ class RunsSubForm extends React.PureComponent {
 
     addLibrary(laneNb) {
         console.log("add library to lane", laneNb)
+        store.dispatch(actions.push(this.modelName+`.lanes[${laneNb}].libs`, this.makeLib()));
     }
 
     /**
      * Remove one entire lane.
      */
     removeLane(laneNb) {
-        if (confirm("Do you really want to delete entire lane "+ laneNb +"?")) {
-            store.dispatch(actions.remove(this.modelName+`.lanes`, laneNb));
+        if (confirm("Do you really want to delete the entire lane "+ laneNb +"?")) {
+            store.dispatch(actions.omit(this.modelName+`.lanes`, laneNb));
         }
     }
 
     /**
      * Remove a library row from the table.
      */
-    removeLibrary(library, k) {
-        console.log("remove lib", k, library)
+    removeLibrary(laneNb, library, k) {
+        let nlibs = this.props.lanes[laneNb].libs.length;
+        if (nlibs > 1) {
+            if (confirm("Delete this library?")) {
+                store.dispatch(actions.remove(this.modelName+`.lanes[${laneNb}].libs`, k));
+            }
+        }
     }
 
     /**
@@ -112,6 +118,7 @@ class RunsSubForm extends React.PureComponent {
      */
     makeLibRow(lane, lib, k) {
         let laneNb = lane.laneNb;
+        let nlibs = this.props.lanes[laneNb].libs.length;
         let qcBsClass = lib.isQC ? cx('form-control', css.qcCell) : 'form-control';
         let prefix = `${this.modelName}.lanes[${laneNb}].${lib.isQC ? "libsQC": "libs"}[${k}]`;
 
@@ -159,9 +166,13 @@ class RunsSubForm extends React.PureComponent {
                     {qualityInput}
                 </td>
                 <td className={cx(css.libCell, css.buttonsCell)}>
-                    <div onClick={this.removeLibrary.bind(this, lib, k)}>
-                        <Icon name='trash' className={css.removeLibrary}/>
-                    </div>
+                    { /* Cannot delete the only remaining lib in a lane */
+                        nlibs > 1 ?
+                            <div onClick={this.removeLibrary.bind(this, laneNb, lib, k)}>
+                                <Icon name='trash' className={css.removeLibrary}/>
+                            </div>
+                        : null
+                    }
                 </td>
                 { /* The delete lane button spans all lib rows + comment */
                     k === 0 ?
@@ -201,7 +212,7 @@ class RunsSubForm extends React.PureComponent {
 
     render() {
         let lanes = this.props.lanes;
-        console.debug(lanes)
+        //console.debug(lanes)
         let laneRows = [];
         for (let laneNb of Object.keys(lanes)) {
             let lane = lanes[laneNb];
@@ -255,7 +266,6 @@ const mapStateToProps = (state) => {
         }
     }
     let formData = state.facilityDataForms.runs;
-    console.debug(formData)
     return {
         lanes: formData.lanes,
         options: options,
