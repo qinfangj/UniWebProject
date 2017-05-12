@@ -11,6 +11,7 @@ export default class BSSecondarySelect extends React.PureComponent {
 
     static propTypes = {
         refModelName: PropTypes.string,  // the name of the field to watch changes of
+        loadOnMount: PropTypes.bool,  // whether to fetch options when the form loads, instead of waiting for th eref value to change
     };
 
     render() {
