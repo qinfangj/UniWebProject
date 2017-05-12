@@ -13,7 +13,6 @@ class TrackingDetailView extends React.PureComponent {
 
     SampleDetailsTb(k,v){
 
-        console.log(k);
         let rowSpan = (k==='Customer Comment')? 2:null;
 
         return (<tr key={k}>

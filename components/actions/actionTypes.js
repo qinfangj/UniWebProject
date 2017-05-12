@@ -71,6 +71,11 @@ const actionTypes = {
         CHANGE_PROJECTS_SELECTION: "CHANGE_PROJECT_SELECTION",
         CHANGE_SAMPLES_SELECTION: "CHANGE_SAMPLES_SELECTION",
     },
+
+    tracking: {
+        TRACKING_SUMMARIES: "TRACKING_SUMMARIES",
+    },
 };
+
 
 export default actionTypes;
