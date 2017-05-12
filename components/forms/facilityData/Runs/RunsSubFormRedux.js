@@ -5,7 +5,7 @@ import css from './subruns.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, actions} from 'react-redux-form';
+import { actions} from 'react-redux-form';
 import { requestProjectsHavingAPool, requestProjectsHavingALibrary, requestSequencingQualities } from '../../../actions/actionCreators/optionsActionCreators';
 
 import * as forms from '../../forms.js';
@@ -13,8 +13,8 @@ import lanesModel from './lanesModel';
 import RFFInput from '../../bootstrapWrappers/bs.js';
 import Icon from 'react-fontawesome';
 
-import {Button, Col} from 'react-bootstrap/lib';
-// import Feedback from '../../../utils/Feedback';
+import Button from 'react-bootstrap/lib/Button';
+
 
 /**
  * The Project-library-[pM]-QC mini form of variable length
@@ -124,7 +124,7 @@ class RunsSubForm extends React.PureComponent {
         let qcBsClass = lib.isQC ? cx('form-control', css.qcCell) : 'form-control';
         let prefix = `${this.modelName}.lanes[${laneNb}].${lib.isQC ? "libsQC": "libs"}[${k}]`;
 
-        // Construct the project-library-concentration-quality inputs for one Library row
+        /* Construct the project-library-concentration-quality inputs for one Library row */
         let formFields = [];
         for (let fieldName of Object.keys(lanesModel.lib)) {
             let model = lanesModel.lib[fieldName];
