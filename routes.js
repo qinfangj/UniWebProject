@@ -73,7 +73,8 @@ const routes = (
             <Route path="data/runs" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/list" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/active" component={fdata.RunsActiveRoute} onEnter={requireAuth} />
-            {/*<Route path="data/runs/new" component={fdata.RunsPreNewRoute} onEnter={requireAuth} />*/}
+            {/* For testing of the sub-form */}
+            <Route path="data/subruns/new" component={fdata.SubRunsRoute} onEnter={requireAuth} />
             <Route path="data/runs/new" component={fdata.RunsNewRoute} onEnter={requireAuth} />
 
             {/*<Route path="data/runs/postnew" component={fdata.RunsNewRoute} onEnter={requireAuth} />*/}
@@ -104,7 +105,10 @@ const routes = (
             <Route path="data/alignments/update/:id" component={fdata.AlignmentsUpdateRoute} onEnter={requireAuth} />
 
             {/* Tracking */}
-            <Route path="tracking" component={tkdata.trackingTable}/>
+            <Route path="tracking" component={tkdata.trackingSamples} onEnter={requireAuth} />
+            <Route path="tracking/samples" component={tkdata.trackingSamples} onEnter={requireAuth} />
+            <Route path="tracking/libraries" component={tkdata.trackingLibraries} onEnter={requireAuth} />
+            <Route path="tracking/runs" component={tkdata.trackingRuns} onEnter={requireAuth} />
 
             {/* QUERY PROJECTS */}
 

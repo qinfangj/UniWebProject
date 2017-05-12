@@ -102,7 +102,6 @@ class CommonAdminForms extends React.Component {
                             (this.state.submissionSuccess ? constants.SUBMISSION_SUCCESS :
                             (Object.keys(this.state.serverError).length > 0 ? constants.SERVER_ERROR : ""));
         let error = this.state.serverError;
-
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
 
@@ -124,7 +123,7 @@ class CommonAdminForms extends React.Component {
                 <div className="clearfix"/>
                 <Col sm={6} className={css.formCol}>
                     <Button bsStyle="primary" className={admincss.button} type="submit" >
-                        {this.state.isInsert ? 'Submit':'ActivateForm'}
+                        {this.state.isInsert ? 'Submit' : 'ActivateForm'}
                     </Button>
                 </Col>
             </Form>

@@ -139,6 +139,16 @@ class RestService {
         let url = `${BACKEND}/query/projects/${queryType}/${ids}`;
         return get(url);
     }
+
+    /* Tracking for Samples */
+
+    trackingSummaries(trackType) {
+
+        let url = `${BACKEND}/tracking/${trackType}`;
+        console.log(url);
+        return get(url);
+    }
+
     searchSamplesByTerm(term) {
         let url = `${BACKEND}/search/samples?term=${term}`;
         return get(url);

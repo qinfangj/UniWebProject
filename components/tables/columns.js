@@ -514,7 +514,7 @@ const columns = {
             field: "nb_lanes",
         },{
             headerName: "Multiplex#",
-            field: "multiplex_nb",
+            field: "lane_fraction",
         },{
             headerName: "Group",
             field: "group",

@@ -3,6 +3,7 @@
 import React from 'react';
 import trackingData from '../../forms/tracking/trackingData';
 import trackCss from './tracking.css';
+import Icon from "react-fontawesome";
 
 
 class TrackingDetailView extends React.PureComponent {
@@ -12,8 +13,10 @@ class TrackingDetailView extends React.PureComponent {
 
     SampleDetailsTb(k,v){
 
+        let rowSpan = (k==='Customer Comment')? 2:null;
+
         return (<tr key={k}>
-                    <th>{k + ':'}</th><td>{v}</td>
+                    <th rowSpan={rowSpan}>{k + ':'}</th><td rowSpan={rowSpan}>{v}</td>
                 </tr>)
 
     }
@@ -22,7 +25,7 @@ class TrackingDetailView extends React.PureComponent {
         let headers = Object.keys(v);
         let makeBody = headers.map(
             s => {
-                if (s !== 'comment'){
+                if (s !== 'Comment'){
                     return (
                         <td key={v[s]}>{v[s]}</td>
                     )
@@ -34,7 +37,7 @@ class TrackingDetailView extends React.PureComponent {
                  <tbody key={k}>
                  <tr >{makeBody}</tr>
                  <tr ><td colSpan='9'>
-                     <span className="label-info">Comment: </span>{(v['comment'] !== undefined)? v['comment'] : '--'}</td></tr>
+                     <Icon name="comment" style={{color:'#337ab7',padding:'5px'}}/> {(v['Comment'] !== undefined)? v['Comment'] : '--'}</td></tr>
                  </tbody>
 
              )
@@ -49,15 +52,17 @@ class TrackingDetailView extends React.PureComponent {
            let headerWidth = 100/(requestheaders.length-1) +'%';
            let makeRequstsHeader = requestheaders.map(
                 s => {
-                    if (s !== 'comment') {
+                    if (s !== 'Comment') {
                         return (
                             <th key={s} width={headerWidth}>{s}</th>
                         )
                     }
                 }
            );
+
            return (
                     <div className={trackCss.div1}>
+
                     <div className={trackCss.div2}>
                         <h4>Sample details</h4>
                         <table width='100%'>

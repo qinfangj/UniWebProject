@@ -1,15 +1,35 @@
 "use strict";
 import React from 'react';
-import TableCellClick from '../../forms/tracking/TableCellClick';
+import TrakingSummaryView from '../../forms/tracking/TrakingSummaryView';
 import TrackingData from '../../pages/TrackingData';
 
 
 
-export class trackingTable extends React.Component {
+export class trackingSamples extends React.Component {
     render() {
         return (
             <TrackingData title="Tracking" name="tracking" content={
-                <TableCellClick />
+                <TrakingSummaryView dataStoreKey="samples" />
+            }/>
+        );
+    }
+}
+
+export class trackingLibraries extends React.Component {
+    render() {
+        return (
+            <TrackingData title="Tracking" name="tracking" content={
+                <TrakingSummaryView dataStoreKey="libraries" isLibrary={true} />
+            }/>
+        );
+    }
+}
+
+export class trackingRuns extends React.Component {
+    render() {
+        return (
+            <TrackingData title="Tracking" name="tracking" content={
+                <TrakingSummaryView dataStoreKey="runs" />
             }/>
         );
     }

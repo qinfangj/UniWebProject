@@ -1,12 +1,12 @@
 "use strict";
 
 const inputTypes = {
-    DROPDOWN: "Dropdown",
-    SEC_DROPDOWN: "Secondary dropdown",
-    TEXT: "Text field",
-    TEXTAREA: "Text area",
-    CHECKBOX: "Checkbox",
-    DATE: "Date",
+    DROPDOWN: "dropdown",
+    SEC_DROPDOWN: "secondary_dropdown",
+    TEXT: "text",
+    TEXTAREA: "textarea",
+    CHECKBOX: "checkbox",
+    DATE: "date",
 };
 
 export const DEFAULT_DATE = "1970-01-01";

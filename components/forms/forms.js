@@ -3,10 +3,11 @@ import React from 'react';
 import store from '../../core/store';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../actions/actionCreators/feedbackActionCreators';
-import { findForUpdateAsync } from '../actions/actionCreators/facilityDataActionCreators';
+import { findForUpdateAsync, findByIdAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { resetForm } from '../actions/actionCreators/formsActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
+import { actions } from 'react-redux-form';
 
 
 /**
@@ -19,6 +20,18 @@ export function newOrUpdate(form, table, updateId) {
         store.dispatch(findForUpdateAsync(table, updateId, form));
     } else {
         store.dispatch(resetForm(form));
+    }
+}
+
+export function newOrUpdate2(modelName, table, updateId){
+    if (updateId) {
+        store.dispatch(findByIdAsync(table, updateId))
+        .done((data) => {
+            console.log("Update with values:", data);
+            store.dispatch(actions.merge(modelName,data));
+        });
+    } else {
+        store.dispatch(actions.reset(modelName));
     }
 }
 
@@ -72,34 +85,37 @@ export function submit(form, table, formatFormData=null) {
         store.dispatch(feedbackWarning(form, "Some required fields are missing or ill-formatted. Please review the form and submit again."));
 // Valid form: format and send
     } else {
-        if (formatFormData) {
-            formData = formatFormData(formData);
-        }
-        // CreatedAt: reformat so that it can be parsed as java.sql.Timestamp.
-        // Updated at: if update, set to current timestamp.
-        if (formData.id && formData.id !== 0) {
-            formData.updatedAt = dateNow();
-            if (formData.createdAt) {
-                formData.createdAt = parseDateString(formData.createdAt);
+        //before submission show the dialoge for confirm
+        if (confirm("Are you sure that you want to submit the data?")) {
+            if (formatFormData) {
+                formData = formatFormData(formData);
             }
+            // CreatedAt: reformat so that it can be parsed as java.sql.Timestamp.
+            // Updated at: if update, set to current timestamp.
+            if (formData.id && formData.id !== 0) {
+                formData.updatedAt = dateNow();
+                if (formData.createdAt) {
+                    formData.createdAt = parseDateString(formData.createdAt);
+                }
+            }
+            console.info(JSON.stringify(formData, null, 2));
+            submissionFuture = store.dispatch(insertAsync(table, formData));
+            submissionFuture
+                .done((insertId) => {
+                    // Signal that it was a success
+                    console.debug(200, "Inserted ID <" + insertId + ">");
+                    // Clear the form data in store
+                    store.dispatch(feedbackSuccess(form, "Inserted ID <" + insertId + ">"));
+                    store.dispatch(resetForm(form));
+                    // Redirect to table by replacing '/new' by '/list' in the router state
+                    let currentPath = window.location.pathname + window.location.hash.substr(2);
+                    hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
+                })
+                .fail((err) => {
+                    console.warn("Uncaught form validation error");
+                    store.dispatch(feedbackError(form, "Uncaught form validation error", err));
+                });
         }
-        console.info(JSON.stringify(formData, null, 2));
-        submissionFuture = store.dispatch(insertAsync(table, formData));
-        submissionFuture
-            .done((insertId) => {
-                // Signal that it was a success
-                console.debug(200, "Inserted ID <"+insertId+">");
-                // Clear the form data in store
-                store.dispatch(feedbackSuccess(form, "Inserted ID <"+insertId+">"));
-                store.dispatch(resetForm(form));
-                // Redirect to table by replacing '/new' by '/list' in the router state
-                let currentPath = window.location.pathname + window.location.hash.substr(2);
-                hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
-            })
-            .fail((err) => {
-                console.warn("Uncaught form validation error");
-                store.dispatch(feedbackError(form, "Uncaught form validation error", err));
-            });
     }
 }
 
