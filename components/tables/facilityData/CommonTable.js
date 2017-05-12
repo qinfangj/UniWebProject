@@ -134,7 +134,7 @@ class CommonTable extends React.PureComponent {
             <div style={{width: '100%', height: '100%'}}>
                 <div >
                 <div type="button" className={css.resetBtn} onClick={this.reset.bind(this)}>
-                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        <span className="glyphicon glyphicon-remove" aria-hidden="true" />
                 </div>
                 <FormControl type="text" className={css.searchField} placeholder="Search"
                     value={this.state.searchValue}
