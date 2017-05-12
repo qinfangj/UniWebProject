@@ -1,0 +1,109 @@
+
+@import '../../../../styles/colors.css';
+
+:root {
+    --mar: 4px;
+    --border: 1px solid var(--blue);
+}
+
+/******************/
+/* Lanes sub-form */
+/******************/
+
+.lanesTable {
+    width: 100%;
+}
+.lanesTable th {
+    font-size: 12px;
+    padding-left: var(--mar);
+}
+.lanesGroup {
+}
+.lanesGroup::before
+{
+    content: '';
+    display: block;
+    height: 5px;
+}
+.lanesGroup::after
+{
+    content: '';
+    display: block;
+    height: 5px;
+}
+
+
+/* Generic cell */
+.libCell {
+}
+.libCell > div {
+    margin: 0;
+    /*padding: 0 calc(15px + var(--mar));  !* compensate the -15px left/right-margin in BS .form-horizontal .form-group *!*/
+    padding: 0 5px;
+}
+.qcCell {
+    background-color: #E5F2FF;
+}
+
+/* Particular cells */
+.laneCell {
+    width: 20px;
+}
+.projectCell {
+    width: 40%;
+}
+.libraryCell {
+    width: 25%;
+}
+.quantityCell {
+    /* Will adapt to what is left */
+}
+.qualityCell {
+    width: 15%;
+}
+
+/* Border around a lane */
+td.projectCell {
+    border-left: var(--border);
+}
+td.commentCell {
+    border-left: var(--border);
+    border-bottom: var(--border);
+    padding: 4px 0;
+}
+td.buttonsCell {
+    border-right: var(--border);
+    padding-right: 4px;
+}
+
+.topRow td:not(:first-child) {
+    border-top: var(--border);
+    padding-top: var(--mar);
+}
+.bottomRow td:not(:first-child) {
+    border-bottom: var(--border);
+    padding-bottom: var(--mar);
+}
+.leftRow {
+    border-left: var(--border);
+}
+.rightRow {
+    right: var(--border);
+}
+
+/* Icons */
+.addLibrary {
+    cursor: pointer;
+    font-size: 1.5em;
+    color: green;
+}
+.addLibrary:hover {
+    color: black;
+}
+.removeLibrary {
+    cursor: pointer;
+    font-size: 1.5em;
+}
+.removeLibrary:hover {
+    color: red;
+}

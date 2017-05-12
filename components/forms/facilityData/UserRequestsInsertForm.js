@@ -204,11 +204,11 @@ class UserRequestsInsertForm extends React.PureComponent {
                     <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
                         <Checkbox
                             form={this.form} field={fields.IS_TRASHED} label="Discarded"
-                            disabled={this.props.disabled}
+                            disabled={this.state.disabled}
                         />
                         <Checkbox
                             form={this.form} field={fields.IS_FULFILLED} label="DONE"
-                            disabled={this.props.disabled}
+                            disabled={this.state.disabled}
                         />
                     </Col>
 
