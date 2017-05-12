@@ -6,6 +6,10 @@
     --border: 1px solid var(--blue);
 }
 
+.col {
+    padding: 0 5px;
+}
+
 
 .preRunsInsertTable {
     width: 100%;
@@ -31,83 +35,4 @@
 .subformCol {
     padding-left: 0;
     margin-top: 6px;
-}
-
-
-/******************/
-/* Lanes sub-form */
-/******************/
-
-.lanesTable {
-    width: 100%;
-}
-.lanesTable th {
-    font-size: 12px;
-    padding-left: var(--mar);
-}
-.lanesGroup {
-}
-.lanesGroup::before
-{
-    content: '';
-    display: block;
-    height: 5px;
-}
-.lanesGroup::after
-{
-    content: '';
-    display: block;
-    height: 5px;
-}
-
-/* Generic cell */
-.libCell {
-}
-.libCell > div {
-    margin: 0;
-    padding: 0 calc(15px + var(--mar));  /* compensate the -15px left/right-margin in BS .form-horizontal .form-group */
-}
-.qcCell {
-    background-color: #E5F2FF;
-}
-
-/* Particular cells */
-.laneCell {
-    width: 20px;
-}
-.projectCell {
-    width: 40%;
-}
-td.projectCell {
-    border-left: var(--border);
-}
-.libraryCell {
-    width: 25%;
-}
-.quantityCell {
-    /*width: 1px;*/  /* BS padding is enough... */
-}
-td.qualityCell {
-    border-right: var(--border);
-    width: 15%;
-}
-.topRow td:not(:first-child) {
-    border-top: var(--border);
-    padding-top: var(--mar);
-}
-.bottomRow td {
-    border-bottom: var(--border);
-    padding-bottom: var(--mar);
-}
-
-/* Column content style */
-
-.laneId {
-    width: 50px;
-    text-align: center;
-    font-weight: bold;
-}
-.numeric {
-    width: 120px;
-    max-width: 120px;
 }

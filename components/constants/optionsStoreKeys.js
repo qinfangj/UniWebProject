@@ -3,7 +3,7 @@
 /**
  * Options dropdown lists are used in several forms, and are the result
  * of the same backend db query. There is no reason to create one entry per form
- * in the store, so the same data is reused of the same dataStoreKey is used.
+ * in the store, so the same data is reused of the same store key is used.
  */
 
 export default {
@@ -14,6 +14,7 @@ export default {
 
     // primary lists
     INSTRUMENTS: "INSTRUMENTS_OPTIONS",
+    LABORATORIES: "LABORATORIES",  // people, but only labs
     LIB_PROTOCOLS: "LIB_PROTOCOLS_OPTIONS",
     LIB_ADAPTERS: "LIB_ADAPTERS_OPTIONS",
     LIB_STATES: "LIB_STATES_OPTIONS",

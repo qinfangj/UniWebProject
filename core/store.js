@@ -34,7 +34,9 @@ const logger = createLogger({
 });
 
 let middleware = [thunk];
+
 console.log("store.js :: NODE_ENV:", process.env.NODE_ENV);
+// Add logger, except for unit tests
 if (process.env.NODE_ENV !== 'TEST') {
     middleware = [ ...middleware, logger ]
 }

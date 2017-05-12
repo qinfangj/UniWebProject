@@ -5,6 +5,19 @@ import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import fields from '../fields';
 
 
+
+/** In Runs */
+export class FlowcellTypes extends React.Component {
+    formatter(v) { return [v.id, v.version]; }
+    render() {
+        return <AsyncOptionsList field={fields.FLOWCELL_TYPE_ID} table="flowcell_types" label="Version"
+                                 storeKey={optionsStoreKeys.FLOWCELL_TYPES}
+                                 formatter={this.formatter}
+                                 {...this.props}
+        />;
+    }
+}
+
 /** In Runs */
 export class Instruments extends React.Component {
     formatter(v) { return [v.id, v.name]; }
@@ -14,6 +27,18 @@ export class Instruments extends React.Component {
                                  formatter={this.formatter}
                                  {...this.props}
                                   />;
+    }
+}
+
+/** In Libraries */
+export class LibraryAdapters extends React.Component {
+    formatter(v) { return [v.id, v.name]; }
+    render() {
+        return <AsyncOptionsList field={fields.ADAPTER_ID} table="library_adapters" label="Adapter"
+                                 storeKey={optionsStoreKeys.LIB_ADAPTERS}
+                                 formatter={this.formatter}
+                                 {...this.props}
+        />;
     }
 }
 
@@ -30,35 +55,11 @@ export class LibProtocols extends React.Component {
 }
 
 /** In Libraries */
-export class LibraryAdapters extends React.Component {
-    formatter(v) { return [v.id, v.name]; }
-    render() {
-        return <AsyncOptionsList field={fields.ADAPTER_ID} table="library_adapters" label="Adapter"
-                                 storeKey={optionsStoreKeys.LIB_ADAPTERS}
-                                 formatter={this.formatter}
-                                 {...this.props}
-        />;
-    }
-}
-
-/** In Libraries */
 export class LibraryStates extends React.Component {
     formatter(v) { return [v.id, v.stateOrder +" - "+ v.name]; }
     render() {
         return <AsyncOptionsList field={fields.LIBRARY_STATE_ID} table="library_states" label="Library state"
                                  storeKey={optionsStoreKeys.LIB_STATES}
-                                 formatter={this.formatter}
-                                 {...this.props}
-        />;
-    }
-}
-
-/** In Runs */
-export class FlowcellTypes extends React.Component {
-    formatter(v) { return [v.id, v.version]; }
-    render() {
-        return <AsyncOptionsList field={fields.FLOWCELL_TYPE_ID} table="flowcell_types" label="Version"
-                                 storeKey={optionsStoreKeys.FLOWCELL_TYPES}
                                  formatter={this.formatter}
                                  {...this.props}
         />;

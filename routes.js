@@ -73,7 +73,8 @@ const routes = (
             <Route path="data/runs" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/list" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/active" component={fdata.RunsActiveRoute} onEnter={requireAuth} />
-            {/*<Route path="data/runs/new" component={fdata.RunsPreNewRoute} onEnter={requireAuth} />*/}
+            {/* For testing of the sub-form */}
+            <Route path="data/subruns/new" component={fdata.SubRunsRoute} onEnter={requireAuth} />
             <Route path="data/runs/new" component={fdata.RunsNewRoute} onEnter={requireAuth} />
 
             {/*<Route path="data/runs/postnew" component={fdata.RunsNewRoute} onEnter={requireAuth} />*/}

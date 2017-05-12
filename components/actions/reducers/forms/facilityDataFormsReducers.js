@@ -1,6 +1,7 @@
 "use strict";
 import { combineForms } from  'react-redux-form'
 import { dateNow } from '../../../../utils/time';
+import fields from '../../../forms/fields';
 
 
 /**
@@ -8,26 +9,27 @@ import { dateNow } from '../../../../utils/time';
  */
 let facilityDataFormsReducers = combineForms(
     {
-        bioanalysers: {
-            filename: null,
-            bioanalyserDate: "1970-01-01",
-            description: "",
-        },
+        // bioanalysers: {
+        //     filename: null,
+        //     bioanalyserDate: "1970-01-01",
+        //     description: "",
+        // },
         runs: {
-            runNb: "",
-            flowcellId: "",
-            flowcellTypeId: "",
-            clusterDate: dateNow(),
-            instrument: "",
-            runDate: dateNow(),
-            runTypesLengths: "",
-            stage: "",
-            kit: "",
-            isFailed: false,
-            comment: ""
+            [fields.runs.GA_RUN_NUMBER]: "",
+            [fields.runs.FLOWCELL]: "",
+            [fields.runs.FLOWCELL_TYPE_ID]: "",
+            [fields.runs.RELEASE_DATE]: dateNow(),
+            [fields.runs.INSTRUMENT_ID]: "",
+            [fields.runs.GA_RUN_DATE]: dateNow(),
+            [fields.runs.RUN_TYPES_LENGTH_ID]: "",
+            [fields.runs.FC_STAGE]: "",
+            [fields.runs.SEQUENCING_KIT_VERSION_ID]: "",
+            [fields.runs.IS_FAILED]: false,
+            [fields.runs.COMMENT]: "",
+            lanes: {},
         },
-
-    },'facilityDataForms'
+    },
+    'facilityDataForms'
 );
 
 

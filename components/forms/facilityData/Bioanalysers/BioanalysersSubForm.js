@@ -48,7 +48,7 @@ class BioanalysersSubForm extends React.PureComponent {
             return (
                 <tr key={idx}>
                     <td key="del" className={css.laneId}>
-                        <button type="button" onClick={this.removeLane.bind(null, laneNb)} className="small">-</button>
+                        <button disabled={this.props.disabled} type="button" onClick={this.removeLane.bind(null, laneNb)} className="small">-</button>
                     </td>
                     <td key="laneNb" className={css.laneId}>
                         {lane.laneNb}
@@ -84,7 +84,7 @@ class BioanalysersSubForm extends React.PureComponent {
 
             <Col sm={12} className={cx(formsCss.formCol, css.subformCol)} >
 
-                <Button type="button" onClick={this.addLane} bsStyle="primary">+ Add Lane</Button>
+                <Button disabled={this.props.disabled} type="button" onClick={this.addLane} bsStyle="primary">+ Add Lane</Button>
 
                 <table className={css.lanesTable}>
                     <thead><tr>

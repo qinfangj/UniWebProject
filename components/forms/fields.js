@@ -100,19 +100,37 @@ const fields = {
     ANALYSIS_TYPE_ID: "analysisTypeId",
 
     // Runs
-    RUN_NUMBER: "ga_run_nb",
-    INSTRUMENT_ID: "instrumentId",
-    SEQUENCING_KIT_VERSION_ID: "sequencingKitVersionId",
+    runs: {
+        GA_RUN_NUMBER: "gaRunNb",
+        FLOWCELL: "flowcellId",
+        FLOWCELL_TYPE_ID: "flowcellTypeId",
+        RELEASE_DATE: "releaseDate",
+        INSTRUMENT_ID: "instrumentId",
+        GA_RUN_DATE: "gaRunDate",
+        RUN_TYPES_LENGTH_ID: "runTypesLengthId",
+        FC_STAGE: "fcStage",
+        SEQUENCING_KIT_VERSION_ID: "sequencingKitVersionId",
+        IS_FAILED: "istrashed",
+        COMMENT: "comment"
+    },
+
+    RUN_NUMBER: "gaRunNb",
     FLOWCELL_ID: "flowcellId",
     FLOWCELL_TYPE_ID: "flowcellTypeId",
-    CLUSTER_DATE: "clusterDate",
-    RUN_DATE: "runDate",
-    IS_FAILED: "isFailed",
+    CLUSTER_DATE: "releaseDate",
+    INSTRUMENT_ID: "instrumentId",
+    GA_RUN_DATE: "gaRunDate",
     MAPPING_TOOL_ID: "mappingToolId",
+    STAGE: "stage",
+    SEQUENCING_KIT_VERSION_ID: "sequencingKitVersionId",
+    IS_FAILED: "istrashed",
+
+    // sub-Runs
     QUALITY_ID: "qualityId",
     USER_REQUEST_ID: "userRequestId",
     LIBRARY_ID: "libraryId",
     POOL_ID: "poolId",
+    LANES: "lanes",
 };
 
 export default fields;

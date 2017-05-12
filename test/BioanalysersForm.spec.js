@@ -11,7 +11,7 @@ import BioanalysersSubForm from '../components/forms/facilityData/Bioanalysers/B
 
 const wrapper1 = shallow(
     <Provider store={store}>
-        <BioanalysersInsertForm/>
+        <BioanalysersInsertForm />
     </Provider>
 );
 

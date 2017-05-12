@@ -4,8 +4,7 @@ import { insertAsync, deleteAsync } from '../../actions/actionCreators/facilityD
 import store from '../../../core/store';
 import adminData from './adminDataModels';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
-import { dateNow, parseDateString } from '../../../utils/time';
-import { withRouter,hashHistory } from 'react-router';
+import { timeNow, parseDateString } from '../../../utils/time';
 import inputTypes from '../inputTypes';
 
 
@@ -27,7 +26,7 @@ export function formatFormData(formData, table) {
     });
 
     if (formData.id && formData.id !== 0) {
-        formData.updatedAt = dateNow();
+        formData.updatedAt = timeNow();
         if (formData.createdAt) {
             formData.createdAt = parseDateString(formData.createdAt);
         }
@@ -49,7 +48,6 @@ export function submit(component, form, values, table, updateId, isInsert) {
     if (!isInsert) {
         component.setState({isInsert:true});
     } else {
-
         if (confirm("Are you sure that you want to submit the data?")) {
             let formData = formatFormData(data, table);
             let submissionFuture = store.dispatch(insertAsync(table, formData));
@@ -58,7 +56,6 @@ export function submit(component, form, values, table, updateId, isInsert) {
                 .done((insertId) => {
                     console.debug(200, "Inserted ID <" + insertId + ">");
                     // Clear the form data in store
-                    console.log(form);
                     store.dispatch(feedbackSuccess(form, "Inserted ID <" + insertId + ">"));
                     store.dispatch(actions.reset(form));
                     let currentPath = window.location.pathname + window.location.hash.substr(2);

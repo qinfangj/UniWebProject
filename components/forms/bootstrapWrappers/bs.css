@@ -1,0 +1,21 @@
+@import '../../../styles/colors.css';
+
+
+/* Error feedback component */
+.errors {
+    color: var(--errorRed);
+}
+
+/* The sign that a field is required
+ * Make the star red, bigger, and still keep the same line height. */
+.requiredStar {
+    color: var(--errorRed);
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 75%;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    left: 4px;
+}
+
