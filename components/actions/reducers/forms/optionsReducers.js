@@ -1,7 +1,7 @@
 "use strict";
-import types from '../actionTypes';
-import returnList from './base';
-import optionsStoreKeys from '../../constants/optionsStoreKeys';
+import types from '../../actionTypes';
+import returnList from '../base';
+import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 
 const defaultState = {};
@@ -29,7 +29,7 @@ function formatSequencingQualities(v) { return [v.id, v.name]; }
 function formatTaxonomies(v) { return [v.id, v.name]; }
 
 
-let selectOptionsReducers = (state = defaultState, action) => {
+let optionsReducers = (state = defaultState, action) => {
 
     switch (action.type) {
 
@@ -122,4 +122,5 @@ let selectOptionsReducers = (state = defaultState, action) => {
 };
 
 
-export default selectOptionsReducers;
+export default optionsReducers;
+

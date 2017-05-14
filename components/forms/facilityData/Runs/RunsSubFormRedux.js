@@ -6,7 +6,10 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions} from 'react-redux-form';
-import { requestProjectsHavingAPool, requestProjectsHavingALibrary, requestSequencingQualities } from '../../../actions/actionCreators/optionsActionCreators';
+import { requestProjectsHavingAPool,
+         requestProjectsHavingALibrary,
+         requestSequencingQualities } from '../../../actions/actionCreators/optionsActionCreators';
+import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 
 import * as forms from '../../forms.js';
 import lanesModel from './lanesModel';
@@ -112,6 +115,11 @@ class RunsSubForm extends React.PureComponent {
         }
     }
 
+    onProjectChange(model, value) {
+        store.dispatch(actions.change(model, value));
+        this.props.requestLibrariesForProject(model, value);
+    }
+
     /**
      * Construct one row of 4 fields (project, lib, pM, QC).
      * @param lane: lane object.
@@ -134,6 +142,12 @@ class RunsSubForm extends React.PureComponent {
             otherProps.disabled = model.disabled || this.props.disabled;
             if (optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
+            }
+            // Make onChange load the secondary libraries options list
+            if (fieldName === "projectId") {
+                otherProps.changeAction = this.onProjectChange.bind(this);
+            } else if (fieldName === "libraryId") {
+                otherProps.refModelName = prefix +'.'+ "projectId";
             }
             let input = <RFFInput inputType={inputType} modelName={modelName} {...otherProps} />;
             formFields.push(input);
@@ -279,6 +293,7 @@ const mapDispatchToProps = (dispatch) => {
         requestProjectsHavingAPool,
         requestProjectsHavingALibrary,
         requestSequencingQualities,
+        requestLibrariesForProject,
     }, dispatch);
 };
 

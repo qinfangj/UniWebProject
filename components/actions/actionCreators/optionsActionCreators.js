@@ -111,6 +111,7 @@ export function requestTaxonomies() {
 }
 
 
+
 export default function requestOptions(storeKey) {
     switch(storeKey) {
         case optionsStoreKeys.FLOWCELL_TYPES:

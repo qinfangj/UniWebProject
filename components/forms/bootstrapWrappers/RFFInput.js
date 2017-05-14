@@ -10,6 +10,7 @@ import BSCheckbox from './BSCheckbox';
 import BSSelect from './BSSelect';
 import BSTextArea from './BSTextArea';
 import BSDate from './BSDate';
+import BSSecondarySelect from './BSSecondarySelect';
 
 
 /**
@@ -30,8 +31,10 @@ export default class RFFInput extends React.PureComponent {
             component = BSTextInput;
         } else if (inputType === inputTypes.CHECKBOX) {
             component = BSCheckbox;
-        } else if (inputType === inputTypes.DROPDOWN || inputType === inputTypes.SEC_DROPDOWN) {
+        } else if (inputType === inputTypes.DROPDOWN) {
             component = BSSelect;
+        } else if (inputType === inputTypes.SEC_DROPDOWN) {
+            component = BSSecondarySelect;
         } else if (inputType === inputTypes.TEXTAREA) {
             component = BSTextArea;
         } else if (inputType === inputTypes.DATE) {

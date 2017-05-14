@@ -1,46 +1,37 @@
 "use strict";
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import PropTypes from 'prop-types';
 import BSSelect from './BSSelect';
 
 
-export default class BSSecondarySelect extends React.PureComponent {
+/**
+ * Same as a BSSelect component, but listening to changes in a reference form field
+ * given by its RRF model name, that is here the `refModelName` prop.
+ */
+class BSSecondarySelect extends React.PureComponent {
 
     static propTypes = {
-        refModelName: PropTypes.string,  // the name of the field to watch changes of
-        loadOnMount: PropTypes.bool,  // whether to fetch options when the form loads, instead of waiting for th eref value to change
+        refModelName: PropTypes.string.isRequired,  // the name of the field to watch changes of
     };
 
     render() {
-        let {refModelName, props} = this.props;
+        // Don't pass unwanted props to <input/>
+        let {refModelName, dispatch, ...props} = this.props;
         return (
             <BSSelect {...props} />
         );
     }
 }
 
-BSSecondarySelect.defaultProps = {
-    loadOnMount: false,
-};
-
-
 
 const mapStateToProps = (state, ownProps) => {
-    let refValue = state.forms[ownProps.form][ownProps.refModelName];
-    let options = [];
+    let options = state.secondaryOptions[ownProps.refModelName];
     return {
         options: options,
-        refValue: refValue,
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getSecondaryOptionsListAsync }, dispatch);
-};
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(BSSecondarySelect);
+export default connect(mapStateToProps)(BSSecondarySelect);
 

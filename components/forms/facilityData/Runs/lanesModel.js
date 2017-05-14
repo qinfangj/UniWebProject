@@ -22,7 +22,7 @@ const lanesModel = {
         },
         "libraryId": {
             width: 4,
-            inputType: inputTypes.DROPDOWN,
+            inputType: inputTypes.SEC_DROPDOWN,
             optionsKey: optionsStoreKeys.LIBRAIRIES_FOR_PROJECT,
             required: true,
         },
