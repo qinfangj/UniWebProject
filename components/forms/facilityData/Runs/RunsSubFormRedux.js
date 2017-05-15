@@ -205,8 +205,14 @@ class RunsSubForm extends React.PureComponent {
         let commentModelName = `${this.modelName}.lanes[${laneNb}].comment`;
         let commentModel = lanesModel.lane.comment;
         let {inputType, ...otherProps} = commentModel;
+        let commentValue = this.props.lanes[laneNb].comment;
         otherProps.disabled = this.props.disabled;
-        let commentInput = <RFFInput inputType={inputType} modelName={commentModelName} {...otherProps} />;
+        let commentInput;
+        if (this.props.disabled && commentValue === "") {
+            commentInput = <span className={css.noComment}>{"(No comment)"}</span>;
+        } else {
+            commentInput = <RFFInput inputType={inputType} modelName={commentModelName} {...otherProps} />;
+        }
         return (
             <tr key={"comment"+laneNb} className={css.bottomRow}>
                 <td className={cx(css.libCell, css.commentCell)} colSpan={4}>

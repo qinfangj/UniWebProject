@@ -110,3 +110,9 @@ td.buttonsCell {
 .removeLibrary:hover, .removeLane:hover {
     color: var(--errorRed);
 }
+
+/* The "(No comment)" string when the form is disabled */
+.noComment {
+    font-size: 0.8em;
+    padding-left: 5px;
+}
