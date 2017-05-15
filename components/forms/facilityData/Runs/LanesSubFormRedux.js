@@ -179,22 +179,22 @@ class RunsSubForm extends React.PureComponent {
                 </td>
                 <td className={cx(css.libCell, css.buttonsCell)}>
                     { /* Cannot delete the only remaining lib in a lane */
-                        nlibs > 1 ?
+                        (nlibs > 1 && !this.props.disabled) ?
                             <div onClick={this.removeLibrary.bind(this, laneNb, lib, k)}>
                                 <Icon name='trash' className={css.removeLibrary}/>
                             </div>
                         : null
                     }
                 </td>
-                { /* The delete lane button spans all lib rows + comment */
-                    k === 0 ?
-                        <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
-                            <div onClick={this.removeLane.bind(this, laneNb)}>
-                                <Icon name="trash" className={css.removeLane}/>
-                            </div>
-                        </td>
-                    : null
-                }
+                    <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
+                        { /* The delete lane button spans all lib rows + comment */
+                            (k === 0 && !this.props.disabled) ?
+                                <div onClick={this.removeLane.bind(this, laneNb)}>
+                                    <Icon name="trash" className={css.removeLane}/>
+                                </div>
+                                : null
+                        }
+                    </td>
             </tr>);
     }
 
@@ -219,9 +219,12 @@ class RunsSubForm extends React.PureComponent {
                 {commentInput}
                 </td>
                 <td className={cx(css.libCell, css.buttonsCell)} >
-                    <div onClick={this.addLibrary.bind(this, laneNb)}>
-                        <Icon name='plus-circle' className={css.addLibrary}/>
-                    </div>
+                    { !this.props.disabled ?
+                        <div onClick={this.addLibrary.bind(this, laneNb)}>
+                            <Icon name='plus-circle' className={css.addLibrary}/>
+                        </div>
+                      : null
+                    }
                 </td>
                 <td/>
             </tr>
