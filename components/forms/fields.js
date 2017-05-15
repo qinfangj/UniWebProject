@@ -102,7 +102,7 @@ const fields = {
     // Runs
     runs: {
         GA_RUN_NUMBER: "gaRunNb",
-        FLOWCELL: "flowcellId",
+        FLOWCELL: "flowcellRefName",
         FLOWCELL_TYPE_ID: "flowcellTypeId",
         RELEASE_DATE: "releaseDate",
         INSTRUMENT_ID: "instrumentId",
