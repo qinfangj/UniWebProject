@@ -126,7 +126,7 @@ class RunsSubForm extends React.PureComponent {
         let laneNb = lane.laneNb;
         let nlibs = this.props.lanes[laneNb].libs.length;
         let qcBsClass = lib.isQC ? cx('form-control', css.qcCell) : 'form-control';
-        let prefix = `${this.modelName}.lanes[${laneNb}].${lib.isQC ? "libsQC": "libs"}[${k}]`;
+        let prefix = `${this.modelName}.lanes[${laneNb}].libs[${k}]`;
 
         /* Construct the project-library-concentration-quality inputs for one Library row */
         let formFields = [];

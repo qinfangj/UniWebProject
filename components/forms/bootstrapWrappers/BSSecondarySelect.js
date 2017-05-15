@@ -13,7 +13,14 @@ class BSSecondarySelect extends React.PureComponent {
 
     static propTypes = {
         refModelName: PropTypes.string.isRequired,  // the name of the field to watch changes of
+        onMount: PropTypes.func,  // execute this when the component mounts, typically to load the options list
     };
+
+    componentWillMount() {
+        if (this.props.onMount && this.props.value) {
+            this.props.onMount();
+        }
+    }
 
     render() {
         // Don't pass unwanted props to <input/>

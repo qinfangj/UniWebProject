@@ -7,8 +7,11 @@ import store from '../../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, actions} from 'react-redux-form';
-import { requestInstruments, requestFlowcellTypes, requestRunsTypesLengths, requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
-
+import { requestInstruments,
+         requestFlowcellTypes,
+         requestRunsTypesLengths,
+         requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
+import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import * as forms from '../../forms.js';
 import RunsSubForm from './RunsSubFormRedux';
 import formNames from '../../../constants/formNames';
@@ -29,7 +32,7 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 
     componentWillMount() {
-        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId);
+        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdated.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
@@ -37,6 +40,20 @@ class RunsInsertFormRedux extends React.PureComponent {
         this.props.requestSequencingKitVersions();
         this.props.requestRunsTypesLengths();
         this.props.requestFlowcellTypes();
+    }
+
+    /**
+     * When the update data comes, trigger the action to get libraries options lists
+     * corresponding to the received projectIds (see newOrUpdate2 in componentWillMount).
+     */
+    onUpdated() {
+      for (let laneNb of Object.keys(this.props.formData.lanes)) {
+          let libs = this.props.formData.lanes[laneNb].libs;
+          for (let k=0; k < libs.length; k++) {
+              let projectModelName = `${this.modelName}.lanes[${laneNb}].libs[${k}].projectId`;
+              this.props.requestLibrariesForProject(projectModelName, libs[k].projectId);
+          }
+      }
     }
 
     postSubmit(values) {
@@ -138,6 +155,7 @@ const mapDispatchToProps = (dispatch) => {
         requestFlowcellTypes,
         requestRunsTypesLengths,
         requestSequencingKitVersions,
+        requestLibrariesForProject,
         }, dispatch);
 };
 

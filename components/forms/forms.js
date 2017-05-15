@@ -22,13 +22,23 @@ export function newOrUpdate(form, table, updateId) {
         store.dispatch(resetForm(form));
     }
 }
-
-export function newOrUpdate2(modelName, table, updateId){
+/**
+ * If there is an *updateId*, fetch data relative to this object in the given *table* from backend.
+ * Otherwise, reset the form.
+ * @param modelName: RRF model name that we want to merge the update data with.
+ * @param table: db table name.
+ * @param updateId: the id of the element to get data for.
+ * @param onUpdated: function that will execute after the update data is received.
+ */
+export function newOrUpdate2(modelName, table, updateId, onUpdated){
     if (updateId) {
         store.dispatch(findByIdAsync(table, updateId))
         .done((data) => {
             console.log("Update with values:", data);
             store.dispatch(actions.merge(modelName, data));
+            if (onUpdated) {
+                onUpdated();
+            }
         });
     } else {
         store.dispatch(actions.reset(modelName));
