@@ -26,7 +26,7 @@ const lanesModel = {
             optionsKey: optionsStoreKeys.LIBRAIRIES_FOR_PROJECT,
             required: true,
         },
-        "concentration": {
+        "quantityLoaded": {
             width: 4,
             inputType: inputTypes.TEXT,
             required: true,

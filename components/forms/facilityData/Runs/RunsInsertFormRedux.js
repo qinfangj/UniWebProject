@@ -7,6 +7,7 @@ import store from '../../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, actions} from 'react-redux-form';
+import { insertAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 import { requestInstruments,
          requestFlowcellTypes,
          requestRunsTypesLengths,
@@ -56,18 +57,29 @@ class RunsInsertFormRedux extends React.PureComponent {
       }
     }
 
-    postSubmit(values) {
-        // Ex: http://codepen.io/davidkpiano/pen/c683e0cf7ee54736b49b2ce30aba956f?editors=0010
-        return new Promise((resolve, reject) => {
-            setTimeout(() => resolve(true), 0);
-        });
+    formatInsertData(values) {
+        let insertData = {...values};
+        insertData.gaRunNb = parseInt(values.gaRunNb);
+        insertData.lanes = {...values.lanes};
+        for (let laneNb of Object.keys(values.lanes)) {
+            insertData.lanes[laneNb] = {...values.lanes[laneNb]};
+            insertData.lanes[laneNb].laneNb = parseInt(laneNb);
+        }
+        return insertData;
     }
 
+    /**
+     * Submit the form for insert/update.
+     * If `this.submit(values)` fails, sets `.submitFailed` and `.errors` on the model.
+     * If it succeeds, set `.submitted` and `.validity` on the model.
+     *  Ex: http://codepen.io/davidkpiano/pen/c683e0cf7ee54736b49b2ce30aba956f?editors=0010
+     **/
     onSubmit(values) {
-        console.info("Submitted values: ", values);
-        store.dispatch(actions.submit(this.modelName, this.postSubmit(values)));
-        //let formData = this.getFormValues();
-        //forms.submit(this.table, formData, this.required, null);
+        let insertData = this.formatInsertData(values);
+        console.info("Submitted values: ", insertData);
+        store.dispatch(actions.submit(this.modelName,
+            this.props.insertAsync(this.table, insertData, null))  // a Promise
+        );
     }
 
     activateForm() {
@@ -156,6 +168,7 @@ const mapDispatchToProps = (dispatch) => {
         requestRunsTypesLengths,
         requestSequencingKitVersions,
         requestLibrariesForProject,
+        insertAsync,
         }, dispatch);
 };
 

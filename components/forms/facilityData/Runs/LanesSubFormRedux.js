@@ -38,11 +38,11 @@ class RunsSubForm extends React.PureComponent {
     /**
      * Return a new empty library model object.
      */
-    makeLib(projectId = "", libraryId = "", concentration = "", qualityId = "", isQC = false) {
+    makeLib(projectId = "", libraryId = "", volume = "", qualityId = "", isQC = false) {
         return {
             projectId: projectId,
             libraryId: libraryId,
-            concentration: concentration,
+            volume: volume,
             qualityId: qualityId,
             isQC: isQC,
         };
@@ -128,7 +128,7 @@ class RunsSubForm extends React.PureComponent {
         let qcBsClass = lib.isQC ? cx('form-control', css.qcCell) : 'form-control';
         let prefix = `${this.modelName}.lanes[${laneNb}].libs[${k}]`;
 
-        /* Construct the project-library-concentration-quality inputs for one Library row */
+        /* Construct the project-library-volume-quality inputs for one Library row */
         let formFields = [];
         for (let fieldName of Object.keys(lanesModel.lib)) {
             let model = lanesModel.lib[fieldName];
@@ -151,7 +151,7 @@ class RunsSubForm extends React.PureComponent {
 
         let projectInput = formFields[0];
         let libraryInput = formFields[1];
-        let concentrationInput = formFields[2];
+        let volumeInput = formFields[2];
         let qualityInput = formFields[3];
 
         return (
@@ -172,7 +172,7 @@ class RunsSubForm extends React.PureComponent {
                     {libraryInput}
                 </td>
                 <td className={cx(css.libCell, css.quantityCell)}>
-                    {concentrationInput}
+                    {volumeInput}
                 </td>
                 <td className={cx(css.libCell, css.qualityCell)}>
                     {qualityInput}
