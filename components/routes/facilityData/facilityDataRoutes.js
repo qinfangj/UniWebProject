@@ -11,7 +11,6 @@ import PeopleInsertForm from '../../forms/facilityData/PeopleInsertForm';
 import GenomesInsertForm from '../../forms/facilityData/GenomesInsertForm';
 import SamplesInsertForm from '../../forms/facilityData/SamplesInsertForm';
 import LibrariesInsertForm from '../../forms/facilityData/LibrariesInsertForm';
-import RunsSubFormRedux from '../../forms/facilityData/Runs/RunsSubFormRedux';
 import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertFormRedux';
 import UserRequestsInsertForm from '../../forms/facilityData/UserRequestsInsertForm';
 import BioanalysersInsertForm from '../../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
@@ -227,15 +226,6 @@ export class RunsActiveRoute extends React.Component {
             <CommonTable activeOnly dataStoreKey={tableNames.RUNS_ACTIVE} table="runs" columnsKey="runs"
                          form={formNames.RUNS_INSERT_FORM}
             />
-        } />
-    );}
-}
-
-// For testing of the sub-form
-export class SubRunsRoute extends React.Component {
-    render() {return (
-        <FacilityData title="Runs" name="runs" content={
-            <RunsSubFormRedux updateId={this.props.params.id} />
         } />
     );}
 }

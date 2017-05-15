@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import store from '../../../../core/store';
-import css from './subruns.css';
+import css from './lanes.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

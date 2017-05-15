@@ -13,7 +13,7 @@ import { requestInstruments,
          requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import * as forms from '../../forms.js';
-import RunsSubForm from './RunsSubFormRedux';
+import RunsSubForm from './LanesSubFormRedux';
 import formNames from '../../../constants/formNames';
 import runsModel from './runsModel';
 import RFFInput from '../../bootstrapWrappers/RFFInput.js';
