@@ -28,7 +28,7 @@ export function newOrUpdate(form, table, updateId) {
  * @param modelName: RRF model name that we want to merge the update data with.
  * @param table: db table name.
  * @param updateId: the id of the element to get data for.
- * @param onUpdated: callback function that will execute after the update data is received.
+ * @param onUpdated((data) => ...): callback function that will execute after the update data is received.
  */
 export function newOrUpdate2(modelName, table, updateId, onUpdated){
     if (updateId) {
@@ -37,7 +37,7 @@ export function newOrUpdate2(modelName, table, updateId, onUpdated){
             console.log("Update with values:", data);
             store.dispatch(actions.merge(modelName, data));
             if (onUpdated) {
-                onUpdated();
+                onUpdated(data);
             }
         });
     } else {

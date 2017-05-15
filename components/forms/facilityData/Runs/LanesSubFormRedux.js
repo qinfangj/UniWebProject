@@ -209,7 +209,7 @@ class RunsSubForm extends React.PureComponent {
         otherProps.disabled = this.props.disabled;
         let commentInput;
         if (this.props.disabled && commentValue === "") {
-            commentInput = <span className={css.noComment}>{"(No comment)"}</span>;
+            commentInput = <span className={css.noComment}>{"No comment"}</span>;
         } else {
             commentInput = <RFFInput inputType={inputType} modelName={commentModelName} {...otherProps} />;
         }

@@ -46,8 +46,8 @@ class RunsInsertFormRedux extends React.PureComponent {
      * When the update data comes, trigger the action to get libraries options lists
      * corresponding to the received projectIds (see newOrUpdate2 in componentWillMount).
      */
-    onUpdated() {
-      for (let laneNb of Object.keys(this.props.formData.lanes)) {
+    onUpdated(data) {
+      for (let laneNb of Object.keys(data.lanes)) {
           let libs = this.props.formData.lanes[laneNb].libs;
           for (let k=0; k < libs.length; k++) {
               let projectModelName = `${this.modelName}.lanes[${laneNb}].libs[${k}].projectId`;
