@@ -10,12 +10,10 @@ import { requestProjectsHavingAPool,
          requestProjectsHavingALibrary,
          requestSequencingQualities } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
-
-import * as forms from '../../forms.js';
 import lanesModel from './lanesModel';
+
 import RFFInput from '../../bootstrapWrappers/RFFInput.js';
 import Icon from 'react-fontawesome';
-
 import Button from 'react-bootstrap/lib/Button';
 
 
@@ -32,11 +30,9 @@ class RunsSubForm extends React.PureComponent {
     }
 
     componentWillMount() {
-        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId);
         this.props.requestProjectsHavingAPool();
         this.props.requestProjectsHavingALibrary();
         this.props.requestSequencingQualities();
-        this.addLane()
     }
 
     /**
@@ -92,7 +88,7 @@ class RunsSubForm extends React.PureComponent {
      */
     removeLane(laneNb) {
         if (confirm("Do you really want to delete the entire lane "+ laneNb +"?")) {
-            store.dispatch(actions.omit(this.modelName+`.lanes`, laneNb));
+            store.dispatch(actions.omit(this.modelName+'.lanes', laneNb));
         }
     }
 
@@ -147,7 +143,7 @@ class RunsSubForm extends React.PureComponent {
             if (fieldName === "projectId") {
                 otherProps.changeAction = this.onProjectChange.bind(this);
             } else if (fieldName === "libraryId") {
-                otherProps.refModelName = prefix +'.'+ "projectId";
+                otherProps.refModelName = prefix +".projectId";
             }
             let input = <RFFInput inputType={inputType} modelName={modelName} {...otherProps} />;
             formFields.push(input);

@@ -28,7 +28,7 @@ export function newOrUpdate2(modelName, table, updateId){
         store.dispatch(findByIdAsync(table, updateId))
         .done((data) => {
             console.log("Update with values:", data);
-            store.dispatch(actions.merge(modelName,data));
+            store.dispatch(actions.merge(modelName, data));
         });
     } else {
         store.dispatch(actions.reset(modelName));
