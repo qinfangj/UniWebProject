@@ -6,15 +6,16 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions} from 'react-redux-form';
-import { requestProjectsHavingAPool,
-         requestProjectsHavingALibrary,
+import { requestProjectsHavingALibrary,
          requestSequencingQualities } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import lanesModel from './lanesModel';
+import poolSelectionModel from './poolSelectionModel';
 
 import RFFInput from '../../bootstrapWrappers/RFFInput.js';
 import Icon from 'react-fontawesome';
 import Button from 'react-bootstrap/lib/Button';
+import PoolSelection from './PoolSelection';
 
 
 /**
@@ -27,10 +28,12 @@ class RunsSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
         this.modelName = "facilityDataForms.runs";
+        this.state = {
+            showPoolSelection: 0,  // lane number for which to show it
+        }
     }
 
     componentWillMount() {
-        this.props.requestProjectsHavingAPool();
         this.props.requestProjectsHavingALibrary();
         this.props.requestSequencingQualities();
     }
@@ -111,6 +114,19 @@ class RunsSubForm extends React.PureComponent {
         }
     }
 
+    /**
+     * Display a small form to select a pool of libraries to add to the lane.
+     */
+    showPoolSelection(laneNb) {
+        this.setState({ showPoolSelection: laneNb });
+    }
+
+    /**
+     * On top of triggering the default 'change' action,
+     * request the libraries options list corresponding to the selected project.
+     * @param model: RRF model name for the project input field.
+     * @param value: projectId.
+     */
     onProjectChange(model, value) {
         store.dispatch(actions.change(model, value));
         this.props.requestLibrariesForProject(model, value);
@@ -154,17 +170,34 @@ class RunsSubForm extends React.PureComponent {
         let volumeInput = formFields[2];
         let qualityInput = formFields[3];
 
+        let laneNbCell = k === 0 ?
+            <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
+                {'L'+laneNb}
+            </td> : null;
+
+        let deleteLibraryButton = (nlibs > 1 && !this.props.disabled) ?
+            <div onClick={this.removeLibrary.bind(this, laneNb, lib, k)}>
+                <Icon name='trash' className={css.removeLibrary}/>
+            </div> : null;
+
+        let laneButtonsCell = (k === 0 && !this.props.disabled) ?
+            <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
+                <div onClick={this.removeLane.bind(this, laneNb)}>
+                    <Icon name="trash" className={css.removeLane}/>
+                </div>
+                <div onClick={this.addLibrary.bind(this, laneNb)}>
+                    <Icon name='plus-circle' className={css.addLibrary}/>
+                </div>
+                <div onClick={this.showPoolSelection.bind(this, laneNb)}>
+                    <Icon name='plus-circle' className={css.addPool}/>
+                </div>
+            </td> : null;
+
         return (
             <tr key={laneNb+'-'+k}
                 className={k === 0 ? css.topRow : null}
             >
-                { /* The lane number spans all lib rows + comment */
-                    k === 0 ?
-                        <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
-                            {'L'+laneNb}
-                        </td>
-                    : null
-                }
+                {laneNbCell}
                 <td className={cx(css.libCell, css.projectCell)}>
                     {projectInput}
                 </td>
@@ -178,23 +211,9 @@ class RunsSubForm extends React.PureComponent {
                     {qualityInput}
                 </td>
                 <td className={cx(css.libCell, css.buttonsCell)}>
-                    { /* Cannot delete the only remaining lib in a lane */
-                        (nlibs > 1 && !this.props.disabled) ?
-                            <div onClick={this.removeLibrary.bind(this, laneNb, lib, k)}>
-                                <Icon name='trash' className={css.removeLibrary}/>
-                            </div>
-                        : null
-                    }
+                    {deleteLibraryButton}
                 </td>
-                    <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
-                        { /* The delete lane button spans all lib rows + comment */
-                            (k === 0 && !this.props.disabled) ?
-                                <div onClick={this.removeLane.bind(this, laneNb)}>
-                                    <Icon name="trash" className={css.removeLane}/>
-                                </div>
-                                : null
-                        }
-                    </td>
+                {laneButtonsCell}
             </tr>);
     }
 
@@ -213,23 +232,18 @@ class RunsSubForm extends React.PureComponent {
         } else {
             commentInput = <RFFInput inputType={inputType} modelName={commentModelName} {...otherProps} />;
         }
+
         return (
             <tr key={"comment"+laneNb} className={css.bottomRow}>
                 <td className={cx(css.libCell, css.commentCell)} colSpan={4}>
-                {commentInput}
+                    {commentInput}
                 </td>
-                <td className={cx(css.libCell, css.buttonsCell)} >
-                    { !this.props.disabled ?
-                        <div onClick={this.addLibrary.bind(this, laneNb)}>
-                            <Icon name='plus-circle' className={css.addLibrary}/>
-                        </div>
-                      : null
-                    }
-                </td>
+                <td className={cx(css.libCell, css.buttonsCell)} />
                 <td/>
             </tr>
         );
     }
+
 
     render() {
         let lanes = this.props.lanes;
@@ -249,6 +263,14 @@ class RunsSubForm extends React.PureComponent {
             let commentRow = this.makeLaneCommentRow(laneNb);
             libRows.push(commentRow);
             laneRows.push(<tbody key={laneNb} className={css.lanesGroup}>{libRows}</tbody>);
+            /* Show pool selection form after the lane if requested */
+            if (this.state.showPoolSelection === laneNb) {
+                laneRows.push(
+                    <tbody key="poolSelection">
+                        <PoolSelection laneNb={laneNb} modelName={this.modelName} />
+                    </tbody>
+                );
+            }
         }
         return (
             <div>
@@ -286,6 +308,12 @@ const mapStateToProps = (state) => {
             options[model.optionsKey] = state.options[model.optionsKey] || [];
         }
     }
+    for (let field of Object.keys(poolSelectionModel)) {
+        let model = poolSelectionModel[field];
+        if (model.optionsKey) {
+            options[model.optionsKey] = state.options[model.optionsKey] || [];
+        }
+    }
     let formData = state.facilityDataForms.runs;
     return {
         lanes: formData.lanes,
@@ -295,7 +323,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        requestProjectsHavingAPool,
         requestProjectsHavingALibrary,
         requestSequencingQualities,
         requestLibrariesForProject,

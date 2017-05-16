@@ -40,6 +40,10 @@ let facilityDataFormsReducers = combineForms(
                     ]
                 }
             },
+            poolSelection: {
+                projectIdWithPool: "",
+                poolId: "",
+            }
         },
     },
     'facilityDataForms'

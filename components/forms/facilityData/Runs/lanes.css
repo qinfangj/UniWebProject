@@ -100,10 +100,13 @@ td.buttonsCell {
 .addLibrary:hover {
     color: black;
 }
-.removeLane {
+.addPool {
+    color: var(--blue);
+}
+.removeLane, .addLibrary, .addPool {
     margin-left: 5px;
 }
-.removeLibrary, .removeLane {
+.removeLibrary, .removeLane, .addPool {
     cursor: pointer;
     font-size: 1.5em;
 }
