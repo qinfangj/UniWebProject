@@ -335,45 +335,76 @@ class TrackingSummaryView extends React.PureComponent {
                   :(<tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}><p className={trackCss.showmore}>No details</p></td></tr>)
     }
 
-    createLanes(){
+    createRuns(){
         let createdLanes = this.state.createdlanesInfo;
 
-        if (this.state.isSubmit == false ){
-            for (let k in this.state.laneNos){
-                let sub = this.state.laneNos[k];
-                let arr = [];
-                for (let i = 0; i < sub.length; i++){
-                    if (sub[i] == null || sub[i].value !== ""){
-                        let obj= this.props.trackingData[k][i];
-                        console.log(obj);
-                        if (obj !== null) {
-                            obj.laneNum = sub[i].value;
-                            arr.push(obj);
-                        }
-
+        // if (this.state.isSubmit == false ){
+        //     for (let k in this.state.laneNos){
+        //         let sub = this.state.laneNos[k];
+        //         let arr = [];
+        //         for (let i = 0; i < sub.length; i++){
+        //             if (sub[i] == null || sub[i].value !== ""){
+        //                 let obj= this.props.trackingData[k][i];
+        //                 console.log(obj);
+        //                 if (obj !== null) {
+        //                     obj.laneNum = sub[i].value;
+        //                     arr.push(obj);
+        //                 }
+        //
+        //             }
+        //         }
+        //         if (arr.length >0) {
+        //             createdLanes[k] = arr;
+        //         }
+        //
+        //     }
+        //     console.log(createdLanes);
+        //
+        //     if (Object.keys(createdLanes).length > 0) {
+        //         this.setState({
+        //             isSubmit:true,
+        //             createdLanesInfo:createdLanes,
+        //         });
+        //
+        //     } else if (Object.keys(createdLanes).length === 0){
+        //         store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
+        //     }
+        // } else {
+        for (let k in this.state.laneNos){
+            let sub = this.state.laneNos[k];
+            let arr = [];
+            for (let i = 0; i < sub.length; i++){
+                if (sub[i] == null || sub[i].value !== ""){
+                    let obj= this.props.trackingData[k][i];
+                    console.log(obj);
+                    if (obj !== null) {
+                        obj.laneNum = sub[i].value;
+                        arr.push(obj);
                     }
+
                 }
-                if (arr.length >0) {
-                    createdLanes[k] = arr;
-                }
-
             }
-            console.log(createdLanes);
-
-            if (Object.keys(createdLanes).length > 0) {
-                this.setState({
-                    isSubmit:true,
-                    createdLanesInfo:createdLanes,
-                });
-
-            } else if (Object.keys(createdLanes).length === 0){
-                store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
+            if (arr.length >0) {
+                createdLanes[k] = arr;
             }
-        } else {
+
+        }
+        console.log(createdLanes);
+        if (Object.keys(createdLanes).length > 0) {
+            this.setState({
+                isSubmit:true,
+                createdLanesInfo:createdLanes,
+            });
             if (confirm("Are you sure to submit those settings of lanes?")) {
                 console.log(this.state.createdlanesInfo);
+
             }
+
+        } else if (Object.keys(createdLanes).length === 0){
+            store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
         }
+
+        // }
 
     }
 
@@ -452,7 +483,7 @@ class TrackingSummaryView extends React.PureComponent {
                 <div>
                 {this.props.isLibrary?
                     <div>
-                    <Button bsStyle="primary"  type="button" onClick={this.createLanes.bind(this)} className={trackCss.button} >
+                    <Button bsStyle="primary"  type="button" onClick={this.createRuns.bind(this)} className={trackCss.button} >
                         Create Runs
                     </Button>
                     <Button bsStyle="primary"  type="button" className={trackCss.button} onClick={this.resetLanes.bind(this)}>
