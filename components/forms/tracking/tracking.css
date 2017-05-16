@@ -2,19 +2,22 @@
 
 @import '../../../styles/colors.css';
 
-.table {
+.divWrapper {
     width: 100%;
-
+    padding: 10px;
     background-color: #E0E0E0;
 }
-.thead {
+
+.table {
+    width: 100%
+
 }
 
 .th {
-    padding: 3px;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-top: 3px;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 3px;
     height: 30px;
     text-align: center;
 }
@@ -24,12 +27,11 @@
 }
 
 .td {
-    padding-top: 3px;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 5px;
+    padding-top: 2px;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
     vertical-align: middle;
-    min-height: 140px;
 
 }
 
@@ -42,6 +44,7 @@
 }
 
 .showmore {
+    width:auto;
     margin: 0px;
     padding: 10px;
     background-color: #f9f9f9;
@@ -51,7 +54,7 @@
 
 .selectedCell {
     padding: 10px;
-    min-height: 140px;
+    min-height: 80px;
     background-color: #ebf2f9;
     border: solid 1px #3572B0;
     border-radius: 4px;
@@ -59,9 +62,8 @@
 }
 
 .cell {
-
     padding: 10px;
-    min-height: 140px;
+    min-height: 80px;
     background-color: #fff;
     border-radius: 4px;
     border: solid 1px #ccc;
@@ -91,7 +93,6 @@
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
-    z-index: 1;
     bottom: 125%;
     left: 50%;
     margin-left: -60px;
@@ -124,16 +125,15 @@
 }
 
 .div1 {
-    width: auto;
+    width: 100%;
     height: auto;
     border-radius: 4px;
     background-color: white;
-    display: flex;
-    align-items: flex-start;
+    /*display: flex;*/
+    /*align-items: flex-start;*/
 }
 
 .div2 {
-    width: 35%;
     padding: 10px;
     align-self: stretch;
 }
@@ -155,17 +155,17 @@
 }
 
 .div3 {
-    width: 65%;
+    /*width: 100%;*/
     background-color: #ebf2f9;
-    border-radius: 4px;
-    padding: 10px;
+    padding: 15px;
     align-self: stretch;
 }
 
 .div3 table{
     border-collapse: collapse;
-    width: 100%;
-    margin: 5px;
+    /*width: 100%;*/
+    margin-right: 10px;
+    padding: 5px;
     border: 1px solid #ccc;
 
 }
@@ -177,7 +177,8 @@
 .div3 th{
     padding: 5px;
     border: 1px solid #ccc;
-    background-color: var(--yellow);
+    background-color: #337ab7;
+    color: white;
 }
 
 .div3 td {
@@ -197,5 +198,9 @@
 
 .laneNo{
     float: left;
+    margin-top: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid lightblue;
     vertical-align: middle;
 }

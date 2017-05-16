@@ -2,8 +2,12 @@
 
 import React from 'react';
 import trackingData from '../../forms/tracking/trackingData';
+import trackingDataModel from './trackingDataModel';
 import trackCss from './tracking.css';
 import Icon from "react-fontawesome";
+import Col from 'react-bootstrap/lib/Col';
+import Row from 'react-bootstrap/lib/Row';
+import Form from 'react-bootstrap/lib/Form';
 
 
 class TrackingDetailView extends React.PureComponent {
@@ -13,7 +17,7 @@ class TrackingDetailView extends React.PureComponent {
 
     SampleDetailsTb(k,v){
 
-        let rowSpan = (k==='Customer Comment')? 2:null;
+        let rowSpan = (k === 'Customer Comment')? 2:null;
 
         return (<tr key={k}>
                     <th rowSpan={rowSpan}>{k + ':'}</th><td rowSpan={rowSpan}>{v}</td>
@@ -21,13 +25,26 @@ class TrackingDetailView extends React.PureComponent {
 
     }
 
-    RequestsDetailsTbs(k,v){
+    RequestsDetailsTbs2(k, obj){
+        console.log(k.name);
+        console.log(obj.length);
+        let td = [];
+        for (let i = 0; i < obj.length; i++){
+            console.log(obj[i]);
+            td.push(<td key={k.name + i}> {obj[i][k.name]} </td>);
+        }
+        console.log(td);
+        return td
+
+    }
+
+    RequestsDetailsTbs(k,v,model){
         let headers = Object.keys(v);
-        let makeBody = headers.map(
+        let makeBody = model.map(
             s => {
-                if (s !== 'Comment'){
+                if (s.name !== 'comment'){
                     return (
-                        <td key={v[s]}>{v[s]}</td>
+                        <td key={s.name}>{v[s.name]==null?"":v[s.name]}</td>
                     )
                 }
             }
@@ -36,60 +53,92 @@ class TrackingDetailView extends React.PureComponent {
         return (
                  <tbody key={k}>
                  <tr >{makeBody}</tr>
-                 <tr ><td colSpan='9'>
-                     <Icon name="comment" style={{color:'#337ab7',padding:'5px'}}/> {(v['Comment'] !== undefined)? v['Comment'] : '--'}</td></tr>
+                 <tr ><td colSpan='10'>
+                     <Icon name="comment" style={{color:'#337ab7',padding:'5px'}}/> {(v['comment'] !== undefined && v['comment'] != null)? v['comment'] : '--'}</td></tr>
                  </tbody>
 
              )
     }
 
     render() {
-           let dataSample = this.props.detailData['sample'];
+           let dataSample = this.props.detailData['desc'];
            let dataRequests = this.props.detailData['requests'];
-           console.log(dataSample);
+           //console.log(dataSample);
            console.log(dataRequests);
+           let dataKey = "";
+           dataKey = this.props.dataKey;
+           //console.log(dataKey);
+           let summaryModel = null;
+           let requestModel = trackingDataModel.requestDetails;
+           if (dataKey === "samples") {
+               summaryModel = trackingDataModel.summaryDetailSamples;
+           } else if (dataKey ==="runs"){
+               summaryModel = trackingDataModel.summaryDetailRuns;
+           } else if (dataKey = "libraries"){
+               summaryModel = trackingDataModel.summaryDetailLibraries;
+           }
+
            let requestheaders = Object.keys(dataRequests[0]);
            let headerWidth = 100/(requestheaders.length-1) +'%';
-           let makeRequstsHeader = requestheaders.map(
+           let makeRequstsHeader = trackingDataModel.requestDetails.map(
                 s => {
-                    if (s !== 'Comment') {
+                    if (s.name !== 'comment') {
                         return (
-                            <th key={s} width={headerWidth}>{s}</th>
+                            <th key={s.name} width={headerWidth}>{s.label}</th>
                         )
                     }
                 }
            );
 
            return (
-                    <div className={trackCss.div1}>
 
-                    <div className={trackCss.div2}>
+                    <Row >
+                    <Col sm={6} className={trackCss.div2}>
+
                         <h4>Sample details</h4>
-                        <table width='100%'>
+                        <table width='100%' >
                             <tbody>
                             {
-                                Object.keys(dataSample).map(
-                                (s) => this.SampleDetailsTb(s,dataSample[s]))
+                                summaryModel.map(
+                                (s) => this.SampleDetailsTb(s.label,dataSample[s.name]))
                             }
 
                             </tbody>
                         </table>
-                    </div>
-                    <div className={trackCss.div3}>
+
+                    </Col>
+                    <Col sm={6} className={trackCss.div3}>
+
                         <h4>Open Request(s)</h4>
-                        <table width='100%' style = {{border:'1px solid grey'}}>
+                        {/*<table width='100%' style = {{border:'1px solid grey'}}>
                             <thead>
                             <tr>{makeRequstsHeader}</tr>
                             </thead>
 
                             {
                                 Object.keys(dataRequests).map(
-                                    (s) => this.RequestsDetailsTbs(s,dataRequests[s])
+                                    (s) => this.RequestsDetailsTbs(s,dataRequests[s],requestModel)
                                             )
                             }
+
+                        </table>*/}
+                        <table width='100%'>
+                            <tbody>
+                            {
+                                requestModel.map(
+                                    (s) => {
+                                        return (
+                                            <tr key={s.label}><th width = '150px'>{s.label}</th>{this.RequestsDetailsTbs2(s, dataRequests)}</tr>)
+
+                                        //this.RequestsDetailsTbs2(s, dataSample))
+                                    })
+                            }
+                            </tbody>
                         </table>
-                    </div>
-                    </div>
+
+                    </Col>
+                    </Row>
+
 
 
 
