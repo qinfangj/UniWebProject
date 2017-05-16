@@ -264,7 +264,7 @@ class RunsSubForm extends React.PureComponent {
             libRows.push(commentRow);
             laneRows.push(<tbody key={laneNb} className={css.lanesGroup}>{libRows}</tbody>);
             /* Show pool selection form after the lane if requested */
-            if (this.state.showPoolSelection === laneNb) {
+            if (true) {//(this.state.showPoolSelection === laneNb) {
                 laneRows.push(
                     <tbody key="poolSelection">
                         <PoolSelection laneNb={laneNb} modelName={this.modelName} />
