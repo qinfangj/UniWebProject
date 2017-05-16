@@ -11,7 +11,7 @@ const poolSelectionModel = {
         optionsKey: optionsStoreKeys.PROJECTS_HAVING_A_POOL,
         required: true,
     },
-    "poolId": {
+    "pool": {
         width: 4,
         inputType: inputTypes.SEC_DROPDOWN,
         optionsKey: optionsStoreKeys.POOLS_FOR_PROJECT,

@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions} from 'react-redux-form';
+import { requestLibrariesFromPool } from '../../../actions/actionCreators/facilityDataActionCreators';
 import { requestProjectsHavingAPool } from '../../../actions/actionCreators/optionsActionCreators';
-import { requestPoolsForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
+import { requestPoolsForProject, requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import poolSelectionModel from './poolSelectionModel';
 
 import RFFInput from '../../bootstrapWrappers/RFFInput.js';
@@ -38,7 +39,16 @@ class PoolSelection extends React.PureComponent {
      * Merge existing libs with the ones imported from the pool.
      */
     addPool(laneNb) {
-
+        store.dispatch(requestLibrariesFromPool(this.props.selectedProject, this.props.selectedPool))
+            .then((libs) => {
+                let modelName = this.props.modelName +`.lanes[${laneNb}].libs`;
+                // Merge with the libs data
+                store.dispatch(actions.merge(modelName, libs));
+                // Change the projects one by one so that it loads the secondary libraries lists
+                for (let k=0; k < libs.length; k++) {
+                    this.props.requestLibrariesForProject(modelName+`[${k}].projectId`, libs[k].projectId);
+                }
+            });
     }
 
     /**
@@ -62,7 +72,7 @@ class PoolSelection extends React.PureComponent {
             otherProps.options = this.props.options[optionsKey];
             if (fieldName === "projectIdWithPool") {
                 otherProps.changeAction = this.onProjectChange.bind(this);
-            } else if (fieldName === "poolId") {
+            } else if (fieldName === "pool") {
                 otherProps.refModelName = this.props.modelName +".poolSelection.projectIdWithPool";
             }
             inputs.push(
@@ -90,8 +100,14 @@ const mapStateToProps = (state) => {
             options[model.optionsKey] = state.options[model.optionsKey] || [];
         }
     }
+    let librariesFromPool = state.facilityData["LIBRARIES_FROM_POOL"];
+    let selectedProject = state.facilityDataForms.runs.poolSelection.projectIdWithPool;
+    let selectedPool = state.facilityDataForms.runs.poolSelection.pool;
     return {
         options: options,
+        librariesFromPool: librariesFromPool,
+        selectedProject: selectedProject,
+        selectedPool: selectedPool,
     };
 };
 
@@ -99,6 +115,7 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         requestProjectsHavingAPool,
         requestPoolsForProject,
+        requestLibrariesForProject,
     }, dispatch);
 };
 

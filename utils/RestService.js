@@ -38,7 +38,7 @@ function get(url) {
             'Authorization': 'Bearer '+ AuthService.getToken(),
         },
         error: (jqXHR, textStatus, error) => {
-            console.log(error + ": " + jqXHR.responseText);
+            console.log(error + ": " + jqXHR.status +": "+ jqXHR.statusText);
         }
     }); 
 }
@@ -126,6 +126,12 @@ class RestService {
             throw "Empty argument to findById";
         }
         let url = `${BACKEND}/table/${tableName}/find/${id}`;
+        console.info(url);
+        return get(url);
+    }
+
+    librariesFromPool(projectId, poolId) {
+        let url = `${BACKEND}/table/runs/pool/${projectId}/${poolId}`;
         console.info(url);
         return get(url);
     }
