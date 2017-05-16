@@ -106,11 +106,11 @@ class RunsSubForm extends React.PureComponent {
      * Remove a library row from the table.
      */
     removeLibrary(laneNb, library, k) {
-        let nlibs = this.props.lanes[laneNb].libs.length;
-        if (nlibs > 1) {
-            if (confirm("Delete this library?")) {
-                store.dispatch(actions.remove(this.modelName+`.lanes[${laneNb}].libs`, k));
-            }
+        /* No need to confirm to delete an empty lib row */
+        if (library.projectId === "" && library.libraryId === "") {
+            store.dispatch(actions.remove(this.modelName+`.lanes[${laneNb}].libs`, k));
+        } else if (confirm("Delete this library?")) {
+            store.dispatch(actions.remove(this.modelName+`.lanes[${laneNb}].libs`, k));
         }
     }
 
