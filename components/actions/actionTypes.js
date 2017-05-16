@@ -37,7 +37,8 @@ const actionTypes = {
         DELETE: "DELETE",
         FIND_BY_ID: "FIND_BY_ID",
         GET_TABLE_DATA: "GET_TABLE_DATA",
-        VALIDATE_USER: "VALIDATE_USER"
+        VALIDATE_USER: "VALIDATE_USER",
+        REQUEST_LIBRARIES_FROM_POOL: "REQUEST_LIBRARIES_FROM_POOL",
     },
 
     login: {

@@ -7,7 +7,6 @@ export default {
     ERROR: "ERROR",
     WARNING: "WARNING",
     NONE: "NONE",
-
     NONE_OPTION: {id: -1, name: "any"},
 };
 

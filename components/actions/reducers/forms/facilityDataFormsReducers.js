@@ -14,6 +14,7 @@ let facilityDataFormsReducers = combineForms(
         //     bioanalyserDate: "1970-01-01",
         //     description: "",
         // },
+
         runs: {
             [fields.runs.GA_RUN_NUMBER]: "",
             [fields.runs.FLOWCELL]: "",
@@ -40,8 +41,13 @@ let facilityDataFormsReducers = combineForms(
                     ]
                 }
             },
+            poolSelection: {
+                projectIdWithPool: "",
+                poolId: "",
+            }
         },
     },
+
     'facilityDataForms'
 );
 

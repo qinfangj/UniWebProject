@@ -54,6 +54,9 @@ let facilityDataReducers = (state = defaultState, action) => {
         case types.forms.CHANGE_FORM_VALUE:
             return defaultState;
 
+        case types.facilityData.REQUEST_LIBRARIES_FROM_POOL:
+            return returnList(action, state, "LIBRARIES_FROM_POOL", []);
+
         default:
             return state;
     }
