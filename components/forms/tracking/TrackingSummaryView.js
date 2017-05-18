@@ -521,7 +521,29 @@ TrackingSummaryView.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
     //console.log(state.tracking[ownProps.dataStoreKey]);
-    let trakingData = Object.assign({}, state.tracking[ownProps.dataStoreKey]);
+
+    //pre-treat tracking data in the store before displaying,
+    //if the array object of the key are all nulls.
+    //not even display the key column in the summaries view
+    let data = Object.assign({}, state.tracking[ownProps.dataStoreKey]);
+    let types = Object.keys(data);
+    let trakingData = {};
+    types.map(s=>{
+        let isNullArr = true;
+        for (let i=0; i < data[s].length; i++){
+            if (isNullArr && _.isNull(data[s][i])){
+                isNullArr = true
+            }else{
+                isNullArr = false
+            }
+        }
+        if (!isNullArr){
+            trakingData[s] = data[s];
+        }
+
+    });
+
+    //console.log(trakingData);
 
     let summaries={};
     for (let key in trakingData) {
