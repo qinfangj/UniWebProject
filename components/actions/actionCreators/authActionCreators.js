@@ -3,8 +3,9 @@ import actions from '../actionTypes';
 let types = actions.login;
 import RestService from '../../../utils/RestService';
 import AuthService from '../../../utils/AuthService';
+import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
+import formNames from '../../constants/formNames';
 import { asyncAction } from './base';
-
 
 
 export function resetFeedback() {
@@ -95,11 +96,15 @@ export function signupUser(creds) {
                 // Successful signup
                 } else {
                     response.json().then(user => {
+                        dispatch(feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulation! You have signed up successfully!"));
                         dispatch(_signupSuccess(user));
                         AuthService._doAuthentication(user);
                     }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
                 }
-            }).catch(err => console.log("Error signing up: ", JSON.stringify(err, null, 2)));
+            }).catch(err => {
+                dispatch(feedbackWarning(formNames.SIGN_UP_FORM, "SignUp Error", err));
+                console.log("Error signing up: ", JSON.stringify(err, null, 2))
+            });
     }
 }
 

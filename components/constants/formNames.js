@@ -17,6 +17,8 @@ export default {
     // Admin forms
     PROJECT_SHARINGS_INSERT_FORM: "PROJECT_SHARINGS_INSERT_FORM",
     USERS_INSERT_FORM: "USERS_INSERT_FORM",
+    //SignUp form
+    SIGN_UP_FORM: "SIGN_UP_FORM",
 
     // Suffixes (unique within a form)
     suffixes: {
