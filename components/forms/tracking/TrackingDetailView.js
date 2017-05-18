@@ -15,21 +15,36 @@ class TrackingDetailView extends React.PureComponent {
         super();
     }
 
-    SampleDetailsTb(k, v){
-
+    SampleDetailsTb(t, k, v){
         let rowSpan = (k === 'Customer Comment')? 2:null;
-
-        return (<tr key={k}>
-            <th rowSpan={rowSpan}>{k + ':'}</th><td rowSpan={rowSpan}>{v}</td>
-        </tr>)
+        let link = '';
+        if (k === "ID") {
+            link = `/#/data/${t}/update/${v}`;
+        }
+        return (
+            (k === "ID") ?
+                <tr key={k}>
+                    <th rowSpan={rowSpan}>{k + ':'}</th>
+                    <td rowSpan={rowSpan}><a href={link}>{v}</a></td>
+                </tr>
+                :
+                <tr key={k}>
+                    <th rowSpan={rowSpan}>{k + ':'}</th>
+                    <td rowSpan={rowSpan}>{v}</td>
+                </tr>
+        )
 
     }
 
-    RequestsDetailsTbs(k, obj){
+    RequestsDetailsTbs(t, k, obj){
         //console.log(k.name);
         let td = [];
+
         for (let i = 0; i < obj.length; i++){
-            td.push(<td key={k.name + i}> {obj[i][k.name]} </td>);
+            (k.label === "ID")?
+                td.push(<td key={k.name + i}><a href={`/#/data/${t}/update/${obj[i][k.name]}`}>{obj[i][k.name]}</a></td>)
+            :
+                td.push(<td key={k.name + i}> {obj[i][k.name]} </td>);
         }
         //console.log(td);
         return td
@@ -96,7 +111,7 @@ class TrackingDetailView extends React.PureComponent {
                             <tbody>
                             {
                                 summaryModel.map(
-                                (s) => this.SampleDetailsTb(this, s.label, dataSample[s.name]))
+                                (s) => this.SampleDetailsTb(this.props.dataKey, s.label, dataSample[s.name]))
                             }
 
                             </tbody>
@@ -124,7 +139,7 @@ class TrackingDetailView extends React.PureComponent {
                                 requestModel.map(
                                     (s) => {
                                         return (
-                                            <tr key={s.label}><th width = '150px'>{s.label}</th>{this.RequestsDetailsTbs(s, dataRequests)}</tr>)
+                                            <tr key={s.label}><th width = '150px'>{s.label}</th>{this.RequestsDetailsTbs(this.props.dataKey, s, dataRequests)}</tr>)
                                     })
                             }
                             </tbody>
