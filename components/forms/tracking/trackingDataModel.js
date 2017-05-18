@@ -202,6 +202,10 @@ const trackingDataModel = {
                 "label": "Submitter",
                 "name": "submitter"
             },
+            {
+                "label": "Comment",
+                "name": "comment"
+            },
 
         ]
 

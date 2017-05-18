@@ -129,8 +129,8 @@
     height: auto;
     border-radius: 4px;
     background-color: white;
-    /*display: flex;*/
-    /*align-items: flex-start;*/
+    display: flex;
+    align-items: flex-start;
 }
 
 .div2 {

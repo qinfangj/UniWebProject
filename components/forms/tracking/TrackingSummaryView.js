@@ -8,6 +8,8 @@ import store from '../../../core/store';
 import validate from '../../forms/validators';
 
 import trackingData from '../../forms/tracking/trackingData';
+import { actions} from 'react-redux-form';
+import { hashHistory } from 'react-router';
 import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import trackCss from './tracking.css';
 import Icon from "react-fontawesome";
@@ -25,7 +27,7 @@ class TrackingSummaryView extends React.PureComponent {
                         insertRow : -1,
                         insertCol: "",
                         laneNos: {},
-                        isSubmit: false,
+                        //isSubmit: false,
                         createdlanesInfo: {},
                       };
 
@@ -164,7 +166,7 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     setLaneNo(k,ind,e){
-        console.log(e.target.value);
+        //console.log(e.target.value);
         let laneNos = Object.assign({},this.state.laneNos);
 
         laneNos[k][ind].value = e.target.value;
@@ -338,66 +340,52 @@ class TrackingSummaryView extends React.PureComponent {
     createRuns(){
         let createdLanes = this.state.createdlanesInfo;
 
-        // if (this.state.isSubmit == false ){
-        //     for (let k in this.state.laneNos){
-        //         let sub = this.state.laneNos[k];
-        //         let arr = [];
-        //         for (let i = 0; i < sub.length; i++){
-        //             if (sub[i] == null || sub[i].value !== ""){
-        //                 let obj= this.props.trackingData[k][i];
-        //                 console.log(obj);
-        //                 if (obj !== null) {
-        //                     obj.laneNum = sub[i].value;
-        //                     arr.push(obj);
-        //                 }
-        //
-        //             }
-        //         }
-        //         if (arr.length >0) {
-        //             createdLanes[k] = arr;
-        //         }
-        //
-        //     }
-        //     console.log(createdLanes);
-        //
-        //     if (Object.keys(createdLanes).length > 0) {
-        //         this.setState({
-        //             isSubmit:true,
-        //             createdLanesInfo:createdLanes,
-        //         });
-        //
-        //     } else if (Object.keys(createdLanes).length === 0){
-        //         store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
-        //     }
-        // } else {
+        let arr = [];
+        let objLanes = {lanes:[]};
         for (let k in this.state.laneNos){
             let sub = this.state.laneNos[k];
-            let arr = [];
             for (let i = 0; i < sub.length; i++){
-                if (sub[i] == null || sub[i].value !== ""){
-                    let obj= this.props.trackingData[k][i];
-                    console.log(obj);
-                    if (obj !== null) {
-                        obj.laneNum = sub[i].value;
-                        arr.push(obj);
-                    }
+                //console.log(sub[i]);
+                //console.log(sub[i].value);
 
+                if (sub[i] !== null && sub[i].value !== ""){
+
+                    let obj = {};
+
+                    obj[sub[i].value] = {
+                        comment:"",
+                        libs:[{
+                            projectId: this.props.trackingData[k][i].desc.projectId,
+                            libraryId: this.props.trackingData[k][i].desc.id,
+                            concentration: "",
+                            qualityId: "",
+                            isQC: false,
+                        }]
+
+                    };
+                    //console.log(obj);
+                    arr.push(obj);
                 }
-            }
-            if (arr.length >0) {
-                createdLanes[k] = arr;
             }
 
         }
-        console.log(createdLanes);
-        if (Object.keys(createdLanes).length > 0) {
-            this.setState({
-                isSubmit:true,
-                createdLanesInfo:createdLanes,
-            });
-            if (confirm("Are you sure to submit those settings of lanes?")) {
-                console.log(this.state.createdlanesInfo);
 
+        if (arr.length >0) {
+            createdLanes['lanes'] = arr;
+        }
+
+        if (Object.keys(createdLanes).length > 0) {
+            // this.setState({
+            //     isSubmit:true,
+            //     createdLanesInfo:createdLanes,
+            // });
+            if (confirm("Are you sure to submit those settings of lanes?")) {
+                console.log(createdLanes);
+                let newPath = window.location.pathname + "data/runs/from-tracking";
+                console.log(newPath);
+                //store.dispatch(actions.reset("facilityDataForms.runs"));
+                store.dispatch(actions.merge("facilityDataForms.runs.lanes",createdLanes));
+                hashHistory.push(newPath);
             }
 
         } else if (Object.keys(createdLanes).length === 0){
@@ -408,24 +396,24 @@ class TrackingSummaryView extends React.PureComponent {
 
     }
 
-    makeDiv(ele){
-        let div = [];
+    //makeDiv(ele){
+        //let div = [];
         //console.log(ele);
-        for (let i = 0; i < this.state.createdlanesInfo[ele].length; i++){
-            div.push(
-                <Col sm={3} key={i} style={{border:"1px solid grey", paddingRight: '30px',borderRadius: '4px',marginBottom:'10px'}}>
-                    Lane number: {this.state.createdlanesInfo[ele][i].laneNum}<br/>
-                    Library ID: {this.state.createdlanesInfo[ele][i].desc.ID}<br/>
-                    Requests Num:  {this.state.createdlanesInfo[ele][i].requests.length}
-                </Col>);
-        }
+        // for (let i = 0; i < this.state.createdlanesInfo[ele].length; i++){
+        //     div.push(
+        //         // <Col sm={3} key={i} style={{border:"1px solid grey", paddingRight: '30px',borderRadius: '4px',marginBottom:'10px'}}>
+        //         //     Lane number: {this.state.createdlanesInfo[ele][i].laneNum}<br/>
+        //         //     Library ID: {this.state.createdlanesInfo[ele][i].desc.ID}<br/>
+        //         //     Requests Num:  {this.state.createdlanesInfo[ele][i].requests.length}
+        //         // </Col>);
+        // }
 
-        return div
-   }
+       // return div
+   //}
 
     resetLanes(){
         this.setState({
-            isSubmit: false,
+            //isSubmit: false,
             laneNos: this.props.initalLaneNo(this.props.trackingData),
             isEmptyLane : true,
             createdlanesInfo : {},
@@ -493,10 +481,10 @@ class TrackingSummaryView extends React.PureComponent {
                     : null}
 
 
-                    {(Object.keys(this.state.createdlanesInfo).length > 0)?
-                        Object.keys(this.state.createdlanesInfo).map ((s) => {
-                            return <div key={s}> {this.makeDiv(s)} </div>}) : null
-                    }
+                    {/*{(Object.keys(this.state.createdlanesInfo).length > 0)?*/}
+                        {/*Object.keys(this.state.createdlanesInfo).map ((s) => {*/}
+                            {/*return <div key={s}> {this.makeDiv(s)} </div>}) : null*/}
+                    {/*}*/}
 
                 <Feedback reference="tracking.library" />
                 <div className={trackCss.divWrapper}>

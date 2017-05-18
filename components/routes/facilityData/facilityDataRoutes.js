@@ -246,6 +246,14 @@ export class RunsUpdateRoute extends React.Component {
     );}
 }
 
+export class RunsFromTrackingRoute extends React.Component {
+    render() {return (
+        <FacilityData title="Runs" name="runs" content={
+            <RunsInsertForm />
+        } />
+    );}
+}
+
 
 export class UserRequestsListRoute extends React.Component {
     render() {return (

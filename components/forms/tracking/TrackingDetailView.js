@@ -25,40 +25,38 @@ class TrackingDetailView extends React.PureComponent {
 
     }
 
-    RequestsDetailsTbs2(k, obj){
-        console.log(k.name);
-        console.log(obj.length);
+    RequestsDetailsTbs(k, obj){
+        //console.log(k.name);
         let td = [];
         for (let i = 0; i < obj.length; i++){
-            console.log(obj[i]);
             td.push(<td key={k.name + i}> {obj[i][k.name]} </td>);
         }
-        console.log(td);
+        //console.log(td);
         return td
 
     }
 
-    RequestsDetailsTbs(k,v,model){
-        let headers = Object.keys(v);
-        let makeBody = model.map(
-            s => {
-                if (s.name !== 'comment'){
-                    return (
-                        <td key={s.name}>{v[s.name]==null?"":v[s.name]}</td>
-                    )
-                }
-            }
-        );
-
-        return (
-                 <tbody key={k}>
-                 <tr >{makeBody}</tr>
-                 <tr ><td colSpan='10'>
-                     <Icon name="comment" style={{color:'#337ab7',padding:'5px'}}/> {(v['comment'] !== undefined && v['comment'] != null)? v['comment'] : '--'}</td></tr>
-                 </tbody>
-
-             )
-    }
+    // RequestsDetailsTbs(k,v,model){
+    //     let headers = Object.keys(v);
+    //     let makeBody = model.map(
+    //         s => {
+    //             if (s.name !== 'comment'){
+    //                 return (
+    //                     <td key={s.name}>{v[s.name]==null?"":v[s.name]}</td>
+    //                 )
+    //             }
+    //         }
+    //     );
+    //
+    //     return (
+    //              <tbody key={k}>
+    //              <tr >{makeBody}</tr>
+    //              {/*<tr ><td colSpan='10'>*/}
+    //                  {/*<Icon name="comment" style={{color:'#fff',padding:'5px'}}/> {(v['comment'] !== undefined && v['comment'] != null)? v['comment'] : '--'}</td></tr>*/}
+    //              </tbody>
+    //
+    //          )
+    // }
 
     render() {
            let dataSample = this.props.detailData['desc'];
@@ -82,18 +80,16 @@ class TrackingDetailView extends React.PureComponent {
            let headerWidth = 100/(requestheaders.length-1) +'%';
            let makeRequstsHeader = trackingDataModel.requestDetails.map(
                 s => {
-                    if (s.name !== 'comment') {
                         return (
                             <th key={s.name} width={headerWidth}>{s.label}</th>
-                        )
-                    }
+                        );
                 }
            );
 
            return (
 
-                    <Row >
-                    <Col sm={6} className={trackCss.div2}>
+                    <div className={trackCss.div1}>
+                    <Col sm={4} className={trackCss.div2}>
 
                         <h4>Sample details</h4>
                         <table width='100%' >
@@ -107,7 +103,7 @@ class TrackingDetailView extends React.PureComponent {
                         </table>
 
                     </Col>
-                    <Col sm={6} className={trackCss.div3}>
+                    <Col sm={8} className={trackCss.div3}>
 
                         <h4>Open Request(s)</h4>
                         {/*<table width='100%' style = {{border:'1px solid grey'}}>
@@ -128,16 +124,14 @@ class TrackingDetailView extends React.PureComponent {
                                 requestModel.map(
                                     (s) => {
                                         return (
-                                            <tr key={s.label}><th width = '150px'>{s.label}</th>{this.RequestsDetailsTbs2(s, dataRequests)}</tr>)
-
-                                        //this.RequestsDetailsTbs2(s, dataSample))
+                                            <tr key={s.label}><th width = '150px'>{s.label}</th>{this.RequestsDetailsTbs(s, dataRequests)}</tr>)
                                     })
                             }
                             </tbody>
                         </table>
 
                     </Col>
-                    </Row>
+                    </div>
 
 
 

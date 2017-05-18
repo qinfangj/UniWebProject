@@ -60,3 +60,8 @@ export function validateUserAsync(id) {
     let args = {id};
     return asyncAction(types.facilityData.VALIDATE_USER, RestService.validateUser.bind(null, id), args);
 }
+
+export function requestLibrariesFromPool(projectId, pool) {
+    let args = {};
+    return asyncAction(types.facilityData.REQUEST_LIBRARIES_FROM_POOL, RestService.librariesFromPool.bind(null, projectId, pool), args);
+}
