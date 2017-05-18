@@ -76,6 +76,7 @@ const routes = (
             {/* For testing of the sub-form */}
             <Route path="data/subruns/new" component={fdata.SubRunsRoute} onEnter={requireAuth} />
             <Route path="data/runs/new" component={fdata.RunsNewRoute} onEnter={requireAuth} />
+            <Route path="data/runs/from-tracking" component={fdata.RunsFromTrackingRoute} onEnter={requireAuth} />
 
             {/*<Route path="data/runs/postnew" component={fdata.RunsNewRoute} onEnter={requireAuth} />*/}
             <Route path="data/runs/update/:id" component={fdata.RunsUpdateRoute} onEnter={requireAuth} />

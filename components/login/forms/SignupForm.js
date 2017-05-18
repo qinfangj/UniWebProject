@@ -5,10 +5,11 @@ import css from '../login.css';
 import store from '../../../core/store';
 import { signupUser } from '../../actions/actionCreators/authActionCreators';
 import Validators  from '../../forms/validators';
+import Feedback from '../../utils/Feedback';
+import formNames from '../../constants/formNames';
 
 import {Form, FormControl, InputGroup, FormGroup, ControlLabel, Button, HelpBlock} from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
-
 
 
 class SignupForm extends React.Component {
@@ -36,16 +37,17 @@ class SignupForm extends React.Component {
     }
 
     submit() {
-        store.dispatch(signupUser(
-            {
-                password: this.state.password,
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                email: this.state.email,
-                address: this.state.address,
-                phone: this.state.phone
-            }
-        ));
+            store.dispatch(signupUser(
+                                        {
+                                            password: this.state.password,
+                                            firstName: this.state.firstName,
+                                            lastName: this.state.lastName,
+                                            email: this.state.email,
+                                            address: this.state.address,
+                                            phone: this.state.phone
+                                        }
+                                    ));
+
     }
 
     onChangePassword(e) {
@@ -142,7 +144,7 @@ class SignupForm extends React.Component {
     render() {
         return (
             <div className={css.formContainer}>
-
+                <Feedback reference={formNames.SIGN_UP_FORM} />
                 <Form className={css.form}>
 
                     {/* Password */}
