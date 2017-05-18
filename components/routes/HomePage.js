@@ -9,6 +9,7 @@ class HomePage extends React.Component {
             <div>
             <h1>Welcome to the Lausanne Genomic Technologies Facility!</h1>
                 <Feedback reference={formNames.SIGN_UP_FORM} />
+                <Feedback reference={formNames.CHANGE_PASSWORD_FORM} />
             </div>
         );
     }

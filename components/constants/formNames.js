@@ -19,6 +19,7 @@ export default {
     USERS_INSERT_FORM: "USERS_INSERT_FORM",
     //SignUp form
     SIGN_UP_FORM: "SIGN_UP_FORM",
+    CHANGE_PASSWORD_FORM: "CHANGE_PASSWORD_FORM",
 
     // Suffixes (unique within a form)
     suffixes: {

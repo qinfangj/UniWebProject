@@ -4,6 +4,8 @@ import cx from 'classnames';
 import css from '../login.css';
 import store from '../../../core/store';
 import { changePassword } from '../../actions/actionCreators/authActionCreators';
+import Feedback from '../../utils/Feedback';
+import formNames from '../../constants/formNames';
 
 import {Form, FormControl, InputGroup, FormGroup, Button, HelpBlock} from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
@@ -80,7 +82,7 @@ class ChangePasswordForm extends React.Component {
     render() {
         return (
             <div className={css.formContainer}>
-
+                <Feedback reference={formNames.CHANGE_PASSWORD_FORM} />
                 <Form className={css.form}>
 
                     {/*Enter in the field below the code that you received at your email address:*/}
