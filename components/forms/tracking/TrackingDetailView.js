@@ -15,13 +15,13 @@ class TrackingDetailView extends React.PureComponent {
         super();
     }
 
-    SampleDetailsTb(k,v){
+    SampleDetailsTb(k, v){
 
         let rowSpan = (k === 'Customer Comment')? 2:null;
 
         return (<tr key={k}>
-                    <th rowSpan={rowSpan}>{k + ':'}</th><td rowSpan={rowSpan}>{v}</td>
-                </tr>)
+            <th rowSpan={rowSpan}>{k + ':'}</th><td rowSpan={rowSpan}>{v}</td>
+        </tr>)
 
     }
 
@@ -96,7 +96,7 @@ class TrackingDetailView extends React.PureComponent {
                             <tbody>
                             {
                                 summaryModel.map(
-                                (s) => this.SampleDetailsTb(s.label,dataSample[s.name]))
+                                (s) => this.SampleDetailsTb(this, s.label, dataSample[s.name]))
                             }
 
                             </tbody>
