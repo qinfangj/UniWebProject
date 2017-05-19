@@ -14,8 +14,8 @@ import poolSelectionModel from './poolSelectionModel';
 
 import RFFInput from '../../bootstrapWrappers/RFFInput.js';
 import Icon from 'react-fontawesome';
-import Button from 'react-bootstrap/lib/Button';
 import PoolSelection from './PoolSelection';
+import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap/lib';
 
 
 /**
@@ -180,16 +180,26 @@ class RunsSubForm extends React.PureComponent {
                 <Icon name='trash' className={css.removeLibrary}/>
             </div> : null;
 
+        let DelLaneTooltip = <Tooltip id="addLib">{"Delete lane"}</Tooltip>;
+        let AddLibTooltip = <Tooltip id="addLib">{"Add a library"}</Tooltip>;
+        let AddPoolTooltip = <Tooltip id="addPool">{"Add a pool of libraries"}</Tooltip>;
+
         let laneButtonsCell = (k === 0 && !this.props.disabled) ?
             <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
                 <div onClick={this.removeLane.bind(this, laneNb)}>
-                    <Icon name="trash" className={css.removeLane}/>
+                    <OverlayTrigger placement="left" overlay={DelLaneTooltip}>
+                        <Icon name="trash" className={css.removeLane}/>
+                    </OverlayTrigger>
                 </div>
                 <div onClick={this.addLibrary.bind(this, laneNb)}>
-                    <Icon name='plus-circle' className={css.addLibrary}/>
+                    <OverlayTrigger placement="left" overlay={AddLibTooltip}>
+                        <Icon name='plus-circle' className={css.addLibrary}/>
+                    </OverlayTrigger>
                 </div>
                 <div onClick={this.showPoolSelection.bind(this, laneNb)}>
-                    <Icon name='plus-circle' className={css.addPool}/>
+                    <OverlayTrigger placement="left" overlay={AddPoolTooltip}>
+                        <Icon name='plus-circle' className={css.addPool}/>
+                    </OverlayTrigger>
                 </div>
             </td> : null;
 

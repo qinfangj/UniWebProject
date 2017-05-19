@@ -1,6 +1,7 @@
 "use strict";
 import React from 'react';
 import store from '../../../../core/store';
+import css from './lanes.css';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -79,7 +80,7 @@ class PoolSelection extends React.PureComponent {
                 otherProps.refModelName = this.props.modelName +".poolSelection.projectIdWithPool";
             }
             inputs.push(
-                <td key={fieldName}><RFFInput inputType={inputType} modelName={modelName} {...otherProps} /></td>
+                <td className={css.libCell} key={fieldName}><RFFInput inputType={inputType} modelName={modelName} {...otherProps} /></td>
             );
         }
 
