@@ -100,12 +100,12 @@ class ResponsiveSidebar extends React.PureComponent {
         if (!path) return null;
         let menuItems = [
             { text: "Home", to: "/home", },
-            { text: "Facility data", to: "/data", elements: submenus.facilityDataSubmenu },
+            { text: "Facility data", to: "/data", elements: submenus.facilityDataSubmenu, disabled: !this.props.isAuthenticated },
             { text: "User data", to: "/userData", disabled: true },
-            { text: "Tracking", to: "/tracking", disabled: false },
-            { text: "Query projects", to: "/projects", elements: submenus.queryProjectsSubmenu },
+            { text: "Tracking", to: "/tracking", disabled: !this.props.isAuthenticated },
+            { text: "Query projects", to: "/projects", elements: submenus.queryProjectsSubmenu, disabled: !this.props.isAuthenticated },
             { text: "Query runs", to: "/queryRuns", disabled: true },
-            { text: "Admin", to: "/admin", disabled: false, elements: submenus.adminSubmenu },
+            { text: "Admin", to: "/admin", elements: submenus.adminSubmenu, disabled: !this.props.isAuthenticated },
         ];
         let items = menuItems.map((items, i) => {
             let {text, to, elements, disabled, ...props} = items;

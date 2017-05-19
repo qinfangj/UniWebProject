@@ -37,17 +37,16 @@ class SignupForm extends React.Component {
     }
 
     submit() {
-            store.dispatch(signupUser(
-                                        {
-                                            password: this.state.password,
-                                            firstName: this.state.firstName,
-                                            lastName: this.state.lastName,
-                                            email: this.state.email,
-                                            address: this.state.address,
-                                            phone: this.state.phone
-                                        }
-                                    ));
-
+        store.dispatch(signupUser(
+            {
+                password: this.state.password,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                address: this.state.address,
+                phone: this.state.phone
+            }
+        ));
     }
 
     onChangePassword(e) {
@@ -100,11 +99,11 @@ class SignupForm extends React.Component {
         if (pwd.length === 0) {
             //Check if new password is empty. Set appropriate feedbacks and error messages
             //Set appropriate feedbacks and error messages.
-            return {msg: "Password can't be empty!", msg2: "", feedback: "warning", feedback2: null};
+            return {msg: "Password cannot be empty!", msg2: "", feedback: "warning", feedback2: null};
         } else if (pwd.length !== 0 && pwd !== pwd2) {
             //Check if re-entered password is matched with the entered password.
             //Set appropriate feedbacks and error messages.
-            return {msg: "", msg2: "Re-entered password is not matched.", feedback: null, feedback2: "warning"};
+            return {msg: "", msg2: "Re-entered password does not match.", feedback: null, feedback2: "warning"};
         } else if (pwd.length !== 0 && pwd2.length !== 0 && pwd === pwd2) {
             //Check if re-entered password is matched.
             //Set appropriate feedbacks and error messages
@@ -116,7 +115,7 @@ class SignupForm extends React.Component {
         if (field.length === 0) {
             //Check if input is empty. Set appropriate feedbacks and error messages
             //Set appropriate feedbacks and error messages.
-            return {msg: "Field can't be empty!", feedback: "warning" };
+            return {msg: "Field cannot be empty!", feedback: "warning" };
         } else {
             return {msg: "", feedback: "success" };
         }
@@ -125,7 +124,7 @@ class SignupForm extends React.Component {
     validateEmail(field) {
         let checkEmail = Validators.emailValidator(field);
 
-        if (checkEmail.valid == true) {
+        if (checkEmail.valid === true) {
             //return checkEmail object. if validator is true
             //Set appropriate feedbacks and error messages.
             return {msg: "", feedback: "success" };
@@ -234,15 +233,6 @@ class SignupForm extends React.Component {
                             onChange={this.onChangePhone.bind(this)}
                         />
                     </FormGroup>
-
-                    {/*<div className='form-actions col-sm-9 col-sm-offset-3'>*/}
-                        {/*<button type="submit" className="submit-button btn btn-primary"*/}
-                                {/*onClick={this.login} disabled={!this.formValid()}>Login</button>*/}
-                        {/*{!this.isDemo ?*/}
-                            {/*<Link id='signup-link' to='/signup'>Register</Link> : '' }*/}
-                        {/*{!this.isDemo ?*/}
-                            {/*<Link id='forget-password-link' to='/forgetPassword'>I forgot my password</Link> : '' }*/}
-                    {/*</div>*/}
 
                 </Form>
 
