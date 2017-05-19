@@ -17,6 +17,7 @@ class TrackingDetailView extends React.PureComponent {
 
     SampleDetailsTb(t, k, v){
         let rowSpan = (k === 'Customer Comment')? 2:null;
+
         let link = '';
         if (k === "ID") {
             link = `/#/data/${t}/update/${v}`;
@@ -36,13 +37,13 @@ class TrackingDetailView extends React.PureComponent {
 
     }
 
-    RequestsDetailsTbs(t, k, obj){
+    RequestsDetailsTbs(k, obj){
         //console.log(k.name);
         let td = [];
 
         for (let i = 0; i < obj.length; i++){
             (k.label === "ID")?
-                td.push(<td key={k.name + i}><a href={`/#/data/${t}/update/${obj[i][k.name]}`}>{obj[i][k.name]}</a></td>)
+                td.push(<td key={k.name + i}><a href={`/#/data/user_requests/update/${obj[i][k.name]}`}>{obj[i][k.name]}</a></td>)
             :
                 td.push(<td key={k.name + i}> {obj[i][k.name]} </td>);
         }
@@ -82,13 +83,21 @@ class TrackingDetailView extends React.PureComponent {
            dataKey = this.props.dataKey;
            //console.log(dataKey);
            let summaryModel = null;
+           let title = "";
+           let linkType = "";
            let requestModel = trackingDataModel.requestDetails;
            if (dataKey === "samples") {
                summaryModel = trackingDataModel.summaryDetailSamples;
+               title = "Samples detail info";
+               linkType = "samples";
            } else if (dataKey ==="runs"){
                summaryModel = trackingDataModel.summaryDetailRuns;
+               title = "Libraries detail info";
+               linkType = "libraries";
            } else if (dataKey = "libraries"){
                summaryModel = trackingDataModel.summaryDetailLibraries;
+               title = "Libraries detail info";
+               linkType = "libraries";
            }
 
            let requestheaders = Object.keys(dataRequests[0]);
@@ -106,12 +115,12 @@ class TrackingDetailView extends React.PureComponent {
                     <div className={trackCss.div1}>
                     <Col sm={4} className={trackCss.div2}>
 
-                        <h4>Sample details</h4>
+                        <h4>{title}</h4>
                         <table width='100%' >
                             <tbody>
                             {
                                 summaryModel.map(
-                                (s) => this.SampleDetailsTb(this.props.dataKey, s.label, dataSample[s.name]))
+                                (s) => this.SampleDetailsTb(linkType, s.label, dataSample[s.name]))
                             }
 
                             </tbody>
@@ -139,7 +148,7 @@ class TrackingDetailView extends React.PureComponent {
                                 requestModel.map(
                                     (s) => {
                                         return (
-                                            <tr key={s.label}><th width = '150px'>{s.label}</th>{this.RequestsDetailsTbs(this.props.dataKey, s, dataRequests)}</tr>)
+                                            <tr key={s.label}><th width = '150px'>{s.label}</th>{this.RequestsDetailsTbs(s, dataRequests)}</tr>)
                                     })
                             }
                             </tbody>

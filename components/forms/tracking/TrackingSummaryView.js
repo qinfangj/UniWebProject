@@ -47,11 +47,6 @@ class TrackingSummaryView extends React.PureComponent {
         let trackingData = this.props.trackingData;
         console.log(this.props.trackingData);
 
-        // if (this.props.isLibrary && Object.keys(trackingData).length > 0){
-        //     console.log(trackingData);
-        //     this.setState({laneNos: this.initalLaneNo(trackingData)})
-        // }
-
          if (trackingData && Object.keys(trackingData).length > 0) {
              console.log("componentWillMount2");
              if (this.props.isLibrary) {
@@ -66,9 +61,9 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log("componentWillReceiveProps");
-        console.log(this.props.trackingData);
-        console.log(this.state.laneNos);
+        // console.log("componentWillReceiveProps");
+        // console.log(this.props.trackingData);
+        // console.log(this.state.laneNos);
         if (this.props.isLibrary && Object.keys(this.state.laneNos).length === 0){
             this.setState({
                 laneNos: nextProps.laneInfo
