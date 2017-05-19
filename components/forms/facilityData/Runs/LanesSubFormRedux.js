@@ -170,6 +170,11 @@ class RunsSubForm extends React.PureComponent {
         let volumeInput = formFields[2];
         let qualityInput = formFields[3];
 
+        let DelLibTooltip = <Tooltip id="delLib">{"Delete library"}</Tooltip>;
+        let DelLaneTooltip = <Tooltip id="delLane">{"Delete lane"}</Tooltip>;
+        let AddLibTooltip = <Tooltip id="addLib">{"Add a library"}</Tooltip>;
+        let AddPoolTooltip = <Tooltip id="addPool">{"Add a pool of libraries"}</Tooltip>;
+
         let laneNbCell = k === 0 ?
             <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
                 {'L'+laneNb}
@@ -177,12 +182,10 @@ class RunsSubForm extends React.PureComponent {
 
         let deleteLibraryButton = (nlibs > 1 && !this.props.disabled) ?
             <div onClick={this.removeLibrary.bind(this, laneNb, lib, k)}>
-                <Icon name='trash' className={css.removeLibrary}/>
+                <OverlayTrigger placement="left" overlay={DelLibTooltip}>
+                    <Icon name='trash' className={css.removeLibrary}/>
+                </OverlayTrigger>
             </div> : null;
-
-        let DelLaneTooltip = <Tooltip id="addLib">{"Delete lane"}</Tooltip>;
-        let AddLibTooltip = <Tooltip id="addLib">{"Add a library"}</Tooltip>;
-        let AddPoolTooltip = <Tooltip id="addPool">{"Add a pool of libraries"}</Tooltip>;
 
         let laneButtonsCell = (k === 0 && !this.props.disabled) ?
             <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
