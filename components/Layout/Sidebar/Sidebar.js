@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 import css from './Sidebar.css';
 import store from '../../../core/store';
@@ -81,7 +82,6 @@ class ResponsiveSidebar extends React.PureComponent {
 
     onSelect(active) {
         let newState = {submenuOpen: active ? !this.state.submenuOpen : true};
-        //console.debug("SIDEBAR ON SELECT", {active: active, wasOpen: this.state.submenuOpen, willOpen: open})
         if (this.state.open && !this.isWide()) {
             this.onSetOpen(false);
         }
@@ -89,9 +89,12 @@ class ResponsiveSidebar extends React.PureComponent {
     }
 
     render() {
-        //console.debug("submenu", this.state.submenuOpen ? "OPEN" : "CLOSED")
-        // With browserHistory, use this:
-        //let path = window.location.pathname
+
+        // if (!this.props.isAuthenticated) {
+        //     return this.props.children;
+        // }
+
+        // With browserHistory, use `window.location.pathname` instead.
         // With hashHistory, read the hash part:
         let path = window.location.hash ? window.location.hash.substring(1) : "";
         if (!path) return null;
@@ -185,4 +188,10 @@ class ResponsiveSidebar extends React.PureComponent {
 }
 
 
-export default ResponsiveSidebar;
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+    };
+}
+
+export default connect(mapStateToProps)(ResponsiveSidebar);
