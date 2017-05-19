@@ -127,4 +127,39 @@ export function submit(form, table, formatFormData=null) {
         }
     }
 }
+/**
+ *
+ * @param modelName: RRF form model name.
+ * @param insertData: data to insert.
+ * @param table: db table name for insert.
+ * @param formName: from constants.formNames, to identify the origin of feedbacks.
+ */
+export function submitForm(modelName, insertData, table, formName) {
+    if (confirm("Are you sure that you want to submit the data?")) {
+        console.info("Values to submit: ", JSON.stringify(insertData, null, 2));
+        // Created at: reformat so that it can be parsed as java.sql.Timestamp.
+        // Updated at: if update, set to current timestamp.
+        if (insertData.id && insertData.id !== 0) {
+            insertData.updatedAt = dateNow();
+            if (insertData.createdAt) {
+                insertData.createdAt = parseDateString(insertData.createdAt);
+            }
+        }
+        store.dispatch(insertAsync(table, insertData, null))
+            .done((response) => {
+                console.debug(200, "Inserted ID <"+ response +">");
+                // Signal that it worked
+                store.dispatch(feedbackSuccess(formName, "Successfully inserted <"+response+">"));
+                // Clear the form data in store
+                store.dispatch(actions.reset(modelName));
+                // Redirect to table by replacing '/new' by '/list' in the router state
+                let currentPath = window.location.pathname + window.location.hash.substr(2);
+                hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
+            })
+            .fail((error) => {
+                console.warn("Uncaught form validation error: ", error);
+                store.dispatch(feedbackError(formName, "", error));
+            });
+    }
+}
 

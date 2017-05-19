@@ -4,10 +4,9 @@ import formsCss from '../../forms.css';
 import css from './runs.css';
 import cx from 'classnames';
 import _ from 'lodash';
-import store from '../../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, actions} from 'react-redux-form';
+import { Form, actions } from 'react-redux-form';
 import { insertAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 import { requestInstruments,
          requestFlowcellTypes,
@@ -28,15 +27,16 @@ import {Button, Col, Alert} from 'react-bootstrap/lib';
 class RunsInsertFormRedux extends React.PureComponent {
     constructor() {
         super();
-        this.table = "runs";
-        this.modelName = "facilityDataForms.runs";
+        this.table = "runs";  // db table for insert
+        this.form = formNames.RUNS_INSERT_FORM;  // for the feedback
+        this.modelName = "facilityDataForms.runs";  // to track form data
         this.state = {
             disabled: false,
         };
     }
 
     componentWillMount() {
-        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdated.bind(this));
+        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdateLoadLibsOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
@@ -50,7 +50,7 @@ class RunsInsertFormRedux extends React.PureComponent {
      * When the update data comes, trigger the action to get libraries options lists
      * corresponding to the received projectIds (see newOrUpdate2 in componentWillMount).
      */
-    onUpdated(data) {
+    onUpdateLoadLibsOptions(data) {
       for (let laneNb of Object.keys(data.lanes)) {
           let libs = this.props.formData.lanes[laneNb].libs;
           for (let k=0; k < libs.length; k++) {
@@ -60,6 +60,9 @@ class RunsInsertFormRedux extends React.PureComponent {
       }
     }
 
+    /**
+     * Cast numeric values before we can submit. RRF apparently uses only strings and booleans.
+     */
     formatInsertData(values) {
         let insertData = _.cloneDeep(values);  // because `values` is immutable
         insertData.gaRunNb = parseInt(insertData.gaRunNb);
@@ -79,27 +82,24 @@ class RunsInsertFormRedux extends React.PureComponent {
 
     /**
      * Submit the form for insert/update.
-     * If `this.submit(values)` fails, sets `.submitFailed` and `.errors` on the model.
-     * If it succeeds, set `.submitted` and `.validity` on the model.
+     *
+     * Ideally, use RRF system to mark the form as submitted:
+     * ```store.dispatch(actions.submit(this.modelName, this.submit(insertData)));```
+     * - If `this.submit(values)` fails, sets `.submitFailed` and `.errors` on the model.
+     * - If it succeeds, set `.submitted` and `.validity` on the model.
      *  Ex: http://codepen.io/davidkpiano/pen/c683e0cf7ee54736b49b2ce30aba956f?editors=0010
+     * But I can't understand it, so let's do it simpler for now.
      **/
     onSubmit(values) {
         let insertData = this.formatInsertData(values);
-        console.info("Submitted values: ", JSON.stringify(insertData, null, 2));
-        // Ideally, use RRF system to mark the form as submitted:
-        //store.dispatch(actions.submit(this.modelName, this.submit(insertData)));
-        // But I can't understand it, so do it simpler:
-        this.props.insertAsync(this.table, insertData, null)
-            .done((response) => {
-                this.props.feedbackSuccess(this.modelName, "Successfully inserted <"+response+">");
-            })
-            .fail((error) => {
-                this.props.feedbackError(this.modelName, "", error);
-            });
+        forms.submitForm(this.modelName, insertData, this.table, this.form);
     }
 
     activateForm() {
         this.setState({ disabled: false });
+    }
+    deactivateForm() {
+        this.setState({ disabled: true });
     }
 
     render() {
@@ -124,9 +124,9 @@ class RunsInsertFormRedux extends React.PureComponent {
         return (
             <div>
 
-                <Feedback reference={this.modelName} />
+                <Feedback reference={this.form} />
 
-                <Alert bsStyle="info">Backend is not ready yet</Alert>
+                <Alert bsStyle="info">Backend is not ready yet to handle updates correctly</Alert>
 
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
@@ -145,13 +145,18 @@ class RunsInsertFormRedux extends React.PureComponent {
                     {/* Submit */}
 
                     {this.state.disabled ?
-                        <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
+                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
                             Activate form
                         </Button>
                         :
-                        <Button type="submit" bsStyle="primary" className={css.submitButton}>
-                            Submit
-                        </Button>
+                        <div>
+                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
+                                Cancel
+                            </Button>
+                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
+                                Submit
+                            </Button>
+                        </div>
                     }
 
                 </Form>

@@ -38,15 +38,12 @@ export function formatFormData(formData, table) {
 
 export function submit(component, form, values, table, updateId, isInsert) {
 
-    let state = {serverError: {}};
-    let submissionFuture = null;
-
     let data = Object.assign({}, values);
 
     console.info(JSON.stringify(data, null, 2));
 
     if (!isInsert) {
-        component.setState({isInsert:true});
+        component.setState({isInsert: true});
     } else {
         if (confirm("Are you sure that you want to submit the data?")) {
             let formData = formatFormData(data, table);
@@ -61,13 +58,11 @@ export function submit(component, form, values, table, updateId, isInsert) {
                     let currentPath = window.location.pathname + window.location.hash.substr(2);
                     if (updateId === '' || updateId === undefined) {
                         component.props.router.push(currentPath.replace('/new', '/list'));
-
                     } else {
                         component.props.router.push(currentPath.replace('/update/' + updateId, '/list'));
-
                     }
                 })
-                .fail(() => {
+                .fail((err) => {
                     console.warn("Uncaught form validation error");
                     store.dispatch(feedbackError(form, "Uncaught form validation error", err));
                 });
