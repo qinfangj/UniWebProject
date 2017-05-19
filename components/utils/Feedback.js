@@ -30,7 +30,7 @@ export class Feedback extends React.PureComponent {
                 break;
             case constants.ERROR:
                 bsStyle = "danger";
-                message = `${error.statusText} (${error.status}): ${error.responseText}`;
+                message = message === "" ? `${error.statusText} (${error.status}): ${error.responseText}` : message;
                 break;
             default:
                 show = false;
@@ -39,10 +39,12 @@ export class Feedback extends React.PureComponent {
 
         if (show) {
             return (
-                <Alert bsStyle={bsStyle} onClick={this.props.resetFeedback}>
-                    {message}
-                    <span className={css.alertOk} onClick={this.props.resetFeedback}><a>OK</a></span>
-                </Alert>
+                <div className={css.alertWrapper}>
+                    <Alert className={css.alert} bsStyle={bsStyle} onClick={this.props.resetFeedback}>
+                        {message}
+                        <span className={css.alertOk} onClick={this.props.resetFeedback}><a>OK</a></span>
+                    </Alert>
+                </div>
             );
         } else return null;
     }

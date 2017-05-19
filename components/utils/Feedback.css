@@ -1,6 +1,17 @@
 
+/* To have a clean background */
+.alertWrapper {
+    z-index: 999;
+    background: white;
+    position: relative;
+    top: 0;
+    left: 0;
+}
 
-/* The message printing on top of the screen when submission was a success/failure */
+.alert {
+    z-index: 1000;
+}
+
 .alertOk {
     margin-left: 10px;
     cursor: pointer;
