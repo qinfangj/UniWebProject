@@ -79,7 +79,7 @@ export function loginUser(creds) {
                     response.json().then(user => {
                         dispatch(_LoginSuccess(user));
                         AuthService._doAuthentication(user);
-                    }).catch(err => {console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2))});
+                    }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
                 }
             }).catch(err => {
                 let msg = "Error logging in: " + err.message;

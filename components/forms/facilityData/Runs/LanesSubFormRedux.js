@@ -12,7 +12,7 @@ import { requestLibrariesForProject } from '../../../actions/actionCreators/seco
 import lanesModel from './lanesModel';
 import poolSelectionModel from './poolSelectionModel';
 
-import RFFInput from '../../bootstrapWrappers/RFFInput.js';
+import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';
 import PoolSelection from './PoolSelection';
 import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap/lib';
@@ -168,7 +168,7 @@ class RunsSubForm extends React.PureComponent {
             } else if (fieldName === "libraryId") {
                 otherProps.refModelName = prefix +".projectId";
             }
-            let input = <RFFInput className={qcClass} inputType={inputType} modelName={modelName} {...otherProps} />;
+            let input = <RRFInput className={qcClass} inputType={inputType} modelName={modelName} {...otherProps} />;
             formFields.push(input);
         }
 
@@ -256,7 +256,7 @@ class RunsSubForm extends React.PureComponent {
         if (this.props.disabled && commentValue === "") {
             commentInput = <span className={css.noComment}>{"No comment"}</span>;
         } else {
-            commentInput = <RFFInput inputType={inputType} modelName={commentModelName} {...otherProps} />;
+            commentInput = <RRFInput inputType={inputType} modelName={commentModelName} {...otherProps} />;
         }
 
         return (

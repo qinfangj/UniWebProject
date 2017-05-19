@@ -18,5 +18,6 @@ export default {
         IVC_PLOTS: "ivc_plots",
         DEMULTIPLEXING_INFO: "demultiplexing",
         ALIGNMENTS_INFO: "alignments"
-    }
+    },
+
 };

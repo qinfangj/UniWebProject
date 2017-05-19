@@ -12,7 +12,7 @@ import { requestProjectsHavingAPool } from '../../../actions/actionCreators/opti
 import { requestPoolsForProject, requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import poolSelectionModel from './poolSelectionModel';
 
-import RFFInput from '../../bootstrapWrappers/RFFInput.js';
+import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';
 import Button from 'react-bootstrap/lib/Button';
 
@@ -80,7 +80,7 @@ class PoolSelection extends React.PureComponent {
                 otherProps.refModelName = this.props.modelName +".poolSelection.projectIdWithPool";
             }
             inputs.push(
-                <td className={css.libCell} key={fieldName}><RFFInput inputType={inputType} modelName={modelName} {...otherProps} /></td>
+                <td className={css.libCell} key={fieldName}><RRFInput inputType={inputType} modelName={modelName} {...otherProps} /></td>
             );
         }
 

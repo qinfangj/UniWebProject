@@ -18,7 +18,7 @@ import * as forms from '../../forms.js';
 import RunsSubForm from './LanesSubFormRedux';
 import formNames from '../../../constants/formNames';
 import runsModel from './runsModel';
-import RFFInput from '../../bootstrapWrappers/RFFInput.js';
+import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Feedback from '../../../utils/Feedback';
 
 import {Button, Col, Alert} from 'react-bootstrap/lib';
@@ -116,7 +116,7 @@ class RunsInsertFormRedux extends React.PureComponent {
             }
             formFields.push(
                 <Col key={modelName} sm={model.width} className={cx(css.col)}>
-                    <RFFInput inputType={inputType} modelName={this.modelName +'.'+ modelName} {...otherProps} />
+                    <RRFInput inputType={inputType} modelName={this.modelName +'.'+ modelName} {...otherProps} />
                 </Col>
             );
         }

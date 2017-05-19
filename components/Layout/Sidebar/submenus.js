@@ -43,6 +43,33 @@ export const queryProjectsSubmenu = [
     //},
 ];
 
+export const queryRunsSubmenu = [
+    { text: "Sample material info",
+        to: `/runs/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,
+    },{
+        text: "User request info",
+        to: `/runs/${colnames.queryProjects.USER_REQUEST_INFO}`,
+    },{
+        text: "Library info",
+        to: `/runs/${colnames.queryProjects.LIBRARY_INFO}`,
+    },{
+        text: "Sequencing details",
+        to: `/runs/${colnames.queryProjects.SEQUENCING_DETAILS_INFO}`,
+    },{
+        text: "Sample sheet",
+        to: `/runs/${colnames.queryProjects.SAMPLE_SHEETS_INFO}`,
+    },{
+    //     text: "IVC plots",
+    //     to: `/runs/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,
+    // },{
+        text: "Demultiplexing",
+        to: `/runs/${colnames.queryProjects.DEMULTIPLEXING_INFO}`,
+    },
+    // {   text: "Alignments (CASAVA)",
+    //     to: `/runs/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,
+    // }
+];
+
 
 export const adminSubmenu = [
     { text: "LIMS users",
