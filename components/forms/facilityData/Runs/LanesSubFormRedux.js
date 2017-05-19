@@ -148,7 +148,7 @@ class RunsSubForm extends React.PureComponent {
     makeLibRow(lane, lib, k) {
         let laneNb = lane.laneNb;
         let nlibs = this.props.lanes[laneNb].libs.length;
-        let qcBsClass = lib.isQC ? cx('form-control', css.qcCell) : 'form-control';
+        let qcClass = lib.isQC ? css.qcCell : '';
         let prefix = `${this.modelName}.lanes[${laneNb}].libs[${k}]`;
 
         /* Construct the project-library-volume-quality inputs for one Library row */
@@ -168,7 +168,7 @@ class RunsSubForm extends React.PureComponent {
             } else if (fieldName === "libraryId") {
                 otherProps.refModelName = prefix +".projectId";
             }
-            let input = <RFFInput inputType={inputType} modelName={modelName} {...otherProps} />;
+            let input = <RFFInput className={qcClass} inputType={inputType} modelName={modelName} {...otherProps} />;
             formFields.push(input);
         }
 

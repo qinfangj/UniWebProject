@@ -52,7 +52,9 @@
 /****************************/
 
 .laneCell {
+    padding-top: 5px;
     padding-right: 5px;
+    vertical-align: top;
 }
 .projectCell {
     width: 40%;
