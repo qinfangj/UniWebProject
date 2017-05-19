@@ -277,7 +277,7 @@ class RunsSubForm extends React.PureComponent {
             libRows.push(commentRow);
             laneRows.push(<tbody key={laneNb} className={css.lanesGroup}>{libRows}</tbody>);
             /* Show pool selection form after the lane if requested */
-            if (true) {//(this.state.showPoolSelection === laneNb) {
+            if (this.state.showPoolSelection === laneNb) {
                 laneRows.push(
                     <tbody key="poolSelection">
                         <PoolSelection laneNb={laneNb} modelName={this.modelName} />
@@ -287,7 +287,7 @@ class RunsSubForm extends React.PureComponent {
         }
         return (
             <div>
-                <Button bsStyle="info" disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
+                <Button className={css.addLaneButton} bsStyle="info" disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
 
                 <div className="clearfix"/>
 
