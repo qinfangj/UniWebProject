@@ -3,6 +3,7 @@ import React from 'react';
 import formsCss from '../../forms.css';
 import css from './runs.css';
 import cx from 'classnames';
+import _ from 'lodash';
 import store from '../../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,11 +14,13 @@ import { requestInstruments,
          requestRunsTypesLengths,
          requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
+import { feedbackSuccess, feedbackWarning, feedbackError } from '../../../actions/actionCreators/feedbackActionCreators';
 import * as forms from '../../forms.js';
 import RunsSubForm from './LanesSubFormRedux';
 import formNames from '../../../constants/formNames';
 import runsModel from './runsModel';
 import RFFInput from '../../bootstrapWrappers/RFFInput.js';
+import Feedback from '../../../utils/Feedback';
 
 import {Button, Col, Alert} from 'react-bootstrap/lib';
 
@@ -58,12 +61,18 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 
     formatInsertData(values) {
-        let insertData = {...values};
-        insertData.gaRunNb = parseInt(values.gaRunNb);
-        insertData.lanes = {...values.lanes};
-        for (let laneNb of Object.keys(values.lanes)) {
-            insertData.lanes[laneNb] = {...values.lanes[laneNb]};
+        let insertData = _.cloneDeep(values);  // because `values` is immutable
+        insertData.gaRunNb = parseInt(insertData.gaRunNb);
+        for (let laneNb of Object.keys(insertData.lanes)) {
             insertData.lanes[laneNb].laneNb = parseInt(laneNb);
+            for (let k in insertData.lanes[laneNb].libs) {
+                let lib = insertData.lanes[laneNb].libs[k];
+                lib.projectId = parseInt(lib.projectId);
+                lib.libraryId = parseInt(lib.libraryId);
+                lib.quantityLoaded = parseFloat(lib.quantityLoaded);
+                lib.qualityId = parseInt(lib.qualityId);
+                lib.isQCLib = lib.isQCLib || false;
+            }
         }
         return insertData;
     }
@@ -76,10 +85,17 @@ class RunsInsertFormRedux extends React.PureComponent {
      **/
     onSubmit(values) {
         let insertData = this.formatInsertData(values);
-        console.info("Submitted values: ", insertData);
-        store.dispatch(actions.submit(this.modelName,
-            this.props.insertAsync(this.table, insertData, null))  // a Promise
-        );
+        console.info("Submitted values: ", JSON.stringify(insertData, null, 2));
+        // Ideally, use RRF system to mark the form as submitted:
+        //store.dispatch(actions.submit(this.modelName, this.submit(insertData)));
+        // But I can't understand it, so do it simpler:
+        this.props.insertAsync(this.table, insertData, null)
+            .done((response) => {
+                this.props.feedbackSuccess(this.modelName, "Successfully inserted <"+response+">");
+            })
+            .fail((error) => {
+                this.props.feedbackError(this.modelName, "", error);
+            });
     }
 
     activateForm() {
@@ -107,6 +123,8 @@ class RunsInsertFormRedux extends React.PureComponent {
 
         return (
             <div>
+
+                <Feedback reference={this.modelName} />
 
                 <Alert bsStyle="info">Backend is not ready yet</Alert>
 
@@ -169,6 +187,9 @@ const mapDispatchToProps = (dispatch) => {
         requestSequencingKitVersions,
         requestLibrariesForProject,
         insertAsync,
+        feedbackSuccess,
+        feedbackWarning,
+        feedbackError,
         }, dispatch);
 };
 

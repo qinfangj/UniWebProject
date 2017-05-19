@@ -41,13 +41,13 @@ class RunsSubForm extends React.PureComponent {
     /**
      * Return a new empty library model object.
      */
-    makeLib(projectId = "", libraryId = "", volume = "", qualityId = "", isQC = false) {
+    makeLib(projectId = "", libraryId = "", volume = "", qualityId = 1, isQC = false) {
         return {
             projectId: projectId,
             libraryId: libraryId,
             volume: volume,
             qualityId: qualityId,
-            isQC: isQC,
+            isQCLib: isQC,
         };
     }
 

@@ -35,7 +35,7 @@ const lanesModel = {
             width: 4,
             inputType: inputTypes.DROPDOWN,
             optionsKey: optionsStoreKeys.SEQUENCING_QUALITIES,
-            hasNoneValue: false,
+            hasNoneValue: true,
             required: true,
         },
     }
