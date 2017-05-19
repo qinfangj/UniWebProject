@@ -6,13 +6,18 @@ const BACKEND = window.ENV.BACKEND_URL;
 import { feedbackSuccess, feedbackError, feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 
 
+/**
+ *
+ * @param jqXHR: jQuery XHR response object.
+ * @param textStatus:
+ * @param error: (string)
+ */
 function handleError(jqXHR, textStatus, error)  {
-    console.debug(jqXHR)
     let msg = error.statusText + ": " +jqXHR.responseText;
     if (jqXHR.status === 0) {
         msg = "Could not connect to server";
     }
-    store.dispatch(feedbackError("REST", msg, error));
+    store.dispatch(feedbackError("REST", msg, error || {}));
 }
 
 

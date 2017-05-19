@@ -1,5 +1,6 @@
 "use strict";
 import actions from '../actionTypes';
+import store from '../../../core/store';
 let types = actions.login;
 import RestService from '../../../utils/RestService';
 import AuthService from '../../../utils/AuthService';
@@ -78,9 +79,12 @@ export function loginUser(creds) {
                     response.json().then(user => {
                         dispatch(_LoginSuccess(user));
                         AuthService._doAuthentication(user);
-                    }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
+                    }).catch(err => {console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2))});
                 }
-            }).catch(err => console.log("Error logging in: ", JSON.stringify(err, null, 2)));
+            }).catch(err => {
+                let msg = "Error logging in: " + err.message;
+                store.dispatch(feedbackError("REST", msg, {}));
+            });
     }
 }
 
