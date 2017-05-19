@@ -103,6 +103,13 @@ class RunsSubForm extends React.PureComponent {
     }
 
     /**
+     * Add one QC library row to the table.
+     */
+    addQCLibrary(laneNb) {
+        store.dispatch(actions.push(this.modelName+`.lanes[${laneNb}].libs`, this.makeLib("","","","", true)));
+    }
+
+    /**
      * Remove a library row from the table.
      */
     removeLibrary(laneNb, library, k) {
@@ -173,6 +180,7 @@ class RunsSubForm extends React.PureComponent {
         let DelLibTooltip = <Tooltip id="delLib">{"Delete library"}</Tooltip>;
         let DelLaneTooltip = <Tooltip id="delLane">{"Delete lane"}</Tooltip>;
         let AddLibTooltip = <Tooltip id="addLib">{"Add a library"}</Tooltip>;
+        let AddQCLibTooltip = <Tooltip id="addLib">{"Add a QC library"}</Tooltip>;
         let AddPoolTooltip = <Tooltip id="addPool">{"Add a pool of libraries"}</Tooltip>;
 
         let laneNbCell = k === 0 ?
@@ -199,9 +207,14 @@ class RunsSubForm extends React.PureComponent {
                         <Icon name='plus-circle' className={css.addLibrary}/>
                     </OverlayTrigger>
                 </div>
+                <div onClick={this.addQCLibrary.bind(this, laneNb)}>
+                    <OverlayTrigger placement="left" overlay={AddQCLibTooltip}>
+                        <Icon name='plus-circle' className={css.addQCLibrary}/>
+                    </OverlayTrigger>
+                </div>
                 <div onClick={this.showPoolSelection.bind(this, laneNb)}>
                     <OverlayTrigger placement="left" overlay={AddPoolTooltip}>
-                        <Icon name='plus-circle' className={css.addPool}/>
+                        <Button className={css.addPool}>{"P"}</Button>
                     </OverlayTrigger>
                 </div>
             </td> : null;
