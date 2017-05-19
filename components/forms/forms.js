@@ -31,6 +31,7 @@ export function newOrUpdate(form, table, updateId) {
  * @param onUpdated((data) => ...): callback function that will execute after the update data is received.
  */
 export function newOrUpdate2(modelName, table, updateId, onUpdated){
+    store.dispatch(actions.reset(modelName));
     if (updateId) {
         store.dispatch(findByIdAsync(table, updateId))
         .done((data) => {
@@ -40,8 +41,6 @@ export function newOrUpdate2(modelName, table, updateId, onUpdated){
                 onUpdated(data);
             }
         });
-    } else {
-        store.dispatch(actions.reset(modelName));
     }
 }
 

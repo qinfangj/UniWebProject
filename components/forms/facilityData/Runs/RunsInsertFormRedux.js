@@ -108,7 +108,7 @@ class RunsInsertFormRedux extends React.PureComponent {
         return (
             <div>
 
-                <Alert bsStyle="info">Not ready yet</Alert>
+                <Alert bsStyle="info">Backend is not ready yet</Alert>
 
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
