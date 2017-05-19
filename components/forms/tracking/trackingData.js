@@ -4,7 +4,7 @@ for (let i = 0; i < 5; i++){
     largeDataA.push({
                          lab: "Ablasser ",
                          project: "CRISPR screen II - mmMacrophages",
-                         data: "2017-04-26",
+                         date: "2017-04-26",
                          name: "aaa",
                          type: "total RNA",
                          comment: "aa"
@@ -18,20 +18,20 @@ const trackingData = {
         'MiSeq SR 150': largeDataA,
         'Paired-end reads 100': [{lab: "Ablasser ",
                                   project: "CRISPR screen II - mmMacrophages",
-                                  data: "2017-04-26",
+                                  date: "2017-04-26",
                                   name: "aaa",
                                   type: "total RNA",
-                                  comment: "bb"},{code: '003'},{code: '004'}],
+                                  comment: "bb"},{type: '003'},{type: '004'}],
         'Single read 100': [{
             lab: "Ablasser ",
             project: "CRISPR screen II -aaaa",
-            data: "2017-04-26",
+            date: "2017-04-26",
             name: "aaa",
             type: "total RNA"
             },{type: 'C02'}],
         'ClassD': [{lab: "Ablasser ",
                     project: "CRISPR screen II - mmMacrophages",
-                    data: "2017-04-26",
+                    date: "2017-04-26",
                     name: "aaa",
                     type: "total RNA",
                     comment: "cc"},{type: 'D02'}]
