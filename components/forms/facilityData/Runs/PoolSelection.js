@@ -43,8 +43,14 @@ class PoolSelection extends React.PureComponent {
             .then((libs) => {
                 let modelName = this.props.modelName +`.lanes[${laneNb}].libs`;
                 let libsOld = this.props.lanes[laneNb].libs;
+                // Remove any empty lib row from old - because the boss wants it that way
+                libsOld = libsOld.filter(lib => lib.libraryId !== "" || lib.projectId !== "");
                 let nlibsOld = libsOld.length;
                 let nlibsNew = libs.length;
+                // Add the default quality 'Pass'
+                for (let i=0; i < nlibsNew; i++) {
+                    libs[i].qualityId = 1
+                }
                 let mergedLibs = [...libsOld, ...libs];
                 // Change the new projects one by one so that it loads the secondary libraries lists
                 for (let k=nlibsOld; k < nlibsOld + nlibsNew; k++) {
