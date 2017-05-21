@@ -9,6 +9,11 @@ import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
 import { actions } from 'react-redux-form';
 
+import css from './forms.css';
+import cx from 'classnames';
+import RRFInput from './bootstrapWrappers/RRFInput.js';
+import { Col } from 'react-bootstrap/lib';
+
 
 /**
  * All tables should either load update data if update ID is found in props,
@@ -165,3 +170,22 @@ export function submitForm(modelName, insertData, table, formName) {
     }
 }
 
+
+export function makeFormFields(formModelName, formModel, disabled = false, options = {}) {
+    let formFields = [];
+    for (let modelName of Object.keys(formModel)) {
+        let model = formModel[modelName];
+        let {inputType, optionsKey, ...otherProps} = model;
+        otherProps.key = modelName;
+        otherProps.disabled = model.disabled || disabled;
+        if (optionsKey) {
+            otherProps.options = options[optionsKey] || [];
+        }
+        formFields.push(
+            <Col key={modelName} sm={model.width} className={cx(css.col)}>
+                <RRFInput inputType={inputType} modelName={formModelName +'.'+ modelName} {...otherProps} />
+            </Col>
+        );
+    }
+    return formFields;
+}

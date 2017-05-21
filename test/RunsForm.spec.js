@@ -5,7 +5,7 @@ import store from '../core/store';
 import { Provider } from 'react-redux';
 
 import {expect} from 'chai';
-import RunsInsertForm from '../components/forms/facilityData/Runs/RunsInsertFormRedux';
+import RunsInsertForm from '../components/forms/facilityData/Runs/RunsInsertForm';
 
 
 const wrapper1 = shallow(

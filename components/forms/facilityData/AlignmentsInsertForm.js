@@ -17,6 +17,8 @@ import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Feedback from '../../utils/Feedback';
 
+import { facilityDataModels } from './formModels';
+
 
 
 class AlignmentsInsertForm extends React.PureComponent {
@@ -24,6 +26,8 @@ class AlignmentsInsertForm extends React.PureComponent {
         super();
         this.table = "alignments";
         this.form = formNames.ALIGNMENTS_INSERT_FORM;
+        this.model = facilityDataModels[this.form];
+        this.modelName = "facilityDataForms.alignments";
         this.state = {
             disabled: false,
         };

@@ -15,16 +15,15 @@ import { requestInstruments,
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import { feedbackSuccess, feedbackWarning, feedbackError } from '../../../actions/actionCreators/feedbackActionCreators';
 import * as forms from '../../forms.js';
-import RunsSubForm from './LanesSubFormRedux';
+import LanesSubForm from './LanesSubForm';
 import formNames from '../../../constants/formNames';
 import runsModel from './runsModel';
 import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Feedback from '../../../utils/Feedback';
-
 import {Button, Col, Alert} from 'react-bootstrap/lib';
 
 
-class RunsInsertFormRedux extends React.PureComponent {
+class RunsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "runs";  // db table for insert
@@ -103,23 +102,24 @@ class RunsInsertFormRedux extends React.PureComponent {
     }
 
     render() {
-        let formModel = this.props.formModel;
-        let formFields = [];
-        for (let modelName of Object.keys(runsModel)) {
-            let model = runsModel[modelName];
-            let {inputType, optionsKey, ...otherProps} = model;
-            otherProps.key = modelName;
-            otherProps.disabled = model.disabled || this.state.disabled;
-            otherProps.submissionError = formModel[modelName].submitFailed && formModel[modelName].validated && (! formModel[modelName].valid);
-            if (optionsKey) {
-                otherProps.options = this.props.options[optionsKey];
-            }
-            formFields.push(
-                <Col key={modelName} sm={model.width} className={cx(css.col)}>
-                    <RRFInput inputType={inputType} modelName={this.modelName +'.'+ modelName} {...otherProps} />
-                </Col>
-            );
-        }
+        let formFields = forms.makeFormFields(this.modelName, runsModel, this.state.disabled, this.props.options);
+        // let formModel = this.props.formModel;
+        // let formFields = [];
+        // for (let modelName of Object.keys(runsModel)) {
+        //     let model = runsModel[modelName];
+        //     let {inputType, optionsKey, ...otherProps} = model;
+        //     otherProps.key = modelName;
+        //     otherProps.disabled = model.disabled || this.state.disabled;
+        //     otherProps.submissionError = formModel[modelName].submitFailed && formModel[modelName].validated && (! formModel[modelName].valid);
+        //     if (optionsKey) {
+        //         otherProps.options = this.props.options[optionsKey];
+        //     }
+        //     formFields.push(
+        //         <Col key={modelName} sm={model.width} className={cx(css.col)}>
+        //             <RRFInput inputType={inputType} modelName={this.modelName +'.'+ modelName} {...otherProps} />
+        //         </Col>
+        //     );
+        // }
 
         return (
             <div>
@@ -140,7 +140,7 @@ class RunsInsertFormRedux extends React.PureComponent {
 
                     <div className="clearfix"/>
 
-                    <RunsSubForm disabled={this.state.disabled} />
+                    <LanesSubForm disabled={this.state.disabled} />
 
                     {/* Submit */}
 
@@ -199,5 +199,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(RunsInsertFormRedux);
+export default connect(mapStateToProps, mapDispatchToProps)(RunsInsertForm);
 

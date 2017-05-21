@@ -11,7 +11,7 @@ import PeopleInsertForm from '../../forms/facilityData/PeopleInsertForm';
 import GenomesInsertForm from '../../forms/facilityData/GenomesInsertForm';
 import SamplesInsertForm from '../../forms/facilityData/SamplesInsertForm';
 import LibrariesInsertForm from '../../forms/facilityData/LibrariesInsertForm';
-import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertFormRedux';
+import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertForm';
 import UserRequestsInsertForm from '../../forms/facilityData/UserRequestsInsertForm';
 import BioanalysersInsertForm from '../../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
 

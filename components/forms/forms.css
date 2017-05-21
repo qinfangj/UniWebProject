@@ -13,6 +13,11 @@
     white-space: nowrap;
 }
 
+/* Add a horizontal space between inputs. New version with RRF. */
+.col {
+    padding: 0 5px;
+}
+
 .submitButton {
     margin: 15px 0 15px 5px;
 }

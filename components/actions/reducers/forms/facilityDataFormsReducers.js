@@ -9,6 +9,38 @@ import fields from '../../../forms/fields';
  */
 let facilityDataFormsReducers = combineForms(
     {
+        alignments: {
+            [fields.ANALYSIS_TYPE_ID]: "",
+            [fields.RUN_ID]: "",
+            [fields.BASECALLING_ID]: "",
+            [fields.MAPPING_TOOL_ID]: "",
+            [fields.ELAND_OUTPUT_DIR]: "",
+            [fields.HAS_QC_PDFS]: "",
+            [fields.CONFIG_FILE_CONTENT]: "",
+            [fields.COMMENT]: "",
+        },
+        basecallings: {
+
+        },
+        genomes: {
+
+        },
+        libraries: {
+
+        },
+        people: {
+
+        },
+        projects: {
+
+        },
+        samples: {
+
+        },
+        user_requests: {
+
+        },
+
         // bioanalysers: {
         //     filename: null,
         //     bioanalyserDate: "1970-01-01",

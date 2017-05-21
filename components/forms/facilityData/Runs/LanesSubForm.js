@@ -24,7 +24,7 @@ import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap/lib';
  * It is part of `RunsInsertForm`.
  * Each lane is a group of rows with 4 inputs each, spaced and surrounded by a border.
  */
-class RunsSubForm extends React.PureComponent {
+class LanesSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
         this.modelName = "facilityDataForms.runs";
@@ -356,5 +356,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(RunsSubForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LanesSubForm);
 
