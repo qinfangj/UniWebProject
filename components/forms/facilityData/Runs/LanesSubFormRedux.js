@@ -106,7 +106,7 @@ class RunsSubForm extends React.PureComponent {
      * Add one QC library row to the table.
      */
     addQCLibrary(laneNb) {
-        store.dispatch(actions.push(this.modelName+`.lanes[${laneNb}].libs`, this.makeLib("","","","", true)));
+        store.dispatch(actions.push(this.modelName+`.lanes[${laneNb}].libs`, this.makeLib("","","", 1, true)));
     }
 
     /**
