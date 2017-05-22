@@ -31,6 +31,6 @@ export function requestSamplesForProject(refModelName, id) {
 }
 
 export function requestBasecallingsForRun(refModelName, id) {
-    return requestSecondaryOptionsListAsync(types.OPTIONS_BASECALLINGS_FOR_RUN, "basecallings", refModelName, id);
+    return requestSecondaryOptionsListAsync(types.options.OPTIONS_BASECALLINGS_FOR_RUN, "basecallings", refModelName, id);
 }
 

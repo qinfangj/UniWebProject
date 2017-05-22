@@ -25,6 +25,7 @@ export default class RRFInput extends React.PureComponent {
 
     render() {
         console.debug("RRF value:", this.props.value)
+
         let component;
         let {modelName, inputType, required, validators, errors, errorMessages, updateOn, validateOn, ...inputProps} = this.props;
 

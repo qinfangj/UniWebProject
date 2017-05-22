@@ -23,56 +23,6 @@ function isValid(value, type, required, setValid) {
 
 
 export const facilityDataModels = Object.freeze({
-    [formNames.ALIGNMENTS_INSERT_FORM]: {
-        [fields.ANALYSIS_TYPE_ID]: {
-            label: "Analysis type",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-            valid: true,
-        },
-        [fields.RUN_ID]: {  // "runs_output_folders"
-            label: "Run",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.BASECALLING_ID]: {  //"basecallings_output_folders",
-            label: "Unaligned data output folder",
-            type: inputTypes.SEC_DROPDOWN,
-            value: -1,
-            referenceField: fields.RUN_ID,
-            required: true,
-        },
-        [fields.MAPPING_TOOL_ID]: {
-            label: "Mapping tool",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.ELAND_OUTPUT_DIR]: {
-            label: "Alignment output folder",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.HAS_QC_PDFS]: {
-            label: "QC report",
-            type: inputTypes.CHECKBOX,
-            value: false,
-        },
-        [fields.CONFIG_FILE_CONTENT]: {
-            label: "Config file content",
-            type: inputTypes.TEXTAREA,
-            value: "ANALYSIS xxx\nUSE_BASES xxx",
-        },
-        [fields.COMMENT]: {
-            label: "Comment",
-            type: inputTypes.TEXTAREA,
-            value: "",
-        }
-    },
-
     [formNames.BASECALLINGS_INSERT_FORM]: {
         [fields.RUN_ID]: {
             label: "Run",

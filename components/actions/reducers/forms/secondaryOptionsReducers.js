@@ -8,6 +8,7 @@ const defaultState = {};
 function formatLibrariesForProject(v) { return [v.id, v.name]; }
 function formatSamplesForProject(v) { return [v.id, v.name + (v.shortName ? " ("+v.shortName+")" : "")]; }
 function formatPoolsForProject(v) { return [v.id, v.pool]; }
+function formatBasecallingsForRun(v) { return [v.id, v.outputDir]; }
 
 /**
  * Store select options lists that depend on another field's value.
@@ -31,6 +32,10 @@ let secondaryOptionsReducers = (state = defaultState, action) => {
         case types.options.OPTIONS_SAMPLES_FOR_PROJECT:
             ref = action.args.refModelName;
             return returnList(action, state, ref, [], formatSamplesForProject);
+
+        case types.options.OPTIONS_BASECALLINGS_FOR_RUN:
+            ref = action.args.refModelName;
+            return returnList(action, state, ref, [], formatBasecallingsForRun);
 
         default:
             return state;

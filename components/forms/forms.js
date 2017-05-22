@@ -1,6 +1,7 @@
 "use strict";
 import React from 'react';
 import store from '../../core/store';
+import _ from 'lodash';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../actions/actionCreators/feedbackActionCreators';
 import { findForUpdateAsync, findByIdAsync } from '../actions/actionCreators/facilityDataActionCreators';
@@ -12,6 +13,7 @@ import { actions } from 'react-redux-form';
 import css from './forms.css';
 import cx from 'classnames';
 import RRFInput from './bootstrapWrappers/RRFInput.js';
+import inputTypes from './inputTypes';
 import { Col } from 'react-bootstrap/lib';
 
 
@@ -134,6 +136,7 @@ export function submit(form, table, formatFormData=null) {
         }
     }
 }
+
 /**
  *
  * @param modelName: RRF form model name.
@@ -170,16 +173,28 @@ export function submitForm(modelName, insertData, table, formName) {
     }
 }
 
-
-export function makeFormFields(formModelName, formModel, disabled = false, options = {}) {
+/**
+ * From a RRF form model, construct an array of input components.
+ * @param formModelName: RRF form model name.
+ * @param formModel: the RRF store state for the form values.
+ * @param disabled: boolean, to force the form to be disabled.
+ * @param options: object {field: [options]} that gives the list of options for a select input named *field*.
+ * @param changeActions: object {field: fct} to override the onChange handler of an input named *field*.
+ * @returns {Array}
+ */
+export function makeFormFields(formModelName, formModel, disabled = false, options = {}, changeActions = {}) {
     let formFields = [];
     for (let modelName of Object.keys(formModel)) {
         let model = formModel[modelName];
         let {inputType, optionsKey, ...otherProps} = model;
         otherProps.key = modelName;
         otherProps.disabled = model.disabled || disabled;
+        // otherProps.submissionError = formCompleteModel[modelName].submitFailed && formCompleteModel[modelName].validated && (! formCompleteModel[modelName].valid);
         if (optionsKey) {
             otherProps.options = options[optionsKey] || [];
+        }
+        if (changeActions[modelName]) {
+            otherProps.changeAction = changeActions[modelName];
         }
         formFields.push(
             <Col key={modelName} sm={model.width} className={cx(css.col)}>
@@ -189,3 +204,22 @@ export function makeFormFields(formModelName, formModel, disabled = false, optio
     }
     return formFields;
 }
+
+/**
+ * Cast numeric values before we can submit. RRF apparently uses only strings and booleans.
+ */
+export function formatFormFieldsDefault(formModel, values) {
+    let insertData = _.cloneDeep(values);  // because `values` is immutable
+    for (let field of Object.keys(formModel)) {
+        let model = formModel[field];
+        let itype = model.inputType;
+        let val = insertData[field];
+        if (itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
+            insertData[field] = parseInt(val)
+        } else if (itype === inputTypes.CHECKBOX) {
+            insertData[field] = val === "true";
+        }
+    }
+    return insertData;
+}
+

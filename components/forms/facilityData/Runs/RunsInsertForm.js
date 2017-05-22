@@ -2,25 +2,21 @@
 import React from 'react';
 import formsCss from '../../forms.css';
 import css from './runs.css';
-import cx from 'classnames';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, actions } from 'react-redux-form';
-import { insertAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
+import { Form } from 'react-redux-form';
 import { requestInstruments,
          requestFlowcellTypes,
          requestRunsTypesLengths,
          requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
-import { feedbackSuccess, feedbackWarning, feedbackError } from '../../../actions/actionCreators/feedbackActionCreators';
 import * as forms from '../../forms.js';
 import LanesSubForm from './LanesSubForm';
 import formNames from '../../../constants/formNames';
 import runsModel from './runsModel';
-import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Feedback from '../../../utils/Feedback';
-import {Button, Col, Alert} from 'react-bootstrap/lib';
+import {Button, Alert} from 'react-bootstrap/lib';
 
 
 class RunsInsertForm extends React.PureComponent {
@@ -46,7 +42,7 @@ class RunsInsertForm extends React.PureComponent {
     }
 
     /**
-     * When the update data comes, trigger the action to get libraries options lists
+     * When the update *data* comes, trigger the action to get libraries options lists
      * corresponding to the received projectIds (see newOrUpdate2 in componentWillMount).
      */
     onUpdateLoadLibsOptions(data) {
@@ -103,23 +99,6 @@ class RunsInsertForm extends React.PureComponent {
 
     render() {
         let formFields = forms.makeFormFields(this.modelName, runsModel, this.state.disabled, this.props.options);
-        // let formModel = this.props.formModel;
-        // let formFields = [];
-        // for (let modelName of Object.keys(runsModel)) {
-        //     let model = runsModel[modelName];
-        //     let {inputType, optionsKey, ...otherProps} = model;
-        //     otherProps.key = modelName;
-        //     otherProps.disabled = model.disabled || this.state.disabled;
-        //     otherProps.submissionError = formModel[modelName].submitFailed && formModel[modelName].validated && (! formModel[modelName].valid);
-        //     if (optionsKey) {
-        //         otherProps.options = this.props.options[optionsKey];
-        //     }
-        //     formFields.push(
-        //         <Col key={modelName} sm={model.width} className={cx(css.col)}>
-        //             <RRFInput inputType={inputType} modelName={this.modelName +'.'+ modelName} {...otherProps} />
-        //         </Col>
-        //     );
-        // }
 
         return (
             <div>
@@ -133,8 +112,6 @@ class RunsInsertForm extends React.PureComponent {
                     {/* <Feedback reference={this.modelName} /> */}
 
                     {formFields}
-
-                    <div className="clearfix"/>
 
                     {/* Sub-form */}
 
@@ -191,10 +168,6 @@ const mapDispatchToProps = (dispatch) => {
         requestRunsTypesLengths,
         requestSequencingKitVersions,
         requestLibrariesForProject,
-        insertAsync,
-        feedbackSuccess,
-        feedbackWarning,
-        feedbackError,
         }, dispatch);
 };
 

@@ -1,23 +1,21 @@
 "use strict";
 import React from 'react';
-import css from '../forms.css';
+import formsCss from '../forms.css';
 import cx from 'classnames';
-
-import TextField from '../elements/TextField';
-import Checkbox from '../elements/MyCheckBox';
-import TextArea from '../elements/Textarea';
-import BasecallingsOutputFolders from '../subcomponents/secondarySelects/BasecallingsOutputFolders';
-import * as Options from '../subcomponents/Options';
+import store from '../../../core/store';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form, actions } from 'react-redux-form';
+import { requestPipelineAnalysisTypes,
+         requestRunsOutputFolders,
+         requestMappingTools } from '../../actions/actionCreators/optionsActionCreators';
+import { requestBasecallingsForRun } from '../../actions/actionCreators/secondaryOptionsActionCreators';
 import * as forms from '../forms.js';
-import formNames from '../../constants/formNames';
 import fields from '../fields';
-
-import Form from 'react-bootstrap/lib/Form';
-import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
+import formNames from '../../constants/formNames';
+import { Button } from 'react-bootstrap/lib';
+import alignmentsModel from './formModels/alignmentsModel';
 import Feedback from '../../utils/Feedback';
-
-import { facilityDataModels } from './formModels';
 
 
 
@@ -26,7 +24,7 @@ class AlignmentsInsertForm extends React.PureComponent {
         super();
         this.table = "alignments";
         this.form = formNames.ALIGNMENTS_INSERT_FORM;
-        this.model = facilityDataModels[this.form];
+        this.model = alignmentsModel;
         this.modelName = "facilityDataForms.alignments";
         this.state = {
             disabled: false,
@@ -40,144 +38,109 @@ class AlignmentsInsertForm extends React.PureComponent {
     };
 
     componentWillMount() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdateLoadBasecallingsOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
-    }
-    componentWillReceiveProps() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        this.props.requestPipelineAnalysisTypes();
+        this.props.requestRunsOutputFolders();
+        this.props.requestMappingTools();
     }
 
-    onSubmit() {
-        forms.submit(this.form, this.table, null);
+    /**
+     * When the update *data* comes, trigger the action to get libraries options lists
+     * corresponding to the received runId (see newOrUpdate2 in componentWillMount).
+     */
+    onUpdateLoadBasecallingsOptions(data) {
+        let refModelName = this.modelName +'.'+ fields.RUN_ID;
+        this.props.requestBasecallingsForRun(refModelName, data[fields.RUN_ID]);
+    }
+
+    onSubmit(values) {
+        let insertData = forms.formatFormFieldsDefault(this.model, values);
+        forms.submitForm(this.modelName, insertData, this.table, this.form);
     }
 
     activateForm() {
         this.setState({ disabled: false });
     }
+    deactivateForm() {
+        this.setState({ disabled: true });
+    }
 
+    onRunChange(model, value) {
+        store.dispatch(actions.change(model, value));
+        this.props.requestBasecallingsForRun(model, value);
+    }
+    
     render() {
+        let changeActions = {[fields.RUN_ID]: this.onRunChange.bind(this)};
+        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options, changeActions);
+
         return (
-            <form className={css.form}>
+
+            <div>
 
                 <Feedback reference={this.form} />
 
-                <Form componentClass="fieldset" horizontal>
+                <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
-                    {/* Analysis type */}
+                    {/* <Feedback reference={this.modelName} /> */}
 
-                    <Col sm={2} className={css.formCol}>
-                        <Options.PipelineAnalysisTypes
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
+                    {formFields}
 
-                    {/* Run */}
+                    <div className="clearfix"/>
 
-                    <Col sm={5} className={css.formCol}>
-                        <Options.RunsOutputFolders
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
+                    {/* Submit */}
 
-                    {/* Unaligned data output folder (aka basecallingId) */}
-
-                    <Col sm={5} className={css.formCol}>
-                        <BasecallingsOutputFolders
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Mapping tool */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.MappingTools
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Alignment output folder */}
-
-                    <Col sm={8} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.ELAND_OUTPUT_DIR}
-                            label="Alignment output folder"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox
-                            form={this.form}
-                            field={fields.HAS_QC_PDFS}
-                            disabled={this.state.disabled}
-                            label="QC report"
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Config file content */}
-
-                    <Col sm={12} className={css.formCol}>
-                        <TextArea
-                            form={this.form}
-                            field={fields.CONFIG_FILE_CONTENT}
-                            label="Config file content"
-                            disabled={this.state.disabled}
-                            required
-                            defaultValue = "ANALYSIS xxx\nUSE_BASES xxx"
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Comment */}
-
-                    <Col sm={12} className={css.formCol}>
-                        <TextArea
-                            form={this.form}
-                            field={fields.COMMENT}
-                            label="Comment"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
+                    {this.state.disabled ?
+                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
+                            Activate form
+                        </Button>
+                        :
+                        <div>
+                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
+                                Cancel
+                            </Button>
+                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
+                                Submit
+                            </Button>
+                        </div>
+                    }
 
                 </Form>
 
-                {/* Submit */}
-
-                {this.state.disabled ?
-                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
-                        Activate form
-                    </Button>
-                :
-                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                        Submit
-                    </Button>
-                }
-
-            </form>
+            </div>
         );
     }
 }
 
 
-export default AlignmentsInsertForm;
+const mapStateToProps = (state) => {
+    let options = {};
+    let formModel = alignmentsModel;
+    for (let field of Object.keys(formModel)) {
+        let model = formModel[field];
+        if (model.optionsKey) {
+            options[model.optionsKey] = state.options[model.optionsKey] || [];
+        }
+    }
+    let formData = state.facilityDataForms.alignments;
+    return {
+        formData: formData,
+        options: options,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        requestPipelineAnalysisTypes,
+        requestRunsOutputFolders,
+        requestMappingTools,
+        requestBasecallingsForRun,
+    }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlignmentsInsertForm);
 

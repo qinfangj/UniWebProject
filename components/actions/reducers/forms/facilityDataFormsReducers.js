@@ -15,8 +15,8 @@ let facilityDataFormsReducers = combineForms(
             [fields.BASECALLING_ID]: "",
             [fields.MAPPING_TOOL_ID]: "",
             [fields.ELAND_OUTPUT_DIR]: "",
-            [fields.HAS_QC_PDFS]: "",
-            [fields.CONFIG_FILE_CONTENT]: "",
+            [fields.HAS_QC_PDFS]: false,
+            [fields.CONFIG_FILE_CONTENT]: "ANALYSIS xxx\nUSE_BASES xxx",
             [fields.COMMENT]: "",
         },
         basecallings: {
