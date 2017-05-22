@@ -4,8 +4,7 @@ import BSSelect from './BSSelect';
 
 
 /**
- * Same as a BSSelect component, but listening to changes in a reference form field
- * given by its RRF model name, that is here the `refModelName` prop.
+ * A BSSelect component with `multiple` attribute.
  */
 class BSMultipleSelect extends React.PureComponent {
 
