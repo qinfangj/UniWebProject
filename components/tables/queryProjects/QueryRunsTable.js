@@ -4,11 +4,12 @@ import tablesCss from '../tables.css';
 import css from './queryProjectsTable.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import queryProjectsStoreKeys from '../../constants/queryProjectsStoreKeys';
-import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
+import { queryRunsAsync } from '../../actions/actionCreators/queryRunsActionCreators';
 import { assertIsArray } from '../../../utils/common';
 
 import { AgGridReact } from 'ag-grid-react';
@@ -20,7 +21,6 @@ import columns from './columns';
 class QueryRunsTable extends React.Component {
     constructor(props) {
         super(props);
-        this.selectedSampleIds = "";
         this.queryType = "";
     }
 
@@ -37,17 +37,12 @@ class QueryRunsTable extends React.Component {
 
     /* If selected ids or query type have changed, query new data */
     componentWillReceiveProps(newProps) {
-        // let queryType = newProps.queryType;
-        // let selectedSampleIds = this.getSelectedSampleIdsFromStore(newProps);
-        // selectedSampleIds = selectedSampleIds.join(",");
-        // if (this.isUpdated(selectedSampleIds, queryType)) {
-        //     this.selectedSampleIds = selectedSampleIds;
-        //     this.queryType = queryType;
-        //     if (selectedSampleIds.length > 0) {
-        //         this.props.queryProjectsAsync(selectedSampleIds, queryType)
-        //         .fail(() => console.error("queryProjectsAsync() failed to load data."));
-        //     }
-        // }
+        let queryType = newProps.queryType;
+        if (queryType !== this.queryType) {
+            this.queryType = queryType;
+            this.props.queryRunsAsync(this.props.selectedRuns, queryType)
+                .fail(() => console.error("queryRunsAsync() failed to load data."));
+        }
     }
 
     onGridReady(params) {
@@ -65,8 +60,8 @@ class QueryRunsTable extends React.Component {
     }
 
     render() {
-        console.log(this.props.queryType)
-        console.log(this.props.tableData)
+        // console.log(this.props.queryType)
+        // console.log(this.props.tableData)
 
         let data = this.props.tableData;
         if (!data) {
@@ -111,15 +106,14 @@ QueryRunsTable.defaultProps = {
 
 const mapStateToProps = (state) => {
     return {
-        tableData: state.queryProjects[queryProjectsStoreKeys.QP_RUNS_TABLE_DATA],
+        tableData: state.queryRuns[queryProjectsStoreKeys.QP_RUNS_TABLE_DATA],
+        queryType: state.queryRuns.queryType,
+        selectedRuns: state.queryRuns.selectedRuns,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        queryProjectsAsync: (selectedSampleIds, queryType) =>
-            dispatch(queryProjectsAsync(selectedSampleIds, queryType, queryType)),
-    };
+    return bindActionCreators({ queryRunsAsync }, dispatch);
 };
 
 

@@ -4,10 +4,12 @@ import returnList from './base';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import queryProjectsStoreKeys from '../../constants/queryProjectsStoreKeys';
 import constants from '../../constants/constants';
+import columns from '../../constants/columns';
 
 
 const defaultState = {
     tableData: [],
+    queryType: columns.queryProjects.STARTING_MATERIAL_INFO,
     [optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM]: {},
     [optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE]: [],
     [optionsStoreKeys.SAMPLES_FOR_PROJECTS]: [],
@@ -21,17 +23,14 @@ let queryProjectsReducers = (state = defaultState, action) => {
 
     switch (action.type) {
 
+        case types.queryProjects.CHANGE_QUERY_TYPE:
+            return {...state, queryType: action.queryType};
+
         /**
          * Return an array of sample objects with added info, for display in the table.
          */
         case types.queryProjects.QUERY_PROJECTS:
             return returnList(action, state, queryProjectsStoreKeys.QP_PROJECTS_TABLE_DATA, []);
-
-        /**
-         * Return an array of sample objects with added info, for display in the table.
-         */
-        case types.queryProjects.QUERY_RUNS:
-            return returnList(action, state, queryProjectsStoreKeys.QP_RUNS_TABLE_DATA, []);
 
         /**
          * Expects an object `action.projectIds` of the form {id: true} for each selected id.

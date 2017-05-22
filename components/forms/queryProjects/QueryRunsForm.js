@@ -7,14 +7,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
-import { queryRunsAsync, resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
-
+import { queryRunsAsync, resetSelection, changeRunsSelection } from '../../actions/actionCreators/queryRunsActionCreators';
 import formNames from '../../constants/formNames';
-import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import inputTypes from '../inputTypes';
-
-import RRFInput from '../bootstrapWrappers/RRFInput';
-import { Form, actions } from 'react-redux-form';
 import { Button, Collapse, FormControl, Checkbox } from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
 
@@ -31,7 +25,7 @@ class QueryRunsForm extends React.Component {
         this.state = {
             visible: true,
             searchTerm: "",
-            selected: {},
+            selectedRuns: {},
         };
     }
 
@@ -63,14 +57,15 @@ class QueryRunsForm extends React.Component {
     }
 
     selectRun(runId, e) {
-        let selected = this.state.selected;
+        let selected = this.state.selectedRuns;
         if (selected[runId]) {
             delete selected[runId];
         } else {
             selected[runId] = true;
         }
-        this.setState({ selected });
-        this.props.queryRunsAsync(Object.keys(selected), this.props.queryType)
+        this.setState({ selectedRuns: selected });  // redux does not want to get it from store, so be it, fuck
+        this.props.queryRunsAsync(selected, this.props.queryType);
+        this.props.changeRunsSelection(selected);
     }
 
     makeRunsRow(run) {
@@ -79,8 +74,8 @@ class QueryRunsForm extends React.Component {
                 <td className={css.checkboxCell}>
                     <Checkbox
                         id={run.id} className={css.checkbox}
-                        checked={!!this.state.selected[run.id]}
-                        value={!!this.state.selected[run.id]}
+                        checked={!!this.state.selectedRuns[run.id]}
+                        value={!!this.state.selectedRuns[run.id]}
                         onChange={this.selectRun.bind(this, run.id)}
                     />
                 </td>
@@ -96,9 +91,11 @@ class QueryRunsForm extends React.Component {
     }
 
     render() {
+
+        let _this = this;
         let runs = this.props.runs
             .filter((run) => run)
-            .map((run) => this.makeRunsRow(run));
+            .map(run => _this.makeRunsRow(run));
 
         return (
             <div id="QueryProjectsForm">
@@ -151,8 +148,12 @@ class QueryRunsForm extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     let runs = state.facilityData["runs"].data;
+    let queryType = state.queryRuns.queryType;
+    let selectedRuns = state.queryRuns.selectedRuns;
     return {
         runs: runs,
+        queryType: queryType,
+        // selectedRuns: selectedRuns,
     };
 };
 
@@ -160,7 +161,8 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         getTableDataAsync,
         queryRunsAsync,
-        resetSelection
+        changeRunsSelection,
+        resetSelection,
         }, dispatch);
 };
 

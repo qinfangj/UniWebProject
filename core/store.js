@@ -8,6 +8,7 @@ import commonReducers from '../components/actions/reducers/commonReducers';
 import authReducers from '../components/actions/reducers/authReducers';
 import adminReducers from '../components/actions/reducers/adminReducers';
 import queryProjectsReducers from '../components/actions/reducers/queryProjectsReducers';
+import queryRunsReducers from '../components/actions/reducers/queryRunsReducers';
 import trackingReducers from '../components/actions/reducers/trackingReducers';
 import optionsReducers from '../components/actions/reducers/forms/optionsReducers';
 import secondaryOptionsReducers from '../components/actions/reducers/forms/secondaryOptionsReducers';
@@ -50,6 +51,7 @@ let reducer = combineReducers({
     auth: authReducers,
     admin: adminReducers,
     queryProjects: queryProjectsReducers,
+    queryRuns: queryRunsReducers,
     tracking: trackingReducers,
     adminForms: adminFormReducers,
     facilityDataForms: facilityDataFormsReducers,

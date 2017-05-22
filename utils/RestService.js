@@ -16,8 +16,13 @@ function handleError(jqXHR, textStatus, error)  {
     let msg = error.statusText + ": " +jqXHR.responseText;
     if (jqXHR.status === 0) {
         msg = "Could not connect to server";
+    } else if (jqXHR.status === 404) {
+        msg = "Page not found";
     }
-    store.dispatch(feedbackError("REST", msg, error || {}));
+    if (! (typeof(error) === "object")) {
+        error = {};
+    }
+    store.dispatch(feedbackError("REST", msg, error));
 }
 
 
@@ -146,13 +151,14 @@ class RestService {
         return get(url);
     }
 
-    /* Query projects */
+    /* Query projects/runs */
 
     queryProjects(ids, queryType) {
         if (ids === "") {
             throw "Empty ids list passed to queryProjects";
         }
         let url = `${BACKEND}/query/projects/${queryType}/${ids}`;
+        console.info(url);
         return get(url);
     }
 

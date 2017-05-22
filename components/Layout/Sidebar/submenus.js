@@ -1,6 +1,9 @@
 "use strict";
 
 import colnames from '../../constants/columns';
+import store from '../../../core/store';
+import * as qp from '../../actions/actionCreators/queryProjectsActionCreators';
+import * as qr from '../../actions/actionCreators/queryRunsActionCreators';
 
 
 export const facilityDataSubmenu = [
@@ -19,54 +22,70 @@ export const facilityDataSubmenu = [
 export const queryProjectsSubmenu = [
     { text: "Sample material info",
       to: `/projects/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,
+      action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.STARTING_MATERIAL_INFO)),
     },{
       text: "User request info",
       to: `/projects/${colnames.queryProjects.USER_REQUEST_INFO}`,
+      action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.USER_REQUEST_INFO)),
     },{
       text: "Library info",
       to: `/projects/${colnames.queryProjects.LIBRARY_INFO}`,
+      action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.LIBRARY_INFO)),
     },{
       text: "Sequencing details",
       to: `/projects/${colnames.queryProjects.SEQUENCING_DETAILS_INFO}`,
+      action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.SEQUENCING_DETAILS_INFO)),
     },{
       text: "Samples sheet",
       to: `/projects/${colnames.queryProjects.SAMPLE_SHEETS_INFO}`,
+      action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.SAMPLE_SHEETS_INFO)),
     },{
     //{ text: "IVC plots",
     //   to: `/projects/${col.IVC_PLOTS}`,
+    //     action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.IVC_PLOTS)),
     //},
       text: "Demultiplexings",
       to: `/projects/${colnames.queryProjects.DEMULTIPLEXING_INFO}`,
+      action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.DEMULTIPLEXING_INFO)),
     },
     //{ text: "Alignments (CASAVA)",
     //   to: `/projects/${col.ALIGNMENTS_INFO}`,
+    // action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.ALIGNMENTS_INFO)),
     //},
 ];
 
 export const queryRunsSubmenu = [
     { text: "Sample material info",
-        to: `/runs/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,
+      to: `/runs/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,
+      action: () => store.dispatch(qr.changeQueryType(colnames.queryProjects.STARTING_MATERIAL_INFO)),
     },{
-        text: "User request info",
-        to: `/runs/${colnames.queryProjects.USER_REQUEST_INFO}`,
+      text: "User request info",
+      to: `/runs/${colnames.queryProjects.USER_REQUEST_INFO}`,
+        action: () => store.dispatch(qr.changeQueryType(colnames.queryProjects.USER_REQUEST_INFO)),
     },{
-        text: "Library info",
-        to: `/runs/${colnames.queryProjects.LIBRARY_INFO}`,
+      text: "Library info",
+      to: `/runs/${colnames.queryProjects.LIBRARY_INFO}`,
+        action: () => store.dispatch(qr.changeQueryType(colnames.queryProjects.LIBRARY_INFO)),
     },{
-        text: "Sequencing details",
-        to: `/runs/${colnames.queryProjects.SEQUENCING_DETAILS_INFO}`,
+      text: "Sequencing details",
+      to: `/runs/${colnames.queryProjects.SEQUENCING_DETAILS_INFO}`,
+        action: () => store.dispatch(qr.changeQueryType(colnames.queryProjects.SEQUENCING_DETAILS_INFO)),
     },{
-        text: "Sample sheet",
-        to: `/runs/${colnames.queryProjects.SAMPLE_SHEETS_INFO}`,
+      text: "Sample sheet",
+      to: `/runs/${colnames.queryProjects.SAMPLE_SHEETS_INFO}`,
+      action: () => store.dispatch(qr.changeQueryType(colnames.queryProjects.SAMPLE_SHEETS_INFO)),
     },{
-    //     text: "IVC plots",
-    //     to: `/runs/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,
+    //   text: "IVC plots",
+    //   to: `/runs/${colnames.queryProjects.IVC_PLOTS}`,
+    //     action: () => store.dispatch(qr.changeQueryType(colnames.queryProjects.IVC_PLOTS)),
     // },{
-        text: "Demultiplexing",
-        to: `/runs/${colnames.queryProjects.DEMULTIPLEXING_INFO}`,
+      text: "Demultiplexing",
+      to: `/runs/${colnames.queryProjects.DEMULTIPLEXING_INFO}`,
+      action: () => store.dispatch(qr.changeQueryType(colnames.queryProjects.DEMULTIPLEXING_INFO)),
     },
-    // {   text: "Alignments (CASAVA)",
-    //     to: `/runs/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,
+    // { text: "Alignments (CASAVA)",
+    //   to: `/runs/${colnames.queryProjects.ALIGNMENTS_INFO}`,
+    // action: () => store.dispatch(qr.changeQueryType(colnames.queryProjects.ALIGNMENTS_INFO)),
     // }
 ];
 
