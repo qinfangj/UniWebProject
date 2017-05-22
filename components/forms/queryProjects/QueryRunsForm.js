@@ -3,8 +3,11 @@ import React from 'react';
 import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { searchSamplesByTerm, resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
+import { bindActionCreators } from 'redux';
+import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { queryRunsAsync, resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 
 import formNames from '../../constants/formNames';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
@@ -12,7 +15,7 @@ import inputTypes from '../inputTypes';
 
 import RRFInput from '../bootstrapWrappers/RRFInput';
 import { Form, actions } from 'react-redux-form';
-import { Button, Collapse, FormControl } from 'react-bootstrap/lib';
+import { Button, Collapse, FormControl, Checkbox } from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
 
 
@@ -20,19 +23,25 @@ import Icon from 'react-fontawesome';
  * Holds together the projects and samples multiple selectors,
  * and allows to filter their options by term.
  */
-class QueryProjectsForm extends React.Component {
+class QueryRunsForm extends React.Component {
     constructor() {
         super();
         this.form = formNames.QUERY_RUNS_FORM;
         this.modelName = "queryProjectsForms.queryRuns";
         this.state = {
             visible: true,
+            searchTerm: "",
+            selected: {},
         };
     }
 
+    static propTypes = {
+        queryType: PropTypes.string.isRequired,
+    };
+
     componentWillMount() {
-        // Initialize with all samples - filtering with empty term
-        //this.props.searchSamplesByTerm("");
+        this.props.getTableDataAsync("runs", "runs", false, null, null, null, null)
+            .fail((err) => console.error("QueryProjectsForm.getTableDataAsync() failed to load data."));
     }
 
     /**
@@ -42,31 +51,65 @@ class QueryProjectsForm extends React.Component {
      */
     onSearch(e) {
         let term = e.target.value;
-        // Clear the current projects/samples selection
         this.props.resetSelection();
-        //this.props.searchSamplesByTerm(term);
     }
 
     onReset() {
         this.props.resetSelection();
-        //this.props.searchSamplesByTerm("");
     }
 
     toggleVisible() {
         this.setState({ visible: !this.state.visible });
     }
 
+    selectRun(runId, e) {
+        let selected = this.state.selected;
+        if (selected[runId]) {
+            delete selected[runId];
+        } else {
+            selected[runId] = true;
+        }
+        this.setState({ selected });
+        this.props.queryRunsAsync(Object.keys(selected), this.props.queryType)
+    }
+
+    makeRunsRow(run) {
+        return (
+            <tr key={run.id} onClick={this.selectRun.bind(this, run.id)}>
+                <td className={css.checkboxCell}>
+                    <Checkbox
+                        id={run.id} className={css.checkbox}
+                        checked={!!this.state.selected[run.id]}
+                        value={!!this.state.selected[run.id]}
+                        onChange={this.selectRun.bind(this, run.id)}
+                    />
+                </td>
+                <td className={css.instrumentCell}>{run.instrument}</td>
+                <td className={css.runNbCell}>{run.run_nb}</td>
+                <td className={css.runDateCell}>{run.run_date}</td>
+                <td className={css.readLengthCell}>{run.cycle_nb}</td>
+                <td className={css.runTypeCell}>{run.run_type}</td>
+                <td className={css.runFolderCell}>{run.run_folder}</td>
+                <td className={css.statusCell}>{run.status}</td>
+            </tr>
+        );
+    }
+
     render() {
+        let runs = this.props.runs
+            .filter((run) => run)
+            .map((run) => this.makeRunsRow(run));
+
         return (
             <div id="QueryProjectsForm">
-                <div className={css.topLineWithSearch}>
+                <div>
 
                 {/* Search bar */}
 
                     <FormControl className={css.searchField}
                         type="text"
                         placeholder="Search"
-                        value={this.props.searchTerm}
+                        value={this.state.searchTerm}
                         onChange={this.onSearch.bind(this)}
                     />
 
@@ -88,51 +131,38 @@ class QueryProjectsForm extends React.Component {
 
                 </div>
 
-                {/* Multiple select */}
+                {/* Runs selection */}
 
                 <div className="clearfix" />
 
                 <Collapse in={this.state.visible}>
-                    <Form model={this.modelName}>
-                        <RRFInput
-                            inputType={inputTypes.MULTIPLE_SELECT}
-                            label="Runs"
-                            modelName=".runs"
-                            options={[["1", "A"],["2", "B"],["3", "C"]]}
-                        />
-                    </Form>
+                    <table className={css.runsSelection}>
+                        <tbody>
+                            {runs}
+                        </tbody>
+                    </table>
                 </Collapse>
+
             </div>
         );
     }
 }
 
 
-QueryProjectsForm.defaultProps = {
-    // projectIds: {},
-    // sampleIds: {},
-    searchTerm: "",
-};
-
-
 const mapStateToProps = (state, ownProps) => {
-    let searched = state.queryProjects[optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
-    let searchTerm = state.queryProjects.searchTerm;
-    let projectIds = searched.projectIds || new Set();
-    let sampleIds = searched.sampleIds || new Set();
+    let runs = state.facilityData["runs"].data;
     return {
-        projectIds,
-        sampleIds,
-        searchTerm,
+        runs: runs,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        searchSamplesByTerm: (term) => dispatch(searchSamplesByTerm(term, optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM)),
-        resetSelection: () => dispatch(resetSelection()),
-    };
+    return bindActionCreators({
+        getTableDataAsync,
+        queryRunsAsync,
+        resetSelection
+        }, dispatch);
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(QueryProjectsForm);
+export default connect(mapStateToProps, mapDispatchToProps)(QueryRunsForm);

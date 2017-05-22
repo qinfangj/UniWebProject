@@ -55,3 +55,49 @@
     cursor: default;
     color: var(--disabledGrey);
 }
+
+/* Run sselection table */
+.runsSelection {
+    height: 208px;
+    width: 100%;
+    overflow-y: scroll;
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+.runsSelection tr:hover {
+    background-color: var(--qcBlue);
+}
+.cell {
+    padding-left: 10px;
+    white-space: nowrap;
+}
+.checkboxCell {
+}
+.checkbox {
+    margin: 0;
+    position: relative;
+    top: 3px;
+}
+.instrumentCell {
+    composes: cell;
+}
+.runNbCell {
+    composes: cell;
+}
+.runDateCell {
+    composes: cell;
+}
+.readLengthCell {
+    composes: cell;
+}
+.runTypeCell {
+    composes: cell;
+}
+.runFolderCell {
+    composes: cell;
+
+}
+.statusCell {
+    composes: cell;
+
+}

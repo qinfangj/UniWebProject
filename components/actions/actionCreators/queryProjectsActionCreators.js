@@ -15,9 +15,9 @@ export function queryProjectsAsync(sampleIds, queryType, storeKey) {
 /**
  * Query the table data for Query Projects, given a list of sample IDs and a query type (sample material info, etc.)
  */
-export function queryRunsAsync(sampleIds, queryType, storeKey) {
-    let args = {sampleIds, storeKey};
-    return asyncAction(actions.queryProjects.QUERY_RUNS, RestService.queryRuns.bind(null, sampleIds, queryType), args);
+export function queryRunsAsync(runIds, queryType, storeKey) {
+    let args = {runIds, storeKey};
+    return asyncAction(actions.queryProjects.QUERY_RUNS, RestService.queryRuns.bind(null, runIds, queryType), args);
 }
 
 

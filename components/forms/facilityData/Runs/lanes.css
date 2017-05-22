@@ -44,7 +44,7 @@
     padding: 0 5px;
 }
 .qcCell {
-    background-color: #E5F2FF;
+    background-color: var(--qcBlue);
 }
 
 /****************************/

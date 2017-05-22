@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
+import queryProjectsStoreKeys from '../../constants/queryProjectsStoreKeys';
 import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
 import { assertIsArray } from '../../../utils/common';
 
@@ -173,7 +174,7 @@ QueryProjectsTable.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        tableData: state.queryProjects.tableData,
+        tableData: state.queryProjects[queryProjectsStoreKeys.QP_PROJECTS_TABLE_DATA],
         selectedSampleIds: state.queryProjects.sampleIds,  // object {id: true, ...}
         selectedProjectIds: state.queryProjects.projectIds,  // object {id: true, ...}
         searchTerm: state.queryProjects.searchTerm,

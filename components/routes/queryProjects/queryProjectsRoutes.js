@@ -27,7 +27,7 @@ export class QueryRunsRoute extends React.Component {
         let queryType = subpaths[subpaths.length-1];  // last element of the path
         return (
             <div>
-                <QueryRunsForm />
+                <QueryRunsForm queryType={queryType} />
                 <div className="clearfix"/>
                 <QueryRunsTable queryType={queryType} />
             </div>
