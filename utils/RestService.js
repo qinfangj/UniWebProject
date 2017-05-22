@@ -156,12 +156,21 @@ class RestService {
         return get(url);
     }
 
+    queryRuns(ids, queryType) {
+        if (ids === "") {
+            throw "Empty ids list passed to queryRuns";
+        }
+        let url = `${BACKEND}/query/runs/${queryType}/${ids}`;
+        console.info(url);
+        return get(url);
+    }
+
     /* Tracking for Samples */
 
     trackingSummaries(trackType) {
 
         let url = `${BACKEND}/tracking/${trackType}`;
-        console.log(url);
+        console.info(url);
         return get(url);
     }
 

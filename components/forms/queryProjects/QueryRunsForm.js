@@ -25,9 +25,6 @@ class QueryProjectsForm extends React.Component {
         super();
         this.form = formNames.QUERY_RUNS_FORM;
         this.modelName = "queryProjectsForms.queryRuns";
-        // Build store keys for selected form values
-        this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
-        this.samplesFormKey = this.form + formNames.suffixes.SAMPLES;
         this.state = {
             visible: true,
         };
@@ -35,7 +32,7 @@ class QueryProjectsForm extends React.Component {
 
     componentWillMount() {
         // Initialize with all samples - filtering with empty term
-        this.props.searchSamplesByTerm("");
+        //this.props.searchSamplesByTerm("");
     }
 
     /**
@@ -47,16 +44,16 @@ class QueryProjectsForm extends React.Component {
         let term = e.target.value;
         // Clear the current projects/samples selection
         this.props.resetSelection();
-        this.props.searchSamplesByTerm(term);
+        //this.props.searchSamplesByTerm(term);
     }
 
     onReset() {
         this.props.resetSelection();
-        this.props.searchSamplesByTerm("");
+        //this.props.searchSamplesByTerm("");
     }
 
     toggleVisible() {
-        this.setState({ visible: ! this.state.visible });
+        this.setState({ visible: !this.state.visible });
     }
 
     render() {
@@ -112,8 +109,8 @@ class QueryProjectsForm extends React.Component {
 
 
 QueryProjectsForm.defaultProps = {
-    projectIds: {},
-    sampleIds: {},
+    // projectIds: {},
+    // sampleIds: {},
     searchTerm: "",
 };
 
