@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from 'react-bootstrap/lib';
 
 
 export default class BSSelect extends React.PureComponent {
+
     render() {
         let {options, label, submissionError, hasNoneValue, ...inputProps} = this.props;
         let title = makeLabel(label, this.props.required);
@@ -14,8 +15,6 @@ export default class BSSelect extends React.PureComponent {
             return <option value={v[0]} key={i}>{v[1]}</option>;
         }) : [];
         if (hasNoneValue && options) { options.unshift(<option value="" key="-">{'-'}</option>); }
-
-        console.debug("BSSelect value:", this.props.value)
 
         return (
             <FormGroup validationState={validationState} bsSize="small" >

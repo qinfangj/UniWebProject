@@ -11,6 +11,7 @@ import BSSelect from './BSSelect';
 import BSTextArea from './BSTextArea';
 import BSDate from './BSDate';
 import BSSecondarySelect from './BSSecondarySelect';
+import BSMultipleSelect from './BSMultipleSelect';
 
 
 /**
@@ -24,8 +25,6 @@ export default class RRFInput extends React.PureComponent {
     };
 
     render() {
-        console.debug("RRF value:", this.props.value)
-
         let component;
         let {modelName, inputType, required, validators, errors, errorMessages, updateOn, validateOn, ...inputProps} = this.props;
 
@@ -38,8 +37,7 @@ export default class RRFInput extends React.PureComponent {
         } else if (inputType === inputTypes.SEC_DROPDOWN) {
             component = BSSecondarySelect;
         } else if (inputType === inputTypes.MULTIPLE_SELECT) {
-            inputProps.multiple = true;
-            component = BSSelect;
+            component = BSMultipleSelect;
         } else if (inputType === inputTypes.TEXTAREA) {
             component = BSTextArea;
         } else if (inputType === inputTypes.DATE) {
