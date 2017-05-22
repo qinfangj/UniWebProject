@@ -3,6 +3,7 @@ import React from 'react';
 import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,13 +12,14 @@ import { queryRunsAsync, resetSelection, changeRunsSelection } from '../../actio
 import formNames from '../../constants/formNames';
 import { Button, Collapse, FormControl, Checkbox } from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
+import { randomString } from '../../../utils/common';
 
 
 /**
  * Holds together the projects and samples multiple selectors,
  * and allows to filter their options by term.
  */
-class QueryRunsForm extends React.Component {
+class QueryRunsForm extends React.PureComponent {
     constructor() {
         super();
         this.form = formNames.QUERY_RUNS_FORM;
@@ -37,18 +39,17 @@ class QueryRunsForm extends React.Component {
             .fail((err) => console.error("QueryProjectsForm.getTableDataAsync() failed to load data."));
     }
 
-    /**
-     * Not a simple filter: we keep options from both projects and samples lists,
-     *  where the project either contains the term or has a sample containing it,
-     *  and where the sample either contains the term of its project contains it.
-     */
     onSearch(e) {
-        let term = e.target.value;
-        // this.props.resetSelection();
+        let searchTerm = e.target.value;
+        this.setState({ searchTerm });
+        if (Object.keys(this.props.selectedRuns).length > 0) {
+            this.props.resetSelection();
+        }
     }
 
     onReset() {
         this.props.resetSelection();
+        this.setState({ searchTerm: "" });
     }
 
     toggleVisible() {
@@ -68,7 +69,7 @@ class QueryRunsForm extends React.Component {
 
     makeRunsRow(run) {
         return (
-            <tr key={run.id} onClick={this.selectRun.bind(this, run.id)}>
+            <tr key={run.id+randomString(6)} onClick={this.selectRun.bind(this, run.id)}>
                 <td className={css.checkboxCell}>
                     <Checkbox
                         id={run.id} className={css.checkbox}
