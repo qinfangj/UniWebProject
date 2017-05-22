@@ -15,6 +15,7 @@ import feedbackReducers from '../components/actions/reducers/feedbackReducers';
 
 import formReducers from '../components/actions/reducers/forms/formReducers';
 import facilityDataFormsReducers from '../components/actions/reducers/forms/facilityDataFormsReducers';
+import queryProjectsFormsReducers from '../components/actions/reducers/forms/queryProjectsFormsReducers';
 import adminFormReducers from '../components/actions/reducers/forms/adminFormReducers';
 
 
@@ -52,6 +53,7 @@ let reducer = combineReducers({
     tracking: trackingReducers,
     adminForms: adminFormReducers,
     facilityDataForms: facilityDataFormsReducers,
+    queryProjectsForms: queryProjectsFormsReducers,
     options: optionsReducers,
     secondaryOptions: secondaryOptionsReducers,
     forms: formReducers,

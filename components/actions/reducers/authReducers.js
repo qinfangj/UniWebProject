@@ -73,7 +73,7 @@ let authReducers = (state = defaultState, action) => {
         case types.SIGNUP_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
-                isAuthenticated: true,
+                isAuthenticated: false,
                 isError: false,
                 errorMessage: '',
             });

@@ -105,7 +105,8 @@ const routes = (
             <Route path="data/alignments/new" component={fdata.AlignmentsNewRoute} onEnter={requireAuth} />
             <Route path="data/alignments/update/:id" component={fdata.AlignmentsUpdateRoute} onEnter={requireAuth} />
 
-            {/* Tracking */}
+            {/* TRACKING */}
+
             <Route path="tracking" component={tkdata.trackingSamples} onEnter={requireAuth} />
             <Route path="tracking/samples" component={tkdata.trackingSamples} onEnter={requireAuth} />
             <Route path="tracking/libraries" component={tkdata.trackingLibraries} onEnter={requireAuth} />
@@ -130,9 +131,21 @@ const routes = (
             <Route path="projects/library" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             <Route path="projects/sequencing_details" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             <Route path="projects/sample_sheets" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
-            {/*<Route path="projects/ivc" component={qprojects.QueryProjectsRoute} />*/}
+            {/*<Route path="projects/ivc" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />*/}
             <Route path="projects/demultiplexing" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
-            {/*<Route path="projects/alignments" component={qprojects.QueryProjectsRoute} />*/}
+            {/*<Route path="projects/alignments" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />*/}
+
+            {/* QUERY RUNS */}
+
+            <Redirect from="runs" to="runs/starting_material" />
+            <Route path="runs/starting_material" component={qprojects.QueryRunsRoute} onEnter={requireAuth} />
+            <Route path="runs/user_request" component={qprojects.QueryRunsRoute} onEnter={requireAuth} />
+            <Route path="runs/library" component={qprojects.QueryRunsRoute} onEnter={requireAuth} />
+            <Route path="runs/sequencing_details" component={qprojects.QueryRunsRoute} onEnter={requireAuth} />
+            <Route path="runs/sample_sheets" component={qprojects.QueryRunsRoute} onEnter={requireAuth} />
+            {/*<Route path="projects/ivc" component={qprojects.QueryRunsRoute} onEnter={requireAuth} />*/}
+            <Route path="runs/demultiplexing" component={qprojects.QueryRunsRoute} onEnter={requireAuth} />
+            {/*<Route path="projects/alignments" component={qprojects.QueryRunsRoute} onEnter={requireAuth} />*/}
 
             {/* ADMIN */}
 

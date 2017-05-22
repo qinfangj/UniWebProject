@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 import css from './Sidebar.css';
 import store from '../../../core/store';
@@ -81,7 +82,6 @@ class ResponsiveSidebar extends React.PureComponent {
 
     onSelect(active) {
         let newState = {submenuOpen: active ? !this.state.submenuOpen : true};
-        //console.debug("SIDEBAR ON SELECT", {active: active, wasOpen: this.state.submenuOpen, willOpen: open})
         if (this.state.open && !this.isWide()) {
             this.onSetOpen(false);
         }
@@ -89,20 +89,23 @@ class ResponsiveSidebar extends React.PureComponent {
     }
 
     render() {
-        //console.debug("submenu", this.state.submenuOpen ? "OPEN" : "CLOSED")
-        // With browserHistory, use this:
-        //let path = window.location.pathname
+
+        // if (!this.props.isAuthenticated) {
+        //     return this.props.children;
+        // }
+
+        // With browserHistory, use `window.location.pathname` instead.
         // With hashHistory, read the hash part:
         let path = window.location.hash ? window.location.hash.substring(1) : "";
         if (!path) return null;
         let menuItems = [
             { text: "Home", to: "/home", },
-            { text: "Facility data", to: "/data", elements: submenus.facilityDataSubmenu },
-            { text: "User data", to: "/user", disabled: false, elements:submenus.userDataSubmenu },
-            { text: "Tracking", to: "/tracking", disabled: false },
-            { text: "Query projects", to: "/projects", elements: submenus.queryProjectsSubmenu },
-            { text: "Query runs", to: "/queryRuns", disabled: true },
-            { text: "Admin", to: "/admin", disabled: false, elements: submenus.adminSubmenu },
+            { text: "Facility data", to: "/data", elements: submenus.facilityDataSubmenu, disabled: !this.props.isAuthenticated },
+            { text: "User data", to: "/user", disabled: true },
+            { text: "Tracking", to: "/tracking", disabled: !this.props.isAuthenticated },
+            { text: "Query projects", to: "/projects", elements: submenus.queryProjectsSubmenu, disabled: !this.props.isAuthenticated },
+            { text: "Query runs", to: "/runs", elements: submenus.queryRunsSubmenu, disabled: !this.props.isAuthenticated },
+            { text: "Admin", to: "/admin", elements: submenus.adminSubmenu, disabled: !this.props.isAuthenticated },
         ];
         let items = menuItems.map((items, i) => {
             let {text, to, elements, disabled, ...props} = items;
@@ -185,4 +188,10 @@ class ResponsiveSidebar extends React.PureComponent {
 }
 
 
-export default ResponsiveSidebar;
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+    };
+}
+
+export default connect(mapStateToProps)(ResponsiveSidebar);

@@ -12,10 +12,10 @@ import { requestLibrariesForProject } from '../../../actions/actionCreators/seco
 import lanesModel from './lanesModel';
 import poolSelectionModel from './poolSelectionModel';
 
-import RFFInput from '../../bootstrapWrappers/RFFInput.js';
+import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';
-import Button from 'react-bootstrap/lib/Button';
 import PoolSelection from './PoolSelection';
+import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap/lib';
 
 
 /**
@@ -41,13 +41,13 @@ class RunsSubForm extends React.PureComponent {
     /**
      * Return a new empty library model object.
      */
-    makeLib(projectId = "", libraryId = "", volume = "", qualityId = "", isQC = false) {
+    makeLib(projectId = "", libraryId = "", volume = "", qualityId = 1, isQC = false) {
         return {
             projectId: projectId,
             libraryId: libraryId,
             volume: volume,
             qualityId: qualityId,
-            isQC: isQC,
+            isQCLib: isQC,
         };
     }
 
@@ -103,6 +103,13 @@ class RunsSubForm extends React.PureComponent {
     }
 
     /**
+     * Add one QC library row to the table.
+     */
+    addQCLibrary(laneNb) {
+        store.dispatch(actions.push(this.modelName+`.lanes[${laneNb}].libs`, this.makeLib("","","", 1, true)));
+    }
+
+    /**
      * Remove a library row from the table.
      */
     removeLibrary(laneNb, library, k) {
@@ -141,7 +148,7 @@ class RunsSubForm extends React.PureComponent {
     makeLibRow(lane, lib, k) {
         let laneNb = lane.laneNb;
         let nlibs = this.props.lanes[laneNb].libs.length;
-        let qcBsClass = lib.isQC ? cx('form-control', css.qcCell) : 'form-control';
+        let qcClass = lib.isQC ? css.qcCell : '';
         let prefix = `${this.modelName}.lanes[${laneNb}].libs[${k}]`;
 
         /* Construct the project-library-volume-quality inputs for one Library row */
@@ -161,7 +168,7 @@ class RunsSubForm extends React.PureComponent {
             } else if (fieldName === "libraryId") {
                 otherProps.refModelName = prefix +".projectId";
             }
-            let input = <RFFInput inputType={inputType} modelName={modelName} {...otherProps} />;
+            let input = <RRFInput className={qcClass} inputType={inputType} modelName={modelName} {...otherProps} />;
             formFields.push(input);
         }
 
@@ -170,6 +177,12 @@ class RunsSubForm extends React.PureComponent {
         let volumeInput = formFields[2];
         let qualityInput = formFields[3];
 
+        let DelLibTooltip = <Tooltip id="delLib">{"Delete library"}</Tooltip>;
+        let DelLaneTooltip = <Tooltip id="delLane">{"Delete lane"}</Tooltip>;
+        let AddLibTooltip = <Tooltip id="addLib">{"Add a library"}</Tooltip>;
+        let AddQCLibTooltip = <Tooltip id="addLib">{"Add a QC library"}</Tooltip>;
+        let AddPoolTooltip = <Tooltip id="addPool">{"Add a pool of libraries"}</Tooltip>;
+
         let laneNbCell = k === 0 ?
             <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
                 {'L'+laneNb}
@@ -177,19 +190,32 @@ class RunsSubForm extends React.PureComponent {
 
         let deleteLibraryButton = (nlibs > 1 && !this.props.disabled) ?
             <div onClick={this.removeLibrary.bind(this, laneNb, lib, k)}>
-                <Icon name='trash' className={css.removeLibrary}/>
+                <OverlayTrigger placement="left" overlay={DelLibTooltip}>
+                    <Icon name='trash' className={css.removeLibrary}/>
+                </OverlayTrigger>
             </div> : null;
 
         let laneButtonsCell = (k === 0 && !this.props.disabled) ?
             <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
                 <div onClick={this.removeLane.bind(this, laneNb)}>
-                    <Icon name="trash" className={css.removeLane}/>
+                    <OverlayTrigger placement="left" overlay={DelLaneTooltip}>
+                        <Icon name="trash" className={css.removeLane}/>
+                    </OverlayTrigger>
                 </div>
                 <div onClick={this.addLibrary.bind(this, laneNb)}>
-                    <Icon name='plus-circle' className={css.addLibrary}/>
+                    <OverlayTrigger placement="left" overlay={AddLibTooltip}>
+                        <Icon name='plus-circle' className={css.addLibrary}/>
+                    </OverlayTrigger>
+                </div>
+                <div onClick={this.addQCLibrary.bind(this, laneNb)}>
+                    <OverlayTrigger placement="left" overlay={AddQCLibTooltip}>
+                        <Icon name='plus-circle' className={css.addQCLibrary}/>
+                    </OverlayTrigger>
                 </div>
                 <div onClick={this.showPoolSelection.bind(this, laneNb)}>
-                    <Icon name='plus-circle' className={css.addPool}/>
+                    <OverlayTrigger placement="left" overlay={AddPoolTooltip}>
+                        <Button className={css.addPool}>{"P"}</Button>
+                    </OverlayTrigger>
                 </div>
             </td> : null;
 
@@ -230,7 +256,7 @@ class RunsSubForm extends React.PureComponent {
         if (this.props.disabled && commentValue === "") {
             commentInput = <span className={css.noComment}>{"No comment"}</span>;
         } else {
-            commentInput = <RFFInput inputType={inputType} modelName={commentModelName} {...otherProps} />;
+            commentInput = <RRFInput inputType={inputType} modelName={commentModelName} {...otherProps} />;
         }
 
         return (
@@ -264,7 +290,7 @@ class RunsSubForm extends React.PureComponent {
             libRows.push(commentRow);
             laneRows.push(<tbody key={laneNb} className={css.lanesGroup}>{libRows}</tbody>);
             /* Show pool selection form after the lane if requested */
-            if (true) {//(this.state.showPoolSelection === laneNb) {
+            if (this.state.showPoolSelection === laneNb) {
                 laneRows.push(
                     <tbody key="poolSelection">
                         <PoolSelection laneNb={laneNb} modelName={this.modelName} />
@@ -274,7 +300,7 @@ class RunsSubForm extends React.PureComponent {
         }
         return (
             <div>
-                <Button bsStyle="info" disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
+                <Button className={css.addLaneButton} bsStyle="info" disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
 
                 <div className="clearfix"/>
 

@@ -35,8 +35,8 @@ let facilityDataFormsReducers = combineForms(
                             projectId: "",
                             libraryId: "",
                             concentration: "",
-                            qualityId: "",
-                            isQC: false,
+                            qualityId: 1,
+                            isQCLib: false,
                         },
                     ]
                 }

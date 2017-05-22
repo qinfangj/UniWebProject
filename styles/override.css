@@ -11,6 +11,10 @@
 
 /* BS */
 
+/* At least enough space to enter 2 digits in a numeric field */
+:global(input[type="number"]) {
+    min-width: 49px;
+}
 :global(.btn:focus) {
     outline: none;
 }

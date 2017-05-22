@@ -1,5 +1,6 @@
 "use strict";
 import actions from '../actionTypes';
+import store from '../../../core/store';
 let types = actions.login;
 import RestService from '../../../utils/RestService';
 import AuthService from '../../../utils/AuthService';
@@ -80,7 +81,10 @@ export function loginUser(creds) {
                         AuthService._doAuthentication(user);
                     }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
                 }
-            }).catch(err => console.log("Error logging in: ", JSON.stringify(err, null, 2)));
+            }).catch(err => {
+                let msg = "Error logging in: " + err.message;
+                store.dispatch(feedbackError("REST", msg, {}));
+            });
     }
 }
 
@@ -100,11 +104,13 @@ export function signupUser(creds) {
                         dispatch(
                             feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulations! You have signed up successfully!"));
                         dispatch(_signupSuccess(user));
-                        AuthService._doAuthentication(user);
+                        // We do not want the user to be signed up right away!
+                        //AuthService._doAuthentication(user);
+                        hashHistory.replace('/home');
                     }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
                 }
             }).catch(err => {
-                dispatch(feedbackWarning(formNames.SIGN_UP_FORM, "SignUp Error", err));
+                dispatch(feedbackWarning(formNames.SIGN_UP_FORM, "Signup Error", err));
                 console.log("Error signing up: ", JSON.stringify(err, null, 2))
             });
     }

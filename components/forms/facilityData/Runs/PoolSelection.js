@@ -1,6 +1,7 @@
 "use strict";
 import React from 'react';
 import store from '../../../../core/store';
+import css from './lanes.css';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,7 +12,7 @@ import { requestProjectsHavingAPool } from '../../../actions/actionCreators/opti
 import { requestPoolsForProject, requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import poolSelectionModel from './poolSelectionModel';
 
-import RFFInput from '../../bootstrapWrappers/RFFInput.js';
+import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';
 import Button from 'react-bootstrap/lib/Button';
 
@@ -42,8 +43,14 @@ class PoolSelection extends React.PureComponent {
             .then((libs) => {
                 let modelName = this.props.modelName +`.lanes[${laneNb}].libs`;
                 let libsOld = this.props.lanes[laneNb].libs;
+                // Remove any empty lib row from old - because the boss wants it that way
+                libsOld = libsOld.filter(lib => lib.libraryId !== "" || lib.projectId !== "");
                 let nlibsOld = libsOld.length;
                 let nlibsNew = libs.length;
+                // Add the default quality 'Pass'
+                for (let i=0; i < nlibsNew; i++) {
+                    libs[i].qualityId = 1
+                }
                 let mergedLibs = [...libsOld, ...libs];
                 // Change the new projects one by one so that it loads the secondary libraries lists
                 for (let k=nlibsOld; k < nlibsOld + nlibsNew; k++) {
@@ -79,7 +86,7 @@ class PoolSelection extends React.PureComponent {
                 otherProps.refModelName = this.props.modelName +".poolSelection.projectIdWithPool";
             }
             inputs.push(
-                <td key={fieldName}><RFFInput inputType={inputType} modelName={modelName} {...otherProps} /></td>
+                <td className={css.libCell} key={fieldName}><RRFInput inputType={inputType} modelName={modelName} {...otherProps} /></td>
             );
         }
 

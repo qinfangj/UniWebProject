@@ -10,7 +10,7 @@ const intValidator = {isInteger: validators.integerValidator};
 
 const runsModel = {
     [fields.runs.GA_RUN_NUMBER]: {
-        width: 1,
+        width: 2,
         label: "Run#",
         type: "number",
         inputType: inputTypes.TEXT,
@@ -38,7 +38,7 @@ const runsModel = {
         required: true,
     },
     [fields.runs.INSTRUMENT_ID]: {
-        width: 3,
+        width: 2,
         label: "Machine",
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.INSTRUMENTS,

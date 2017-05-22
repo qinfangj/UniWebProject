@@ -6,9 +6,9 @@
     --border: 1px solid var(--blue);
 }
 
-/******************/
-/* Lanes sub-form */
-/******************/
+/****************************/
+/*      Lanes sub-form      */
+/****************************/
 
 .lanesTable {
     width: 100%;
@@ -32,8 +32,10 @@
     height: 5px;
 }
 
+/****************************/
+/*       Generic cell       */
+/****************************/
 
-/* Generic cell */
 .libCell {
 }
 .libCell > div {
@@ -45,14 +47,20 @@
     background-color: #E5F2FF;
 }
 
-/* Particular cells */
+/****************************/
+/*     Particular cells     */
+/****************************/
+
 .laneCell {
+    padding-top: 5px;
+    padding-right: 5px;
+    vertical-align: top;
 }
 .projectCell {
     width: 40%;
 }
 .libraryCell {
-    width: 25%;
+    width: 20%;
 }
 .quantityCell {
     /* Will adapt to what is left */
@@ -61,7 +69,10 @@
     min-width: 90px;
 }
 
-/* Border around a lane */
+/****************************/
+/*   Border around a lane   */
+/****************************/
+
 td.projectCell {
     border-left: var(--border);
 }
@@ -90,7 +101,13 @@ td.buttonsCell {
     right: var(--border);
 }
 
-/* Icons */
+/****************************/
+/*          Buttons         */
+/****************************/
+
+.addLaneButton {
+    margin: 5px 0;
+}
 .addLibrary {
     cursor: pointer;
     font-size: 1.5em;
@@ -99,13 +116,19 @@ td.buttonsCell {
 .addLibrary:hover {
     color: black;
 }
-.addPool {
+.addQCLibrary {
     color: var(--blue);
 }
-.removeLane, .addLibrary, .addPool {
+.addPool {
+    padding: 3px 5px;
+    margin-left: 3px;
+}
+/* The ones on the right side of the lane must be spaced */
+.removeLane, .addLibrary, .addQCLibrary {
     margin-left: 5px;
 }
-.removeLibrary, .removeLane, .addPool {
+/* The ones with a fontawesome icon must be rescaled */
+.removeLibrary, .removeLane, .addQCLibrary {
     cursor: pointer;
     font-size: 1.5em;
 }

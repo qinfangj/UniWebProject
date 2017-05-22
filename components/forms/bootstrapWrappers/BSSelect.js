@@ -15,6 +15,8 @@ export default class BSSelect extends React.PureComponent {
         }) : [];
         if (hasNoneValue && options) { options.unshift(<option value="" key="-">{'-'}</option>); }
 
+        console.debug("BSSelect value:", this.props.value)
+
         return (
             <FormGroup validationState={validationState} bsSize="small" >
                 {title}

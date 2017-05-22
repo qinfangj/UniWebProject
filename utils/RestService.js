@@ -1,7 +1,24 @@
 "use strict";
 import $ from 'jquery';
+import store from '../core/store';
 import AuthService from './AuthService';
 const BACKEND = window.ENV.BACKEND_URL;
+import { feedbackSuccess, feedbackError, feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
+
+
+/**
+ *
+ * @param jqXHR: jQuery XHR response object.
+ * @param textStatus:
+ * @param error: (string)
+ */
+function handleError(jqXHR, textStatus, error)  {
+    let msg = error.statusText + ": " +jqXHR.responseText;
+    if (jqXHR.status === 0) {
+        msg = "Could not connect to server";
+    }
+    store.dispatch(feedbackError("REST", msg, error || {}));
+}
 
 
 function post(url, data) {
@@ -20,12 +37,7 @@ function post(url, data) {
         headers: {
             'Authorization': 'Bearer '+ AuthService.getToken(),
         },
-        error: (jqXHR, textStatus, error) => {
-            // `jqXHR` is a kind of Future or the response, with other methods and attributes.
-            // `textStatus` can be "timeout", "error", "abort", or "parsererror".
-            // `error` is the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error".
-            console.log(error + ": " + jqXHR.responseText);
-        }
+        error: handleError,
     });
 }
 
@@ -37,9 +49,7 @@ function get(url) {
         headers: {
             'Authorization': 'Bearer '+ AuthService.getToken(),
         },
-        error: (jqXHR, textStatus, error) => {
-            console.log(error + ": " + jqXHR.status +": "+ jqXHR.statusText);
-        }
+        error: handleError,
     }); 
 }
 
