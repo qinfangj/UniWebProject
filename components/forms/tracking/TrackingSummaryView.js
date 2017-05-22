@@ -321,18 +321,13 @@ class TrackingSummaryView extends React.PureComponent {
     createRuns(){
         let createdLanes = this.state.createdlanesInfo;
 
-        let arr = [];
-        let objLanes = {lanes:[]};
+        let obj = {};
         for (let k in this.state.laneNos){
             let sub = this.state.laneNos[k];
             for (let i = 0; i < sub.length; i++){
                 //console.log(sub[i]);
                 //console.log(sub[i].value);
-
                 if (sub[i] !== null && sub[i].value !== ""){
-
-                    let obj = {};
-
                     obj[sub[i].value] = {
                         comment:"",
                         libs:[{
@@ -344,28 +339,27 @@ class TrackingSummaryView extends React.PureComponent {
                         }]
 
                     };
-                    //console.log(obj);
-                    arr.push(obj);
                 }
             }
 
         }
+        console.log(obj);
+        // if (obj !==null){
+        //     createdLanes= obj
+        // }
 
-        if (arr.length >0) {
-            createdLanes['lanes'] = arr;
-        }
-
-        if (Object.keys(createdLanes).length > 0) {
-                console.log(createdLanes);
-                let newPath = window.location.pathname + "data/runs/from-tracking";
-                console.log(newPath);
-                store.dispatch(actions.reset("facilityDataForms.runs"));
-                store.dispatch(actions.merge("facilityDataForms.runs.lanes",createdLanes));
-                hashHistory.push(newPath);
-
-
-        } else if (Object.keys(createdLanes).length === 0){
+        if (_.isEmpty(obj)) {
             store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
+        } else {
+            //console.log(createdLanes);
+            let newPath = window.location.pathname + "data/runs/from-tracking";
+            console.log(newPath);
+            store.dispatch(actions.reset("facilityDataForms.runs"));
+
+            store.dispatch(actions.merge("facilityDataForms.runs.lanes", obj));
+
+            hashHistory.push(newPath);
+
         }
 
         // }
