@@ -11,7 +11,6 @@ const defaultState = {
     tableData: [],
     selectedRuns: {},
     queryType: columns.queryProjects.STARTING_MATERIAL_INFO,
-    [queryProjectsStoreKeys.QP_RUNS_TABLE_DATA]: [],
 };
 
 
@@ -29,16 +28,16 @@ let queryRunsReducers = (state = defaultState, action) => {
          * Expects `action.runs`, an object {runId: true} .
          */
         case types.queryRuns.CHANGE_RUNS_SELECTION:
-            return {...state, selectedRuns: action.runs};
+            return {...state, selectedRuns: {...action.runs}};
 
         /**
          * Return an array of sample objects with added info, for display in the table.
          */
         case types.queryRuns.QUERY_RUNS:
-            return returnList(action, state, queryProjectsStoreKeys.QP_RUNS_TABLE_DATA, []);
+            return returnList(action, state, "tableData", []);
 
         case types.queryRuns.RESET_SELECTION:
-            return defaultState;
+            return {...state, tableData: [], selectedRuns: {}};
 
         default:
             return state;

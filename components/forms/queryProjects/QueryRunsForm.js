@@ -25,7 +25,6 @@ class QueryRunsForm extends React.Component {
         this.state = {
             visible: true,
             searchTerm: "",
-            selectedRuns: {},
         };
     }
 
@@ -45,7 +44,7 @@ class QueryRunsForm extends React.Component {
      */
     onSearch(e) {
         let term = e.target.value;
-        this.props.resetSelection();
+        // this.props.resetSelection();
     }
 
     onReset() {
@@ -57,15 +56,14 @@ class QueryRunsForm extends React.Component {
     }
 
     selectRun(runId, e) {
-        let selected = this.state.selectedRuns;
+        let selected = this.props.selectedRuns;
         if (selected[runId]) {
             delete selected[runId];
         } else {
             selected[runId] = true;
         }
-        this.setState({ selectedRuns: selected });  // redux does not want to get it from store, so be it, fuck
-        this.props.queryRunsAsync(selected, this.props.queryType);
         this.props.changeRunsSelection(selected);
+        this.props.queryRunsAsync(selected, this.props.queryType);
     }
 
     makeRunsRow(run) {
@@ -74,8 +72,8 @@ class QueryRunsForm extends React.Component {
                 <td className={css.checkboxCell}>
                     <Checkbox
                         id={run.id} className={css.checkbox}
-                        checked={!!this.state.selectedRuns[run.id]}
-                        value={!!this.state.selectedRuns[run.id]}
+                        checked={!!this.props.selectedRuns[run.id]}
+                        value={!!this.props.selectedRuns[run.id]}
                         onChange={this.selectRun.bind(this, run.id)}
                     />
                 </td>
@@ -153,7 +151,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         runs: runs,
         queryType: queryType,
-        // selectedRuns: selectedRuns,
+        selectedRuns: selectedRuns,
     };
 };
 

@@ -174,7 +174,7 @@ QueryProjectsTable.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        tableData: state.queryProjects[queryProjectsStoreKeys.QP_PROJECTS_TABLE_DATA],
+        tableData: state.queryProjects.tableData,
         selectedSampleIds: state.queryProjects.sampleIds,  // object {id: true, ...}
         selectedProjectIds: state.queryProjects.projectIds,  // object {id: true, ...}
         searchTerm: state.queryProjects.searchTerm,

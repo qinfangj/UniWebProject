@@ -106,7 +106,7 @@ QueryRunsTable.defaultProps = {
 
 const mapStateToProps = (state) => {
     return {
-        tableData: state.queryRuns[queryProjectsStoreKeys.QP_RUNS_TABLE_DATA],
+        tableData: state.queryRuns.tableData,
         queryType: state.queryRuns.queryType,
         selectedRuns: state.queryRuns.selectedRuns,
     };

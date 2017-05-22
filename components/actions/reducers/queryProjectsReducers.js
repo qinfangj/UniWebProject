@@ -30,7 +30,7 @@ let queryProjectsReducers = (state = defaultState, action) => {
          * Return an array of sample objects with added info, for display in the table.
          */
         case types.queryProjects.QUERY_PROJECTS:
-            return returnList(action, state, queryProjectsStoreKeys.QP_PROJECTS_TABLE_DATA, []);
+            return returnList(action, state, "tableData", []);
 
         /**
          * Expects an object `action.projectIds` of the form {id: true} for each selected id.
