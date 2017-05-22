@@ -112,7 +112,7 @@ class TrackingDetailView extends React.PureComponent {
 
            return (
 
-                    <div className={trackCss.div1}>
+                    <Row className={trackCss.div1}>
                     <Col sm={4} className={trackCss.div2}>
 
                         <h4>{title}</h4>
@@ -155,7 +155,7 @@ class TrackingDetailView extends React.PureComponent {
                         </table>
 
                     </Col>
-                    </div>
+                    </Row>
 
 
 

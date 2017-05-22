@@ -16,6 +16,16 @@ export const facilityDataSubmenu = [
     { text: "Genomes", to: "/data/genomes", },
 ];
 
+export const userDataSubmenu = [
+    { text: "Submit samples and libraries", to: "user/newform", },
+    { text: "Request more sequences", to: "user/newrequest", },
+    { text: "View lab submissions", to: "user/view/labsamples", },
+    { text: "View collaboration submissions", to: "user/view/colsamples", },
+    { text: "Get lab data", to: "userdata/dataruns", },
+    { text: "Get collaboration data", to: "user/data/datacollabs", },
+    { text: "Miscellaneous files for download", to: "user/data/miscfiles", },
+];
+
 export const queryProjectsSubmenu = [
     { text: "Sample material info",
       to: `/projects/${colnames.queryProjects.STARTING_MATERIAL_INFO}`,

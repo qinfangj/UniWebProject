@@ -97,7 +97,8 @@ export function signupUser(creds) {
                 // Successful signup
                 } else {
                     response.json().then(user => {
-                        dispatch(feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulation! You have signed up successfully!"));
+                        dispatch(
+                            feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulations! You have signed up successfully!"));
                         dispatch(_signupSuccess(user));
                         AuthService._doAuthentication(user);
                     }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));

@@ -180,6 +180,31 @@ class TrackingSummaryView extends React.PureComponent {
 
     }
 
+    makeTdContents(v){
+        let date = "";
+        let name = "";
+        let type = "";
+
+
+        if (this.props.dataStoreKey === "samples") {
+            date = "received_date";
+            name = "short_name";
+            type = "sample_type";
+
+        } else if (this.props.dataStoreKey === "libraries" || this.props.dataStoreKey === "runs") {
+            date = "library_date";
+            name = "name";
+            type = "protocol";
+        }
+
+        return (
+                <div>{(v['laboratory'] === undefined) ? "" : v['laboratory']}  -  {(v['project'] === undefined) ? "" : v['project']} &nbsp;
+                    <small><i>{(v[date] === undefined) ? "" : v[date]}</i></small><br />
+                    {(v[name] === undefined) ? "" : v[name] }  {(v[type] === undefined) ? "" : v[type]}
+                </div>)
+
+    }
+
     makeTr(o, index){
         //console.log(o);
         //console.log(index);
@@ -192,47 +217,10 @@ class TrackingSummaryView extends React.PureComponent {
 
                     if (!_.isEmpty(o[s][index])) {
 
-                        let stringRlt = "";
+                        //make Td contents
+                        let contentsTd = this.makeTdContents(o[s][index]);
 
-                        // for (let key in o[s][index])
-                        // {
-                            //if (key !== "comment"){
-                            //     break;
-                            // } else {
-                                //stringRlt = stringRlt + o[s][index][key]  + "\r\n";
-                            //}
-                        // }
-                        let lab = "";
-                        let project = "";
-                        let date = "";
-                        let name = "";
-                        let type = "";
-
-                        if (this.props.dataStoreKey === "samples") {
-                            lab = (o[s][index]['laboratory'] === undefined) ? "" : o[s][index]['laboratory'] + " - ";
-                            project = (o[s][index]['project'] === undefined) ? "" : o[s][index]['project'] + "\r\n";
-                            date = (o[s][index]['received_date'] === undefined) ? "" : o[s][index]['received_date'] + " ";
-                            name = (o[s][index]['short_name'] === undefined) ? "" : o[s][index]['short_name'] + " ";
-                            type = (o[s][index]['sample_type'] === undefined) ? "" : o[s][index]['sample_type'] + "\r\n";
-                        } else if (this.props.dataStoreKey === "libraries"){
-                            lab = (o[s][index]['laboratory'] === undefined) ? "" : o[s][index]['laboratory'] + " - ";
-                            project = (o[s][index]['project'] === undefined) ? "" : o[s][index]['project'] + "\r\n";
-                            date = (o[s][index]['library_date'] === undefined) ? "" : o[s][index]['library_date'];
-                            name = (o[s][index]['name'] === undefined) ? "" : o[s][index]['name'];
-                            type = (o[s][index]['protocol'] === undefined) ? "" : o[s][index]['protocol'] + "\r\n";
-                        } else if (this.props.dataStoreKey === "runs"){
-                            lab = (o[s][index]['laboratory'] === undefined) ? "" : o[s][index]['laboratory'] + " - ";
-                            project = (o[s][index]['project'] === undefined) ? "" : o[s][index]['project'] + " ";
-                            date = (o[s][index]['library_date'] === undefined) ? "" : o[s][index]['library_date'] + "\r\n" ;
-                            name = (o[s][index]['name'] === undefined) ? "" : o[s][index]['name'];
-                            type = (o[s][index]['protocol'] === undefined) ? "" : o[s][index]['protocol'] + "\r\n";
-
-                        }
-                        stringRlt = stringRlt + lab;
-                        stringRlt = stringRlt + project;
-                        stringRlt = stringRlt + date + name + type;
-
-
+                        //Libraries to sequence page, make margin for Lane number input
                         let cellMargin = this.props.isLibrary? {marginLeft:'20px'} : null;
                         let laneNoStyle = null;
                         if (this.props.isLibrary) {
@@ -264,9 +252,7 @@ class TrackingSummaryView extends React.PureComponent {
                                 <div type="button" className={trackCss.selectedCell} width="100%" height="100%"
 
                                      onClick={this.insertDetailedRow.bind(this, s, index)}>
-
-                                    {stringRlt}
-
+                                    {contentsTd}
                                     <div style={{textAlign: 'right'}} >
                                     {(o[s][index]['comment'] !== "" && o[s][index]['comment'] !== undefined)?
                                         <div className={trackCss.tooltip}>
@@ -293,7 +279,7 @@ class TrackingSummaryView extends React.PureComponent {
                                     </div>:null}
                                 <div type="button" className={trackCss.cell} width="100%" height="100%"
                                      onClick={this.insertDetailedRow.bind(this, s, index)}>
-                                        {stringRlt}
+                                        {contentsTd}
                                         <div style={{textAlign: 'right'}}>
                                         {o[s][index]['comment'] !== undefined && (o[s][index]['comment'] !== "" )?
                                                 <div className={trackCss.tooltip}>
@@ -370,18 +356,13 @@ class TrackingSummaryView extends React.PureComponent {
         }
 
         if (Object.keys(createdLanes).length > 0) {
-            // this.setState({
-            //     isSubmit:true,
-            //     createdLanesInfo:createdLanes,
-            // });
-            if (confirm("Are you sure to submit those settings of lanes?")) {
                 console.log(createdLanes);
                 let newPath = window.location.pathname + "data/runs/from-tracking";
                 console.log(newPath);
-                //store.dispatch(actions.reset("facilityDataForms.runs"));
+                store.dispatch(actions.reset("facilityDataForms.runs"));
                 store.dispatch(actions.merge("facilityDataForms.runs.lanes",createdLanes));
                 hashHistory.push(newPath);
-            }
+
 
         } else if (Object.keys(createdLanes).length === 0){
             store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
@@ -469,9 +450,9 @@ class TrackingSummaryView extends React.PureComponent {
                     <Button bsStyle="primary"  type="button" onClick={this.createRuns.bind(this)} className={trackCss.button} >
                         Create Runs
                     </Button>
-                    <Button bsStyle="primary"  type="button" className={trackCss.button} onClick={this.resetLanes.bind(this)}>
-                        Reset
-                    </Button>
+                    {/*<Button bsStyle="primary"  type="button" className={trackCss.button} onClick={this.resetLanes.bind(this)}>*/}
+                        {/*Reset*/}
+                    {/*</Button>*/}
                     </div>
                     : null}
 
