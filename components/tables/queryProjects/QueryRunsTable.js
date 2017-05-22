@@ -7,10 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
-import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import queryProjectsStoreKeys from '../../constants/queryProjectsStoreKeys';
 import { queryRunsAsync } from '../../actions/actionCreators/queryRunsActionCreators';
-import { assertIsArray } from '../../../utils/common';
 
 import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';

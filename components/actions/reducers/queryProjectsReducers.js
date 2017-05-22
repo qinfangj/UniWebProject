@@ -2,7 +2,6 @@
 import types from '../actionTypes';
 import returnList from './base';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import queryProjectsStoreKeys from '../../constants/queryProjectsStoreKeys';
 import constants from '../../constants/constants';
 import columns from '../../constants/columns';
 

@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import queryProjectsStoreKeys from '../../constants/queryProjectsStoreKeys';
 import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
 import { assertIsArray } from '../../../utils/common';
 
