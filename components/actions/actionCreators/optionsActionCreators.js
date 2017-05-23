@@ -9,6 +9,11 @@ import optionsStoreKeys from '../../constants/optionsStoreKeys';
  * Actions to GET a select input options list from backend.
  */
 
+export function resetAllOptions() {
+    return {
+        type: types.options.RESET
+    };
+}
  
 /**
  * Calls /table/:table/list[/suffix]
@@ -86,6 +91,10 @@ export function requestProjectStates() {
     return requestOptionsListAsync(types.options.OPTIONS_PROJECT_STATES, "project_states");
 }
 
+export function requestQuantifMethods() {
+    return requestOptionsListAsync(types.options.OPTIONS_QUANTIF_METHODS, "quantif_methods");
+}
+
 export function requestRunsOutputFolders() {
     return requestOptionsListAsync(types.options.OPTIONS_RUNS_OUTPUT_FOLDERS, "runs");
 }
@@ -161,6 +170,9 @@ export default function requestOptions(storeKey) {
 
         case optionsStoreKeys.PROJECT_STATES:
             return requestProjectStates();
+
+        case optionsStoreKeys.QUANTIF_METHODS:
+            return requestQuantifMethods();
 
         case optionsStoreKeys.RUNS_OUTPUT_FOLDERS:
             return requestRunsOutputFolders();

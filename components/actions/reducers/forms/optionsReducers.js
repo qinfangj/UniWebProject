@@ -29,9 +29,17 @@ function formatSequencingQualities(v) { return [v.id, v.name]; }
 function formatTaxonomies(v) { return [v.id, v.name]; }
 
 
+
 let optionsReducers = (state = defaultState, action) => {
 
     switch (action.type) {
+
+        /**
+         * Reset all cached data for options lists, forcing reload from backend, 
+         * typically after some attribute has been changed in admin panel.
+         */
+        case types.options.RESET:
+            return {};
 
         /* Select options list for dropdowns */
 

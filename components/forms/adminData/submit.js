@@ -4,6 +4,7 @@ import { insertAsync, deleteAsync } from '../../actions/actionCreators/facilityD
 import store from '../../../core/store';
 import adminData from './adminDataModels';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
+import { resetAllOptions } from '../../actions/actionCreators/optionsActionCreators';
 import { timeNow, parseDateString } from '../../../utils/time';
 import inputTypes from '../inputTypes';
 
@@ -49,12 +50,14 @@ export function submit(component, form, values, table, updateId, isInsert) {
             let formData = formatFormData(data, table);
             let submissionFuture = store.dispatch(insertAsync(table, formData));
             //state = Object.assign(state, {submissionError: false, submissionFuture: future});
-            submissionFuture
+            return submissionFuture
                 .done((insertId) => {
                     console.debug(200, "Inserted ID <" + insertId + ">");
                     // Clear the form data in store
                     store.dispatch(feedbackSuccess(form, "Inserted ID <" + insertId + ">"));
                     store.dispatch(actions.reset(form));
+                    // Reset all options. Specific to admin forms!!
+                    store.dispatch(resetAllOptions());
                     let currentPath = window.location.pathname + window.location.hash.substr(2);
                     if (updateId === '' || updateId === undefined) {
                         component.props.router.push(currentPath.replace('/new', '/list'));
