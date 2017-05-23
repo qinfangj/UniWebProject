@@ -210,12 +210,5 @@ if (!isDebug) {
   config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 }
 
-// // Hot Module Replacement (HMR) + React Hot Reload
-// if (isDebug && useHMR) {
-//   babelConfig.plugins.unshift('react-hot-loader/babel');
-//   config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true');
-//   config.plugins.push(new webpack.HotModuleReplacementPlugin());
-//   config.plugins.push(new webpack.NoErrorsPlugin());
-// }
 
 module.exports = config;
