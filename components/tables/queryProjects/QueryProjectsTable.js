@@ -124,7 +124,6 @@ class QueryProjectsTable extends React.Component {
     }
 
     render() {
-        console.debug(this.props.queryType)
         let data = this.props.tableData;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");

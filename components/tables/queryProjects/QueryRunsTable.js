@@ -15,7 +15,7 @@ import columns from './columns';
 
 
 
-class QueryRunsTable extends React.Component {
+class QueryRunsTable extends React.PureComponent {
     constructor(props) {
         super(props);
         this.queryType = "";
