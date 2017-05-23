@@ -34,7 +34,7 @@ import adminFormReducers from '../components/actions/reducers/forms/adminFormRed
 
 const logger = createLogger({
     collapsed: true,
-    diff: true,
+    diff: false,  // much slower
 });
 
 let middleware = [thunk];

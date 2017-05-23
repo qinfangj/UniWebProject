@@ -87,6 +87,7 @@ const actionTypes = {
     },
 
     options: {
+        IGNORE_CACHED: "IGNORE_CACHED",
         RESET: "RESET_ALL_OPTIONS",
         OPTIONS_FLOWCELL_TYPES: "OPTIONS_FLOWCELL_TYPES",
         OPTIONS_INSTRUMENTS: "OPTIONS_INSTRUMENTS",

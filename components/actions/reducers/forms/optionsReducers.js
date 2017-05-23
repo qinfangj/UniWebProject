@@ -41,6 +41,9 @@ let optionsReducers = (state = defaultState, action) => {
         case types.options.RESET:
             return {};
 
+        case types.options.IGNORE_CACHED:
+            return state;
+
         /* Select options list for dropdowns */
 
         case types.forms.GET_OPTIONS_LIST:
