@@ -101,7 +101,7 @@ class ResponsiveSidebar extends React.PureComponent {
         let menuItems = [
             { text: "Home", to: "/home", },
             { text: "Facility data", to: "/data", elements: submenus.facilityDataSubmenu, disabled: !this.props.isAuthenticated },
-            { text: "User data", to: "/user", disabled: true },
+            { text: "User data", to: "/user", elements: submenus.userDataSubmenu, disabled: !this.props.isAuthenticated },
             { text: "Tracking", to: "/tracking", disabled: !this.props.isAuthenticated },
             { text: "Query projects", to: "/projects", elements: submenus.queryProjectsSubmenu, disabled: !this.props.isAuthenticated },
             { text: "Query runs", to: "/runs", elements: submenus.queryRunsSubmenu, disabled: !this.props.isAuthenticated },
