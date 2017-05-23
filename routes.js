@@ -4,13 +4,13 @@ import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
 import App from './components/routes/App';
 import HomePage from './components/routes/HomePage';
-import * as tracking from './components/routes/tracking/trackingRoutes';
-import * as userdata from './components/routes/userData/userDataRoutes';
-import * as fdata from './components/routes/facilityData/facilityDataRoutes';
-import * as qprojects from './components/routes/queryProjects/queryProjectsRoutes';
-import * as login from './components/routes/login/loginRoutes';
-import * as admin from './components/routes/admin/adminRoutes';
-import * as account from './components/routes/account/accountRoutes';
+import * as tracking from './components/routes/trackingRoutes';
+import * as userdata from './components/routes/userDataRoutes';
+import * as fdata from './components/routes/facilityDataRoutes';
+import * as qprojects from './components/routes/queryProjectsRoutes';
+import * as login from './components/routes/loginRoutes';
+import * as admin from './components/routes/adminRoutes';
+import * as account from './components/routes/accountRoutes';
 import AuthService from './utils/AuthService';
 
 

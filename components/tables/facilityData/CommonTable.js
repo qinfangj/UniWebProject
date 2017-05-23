@@ -13,7 +13,6 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
-import columns from '../columns';
 import { defaultHeaderRenderer } from '../columns';
 import Feedback from '../../utils/Feedback';
 import DataLoadingIcon from '../../utils/DataLoadingIcon';
@@ -40,8 +39,7 @@ class CommonTable extends React.PureComponent {
 
     static propTypes = {
         dataStoreKey: PropTypes.string.isRequired,  // store key for the table data (in "async")
-        columns: PropTypes.array, // either that of columnsKey
-        columnsKey: PropTypes.string,  // key in the global columns definition dict - the older alternative, for retro-compatibility
+        columns: PropTypes.array.isRequired, // Ag-grid columsn definition
         table: PropTypes.string.isRequired,  // database table name - to fetch the content
         activeOnly: PropTypes.bool,  // whether it should call ?active=true when fetching the content
         data: PropTypes.array,  // the table content (an array of row objects)
@@ -126,7 +124,7 @@ class CommonTable extends React.PureComponent {
             throw new TypeError("Data cannot be null or undefined");
         }
 
-        let columnDefs = this.props.columnsKey ? columns[this.props.columnsKey] : this.props.columns;
+        let columnDefs = this.props.columns;
         if (!columnDefs) {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }

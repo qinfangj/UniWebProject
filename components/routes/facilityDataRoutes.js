@@ -1,22 +1,22 @@
 "use strict";
 import React from 'react';
-import FacilityDataHome from '../../pages/FacilityDataHome';
-import FacilityData from '../../pages/FacilityData';
-import CommonTable from '../../tables/facilityData/CommonTable';
-import facilityDataColumns from '../../tables/facilityData/columns';
+import FacilityDataHome from '../pages/FacilityDataHome';
+import FacilityData from '../pages/FacilityData';
+import CommonTable from '../tables/facilityData/CommonTable';
+import facilityDataColumns from '../tables/facilityData/columns';
 
-import formNames from '../../constants/formNames';
-import tableNames from '../../tables/tableNames';
-import ProjectsInsertForm from '../../forms/facilityData/ProjectsInsertForm';
-import PeopleInsertForm from '../../forms/facilityData/PeopleInsertForm';
-import GenomesInsertForm from '../../forms/facilityData/GenomesInsertForm';
-import SamplesInsertForm from '../../forms/facilityData/SamplesInsertForm';
-import LibrariesInsertForm from '../../forms/facilityData/LibrariesInsertForm';
-import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertForm';
-import UserRequestsInsertForm from '../../forms/facilityData/UserRequestsInsertForm';
-import BioanalysersInsertForm from '../../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
-import BasecallingsInsertForm from '../../forms/facilityData/BasecallingsInsertForm';
-import AlignmentsInsertForm from '../../forms/facilityData/AlignmentsInsertForm';
+import formNames from '../constants/formNames';
+import tableNames from '../tables/tableNames';
+import ProjectsInsertForm from '../forms/facilityData/ProjectsInsertForm';
+import PeopleInsertForm from '../forms/facilityData/PeopleInsertForm';
+import GenomesInsertForm from '../forms/facilityData/GenomesInsertForm';
+import SamplesInsertForm from '../forms/facilityData/SamplesInsertForm';
+import LibrariesInsertForm from '../forms/facilityData/LibrariesInsertForm';
+import RunsInsertForm from '../forms/facilityData/Runs/RunsInsertForm';
+import UserRequestsInsertForm from '../forms/facilityData/UserRequestsInsertForm';
+import BioanalysersInsertForm from '../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
+import BasecallingsInsertForm from '../forms/facilityData/BasecallingsInsertForm';
+import AlignmentsInsertForm from '../forms/facilityData/AlignmentsInsertForm';
 
 
 export class FacilityDataRoute extends React.Component {

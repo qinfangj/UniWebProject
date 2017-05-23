@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
-import TrakingSummaryView from '../../forms/tracking/TrackingSummaryView';
-import TrackingData from '../../pages/TrackingData';
+import TrakingSummaryView from '../forms/tracking/TrackingSummaryView';
+import TrackingData from '../pages/TrackingData';
 
 export class trackingSamples extends React.Component {
     render() {

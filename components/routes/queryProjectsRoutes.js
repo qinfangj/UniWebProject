@@ -1,10 +1,10 @@
 "use strict";
 import React from 'react';
 
-import QueryProjectsForm from '../../forms/queryProjects/QueryProjectsForm';
-import QueryRunsForm from '../../forms/queryProjects/QueryRunsForm';
-import QueryProjectsTable from '../../tables/queryProjects/QueryProjectsTable';
-import QueryRunsTable from '../../tables/queryProjects/QueryRunsTable';
+import QueryProjectsForm from '../forms/queryProjects/QueryProjectsForm';
+import QueryRunsForm from '../forms/queryProjects/QueryRunsForm';
+import QueryProjectsTable from '../tables/queryProjects/QueryProjectsTable';
+import QueryRunsTable from '../tables/queryProjects/QueryRunsTable';
 
 
 export class QueryProjectsRoute extends React.Component {
