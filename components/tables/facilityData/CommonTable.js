@@ -5,7 +5,6 @@ import css from '../tables.css';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import * as tables from '../tables.js';
-import * as constants from '../constants';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import _ from 'lodash';
 
@@ -13,7 +12,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
-import { defaultHeaderRenderer } from '../columns';
+import { defaultHeaderRenderer, ROW_HEIGTH, GRID_HEIGTH } from '../columns';
 import Feedback from '../../utils/Feedback';
 import DataLoadingIcon from '../../utils/DataLoadingIcon';
 
@@ -26,7 +25,7 @@ class CommonTable extends React.PureComponent {
     constructor(props) {
         super(props);
         this.gridHeight = 400;
-        this.nVisibleRows = (this.gridHeight / constants.ROW_HEIGTH) - 1;
+        this.nVisibleRows = (this.gridHeight / ROW_HEIGTH) - 1;
         this.nrowsPerQuery = 40;
         if (this.nrowsPerQuery < this.nVisibleRows) {
             console.warn("Must query at least as many rows as we can display to enable scrolling",
@@ -130,7 +129,7 @@ class CommonTable extends React.PureComponent {
         }
         tables.checkData(data);
 
-        //let cssHeight = (Math.max(constants.GRID_HEIGTH, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
+        //let cssHeight = (Math.max(GRID_HEIGTH, (data.length + 1) * ROW_HEIGTH)) + "px";
 
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -156,8 +155,8 @@ class CommonTable extends React.PureComponent {
                         enableFilter={true}
                         enableSorting={true}
                         columnDefs={columnDefs}
-                        rowHeight={constants.ROW_HEIGTH}
-                        headerHeight={constants.ROW_HEIGTH}
+                        rowHeight={ROW_HEIGTH}
+                        headerHeight={ROW_HEIGTH}
                         overlayNoRowsTemplate='<span/>'
                         onBodyScroll={_.debounce(this.onScroll.bind(this), 100)}
                         defaultColDef={{

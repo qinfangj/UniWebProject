@@ -5,7 +5,7 @@ import css from './queryProjectsTable.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import * as tables from '../tables.js';
-import * as constants from '../constants';
+import { ROW_HEIGTH } from '../columns';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
 import { assertIsArray } from '../../../utils/common';
@@ -133,7 +133,7 @@ class QueryProjectsTable extends React.Component {
         }
         tables.checkData(data);
         data = this.formatData(data);
-        let cssHeight = ((data.length + 1) * constants.ROW_HEIGTH) + "px";
+        let cssHeight = ((data.length + 1) * ROW_HEIGTH) + "px";
         return (
             <div style={{width: '100%', height: '100%'}}>
                 {/* If no data, no table but fill the space */}
@@ -145,8 +145,8 @@ class QueryProjectsTable extends React.Component {
                         enableFilter={true}
                         enableSorting={true}
                         columnDefs={columns[this.props.queryType]}
-                        rowHeight={constants.ROW_HEIGTH}
-                        headerHeight={constants.ROW_HEIGTH}
+                        rowHeight={ROW_HEIGTH}
+                        headerHeight={ROW_HEIGTH}
                         overlayNoRowsTemplate='<span/>'
                     >
                     </AgGridReact>

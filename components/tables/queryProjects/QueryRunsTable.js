@@ -6,7 +6,7 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as tables from '../tables.js';
-import * as constants from '../constants';
+import { ROW_HEIGTH } from '../columns';
 import { queryRunsAsync } from '../../actions/actionCreators/queryRunsActionCreators';
 
 import { AgGridReact } from 'ag-grid-react';
@@ -66,7 +66,7 @@ class QueryRunsTable extends React.PureComponent {
         }
         tables.checkData(data);
         data = this.formatData(data);
-        let cssHeight = ((data.length + 1) * constants.ROW_HEIGTH) + "px";
+        let cssHeight = ((data.length + 1) * ROW_HEIGTH) + "px";
         return (
             <div style={{width: '100%', height: '100%'}}>
                 {/* If no data, no table but fill the space */}
@@ -78,8 +78,8 @@ class QueryRunsTable extends React.PureComponent {
                         enableFilter={true}
                         enableSorting={true}
                         columnDefs={columns[this.props.queryType]}
-                        rowHeight={constants.ROW_HEIGTH}
-                        headerHeight={constants.ROW_HEIGTH}
+                        rowHeight={ROW_HEIGTH}
+                        headerHeight={ROW_HEIGTH}
                         overlayNoRowsTemplate='<span/>'
                     >
                     </AgGridReact>

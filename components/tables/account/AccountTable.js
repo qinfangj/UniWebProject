@@ -1,10 +1,11 @@
 "use strict";
 import React from 'react';
 import { connect } from 'react-redux';
-
 import adminCss from '../../forms/adminData/adminForm.css';
 import { getLoginDetails } from '../../actions/actionCreators/authActionCreators';
 import accountModel from './accountModel';
+
+
 
 class AccountTable extends React.Component {
     constructor(props) {
