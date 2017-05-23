@@ -3,6 +3,7 @@ import React from 'react';
 import FacilityDataHome from '../../pages/FacilityDataHome';
 import FacilityData from '../../pages/FacilityData';
 import CommonTable from '../../tables/facilityData/CommonTable';
+import facilityDataColumns from '../../tables/facilityData/columns';
 
 import formNames from '../../constants/formNames';
 import tableNames from '../../tables/tableNames';
@@ -14,7 +15,6 @@ import LibrariesInsertForm from '../../forms/facilityData/LibrariesInsertForm';
 import RunsInsertForm from '../../forms/facilityData/Runs/RunsInsertForm';
 import UserRequestsInsertForm from '../../forms/facilityData/UserRequestsInsertForm';
 import BioanalysersInsertForm from '../../forms/facilityData/Bioanalysers/BioanalysersInsertForm';
-
 import BasecallingsInsertForm from '../../forms/facilityData/BasecallingsInsertForm';
 import AlignmentsInsertForm from '../../forms/facilityData/AlignmentsInsertForm';
 
@@ -28,8 +28,11 @@ export class FacilityDataRoute extends React.Component {
 export class ProjectsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
-            <CommonTable dataStoreKey={tableNames.PROJECTS} table="projects" columnsKey="projects"
-                         form={formNames.PROJECTS_INSERT_FORM}
+            <CommonTable
+                table={tableNames.PROJECTS}
+                dataStoreKey={tableNames.PROJECTS}
+                columns={facilityDataColumns[tableNames.PROJECTS]}
+                form={formNames.PROJECTS_INSERT_FORM}
             />
         } />
     );}
@@ -38,8 +41,12 @@ export class ProjectsListRoute extends React.Component {
 export class ProjectsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.PROJECTS_ACTIVE} table="projects" columnsKey="projects"
-                         form={formNames.PROJECTS_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.PROJECTS}
+                dataStoreKey={tableNames.PROJECTS}
+                columns={facilityDataColumns[tableNames.PROJECTS]}
+                form={formNames.PROJECTS_INSERT_FORM}
             />
         } />
     );}
@@ -65,8 +72,11 @@ export class ProjectsUpdateRoute extends React.Component {
 export class PeopleListRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
-            <CommonTable dataStoreKey={tableNames.PEOPLE} table="people" columnsKey="people"
-                         form={formNames.PEOPLE_INSERT_FORM}
+            <CommonTable
+                table={tableNames.PEOPLE}
+                dataStoreKey={tableNames.PEOPLE}
+                columns={facilityDataColumns[tableNames.PEOPLE]}
+                form={formNames.PEOPLE_INSERT_FORM}
             />
         } />
     );}
@@ -75,8 +85,12 @@ export class PeopleListRoute extends React.Component {
 export class PeopleActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Laboratories" name="people" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.PEOPLE_ACTIVE} table="people" columnsKey="people"
-                         form={formNames.PEOPLE_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.PEOPLE}
+                dataStoreKey={tableNames.PEOPLE}
+                columns={facilityDataColumns[tableNames.PEOPLE]}
+                form={formNames.PEOPLE_INSERT_FORM}
             />
         } />
     );}
@@ -102,8 +116,11 @@ export class PeopleUpdateRoute extends React.Component {
 export class GenomesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
-            <CommonTable dataStoreKey={tableNames.GENOMES} table="genomes" columnsKey="genomes"
-                         form={formNames.GENOMES_INSERT_FORM}
+            <CommonTable
+                table={tableNames.GENOMES}
+                dataStoreKey={tableNames.GENOMES}
+                columns={facilityDataColumns[tableNames.GENOMES]}
+                form={formNames.GENOMES_INSERT_FORM}
             />
         } />
     );}
@@ -112,8 +129,12 @@ export class GenomesListRoute extends React.Component {
 export class GenomesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Genomes" name="genomes" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.GENOMES_ACTIVE} table="genomes" columnsKey="genomes"
-                         form={formNames.GENOMES_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.GENOMES}
+                dataStoreKey={tableNames.GENOMES}
+                columns={facilityDataColumns[tableNames.GENOMES]}
+                form={formNames.GENOMES_INSERT_FORM}
             />
         } />
     );}
@@ -139,8 +160,11 @@ export class GenomesUpdateRoute extends React.Component {
 export class SamplesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
-            <CommonTable dataStoreKey={tableNames.SAMPLES} table="samples" columnsKey="samples"
-                         form={formNames.SAMPLES_INSERT_FORM}
+            <CommonTable
+                table={tableNames.SAMPLES}
+                dataStoreKey={tableNames.SAMPLES}
+                columns={facilityDataColumns[tableNames.SAMPLES]}
+                form={formNames.SAMPLES_INSERT_FORM}
             />
         } />
     );}
@@ -149,8 +173,12 @@ export class SamplesListRoute extends React.Component {
 export class SamplesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Samples" name="samples" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.SAMPLES_ACTIVE} table="samples" columnsKey="samples"
-                         form={formNames.SAMPLES_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.SAMPLES}
+                dataStoreKey={tableNames.SAMPLES}
+                columns={facilityDataColumns[tableNames.SAMPLES]}
+                form={formNames.SAMPLES_INSERT_FORM}
             />
         } />
     );}
@@ -176,8 +204,11 @@ export class SamplesUpdateRoute extends React.Component {
 export class LibrariesListRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
-            <CommonTable dataStoreKey={tableNames.LIBRARIES} table="libraries" columnsKey="libraries"
-                         form={formNames.LIBRARIES_INSERT_FORM}
+            <CommonTable
+                table={tableNames.LIBRARIES}
+                dataStoreKey={tableNames.LIBRARIES}
+                columns={facilityDataColumns[tableNames.LIBRARIES]}
+                form={formNames.LIBRARIES_INSERT_FORM}
             />
         } />
     );}
@@ -186,8 +217,12 @@ export class LibrariesListRoute extends React.Component {
 export class LibrariesActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Libraries" name="libraries" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.LIBRARIES_ACTIVE} table="libraries" columnsKey="libraries"
-                         form={formNames.LIBRARIES_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.LIBRARIES}
+                dataStoreKey={tableNames.LIBRARIES}
+                columns={facilityDataColumns[tableNames.LIBRARIES]}
+                form={formNames.LIBRARIES_INSERT_FORM}
             />
         } />
     );}
@@ -213,8 +248,11 @@ export class LibrariesUpdateRoute extends React.Component {
 export class RunsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
-            <CommonTable dataStoreKey={tableNames.RUNS} table="runs" columnsKey="runs"
-                         form={formNames.RUNS_INSERT_FORM}
+            <CommonTable
+                table={tableNames.RUNS}
+                dataStoreKey={tableNames.RUNS}
+                columns={facilityDataColumns[tableNames.RUNS]}
+                form={formNames.RUNS_INSERT_FORM}
             />
         } />
     );}
@@ -223,8 +261,12 @@ export class RunsListRoute extends React.Component {
 export class RunsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Runs" name="runs" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.RUNS_ACTIVE} table="runs" columnsKey="runs"
-                         form={formNames.RUNS_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.RUNS}
+                dataStoreKey={tableNames.RUNS}
+                columns={facilityDataColumns[tableNames.RUNS]}
+                form={formNames.RUNS_INSERT_FORM}
             />
         } />
     );}
@@ -258,8 +300,11 @@ export class RunsFromTrackingRoute extends React.Component {
 export class UserRequestsListRoute extends React.Component {
     render() {return (
         <FacilityData title="User requests" name="user_requests" content={
-            <CommonTable dataStoreKey={tableNames.USER_REQUESTS} table="user_requests" columnsKey="user_requests"
-                         form={formNames.USER_REQUESTS_INSERT_FORM}
+            <CommonTable
+                table={tableNames.USER_REQUESTS}
+                dataStoreKey={tableNames.USER_REQUESTS}
+                columns={facilityDataColumns[tableNames.USER_REQUESTS]}
+                form={formNames.USER_REQUESTS_INSERT_FORM}
             />
         } />
     );}
@@ -268,8 +313,12 @@ export class UserRequestsListRoute extends React.Component {
 export class UserRequestsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="User requests" name="user_requests" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.USER_REQUESTS_ACTIVE} table="user_requests" columnsKey="user_requests"
-                         form={formNames.USER_REQUESTS_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.USER_REQUESTS}
+                dataStoreKey={tableNames.USER_REQUESTS}
+                columns={facilityDataColumns[tableNames.USER_REQUESTS]}
+                form={formNames.USER_REQUESTS_INSERT_FORM}
             />
         } />
     );}
@@ -295,8 +344,11 @@ export class UserRequestsUpdateRoute extends React.Component {
 export class BioanalysersListRoute extends React.Component {
     render() {return (
         <FacilityData title="Bioanalysers" name="bioanalysers" content={
-            <CommonTable dataStoreKey={tableNames.BIOANALYSERS} table="bioanalysers" columnsKey="bioanalysers"
-                         form={formNames.BIOANALYSERS_INSERT_FORM}
+            <CommonTable
+                table={tableNames.BIOANALYSERS}
+                dataStoreKey={tableNames.BIOANALYSERS}
+                columns={facilityDataColumns[tableNames.BIOANALYSERS]}
+                form={formNames.BIOANALYSERS_INSERT_FORM}
             />
         } />
     );}
@@ -305,8 +357,12 @@ export class BioanalysersListRoute extends React.Component {
 export class BioanalysersActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Bioanalysers" name="bioanalysers" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.BIOANALYSERS_ACTIVE} table="bioanalysers" columnsKey="bioanalysers"
-                         form={formNames.BIOANALYSERS_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.BIOANALYSERS}
+                dataStoreKey={tableNames.BIOANALYSERS}
+                columns={facilityDataColumns[tableNames.BIOANALYSERS]}
+                form={formNames.BIOANALYSERS_INSERT_FORM}
             />
         } />
     );}
@@ -332,8 +388,11 @@ export class BioanalysersUpdateRoute extends React.Component {
 export class BasecallingsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Basecallings" name="basecallings" content={
-            <CommonTable dataStoreKey={tableNames.BASECALLINGS} table="basecallings" columnsKey="basecallings"
-                         form={formNames.BASECALLINGS_INSERT_FORM}
+            <CommonTable
+                table={tableNames.BASECALLINGS}
+                dataStoreKey={tableNames.BASECALLINGS}
+                columns={facilityDataColumns[tableNames.BASECALLINGS]}
+                form={formNames.BASECALLINGS_INSERT_FORM}
             />
         } />
     );}
@@ -342,8 +401,12 @@ export class BasecallingsListRoute extends React.Component {
 export class BasecallingsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Basecallings" name="basecallings" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.BASECALLINGS_ACTIVE} table="basecallings" columnsKey="basecallings"
-                         form={formNames.BASECALLINGS_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.BASECALLINGS}
+                dataStoreKey={tableNames.BASECALLINGS}
+                columns={facilityDataColumns[tableNames.BASECALLINGS]}
+                form={formNames.BASECALLINGS_INSERT_FORM}
             />
         } />
     );}
@@ -369,8 +432,11 @@ export class BasecallingsUpdateRoute extends React.Component {
 export class AlignmentsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Alignments" name="alignments" content={
-            <CommonTable dataStoreKey={tableNames.ALIGNMENTS} table="alignments" columnsKey="alignments"
-                         form={formNames.ALIGNMENTS_INSERT_FORM}
+            <CommonTable
+                table={tableNames.ALIGNMENTS}
+                dataStoreKey={tableNames.ALIGNMENTS}
+                columns={facilityDataColumns[tableNames.ALIGNMENTS]}
+                form={formNames.ALIGNMENTS_INSERT_FORM}
             />
         } />
     );}
@@ -379,8 +445,12 @@ export class AlignmentsListRoute extends React.Component {
 export class AlignmentsActiveRoute extends React.Component {
     render() {return (
         <FacilityData title="Alignments" name="alignments" content={
-            <CommonTable activeOnly dataStoreKey={tableNames.ALIGNMENTS_ACTIVE} table="alignments" columnsKey="alignments"
-                         form={formNames.ALIGNMENTS_INSERT_FORM}
+            <CommonTable
+                activeOnly
+                table={tableNames.ALIGNMENTS}
+                dataStoreKey={tableNames.ALIGNMENTS}
+                columns={facilityDataColumns[tableNames.ALIGNMENTS]}
+                form={formNames.ALIGNMENTS_INSERT_FORM}
             />
         } />
     );}

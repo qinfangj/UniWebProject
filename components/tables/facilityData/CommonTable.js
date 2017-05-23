@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import css from '../tables.css';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import * as tables from '../tables.js';
 import * as constants from '../constants';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
@@ -38,14 +39,15 @@ class CommonTable extends React.PureComponent {
     }
 
     static propTypes = {
-        dataStoreKey: React.PropTypes.string.isRequired,  // store key for the table data (in "async")
-        columnsKey: React.PropTypes.string.isRequired,  // key in the columns definition dict
-        table: React.PropTypes.string.isRequired,  // database table name - to fetch the content
-        activeOnly: React.PropTypes.bool,  // whether it should call ?active=true when fetching the content
-        data: React.PropTypes.array,  // the table content (an array of row objects)
-        isLoading: React.PropTypes.bool,  // loading spinner
-        formatter: React.PropTypes.func,  // to reformat the data so that it fits the columns definition
-        form: React.PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
+        dataStoreKey: PropTypes.string.isRequired,  // store key for the table data (in "async")
+        columns: PropTypes.array, // either that of columnsKey
+        columnsKey: PropTypes.string,  // key in the global columns definition dict
+        table: PropTypes.string.isRequired,  // database table name - to fetch the content
+        activeOnly: PropTypes.bool,  // whether it should call ?active=true when fetching the content
+        data: PropTypes.array,  // the table content (an array of row objects)
+        isLoading: PropTypes.bool,  // loading spinner
+        formatter: PropTypes.func,  // to reformat the data so that it fits the columns definition
+        form: PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
     };
 
     componentWillMount() {
@@ -123,7 +125,9 @@ class CommonTable extends React.PureComponent {
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
-        if (!columns[this.props.columnsKey]) {
+
+        let columnDefs = this.props.columnsKey ? columns[this.props.columnsKey] : this.props.columns;
+        if (!columnDefs) {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
@@ -146,14 +150,14 @@ class CommonTable extends React.PureComponent {
                 { !this.props.form ? null :
                     <Feedback reference={this.props.form}/>
                 }
-
+                
                 <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}
                         rowData={data}
                         enableFilter={true}
                         enableSorting={true}
-                        columnDefs={columns[this.props.columnsKey]}
+                        columnDefs={columnDefs}
                         rowHeight={constants.ROW_HEIGTH}
                         headerHeight={constants.ROW_HEIGTH}
                         overlayNoRowsTemplate='<span/>'

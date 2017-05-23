@@ -12,7 +12,7 @@ const columns = {
         {
             headerName: "ID",
             field: "sample_id",
-            width: 40,
+            width: 70,
             suppressSizeToFit: true,
             suppressMenu: true,
             cellStyle: CENTER,
