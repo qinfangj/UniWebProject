@@ -19,6 +19,8 @@ class SamplesBatchSubmission extends React.PureComponent {
         this.props.requestQuantifMethods();
     }
 
+//Starting material description (e.g.: 'Crosslinked ChIP DNA from NIH-3T3 cells')
+
     render() {
         return (
             <div>
@@ -26,31 +28,31 @@ class SamplesBatchSubmission extends React.PureComponent {
 
                 <table>
                     <thead>
-                        <th>
-                            <td>Project</td>
-                            <td>Sample name</td>
-                            <td>Short name</td>
-                            <td>Organism</td>
-                            <td>Starting material description (e.g.: 'Crosslinked ChIP DNA from NIH-3T3 cells')</td>
-                            <td>Material type</td>
-                            <td>Library protocol</td>
-                            <td>Adapters</td>
-                            <td>Library date</td>
-                            <td>Multiplex index (I7)</td>
-                            <td>Second index (I5)</td>
-                            <td>Min frag. size</td>
-                            <td>Max frag. size</td>
-                            <td>Bioan. peak</td>
-                            <td>Conc.[ng/μl]</td>
-                            <td>Vol.[μl]</td>
-                            <td>Quantification</td>
-                            <td>Made on robot</td>
-                            <td>Comment</td>
-                            <td>Sequencing type and Read length</td>
-                            <td>Nb of lanes</td>
-                            <td>Multiplex#</td>
-                            <td>Multiplexing group</td>
-                        </th>
+                        <tr>
+                            <th>Project</th>
+                            <th>Sample name</th>
+                            <th>Short name</th>
+                            <th>Organism</th>
+                            <th>Starting material description</th>
+                            <th>Material type</th>
+                            <th>Library protocol</th>
+                            <th>Adapters</th>
+                            <th>Library date</th>
+                            <th>Multiplex index (I7)</th>
+                            <th>Second index (I5)</th>
+                            <th>Min frag. size</th>
+                            <th>Max frag. size</th>
+                            <th>Bioan. peak</th>
+                            <th>Conc.[ng/μl]</th>
+                            <th>Vol.[μl]</th>
+                            <th>Quantification</th>
+                            <th>Made on robot</th>
+                            <th>Comment</th>
+                            <th>Sequencing type and Read length</th>
+                            <th>Nb of lanes</th>
+                            <th>Multiplex#</th>
+                            <th>Multiplexing group</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
