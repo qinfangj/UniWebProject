@@ -1,6 +1,5 @@
 "use strict";
 import React from 'react';
-import * as formatters from './formatters';
 import { CENTER, LEFT, ID_COLUMN } from './constants';
 import { Link } from 'react-router';
 import tableNames from './tableNames';

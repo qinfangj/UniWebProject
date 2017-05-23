@@ -41,7 +41,7 @@ class CommonTable extends React.PureComponent {
     static propTypes = {
         dataStoreKey: PropTypes.string.isRequired,  // store key for the table data (in "async")
         columns: PropTypes.array, // either that of columnsKey
-        columnsKey: PropTypes.string,  // key in the global columns definition dict
+        columnsKey: PropTypes.string,  // key in the global columns definition dict - the older alternative, for retro-compatibility
         table: PropTypes.string.isRequired,  // database table name - to fetch the content
         activeOnly: PropTypes.bool,  // whether it should call ?active=true when fetching the content
         data: PropTypes.array,  // the table content (an array of row objects)

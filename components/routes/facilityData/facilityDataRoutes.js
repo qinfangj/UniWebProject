@@ -25,6 +25,8 @@ export class FacilityDataRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
+
 export class ProjectsListRoute extends React.Component {
     render() {return (
         <FacilityData title="Projects" name="projects" content={
@@ -68,6 +70,7 @@ export class ProjectsUpdateRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
 
 export class PeopleListRoute extends React.Component {
     render() {return (
@@ -112,6 +115,7 @@ export class PeopleUpdateRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
 
 export class GenomesListRoute extends React.Component {
     render() {return (
@@ -156,6 +160,7 @@ export class GenomesUpdateRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
 
 export class SamplesListRoute extends React.Component {
     render() {return (
@@ -200,6 +205,7 @@ export class SamplesUpdateRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
 
 export class LibrariesListRoute extends React.Component {
     render() {return (
@@ -244,6 +250,7 @@ export class LibrariesUpdateRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
 
 export class RunsListRoute extends React.Component {
     render() {return (
@@ -296,6 +303,7 @@ export class RunsFromTrackingRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
 
 export class UserRequestsListRoute extends React.Component {
     render() {return (
@@ -340,6 +348,7 @@ export class UserRequestsUpdateRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
 
 export class BioanalysersListRoute extends React.Component {
     render() {return (
@@ -384,6 +393,7 @@ export class BioanalysersUpdateRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
 
 export class BasecallingsListRoute extends React.Component {
     render() {return (
@@ -428,6 +438,7 @@ export class BasecallingsUpdateRoute extends React.Component {
     );}
 }
 
+/*****************************************************************************/
 
 export class AlignmentsListRoute extends React.Component {
     render() {return (
