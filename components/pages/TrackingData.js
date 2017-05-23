@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import css from './FacilityData.css';
+import css from './styles.css';
 import commonCss from '../../styles/common.css';
 import { Link } from 'react-router';
 
