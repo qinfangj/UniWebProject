@@ -12,7 +12,6 @@ import * as login from './components/routes/login/loginRoutes';
 import * as admin from './components/routes/admin/adminRoutes';
 import * as account from './components/routes/account/accountRoutes';
 import AuthService from './utils/AuthService';
-import cols from './components/constants/columns';
 
 
 // Validate authentication for private routes
@@ -73,12 +72,8 @@ const routes = (
             <Route path="data/runs" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/list" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/active" component={fdata.RunsActiveRoute} onEnter={requireAuth} />
-            {/* For testing of the sub-form */}
-            <Route path="data/subruns/new" component={fdata.SubRunsRoute} onEnter={requireAuth} />
             <Route path="data/runs/new" component={fdata.RunsNewRoute} onEnter={requireAuth} />
             <Route path="data/runs/from-tracking" component={fdata.RunsFromTrackingRoute} onEnter={requireAuth} />
-
-            {/*<Route path="data/runs/postnew" component={fdata.RunsNewRoute} onEnter={requireAuth} />*/}
             <Route path="data/runs/update/:id" component={fdata.RunsUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/user_requests" component={fdata.UserRequestsListRoute} onEnter={requireAuth} />
