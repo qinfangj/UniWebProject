@@ -356,7 +356,7 @@ class TrackingSummaryView extends React.PureComponent {
             console.log(newPath);
             store.dispatch(actions.reset("facilityDataForms.runs"));
 
-            store.dispatch(actions.merge("facilityDataForms.runs.lanes", obj));
+            store.dispatch(actions.change("facilityDataForms.runs.lanes", obj));
 
             hashHistory.push(newPath);
 

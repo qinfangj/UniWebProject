@@ -10,3 +10,31 @@
     background-color: lightblue;
 }
 
+.code1 {
+    height:340px;
+    background: url(../../public/images/geno.jpg) no-repeat;
+    background-size: 100% 100%;
+    display: block;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.section1,
+.section2 {
+    height:160px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    background: lightblue;
+    border-radius: 6px;
+    display: block;
+    font: 12px/20px  Inconsolata, "Lucida Grande",  verdana, arial, helvetica, sans-serif;
+    padding: 10px;
+    text-align: left;
+}
+
+header img{
+    margin: 0 10px 10px 5px;
+    width: 100%;
+}
+
