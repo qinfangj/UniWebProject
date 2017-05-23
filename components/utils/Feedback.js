@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { resetFeedback } from '../actions/actionCreators/feedbackActionCreators';
 import css from './Feedback.css';
@@ -11,10 +12,10 @@ import constants from '../constants/constants';
 export class Feedback extends React.PureComponent {
 
     static propTypes = {
-        reference: React.PropTypes.string.isRequired,  // to connect with redux (see at the bottom), a key to identify the source
-        status: React.PropTypes.string,  // one of the three constants in the switch below, or ""
-        message: React.PropTypes.string,  // the message to display
-        error: React.PropTypes.object,  // an error object such as returned by fetch() or jQuery $.ajax().
+        reference: PropTypes.string.isRequired,  // to connect with redux (see at the bottom), a key to identify the source
+        status: PropTypes.string,  // one of the three constants in the switch below, or ""
+        message: PropTypes.string,  // the message to display
+        error: PropTypes.object,  // an error object such as returned by fetch() or jQuery $.ajax().
     };
 
     render() {

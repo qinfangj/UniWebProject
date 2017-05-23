@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import css from './styles.css';
 import commonCss from '../../styles/common.css';
@@ -9,8 +10,8 @@ import { Link } from 'react-router';
 class AccountData extends React.PureComponent {
 
     static propTypes = {
-        title: React.PropTypes.string.isRequired,  // the text displayed in the menu.
-        content: React.PropTypes.node,             // the component (table, form, etc.) to display inside.
+        title: PropTypes.string.isRequired,  // the text displayed in the menu.
+        content: PropTypes.node,             // the component (table, form, etc.) to display inside.
     };
 
     render() {

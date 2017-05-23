@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 
@@ -36,12 +37,12 @@ class DatePicker extends React.PureComponent {
 }
 
 DatePicker.propTypes = {
-    form: React.PropTypes.string.isRequired,
-    field: React.PropTypes.string.isRequired,
-    label: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string.isRequired,
+    form: PropTypes.string.isRequired,
+    field: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
 // maybe use later:
-    required: React.PropTypes.bool,
+    required: PropTypes.bool,
 };
 
 DatePicker.defaultProps = {

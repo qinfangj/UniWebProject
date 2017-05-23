@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import css from '../login.css';
 import store from '../../../core/store';
@@ -28,8 +29,8 @@ class ChangePasswordForm extends React.Component {
     }
 
     static propTypes = {
-        code: React.PropTypes.string,
-        email: React.PropTypes.string,
+        code: PropTypes.string,
+        email: PropTypes.string,
     };
 
     submit() {

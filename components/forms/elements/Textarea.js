@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from '../forms.css';
 import { connect } from 'react-redux';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
@@ -79,13 +80,13 @@ class Textarea extends React.PureComponent {
 }
 
 Textarea.propTypes = {
-    form: React.PropTypes.string.isRequired,  // form name
-    field: React.PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
-    label: React.PropTypes.string.isRequired,  // title - visible
-    value: React.PropTypes.string,
-    required: React.PropTypes.bool, // show a warning if required but no value
-    inputProps: React.PropTypes.object,  // additional input field props
-    submissionError: React.PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
+    form: PropTypes.string.isRequired,  // form name
+    field: PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
+    label: PropTypes.string.isRequired,  // title - visible
+    value: PropTypes.string,
+    required: PropTypes.bool, // show a warning if required but no value
+    inputProps: PropTypes.object,  // additional input field props
+    submissionError: PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
 };
 
 Textarea.defaultProps = {

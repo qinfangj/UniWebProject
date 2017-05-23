@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import tablesCss from '../tables.css';
 import css from './queryProjectsTable.css';
 import cx from 'classnames';
@@ -24,12 +25,12 @@ class QueryProjectsTable extends React.Component {
     }
 
     static propTypes = {
-        queryType: React.PropTypes.string.isRequired,  // from router, see parent (route) component
-        selectedSampleIds: React.PropTypes.object.isRequired,
-        selectedProjectIds: React.PropTypes.object.isRequired,
-        searchTerm: React.PropTypes.string,
-        searched: React.PropTypes.object,
-        samplesList: React.PropTypes.array,
+        queryType: PropTypes.string.isRequired,  // from router, see parent (route) component
+        selectedSampleIds: PropTypes.object.isRequired,
+        selectedProjectIds: PropTypes.object.isRequired,
+        searchTerm: PropTypes.string,
+        searched: PropTypes.object,
+        samplesList: PropTypes.array,
     };
 
     /**

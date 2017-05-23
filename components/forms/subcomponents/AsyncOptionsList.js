@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getOptionsListAsync, getConditionalOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import Select from '../elements/Select';
@@ -15,13 +16,13 @@ class AsyncOptionsList extends React.PureComponent {
     }
 
     static propTypes = {
-        table: React.PropTypes.string.isRequired,  // the db table to query the data from
-        form: React.PropTypes.string.isRequired,  // the form name - to find the value in store
-        field: React.PropTypes.string.isRequired,  // the name of the form field - to find the value in store
-        storeKey: React.PropTypes.string.isRequired,  // the data store key for the result list
-        formatter: React.PropTypes.func,  // (row object from backend) => `[id, name]`
-        suffix: React.PropTypes.string,  // route suffix for conditional lists (e.g. "all" in "/table/projects/list/all")
-        hasNoneValue: React.PropTypes.bool,  // whether there can be a "no item selected" option
+        table: PropTypes.string.isRequired,  // the db table to query the data from
+        form: PropTypes.string.isRequired,  // the form name - to find the value in store
+        field: PropTypes.string.isRequired,  // the name of the form field - to find the value in store
+        storeKey: PropTypes.string.isRequired,  // the data store key for the result list
+        formatter: PropTypes.func,  // (row object from backend) => `[id, name]`
+        suffix: PropTypes.string,  // route suffix for conditional lists (e.g. "all" in "/table/projects/list/all")
+        hasNoneValue: PropTypes.bool,  // whether there can be a "no item selected" option
     };
 
     componentWillMount() {

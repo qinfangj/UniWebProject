@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import tablesCss from '../tables.css';
 import css from './queryProjectsTable.css';
 import cx from 'classnames';
@@ -22,7 +23,7 @@ class QueryRunsTable extends React.PureComponent {
     }
 
     static propTypes = {
-        queryType: React.PropTypes.string.isRequired,  // from router, see parent (route) component
+        queryType: PropTypes.string.isRequired,  // from router, see parent (route) component
     };
 
     componentWillUpdate() {

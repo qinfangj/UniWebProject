@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import { changeSamplesSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
@@ -15,14 +16,14 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
     }
 
     static propTypes = {
-        referenceField: React.PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `storeKey`!
-        form: React.PropTypes.string.isRequired,  // form name
-        field: React.PropTypes.string.isRequired,  // the store key for the selected values
-        options: React.PropTypes.array.isRequired,  // the list of options
-        label: React.PropTypes.string,  // title on top of the input
-        formatter: React.PropTypes.func,  // ex: object => [id, name]
-        filterBySampleIds: React.PropTypes.any,  // set. keep only these ones
-        searchTerm: React.PropTypes.string,
+        referenceField: PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `storeKey`!
+        form: PropTypes.string.isRequired,  // form name
+        field: PropTypes.string.isRequired,  // the store key for the selected values
+        options: PropTypes.array.isRequired,  // the list of options
+        label: PropTypes.string,  // title on top of the input
+        formatter: PropTypes.func,  // ex: object => [id, name]
+        filterBySampleIds: PropTypes.any,  // set. keep only these ones
+        searchTerm: PropTypes.string,
     };
 
     /**

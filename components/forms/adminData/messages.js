@@ -17,7 +17,7 @@ export class SubmissionErrorMessage extends React.PureComponent {
         visible: this.props.error,
     };
     static propTypes = {
-        error: React.PropTypes.bool.isRequired,
+        error: PropTypes.bool.isRequired,
     };
     componentWillReceiveProps(newProps) {
         this.setState({visible: newProps.error});
@@ -46,8 +46,8 @@ export class SubmissionSuccessfulMessage extends React.PureComponent {
     this.props.success
     };
     static propTypes = {
-        success: React.PropTypes.bool.isRequired,
-        id: React.PropTypes.number,
+        success: PropTypes.bool.isRequired,
+        id: PropTypes.number,
     };
     componentWillReceiveProps(newProps) {
         this.setState({visible: newProps.success});
@@ -74,7 +74,7 @@ export class ServerErrorMessage extends React.PureComponent {
         visible: this.isError(this.props.error),
     };
     static propTypes = {
-        error: React.PropTypes.object.isRequired,
+        error: PropTypes.object.isRequired,
     };
     isError(err) {
         return err.status && err.status !== 200;

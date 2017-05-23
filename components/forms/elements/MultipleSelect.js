@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import store from '../../../core/store';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
 import css from '../forms.css';
@@ -68,18 +69,18 @@ class MultipleSelect extends React.PureComponent {
 }
 
 MultipleSelect.propTypes = {
-    form: React.PropTypes.string.isRequired,     // form field
-    field: React.PropTypes.string.isRequired,     // FormGroup controlId + field of the field in store
-    options: React.PropTypes.array.isRequired,   // an array of objects {id, field}
+    form: PropTypes.string.isRequired,     // form field
+    field: PropTypes.string.isRequired,     // FormGroup controlId + field of the field in store
+    options: PropTypes.array.isRequired,   // an array of objects {id, field}
 
 // optional
-    label: React.PropTypes.string,  // title - visible
-    inputProps: React.PropTypes.object,  // additional input field props
-    onResetAction: React.PropTypes.object,  // redux action, when value "-1/any/none" is selected
-    onSelectActionCreator: React.PropTypes.func,  // redux action creator, when another value is selected
+    label: PropTypes.string,  // title - visible
+    inputProps: PropTypes.object,  // additional input field props
+    onResetAction: PropTypes.object,  // redux action, when value "-1/any/none" is selected
+    onSelectActionCreator: PropTypes.func,  // redux action creator, when another value is selected
 
 // maybe use later:
-    required: React.PropTypes.bool,
+    required: PropTypes.bool,
 };
 
 MultipleSelect.defaultProps = {

@@ -1,9 +1,9 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import css from '../tables.css';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import * as tables from '../tables.js';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import _ from 'lodash';

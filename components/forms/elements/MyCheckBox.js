@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from '../forms.css';
 import { connect } from 'react-redux';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
@@ -37,10 +38,10 @@ class MyCheckBox extends React.PureComponent {
 }
 
 MyCheckBox.propTypes = {
-    form: React.PropTypes.string.isRequired,
-    field: React.PropTypes.string.isRequired,
-    label: React.PropTypes.string,
-    value: React.PropTypes.bool,
+    form: PropTypes.string.isRequired,
+    field: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    value: PropTypes.bool,
 };
 
 MyCheckBox.defaultProps = {

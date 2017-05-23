@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from '../forms.css';
 import cx from 'classnames';
 
@@ -35,7 +36,7 @@ class UserRequestsInsertForm extends React.PureComponent {
     static propTypes = {
         // If defined, the form will be pre-filled with the current data for the item with this ID,
         //  after fetching it on the server.
-        updateId: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        updateId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     };
 
     componentWillMount() {
