@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import store from '../../../core/store';
 import css from '../forms.css';
 import admincss from './adminForm.css';
@@ -14,12 +15,6 @@ import { Control, Form, actions} from 'react-redux-form';
 import { getOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
 import { findByIdAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { Button, Col, FormControl} from 'react-bootstrap/lib';
-
-import * as Options from '../subcomponents/Options';
-import Select from '../elements/Select';
-import AsyncOptionsList from '../subcomponents/AsyncOptionsList'
-import fields from '../../forms/fields';
-
 
 
 
@@ -39,11 +34,7 @@ class ProjectSharingSubmitForm extends React.PureComponent {
         const modelName = "adminForms.";
         this.modelName = modelName.concat(adminData[this.props.table].model);
 
-        if (this.props.updateId ==='' || this.props.updateId === undefined) {
-            this.state.isInsert = true;
-        } else {
-            this.state.isInsert = false;
-        }
+        this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
     }
 
     static propTypes = {
@@ -100,8 +91,8 @@ class ProjectSharingSubmitForm extends React.PureComponent {
         this.newOrUpdate(this.table,this.props.updateId);
     }
 
-    //if updatedId has value fetch the data from backend
-    //otherwise show empty insert form
+    // If updatedId has value fetch the data from backend
+    // Otherwise show empty insert form
     newOrUpdate(table,updateId){
         if (this.props.updateId) {
             let future = store.dispatch(findByIdAsync(table, updateId));
@@ -110,7 +101,7 @@ class ProjectSharingSubmitForm extends React.PureComponent {
                     store.dispatch(actions.merge(this.modelName, data));
                 });
         } else {
-            //empty the admin forms
+            // Empty the admin forms
             store.dispatch(actions.reset(this.modelName));
         }
     }
@@ -136,7 +127,6 @@ class ProjectSharingSubmitForm extends React.PureComponent {
     render() {
         let projectList = this.state.projectList;
         let projectOptions = this.makeOptions(projectList,this.formatterProject);
-        let options = projectList.map(v=> this.formatterProject(v))
         let peopleList = this.state.peopleList;
         let peopleOptions = this.makeOptions(peopleList,this.formatterPeople);
 
@@ -153,7 +143,6 @@ class ProjectSharingSubmitForm extends React.PureComponent {
 
                 <Col sm={6} className={css.formCol}>
                     <label className={admincss.label}>Project:</label>
-                    {/*<Control.select model=".projectId" disabled={!this.state.isInsert} >*/}
 
                     <Control.select model=".projectId" component={BSSelect} disabled={!this.state.isInsert} >
                         {projectOptions}
@@ -165,7 +154,6 @@ class ProjectSharingSubmitForm extends React.PureComponent {
 
                     <label className={admincss.label}>Colaborator:</label>
                     <Control.select model=".personId" component={BSSelect} disabled={!this.state.isInsert} >
-                    {/*<Control.select model=".personId" disabled={!this.state.isInsert}>*/}
                         {peopleOptions}
                     </Control.select>
                 </Col>

@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from '../forms.css';
 import Alert from 'react-bootstrap/lib/Alert';
 
