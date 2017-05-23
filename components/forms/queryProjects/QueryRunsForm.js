@@ -9,10 +9,11 @@ import { bindActionCreators } from 'redux';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { queryRunsAsync, resetSelection, changeRunsSelection } from '../../actions/actionCreators/queryRunsActionCreators';
 import formNames from '../../constants/formNames';
-import { Button, Collapse, Checkbox } from 'react-bootstrap/lib';
-import Icon from 'react-fontawesome';
 import { randomString } from '../../../utils/common';
+
+import Icon from 'react-fontawesome';
 import QueryRunsSearch from './QueryRunsSearch';
+import { Button, Collapse, Checkbox } from 'react-bootstrap/lib';
 
 
 /**
@@ -80,8 +81,6 @@ class QueryRunsForm extends React.PureComponent {
     }
 
     render() {
-
-        console.log("RENDER")
 
         let runs = this.props.runs.map(run => this.makeRunsRow(run));
 

@@ -35,7 +35,7 @@ let queryRunsReducers = (state = defaultState, action) => {
             return returnList(action, state, "tableData", []);
 
         case types.queryRuns.RESET_SELECTION:
-            return {...state, tableData: [], selectedRuns: {}};
+            return {...state, tableData: [], selectedRuns: {}, searchTerm: ""};
 
         case types.queryRuns.SEARCH:
             return {...state, searchTerm: action.term};

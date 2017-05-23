@@ -42,12 +42,13 @@ class QueryRunsSearch extends React.PureComponent {
 
     render() {
         return (
-            <FormControl className={css.searchField}
-                         type="text"
-                         placeholder="Search"
-                         value={this.state.searchTerm}
-                         onChange={this.onChangeSearchTerm.bind(this)}
-                         onKeyUp={this.onSearch.bind(this)}
+            <FormControl
+                className={css.searchField}
+                type="text"
+                placeholder="Search"
+                value={this.state.searchTerm}
+                onChange={this.onChangeSearchTerm.bind(this)}
+                onKeyUp={this.onSearch.bind(this)}
             />
         );
     }

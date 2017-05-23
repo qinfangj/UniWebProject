@@ -57,9 +57,6 @@ class QueryRunsTable extends React.Component {
     }
 
     render() {
-        // console.log(this.props.queryType)
-        // console.log(this.props.tableData)
-
         let data = this.props.tableData;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
@@ -68,7 +65,7 @@ class QueryRunsTable extends React.Component {
             throw new ReferenceError("No columns definition found");
         }
         tables.checkData(data);
-        //data = this.formatData(data);
+        data = this.formatData(data);
         let cssHeight = ((data.length + 1) * constants.ROW_HEIGTH) + "px";
         return (
             <div style={{width: '100%', height: '100%'}}>
