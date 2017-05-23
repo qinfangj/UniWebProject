@@ -79,6 +79,7 @@ const actionTypes = {
         QUERY_RUNS: "QUERY_RUNS",
         CHANGE_RUNS_SELECTION: "CHANGE_RUNS_SELECTION",
         RESET_SELECTION: "RESET_SELECTION",
+        SEARCH: "SEARCH",
     },
 
     tracking: {

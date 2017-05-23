@@ -8,6 +8,7 @@ const defaultState = {
     tableData: [],
     selectedRuns: {},
     queryType: columns.queryProjects.STARTING_MATERIAL_INFO,
+    searchTerm: "",
 };
 
 
@@ -35,6 +36,9 @@ let queryRunsReducers = (state = defaultState, action) => {
 
         case types.queryRuns.RESET_SELECTION:
             return {...state, tableData: [], selectedRuns: {}};
+
+        case types.queryRuns.SEARCH:
+            return {...state, searchTerm: action.term};
 
         default:
             return state;

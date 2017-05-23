@@ -3,16 +3,16 @@ import React from 'react';
 import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { queryRunsAsync, resetSelection, changeRunsSelection } from '../../actions/actionCreators/queryRunsActionCreators';
 import formNames from '../../constants/formNames';
-import { Button, Collapse, FormControl, Checkbox } from 'react-bootstrap/lib';
+import { Button, Collapse, Checkbox } from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
 import { randomString } from '../../../utils/common';
+import QueryRunsSearch from './QueryRunsSearch';
 
 
 /**
@@ -26,7 +26,6 @@ class QueryRunsForm extends React.PureComponent {
         this.modelName = "queryProjectsForms.queryRuns";
         this.state = {
             visible: true,
-            searchTerm: "",
         };
     }
 
@@ -39,17 +38,8 @@ class QueryRunsForm extends React.PureComponent {
             .fail((err) => console.error("QueryProjectsForm.getTableDataAsync() failed to load data."));
     }
 
-    onSearch(e) {
-        let searchTerm = e.target.value;
-        this.setState({ searchTerm });
-        if (Object.keys(this.props.selectedRuns).length > 0) {
-            this.props.resetSelection();
-        }
-    }
-
     onReset() {
         this.props.resetSelection();
-        this.setState({ searchTerm: "" });
     }
 
     toggleVisible() {
@@ -91,10 +81,9 @@ class QueryRunsForm extends React.PureComponent {
 
     render() {
 
-        let _this = this;
-        let runs = this.props.runs
-            .filter((run) => run)
-            .map(run => _this.makeRunsRow(run));
+        console.log("RENDER")
+
+        let runs = this.props.runs.map(run => this.makeRunsRow(run));
 
         return (
             <div id="QueryProjectsForm">
@@ -102,12 +91,7 @@ class QueryRunsForm extends React.PureComponent {
 
                 {/* Search bar */}
 
-                    <FormControl className={css.searchField}
-                        type="text"
-                        placeholder="Search"
-                        value={this.state.searchTerm}
-                        onChange={this.onSearch.bind(this)}
-                    />
+                    <QueryRunsSearch />
 
                 {/* Toggle visibility button */}
 
@@ -145,10 +129,28 @@ class QueryRunsForm extends React.PureComponent {
 }
 
 
+function filterRuns(runs, term) {
+    term = term.toLowerCase();
+    return runs.filter(run =>
+        ~run.instrument.toLowerCase().indexOf(term) ||
+        ~run.run_nb.toString().indexOf(term) ||
+        ~run.run_date.indexOf(term) ||
+        ~run.cycle_nb.toString().indexOf(term) ||
+        ~run.run_type.indexOf(term) ||
+        ~run.run_folder.toLowerCase().indexOf(term) ||
+        ~run.status.toLowerCase().indexOf(term)
+    );
+}
+
+
 const mapStateToProps = (state, ownProps) => {
     let runs = state.facilityData["runs"].data;
     let queryType = state.queryRuns.queryType;
     let selectedRuns = state.queryRuns.selectedRuns;
+    let searchTerm = state.queryRuns.searchTerm;
+    if (searchTerm !== "") {
+        runs = filterRuns(runs, searchTerm);
+    }
     return {
         runs: runs,
         queryType: queryType,

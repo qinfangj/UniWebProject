@@ -32,3 +32,10 @@ export function resetSelection() {
         type: actions.queryRuns.RESET_SELECTION,
     };
 }
+
+export function search(term) {
+    return {
+        type: actions.queryRuns.SEARCH,
+        term: term,
+    };
+}
