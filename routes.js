@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 import App from './components/routes/App';
 import HomePage from './components/routes/HomePage';
 import * as tkdata from './components/routes/tracking/trackingRoutes';
-
+import * as usrdata from './components/routes/userdata/userDataRoute';
 import * as fdata from './components/routes/facilityData/facilityDataRoutes';
 import * as qprojects from './components/routes/queryProjects/queryProjectsRoutes';
 import * as login from './components/routes/login/loginRoutes';
@@ -111,6 +111,17 @@ const routes = (
             <Route path="tracking/samples" component={tkdata.trackingSamples} onEnter={requireAuth} />
             <Route path="tracking/libraries" component={tkdata.trackingLibraries} onEnter={requireAuth} />
             <Route path="tracking/runs" component={tkdata.trackingRuns} onEnter={requireAuth} />
+
+            {/* USER DATA */}
+            <Route path="user" component={usrdata.UserDataPage} onEnter={requireAuth} />
+            {/*<Route path="user/newform" component={usrdata.UserDataPage} onEnter={requireAuth} />*/}
+            {/*<Route path="user/newrequest" component={usrdata.UserDataPage} onEnter={requireAuth} />*/}
+            {/*<Route path="user/view/labsamples" component={usrdata.UserDataPage} onEnter={requireAuth} />*/}
+            {/*<Route path="user/view/colsamples" component={usrdata.UserDataPage} onEnter={requireAuth} />*/}
+            {/*<Route path="user/data/dataruns" component={usrdata.UserDataPage} onEnter={requireAuth} />*/}
+            {/*<Route path="user/data/datacollabs" component={usrdata.UserDataPage} onEnter={requireAuth} />*/}
+            {/*<Route path="user/data/miscfiles" component={usrdata.UserDataPage} onEnter={requireAuth} />*/}
+
 
             {/* QUERY PROJECTS */}
 

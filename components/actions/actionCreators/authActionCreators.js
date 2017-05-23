@@ -101,7 +101,8 @@ export function signupUser(creds) {
                 // Successful signup
                 } else {
                     response.json().then(user => {
-                        dispatch(feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulation! You have signed up successfully!"));
+                        dispatch(
+                            feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulations! You have signed up successfully!"));
                         dispatch(_signupSuccess(user));
                         // We do not want the user to be signed up right away!
                         //AuthService._doAuthentication(user);
