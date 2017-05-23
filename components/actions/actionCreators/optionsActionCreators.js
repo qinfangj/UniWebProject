@@ -18,16 +18,15 @@ export function resetAllOptions() {
 }
  
 /**
- * Calls /table/:table/list[/suffix]
+ * Calls /table/:table/list[/suffix].
+ * If the key is already found in the store, reuse that data instead of sending an Ajax request.
  */
 function requestOptionsListAsync(actionType, storeKey, tableName, suffix) {
-    // Cached
     let maybeCached = store.getState().options[storeKey];
+    // If cached, return a dummy action that does nothing.
     if (maybeCached) {
-        console.log("CACHED!!!")
-        return {
-            type: types.options.IGNORE_CACHED
-        };
+        return { type: types.options.IGNORE_CACHED };
+    // Else query backend.
     } else {
         if (suffix) {
             return asyncAction(actionType, RestService.getConditionalOptionsList.bind(null, tableName, suffix), {});
