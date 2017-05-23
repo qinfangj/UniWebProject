@@ -76,6 +76,12 @@ class RunsInsertForm extends React.PureComponent {
         return insertData;
     }
 
+    /**
+     * Check the form before submission.
+     * Lanes cannot be empty because their fields are 'required'. But there could be no lanes.
+     * @param insertData: the data to be submitted.
+     * @returns {{isValid: boolean, message: string}}
+     */
     validate(insertData) {
         return {
             isValid: Object.keys(insertData.lanes).length !== 0,

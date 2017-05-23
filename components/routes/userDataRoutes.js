@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import UserData from '../../userData/UserData';
+import UserData from '../../pages/UserData';
 
 
 export class UserDataPage extends React.PureComponent {
