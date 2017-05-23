@@ -73,7 +73,8 @@ component you would write code similar to this:
 #### `components/Button/Button.js`
 
 ```js
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 class Button extends React.Component {

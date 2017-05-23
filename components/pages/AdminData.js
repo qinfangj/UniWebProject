@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
-
-import css from './FacilityData.css';
+import PropTypes from 'prop-types';
+import css from './styles.css';
 import commonCss from '../../styles/common.css';
 import { Link } from 'react-router';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../actions/actionCreators/feedbackActionCreators';
@@ -18,9 +18,9 @@ class AdminData extends React.PureComponent {
     }
 
     static propTypes = {
-        title: React.PropTypes.string.isRequired,  // the text displayed in the menu.
-        name: React.PropTypes.string.isRequired,   // table route name, reused in the all/active/new selection (plural).
-        content: React.PropTypes.node,             // the component (table, form, etc.) to display inside.
+        title: PropTypes.string.isRequired,  // the text displayed in the menu.
+        name: PropTypes.string.isRequired,   // table route name, reused in the all/active/new selection (plural).
+        content: PropTypes.node,             // the component (table, form, etc.) to display inside.
     };
 
     comfirmDelete(){

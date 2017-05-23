@@ -1,9 +1,9 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import formsCss from '../forms.css';
 import css from './queryProjects.css';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';

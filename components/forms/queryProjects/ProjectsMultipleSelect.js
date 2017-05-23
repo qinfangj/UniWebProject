@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getConditionalOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import { resetSelection, changeProjectsSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
@@ -15,11 +16,11 @@ class ProjectsMultipleSelect extends React.PureComponent {
     }
 
     static propTypes = {
-        form: React.PropTypes.string.isRequired,  // form name
-        field: React.PropTypes.string.isRequired,  // the store key for the selected values
-        options: React.PropTypes.array.isRequired,  // the list of options
-        label: React.PropTypes.string,  // title on top of the input
-        filterByProjectIds: React.PropTypes.any,  // set. keep only these ones
+        form: PropTypes.string.isRequired,  // form name
+        field: PropTypes.string.isRequired,  // the store key for the selected values
+        options: PropTypes.array.isRequired,  // the list of options
+        label: PropTypes.string,  // title on top of the input
+        filterByProjectIds: PropTypes.any,  // set. keep only these ones
     };
 
     componentWillMount() {

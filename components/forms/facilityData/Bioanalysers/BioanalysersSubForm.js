@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from './bioanalysers.css';
 import formsCss from '../../forms.css';
 import cx from 'classnames';
@@ -27,8 +28,8 @@ class BioanalysersSubForm extends React.PureComponent {
     }
 
     static propTypes = {
-        lanesInfo: React.PropTypes.array,
-        disabled: React.PropTypes.bool,
+        lanesInfo: PropTypes.array,
+        disabled: PropTypes.bool,
     };
 
     removeLane = (laneNb) => {

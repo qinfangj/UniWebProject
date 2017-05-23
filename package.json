@@ -91,7 +91,6 @@
     "postcss-selector-matches": "^2.0.1",
     "postcss-selector-not": "^2.0.0",
     "react-addons-test-utils": "^15.4.2",
-    "react-hot-loader": "^3.0.0-beta.6",
     "redux-logger": "^2.6.1",
     "resolve-url-loader": "^1.6.0",
     "s3": "^4.4.0",
@@ -102,8 +101,7 @@
     "stylelint-config-standard": "^11.0.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.1"
+    "webpack-dev-middleware": "^1.6.1"
   },
   "babel": {
     "presets": [

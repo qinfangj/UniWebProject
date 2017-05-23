@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from '../../elements/Select';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import fields from '../../fields';
@@ -48,8 +49,8 @@ class LibrariesForProject extends React.PureComponent {
 LibrariesForProject.propTypes = {
     // If we have several independent such fields in the same form, identify them.
     // The best way is to use the reference field name, which is also unique in the form.
-    refFieldName: React.PropTypes.string,
-    onMount: React.PropTypes.bool,  // fire the fetch directly with the current refValue without waiting for the refValue to change
+    refFieldName: PropTypes.string,
+    onMount: PropTypes.bool,  // fire the fetch directly with the current refValue without waiting for the refValue to change
 };
 
 LibrariesForProject.defaultProps = {

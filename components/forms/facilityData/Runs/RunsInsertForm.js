@@ -11,6 +11,7 @@ import { requestInstruments,
          requestRunsTypesLengths,
          requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
+import { feedbackWarning } from '../../../actions/actionCreators/feedbackActionCreators';
 import * as forms from '../../forms.js';
 import LanesSubForm from './LanesSubForm';
 import formNames from '../../../constants/formNames';
@@ -76,6 +77,19 @@ class RunsInsertForm extends React.PureComponent {
     }
 
     /**
+     * Check the form before submission.
+     * Lanes cannot be empty because their fields are 'required'. But there could be no lanes.
+     * @param insertData: the data to be submitted.
+     * @returns {{isValid: boolean, message: string}}
+     */
+    validate(insertData) {
+        return {
+            isValid: Object.keys(insertData.lanes).length !== 0,
+            message: "At least one non-empty lane is required",
+        }
+    }
+
+    /**
      * Submit the form for insert/update.
      *
      * Ideally, use RRF system to mark the form as submitted:
@@ -87,7 +101,12 @@ class RunsInsertForm extends React.PureComponent {
      **/
     onSubmit(values) {
         let insertData = this.formatInsertData(values);
-        forms.submitForm(this.modelName, insertData, this.table, this.form);
+        let validation = this.validate(insertData);
+        if (validation.isValid) {
+            forms.submitForm(this.modelName, insertData, this.table, this.form);
+        } else {
+            this.props.feedbackWarning(this.form, validation.message);
+        }
     }
 
     activateForm() {
@@ -168,6 +187,7 @@ const mapDispatchToProps = (dispatch) => {
         requestRunsTypesLengths,
         requestSequencingKitVersions,
         requestLibrariesForProject,
+        feedbackWarning,
         }, dispatch);
 };
 

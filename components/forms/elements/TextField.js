@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from '../forms.css';
 import { connect } from 'react-redux';
 import { changeFormValue } from '../../actions/actionCreators/formsActionCreators';
@@ -136,17 +137,17 @@ class TextField extends React.Component {
     }
 }
 TextField.propTypes = {
-    form: React.PropTypes.string.isRequired,  // form name
-    field: React.PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
-    value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number, React.PropTypes.object]).isRequired,  // field value
-    label: React.PropTypes.string,  // title - visible
-    type: React.PropTypes.string,  // input type (defaults to "text")
-    validator: React.PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
-    required: React.PropTypes.bool,  // show a warning if required but no value
-    placeholder: React.PropTypes.string,
-    defaultValue: React.PropTypes.string,
-    inputProps: React.PropTypes.object,  // additional FormControl props
-    submissionError: React.PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
+    form: PropTypes.string.isRequired,  // form name
+    field: PropTypes.string.isRequired,  // key to get the form value from store. Also used for the 'id' of the <input> and the 'for' on the <label>.
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]).isRequired,  // field value
+    label: PropTypes.string,  // title - visible
+    type: PropTypes.string,  // input type (defaults to "text")
+    validator: PropTypes.func,  // a func  `value => {valid: true|false, msg: errorMessage}`
+    required: PropTypes.bool,  // show a warning if required but no value
+    placeholder: PropTypes.string,
+    defaultValue: PropTypes.string,
+    inputProps: PropTypes.object,  // additional FormControl props
+    submissionError: PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
 };
 TextField.defaultProps = {
     value: "",

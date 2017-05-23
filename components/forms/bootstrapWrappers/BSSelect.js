@@ -11,10 +11,15 @@ export default class BSSelect extends React.PureComponent {
         let title = makeLabel(label, this.props.required);
         let validationState = submissionError ? "error" : this.props.validationState;
 
-        options = options ? options.map((v,i) => {
+        let opts = options ? options.map((v,i) => {
             return <option value={v[0]} key={i}>{v[1]}</option>;
         }) : [];
-        if (hasNoneValue && options) { options.unshift(<option value="" key="-">{'-'}</option>); }
+
+        if (options && options.length === 1) {
+            this.props.value = options[0][0];
+        } else if (options && hasNoneValue) {
+            opts.unshift(<option value="" key="-">{'-'}</option>);
+        }
 
         return (
             <FormGroup validationState={validationState} bsSize="small" >
@@ -24,7 +29,7 @@ export default class BSSelect extends React.PureComponent {
                     placeholder={label}
                     {...inputProps}
                 >
-                    {options}
+                    {opts}
                 </FormControl>
             </FormGroup>
         );

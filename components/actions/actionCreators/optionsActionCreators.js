@@ -1,113 +1,155 @@
 "use strict";
 import types from '../actionTypes';
+import store from '../../../core/store';
 import RestService from '../../../utils/RestService';
-import { asyncAction } from './base';
+import { syncAction, asyncAction } from './base';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
+import constants from '../../constants/constants';
 
 
 /*
  * Actions to GET a select input options list from backend.
  */
 
+export function resetAllOptions() {
+    return {
+        type: types.options.RESET
+    };
+}
  
 /**
- * Calls /table/:table/list[/suffix]
+ * Calls /table/:table/list[/suffix].
+ * If the key is already found in the store, reuse that data instead of sending an Ajax request.
  */
-function requestOptionsListAsync(actionType, tableName, suffix) {
-    if (suffix) {
-        return asyncAction(actionType, RestService.getConditionalOptionsList.bind(null, tableName, suffix), {});
+function requestOptionsListAsync(actionType, storeKey, tableName, suffix) {
+    let maybeCached = store.getState().options[storeKey];
+    // If cached, return a dummy action that does nothing.
+    if (maybeCached) {
+        return { type: types.options.IGNORE_CACHED };
+    // Else query backend.
     } else {
-        return asyncAction(actionType, RestService.getOptionsList.bind(null, tableName), {});
+        if (suffix) {
+            return asyncAction(actionType, RestService.getConditionalOptionsList.bind(null, tableName, suffix), {});
+        } else {
+            return asyncAction(actionType, RestService.getOptionsList.bind(null, tableName), {});
+        }
     }
 }
 
 
 export function requestFlowcellTypes() {
-    return requestOptionsListAsync(types.options.OPTIONS_FLOWCELL_TYPES, "flowcell_types");
+    let storeKey = optionsStoreKeys.FLOWCELL_TYPES;
+    return requestOptionsListAsync(types.options.OPTIONS_FLOWCELL_TYPES, storeKey, "flowcell_types");
 }
 
 export function requestInstruments() {
-    return requestOptionsListAsync(types.options.OPTIONS_INSTRUMENTS, "instruments");
+    let storeKey = optionsStoreKeys.INSTRUMENTS;
+    return requestOptionsListAsync(types.options.OPTIONS_INSTRUMENTS, storeKey, "instruments");
 }
 
 export function requestLibAdapters() {
-    return requestOptionsListAsync(types.options.OPTIONS_LIB_ADAPTERS, "library_adapters");
+    let storeKey = optionsStoreKeys.LIB_ADAPTERS;
+    return requestOptionsListAsync(types.options.OPTIONS_LIB_ADAPTERS, storeKey, "library_adapters");
 }
 
 export function requestLibProtocols() {
-    return requestOptionsListAsync(types.options.OPTIONS_LIB_PROTOCOLS, "lib_protocols");
+    let storeKey = optionsStoreKeys.LIB_PROTOCOLS;
+    return requestOptionsListAsync(types.options.OPTIONS_LIB_PROTOCOLS, storeKey, "lib_protocols");
 }
 
 export function requestLibraryStates() {
-    return requestOptionsListAsync(types.options.OPTIONS_LIB_STATES, "library_states");
+    let storeKey = optionsStoreKeys.LIB_STATES;
+    return requestOptionsListAsync(types.options.OPTIONS_LIB_STATES, storeKey, "library_states");
 }
 
 export function requestMappingTools() {
-    return requestOptionsListAsync(types.options.OPTIONS_MAPPING_TOOLS, "mapping_tools");
+    let storeKey = optionsStoreKeys.MAPPING_TOOLS;
+    return requestOptionsListAsync(types.options.OPTIONS_MAPPING_TOOLS, storeKey, "mapping_tools");
 }
 
 export function requestAllPeople() {
-    return requestOptionsListAsync(types.options.OPTIONS_PEOPLE, "people", "all");
+    let storeKey = optionsStoreKeys.PEOPLE;
+    return requestOptionsListAsync(types.options.OPTIONS_PEOPLE, storeKey, "people", "all");
 }
 
 export function requestLaboratories() {
-    return requestOptionsListAsync(types.options.OPTIONS_LABORATORIES, "people", "labs");
+    let storeKey = optionsStoreKeys.LABORATORIES;
+    return requestOptionsListAsync(types.options.OPTIONS_LABORATORIES, storeKey, "people", "labs");
 }
 
 export function requestPipelineAnalysisTypes() {
-    return requestOptionsListAsync(types.options.OPTIONS_PIPELINE_ANALYSIS_TYPES, "pipeline_analysis_types");
+    let storeKey = optionsStoreKeys.PIPELINE_ANALYSIS_TYPES;
+    return requestOptionsListAsync(types.options.OPTIONS_PIPELINE_ANALYSIS_TYPES, storeKey, "pipeline_analysis_types");
 }
 
 export function requestPipelineVersions() {
-    return requestOptionsListAsync(types.options.OPTIONS_PIPELINE_VERSIONS, "pipeline_versions");
+    let storeKey = optionsStoreKeys.PIPELINE_VERSIONS;
+    return requestOptionsListAsync(types.options.OPTIONS_PIPELINE_VERSIONS, storeKey, "pipeline_versions");
 }
 
 export function requestAllProjects() {
-    return requestOptionsListAsync(types.options.OPTIONS_PROJECTS, "projects", "all");
+    let storeKey = optionsStoreKeys.PROJECTS;
+    return requestOptionsListAsync(types.options.OPTIONS_PROJECTS, storeKey, "projects", "all");
 }
 
 export function requestProjectsHavingALibrary() {
-    return requestOptionsListAsync(types.options.OPTIONS_PROJECTS_HAVING_A_LIBRARY, "projects", "libs");
+    let storeKey = optionsStoreKeys.PROJECTS_HAVING_A_LIBRARY;
+    return requestOptionsListAsync(types.options.OPTIONS_PROJECTS_HAVING_A_LIBRARY, storeKey, "projects", "libs");
 }
 
 export function requestProjectsHavingASample() {
-    return requestOptionsListAsync(types.options.OPTIONS_PROJECTS_HAVING_A_SAMPLE, "projects", "samples");
+    let storeKey = optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE;
+    return requestOptionsListAsync(types.options.OPTIONS_PROJECTS_HAVING_A_SAMPLE, storeKey, "projects", "samples");
 }
 
 export function requestProjectsHavingAPool() {
-    return requestOptionsListAsync(types.options.OPTIONS_PROJECTS_HAVING_A_POOL, "projects", "pools");
+    let storeKey = optionsStoreKeys.PROJECTS_HAVING_A_POOL;
+    return requestOptionsListAsync(types.options.OPTIONS_PROJECTS_HAVING_A_POOL, storeKey, "projects", "pools");
 }
 
 export function requestProjectAnalyses() {
-    return requestOptionsListAsync(types.options.OPTIONS_PROJECT_ANALYSES, "project_analysis");
+    let storeKey = optionsStoreKeys.PROJECT_ANALYSES;
+    return requestOptionsListAsync(types.options.OPTIONS_PROJECT_ANALYSES, storeKey, "project_analysis");
 }
 
 export function requestProjectStates() {
-    return requestOptionsListAsync(types.options.OPTIONS_PROJECT_STATES, "project_states");
+    let storeKey = optionsStoreKeys.PROJECT_STATES;
+    return requestOptionsListAsync(types.options.OPTIONS_PROJECT_STATES, storeKey, "project_states");
+}
+
+export function requestQuantifMethods() {
+    let storeKey = optionsStoreKeys.QUANTIF_METHODS;
+    return requestOptionsListAsync(types.options.OPTIONS_QUANTIF_METHODS, storeKey, "quantif_methods");
 }
 
 export function requestRunsOutputFolders() {
-    return requestOptionsListAsync(types.options.OPTIONS_RUNS_OUTPUT_FOLDERS, "runs");
+    let storeKey = optionsStoreKeys.RUNS_OUTPUT_FOLDERS;
+    return requestOptionsListAsync(types.options.OPTIONS_RUNS_OUTPUT_FOLDERS, storeKey, "runs");
 }
 
 export function requestRunsTypesLengths() {
-    return requestOptionsListAsync(types.options.OPTIONS_RUN_TYPES_LENGTHS, "run_types_lengths", "all");
+    let storeKey = optionsStoreKeys.RUN_TYPES_LENGTHS;
+    return requestOptionsListAsync(types.options.OPTIONS_RUN_TYPES_LENGTHS, storeKey, "run_types_lengths", "all");
 }
 
 export function requestSampleTypes() {
-    return requestOptionsListAsync(types.options.OPTIONS_SAMPLE_TYPES, "sample_types");
+    let storeKey = optionsStoreKeys.SAMPLE_TYPES;
+    return requestOptionsListAsync(types.options.OPTIONS_SAMPLE_TYPES, storeKey, "sample_types");
 }
 
 export function requestSequencingKitVersions() {
-    return requestOptionsListAsync(types.options.OPTIONS_SEQUENCING_KIT_VERSIONS, "sequencing_kit_versions");
+    let storeKey = optionsStoreKeys.SEQUENCING_KIT_VERSIONS;
+    return requestOptionsListAsync(types.options.OPTIONS_SEQUENCING_KIT_VERSIONS, storeKey, "sequencing_kit_versions");
 }
 
 export function requestSequencingQualities() {
-    return requestOptionsListAsync(types.options.OPTIONS_SEQUENCING_QUALITIES, "sequencing_qualities");
+    let storeKey = optionsStoreKeys.SEQUENCING_QUALITIES;
+    return requestOptionsListAsync(types.options.OPTIONS_SEQUENCING_QUALITIES, storeKey, "sequencing_qualities");
 }
 
 export function requestTaxonomies() {
-    return requestOptionsListAsync(types.options.OPTIONS_TAXONOMIES, "taxonomies");
+    let storeKey = optionsStoreKeys.TAXONOMIES;
+    return requestOptionsListAsync(types.options.OPTIONS_TAXONOMIES, storeKey, "taxonomies");
 }
 
 
@@ -161,6 +203,9 @@ export default function requestOptions(storeKey) {
 
         case optionsStoreKeys.PROJECT_STATES:
             return requestProjectStates();
+
+        case optionsStoreKeys.QUANTIF_METHODS:
+            return requestQuantifMethods();
 
         case optionsStoreKeys.RUNS_OUTPUT_FOLDERS:
             return requestRunsOutputFolders();

@@ -1,10 +1,10 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import css from '../tables.css';
 import cx from 'classnames';
 import * as tables from '../tables.js';
-import * as constants from '../constants';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import _ from 'lodash';
 
@@ -12,8 +12,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
-import columns from '../columns';
-import { defaultHeaderRenderer } from '../columns';
+import { defaultHeaderRenderer, ROW_HEIGTH, GRID_HEIGTH } from '../columns';
 import Feedback from '../../utils/Feedback';
 import DataLoadingIcon from '../../utils/DataLoadingIcon';
 
@@ -26,7 +25,7 @@ class CommonTable extends React.PureComponent {
     constructor(props) {
         super(props);
         this.gridHeight = 400;
-        this.nVisibleRows = (this.gridHeight / constants.ROW_HEIGTH) - 1;
+        this.nVisibleRows = (this.gridHeight / ROW_HEIGTH) - 1;
         this.nrowsPerQuery = 40;
         if (this.nrowsPerQuery < this.nVisibleRows) {
             console.warn("Must query at least as many rows as we can display to enable scrolling",
@@ -38,14 +37,14 @@ class CommonTable extends React.PureComponent {
     }
 
     static propTypes = {
-        dataStoreKey: React.PropTypes.string.isRequired,  // store key for the table data (in "async")
-        columnsKey: React.PropTypes.string.isRequired,  // key in the columns definition dict
-        table: React.PropTypes.string.isRequired,  // database table name - to fetch the content
-        activeOnly: React.PropTypes.bool,  // whether it should call ?active=true when fetching the content
-        data: React.PropTypes.array,  // the table content (an array of row objects)
-        isLoading: React.PropTypes.bool,  // loading spinner
-        formatter: React.PropTypes.func,  // to reformat the data so that it fits the columns definition
-        form: React.PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
+        dataStoreKey: PropTypes.string.isRequired,  // store key for the table data (in "async")
+        columns: PropTypes.array.isRequired, // Ag-grid columsn definition
+        table: PropTypes.string.isRequired,  // database table name - to fetch the content
+        activeOnly: PropTypes.bool,  // whether it should call ?active=true when fetching the content
+        data: PropTypes.array,  // the table content (an array of row objects)
+        isLoading: PropTypes.bool,  // loading spinner
+        formatter: PropTypes.func,  // to reformat the data so that it fits the columns definition
+        form: PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
     };
 
     componentWillMount() {
@@ -123,12 +122,14 @@ class CommonTable extends React.PureComponent {
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
-        if (!columns[this.props.columnsKey]) {
+
+        let columnDefs = this.props.columns;
+        if (!columnDefs) {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
 
-        //let cssHeight = (Math.max(constants.GRID_HEIGTH, (data.length + 1) * constants.ROW_HEIGTH)) + "px";
+        //let cssHeight = (Math.max(GRID_HEIGTH, (data.length + 1) * ROW_HEIGTH)) + "px";
 
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -146,16 +147,16 @@ class CommonTable extends React.PureComponent {
                 { !this.props.form ? null :
                     <Feedback reference={this.props.form}/>
                 }
-
+                
                 <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}
                         rowData={data}
                         enableFilter={true}
                         enableSorting={true}
-                        columnDefs={columns[this.props.columnsKey]}
-                        rowHeight={constants.ROW_HEIGTH}
-                        headerHeight={constants.ROW_HEIGTH}
+                        columnDefs={columnDefs}
+                        rowHeight={ROW_HEIGTH}
+                        headerHeight={ROW_HEIGTH}
                         overlayNoRowsTemplate='<span/>'
                         onBodyScroll={_.debounce(this.onScroll.bind(this), 100)}
                         defaultColDef={{

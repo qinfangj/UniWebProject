@@ -27,7 +27,7 @@ const tableNames = {
     // Attributes
     USERS: "users",
     PROJECT_SHARINGS: "project_sharings",
-    ANALYSIS_TYPES: "analysis_types",
+    ANALYSIS_TYPES: "pipeline_analysis_types",
     FLOWCELL_TYPES: "flowcell_types",
     INSTRUMENTS: "instruments",
     LIBRARY_ADAPTERS: "library_adapters",

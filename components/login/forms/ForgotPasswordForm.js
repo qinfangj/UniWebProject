@@ -35,7 +35,7 @@ class ForgotPasswordForm extends React.Component {
     validateEmail(field) {
         let checkEmail = Validators.emailValidator(field);
 
-        if (checkEmail.valid == true) {
+        if (checkEmail.valid === true) {
             //return checkEmail object. if validator is true
             //Set appropriate feedbacks and error messages.
             return {msg: "", feedback: "success" };

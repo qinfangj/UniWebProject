@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from '../forms.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -97,15 +98,15 @@ class Select extends React.PureComponent {
 
 
 Select.propTypes = {
-    form: React.PropTypes.string.isRequired,  // form name
-    field: React.PropTypes.string.isRequired,  // FormGroup controlId + name of the field in store
-    value: React.PropTypes.number.isRequired,  // field value
-    options: React.PropTypes.array.isRequired,  // an array of the type [[1,"yes"], [2,"no"], [3,"maybe"]]
-    label: React.PropTypes.string,  // title - visible
-    defaultValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),  // Option index or item name
-    inputProps: React.PropTypes.object,  // additional input field props
-    required: React.PropTypes.bool,  // whether one must choose an option other than 'none'
-    submissionError: React.PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
+    form: PropTypes.string.isRequired,  // form name
+    field: PropTypes.string.isRequired,  // FormGroup controlId + name of the field in store
+    value: PropTypes.number.isRequired,  // field value
+    options: PropTypes.array.isRequired,  // an array of the type [[1,"yes"], [2,"no"], [3,"maybe"]]
+    label: PropTypes.string,  // title - visible
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),  // Option index or item name
+    inputProps: PropTypes.object,  // additional input field props
+    required: PropTypes.bool,  // whether one must choose an option other than 'none'
+    submissionError: PropTypes.bool,  // after the form was submitted, display stronger feedback if invalid
 };
 
 Select.defaultProps = {

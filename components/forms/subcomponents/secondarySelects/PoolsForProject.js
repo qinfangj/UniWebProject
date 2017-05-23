@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from '../../elements/Select';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import fields from '../../fields';
@@ -41,7 +42,7 @@ class PoolsForProject extends React.PureComponent {
 PoolsForProject.propTypes = {
     // If we have several independent such fields in the same form, identify them.
     // This suffix must be the same as was passed to the reference field, see `changeFormValue` action.
-    refFieldName: React.PropTypes.string,
+    refFieldName: PropTypes.string,
 };
 
 PoolsForProject.defaultProps = {

@@ -143,7 +143,6 @@ tasks.set('start', () => {
             baseDir: 'public',
             middleware: [
               webpackDevMiddleware,
-              //require('webpack-hot-middleware')(compiler),
               require('connect-history-api-fallback')(),
             ],
           },

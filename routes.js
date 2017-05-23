@@ -4,15 +4,14 @@ import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
 import App from './components/routes/App';
 import HomePage from './components/routes/HomePage';
-import * as tkdata from './components/routes/tracking/trackingRoutes';
-import * as usrdata from './components/routes/userdata/userDataRoute';
-import * as fdata from './components/routes/facilityData/facilityDataRoutes';
-import * as qprojects from './components/routes/queryProjects/queryProjectsRoutes';
-import * as login from './components/routes/login/loginRoutes';
-import * as admin from './components/routes/admin/adminRoutes';
-import * as account from './components/routes/account/accountRoutes';
+import * as tracking from './components/routes/trackingRoutes';
+import * as userdata from './components/routes/userDataRoutes';
+import * as fdata from './components/routes/facilityDataRoutes';
+import * as qprojects from './components/routes/queryProjectsRoutes';
+import * as login from './components/routes/loginRoutes';
+import * as admin from './components/routes/adminRoutes';
+import * as account from './components/routes/accountRoutes';
 import AuthService from './utils/AuthService';
-import cols from './components/constants/columns';
 
 
 // Validate authentication for private routes
@@ -73,12 +72,8 @@ const routes = (
             <Route path="data/runs" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/list" component={fdata.RunsListRoute} onEnter={requireAuth} />
             <Route path="data/runs/active" component={fdata.RunsActiveRoute} onEnter={requireAuth} />
-            {/* For testing of the sub-form */}
-            <Route path="data/subruns/new" component={fdata.SubRunsRoute} onEnter={requireAuth} />
             <Route path="data/runs/new" component={fdata.RunsNewRoute} onEnter={requireAuth} />
             <Route path="data/runs/from-tracking" component={fdata.RunsFromTrackingRoute} onEnter={requireAuth} />
-
-            {/*<Route path="data/runs/postnew" component={fdata.RunsNewRoute} onEnter={requireAuth} />*/}
             <Route path="data/runs/update/:id" component={fdata.RunsUpdateRoute} onEnter={requireAuth} />
 
             <Route path="data/user_requests" component={fdata.UserRequestsListRoute} onEnter={requireAuth} />
@@ -107,21 +102,20 @@ const routes = (
 
             {/* TRACKING */}
 
-            <Route path="tracking" component={tkdata.trackingSamples} onEnter={requireAuth} />
-            <Route path="tracking/samples" component={tkdata.trackingSamples} onEnter={requireAuth} />
-            <Route path="tracking/libraries" component={tkdata.trackingLibraries} onEnter={requireAuth} />
-            <Route path="tracking/runs" component={tkdata.trackingRuns} onEnter={requireAuth} />
+            <Route path="tracking" component={tracking.trackingSamples} onEnter={requireAuth} />
+            <Route path="tracking/samples" component={tracking.trackingSamples} onEnter={requireAuth} />
+            <Route path="tracking/libraries" component={tracking.trackingLibraries} onEnter={requireAuth} />
+            <Route path="tracking/runs" component={tracking.trackingRuns} onEnter={requireAuth} />
 
             {/* USER DATA */}
-            <Route path="user" component={usrdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/newform" component={usrdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/newrequest" component={usrdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/view/labsamples" component={usrdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/view/colsamples" component={usrdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/data/dataruns" component={usrdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/data/datacollabs" component={usrdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/data/miscfiles" component={usrdata.UserDataPage} onEnter={requireAuth} />
 
+            <Route path="user" component={userdata.UserDataHomePage} onEnter={requireAuth} />
+            <Route path="user/newform" component={userdata.UserDataPage} onEnter={requireAuth} />
+            <Route path="user/newrequest" component={userdata.UserDataPage} onEnter={requireAuth} />
+            <Route path="user/view/labsamples" component={userdata.UserDataPage} onEnter={requireAuth} />
+            <Route path="user/view/colsamples" component={userdata.UserDataPage} onEnter={requireAuth} />
+            <Route path="user/data/dataruns" component={userdata.UserDataPage} onEnter={requireAuth} />
+            <Route path="user/data/datacollabs" component={userdata.UserDataPage} onEnter={requireAuth} />
 
             {/* QUERY PROJECTS */}
 

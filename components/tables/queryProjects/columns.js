@@ -1,6 +1,6 @@
 "use strict";
 import * as formatters from '../formatters';
-import { CENTER, MULTIROW } from '../constants';
+import { CENTER, MULTIROW } from '../columns';
 import columnNames from '../../constants/columns';
 
 
@@ -12,7 +12,7 @@ const columns = {
         {
             headerName: "ID",
             field: "sample_id",
-            width: 40,
+            width: 70,
             suppressSizeToFit: true,
             suppressMenu: true,
             cellStyle: CENTER,

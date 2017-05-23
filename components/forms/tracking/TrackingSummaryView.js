@@ -1,6 +1,7 @@
 "use strict";
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {Button, FormControl, Col} from 'react-bootstrap/lib';
 import Feedback from '../../utils/Feedback';
@@ -34,12 +35,12 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     static propTypes = {
-        hasLanesNo: React.PropTypes.bool,
-        trackingData: React.PropTypes.object,
-        dataStoreKey: React.PropTypes.string,
-        isLibrary : React.PropTypes.bool,
-        laneInfo: React.PropTypes.object,
-        //initialLaneNo : React.PropTypes.func,
+        hasLanesNo: PropTypes.bool,
+        trackingData: PropTypes.object,
+        dataStoreKey: PropTypes.string,
+        isLibrary : PropTypes.bool,
+        laneInfo: PropTypes.object,
+        //initialLaneNo : PropTypes.func,
     };
 
     componentWillMount() {

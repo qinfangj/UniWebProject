@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import AsyncOptionsList from './AsyncOptionsList';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import fields from '../fields';
@@ -90,8 +91,8 @@ export class MultiplexIndexes extends React.Component {
     }
 }
 MultiplexIndexes.propTypes = {
-    suffix: React.PropTypes.string.isRequired,
-    field: React.PropTypes.string.isRequired,
+    suffix: PropTypes.string.isRequired,
+    field: PropTypes.string.isRequired,
 };
 
 /** In Project sharings(?) */
@@ -167,10 +168,10 @@ export class Projects extends React.Component {
     }
 }
 Projects.propTypes = {
-    field: React.PropTypes.string.isRequired,
-    form: React.PropTypes.string.isRequired,
-    suffix: React.PropTypes.string.isRequired,  // url arg for conditional list
-    storeKey: React.PropTypes.string,  // store key for the result list
+    field: PropTypes.string.isRequired,
+    form: PropTypes.string.isRequired,
+    suffix: PropTypes.string.isRequired,  // url arg for conditional list
+    storeKey: PropTypes.string,  // store key for the result list
 };
 Projects.defaultProps = {
     field: fields.PROJECT_ID,
@@ -229,7 +230,7 @@ export class RunTypesLengths extends React.Component {
     }
 }
 RunTypesLengths.propTypes = {
-    suffix: React.PropTypes.string.isRequired,
+    suffix: PropTypes.string.isRequired,
 };
 
 /** In Samples */
