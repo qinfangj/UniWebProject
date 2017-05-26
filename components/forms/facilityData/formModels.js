@@ -262,39 +262,6 @@ export const facilityDataModels = Object.freeze({
         }
     },
 
-    [formNames.PEOPLE_INSERT_FORM]: {
-        [fields.FIRST_NAME]: {
-            label: "First name",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.LAST_NAME]: {
-            label: "Last name",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.EMAIL]: {
-            label: "PI email",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.ADDRESS]: {
-            label: "PI address",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.PHONE]: {
-            label: "PI phone",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        }
-    },
-
     [formNames.PROJECTS_INSERT_FORM]: {
         [fields.NAME]: {
             label: "Project name",
@@ -441,51 +408,6 @@ export const facilityDataModels = Object.freeze({
             type: inputTypes.CHECKBOX,
             value: false,
         }
-    },
-
-    [formNames.RUNS_INSERT_FORM]: {
-        [fields.RUN_NUMBER]: {
-            label: "Run#",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.FLOWCELL_ID]: {
-            label: "Flowcell ID",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.SEQUENCING_KIT_VERSION_ID]: {
-            label: "Version",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: false,
-        },
-        [fields.INSTRUMENT_ID]: {
-            label: "Machine",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: false,
-        },
-        [fields.RUN_DATE]: {
-            label: "Run Date",
-            type: inputTypes.DATE,
-            value: dateNow(),
-            required: true,
-        },
-        [fields.CLUSTER_DATE]: {
-            label: "Cluster Date",
-            type: inputTypes.DATE,
-            value: dateNow(),
-            required: true,
-        },
-        [fields.IS_FAILED]: {
-            label: "Run failed",
-            type: Boolean,
-            value: false,
-        },
-
     },
 
     [formNames.USER_REQUESTS_INSERT_FORM]: {
