@@ -7,7 +7,6 @@ import Alert from 'react-bootstrap/lib/Alert';
 import { FormGroup, FormControl, Button } from 'react-bootstrap/lib';
 
 
-
 class UserDataHome extends React.Component {
 
     render() {
@@ -41,7 +40,7 @@ class UserDataHome extends React.Component {
                         <fieldset className={css.field}>
                             <legend >View</legend>
                             <ul>
-                                <li><a href="/#/user/view/labsamplesm">View lab submissions</a></li>
+                                <li><a href="/#/user/view/labsamples">View lab submissions</a></li>
                                 <li><a href="/#/user/view/colsamples">View colaboration submissions</a></li>
                             </ul>
                         </fieldset>
