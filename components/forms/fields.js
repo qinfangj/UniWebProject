@@ -8,6 +8,101 @@
 
 
 const fields = {
+
+    alignments: {
+        ANALYSIS_TYPE_ID: "analysisTypeId",
+        RUN_ID: "runId",
+        BASECALLING_ID: "basecallingId",
+        MAPPING_TOOL_ID: "mappingToolId",
+        ELAND_OUTPUT_DIR: "elandOutputDir",
+        HAS_QC_PDFS: "hasqcpdfs",
+        CONFIG_FILE_CONTENT: "configFileContent",
+        COMMENT: "comment",
+    },
+
+    basecallings: {
+        RUN_ID: "runId",
+        PIPELINE_VERSION_ID: "pipelineVersionId",
+        ANALYSIS_TYPE_ID: "analysisTypeId",
+        CONTROL_LANE_NB: "controlLaneNb",
+        UNALIGNED_OUTPUT_DIR: "outputDir",
+        IS_DEMULTIPLEXING:"isdemultiplexingAnalysis",
+        COMMENT: "comment",
+    },
+
+    bioanalysers: {
+        BIOANALYSER_FILE: "bioanalyserFile",
+        BIOANALYSER_FILENAME: "filename",
+        BIOANALYSER_DATE: "bioanalyserDate",
+        DESCRIPTION: "description",
+    },
+
+    genomes: {
+        TAXO_ID: "taxoId",
+        ASSEMBLY: "assembly",
+        GENOME_FOLDER: "genomeFolder",
+        URL: "url",
+        DOWNLOADED_DATE: "downloadedDate",
+        FILES: "files",
+        COMMENT: "comment",
+        IS_MASKED: "ismasked",
+        IS_ARCHIVED: "isarchived",
+    },
+
+    libraries: {
+        PROJECT_ID: "projectId",
+        SAMPLE_ID: "sampleId",
+        NAME: "name",
+        LIB_PROTOCOL_ID: "libProtocolId",
+        STARTING_MATERIAL: "startingMaterial",
+        LIBRARY_DATE: "libraryDate",
+        BIOANALYSER_PEAK:  "bioanalyserPeak",
+        FRAG_SIZE_MIN: "fragSizeMin",
+        FRAG_SIZE_MAX: "fragSizeMax",
+        CONCENTRATION: "concentration",
+        QUANTIF_METHOD_ID: "quantifMethodId",
+        MULTIPLEX_INDEX_7_ID: "multiplexIndexId",
+        MULTIPLEX_INDEX_5_ID: "index5primeId",
+        VOLUME: "volume",
+        ADAPTER_ID: "adapterId",
+        KITS_LOTS: "kitsLots",
+        COMMENT_CUSTOMER: "commentCustomer",
+        LIBRARY_STATE_ID: "libraryStateId",
+        COMMENT: "comment",
+        IS_CUSTOMER_MADE: "iscustomerMade",
+        IS_ROBOT_MADE: "isRobot_made",
+    },
+
+    people: {
+
+    },
+
+    projects: {
+
+    },
+
+    runs: {
+        GA_RUN_NUMBER: "gaRunNb",
+        FLOWCELL: "flowcellRefName",
+        FLOWCELL_TYPE_ID: "flowcellTypeId",
+        RELEASE_DATE: "releaseDate",
+        INSTRUMENT_ID: "instrumentId",
+        GA_RUN_DATE: "gaRunDate",
+        RUN_TYPES_LENGTH_ID: "runTypesLengthId",
+        FC_STAGE: "fcStage",
+        SEQUENCING_KIT_VERSION_ID: "sequencingKitVersionId",
+        IS_FAILED: "istrashed",
+        COMMENT: "comment",
+    },
+
+    samples: {
+
+    },
+
+    user_requests: {
+
+    },
+
     ID: "id",
     NAME: "name",
     DESCRIPTION: "description",
@@ -35,12 +130,14 @@ const fields = {
     CONFIG_FILE_CONTENT: "configFileContent",
     BASECALLING_ID: "basecallingId",
     HAS_QC_PDFS: "hasqcpdfs",
+    ANALYSIS_TYPE_ID: "analysisTypeId",
 
     // Basecallings
     CONTROL_LANE_NB: "controlLaneNb",
-    IS_DEMULTIPLEXING:"isdemultiplexingAnalysis",
+    IS_DEMULTIPLEXING: "isdemultiplexingAnalysis",
     UNALIGNED_OUTPUT_DIR: "outputDir",
     RUN_ID: "runId",
+    PIPELINE_VERSION_ID: "pipelineVersionId",
 
     // Genomes
     ASSEMBLY: "assembly",
@@ -92,28 +189,11 @@ const fields = {
     IS_FULFILLED: "isfulfilled",
     RUN_TYPES_LENGTH_ID: "runTypesLengthId",
 
-
     // Bioanalysers
     BIOANALYSER_FILE: "bioanalyserFile",
     BIOANALYSER_DATE: "bioanalyserDate",
-    PIPELINE_VERSION_ID: "pipelineVersionId",
-    ANALYSIS_TYPE_ID: "analysisTypeId",
 
     // Runs
-    runs: {
-        GA_RUN_NUMBER: "gaRunNb",
-        FLOWCELL: "flowcellRefName",
-        FLOWCELL_TYPE_ID: "flowcellTypeId",
-        RELEASE_DATE: "releaseDate",
-        INSTRUMENT_ID: "instrumentId",
-        GA_RUN_DATE: "gaRunDate",
-        RUN_TYPES_LENGTH_ID: "runTypesLengthId",
-        FC_STAGE: "fcStage",
-        SEQUENCING_KIT_VERSION_ID: "sequencingKitVersionId",
-        IS_FAILED: "istrashed",
-        COMMENT: "comment"
-    },
-
     RUN_NUMBER: "gaRunNb",
     FLOWCELL_ID: "flowcellId",
     FLOWCELL_TYPE_ID: "flowcellTypeId",
