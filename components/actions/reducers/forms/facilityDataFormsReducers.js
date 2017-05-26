@@ -60,9 +60,9 @@ let facilityDataFormsReducers = combineForms(
             [fields.libraries.COMMENT_CUSTOMER]: "",
             [fields.libraries.LIBRARY_STATE_ID]: "",
             [fields.libraries.COMMENT]: "",
-            [fields.libraries.IS_CUSTOMER_MADE]: "",
-            [fields.libraries.IS_ROBOT_MADE]: "",
-            [fields.libraries.IS_TRASHED]: "",
+            [fields.libraries.IS_CUSTOMER_MADE]: false,
+            [fields.libraries.IS_ROBOT_MADE]: false,
+            [fields.libraries.IS_TRASHED]: false,
         },
         people: {
             [fields.people.FIRST_NAME]: "",
@@ -79,7 +79,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.projects.PROJECT_STATE_ID]: "",
             [fields.projects.USER_MEETING_DATE]: dateNow(),
             [fields.projects.PROJECT_ANALYSIS_ID]: "",
-            [fields.projects.IS_CONTROL]: "",
+            [fields.projects.IS_CONTROL]: false,
             [fields.projects.COMMENT]: "",
         },
         samples: {
@@ -98,7 +98,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.samples.DESCRIPTION]: "",
             [fields.samples.COMMENT_CUSTOMER]: "",
             [fields.samples.COMMENT]: "",
-            [fields.samples.IS_TRASHED]: "",
+            [fields.samples.IS_TRASHED]: false,
         },
         user_requests: {
             [fields.user_requests.PROJECT_ID]: "",
@@ -112,8 +112,8 @@ let facilityDataFormsReducers = combineForms(
             [fields.user_requests.MILLION_READS]: "",
             [fields.user_requests.WITH_LIB_QC]: "",
             [fields.user_requests.COMMENT]: "",
-            [fields.user_requests.IS_TRASHED]: "",
-            [fields.user_requests.IS_FULFILLED]: "",
+            [fields.user_requests.IS_TRASHED]: false,
+            [fields.user_requests.IS_FULFILLED]: false,
         },
         bioanalysers: {
             [fields.bioanalysers.BIOANALYSER_FILE]: "",
@@ -122,7 +122,9 @@ let facilityDataFormsReducers = combineForms(
             [fields.bioanalysers.DESCRIPTION]: "",
             lanes: {
                 1: {
-
+                    projectId: "",
+                    libraryId: "",
+                    comment: "",
                 },
             },
         },
