@@ -71,15 +71,15 @@ class CommonTable extends React.PureComponent {
     }
 
     /**
-     * Need to update columnsKey width here, just before rendering, and not in `onGridReady`
+     * Need to update columns width here, just before rendering, and not in `onGridReady`
      * as the docs suggest, because `onGridReady` happens before data arrives
      * and container sizes change in unpredictable manner.
      */
     componentWillUpdate() {
+        this.api && this.api.doLayout();  // recalculate layout to fill the container div
     }
 
     componentDidUpdate() {
-        this.api && this.api.doLayout();  // recalculate layout to fill the container div
         this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
         //this.columnApi && this.columnApi.autoSizeColumns(["ID"]);  // recalculate columnsKey width to fill the content
     }
