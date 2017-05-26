@@ -1,0 +1,22 @@
+
+.batchInsertTable {
+
+}
+
+.batchInsertTable td {
+    border: 1px solid #ccc;
+}
+
+.cell {
+    padding: 0;
+}
+
+.cell > input, .cell > select {
+    border: none;
+    padding: 2px;
+}
+
+.headerCell {
+
+}
+

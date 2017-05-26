@@ -1,8 +1,8 @@
 "use strict";
 import React from 'react';
-import store from '../../core/store';
+import css from './styles.css';
 import { connect } from 'react-redux';
-import { Form, Control, actions } from 'react-redux-form';
+import { Form, Control } from 'react-redux-form';
 import { bindActionCreators } from 'redux';
 import {
     requestAllProjects,
@@ -47,16 +47,16 @@ class SamplesBatchSubmission extends React.PureComponent {
             let input;
             switch(model.inputType) {
                 case inputTypes.TEXT:
-                    input = <Control.text model={modelName}/>; break;
+                    input = <Control.text model={modelName} updateOn="change" />; break;
                 case inputTypes.NUMBER:
-                    input = <Control.input model={modelName} type="number"/>; break;
+                    input = <Control.input model={modelName} type="number" updateOn="change"/>; break;
                 case inputTypes.DATE:
-                    input = <Control.input model={modelName} type="date"/>; break;
+                    input = <Control.input model={modelName} type="date" updateOn="change"/>; break;
                 case inputTypes.CHECKBOX:
-                    input = <Control.checkbox model={modelName}/>; break;
+                    input = <Control.checkbox model={modelName} updateOn="change"/>; break;
                 case inputTypes.DROPDOWN:
                     input = (
-                        <Control.select model={modelName}>
+                        <Control.select model={modelName} updateOn="change">
                             {this.makeOptions(this.props.options[field])}
                         </Control.select>
                     ); break;
@@ -68,9 +68,11 @@ class SamplesBatchSubmission extends React.PureComponent {
         return inputs;
     }
 
-    makeRow(inputs) {
-        let cells = inputs.map((input,i) => <td key={i}>{input}</td>);
-        return <tr key={1}>{cells}</tr>;
+    makeRow(inputs, k) {
+        let cells = inputs.map((input,i) =>
+            <td className={css.cell} key={i}>{input}</td>
+        );
+        return <tr key={k}>{cells}</tr>;
     }
 
     makeHeader() {
@@ -79,7 +81,9 @@ class SamplesBatchSubmission extends React.PureComponent {
             let label = batchSubmissionModel[field].label || "";
             labels.push(label);
         }
-        let cells = labels.map((label,i) => <th key={i}>{label}</th>);
+        let cells = labels.map((label,i) =>
+            <th className={css.headerCell} key={i}>{label}</th>
+        );
         return <tr>{cells}</tr>;
     }
 
@@ -88,12 +92,14 @@ class SamplesBatchSubmission extends React.PureComponent {
     render() {
         return (
             <Form model="userData.samples">
-                <table>
+                <table className={css.batchInsertTable}>
                     <thead>
                         {this.makeHeader()}
                     </thead>
                     <tbody>
-                        {this.makeRow(this.makeInputs())}
+                        {this.makeRow(this.makeInputs(), 1)}
+                        {this.makeRow(this.makeInputs(), 2)}
+                        {this.makeRow(this.makeInputs(), 3)}
                     </tbody>
                 </table>
             </Form>
