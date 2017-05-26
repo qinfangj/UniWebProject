@@ -8,6 +8,7 @@ const inputTypes = {
     TEXTAREA: "textarea",
     CHECKBOX: "checkbox",
     DATE: "date",
+    NUMBER: "number",
 };
 
 export const DEFAULT_DATE = "1970-01-01";
