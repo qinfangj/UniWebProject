@@ -76,10 +76,10 @@ class CommonTable extends React.PureComponent {
      * and container sizes change in unpredictable manner.
      */
     componentWillUpdate() {
-        this.api && this.api.doLayout();  // recalculate layout to fill the container div
     }
 
     componentDidUpdate() {
+        this.api && this.api.doLayout();  // recalculate layout to fill the container div
         this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
         //this.columnApi && this.columnApi.autoSizeColumns(["ID"]);  // recalculate columnsKey width to fill the content
     }
@@ -133,21 +133,21 @@ class CommonTable extends React.PureComponent {
 
         return (
             <div style={{width: '100%', height: '100%'}}>
-                <div >
-                <div type="button" className={css.resetBtn} onClick={this.reset.bind(this)}>
+                <div>
+                    <div type="button" className={css.resetBtn} onClick={this.reset.bind(this)}>
                         <span className="glyphicon glyphicon-remove" aria-hidden="true" />
-                </div>
-                <FormControl type="text" className={css.searchField} placeholder="Search"
-                    value={this.state.searchValue}
-                    onChange={this.onSearch.bind(this)}
-                />
+                    </div>
+                    <FormControl type="text" className={css.searchField} placeholder="Search"
+                        value={this.state.searchValue}
+                        onChange={this.onSearch.bind(this)}
+                    />
                 </div>
                 <div className="clearfix"/>
 
                 { !this.props.form ? null :
                     <Feedback reference={this.props.form}/>
                 }
-                
+
                 <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}
