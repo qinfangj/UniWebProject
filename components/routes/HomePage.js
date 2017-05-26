@@ -7,7 +7,7 @@ import css from './App.css'
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Alert from 'react-bootstrap/lib/Alert';
-//import {title, html} from './homePageMsg.md';
+import file from './msgHome/homePageNews.md';
 
 class HomePage extends React.Component {
     render() {
@@ -18,7 +18,7 @@ class HomePage extends React.Component {
             <div>
             <header>
                 <h2>Welcome to
-                    <p style={{marginLeft:'10%'}}><i>Lausanne Genomic Technologies Facility!</i></p></h2>
+                    <p style={{marginLeft:'5%'}}>Lausanne Genomic Technologies Facility!</p></h2>
             </header>
                 <Feedback reference={formNames.SIGN_UP_FORM} />
                 <Feedback reference={formNames.CHANGE_PASSWORD_FORM} />
@@ -38,15 +38,12 @@ class HomePage extends React.Component {
                         <div height='40%'>
                             <p style={{textIntent:'50px'}}>This UHTS-Laboratory Information Managment System (LIMS) provides a relational database to store the information related to the Illumina sequencing technology.</p>
                             <p>This UHTS-LIMS is only for the internal use on INTERFACE DEVELOPMENT of DNA Array Facility at Lausanne University.</p>
+
                         </div>
                         {/*</Alert>*/}
                         <Alert bsStyle="info">
                             <fieldset><legend>News</legend>
-                                <ul>
-                                    <li>News1</li>
-                                    <li>News2</li>
-                                    <li>News3</li>
-                                </ul>
+                                <div dangerouslySetInnerHTML={{__html: file}} />
                             </fieldset>
                         </Alert>
                     </Col>

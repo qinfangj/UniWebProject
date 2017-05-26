@@ -141,7 +141,8 @@ const config = {
       },
       {
         test: /\.md$/,
-        loader: path.resolve(__dirname, './utils/markdown-loader.js'),
+        // loader: path.resolve(__dirname, './utils/markdown-loader.js'),
+        loader: "html!markdown?gfm=false"
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)(\?.*$|$)/,
