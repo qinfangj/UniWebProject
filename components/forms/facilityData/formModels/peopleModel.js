@@ -7,37 +7,36 @@ import validators from '../../validators2';
 
 
 const peopleModel = {
-    [fields.FIRST_NAME]: {
+    [fields.people.FIRST_NAME]: {
         width: 4,
         label: "First name",
         inputType: inputTypes.TEXT,
         required: true,
     },
-    [fields.LAST_NAME]: {
+    [fields.people.LAST_NAME]: {
         width: 4,
         label: "Last name",
         inputType: inputTypes.TEXT,
         required: true,
     },
-    [fields.EMAIL]: {
+    [fields.people.EMAIL]: {
         width: 4,
         label: "PI email",
         inputType: inputTypes.TEXT,
         required: true,
         type: "email",
     },
-    [fields.ADDRESS]: {
+    [fields.people.ADDRESS]: {
         width: 8,
         label: "PI address",
         inputType: inputTypes.TEXT,
         required: true,
     },
-    [fields.PHONE]: {
+    [fields.people.PHONE]: {
         width: 4,
         label: "PI phone",
         inputType: inputTypes.TEXT,
         required: true,
-        type: "phone",
     }
 };
 

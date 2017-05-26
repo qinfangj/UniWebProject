@@ -64,7 +64,7 @@ class ProjectInsertForm extends React.PureComponent {
     }
 
     render() {
-        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled);
+        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, {});
 
         return (
             <div>

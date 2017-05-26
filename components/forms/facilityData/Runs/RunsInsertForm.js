@@ -4,12 +4,14 @@ import formsCss from '../../forms.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form } from 'react-redux-form';
+
 import { requestInstruments,
          requestFlowcellTypes,
          requestRunsTypesLengths,
          requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import { feedbackWarning } from '../../../actions/actionCreators/feedbackActionCreators';
+
 import * as forms from '../../forms.js';
 import LanesSubForm from './LanesSubForm';
 import formNames from '../../../constants/formNames';

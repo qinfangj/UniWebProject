@@ -23,47 +23,6 @@ function isValid(value, type, required, setValid) {
 
 
 export const facilityDataModels = Object.freeze({
-    [formNames.BASECALLINGS_INSERT_FORM]: {
-        [fields.RUN_ID]: {
-            label: "Run",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.PIPELINE_VERSION_ID]: {
-            label: "Pipeline version",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.ANALYSIS_TYPE_ID]: {
-            label: "Analysis type",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.CONTROL_LANE_NB]: {
-            label: "Control lane",
-            type: inputTypes.DROPDOWN,
-            value: 0,
-        },
-        [fields.IS_DEMULTIPLEXING]: {
-            label: "Demultiplexing",
-            type: inputTypes.CHECKBOX,
-            value: false,
-        },
-        [fields.UNALIGNED_OUTPUT_DIR]: {
-            label: "Unaligned data output folder",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.COMMENT]: {
-            label: "Comment",
-            type: inputTypes.TEXTAREA,
-            value: "",
-        }
-    },
 
     [formNames.BIOANALYSERS_INSERT_FORM]: {
         [fields.BIOANALYSER_FILE]: {
