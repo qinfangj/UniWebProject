@@ -102,7 +102,7 @@ const routes = (
 
             {/* TRACKING */}
 
-            <Route path="tracking" component={tracking.trackingSamples} onEnter={requireAuth} />
+            <Redirect from="tracking" to="tracking/samples" />
             <Route path="tracking/samples" component={tracking.trackingSamples} onEnter={requireAuth} />
             <Route path="tracking/libraries" component={tracking.trackingLibraries} onEnter={requireAuth} />
             <Route path="tracking/runs" component={tracking.trackingRuns} onEnter={requireAuth} />
