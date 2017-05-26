@@ -24,13 +24,13 @@ class Validators {
     }
 
     shortStringValidator(v) {
-        let valid = /^[\w ]{2,10}$/.test(trimmed(v));
+        let valid = trimmed(v).length >= 2 && trimmed(v).length <= 10;
         let msg = "2-10 characters.";
         return {valid, msg};
     }
 
     mediumStringValidator(v) {
-        let valid = /^[\w ]{0,30}$/.test(trimmed(v));
+        let valid = trimmed(v).length <= 30;
         let msg = "0-30 characters.";
         return {valid, msg};
     }

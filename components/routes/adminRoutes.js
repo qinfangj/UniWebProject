@@ -6,16 +6,15 @@ import adminDataColumns from '../tables/adminData/columns';
 import tableNames from '../tables/tableNames';
 
 import AdminData from '../pages/AdminData';
+import AdminDataHome from '../pages/AdminDataHome';
 import ProjectSharingSubmitForm from '../forms/adminData/ProjectSharingSubmitForm';
 import LimsUsersSubmitForm from '../forms/adminData/LimsUserSubmitForm';
 
 
-export class LimsUserPage extends React.Component {
+export class AdminDataPage extends React.Component {
     render() {
         return (
-            <div>
-                <span >Loading...</span>
-            </div>
+            <AdminDataHome />
         );
     }
 }

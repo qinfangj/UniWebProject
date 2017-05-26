@@ -47,20 +47,20 @@ class RunsInsertForm extends React.PureComponent {
      * corresponding to the received projectIds (see newOrUpdate2 in componentWillMount).
      */
     onUpdateLoadLibsOptions(data) {
-      for (let laneNb of Object.keys(data.lanes)) {
-          let libs = this.props.formData.lanes[laneNb].libs;
-          for (let k=0; k < libs.length; k++) {
-              let projectModelName = `${this.modelName}.lanes[${laneNb}].libs[${k}].projectId`;
-              this.props.requestLibrariesForProject(projectModelName, libs[k].projectId);
-          }
-      }
+        for (let laneNb of Object.keys(data.lanes)) {
+            let libs = this.props.formData.lanes[laneNb].libs;
+            for (let k=0; k < libs.length; k++) {
+                let projectModelName = `${this.modelName}.lanes[${laneNb}].libs[${k}].projectId`;
+                this.props.requestLibrariesForProject(projectModelName, libs[k].projectId);
+            }
+        }
     }
 
     /**
      * Cast numeric values before we can submit. RRF apparently uses only strings and booleans.
      */
     formatInsertData(values) {
-        let insertData = _.cloneDeep(values);  // because `values` is immutable
+        let insertData = forms.formatFormFieldsDefault(runsModel, values);
         insertData.gaRunNb = parseInt(insertData.gaRunNb);
         for (let laneNb of Object.keys(insertData.lanes)) {
             insertData.lanes[laneNb].laneNb = parseInt(laneNb);

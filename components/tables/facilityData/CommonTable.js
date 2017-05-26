@@ -71,7 +71,7 @@ class CommonTable extends React.PureComponent {
     }
 
     /**
-     * Need to update columnsKey width here, just before rendering, and not in `onGridReady`
+     * Need to update columns width here, just before rendering, and not in `onGridReady`
      * as the docs suggest, because `onGridReady` happens before data arrives
      * and container sizes change in unpredictable manner.
      */
@@ -133,21 +133,21 @@ class CommonTable extends React.PureComponent {
 
         return (
             <div style={{width: '100%', height: '100%'}}>
-                <div >
-                <div type="button" className={css.resetBtn} onClick={this.reset.bind(this)}>
+                <div>
+                    <div type="button" className={css.resetBtn} onClick={this.reset.bind(this)}>
                         <span className="glyphicon glyphicon-remove" aria-hidden="true" />
-                </div>
-                <FormControl type="text" className={css.searchField} placeholder="Search"
-                    value={this.state.searchValue}
-                    onChange={this.onSearch.bind(this)}
-                />
+                    </div>
+                    <FormControl type="text" className={css.searchField} placeholder="Search"
+                        value={this.state.searchValue}
+                        onChange={this.onSearch.bind(this)}
+                    />
                 </div>
                 <div className="clearfix"/>
 
                 { !this.props.form ? null :
                     <Feedback reference={this.props.form}/>
                 }
-                
+
                 <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}

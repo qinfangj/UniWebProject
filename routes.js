@@ -109,7 +109,7 @@ const routes = (
 
             {/* USER DATA */}
 
-            <Route path="user" component={userdata.UserDataPage} onEnter={requireAuth} />
+            <Route path="user" component={userdata.UserDataHomePage} onEnter={requireAuth} />
             <Route path="user/newform" component={userdata.UserDataPage} onEnter={requireAuth} />
             <Route path="user/newrequest" component={userdata.UserDataPage} onEnter={requireAuth} />
             <Route path="user/view/labsamples" component={userdata.UserDataPage} onEnter={requireAuth} />
@@ -143,9 +143,9 @@ const routes = (
 
             {/* ADMIN */}
 
-            {/*<Route path="admin" component={admin.AdminPage} onEnter={requireAuth} />*/}
-            <Route path="admin" component={admin.UsersPage} onEnter={requireAuth} />
-            <Route path="admin/users" component={admin.LimsUserPage} onEnter={requireAuth} />
+            <Route path="admin" component={admin.AdminDataPage} onEnter={requireAuth} />
+            {/*<Route path="admin" component={admin.UsersPage} onEnter={requireAuth} />*/}
+            {/*<Route path="admin/users" component={admin.LimsUserPage} onEnter={requireAuth} />*/}
             <Route path="admin/users/list" component={admin.LimsUserListRoute} onEnter={requireAuth} />
             <Route path="admin/users/unvalidated" component={admin.LimsUserDeletePage} onEnter={requireAuth} />
             <Route path="admin/users/update/:id" component={admin.LimsUsersUpdatePage} onEnter={requireAuth} />

@@ -28,7 +28,6 @@ const lanesModel = {
         "quantityLoaded": {
             width: 4,
             inputType: inputTypes.TEXT,
-            required: true,
             type: "number",
         },
         "qualityId": {

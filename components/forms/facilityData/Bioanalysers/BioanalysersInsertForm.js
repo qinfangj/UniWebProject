@@ -117,7 +117,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                         <TextField
                             form={this.form}
                             field={fields.BIOANALYSER_FILE}
-                            label={"Bioanalyser file"}
+                            label={this.props.updateId ? "Replace bioanalyser file" : "Bioanalyser file"}
                             type="file"
                             disabled={this.state.disabled}
                             required

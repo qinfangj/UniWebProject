@@ -68,22 +68,26 @@ export function loginUser(creds) {
     return dispatch => {
         dispatch(_loginRequest(creds));  // "Fetching..."
         return RestService.login(creds)
-            // Format the response
             .then(response => {
-                // Error
+                //console.log(response)
+                /* HTTP response with error code */
                 if (!response.ok) {
-                    dispatch(_loginError(response.statusText));
-                    return Promise.reject(response);
-                // Successful login
+                    response.text().then(err => {
+                        dispatch(_loginError(response.statusText));
+                        console.log("Error logging in: ", err)
+                    });
+                    //return Promise.reject(response);
+                /* Successful login (200) */
                 } else {
                     response.json().then(user => {
                         dispatch(_LoginSuccess(user));
                         AuthService._doAuthentication(user);
                     }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
                 }
+            /* No HTTP response */
             }).catch(err => {
-                let msg = "Error logging in: " + err.message;
-                store.dispatch(feedbackError("REST", msg, {}));
+                store.dispatch(feedbackError("REST", "Error logging in: " + err.message, {}));
+                console.log("Error logging in - cannot fetch: ", err)
             });
     }
 }
@@ -92,26 +96,30 @@ export function signupUser(creds) {
     return dispatch => {
         dispatch(_signupRequest(creds));  // "Fetching..."
         return RestService.signup(creds)
-            // Format the response
             .then(response => {
-                // Error
+                //console.log(response)
+                /* HTTP response with error code */
                 if (!response.ok) {
-                    dispatch(_signupError(response.statusText));
-                    return Promise.reject(response);
-                // Successful signup
+                    response.text().then(err => {
+                        dispatch(_signupError(err));
+                        dispatch(feedbackError(formNames.SIGN_UP_FORM, "Signup Error: "+err, {}));
+                        console.log("Error signing up: ", err)
+                    });
+                    //return Promise.reject(response);  // redirects to `catch()`
+                /* Successful signup (200) */
                 } else {
                     response.json().then(user => {
-                        dispatch(
-                            feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulations! You have signed up successfully!"));
+                        dispatch(feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulations! You have signed up successfully!"));
                         dispatch(_signupSuccess(user));
                         // We do not want the user to be signed up right away!
                         //AuthService._doAuthentication(user);
                         hashHistory.replace('/home');
                     }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
                 }
+            /* No HTTP response */
             }).catch(err => {
-                dispatch(feedbackWarning(formNames.SIGN_UP_FORM, "Signup Error", err));
-                console.log("Error signing up: ", JSON.stringify(err, null, 2))
+                dispatch(feedbackError("REST", "Cannot connect to server. Please report to an administrator.", err));
+                console.log("Error signing up - cannot fetch: ", err)
             });
     }
 }
