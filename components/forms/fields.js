@@ -74,11 +74,23 @@ const fields = {
     },
 
     people: {
-
+        FIRST_NAME: "firstName",
+        LAST_NAME: "lastName",
+        EMAIL: "email",
+        ADDRESS: "address",
+        PHONE: "phone",
     },
 
     projects: {
-
+        NAME: "name",
+        PERSON_ID: "personId",
+        CODE_NAME: "codeName",
+        DESCRIPTION: "description",
+        PROJECT_STATE_ID: "projectStateId",
+        USER_MEETING_DATE: "userMeetingDate",
+        PROJECT_ANALYSIS_ID: "projectAnalysisId",
+        IS_CONTROL: "iscontrol",
+        COMMENT: "comment",
     },
 
     runs: {
@@ -96,11 +108,38 @@ const fields = {
     },
 
     samples: {
-
+        NAME: "name",
+        SHORT_NAME: "shortName",
+        PROJECT_ID: "projectId",
+        TAXO_ID: "taxoId",
+        SAMPLE_TYPE_ID: "sampleTypeId",
+        RECEIVED_DATE: "receivedDate",
+        QUANTIF_METHOD_ID: "quantifMethodId",
+        CONCENTRATION: "concentration",
+        VOLUME: "volume",
+        RIN: "rin",
+        RATIO_260_280: "ratio260280",
+        RATIO_260_230: "",
+        DESCRIPTION: "description",
+        COMMENT_CUSTOMER: "commentCustomer",
+        COMMENT: "comment",
+        IS_TRASHED: "istrashed",
     },
 
     user_requests: {
-
+        PROJECT_ID: "projectId",
+        SAMPLE_ID: "sampleId",
+        INSERT_SIZE_MIN: "insertSizeMin",
+        INSERT_SIZE_MAX: "insertSizeMax",
+        LIB_PROTOCOL_ID: "libProtocolId",
+        MULTIPLEXING_GROUP: "multiplexingGroup",
+        RUN_TYPES_LENGTH_ID: "runTypesLengthId",
+        NB_LANES: "nbLanes",
+        MILLION_READS: "millionReads",
+        WITH_LIB_QC: "withLibQc",
+        COMMENT: "comment",
+        IS_TRASHED: "istrashed",
+        IS_FULFILLED: "isfulfilled",
     },
 
     ID: "id",

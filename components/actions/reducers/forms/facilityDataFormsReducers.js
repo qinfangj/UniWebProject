@@ -33,7 +33,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.genomes.ASSEMBLY]: "",
             [fields.genomes.GENOME_FOLDER]: "",
             [fields.genomes.URL]: "",
-            [fields.genomes.DOWNLOADED_DATE]: "",
+            [fields.genomes.DOWNLOADED_DATE]: dateNow(),
             [fields.genomes.FILES]: "",
             [fields.genomes.COMMENT]: "",
             [fields.genomes.IS_MASKED]: false,
@@ -46,7 +46,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.libraries.URL]: "",
             [fields.libraries.LIB_PROTOCOL_ID]: "",
             [fields.libraries.STARTING_MATERIAL]: "",
-            [fields.libraries.LIBRARY_DATE]: "",
+            [fields.libraries.LIBRARY_DATE]: dateNow(),
             [fields.libraries.BIOANALYSER_PEAK]: "",
             [fields.libraries.FRAG_SIZE_MIN]: "",
             [fields.libraries.FRAG_SIZE_MAX]: "",
@@ -65,22 +65,60 @@ let facilityDataFormsReducers = combineForms(
             [fields.libraries.IS_TRASHED]: "",
         },
         people: {
-
+            [fields.people.FIRST_NAME]: "",
+            [fields.people.LAST_NAME]: "",
+            [fields.people.EMAIL]: "",
+            [fields.people.ADDRESS]: "",
+            [fields.people.PHONE]: "",
         },
         projects: {
-
+            [fields.projects.NAME]: "",
+            [fields.projects.PERSON_ID]: "",
+            [fields.projects.CODE_NAME]: "",
+            [fields.projects.DESCRIPTION]: "",
+            [fields.projects.PROJECT_STATE_ID]: "",
+            [fields.projects.USER_MEETING_DATE]: dateNow(),
+            [fields.projects.PROJECT_ANALYSIS_ID]: "",
+            [fields.projects.IS_CONTROL]: "",
+            [fields.projects.COMMENT]: "",
         },
         samples: {
-
+            [fields.samples.NAME]: "",
+            [fields.samples.SHORT_NAME]: "",
+            [fields.samples.PROJECT_ID]: "",
+            [fields.samples.TAXO_ID]: "",
+            [fields.samples.SAMPLE_TYPE_ID]: "",
+            [fields.samples.RECEIVED_DATE]: dateNow(),
+            [fields.samples.QUANTIF_METHOD_ID]: "",
+            [fields.samples.CONCENTRATION]: "",
+            [fields.samples.VOLUME]: "",
+            [fields.samples.RIN]: "",
+            [fields.samples.RATIO_260_280]: "",
+            [fields.samples.RATIO_260_230]: "",
+            [fields.samples.DESCRIPTION]: "",
+            [fields.samples.COMMENT_CUSTOMER]: "",
+            [fields.samples.COMMENT]: "",
+            [fields.samples.IS_TRASHED]: "",
         },
         user_requests: {
-
+            [fields.user_requests.PROJECT_ID]: "",
+            [fields.user_requests.SAMPLE_ID]: "",
+            [fields.user_requests.INSERT_SIZE_MIN]: "",
+            [fields.user_requests.INSERT_SIZE_MAX]: "",
+            [fields.user_requests.LIB_PROTOCOL_ID]: "",
+            [fields.user_requests.MULTIPLEXING_GROUP]: "",
+            [fields.user_requests.RUN_TYPES_LENGTH_ID]: "",
+            [fields.user_requests.NB_LANES]: "",
+            [fields.user_requests.MILLION_READS]: "",
+            [fields.user_requests.WITH_LIB_QC]: "",
+            [fields.user_requests.COMMENT]: "",
+            [fields.user_requests.IS_TRASHED]: "",
+            [fields.user_requests.IS_FULFILLED]: "",
         },
-
         bioanalysers: {
             [fields.bioanalysers.BIOANALYSER_FILE]: "",
             [fields.bioanalysers.BIOANALYSER_FILENAME]: "",
-            [fields.bioanalysers.BIOANALYSER_DATE]: "1970-01-01",
+            [fields.bioanalysers.BIOANALYSER_DATE]: dateNow(),
             [fields.bioanalysers.DESCRIPTION]: "",
             lanes: {
                 1: {
@@ -88,7 +126,6 @@ let facilityDataFormsReducers = combineForms(
                 },
             },
         },
-
         runs: {
             [fields.runs.GA_RUN_NUMBER]: "",
             [fields.runs.FLOWCELL]: "",
