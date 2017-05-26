@@ -46,6 +46,11 @@ export default class RRFInput extends React.PureComponent {
             throw "Unknown input type: '"+ inputType +"'";
         }
 
+        // Should be able to automatically select the first dropdown value if there is only one available
+        // if (options && options.length === 1) {
+        //     value = options[0][0];
+        // }
+
         return (
             <div>
                 <Control

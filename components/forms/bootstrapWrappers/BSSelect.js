@@ -15,9 +15,7 @@ export default class BSSelect extends React.PureComponent {
             return <option value={v[0]} key={i}>{v[1]}</option>;
         }) : [];
 
-        if (options && options.length === 1) {
-            this.props.value = options[0][0];
-        } else if (options && hasNoneValue) {
+        if (options && hasNoneValue) {
             opts.unshift(<option value="" key="-">{'-'}</option>);
         }
 

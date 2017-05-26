@@ -42,7 +42,7 @@ const runsModel = {
         label: "Machine",
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.INSTRUMENTS,
-        required: false,
+        required: true,
     },
     [fields.runs.GA_RUN_DATE]: {
         width: 3,
