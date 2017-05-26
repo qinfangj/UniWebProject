@@ -13,7 +13,7 @@ class UserDataHome extends React.Component {
     render() {
         return (
             <div>
-                <h1>Interface to the DEVELOPMENT INTERFACE DNA Array Facility of Lausanne University</h1>
+                <h2>Utilites for the Interface Development of DNA Array Facility </h2>
                 <Row className={css.fdHomeRow}>
                     <Alert bsStyle="info" >
                         <ul>
@@ -23,7 +23,44 @@ class UserDataHome extends React.Component {
                         </ul>
                     </Alert>
                 </Row>
+                <Row className={css.fdHomeRow}> 
 
+                    <Col md={4} >
+                        <div className={css.submitPanel}>
+                            <fieldset className={css.field}>
+                                <legend >Submission</legend>
+                                    <ul>
+                                        <li><a href="/#/user/newform">Submit samples and libraries</a></li>
+                                        <li><a href="/#/user/newrequest">Reqest more sequences</a></li>
+                                    </ul>
+                            </fieldset>
+                        </div>
+                    </Col>
+                    <Col md={4} >
+                        <div className={css.viewPanel}>
+                        <fieldset className={css.field}>
+                            <legend >View</legend>
+                            <ul>
+                                <li><a href="/#/user/view/labsamplesm">View lab submissions</a></li>
+                                <li><a href="/#/user/view/colsamples">View colaboration submissions</a></li>
+                            </ul>
+                        </fieldset>
+                        </div>
+                    </Col>
+                    <Col md={4} >
+                        <div className={css.dataPanel}>
+                        <fieldset className={css.field}>
+                            <legend>Data</legend>
+                            <ul>
+                                <li><a href="/#/user/data/dataruns">Get lab data</a></li>
+                                <li><a href="/#/user/data/datacollabs">Get collaboration data</a></li>
+                            </ul>
+                        </fieldset>
+                        </div>
+                    </Col>
+
+
+                </Row>
             </div>
         );
     }

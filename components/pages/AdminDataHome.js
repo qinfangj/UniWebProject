@@ -13,7 +13,7 @@ class AdminDataHome extends React.Component {
     render() {
         return (
             <div>
-                <div className={css.title}>Admin-restricted Database Browser</div>
+                <h2>Admin-restricted Database Browser</h2>
                 <Row className={css.fdHomeRow}>
                     <Alert bsStyle="info" >
                         <p>
