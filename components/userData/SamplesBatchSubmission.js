@@ -45,19 +45,22 @@ class SamplesBatchSubmission extends React.PureComponent {
             let model = batchSubmissionModel[field];
             let modelName = '.'+field;
             let input;
+            let props = {
+                updateOn: "change",
+            };
             switch(model.inputType) {
                 case inputTypes.TEXT:
-                    input = <Control.text model={modelName} updateOn="change" />; break;
+                    input = <Control.text model={modelName} {...props} />; break;
                 case inputTypes.NUMBER:
-                    input = <Control.input model={modelName} type="number" updateOn="change"/>; break;
+                    input = <Control.input model={modelName} type="number" {...props} />; break;
                 case inputTypes.DATE:
-                    input = <Control.input model={modelName} type="date" updateOn="change"/>; break;
+                    input = <Control.input model={modelName} type="date" {...props} />; break;
                 case inputTypes.CHECKBOX:
-                    input = <Control.checkbox model={modelName} updateOn="change"/>; break;
+                    input = <Control.checkbox model={modelName} />; break;
                 case inputTypes.DROPDOWN:
                     input = (
-                        <Control.select model={modelName} updateOn="change">
-                            {this.makeOptions(this.props.options[field])}
+                        <Control.select model={modelName} {...props}>
+                            {this.makeOptions(this.props.options[model.optionsKey])}
                         </Control.select>
                     ); break;
                 default:
@@ -113,7 +116,7 @@ function mapStateToProps(state) {
     for (let field of Object.keys(batchSubmissionModel)) {
         let model = batchSubmissionModel[field];
         if (model.optionsKey) {
-            options[field] = state.options[model.optionsKey] || [];
+            options[model.optionsKey] = state.options[model.optionsKey] || [];
         }
     }
     let formData = state.userData.samples;
