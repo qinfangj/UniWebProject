@@ -7,7 +7,7 @@ import css from './App.css'
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Alert from 'react-bootstrap/lib/Alert';
-import file from './msgHome/homePageNews.md';
+// import file from './msgHome/homePageNews.md';
 
 class HomePage extends React.Component {
     render() {
@@ -43,7 +43,7 @@ class HomePage extends React.Component {
                         {/*</Alert>*/}
                         <Alert bsStyle="info">
                             <fieldset><legend>News</legend>
-                                <div dangerouslySetInnerHTML={{__html: file}} />
+                                {/*<div dangerouslySetInnerHTML={{__html: file}} />*/}
                             </fieldset>
                         </Alert>
                     </Col>

@@ -75,6 +75,8 @@ class ProjectInsertForm extends React.PureComponent {
 
                     {formFields}
 
+                    <div className="clearfix"/>
+
                     {/* Submit */}
 
                     {this.state.disabled ?

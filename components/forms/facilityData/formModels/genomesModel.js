@@ -7,54 +7,54 @@ import validators from '../../validators2';
 
 
 const genomesModel = {
-    [fields.TAXO_ID]: {
+    [fields.genomes.TAXO_ID]: {
         width: 4,
         label: "Organism",
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.TAXONOMIES,
         required: true,
     },
-    [fields.ASSEMBLY]: {
+    [fields.genomes.ASSEMBLY]: {
         width: 4,
         label: "Assembly",
         inputType: inputTypes.TEXT,
         required: true,
     },
-    [fields.GENOME_FOLDER]: {
+    [fields.genomes.GENOME_FOLDER]: {
         width: 4,
         label: "Genome folder",
         inputType: inputTypes.TEXT,
         required: true,
     },
-    [fields.URL]: {
+    [fields.genomes.URL]: {
         width: 8,
         label: "URL",
         inputType: inputTypes.TEXT,
         required: true,
     },
-    [fields.DOWNLOADED_DATE]: {
+    [fields.genomes.DOWNLOADED_DATE]: {
         width: 4,
         label: "Download date",
         inputType: inputTypes.DATE,
     },
-    [fields.FILES]: {
+    [fields.genomes.FILES]: {
         width: 12,
         label: "File names",
         inputType: inputTypes.TEXT,
         required: true,
     },
-    [fields.COMMENT]: {
+    [fields.genomes.COMMENT]: {
         width: 10,
         label: "Comment",
         inputType: inputTypes.TEXT,
         required: true,
     },
-    [fields.IS_MASKED]: {
+    [fields.genomes.IS_MASKED]: {
         width: 2,
         label: "Masked",
         inputType: inputTypes.CHECKBOX,
     },
-    [fields.IS_ARCHIVED]: {
+    [fields.genomes.IS_ARCHIVED]: {
         width: 2,
         label: "Archived",
         inputType: inputTypes.CHECKBOX,
