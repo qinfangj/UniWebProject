@@ -2,18 +2,18 @@
 import React from 'react';
 import store from '../../../../core/store';
 import css from './lanes.css';
-import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import { actions} from 'react-redux-form';
 import { requestLibrariesFromPool } from '../../../actions/actionCreators/facilityDataActionCreators';
 import { requestProjectsHavingAPool } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestPoolsForProject, requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
-import poolSelectionModel from './poolSelectionModel';
+
+import poolSelectionModel from '../formModels/poolSelectionModel';
 
 import RRFInput from '../../bootstrapWrappers/RRFInput.js';
-import Icon from 'react-fontawesome';
 import Button from 'react-bootstrap/lib/Button';
 
 

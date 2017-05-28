@@ -10,7 +10,7 @@ import { requestProjectsHavingALibrary,
          requestSequencingQualities } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import lanesModel from '../formModels/lanesModel';
-import poolSelectionModel from './poolSelectionModel';
+import poolSelectionModel from '../formModels/poolSelectionModel';
 
 import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';
