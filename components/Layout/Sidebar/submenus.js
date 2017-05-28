@@ -24,7 +24,7 @@ export const userDataSubmenu = [
     { text: "Request more sequences", to: "user/newrequest", },
     { text: "View lab submissions", to: "user/view/labsamples", },
     { text: "View collaboration submissions", to: "user/view/colsamples", },
-    { text: "Get lab data", to: "user/dataruns", },
+    { text: "Get lab data", to: "user/data/dataruns", },
     { text: "Get collaboration data", to: "user/data/datacollabs", },
 ];
 

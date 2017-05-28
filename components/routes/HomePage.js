@@ -7,7 +7,7 @@ import css from './App.css'
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Alert from 'react-bootstrap/lib/Alert';
-//import {title, html} from './homePageMsg.md';
+import file from './msgHome/homePageNews.md';
 
 class HomePage extends React.Component {
     render() {
@@ -17,8 +17,8 @@ class HomePage extends React.Component {
         return (
             <div>
             <header>
-                <h1>Welcome to <br />
-                    Lausanne Genomic Technologies Facility!</h1>
+                <h2>Welcome to
+                    <p style={{marginLeft:'5%'}}>Lausanne Genomic Technologies Facility!</p></h2>
             </header>
                 <Feedback reference={formNames.SIGN_UP_FORM} />
                 <Feedback reference={formNames.CHANGE_PASSWORD_FORM} />
@@ -30,30 +30,22 @@ class HomePage extends React.Component {
                     You will be noticed by an email soon when it has been validated by an administrator.</div>
                 }
 
-                {/*<Row>
-                    <Col sm={12} >
-                        <div className={css.code1} />
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col sm={6}>
-                        <div className={css.section1}>aside<br />float : left</div></Col>
-                    <Col sm={6}>
-                        <div className={css.section2}>aside<br />float : right</div></Col>
-                </Row>*/}
-
                 <Row>
                     <Col md={6}><div className={css.code1} /></Col>
                     <Col md={6}>
 
-                        <Alert bsStyle="info">
-                        This UHTS-Laboratory Information Managment System (LIMS) provides a relational database to store information related to the Illumina sequencing technology.
-                        <br /><br />This UHTS-LIMS is only for internal use at DEVELOPMENT INTERFACE DNA Array Facility of the University of Lausanne.
+                        {/*<Alert bsStyle="info">*/}
+                        <div height='40%'>
+                            <p style={{textIntent:'50px'}}>This UHTS-Laboratory Information Managment System (LIMS) provides a relational database to store the information related to the Illumina sequencing technology.</p>
+                            <p>This UHTS-LIMS is only for the internal use on INTERFACE DEVELOPMENT of DNA Array Facility at Lausanne University.</p>
 
+                        </div>
+                        {/*</Alert>*/}
+                        <Alert bsStyle="info">
+                            <fieldset><legend>News</legend>
+                                <div dangerouslySetInnerHTML={{__html: file}} />
+                            </fieldset>
                         </Alert>
-                        <div className={css.section1}><fieldset><legend>News</legend>
-                           </fieldset></div>
                     </Col>
 
                 </Row>
