@@ -40,61 +40,6 @@ export const facilityDataModels = Object.freeze({
             type: inputTypes.TEXT,
             value: "",
         },
-        // sub-form
-    },
-
-    [formNames.GENOMES_INSERT_FORM]: {
-        [fields.TAXO_ID]: {
-            label: "Organism",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.ASSEMBLY]: {
-            label: "Assembly",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.GENOME_FOLDER]: {
-            label: "Genome folder",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.URL]: {
-            label: "URL",
-            type: inputTypes.TEXT,
-            value: "http://",
-            required: true,
-        },
-        [fields.DOWNLOADED_DATE]: {
-            label: "Download date",
-            type: inputTypes.DATE,
-            value: DEFAULT_DATE,
-        },
-        [fields.FILES]: {
-            label: "File names",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.COMMENT]: {
-            label: "Comment",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.IS_MASKED]: {
-            label: "Masked",
-            type: inputTypes.CHECKBOX,
-            value: false,
-        },
-        [fields.IS_ARCHIVED]: {
-            label: "Archived",
-            type: inputTypes.CHECKBOX,
-            value: false,
-        }
     },
 
     [formNames.LIBRARIES_INSERT_FORM]: {
