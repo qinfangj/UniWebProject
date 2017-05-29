@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react';
+import css from './styles.css';
 import inputTypes from '../forms/inputTypes';
 import { Control } from 'react-redux-form';
 
@@ -28,11 +29,12 @@ export function makeInputs(rowModel, options, formModelName, k) {
         let modelName = `${formModelName}[${k}].${field}`;
         let input;
         let props = {
-            updateOn: "change",
+            updateOn: "blur",
         };
+
         switch(model.inputType) {
             case inputTypes.TEXT:
-                input = <Control.text model={modelName} {...props} />; break;
+                input = <Control.text className={css} model={modelName} {...props} />; break;
             case inputTypes.NUMBER:
                 input = <Control.input model={modelName} type="number" {...props} />; break;
             case inputTypes.DATE:
@@ -41,14 +43,18 @@ export function makeInputs(rowModel, options, formModelName, k) {
                 input = <Control.checkbox model={modelName} />; break;
             case inputTypes.DROPDOWN:
                 input = (
+                    <div style={{overflow: 'hidden', marginRight: '2px'}}>
                     <Control.select model={modelName} {...props}>
                         {makeOptions(options[model.optionsKey])}
                     </Control.select>
+                    </div>
                 ); break;
             default:
                 break;
         }
+
         inputs.push(input);
+        
     }
     return inputs;
 }

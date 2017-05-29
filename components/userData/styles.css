@@ -9,11 +9,20 @@
 
 .cell {
     padding: 0;
+    max-width: 150px;
+    font-size: 0.9em;
 }
 
-.cell > input, .cell > select {
+.cell input, .cell select {
     border: none;
+}
+
+.cell select {
     padding: 2px;
+}
+
+.cell input[type="checkbox"] {
+    margin-left: 5px;
 }
 
 .headerCell {
