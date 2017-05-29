@@ -3,6 +3,7 @@ import React from 'react';
 import css from './styles.css';
 import inputTypes from '../forms/inputTypes';
 import { Control } from 'react-redux-form';
+import { dateNow } from '../../utils/time';
 
 
 /**
@@ -54,8 +55,36 @@ export function makeInputs(rowModel, options, formModelName, k) {
         }
 
         inputs.push(input);
-        
+
     }
     return inputs;
 }
 
+
+export function newEmptyRow() {
+    return {
+        project: "",
+        sampleName: "",
+        shortName: "",
+        organism: "",
+        startingMaterial: "",
+        materialType: "",
+        libraryProtocol: "",
+        adapters: "",
+        libraryDate: dateNow(),
+        multiplexIndex7: "",
+        secondIndex5: "",
+        minFragSize: "",
+        maxFragSize: "",
+        bioanalyserPeak: "",
+        concentration: "",
+        volume: "",
+        quantifMethod: "",
+        isrobotMade: "",
+        comment: "",
+        readTypesLengths: "",
+        nbLanes: "",
+        multiplexNb: "",
+        multiplexingGroup: "",
+    };
+}

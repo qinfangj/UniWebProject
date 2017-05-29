@@ -25,7 +25,12 @@
     margin-left: 5px;
 }
 
-.headerCell {
-
+.rowButtons {
+    width: 80px;
 }
-
+.copyNtimes {
+    position: relative;
+    top: 0px;
+    left: -8px;
+    font-size: 0.7em;
+}
