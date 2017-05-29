@@ -42,7 +42,7 @@ const batchSubmissionModel = {
         label: "Adapters",
     },
     "libraryDate": {
-        inputType: inputTypes.TEXT,
+        inputType: inputTypes.DATE,
         type: "date",
         label: "Library date",
     },
