@@ -32,12 +32,6 @@ class AlignmentsInsertForm extends React.PureComponent {
         };
     }
 
-    static propTypes = {
-        // If defined, the form will be pre-filled with the current data for the item with this ID,
-        //  after fetching it on the server.
-        updateId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    };
-
     componentWillMount() {
         forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdateLoadBasecallingsOptions.bind(this));
         if (this.props.updateId) {
@@ -85,8 +79,6 @@ class AlignmentsInsertForm extends React.PureComponent {
                 <Feedback reference={this.form} />
 
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
-
-                    {/* <Feedback reference={this.modelName} /> */}
 
                     {formFields}
 

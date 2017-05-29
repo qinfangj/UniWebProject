@@ -1,23 +1,27 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from '../forms.css';
+import formsCss from '../forms.css';
+import store from '../../../core/store';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form, actions } from 'react-redux-form';
 
-import TextField from '../elements/TextField';
-import Textarea from '../elements/TextField';
-import Checkbox from '../elements/MyCheckBox';
-import DatePicker from '../elements/DatePicker';
-import validators from '../validators';
+import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
+import { requestProjectsHavingASample,
+         requestLibProtocols,
+         requestQuantifMethods,
+         requestAllMultiplexIndexes,
+         requestLibAdapters,
+         requestLibraryStates } from '../../actions/actionCreators/optionsActionCreators';
+import { requestSamplesForProject } from '../../actions/actionCreators/secondaryOptionsActionCreators';
+
 import * as forms from '../forms.js';
-import * as Options from '../subcomponents/Options';
-import SamplesForProject from '../../forms/subcomponents/secondarySelects/SamplesForProject';
-import { ProjectsWithSamples } from '../../forms/subcomponents/OptionsWith';
 import formNames from '../../constants/formNames';
+import librariesModel from './formModels/librariesModel';
 import fields from '../fields';
 
-import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
 import Feedback from '../../utils/Feedback';
 
 
@@ -27,325 +31,129 @@ class LibrariesInsertForm extends React.PureComponent {
         super();
         this.table = "libraries";
         this.form = formNames.LIBRARIES_INSERT_FORM;
-        this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
+        this.modelName = "facilityDataForms.libraries";
+        this.model = librariesModel;
         this.state = {
             disabled: false,
         };
     }
 
-    static propTypes = {
-        // If defined, the form will be pre-filled with the current data for the item with this ID,
-        //  after fetching it on the server.
-        updateId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    };
-
     componentWillMount() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdateLoadSamplesOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
-    }
-    componentWillReceiveProps() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
-    }
-
-    formatFormData(formData) {
-        formData.concentration = parseInt(formData.concentration);
-        formData.volume = parseInt(formData.volume);
-        formData.fragSizeMin = parseInt(formData.fragSizeMin);
-        formData.fragSizeMax = parseInt(formData.fragSizeMax);
-        formData.bioanalyserPeak = parseInt(formData.bioanalyserPeak);
-        return formData;
+        this.props.requestProjectsHavingASample();
+        this.props.requestLibProtocols();
+        this.props.requestQuantifMethods();
+        this.props.requestAllMultiplexIndexes();
+        this.props.requestLibAdapters();
+        this.props.requestLibraryStates();
     }
 
-    onSubmit() {
-        forms.submit(this.form, this.table, this.formatFormData);
+    onUpdateLoadSamplesOptions(data) {
+        this.props.requestSamplesForProject(this.modelName+'.'+fields.PROJECT_ID, data.projectId);
+    }
+
+    formatInsertData(values) {
+        let insertData = forms.formatFormFieldsDefault(this.model, values);
+        return insertData;
+    }
+
+    validate(insertData) {
+        return {
+            isValid: true,
+            message: "",
+        }
+    }
+
+    onSubmit(values) {
+        let insertData = this.formatInsertData(values);
+        let validation = this.validate(insertData);
+        if (validation.isValid) {
+            forms.submitForm(this.modelName, insertData, this.table, this.form);
+        } else {
+            this.props.feedbackWarning(this.form, validation.message);
+        }
     }
 
     activateForm() {
         this.setState({ disabled: false });
     }
+    deactivateForm() {
+        this.setState({ disabled: true });
+    }
+
+    onProjectChange(model, value) {
+        store.dispatch(actions.change(model, value));
+        this.props.requestSamplesForProject(model, value);
+    }
 
     render() {
+        let changeActions = {[fields.PROJECT_ID]: this.onProjectChange.bind(this)};
+        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options, changeActions);
+
         return (
-            <form className={css.form}>
+            <div>
 
                 <Feedback reference={this.form} />
 
-                <Form componentClass="fieldset" horizontal>
+                <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
-                    {/* Project */}
+                    {formFields}
 
-                    <Col sm={4} className={css.formCol}>
-                        <ProjectsWithSamples
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
+                    <div className="clearfix"/>
 
-                    {/* Sample */}
+                    {/* Submit */}
 
-                    <Col sm={2} className={css.formCol}>
-                        <SamplesForProject
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Name */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.NAME}
-                            label="Name"
-                            disabled={this.state.disabled}
-                            required
-                            validator = {validators.mediumStringValidator}
-                        />
-                    </Col>
-
-                    {/* Library type - aka protocol */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.LibProtocols
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Starting material */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.STARTING_MATERIAL}
-                            label="Starting material"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Library date */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <DatePicker
-                            form={this.form}
-                            field={fields.LIBRARY_DATE}
-                            label="Library date"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-
-                    {/* Bioanalyser peak */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.BIOANALYSER_PEAK}
-                            label="Bioanalyser peak"
-                            validator = {validators.numberValidator}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Min frag size */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.FRAG_SIZE_MIN}
-                            label="Frag.size(min)"
-                            disabled={this.state.disabled}
-                            required
-                            validator = {validators.numberValidator}
-                        />
-                    </Col>
-
-                    {/* Max frag size */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.FRAG_SIZE_MAX}
-                            label="Frag.size(max)"
-                            disabled={this.state.disabled}
-                            required
-                            validator = {validators.numberValidator}
-                        />
-                    </Col>
-
-                    {/* Concentration */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.CONCENTRATION}
-                            label="Concentration"
-                            validator = {validators.numberValidator}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Quantification */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.QuantifMethods
-                            form={this.form}
-                            field={fields.QUANTIF_METHOD_ID}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Multiplex index */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.MultiplexIndexes
-                            form={this.form}
-                            field={fields.MULTIPLEX_INDEX_7_ID}
-                            label="Multiplex index (I7)"
-                            suffix="all"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Second (multiplex) index */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.MultiplexIndexes
-                            form={this.form}
-                            field={fields.MULTIPLEX_INDEX_5_ID}
-                            label="Second index (I5)"
-                            suffix="all"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Volume */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.VOLUME}
-                            label="Volume"
-                            validator = {validators.numberValidator}
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                    {/* Adapters */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.LibraryAdapters
-                            form={this.form}
-                            field={fields.ADAPTER_ID}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Illumina kits and lots */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.KITS_LOTS}
-                            label="Illumina kits and lots"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Customer's comment */}
-
-                    <Col sm={10} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.COMMENT}
-                            label="Comment"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                    {/* Library state */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.LibraryStates
-                            form={this.form}
-                            field={fields.LIBRARY_STATE_ID}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Internal comment */}
-
-                    <Col sm={10} className={css.formCol}>
-                        <Textarea
-                            form={this.form}
-                            field={fields.COMMENT_CUSTOMER}
-                            label="Internal comment"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                    {/* Is made by user / by robot / trashed */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Checkbox
-                            form={this.form} field={fields.IS_CUSTOMER_MADE} label="Made by user"
-                            disabled={this.state.disabled}
-                        />
-                        <Checkbox
-                            form={this.form} field={fields.IS_ROBOT_MADE} label="Made by robot"
-                            disabled={this.state.disabled}
-                        />
-                        <Checkbox
-                            form={this.form} field={fields.IS_TRASHED} label="Discarded"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
+                    {this.state.disabled ?
+                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
+                            Activate form
+                        </Button>
+                        :
+                        <div>
+                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
+                                Cancel
+                            </Button>
+                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
+                                Submit
+                            </Button>
+                        </div>
+                    }
 
                 </Form>
 
-                {/* Submit */}
-
-                {this.state.disabled ?
-                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
-                        Activate form
-                    </Button>
-                    :
-                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                        Submit
-                    </Button>
-                }
-
-            </form>
+            </div>
         );
     }
 }
 
 
-export default LibrariesInsertForm;
+
+const mapStateToProps = (state) => {
+    let options = forms.optionsFromModel(state, librariesModel);
+    let formData = state.facilityDataForms.basecallings;
+    let formModel = state.facilityDataForms.forms.basecallings;
+    return {
+        options: options,
+        formData: formData,
+        formModel: formModel,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        feedbackWarning,
+        requestProjectsHavingASample,
+        requestLibProtocols,
+        requestQuantifMethods,
+        requestAllMultiplexIndexes,
+        requestLibAdapters,
+        requestLibraryStates,
+        requestSamplesForProject,
+    }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(LibrariesInsertForm);
 

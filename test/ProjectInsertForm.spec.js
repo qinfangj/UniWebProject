@@ -1,13 +1,19 @@
 "use strict";
 import React from 'react';
 import {shallow, mount, render} from 'enzyme';
-
+import store from '../core/store';
+import { Provider } from 'react-redux';
 import {expect} from 'chai';
 import ProjectsInsertForm from '../components/forms/facilityData/ProjectsInsertForm';
 
 
 
-const wrapper = shallow(<ProjectsInsertForm storeKey="something"/>);
+const wrapper = shallow(
+    <Provider store={store}>
+        <ProjectsInsertForm storeKey="something"/>
+    </Provider>
+);
+
 describe('(Component) ProjectsInsertForm =>', () => {
 
     it('renders without exploding', () => {

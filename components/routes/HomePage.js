@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Alert from 'react-bootstrap/lib/Alert';
 import file from './msgHome/homePageNews.md';
 
+
 class HomePage extends React.Component {
     render() {
 

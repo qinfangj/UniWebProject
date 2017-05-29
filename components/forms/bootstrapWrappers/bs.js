@@ -9,6 +9,6 @@ import { ControlLabel } from 'react-bootstrap/lib';
  */
 export function makeLabel(label, required) {
     let star = required ? <span className={css.requiredStar}>*</span> : null;
-    return label ? <ControlLabel>{label}{star}</ControlLabel> : null;
+    return label ? <ControlLabel className={css.label}>{label}{star}</ControlLabel> : null;
 }
 

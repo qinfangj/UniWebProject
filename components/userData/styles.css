@@ -9,14 +9,28 @@
 
 .cell {
     padding: 0;
+    max-width: 150px;
+    font-size: 0.9em;
 }
 
-.cell > input, .cell > select {
+.cell input, .cell select {
     border: none;
+}
+
+.cell select {
     padding: 2px;
 }
 
-.headerCell {
-
+.cell input[type="checkbox"] {
+    margin-left: 5px;
 }
 
+.rowButtons {
+    width: 80px;
+}
+.copyNtimes {
+    position: relative;
+    top: 0px;
+    left: -8px;
+    font-size: 0.7em;
+}

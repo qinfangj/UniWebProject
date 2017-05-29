@@ -42,11 +42,6 @@ const config = {
     /* Fontawesome */
     'font-awesome-loader',
 
-
-    /* Material Design Lite (https://getmdl.io) */
-    /*'!!style!css!react-mdl/extra/material.min.css',*/
-    /*'react-mdl/extra/material.min.js',*/
-
     /* Ag-grid */
     '!!style!css!ag-grid/dist/styles/ag-grid.css',
     '!!style!css!ag-grid/dist/styles/theme-bootstrap.css',
@@ -140,9 +135,13 @@ const config = {
         loader: 'json-loader',
       },
       {
+        test: /\.html$/,
+        loader: "html-loader",
+      },
+      {
         test: /\.md$/,
         // loader: path.resolve(__dirname, './utils/markdown-loader.js'),
-        loader: "html!markdown?gfm=false"
+        loader: "html!markdown?gfm=false",
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)(\?.*$|$)/,

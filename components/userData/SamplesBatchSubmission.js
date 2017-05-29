@@ -1,8 +1,8 @@
 "use strict";
 import React from 'react';
 import css from './styles.css';
+import store from '../../core/store';
 import { connect } from 'react-redux';
-import { Form, Control } from 'react-redux-form';
 import { bindActionCreators } from 'redux';
 import {
     requestAllProjects,
@@ -15,10 +15,19 @@ import {
     requestLibAdapters,
     } from '../actions/actionCreators/optionsActionCreators';
 import batchSubmissionModel from './model';
-import inputTypes from '../forms/inputTypes';
+import * as helpers from './helpers';
+import { Form, actions } from 'react-redux-form';
+import Icon from 'react-fontawesome';
+
 
 
 class SamplesBatchSubmission extends React.PureComponent {
+
+    constructor(props) {
+        super(props);
+        this.modelName = "userData.samples";
+        this.model = batchSubmissionModel;
+    }
 
     componentWillMount() {
         this.props.requestAllProjects();
@@ -35,49 +44,47 @@ class SamplesBatchSubmission extends React.PureComponent {
 
     }
 
-    makeOptions(options) {
-        return options ? options.map((v,i) => <option value={v[0]} key={i}>{v[1]}</option>) : [];
-    }
-
-    makeInputs() {
-        let inputs = [];
-        for (let field of Object.keys(batchSubmissionModel)) {
-            let model = batchSubmissionModel[field];
-            let modelName = '.'+field;
-            let input;
-            let props = {
-                updateOn: "change",
-            };
-            switch(model.inputType) {
-                case inputTypes.TEXT:
-                    input = <Control.text model={modelName} {...props} />; break;
-                case inputTypes.NUMBER:
-                    input = <Control.input model={modelName} type="number" {...props} />; break;
-                case inputTypes.DATE:
-                    input = <Control.input model={modelName} type="date" {...props} />; break;
-                case inputTypes.CHECKBOX:
-                    input = <Control.checkbox model={modelName} />; break;
-                case inputTypes.DROPDOWN:
-                    input = (
-                        <Control.select model={modelName} {...props}>
-                            {this.makeOptions(this.props.options[model.optionsKey])}
-                        </Control.select>
-                    ); break;
-                default:
-                    break;
-            }
-            inputs.push(input);
-        }
-        return inputs;
-    }
-
-    makeRow(inputs, k) {
-        let cells = inputs.map((input,i) =>
-            <td className={css.cell} key={i}>{input}</td>
+    /**
+     * Build the buttons for one row - to duplicate it or remove it.
+     * @param k: the row index.
+     */
+    makeRowButtons(k) {
+        return (
+            <div className={css.rowButtons}>
+                <Icon name="clone" />
+                <span>
+                    <Icon name="clone" />
+                    <span className={css.copyNtimes}>9</span>
+                </span>
+                <Icon name="trash" />
+            </div>
         );
-        return <tr key={k}>{cells}</tr>;
     }
 
+    /**
+     * Build an array of rows, one for each sample from the store.
+     * @returns {Array}
+     */
+    makeRows() {
+        let rows = this.props.formData.map((sample, k) => {
+            let inputs = helpers.makeInputs(this.model, this.props.options, this.modelName, k);
+            let cells = inputs.map((input,i) =>
+                <td className={css.cell} key={i}>{input}</td>
+            );
+            // The first one is for the buttons
+            cells.unshift(
+                <td key={"buttons"+k}>
+                    {this.makeRowButtons(k)}
+                </td>
+            );
+            return <tr key={k}>{cells}</tr>;
+        });
+        return rows;
+    }
+
+    /**
+     * Build a <tr> of headers based on the form model.
+     */
     makeHeader() {
         let labels = [];
         for (let field of Object.keys(batchSubmissionModel)) {
@@ -87,7 +94,38 @@ class SamplesBatchSubmission extends React.PureComponent {
         let cells = labels.map((label,i) =>
             <th className={css.headerCell} key={i}>{label}</th>
         );
+        // The first one is for the buttons
+        cells.unshift(
+            <th key={"buttons"}>
+                <Icon name="plus" onClick={this.addNewRow.bind(this)} />
+            </th>
+        );
         return <tr>{cells}</tr>;
+    }
+
+    /**
+     * Add a new empty row at the end.
+     */
+    addNewRow() {
+        let rows = [...this.props.formData, helpers.newEmptyRow()];
+        store.dispatch(actions.change(this.modelName, rows));
+    }
+
+    /**
+     * Add copies of the chosen row just below itself.
+     * @param k: row index.
+     * @param ntimes: the number of copies.
+     */
+    copyRow(k, ntimes) {
+        let rows = this.props.formData;
+    }
+
+    /**
+     * Add a single copy of the chosen row just below itself.
+     * @param k: row index.
+     */
+    copyRowOnce(k) {
+        this.copyRow(k, 1);
     }
 
 //Starting material description (e.g.: 'Crosslinked ChIP DNA from NIH-3T3 cells')
@@ -100,9 +138,7 @@ class SamplesBatchSubmission extends React.PureComponent {
                         {this.makeHeader()}
                     </thead>
                     <tbody>
-                        {this.makeRow(this.makeInputs(), 1)}
-                        {this.makeRow(this.makeInputs(), 2)}
-                        {this.makeRow(this.makeInputs(), 3)}
+                        {this.makeRows()}
                     </tbody>
                 </table>
             </Form>
@@ -121,8 +157,8 @@ function mapStateToProps(state) {
     }
     let formData = state.userData.samples;
     return {
-        formData: formData,
-        options: options,
+        formData: formData || [],
+        options: options || {},
     };
 }
 
