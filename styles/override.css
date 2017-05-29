@@ -25,6 +25,10 @@
 :global(.form-group) {
     margin-bottom: 0;
 }
+/* Stack checkboxes */
+:global(.form-group .checkbox) {
+    margin-bottom: 0;
+}
 /* For some reason different form components have different label margins */
 :global(.control-label) {
     margin: 0;
