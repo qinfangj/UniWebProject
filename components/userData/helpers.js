@@ -29,25 +29,22 @@ export function makeInputs(rowModel, options, formModelName, k) {
         let model = rowModel[field];
         let modelName = `${formModelName}[${k}].${field}`;
         let input;
-        let props = {
-            updateOn: "blur",
-        };
 
         switch(model.inputType) {
             case inputTypes.TEXT:
-                input = <Control.text className={css} model={modelName} {...props} />; break;
+                input = <Control.text className={css} model={modelName} updateOn="blur" />; break;
             case inputTypes.NUMBER:
-                input = <Control.input model={modelName} type="number" {...props} />; break;
+                input = <Control.input model={modelName} type="number" updateOn="blur" />; break;
             case inputTypes.DATE:
-                input = <Control.input model={modelName} type="date" {...props} />; break;
+                input = <Control.input model={modelName} type="date" updateOn="change" />; break;
             case inputTypes.CHECKBOX:
-                input = <Control.checkbox model={modelName} />; break;
+                input = <Control.checkbox model={modelName} updateOn="change" />; break;
             case inputTypes.DROPDOWN:
                 input = (
                     <div style={{overflow: 'hidden', marginRight: '2px'}}>
-                    <Control.select model={modelName} {...props}>
-                        {makeOptions(options[model.optionsKey])}
-                    </Control.select>
+                        <Control.select model={modelName} updateOn="change" >
+                            {makeOptions(options[model.optionsKey])}
+                        </Control.select>
                     </div>
                 ); break;
             default:
