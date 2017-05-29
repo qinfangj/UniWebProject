@@ -15,7 +15,7 @@ import { FormControl } from 'react-bootstrap/lib'
  * The text area where we copy and paste the Excel sheet,
  * where it gets parsed and put into the editable grid.
  */
-class SamplesBatchSubmission extends React.PureComponent {
+class CopyPasteArea extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -41,7 +41,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 }
 
 
-export default SamplesBatchSubmission;
+export default CopyPasteArea;
 
 
 
