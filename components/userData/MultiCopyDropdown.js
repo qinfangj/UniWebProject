@@ -1,9 +1,10 @@
 "use strict";
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import css from './styles.css';
 import cx from 'classnames';
-import { Dropdown, Button, MenuItem, FormControl } from 'react-bootstrap/lib';
+import { Dropdown, Button, FormControl } from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
 
 
@@ -31,7 +32,7 @@ class MultiCopyDropdown extends React.Component {
             <Dropdown className={css.dropdown} id={1} onToggle={this.onToggle.bind(this)} open={this.state.open} >
                 <CustomToggle bsRole="toggle" >
                     <Icon className={css.copyNtimesButton} name="clone" />
-                    <span className={css.copyNtimes}>9</span>
+                    <span className={css.copyNtimesNumber}>9</span>
                 </CustomToggle>
                 <CustomMenu bsRole="menu" copy={this.copy.bind(this)} />
             </Dropdown>

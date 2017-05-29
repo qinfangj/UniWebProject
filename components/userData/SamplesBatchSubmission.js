@@ -1,12 +1,11 @@
 "use strict";
 import React from 'react';
-import PropTypes from 'prop-types';
 import css from './styles.css';
 import cx from 'classnames';
 import store from '../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ReactDOM from 'react-dom';
+
 import {
     requestAllProjects,
     requestTaxonomies,
@@ -17,6 +16,7 @@ import {
     requestLibProtocols,
     requestLibAdapters,
     } from '../actions/actionCreators/optionsActionCreators';
+
 import batchSubmissionModel from './model';
 import * as helpers from './helpers';
 import { Form, actions } from 'react-redux-form';
@@ -56,9 +56,7 @@ class SamplesBatchSubmission extends React.PureComponent {
         return (
             <div className={css.rowButtons}>
                 <Icon className={css.copyOnceButton} name="clone" onClick={this.copyRowOnce.bind(this, k)} />
-
                 <MultiCopyDropdown copyRowNtimes={this.copyRowNtimes.bind(this)} rowIndex={k} />
-
                 <Icon className={css.removeButton} name="trash" onClick={this.deleteRow.bind(this, k)} />
             </div>
         );

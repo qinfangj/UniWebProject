@@ -2,7 +2,6 @@
 
 
 .batchInsertTable {
-
 }
 
 .batchInsertTable td {
@@ -14,74 +13,95 @@
     max-width: 150px;
     font-size: 0.9em;
 }
-
+/* Remove borders because the table already provides some */
 .cell input, .cell select {
     border: none;
 }
-
 .cell select {
     padding: 2px;
 }
-
 .cell input[type="checkbox"] {
     margin-left: 5px;
 }
 
-.headerButtons {
-}
+
+/** The buttons that act on the whole table **/
+
+.headerButtons {}
 .addNewRowButton, .clearButton {
     padding-right: 10px;
     cursor: pointer;
 }
-.addNewRowButton:hover, .clearButton:hover {
-    color: var(--blue);
-}
+
+
+/** The buttons on the left of each sample row **/
 
 .rowButtons {
-    width: 80px;
+    width: 65px;
 }
 .rowButtons span.fa {
     cursor: pointer;
 }
 .removeButton {
+    cursor: pointer;
     padding: 2px;
 }
 .copyOnceButton {
+    cursor: pointer;
     padding: 2px;
     margin-right: 2px;
 }
 
+
+/** The complicated custom dropdown **/
+
+/* The clickable icon */
 .copyNtimesButton {
     padding-left: 5px;
 }
-.copyNtimes {
+/* The fancy little "9" on top of the icon */
+.copyNtimesNumber {
     position: relative;
     top: 0px;
     left: -8px;
     font-size: 0.7em;
     /*z-index: -1;*/
 }
-.rowButtons button.dropdown-toggle {
-    padding: 2px;
-    font-size: inherit;
-}
+/* The space holding together the button and the menu hidden behind */
 .dropdown {
     padding: 0px;
     margin-right: 2px;
     font-size: inherit;
 }
+/* The toggleable part of the dropdown */
 .dropdownMenu {
     min-width: 0;
     width: 142px;
 }
+/* The numeric text field where we enter the number of copies */
 .multiCopyInput {
     display: inline-block;
     width: 75px;
     margin-left: 5px;
 }
+/* The OK button to validate the number of copies */
 .multiCopyOkButton {
     display: inline-block;
     width: 50px;
     margin: -3px 0 0 5px;
+}
+
+
+/** Buttons hover color **/
+
+.addNewRowButton:hover, .clearButton:hover {
+    color: var(--blue);
+}
+
+.copyOnceButton:hover {
+    color: var(--blue);
+}
+.removeButton:hover {
+    color: var(--errorRed);
 }
 
