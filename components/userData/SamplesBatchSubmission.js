@@ -1,9 +1,12 @@
 "use strict";
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from './styles.css';
+import cx from 'classnames';
 import store from '../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactDOM from 'react-dom';
 import {
     requestAllProjects,
     requestTaxonomies,
@@ -18,6 +21,7 @@ import batchSubmissionModel from './model';
 import * as helpers from './helpers';
 import { Form, actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
+import MultiCopyDropdown from './MultiCopyDropdown';
 
 
 
@@ -52,11 +56,10 @@ class SamplesBatchSubmission extends React.PureComponent {
         return (
             <div className={css.rowButtons}>
                 <Icon className={css.copyOnceButton} name="clone" onClick={this.copyRowOnce.bind(this, k)} />
-                <span>
-                    <Icon className={css.copyNtimesButton} name="clone" onClick={this.copyRowNtimes.bind(this, k, 1)} />
-                    <span className={css.copyNtimes}>9</span>
-                </span>
-                <Icon name="trash" onClick={this.deleteRow.bind(this, k)} />
+
+                <MultiCopyDropdown copyRowNtimes={this.copyRowNtimes.bind(this)} rowIndex={k} />
+
+                <Icon className={css.removeButton} name="trash" onClick={this.deleteRow.bind(this, k)} />
             </div>
         );
     }
@@ -97,10 +100,18 @@ class SamplesBatchSubmission extends React.PureComponent {
         // The first one is for the buttons
         cells.unshift(
             <th key={"buttons"}>
-                <Icon name="plus" onClick={this.addNewRow.bind(this)} />
+                <Icon className={css.addNewRowButton} name="plus" onClick={this.addNewRow.bind(this)} />
+                <Icon className={css.clearButton} name="eraser" onClick={this.clear.bind(this)} />
             </th>
         );
-        return <tr>{cells}</tr>;
+        return <tr className={css.headerButtons}>{cells}</tr>;
+    }
+
+    /**
+     * Reset to initial single row.
+     */
+    clear() {
+        store.dispatch(actions.change(this.modelName, [helpers.newEmptyRow()]));
     }
 
     deleteRow(k) {

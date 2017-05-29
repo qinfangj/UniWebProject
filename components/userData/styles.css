@@ -1,3 +1,5 @@
+@import '../../styles/colors.css';
+
 
 .batchInsertTable {
 
@@ -25,22 +27,61 @@
     margin-left: 5px;
 }
 
+.headerButtons {
+}
+.addNewRowButton, .clearButton {
+    padding-right: 10px;
+    cursor: pointer;
+}
+.addNewRowButton:hover, .clearButton:hover {
+    color: var(--blue);
+}
+
 .rowButtons {
-    width: 60px;
+    width: 80px;
 }
 .rowButtons span.fa {
     cursor: pointer;
 }
-.copyOnceButton {
+.removeButton {
     padding: 2px;
 }
-.copyNtimesButton {
+.copyOnceButton {
     padding: 2px;
+    margin-right: 2px;
+}
+
+.copyNtimesButton {
+    padding-left: 5px;
 }
 .copyNtimes {
     position: relative;
     top: 0px;
     left: -8px;
     font-size: 0.7em;
-    z-index: -1;
+    /*z-index: -1;*/
 }
+.rowButtons button.dropdown-toggle {
+    padding: 2px;
+    font-size: inherit;
+}
+.dropdown {
+    padding: 0px;
+    margin-right: 2px;
+    font-size: inherit;
+}
+.dropdownMenu {
+    min-width: 0;
+    width: 142px;
+}
+.multiCopyInput {
+    display: inline-block;
+    width: 75px;
+    margin-left: 5px;
+}
+.multiCopyOkButton {
+    display: inline-block;
+    width: 50px;
+    margin: -3px 0 0 5px;
+}
+
