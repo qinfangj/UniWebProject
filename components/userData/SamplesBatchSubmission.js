@@ -18,7 +18,14 @@ import batchSubmissionModel from './model';
 import inputTypes from '../forms/inputTypes';
 
 
+
 class SamplesBatchSubmission extends React.PureComponent {
+
+    constructor(props) {
+        super(props);
+        this.modelName = "userData.samples";
+        this.model = batchSubmissionModel;
+    }
 
     componentWillMount() {
         this.props.requestAllProjects();
@@ -35,15 +42,25 @@ class SamplesBatchSubmission extends React.PureComponent {
 
     }
 
+    /**
+     * Build a list of <option>s based on an array representing the different options for a select input.
+     * @param options: array [[id, label], ...] to become <option value={id}>{label}</option>.
+     * @returns {Array}
+     */
     makeOptions(options) {
         return options ? options.map((v,i) => <option value={v[0]} key={i}>{v[1]}</option>) : [];
     }
 
-    makeInputs() {
+    /**
+     * Make an array of inputs of the correct type, based on the form model.
+     * @param k: the row index, to link an input to its row.
+     * @returns {Array}
+     */
+    makeInputs(k) {
         let inputs = [];
         for (let field of Object.keys(batchSubmissionModel)) {
             let model = batchSubmissionModel[field];
-            let modelName = '.'+field;
+            let modelName = `${this.model}[${k}].${field}`;
             let input;
             let props = {
                 updateOn: "change",
@@ -71,6 +88,11 @@ class SamplesBatchSubmission extends React.PureComponent {
         return inputs;
     }
 
+    /**
+     * Build one of the rows, given an array of <input>s.
+     * @param inputs: an array of inputs.
+     * @param k: The row index, to have a unique key for React.
+     */
     makeRow(inputs, k) {
         let cells = inputs.map((input,i) =>
             <td className={css.cell} key={i}>{input}</td>
@@ -78,6 +100,22 @@ class SamplesBatchSubmission extends React.PureComponent {
         return <tr key={k}>{cells}</tr>;
     }
 
+    /**
+     * Build an array of rows, one for each sample from the store.
+     * @returns {Array}
+     */
+    makeRows() {
+        let rows = this.props.formData.map((sample, k) => {
+            let inputs = this.makeInputs(k);
+            let row = this.makeRow(inputs, k);
+            return row;
+        });
+        return rows;
+    }
+
+    /**
+     * Build a <tr> of headers based on the form model.
+     */
     makeHeader() {
         let labels = [];
         for (let field of Object.keys(batchSubmissionModel)) {
@@ -100,9 +138,7 @@ class SamplesBatchSubmission extends React.PureComponent {
                         {this.makeHeader()}
                     </thead>
                     <tbody>
-                        {this.makeRow(this.makeInputs(), 1)}
-                        {this.makeRow(this.makeInputs(), 2)}
-                        {this.makeRow(this.makeInputs(), 3)}
+                        {this.makeRows()}
                     </tbody>
                 </table>
             </Form>
