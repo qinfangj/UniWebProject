@@ -26,11 +26,21 @@
 }
 
 .rowButtons {
-    width: 80px;
+    width: 60px;
+}
+.rowButtons span.fa {
+    cursor: pointer;
+}
+.copyOnceButton {
+    padding: 2px;
+}
+.copyNtimesButton {
+    padding: 2px;
 }
 .copyNtimes {
     position: relative;
     top: 0px;
     left: -8px;
     font-size: 0.7em;
+    z-index: -1;
 }

@@ -51,12 +51,12 @@ class SamplesBatchSubmission extends React.PureComponent {
     makeRowButtons(k) {
         return (
             <div className={css.rowButtons}>
-                <Icon name="clone" />
+                <Icon className={css.copyOnceButton} name="clone" onClick={this.copyRowOnce.bind(this, k)} />
                 <span>
-                    <Icon name="clone" />
+                    <Icon className={css.copyNtimesButton} name="clone" onClick={this.copyRowNtimes.bind(this, k, 1)} />
                     <span className={css.copyNtimes}>9</span>
                 </span>
-                <Icon name="trash" />
+                <Icon name="trash" onClick={this.deleteRow.bind(this, k)} />
             </div>
         );
     }
@@ -103,12 +103,18 @@ class SamplesBatchSubmission extends React.PureComponent {
         return <tr>{cells}</tr>;
     }
 
+    deleteRow(k) {
+        let rows = this.props.formData;
+        let newRows = [...rows.slice(0, k), ...rows.slice(k+1, rows.length)];
+        store.dispatch(actions.change(this.modelName, newRows));
+    }
+
     /**
      * Add a new empty row at the end.
      */
     addNewRow() {
-        let rows = [...this.props.formData, helpers.newEmptyRow()];
-        store.dispatch(actions.change(this.modelName, rows));
+        let newRows = [...this.props.formData, helpers.newEmptyRow()];
+        store.dispatch(actions.change(this.modelName, newRows));
     }
 
     /**
@@ -116,8 +122,15 @@ class SamplesBatchSubmission extends React.PureComponent {
      * @param k: row index.
      * @param ntimes: the number of copies.
      */
-    copyRow(k, ntimes) {
+    copyRowNtimes(k, ntimes) {
         let rows = this.props.formData;
+        let thisrow = rows[k];
+        let repRows = [];
+        for (let i=0; i<ntimes; i++) {
+            repRows.push({...thisrow});
+        }
+        let newRows = [...rows.slice(0,k+1), ...repRows, ...rows.slice(k+1, rows.length)];
+        store.dispatch(actions.change(this.modelName, newRows));
     }
 
     /**
@@ -125,7 +138,7 @@ class SamplesBatchSubmission extends React.PureComponent {
      * @param k: row index.
      */
     copyRowOnce(k) {
-        this.copyRow(k, 1);
+        this.copyRowNtimes(k, 1);
     }
 
 //Starting material description (e.g.: 'Crosslinked ChIP DNA from NIH-3T3 cells')
