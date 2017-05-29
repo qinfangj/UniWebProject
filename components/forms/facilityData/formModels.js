@@ -23,47 +23,6 @@ function isValid(value, type, required, setValid) {
 
 
 export const facilityDataModels = Object.freeze({
-    [formNames.BASECALLINGS_INSERT_FORM]: {
-        [fields.RUN_ID]: {
-            label: "Run",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.PIPELINE_VERSION_ID]: {
-            label: "Pipeline version",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.ANALYSIS_TYPE_ID]: {
-            label: "Analysis type",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.CONTROL_LANE_NB]: {
-            label: "Control lane",
-            type: inputTypes.DROPDOWN,
-            value: 0,
-        },
-        [fields.IS_DEMULTIPLEXING]: {
-            label: "Demultiplexing",
-            type: inputTypes.CHECKBOX,
-            value: false,
-        },
-        [fields.UNALIGNED_OUTPUT_DIR]: {
-            label: "Unaligned data output folder",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.COMMENT]: {
-            label: "Comment",
-            type: inputTypes.TEXTAREA,
-            value: "",
-        }
-    },
 
     [formNames.BIOANALYSERS_INSERT_FORM]: {
         [fields.BIOANALYSER_FILE]: {
@@ -81,61 +40,6 @@ export const facilityDataModels = Object.freeze({
             type: inputTypes.TEXT,
             value: "",
         },
-        // sub-form
-    },
-
-    [formNames.GENOMES_INSERT_FORM]: {
-        [fields.TAXO_ID]: {
-            label: "Organism",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: true,
-        },
-        [fields.ASSEMBLY]: {
-            label: "Assembly",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.GENOME_FOLDER]: {
-            label: "Genome folder",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.URL]: {
-            label: "URL",
-            type: inputTypes.TEXT,
-            value: "http://",
-            required: true,
-        },
-        [fields.DOWNLOADED_DATE]: {
-            label: "Download date",
-            type: inputTypes.DATE,
-            value: DEFAULT_DATE,
-        },
-        [fields.FILES]: {
-            label: "File names",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.COMMENT]: {
-            label: "Comment",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.IS_MASKED]: {
-            label: "Masked",
-            type: inputTypes.CHECKBOX,
-            value: false,
-        },
-        [fields.IS_ARCHIVED]: {
-            label: "Archived",
-            type: inputTypes.CHECKBOX,
-            value: false,
-        }
     },
 
     [formNames.LIBRARIES_INSERT_FORM]: {
@@ -259,39 +163,6 @@ export const facilityDataModels = Object.freeze({
             label: "Discarded",
             type: inputTypes.CHECKBOX,
             value: false,
-        }
-    },
-
-    [formNames.PEOPLE_INSERT_FORM]: {
-        [fields.FIRST_NAME]: {
-            label: "First name",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.LAST_NAME]: {
-            label: "Last name",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.EMAIL]: {
-            label: "PI email",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.ADDRESS]: {
-            label: "PI address",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.PHONE]: {
-            label: "PI phone",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
         }
     },
 
@@ -441,51 +312,6 @@ export const facilityDataModels = Object.freeze({
             type: inputTypes.CHECKBOX,
             value: false,
         }
-    },
-
-    [formNames.RUNS_INSERT_FORM]: {
-        [fields.RUN_NUMBER]: {
-            label: "Run#",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.FLOWCELL_ID]: {
-            label: "Flowcell ID",
-            type: inputTypes.TEXT,
-            value: "",
-            required: true,
-        },
-        [fields.SEQUENCING_KIT_VERSION_ID]: {
-            label: "Version",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: false,
-        },
-        [fields.INSTRUMENT_ID]: {
-            label: "Machine",
-            type: inputTypes.DROPDOWN,
-            value: -1,
-            required: false,
-        },
-        [fields.RUN_DATE]: {
-            label: "Run Date",
-            type: inputTypes.DATE,
-            value: dateNow(),
-            required: true,
-        },
-        [fields.CLUSTER_DATE]: {
-            label: "Cluster Date",
-            type: inputTypes.DATE,
-            value: dateNow(),
-            required: true,
-        },
-        [fields.IS_FAILED]: {
-            label: "Run failed",
-            type: Boolean,
-            value: false,
-        },
-
     },
 
     [formNames.USER_REQUESTS_INSERT_FORM]: {

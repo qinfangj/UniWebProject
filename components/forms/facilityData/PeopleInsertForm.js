@@ -1,17 +1,15 @@
 "use strict";
 import React from 'react';
-import PropTypes from 'prop-types';
-import css from '../forms.css';
-
-import TextField from '../elements/TextField';
-import validators from '../validators';
+import formsCss from '../forms.css';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form } from 'react-redux-form';
+import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import * as forms from '../forms.js';
 import formNames from '../../constants/formNames';
-import fields from '../fields';
+import peopleModel from './formModels/peopleModel';
 
-import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
 import Feedback from '../../utils/Feedback';
 
 
@@ -21,133 +19,103 @@ class ProjectInsertForm extends React.PureComponent {
         super();
         this.table = "people";
         this.form = formNames.PEOPLE_INSERT_FORM;
+        this.modelName = "facilityDataForms.people";
+        this.model = peopleModel;
         this.state = {
             disabled: false,
         };
     }
 
-    static propTypes = {
-        // If defined, the form will be pre-filled with the current data for the item with this ID,
-        //  after fetching it on the server.
-        updateId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    };
-
     componentWillMount() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, null);
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
     }
-    componentWillReceiveProps() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+
+    formatInsertData(values) {
+        let insertData = forms.formatFormFieldsDefault(this.model, values);
+        insertData.islaboratory = true;  // add
+        return insertData;
     }
 
-    formatFormData(formData) {
-        formData.islaboratory = true;  // add
-        formData.phone = parseInt(formData.phone);
-        return formData;
+    validate(insertData) {
+        return {
+            isValid: true,
+            message: "",
+        }
     }
 
-    onSubmit() {
-        forms.submit(this.form, this.table, this.formatFormData);
+    onSubmit(values) {
+        let insertData = this.formatInsertData(values);
+        let validation = this.validate(insertData);
+        if (validation.isValid) {
+            forms.submitForm(this.modelName, insertData, this.table, this.form);
+        } else {
+            this.props.feedbackWarning(this.form, validation.message);
+        }
     }
 
     activateForm() {
         this.setState({ disabled: false });
     }
+    deactivateForm() {
+        this.setState({ disabled: true });
+    }
 
     render() {
+        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, {});
+
         return (
-            <form className={css.form}>
+            <div>
 
                 <Feedback reference={this.form} />
 
-                <Form componentClass="fieldset" horizontal>
+                <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
-                    {/* First name */}
+                    {formFields}
 
-                    <Col sm={4} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.FIRST_NAME}
-                            label="PI first name"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
+                    {/* Submit */}
 
-                    {/* Last name */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.LAST_NAME}
-                            label="PI last name"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Email */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.EMAIL}
-                            label="PI email"
-                            disabled={this.state.disabled}
-                            required
-                            validator = {validators.emailValidator}
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Address */}
-
-                    <Col sm={8} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.ADDRESS}
-                            label="PI address"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Phone */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.PHONE}
-                            label="PI phone"
-                            disabled={this.state.disabled}
-                            required
-                            validator={validators.phoneValidator}
-                        />
-                    </Col>
+                    {this.state.disabled ?
+                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
+                            Activate form
+                        </Button>
+                        :
+                        <div>
+                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
+                                Cancel
+                            </Button>
+                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
+                                Submit
+                            </Button>
+                        </div>
+                    }
 
                 </Form>
 
-                {/* Submit */}
-
-                {this.state.disabled ?
-                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
-                        Activate form
-                    </Button>
-                    :
-                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                        Submit
-                    </Button>
-                }
-
-            </form>
+            </div>
         );
     }
 }
 
 
-export default ProjectInsertForm;
+
+const mapStateToProps = (state) => {
+    let formData = state.facilityDataForms.people;
+    let formModel = state.facilityDataForms.forms.people;
+    return {
+        formData: formData,
+        formModel: formModel,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        feedbackWarning,
+    }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectInsertForm);
 

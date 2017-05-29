@@ -1,21 +1,21 @@
 "use strict";
 import React from 'react';
 import formsCss from '../../forms.css';
-import css from './runs.css';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form } from 'react-redux-form';
+
 import { requestInstruments,
          requestFlowcellTypes,
          requestRunsTypesLengths,
          requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import { feedbackWarning } from '../../../actions/actionCreators/feedbackActionCreators';
+
 import * as forms from '../../forms.js';
 import LanesSubForm from './LanesSubForm';
 import formNames from '../../../constants/formNames';
-import runsModel from './runsModel';
+import runsModel from '../formModels/runsModel';
 import Feedback from '../../../utils/Feedback';
 import {Button, Alert} from 'react-bootstrap/lib';
 
@@ -26,6 +26,7 @@ class RunsInsertForm extends React.PureComponent {
         this.table = "runs";  // db table for insert
         this.form = formNames.RUNS_INSERT_FORM;  // for the feedback
         this.modelName = "facilityDataForms.runs";  // to track form data
+        this.model = runsModel;
         this.state = {
             disabled: false,
         };
@@ -117,7 +118,7 @@ class RunsInsertForm extends React.PureComponent {
     }
 
     render() {
-        let formFields = forms.makeFormFields(this.modelName, runsModel, this.state.disabled, this.props.options);
+        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options);
 
         return (
             <div>
@@ -127,8 +128,6 @@ class RunsInsertForm extends React.PureComponent {
                 <Alert bsStyle="info">Backend is not ready yet to handle updates correctly</Alert>
 
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
-
-                    {/* <Feedback reference={this.modelName} /> */}
 
                     {formFields}
 
@@ -164,13 +163,7 @@ class RunsInsertForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = {};
-    for (let field of Object.keys(runsModel)) {
-        let model = runsModel[field];
-        if (model.optionsKey) {
-            options[model.optionsKey] = state.options[model.optionsKey] || [];
-        }
-    }
+    let options = forms.optionsFromModel(state, runsModel);
     let formData = state.facilityDataForms.runs;
     let formModel = state.facilityDataForms.forms.runs;
     return {

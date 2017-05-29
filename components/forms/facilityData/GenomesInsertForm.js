@@ -1,20 +1,19 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from '../forms.css';
-import cx from 'classnames';
+import formsCss from '../forms.css';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form } from 'react-redux-form';
 
-import TextField from '../elements/TextField';
-import Checkbox from '../elements/MyCheckBox';
-import DatePicker from '../elements/DatePicker';
+import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
+import { requestTaxonomies } from '../../actions/actionCreators/optionsActionCreators';
+
 import * as forms from '../forms.js';
-import * as Options from '../subcomponents/Options';
 import formNames from '../../constants/formNames';
-import fields from '../fields';
+import genomesModel from './formModels/genomesModel';
 
-import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
 import Feedback from '../../utils/Feedback';
 
 
@@ -24,169 +23,107 @@ class GenomesInsertForm extends React.PureComponent {
         super();
         this.table = "genomes";
         this.form = formNames.GENOMES_INSERT_FORM;
+        this.modelName = "facilityDataForms.genomes";
+        this.model = genomesModel;
         this.state = {
             disabled: false,
         };
     }
 
-    static propTypes = {
-        // If defined, the form will be pre-filled with the current data for the item with this ID,
-        //  after fetching it on the server.
-        updateId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    };
 
     componentWillMount() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, null);
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
-    }
-    componentWillReceiveProps() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        this.props.requestTaxonomies();
     }
 
-    onSubmit() {
-        forms.submit(this.form, this.table, null);
+    formatInsertData(values) {
+        let insertData = forms.formatFormFieldsDefault(this.model, values);
+        return insertData;
+    }
+
+    validate(insertData) {
+        return {
+            isValid: true,
+            message: "",
+        }
+    }
+
+    onSubmit(values) {
+        let insertData = this.formatInsertData(values);
+        let validation = this.validate(insertData);
+        if (validation.isValid) {
+            forms.submitForm(this.modelName, insertData, this.table, this.form);
+        } else {
+            this.props.feedbackWarning(this.form, validation.message);
+        }
     }
 
     activateForm() {
         this.setState({ disabled: false });
     }
+    deactivateForm() {
+        this.setState({ disabled: true });
+    }
+
 
     render() {
+        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options);
+
         return (
-            <form className={css.form}>
+            <div>
 
                 <Feedback reference={this.form} />
 
-                <Form componentClass="fieldset" horizontal>
+                <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
-                    {/* Organism */}
+                    {formFields}
 
-                    <Col sm={4} className={css.formCol}>
-                        <Options.Taxonomies
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
+                    {/* Submit */}
 
-                    {/* Assembly */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.ASSEMBLY}
-                            label="Assembly"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Genome folder */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.GENOME_FOLDER}
-                            label="Genome folder"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Url */}
-
-                    <Col sm={8} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.URL}
-                            label="URL"
-                            disabled={this.state.disabled}
-                            required
-                            defaultValue = "http://"
-                        />
-                    </Col>
-
-                    {/* Downloaded date */}
-
-                    <Col sm={4} className={css.formCol}>
-                        <DatePicker
-                            form={this.form}
-                            field={fields.DOWNLOADED_DATE}
-                            label="Download date"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* File names */}
-
-                    <Col sm={12} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.FILES}
-                            label="File names"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Comment */}
-
-                    <Col sm={10} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.COMMENT}
-                            label="Comment"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                    {/* Is masked / is archived */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Checkbox
-                            form={this.form}
-                            field={fields.IS_MASKED}
-                            label="Masked"
-                            disabled={this.state.disabled}
-                        />
-                        <Checkbox
-                            form={this.form}
-                            field={fields.IS_ARCHIVED}
-                            label="Archived"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
+                    {this.state.disabled ?
+                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
+                            Activate form
+                        </Button>
+                        :
+                        <div>
+                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
+                                Cancel
+                            </Button>
+                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
+                                Submit
+                            </Button>
+                        </div>
+                    }
 
                 </Form>
 
-                {/* Submit */}
-
-                {this.state.disabled ?
-                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
-                        Activate form
-                    </Button>
-                    :
-                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                        Submit
-                    </Button>
-                }
-
-            </form>
+            </div>
         );
     }
 }
 
 
-export default GenomesInsertForm;
+const mapStateToProps = (state) => {
+    let options = forms.optionsFromModel(state, genomesModel);
+    let formData = state.facilityDataForms.genomes;
+    let formModel = state.facilityDataForms.forms.genomes;
+    return {
+        options: options,
+        formData: formData,
+        formModel: formModel,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        feedbackWarning,
+        requestTaxonomies,
+    }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(GenomesInsertForm);
 

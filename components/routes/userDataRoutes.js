@@ -20,7 +20,7 @@ export class UserDataPage extends React.PureComponent {
     render() {
         return (
             <div>
-                <UserData title="New submission" content={<SamplesBatchSubmission/>} />
+                <UserData title="Batch submission of samples" content={<SamplesBatchSubmission/>} />
             </div>
         );
     }

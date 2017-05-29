@@ -32,7 +32,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.genomes.TAXO_ID]: "",
             [fields.genomes.ASSEMBLY]: "",
             [fields.genomes.GENOME_FOLDER]: "",
-            [fields.genomes.URL]: "",
+            [fields.genomes.URL]: "http://",
             [fields.genomes.DOWNLOADED_DATE]: dateNow(),
             [fields.genomes.FILES]: "",
             [fields.genomes.COMMENT]: "",

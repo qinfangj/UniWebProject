@@ -223,3 +223,19 @@ export function formatFormFieldsDefault(formModel, values) {
     return insertData;
 }
 
+/**
+ * In `mapStateToProps`, create an object *options* which keys are options store keys and values are
+ * the options lists for select inputs.
+ * @param formModel: the description of the form fields, as in /formModels.
+ */
+export function optionsFromModel(state, formModel) {
+    let options = {};
+    for (let field of Object.keys(formModel)) {
+        let model = formModel[field];
+        if (model.optionsKey) {
+            options[model.optionsKey] = state.options[model.optionsKey] || [];
+        }
+    }
+    return options;
+}
+

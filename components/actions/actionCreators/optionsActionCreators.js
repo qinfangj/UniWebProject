@@ -77,6 +77,16 @@ export function requestLaboratories() {
     return requestOptionsListAsync(types.options.OPTIONS_LABORATORIES, storeKey, "people", "labs");
 }
 
+export function requestAllMultiplexIndexes() {
+    let storeKey = optionsStoreKeys.MULTIPLEX_INDEXES;
+    return requestOptionsListAsync(types.options.OPTIONS_MULTIPLEX_INDEXES, storeKey, "multiplex_indexes", "all");
+}
+
+export function requestRecentMultiplexIndexes() {
+    let storeKey = optionsStoreKeys.MULTIPLEX_INDEXES;
+    return requestOptionsListAsync(types.options.OPTIONS_MULTIPLEX_INDEXES, storeKey, "multiplex_indexes", "recent");
+}
+
 export function requestPipelineAnalysisTypes() {
     let storeKey = optionsStoreKeys.PIPELINE_ANALYSIS_TYPES;
     return requestOptionsListAsync(types.options.OPTIONS_PIPELINE_ANALYSIS_TYPES, storeKey, "pipeline_analysis_types");
@@ -179,6 +189,9 @@ export default function requestOptions(storeKey) {
 
         case optionsStoreKeys.LABORATORIES:
             return requestLaboratories();
+
+        case optionsStoreKeys.MULTIPLEX_INDEXES:
+            return requestMultiplexIndexes();
 
         case optionsStoreKeys.PIPELINE_ANALYSIS_TYPES:
             return requestPipelineAnalysisTypes();
