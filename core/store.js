@@ -1,6 +1,7 @@
 "use strict";
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-// import createLogger from 'redux-logger';
+import { ignoreActions } from 'redux-ignore';
+import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import facilityDataReducers from '../components/actions/reducers/facilityDataReducers';
@@ -33,18 +34,17 @@ import userDataReducers from '../components/actions/reducers/forms/userDataReduc
  *  }
  */
 
-// const logger = createLogger({
-//     collapsed: true,
-//     diff: false,  // much slower if true
-// });
+const logger = createLogger({
+    collapsed: true,
+    diff: false,  // much slower if true
+});
 
 let middleware = [thunk];
 
 console.log("store.js :: NODE_ENV:", process.env.NODE_ENV);
 // Add logger, except for unit tests
 if (process.env.NODE_ENV !== 'TEST') {
-    // middleware = [ ...middleware, logger ];
-    middleware = [ ...middleware ];
+    middleware = [ ...middleware, logger ];
 }
 
 let reducer = combineReducers({

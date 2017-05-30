@@ -14,15 +14,22 @@
     max-width: 150px;
     font-size: 0.9em;
 }
+
+.input {
+    border: none;
+}
+.textInput, .numInput, .selectInput {
+    height: 24px;
+}
 /* Remove borders because the table already provides some */
-.textInput, .selectInput {
+.textInput, .numInput, .dateInput, .selectInput {
     border: none;
 }
 .selectInput {
     padding: 2px;
 }
 .checkbox {
-    margin-left: 5px;
+    /*margin-left: 15px;*/ /* Had to override it in style prop */
 }
 
 

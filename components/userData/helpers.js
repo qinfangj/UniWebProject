@@ -4,6 +4,7 @@ import css from './styles.css';
 import inputTypes from '../forms/inputTypes';
 import { Control } from 'react-redux-form';
 import { dateNow } from '../../utils/time';
+import { actions } from 'react-redux-form';
 
 
 /**
@@ -35,13 +36,13 @@ export function makeInputs(rowModel, options, formModelName, k) {
             case inputTypes.NUMBER:
                 input = <Control.input className={css.numInput} model={modelName} type="number" updateOn="blur" ignore={['focus']} />; break;
             case inputTypes.DATE:
-                input = <Control.input className={css.dateInput} model={modelName} type="date" updateOn="change" ignore={['focus', 'blur']} />; break;
+                input = <Control.input className={css.dateInput} model={modelName} type="date" updateOn="change" ignore={['focus','blur']} />; break;
             case inputTypes.CHECKBOX:
-                input = <Control.checkbox className={css.checkbox} model={modelName} updateOn="change" ignore={['focus', 'blur']} />; break;
+                input = <Control.checkbox className={css.checkbox} model={modelName} updateOn="change" ignore={['focus','blur']} style={{marginLeft: '14px'}} />; break;
             case inputTypes.DROPDOWN:
                 input = (
                     <div style={{overflow: 'hidden', marginRight: '2px'}}>
-                        <Control.select className={css.selectInput} model={modelName} updateOn="change" ignore={['focus', 'blur']} >
+                        <Control.select className={css.selectInput} model={modelName} updateOn="change" ignore={['focus','blur']} >
                             {makeOptions(options[model.optionsKey])}
                         </Control.select>
                     </div>

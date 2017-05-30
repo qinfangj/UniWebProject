@@ -15,13 +15,14 @@ import {
     requestRecentMultiplexIndexes,
     requestLibProtocols,
     requestLibAdapters,
-    } from '../actions/actionCreators/optionsActionCreators';
+} from '../actions/actionCreators/optionsActionCreators';
 
 import batchSubmissionModel from './model';
 import * as helpers from './helpers';
 import { Form, actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
-import SampleRow from './SampleRow';
+import MultiCopyDropdown from './MultiCopyDropdown';
+import { optionsFromModel } from '../forms/forms.js';
 
 
 
@@ -33,9 +34,6 @@ class SamplesBatchSubmission extends React.PureComponent {
         this.model = batchSubmissionModel;
         this.addNewRow = this.addNewRow.bind(this);
         this.clear = this.clear.bind(this);
-        this.copyRowOnce = this.copyRowOnce.bind(this);
-        this.copyRowNtimes = this.copyRowNtimes.bind(this);
-        this.deleteRow = this.deleteRow.bind(this);
     }
 
     componentWillMount() {
@@ -54,21 +52,36 @@ class SamplesBatchSubmission extends React.PureComponent {
     }
 
     /**
+     * Build the buttons for one row - to duplicate it or remove it.
+     * @param k: the row index.
+     */
+    makeRowButtons(k) {
+        return (
+            <div className={css.rowButtons}>
+                <Icon className={css.copyOnceButton} name="clone" onClick={this.copyRowOnce.bind(this, k)} />
+                <MultiCopyDropdown copyRowNtimes={this.copyRowNtimes.bind(this)} rowIndex={k} />
+                <Icon className={css.removeButton} name="trash" onClick={this.deleteRow.bind(this, k)} />
+            </div>
+        );
+    }
+
+    /**
      * Build an array of rows, one for each sample from the store.
      * @returns {Array}
      */
     makeRows() {
         let rows = this.props.formData.map((sample, k) => {
-            return (
-                <SampleRow
-                    key={k}
-                    options={this.props.options}
-                    rowIndex={k}
-                    copyRowOnce={this.copyRowOnce}
-                    copyRowNtimes={this.copyRowNtimes}
-                    deleteRow={this.deleteRow}
-                />
+            let inputs = helpers.makeInputs(this.model, this.props.options, this.modelName, k);
+            let cells = inputs.map((input,i) =>
+                <td className={css.cell} key={i}>{input}</td>
             );
+            // The first one is for the buttons
+            cells.unshift(
+                <td key={"buttons"+k}>
+                    {this.makeRowButtons(k)}
+                </td>
+            );
+            return <tr key={k}>{cells}</tr>;
         });
         return rows;
     }
@@ -143,7 +156,6 @@ class SamplesBatchSubmission extends React.PureComponent {
 //Starting material description (e.g.: 'Crosslinked ChIP DNA from NIH-3T3 cells')
 
     render() {
-        console.log("RENDER!!")
         return (
             <Form model="userData.samples">
                 <table className={css.batchInsertTable}>
@@ -161,13 +173,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let options = {};
-    for (let field of Object.keys(batchSubmissionModel)) {
-        let model = batchSubmissionModel[field];
-        if (model.optionsKey) {
-            options[model.optionsKey] = state.options[model.optionsKey] || [];
-        }
-    }
+    let options = optionsFromModel(state, batchSubmissionModel);
     let formData = state.userData.samples;
     return {
         formData: formData,
@@ -185,7 +191,7 @@ function mapDispatchToProps(dispatch) {
         requestRecentMultiplexIndexes,
         requestLibProtocols,
         requestLibAdapters,
-        }, dispatch);
+    }, dispatch);
 }
 
 
