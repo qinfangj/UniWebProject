@@ -22,7 +22,7 @@ class HeaderRow extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.modelName = "userData.samples";
+        this.formModelName = "userData.samples";
         this.addNewRow = this.addNewRow.bind(this);
         this.clear = this.clear.bind(this);
     }
@@ -35,7 +35,7 @@ class HeaderRow extends React.PureComponent {
      * Reset to initial single row.
      */
     clear() {
-        store.dispatch(actions.change(this.modelName, [helpers.newEmptyRow()]));
+        store.dispatch(actions.change(this.formModelName, [helpers.newEmptyRow()]));
     }
 
     /**
@@ -43,7 +43,7 @@ class HeaderRow extends React.PureComponent {
      */
     addNewRow() {
         let newRows = [...this.props.formData, helpers.newEmptyRow()];
-        store.dispatch(actions.change(this.modelName, newRows));
+        store.dispatch(actions.change(this.formModelName, newRows));
     }
 
     render() {

@@ -36,7 +36,7 @@ import userDataReducers from '../components/actions/reducers/forms/userDataReduc
 
 const logger = createLogger({
     collapsed: true,
-    diff: false,  // much slower if true
+    diff: true,  // much slower if true
 });
 
 let middleware = [thunk];

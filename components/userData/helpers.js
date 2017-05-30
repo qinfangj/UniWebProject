@@ -24,11 +24,11 @@ function makeOptions(options) {
  * @param k: the row index, to link an input to its row.
  * @returns {Array}
  */
-export function makeInputs(rowModel, options, formModelName, k) {
+export function makeInputs(rowModel, options, formModelName) {
     let inputs = [];
     for (let field of Object.keys(rowModel)) {
         let model = rowModel[field];
-        let modelName = `${formModelName}[${k}].${field}`;
+        let modelName = `${formModelName}.${field}`;
         let input;
         switch(model.inputType) {
             case inputTypes.TEXT:

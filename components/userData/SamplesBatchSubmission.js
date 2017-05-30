@@ -31,7 +31,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.modelName = "userData.samples";
+        // this.modelName = "userData.samples";
         this.model = batchSubmissionModel;
     }
 
@@ -67,6 +67,7 @@ class SamplesBatchSubmission extends React.PureComponent {
     }
 
     render() {
+        console.log("RENDER")
         return (
             <Form model="userData.samples">
                 <table className={css.batchInsertTable}>
