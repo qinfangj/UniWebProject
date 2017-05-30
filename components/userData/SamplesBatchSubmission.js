@@ -61,6 +61,7 @@ class SamplesBatchSubmission extends React.PureComponent {
         let rows = this.props.formData.map((sample, k) => {
             return (
                 <SampleRow
+                    key={k}
                     options={this.props.options}
                     rowIndex={k}
                     copyRowOnce={this.copyRowOnce}
@@ -142,7 +143,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 //Starting material description (e.g.: 'Crosslinked ChIP DNA from NIH-3T3 cells')
 
     render() {
-        console.log("RENDER!!!")
+        console.log("RENDER!!")
         return (
             <Form model="userData.samples">
                 <table className={css.batchInsertTable}>

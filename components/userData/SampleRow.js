@@ -27,12 +27,11 @@ class SampleRow extends React.PureComponent {
         this.model = batchSubmissionModel;
         // Callbacks
         this.copyRowOnce = this.copyRowOnce.bind(this);
-        this.copyRowNtimes = this.copyRowNtimes.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
     }
 
     static propTypes = {
-        options: PropTypes.array.isRequired,
+        options: PropTypes.object.isRequired,
         rowIndex: PropTypes.number.isRequired,
         // Callbacks
         copyRowOnce: PropTypes.func.isRequired,
@@ -62,6 +61,7 @@ class SampleRow extends React.PureComponent {
     }
 
     render() {
+        console.log("RENDER ROW!")
         let k = this.props.rowIndex;
         let buttons = this.makeRowButtons(k);
         let inputs = helpers.makeInputs(this.model, this.props.options, this.modelName);

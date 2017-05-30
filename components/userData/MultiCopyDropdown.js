@@ -49,10 +49,13 @@ class MultiCopyDropdown extends React.PureComponent {
 
 
 class CustomToggle extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
     handleClick(e) {
         e.preventDefault();
         this.props.onClick(e);
-        this.handleClick = this.handleClick.bind(this);
     }
     render() {
         return (
