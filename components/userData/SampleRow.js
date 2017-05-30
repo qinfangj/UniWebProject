@@ -13,6 +13,7 @@ import * as helpers from './helpers';
 import { Form, actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
 import MultiCopyDropdown from './MultiCopyDropdown';
+import { optionsFromModel } from '../forms/forms.js';
 
 
 
@@ -34,7 +35,6 @@ class SampleRow extends React.PureComponent {
     }
 
     static propTypes = {
-        formData: PropTypes.array.isRequired,
         options: PropTypes.object.isRequired,
         rowIndex: PropTypes.number.isRequired,
     };
@@ -107,10 +107,12 @@ class SampleRow extends React.PureComponent {
 }
 
 
-function mapStateToProps(state, ownProps) {
-    let rowData = state.userData.samples[ownProps.rowIndex];
+function mapStateToProps(state) {
+    let formData = state.userData.samples;
+    let options = optionsFromModel(state, batchSubmissionModel);
     return {
-        rowData: rowData,
+        formData: formData,
+        options: options,
     };
 }
 

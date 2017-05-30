@@ -18,20 +18,22 @@ import {
 } from '../actions/actionCreators/optionsActionCreators';
 
 import batchSubmissionModel from './model';
-import * as helpers from './helpers';
-import { Form, actions } from 'react-redux-form';
-import Icon from 'react-fontawesome';
-import { optionsFromModel } from '../forms/forms.js';
+import { Form } from 'react-redux-form';
 import SampleRow from './SampleRow';
 import HeaderRow from './HeaderRow';
 
 
 
+/**
+ * The table that contains the form to submit a sample.
+ * Each row is a sample insert form, and can be duplicated n tines or removed.
+ * This component pre-loads all the necessary options lists
+ * and generates as many rows as there are samples in the store state.
+ */
 class SamplesBatchSubmission extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        // this.modelName = "userData.samples";
         this.model = batchSubmissionModel;
     }
 
@@ -55,24 +57,25 @@ class SamplesBatchSubmission extends React.PureComponent {
      * @returns {Array}
      */
     makeRows() {
-        let rows = this.props.formData.map((sample, k) => {
-            return <SampleRow
-                key={k}
-                formData={this.props.formData}
-                options={this.props.options}
-                rowIndex={k}
-            />;
-        });
+        let rows = [];
+        let nsamples = this.props.nsamples;
+        for (let k=0; k < nsamples; k++) {
+            let row = <SampleRow
+                    key={k}
+                    options={this.props.options}
+                    rowIndex={k}
+                />;
+            rows.push(row);
+        }
         return rows;
     }
 
     render() {
-        console.log("RENDER")
         return (
             <Form model="userData.samples">
                 <table className={css.batchInsertTable}>
                     <thead>
-                        <HeaderRow formData={this.props.formData}/>
+                        <HeaderRow/>
                     </thead>
                     <tbody>
                         {this.makeRows()}
@@ -85,11 +88,9 @@ class SamplesBatchSubmission extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let options = optionsFromModel(state, batchSubmissionModel);
-    let formData = state.userData.samples;
+    let nsamples = state.userData.samples.length;
     return {
-        formData: formData,
-        options: options,
+        nsamples: nsamples,
     };
 }
 

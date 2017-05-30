@@ -27,10 +27,6 @@ class HeaderRow extends React.PureComponent {
         this.clear = this.clear.bind(this);
     }
 
-    static propTypes = {
-        formData: PropTypes.array.isRequired,
-    };
-
     /**
      * Reset to initial single row.
      */
@@ -68,5 +64,14 @@ class HeaderRow extends React.PureComponent {
 }
 
 
-export default HeaderRow;
+function mapStateToProps(state) {
+    let formData = state.userData.samples;
+    return {
+        formData: formData,
+    };
+}
+
+
+export default connect(mapStateToProps)(HeaderRow);
+
 
