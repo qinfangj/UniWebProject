@@ -13,8 +13,8 @@ class UserDataHome extends React.Component {
         return (
             <div>
                 <h2>Utilites for the Interface Development of DNA Array Facility </h2>
-                <Row className={css.fdHomeRow}>
-                    <Alert bsStyle="info" >
+                <Row className={css.fdHomeMsg}>
+                    <Alert bsStyle="info" className={css.fdHomeAlert}>
                         <ul>
                             <li>This section allows users to interact with the DEVELOPMENT INTERFACE DNA Array Facility of the University of Lausanne.</li>
                             <li>Users must use this interface to submit their samples/libraries for deep sequencing and to retrieve their data or data from a collaborator.</li>
@@ -26,11 +26,11 @@ class UserDataHome extends React.Component {
 
                     <Col md={4} >
                         <div className={css.submitPanel}>
-                            <fieldset className={css.field}>
+                            <fieldset >
                                 <legend >Submission</legend>
                                     <ul>
                                         <li><a href="/#/user/newform">Submit samples and libraries</a></li>
-                                        <li><a href="/#/user/newrequest">Reqest more sequences</a></li>
+                                        <li><a href="/#/user/newrequest">Request more sequences</a></li>
                                     </ul>
                             </fieldset>
                         </div>

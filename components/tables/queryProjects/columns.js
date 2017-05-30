@@ -2,6 +2,7 @@
 import * as formatters from '../formatters';
 import { CENTER, MULTIROW } from '../columns';
 import columnNames from '../../constants/columns';
+import css from '../queryProjects/queryProjectsTable.css';
 
 
 const col = columnNames.queryProjects;
@@ -325,6 +326,37 @@ const columns = {
             field: "bc_pc_one_mismatch_index",
             cellRenderer: formatters.nullable,
             cellStyle: MULTIROW,
+        },
+    ],
+    [col.IVC_PLOTS_INFO]: [
+        {
+            headerName: "",
+            field: "name",
+        },{
+            headerName: "All",
+            field: "all",
+            cellRenderer: function(params) {
+                //var img = "<img src='./temp/" + params.value + ".png' width = '100px' height= '100px' >";
+                var imgName =  params.value + ".png";
+                //
+                var img = '<div style = "background:url(./temp/' + imgName + '); height:100px;"  ></div>';
+                return img
+
+            }
+            // cellRenderer: function(params) {
+            //     return '<span style="color: red">' + params.value + '</span>';}
+        },{
+            headerName: "Called",
+            field: "called",
+        },{
+            headerName: "% Base Calls",
+            field: "percentBaseCalls",
+        },{
+            headerName: "% All",
+            field: "percentAll",
+        },{
+            headerName: "% Called",
+            field: "percentCalled",
         },
     ],
 

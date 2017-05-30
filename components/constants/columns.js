@@ -15,7 +15,7 @@ export default {
         LIBRARY_INFO: "library",
         SEQUENCING_DETAILS_INFO: "sequencing_details",
         SAMPLE_SHEETS_INFO: "sample_sheets",
-        IVC_PLOTS: "ivc_plots",
+        IVC_PLOTS_INFO: "ivc_plots",
         DEMULTIPLEXING_INFO: "demultiplexing",
         ALIGNMENTS_INFO: "alignments"
     },

@@ -10,17 +10,16 @@ class FacilityDataHome extends React.Component {
 
     render() {
         return (
-            <div>
+            <div >
                 <h2 style={{textAlign:'center'}}>Database Browser</h2>
                 {/*<Row className={css.fdHomeRow}>*/}
                 {/*<Alert bsStyle="info" >*/}
-                <p>
+                <p className={css.fdHomeMsg}>
                     This section allows you to browse the different table of the database and to enter new data into the database.
-
                 </p>
 
 
-                <Alert bsStyle="info">
+                <Alert bsStyle="info" className={css.fdHomeAlert}>
 
                     <fieldset>
                         <legend>Recent Updates</legend>
