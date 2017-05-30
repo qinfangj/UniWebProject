@@ -15,13 +15,13 @@
     font-size: 0.9em;
 }
 /* Remove borders because the table already provides some */
-.cell input, .cell select {
+.textInput, .selectInput {
     border: none;
 }
-.cell select {
+.selectInput {
     padding: 2px;
 }
-.cell input[type="checkbox"] {
+.checkbox {
     margin-left: 5px;
 }
 

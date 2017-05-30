@@ -9,10 +9,12 @@ import Icon from 'react-fontawesome';
 
 
 
-class MultiCopyDropdown extends React.Component {
+class MultiCopyDropdown extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {open: false};
+        this.onToggle = this.onToggle.bind(this);
+        this.copy = this.copy.bind(this);
     }
 
     onToggle() {
@@ -29,26 +31,27 @@ class MultiCopyDropdown extends React.Component {
 
     render() {
         return (
-            <Dropdown className={css.dropdown} id={1} onToggle={this.onToggle.bind(this)} open={this.state.open} >
+            <Dropdown className={css.dropdown} id={1} onToggle={this.onToggle} open={this.state.open} >
                 <CustomToggle bsRole="toggle" >
                     <Icon className={css.copyNtimesButton} name="clone" />
                     <span className={css.copyNtimesNumber}>9</span>
                 </CustomToggle>
-                <CustomMenu bsRole="menu" copy={this.copy.bind(this)} />
+                <CustomMenu bsRole="menu" copy={this.copy} />
             </Dropdown>
         );
     }
 }
 
 
-class CustomToggle extends React.Component {
+class CustomToggle extends React.PureComponent {
     handleClick(e) {
         e.preventDefault();
         this.props.onClick(e);
+        this.handleClick = this.handleClick.bind(this);
     }
     render() {
         return (
-            <a href="" onClick={this.handleClick.bind(this)}>
+            <a href="" onClick={this.handleClick}>
                 {this.props.children}
             </a>
         );
@@ -56,10 +59,12 @@ class CustomToggle extends React.Component {
 }
 
 
-class CustomMenu extends React.Component {
+class CustomMenu extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
         this.state = { value: "" };
+        this.onChange = this.onChange.bind(this);
+        this.send = this.send.bind(this);
     }
 
     send(e) {
@@ -85,14 +90,14 @@ class CustomMenu extends React.Component {
                     className={css.multiCopyInput}
                     ref={c => { this.input = c; }}
                     type="number"
-                    onChange={this.onChange.bind(this)}
-                    onKeyPress={this.send.bind(this)}
+                    onChange={this.onChange}
+                    onKeyPress={this.send}
                     value={this.state.value}
                 />
                 <Button
                     className={css.multiCopyOkButton}
                     bsStyle="primary"
-                    onClick={this.send.bind(this)}>
+                    onClick={this.send}>
                     OK
                 </Button>
             </div>

@@ -31,6 +31,11 @@ class SamplesBatchSubmission extends React.PureComponent {
         super(props);
         this.modelName = "userData.samples";
         this.model = batchSubmissionModel;
+        this.addNewRow = this.addNewRow.bind(this);
+        this.clear = this.clear.bind(this);
+        this.copyRowOnce = this.copyRowOnce.bind(this);
+        this.copyRowNtimes = this.copyRowNtimes.bind(this);
+        this.deleteRow = this.deleteRow.bind(this);
     }
 
     componentWillMount() {
@@ -55,9 +60,9 @@ class SamplesBatchSubmission extends React.PureComponent {
     makeRowButtons(k) {
         return (
             <div className={css.rowButtons}>
-                <Icon className={css.copyOnceButton} name="clone" onClick={this.copyRowOnce.bind(this, k)} />
-                <MultiCopyDropdown copyRowNtimes={this.copyRowNtimes.bind(this)} rowIndex={k} />
-                <Icon className={css.removeButton} name="trash" onClick={this.deleteRow.bind(this, k)} />
+                <Icon className={css.copyOnceButton} name="clone" onClick={this.copyRowOnce.bind(k)} />
+                <MultiCopyDropdown copyRowNtimes={this.copyRowNtimes} rowIndex={k} />
+                <Icon className={css.removeButton} name="trash" onClick={this.deleteRow.bind(k)} />
             </div>
         );
     }
@@ -98,8 +103,8 @@ class SamplesBatchSubmission extends React.PureComponent {
         // The first one is for the buttons
         cells.unshift(
             <th key={"buttons"}>
-                <Icon className={css.addNewRowButton} name="plus" onClick={this.addNewRow.bind(this)} />
-                <Icon className={css.clearButton} name="eraser" onClick={this.clear.bind(this)} />
+                <Icon className={css.addNewRowButton} name="plus" onClick={this.addNewRow} />
+                <Icon className={css.clearButton} name="eraser" onClick={this.clear} />
             </th>
         );
         return <tr className={css.headerButtons}>{cells}</tr>;
@@ -179,8 +184,8 @@ function mapStateToProps(state) {
     }
     let formData = state.userData.samples;
     return {
-        formData: formData || [],
-        options: options || {},
+        formData: formData,
+        options: options,
     };
 }
 
