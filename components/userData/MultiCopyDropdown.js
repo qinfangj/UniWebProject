@@ -17,6 +17,11 @@ class MultiCopyDropdown extends React.PureComponent {
         this.copy = this.copy.bind(this);
     }
 
+    static propTypes = {
+        rowIndex: PropTypes.number.isRequired,
+        copyRowNtimes: PropTypes.func.isRequired,
+    };
+
     onToggle() {
         // if (document.activeElement !== this.input) {   // use the ref?
         //     this.setState({open: !this.state.open});

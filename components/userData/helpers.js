@@ -25,26 +25,23 @@ function makeOptions(options) {
  */
 export function makeInputs(rowModel, options, formModelName, k) {
     let inputs = [];
-    function doNothing(e) { e.preventDefault(); return; }
-
     for (let field of Object.keys(rowModel)) {
         let model = rowModel[field];
         let modelName = `${formModelName}[${k}].${field}`;
         let input;
-
         switch(model.inputType) {
             case inputTypes.TEXT:
-                input = <Control.text className={css.textInput} model={modelName} updateOn="blur" />; break;
+                input = <Control.text className={css.textInput} model={modelName} updateOn="blur" ignore={['focus']} />; break;
             case inputTypes.NUMBER:
-                input = <Control.input className={css.numInput} model={modelName} type="number" updateOn="blur" />; break;
+                input = <Control.input className={css.numInput} model={modelName} type="number" updateOn="blur" ignore={['focus']} />; break;
             case inputTypes.DATE:
-                input = <Control.input className={css.dateInput} model={modelName} type="date" updateOn="change" />; break;
+                input = <Control.input className={css.dateInput} model={modelName} type="date" updateOn="change" ignore={['focus', 'blur']} />; break;
             case inputTypes.CHECKBOX:
-                input = <Control.checkbox className={css.checkbox} model={modelName} updateOn="change" />; break;
+                input = <Control.checkbox className={css.checkbox} model={modelName} updateOn="change" ignore={['focus', 'blur']} />; break;
             case inputTypes.DROPDOWN:
                 input = (
                     <div style={{overflow: 'hidden', marginRight: '2px'}}>
-                        <Control.select className={css.selectInput} model={modelName} updateOn="change" >
+                        <Control.select className={css.selectInput} model={modelName} updateOn="change" ignore={['focus', 'blur']} >
                             {makeOptions(options[model.optionsKey])}
                         </Control.select>
                     </div>
