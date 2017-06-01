@@ -36,6 +36,8 @@ class CommonAdminForms extends React.Component {
             submissionId: undefined,
             runtypeList:[],
             readlengthList:[],
+            projectList:[],
+            peopleList:[],
 
         };
         this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
@@ -97,6 +99,39 @@ class CommonAdminForms extends React.Component {
             }
         }
 
+        if (this.table === tableNames.PROJECT_SHARINGS) {
+            let projectList = store.getState().options[optionsStoreKeys.PROJECTS];
+            let peopleList = store.getState().options[optionsStoreKeys.PEOPLE];
+
+            if (!projectList) {
+                let future = store.dispatch(getOptionsListAsync(tableNames.PROJECTS, optionsStoreKeys.PROJECTS));
+                future
+                    .done((data) => {
+                        this.setState({
+                            projectList: data
+                        });
+                    })
+            } else {
+                this.setState({
+                    projectList
+                });
+            }
+
+            if (!peopleList) {
+                let future = store.dispatch(getOptionsListAsync(tableNames.PEOPLE, optionsStoreKeys.PEOPLE));
+                future
+                    .done((data) => {
+                        this.setState({
+                            peopleList: data
+                        });
+                    })
+            } else {
+                this.setState({
+                    peopleList
+                });
+            }
+        }
+
         this.newOrUpdate(this.table,this.props.updateId);
     }
     componentWillReceiveProps() {
@@ -123,6 +158,8 @@ class CommonAdminForms extends React.Component {
 
     formatterRuntypes(v) { return [v.id, v.name]; }
     formatterReadLengths(v) { return [v.id, v.length]; }
+    formatterProject(v) { return [v.id, v.lastName +" - "+ v.name]; }
+    formatterPeople(v) { return [v.id, v.lastName +" - "+ v.firstName]; }
 
     makeInput(s) {
         let input;
@@ -151,8 +188,12 @@ class CommonAdminForms extends React.Component {
             let options;
             if (s.name ==="runTypeId") {
                 options = this.makeOptions(this.state.runtypeList, this.formatterRuntypes);
-            }else if (s.name ==="readLengthId") {
+            } else if (s.name ==="readLengthId") {
                 options = this.makeOptions(this.state.readlengthList, this.formatterReadLengths);
+            } else if (s.name === "projectId") {
+                options = this.makeOptions(this.state.projectList, this.formatterProject);
+            } else if (s.name === "personId") {
+                options = this.makeOptions(this.state.peopleList, this.formatterPeople);
             }
 
             const BSSelect = (props) => <FormControl componentClass= "select" {...props} />;
@@ -184,7 +225,7 @@ class CommonAdminForms extends React.Component {
 
                         return (
                             <Col sm={s.size} className={css.formCol} key={s.name}>
-                                <label className={admincss.label}>{s.label}:</label>
+                                <label className={admincss.label}>{s.label}</label>
                                 {this.makeInput(s)}
                             </Col>
                         )
