@@ -456,14 +456,14 @@ const adminData = {
                 "name":  "runTypeId",
                 "size":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "type": inputTypes.DROPDOWN
             },
             {
                 "label": "Read Length",
-                "name":  "runLengthId",
+                "name":  "readLengthId",
                 "size":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "type": inputTypes.DROPDOWN
             },
             {
                 "label": "Discarded",

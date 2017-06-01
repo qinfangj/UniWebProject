@@ -4,6 +4,9 @@ import css from '../forms.css';
 import admincss from './adminForm.css';
 import { withRouter } from 'react-router';
 import store from '../../../core/store';
+import tableNames from '../../tables/tableNames';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
+import { getOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
 
 import * as submit from './submit';
 import adminData from './adminDataModels';
@@ -31,6 +34,9 @@ class CommonAdminForms extends React.Component {
             submissionError: false,
             submissionSuccess: false,
             submissionId: undefined,
+            runtypeList:[],
+            readlengthList:[],
+
         };
         this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
     }
@@ -58,6 +64,39 @@ class CommonAdminForms extends React.Component {
     }
 
     componentWillMount() {
+        if (this.table === tableNames.RUN_TYPES_LENGTHS) {
+            let runtypeList = store.getState().options[optionsStoreKeys.RUN_TYPES];
+            let readlengthList = store.getState().options[optionsStoreKeys.READ_LENGTHS];
+
+            if (!runtypeList) {
+                let future = store.dispatch(getOptionsListAsync(tableNames.RUN_TYPES, optionsStoreKeys.RUN_TYPES));
+                future
+                    .done((data) => {
+                        this.setState({
+                            runtypeList: data
+                        });
+                    })
+            } else {
+                this.setState({
+                    runtypeList
+                });
+            }
+
+            if (!readlengthList) {
+                let future = store.dispatch(getOptionsListAsync(tableNames.READ_LENGTHS, optionsStoreKeys.READ_LENGTHS));
+                future
+                    .done((data) => {
+                        this.setState({
+                            readlengthList: data
+                        });
+                    })
+            } else {
+                this.setState({
+                    readlengthList
+                });
+            }
+        }
+
         this.newOrUpdate(this.table,this.props.updateId);
     }
     componentWillReceiveProps() {
@@ -68,6 +107,22 @@ class CommonAdminForms extends React.Component {
         submit.submit(this, this.modelName, values, this.table, this.props.updateId, this.state.isInsert);
     }
 
+    makeOptions(list,formatter) {
+        let options = list.map(v => formatter(v));
+
+
+        if (this.props.hasNoneValue) {
+            options.unshift([-1, '-']);
+        }
+
+        let optionList = options.map((v,i) => {
+            return <option value={v[0]} key={i}>{v[1]}</option>;
+        });
+        return optionList;
+    }
+
+    formatterRuntypes(v) { return [v.id, v.name]; }
+    formatterReadLengths(v) { return [v.id, v.length]; }
 
     makeInput(s) {
         let input;
@@ -78,7 +133,7 @@ class CommonAdminForms extends React.Component {
                     disabled={!this.state.isInsert}
                     className={admincss.input}
                 />
-        } else {
+        } else if (s.type === inputTypes.TEXT) {
             // Use React-bootstrap FormControl as custom Control component:
             // https://davidkpiano.github.io/react-redux-form/docs/guides/custom-controls.html
             // First we map the react-redux forms props to the react-bootstrap props:
@@ -92,7 +147,24 @@ class CommonAdminForms extends React.Component {
                     disabled={!this.state.isInsert}
                     required={s.required}
                 />;
+        } else if (s.type === inputTypes.DROPDOWN) {
+            let options;
+            if (s.name ==="runTypeId") {
+                options = this.makeOptions(this.state.runtypeList, this.formatterRuntypes);
+            }else if (s.name ==="readLengthId") {
+                options = this.makeOptions(this.state.readlengthList, this.formatterReadLengths);
+            }
+
+            const BSSelect = (props) => <FormControl componentClass= "select" {...props} />;
+
+            input = <Control.select model={".".concat(s.name)}
+                                    component={BSSelect}
+                                    disabled={!this.state.isInsert}
+                                    required={s.required} >
+                            {options}
+                    </Control.select>
         }
+
         return input;
     }
 
@@ -130,5 +202,9 @@ class CommonAdminForms extends React.Component {
         );
     }
 }
+
+CommonAdminForms.defaultProps = {
+    hasNoneValue: true,
+};
 
 export default withRouter(CommonAdminForms)

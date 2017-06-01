@@ -1,3 +1,4 @@
+@import '../../../styles/colors.css';
 
 .adminForm {
     /*margin-bottom: 120px;*/
@@ -63,7 +64,8 @@
 }
 .th {
     width: 30%;
-    background :#66afe9;
+    background:var(--blue);
+    color: white;
     padding: 10px;
     border-bottom: 1px solid #ddd;
 }
