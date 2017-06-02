@@ -12,6 +12,7 @@ import libraryModel from '../formModels/libraryModel';
 import * as helpers from '../helpers';
 import { Form, actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap/lib';
 
 
 
@@ -51,11 +52,18 @@ class HeaderRow extends React.PureComponent {
         let cells = labels.map((label,i) =>
             <th className={css.headerCell} key={i}>{label}</th>
         );
+        let addNewRowTooltip = <Tooltip id="addOneRow">Add one row at bottom</Tooltip>;
+        let resetTooltip = <Tooltip id="resetRows">Reset</Tooltip>;
+
         // The first cell is for the buttons
         cells.unshift(
             <th key={"buttons"}>
-                <Icon className={css.addNewRowButton} name="plus" onClick={this.addNewRow} />
-                <Icon className={css.clearButton} name="eraser" onClick={this.clear} />
+                <OverlayTrigger placement="top" overlay={addNewRowTooltip}>
+                    <Icon className={css.addNewRowButton} name="plus" onClick={this.addNewRow} />
+                </OverlayTrigger>
+                <OverlayTrigger placement="top" overlay={resetTooltip}>
+                    <Icon className={css.clearButton} name="eraser" onClick={this.clear} />
+                </OverlayTrigger>
             </th>
         );
         return <tr>{cells}</tr>;

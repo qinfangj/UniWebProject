@@ -13,6 +13,7 @@ import * as helpers from '../helpers';
 import { Form, actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
 import MultiCopyDropdown from '../MultiCopyDropdown';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap/lib';
 import { optionsFromModel } from '../../forms/forms.js';
 
 
@@ -73,16 +74,40 @@ class LibraryRow extends React.PureComponent {
 
     /**
      * Build the buttons for one row - to duplicate it or remove it.
+     * Add tooltips only to the first row, to not hurt performance.
      * @param k: the row index.
      */
-    makeRowButtons() {
-        return (
-            <div className={css.rowButtons}>
-                <Icon className={css.copyOnceButton} name="clone" onClick={this.copyRowOnce} />
-                <MultiCopyDropdown copyRowNtimes={this.copyRowNtimes} rowIndex={this.props.rowIndex} />
-                <Icon className={css.removeButton} name="trash" onClick={this.deleteRow} />
-            </div>
-        );
+    makeRowButtons(k) {
+        let copyOnce = <Icon className={css.copyOnceButton} name="clone" onClick={this.copyRowOnce} />;
+        let multiCopy = <span><MultiCopyDropdown copyRowNtimes={this.copyRowNtimes} rowIndex={k} /></span>;
+        let remove = <Icon className={css.removeButton} name="trash" onClick={this.deleteRow} />;
+
+        if (k === 0) {
+            let copyOnceTooltip = <Tooltip id="copyOnce">Copy once</Tooltip>;
+            let multiCopyTooltip = <Tooltip id="copyNtimes">Copy n times</Tooltip>;
+            let removeTooltip = <Tooltip id="remove">Delete</Tooltip>;
+            return (
+                <div className={css.rowButtons}>
+                    <OverlayTrigger placement="top" overlay={copyOnceTooltip}>
+                        {copyOnce}
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="top" overlay={multiCopyTooltip}>
+                        {multiCopy}
+                    </OverlayTrigger>
+                    <OverlayTrigger placement="top" overlay={removeTooltip}>
+                        {remove}
+                    </OverlayTrigger>
+                </div>
+            );
+        } else {
+            return (
+                <div className={css.rowButtons}>
+                    {copyOnce}
+                    {multiCopy}
+                    {remove}
+                </div>
+            );
+        }
     }
 
     render() {
