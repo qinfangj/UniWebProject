@@ -46,7 +46,10 @@ class CopyPasteArea extends React.PureComponent {
         for (let i = 0; i < nrows; i++) {
             let row = rows[i].trim();
             let terms = row.split(/\t|\s\s+/);  // tab, or two or more white characters
-            data.push({"sampleName": terms[0], "shortName": terms[1]});
+            data.push({
+                [fields.samples.NAME]: terms[0],
+                [fields.samples.SHORT_NAME]: terms[1]}
+            );
         }
         data = this.validate(data);
         for (let i = 0; i < nrows; i++) {
