@@ -10,7 +10,7 @@ import CommonFeatRow from '../CommonFeatRow';
 /**
  * A specific implementation of CommonFeatRow from samples.
  */
-class SampleRow extends React.Component {
+class SampleRow extends React.PureComponent {
     render() {
         return (
             <CommonFeatRow
