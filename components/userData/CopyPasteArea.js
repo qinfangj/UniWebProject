@@ -34,6 +34,10 @@ class CopyPasteArea extends React.PureComponent {
         this.setState({ text: e.target.value });
     }
 
+    validate(data) {
+        return data;
+    }
+
     parse() {
         let text = this.state.text.trim();
         let rows = text.split(/\r?\n|\r/);
@@ -41,10 +45,10 @@ class CopyPasteArea extends React.PureComponent {
         let data = [];
         for (let i = 0; i < nrows; i++) {
             let row = rows[i].trim();
-            let terms = row.split("\t");
+            let terms = row.split(/\t|\s\s+/);
             data.push({"sampleName": terms[0], "shortName": terms[1]});
         }
-        console.log(data)
+        data = this.validate(data);
         for (let i = 0; i < nrows; i++) {
             store.dispatch(actions.merge(`userData.samples[${i}]`, data[i]));
         }
