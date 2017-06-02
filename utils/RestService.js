@@ -15,7 +15,7 @@ import { feedbackSuccess, feedbackError, feedbackWarning } from '../components/a
 function handleError(jqXHR, textStatus, error)  {
     let msg = error.statusText + ": " +jqXHR.responseText;
     if (jqXHR.status === 0) {
-        msg = "Could not connect to server";
+        msg = "Could not connect";
     } else if (jqXHR.status === 404) {
         msg = "Page not found";
     }

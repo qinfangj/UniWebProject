@@ -5,6 +5,7 @@ import tablesCss from '../tables.css';
 import css from './queryProjectsTable.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as tables from '../tables.js';
 import { ROW_HEIGTH } from '../columns';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
@@ -104,7 +105,7 @@ class QueryProjectsTable extends React.Component {
             this.selectedSampleIds = selectedSampleIds;
             this.queryType = queryType;
             if (selectedSampleIds.length > 0) {
-                this.props.queryProjectsAsync(selectedSampleIds, queryType)
+                this.props.queryProjectsAsync(selectedSampleIds, queryType, queryType)
                 .fail(() => console.error("queryProjectsAsync() failed to load data."));
             }
         }
@@ -183,10 +184,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        queryProjectsAsync: (selectedSampleIds, queryType) =>
-            dispatch(queryProjectsAsync(selectedSampleIds, queryType, queryType)),
-    };
+    return bindActionCreators({ queryProjectsAsync }, dispatch);
 };
 
 
