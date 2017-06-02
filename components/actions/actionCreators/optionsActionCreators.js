@@ -98,7 +98,7 @@ export function requestPipelineVersions() {
 }
 
 export function requestAllProjects() {
-    let storeKey = optionsStoreKeys.PROJECTS;
+    let storeKey = optionsStoreKeys.PROJECTS_ALL;
     return requestOptionsListAsync(types.options.OPTIONS_PROJECTS, storeKey, "projects", "all");
 }
 

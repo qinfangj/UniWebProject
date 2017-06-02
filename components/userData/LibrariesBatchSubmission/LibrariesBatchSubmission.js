@@ -16,11 +16,12 @@ import {
 } from '../../actions/actionCreators/optionsActionCreators';
 
 import libraryModel from '../formModels/libraryModel';
+import librariesProjectModel from '../formModels/librariesProjectModel';
 import { Form } from 'react-redux-form';
 import LibraryRow from './LibraryRow';
 import LibraryHeaderRow from './LibraryHeaderRow';
 import LibrariesProjectRow from './LibrariesProjectRow';
-import LibrariesProjectHeaderRow from './LibrariesProjectHeaderRow';
+import CommonProjectHeaderRow from '../CommonProjectHeaderRow';
 import { Button } from 'react-bootstrap/lib';
 
 
@@ -82,7 +83,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
                     </div>
                     <table className={css.batchInsertTable}>
                         <thead>
-                            <LibrariesProjectHeaderRow/>
+                            <CommonProjectHeaderRow model={librariesProjectModel}/>
                         </thead>
                         <tbody>
                             <LibrariesProjectRow options={this.props.options} />

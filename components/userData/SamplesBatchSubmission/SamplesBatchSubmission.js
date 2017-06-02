@@ -14,11 +14,12 @@ import {
 } from '../../actions/actionCreators/optionsActionCreators';
 
 import sampleModel from '../formModels/sampleModel';
+import samplesProjectModel from '../formModels/samplesProjectModel';
 import { Form } from 'react-redux-form';
 import SampleRow from './SampleRow';
 import SamplesHeaderRow from './SamplesHeaderRow';
 import SamplesProjectRow from './SamplesProjectRow';
-import SamplesProjectHeaderRow from './SamplesProjectHeaderRow';
+import CommonProjectHeaderRow from '../CommonProjectHeaderRow';
 import { Button } from 'react-bootstrap/lib';
 
 
@@ -78,7 +79,7 @@ class SamplesBatchSubmission extends React.PureComponent {
                     </div>
                     <table className={css.batchInsertTable}>
                         <thead>
-                            <SamplesProjectHeaderRow/>
+                            <CommonProjectHeaderRow model={samplesProjectModel}/>
                         </thead>
                         <tbody>
                             <SamplesProjectRow options={this.props.options} />
