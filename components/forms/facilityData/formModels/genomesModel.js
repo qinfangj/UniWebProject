@@ -31,6 +31,7 @@ const genomesModel = {
         label: "URL",
         inputType: inputTypes.TEXT,
         required: true,
+        type: "url",
     },
     [fields.genomes.DOWNLOADED_DATE]: {
         width: 4,

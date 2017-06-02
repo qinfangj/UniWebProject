@@ -37,6 +37,7 @@ const peopleModel = {
         label: "PI phone",
         inputType: inputTypes.TEXT,
         required: true,
+        type: "tel",
     }
 };
 
