@@ -4,8 +4,8 @@ import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import fields from '../../constants/fields';
 
 
-const librariesProjectModel = {
-    [fields.libraries.PROJECT_ID]: {
+const samplesProjectModel = {
+    [fields.samples.PROJECT_ID]: {
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.PROJECTS_ALL,
         label: "Project",
@@ -20,33 +20,24 @@ const librariesProjectModel = {
         optionsKey: optionsStoreKeys.SAMPLE_TYPES,
         label: "Material type",
     },
-    [fields.libraries.LIB_PROTOCOL_ID]: {
-        inputType: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.LIB_PROTOCOLS,
-        label: "Library protocol",
-    },
-    [fields.libraries.ADAPTER_ID]: {
-        inputType: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.LIB_ADAPTERS,
-        label: "Adapters",
-    },
-    [fields.libraries.LIBRARY_DATE]: {
+    [fields.samples.RECEIVED_DATE]: {
         inputType: inputTypes.DATE,
         type: "date",
-        label: "Library date",
+        label: "Received date",
     },
-    [fields.libraries.QUANTIF_METHOD_ID]: {
+    [fields.samples.QUANTIF_METHOD_ID]: {
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.QUANTIF_METHODS,
         label: "Quantification",
     },
-    [fields.libraries.IS_ROBOT_MADE]: {
-        inputType: inputTypes.CHECKBOX,
-        label: "Made on robot",
-    },
 
     // Request
 
+    [fields.user_requests.LIB_PROTOCOL_ID]: {
+        inputType: inputTypes.DROPDOWN,
+        optionsKey: optionsStoreKeys.LIB_PROTOCOLS,
+        label: "Library type",   // "Sequencing type"
+    },
     [fields.user_requests.RUN_TYPES_LENGTH_ID]: {
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.RUN_TYPES_LENGTHS,
@@ -54,5 +45,5 @@ const librariesProjectModel = {
     },
 };
 
-export default librariesProjectModel;
+export default samplesProjectModel;
 

@@ -222,7 +222,7 @@ export function makeFormFields(formModelName, formModel, disabled = false, optio
         let {inputType, optionsKey, ...otherProps} = model;
         otherProps.key = modelName;
         otherProps.disabled = model.disabled || disabled;
-        // otherProps.submissionError = formCompleteModel[modelName].submitFailed && formCompleteModel[modelName].validated && (! formCompleteModel[modelName].valid);
+        // otherProps.submissionError = formState[modelName].submitFailed && formState[modelName].validated && (! formState[modelName].valid);
         if (optionsKey) {
             otherProps.options = options[optionsKey] || [];
         }
