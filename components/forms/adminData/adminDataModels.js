@@ -7,13 +7,6 @@ const adminData = {
     "users": {
         "fields": [
             {
-                "label": "Login Name",
-                "name":  "login",
-                "size":  3,
-                "required": true,
-                "type": inputTypes.TEXT
-            },
-            {
                 "label": "First Name",
                 "name":  "firstName",
                 "size":  3,
@@ -24,6 +17,13 @@ const adminData = {
                 "label": "Last Name",
                 "name":  "lastName",
                 "size":  3,
+                "required": true,
+                "type": inputTypes.TEXT
+            },
+            {
+                "label": "Login Name",
+                "name":  "login",
+                "size":  6,
                 "required": true,
                 "type": inputTypes.TEXT
             },
@@ -57,8 +57,8 @@ const adminData = {
             },{
                 "label": "LIMS Access",
                 "name":  "role",
-                "size":  3,
-                "required": false,
+                "size":  6,
+                "required": true,
                 "type": inputTypes.DROPDOWN
             }
         ],

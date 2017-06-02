@@ -19,7 +19,9 @@ export function formatFormData(formData, table) {
             let ind = fieldsNames.indexOf(key);
 
             if (adminData[table].fields[ind].type === inputTypes.DROPDOWN) {
-                formData[key] = parseInt(formData[key]);
+                if (table !== "users") {
+                    formData[key] = parseInt(formData[key]);
+                }
             } else if (adminData[table].fields[ind].type === inputTypes.CHECKBOX) {
                 formData[key] = !!parseInt(formData[key]);
             }
