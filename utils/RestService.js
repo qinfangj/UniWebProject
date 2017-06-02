@@ -238,10 +238,12 @@ class RestService {
         return post(url);
     }
 
-    validateUser(id) {
-        let url = `${BACKEND}/table/users/validate/${id}`;
+    validateUser(user) {
+        //let url = `${BACKEND}/table/users/validate/${id}`;
+        let url = window.ENV.BACKEND_URL + '/account/activateUser';
         console.info(url);
-        return post(url);
+
+        return post(url, user);
     }
 
     /* Static files (pdf, qc/ivc, etc,) */

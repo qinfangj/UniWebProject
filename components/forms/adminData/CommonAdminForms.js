@@ -41,6 +41,7 @@ class CommonAdminForms extends React.Component {
             peopleList: [],
             laboratoryList: [],
             isValidated: undefined,
+            username: "",
 
         };
         this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
@@ -59,6 +60,7 @@ class CommonAdminForms extends React.Component {
             future
                 .done((data) => {
                     console.log(data);
+                    this.setState({username: data.login});
                     store.dispatch(actions.merge(this.modelName,data));
                 });
 
@@ -205,21 +207,20 @@ class CommonAdminForms extends React.Component {
         }
     }
 
-    userValidate(form, userId){
+    userValidate(form){
         let state = {serverError: {}};
         if (confirm("Are you sure that you want to activate this user?")) { // Clic sur OK
-            if (userId) {
-
-                let future = store.dispatch(validateUserAsync(userId));
+            if (this.state.username) {
+                let future = store.dispatch(validateUserAsync({username:this.state.username}));
                 state = Object.assign(state, {submissionError: false, submissionFuture: future});
                 future
                     .done((validateId) => {
                         console.debug(200, "Validated ID <" + validateId + ">");
-                        store.dispatch(feedbackSuccess(form, "Validated ID <" + validateId + ">"));
+                        store.dispatch(feedbackSuccess(form, "Validated user <" + this.state.username + ">"));
                         let currentPath = window.location.pathname + window.location.hash.substr(2);
-                        if (userId !== '' || userId !== undefined) {
+                        if (this.props.updateId !== '' || this.props.updateId !== undefined) {
 
-                            this.props.router.push(currentPath.replace('/update/' + userId, '/list'));
+                            this.props.router.push(currentPath.replace('/update/' + this.props.updateId, '/list'));
 
                         }
                     })
@@ -297,7 +298,7 @@ class CommonAdminForms extends React.Component {
                                 ];
 
                 options = this.makeOptions(roleList, function(v){return [v.value, v.name]});
-                console.log(options);
+                //console.log(options);
 
             }
 
@@ -345,7 +346,7 @@ class CommonAdminForms extends React.Component {
                     </Button>
 
                 { this.table === tableNames.USERS && this.state.isInsert && this.props.updateId && !this.state.isValidated ?
-                    <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userValidate.bind(this,this.modelName, this.props.updateId)}>Validate</Button>
+                    <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userValidate.bind(this,this.modelName)}>Validate</Button>
                     : null}
                 { this.table === tableNames.USERS && this.state.isInsert && this.props.updateId && !this.state.isValidated ?
                     <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userDelete.bind(this,this.modelName, this.table,this.props.updateId)}>Delete</Button>

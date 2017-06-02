@@ -19,12 +19,23 @@ export class AdminDataPage extends React.Component {
     }
 }
 
-export class LimsUserListRoute extends React.Component {
+export class LimsUsersListRoute extends React.Component {
     render() {
         return (
             <AdminData title="LIMS Users" name="users" content={
                 <CommonTable dataStoreKey={tableNames.USERS} table={tableNames.USERS} columns={adminDataColumns[tableNames.USERS]} />
             }/>
+        );
+    }
+}
+
+export class LimsUsersNewPage extends React.Component {
+    render() {
+        return (
+            <AdminData title="LIMS Users" name="users" content={
+                //<LimsUsersSubmitForm table={tableNames.USERS}  updateId={this.props.params.id}/>
+                <CommonAdminForms table={tableNames.USERS} />
+            } />
         );
     }
 }
