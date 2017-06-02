@@ -67,13 +67,6 @@ const adminData = {
     "project_sharings": {
         "fields": [
             {
-                "label": "Description",
-                "name":  "description",
-                "size":  12,
-                "required": true,
-                "type": inputTypes.TEXT
-            },
-            {
                 "label": "Project",
                 "name":  "projectId",
                 "size":  6,
@@ -86,7 +79,14 @@ const adminData = {
                 "size":  6,
                 "required": true,
                 "type": inputTypes.DROPDOWN
-            }
+            },
+            {
+                "label": "Description",
+                "name":  "description",
+                "size":  12,
+                "required": true,
+                "type": inputTypes.TEXT
+            },
         ],
         "model": "projectSharingsForm"
     },
@@ -319,14 +319,14 @@ const adminData = {
             },
             {
                 "label": "IsMultiplexing",
-                "name":  "isMultiplexing",
+                "name":  "ismultiplexing",
                 "size":  4,
                 "required": true,
-                "type": "Boolean"
+                "type": inputTypes.CHECKBOX
             },
             {
                 "label": "IsDeprecated",
-                "name":  "isDeprecated",
+                "name":  "isdeprecated",
                 "size":  4,
                 "required": true,
                 "type": inputTypes.CHECKBOX
@@ -456,14 +456,14 @@ const adminData = {
                 "name":  "runTypeId",
                 "size":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "type": inputTypes.DROPDOWN
             },
             {
                 "label": "Read Length",
-                "name":  "runLengthId",
+                "name":  "readLengthId",
                 "size":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "type": inputTypes.DROPDOWN
             },
             {
                 "label": "Discarded",

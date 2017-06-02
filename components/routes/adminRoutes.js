@@ -624,7 +624,7 @@ export class projectSharingsNewPage extends React.Component {
     render() {
         return (
             <AdminData title="Project Sharings" name="project_sharings" content={
-                <ProjectSharingSubmitForm table={tableNames.PROJECT_SHARINGS} />
+                <CommonAdminForms table={tableNames.PROJECT_SHARINGS} />
             } />
         );
     }
@@ -634,7 +634,7 @@ export class projectSharingsUpdatePage extends React.Component {
     render() {
         return (
             <AdminData title="Project Sharings" name="project_sharings" content={
-                <ProjectSharingSubmitForm table={tableNames.PROJECT_SHARINGS} updateId={this.props.params.id}/>
+                <CommonAdminForms table={tableNames.PROJECT_SHARINGS} updateId={this.props.params.id}/>
             } />
         );
     }

@@ -22,6 +22,11 @@ class QueryProjectsTable extends React.Component {
         super(props);
         this.selectedSampleIds = "";
         this.queryType = "";
+        //******** make temperate data ********
+        this.data = [{name:'OBIWAN #241 L3e1_3',all:'1-1',called:'1-2',percentBaseCalls:'1-3',percentAll:'1-4',percentCalled:'1-5'},
+                     {name:'OBIWAN #241 L3e1_4',all:'2-1',called:'2-2',percentBaseCalls:'2-3',percentAll:'2-4',percentCalled:'2-5'}];
+        //******** end ********
+
     }
 
     static propTypes = {
@@ -125,7 +130,8 @@ class QueryProjectsTable extends React.Component {
     }
 
     render() {
-        let data = this.props.tableData;
+        //let data = this.props.tableData;
+        let data = this.data;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }

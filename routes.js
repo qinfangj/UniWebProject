@@ -102,7 +102,7 @@ const routes = (
 
             {/* TRACKING */}
 
-            <Redirect from="tracking" to="tracking/samples" />
+            <Redirect from="tracking" to="tracking/samples" onEnter={requireAuth}/>
             <Route path="tracking/samples" component={tracking.trackingSamples} onEnter={requireAuth} />
             <Route path="tracking/libraries" component={tracking.trackingLibraries} onEnter={requireAuth} />
             <Route path="tracking/runs" component={tracking.trackingRuns} onEnter={requireAuth} />
@@ -125,9 +125,9 @@ const routes = (
             <Route path="projects/library" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             <Route path="projects/sequencing_details" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             <Route path="projects/sample_sheets" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
-            {/*<Route path="projects/ivc" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />*/}
+            <Route path="projects/ivc_plots" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
             <Route path="projects/demultiplexing" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
-            {/*<Route path="projects/alignments" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />*/}
+            <Route path="projects/alignments" component={qprojects.QueryProjectsRoute} onEnter={requireAuth} />
 
             {/* QUERY RUNS */}
 

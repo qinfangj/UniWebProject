@@ -209,45 +209,45 @@ class LimsUsersSubmitForm extends React.PureComponent {
                 <Feedback reference={this.modelName} />
 
                 <Col sm={3} className={css.formCol}>
-                    <label className={admincss.label}>First Name:</label>
+                    <label className={admincss.label}>First Name</label>
                     <Control component={BSTextInput} model=".firstName" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
 
                 <Col sm={3} className={css.formCol}>
-                    <label className={admincss.label}>Last Name:</label>
+                    <label className={admincss.label}>Last Name</label>
                     <Control component={BSTextInput} model=".lastName" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label}>Login Name:</label>
+                    <label className={admincss.label}>Login Name</label>
                     <Control component={BSTextInput} model=".login" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={3} className={css.formCol}>
-                    <label className={admincss.label}>Phone:</label>
+                    <label className={admincss.label}>Phone</label>
                     <Control component={BSTextInput} model=".phone" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={3} className={css.formCol}>
-                    <label className={admincss.label}>Email:</label>
+                    <label className={admincss.label}>Email</label>
                     <Control component={BSTextInput} model=".email" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label}>Address:</label>
+                    <label className={admincss.label}>Address</label>
                     <Control component={BSTextInput} model=".address" disabled={!this.state.isInsert} className={admincss.input}/>
                 </Col>
 
                 <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label}>Laboratory:</label>
+                    <label className={admincss.label}>Laboratory</label>
                     <Control.select model=".laboratoryId" disabled={!this.state.isInsert} >
                         {laboratoryOptions}
                     </Control.select>
                 </Col>
 
                 <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label}>Lims Access:</label>
+                    <label className={admincss.label}>Lims Access</label>
                     <Control.select model=".role" disabled={!this.state.isInsert}>
                         <option value = "customer">customer</option>
                         <option value = "no access">no access</option>

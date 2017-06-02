@@ -142,7 +142,7 @@ class ProjectSharingSubmitForm extends React.PureComponent {
                 <messages.ServerErrorMessage error={this.state.serverError} />
 
                 <Col sm={6} className={css.formCol}>
-                    <label className={admincss.label}>Project:</label>
+                    <label className={admincss.label}>Project</label>
 
                     <Control.select model=".projectId" component={BSSelect} disabled={!this.state.isInsert} >
                         {projectOptions}
@@ -152,14 +152,14 @@ class ProjectSharingSubmitForm extends React.PureComponent {
 
                 <Col sm={6} className={css.formCol}>
 
-                    <label className={admincss.label}>Colaborator:</label>
+                    <label className={admincss.label}>Colaborator</label>
                     <Control.select model=".personId" component={BSSelect} disabled={!this.state.isInsert} >
                         {peopleOptions}
                     </Control.select>
                 </Col>
 
                 <Col sm={12} className={css.formCol}>
-                    <label className={admincss.label}>Description:</label>
+                    <label className={admincss.label}>Description</label>
                     <Control component={BSTextInput} model=".description" disabled={!this.state.isInsert} />
                 </Col>
 

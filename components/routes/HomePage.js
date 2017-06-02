@@ -19,7 +19,7 @@ class HomePage extends React.Component {
             <div>
             <header>
                 <h2>Welcome to
-                    <p style={{marginLeft:'5%'}}>Lausanne Genomic Technologies Facility!</p></h2>
+                   Lausanne Genomic Technologies Facility!</h2>
             </header>
                 <Feedback reference={formNames.SIGN_UP_FORM} />
                 <Feedback reference={formNames.CHANGE_PASSWORD_FORM} />
@@ -31,18 +31,16 @@ class HomePage extends React.Component {
                     You will be noticed by an email soon when it has been validated by an administrator.</div>
                 }
 
-                <Row>
+                <Row className={css.row}>
                     <Col md={6}><div className={css.code1} /></Col>
                     <Col md={6}>
-
-                        {/*<Alert bsStyle="info">*/}
-                        <div height='40%'>
+                        <div height='40%' className={css.msgDiv}>
                             <p style={{textIntent:'50px'}}>This UHTS-Laboratory Information Managment System (LIMS) provides a relational database to store the information related to the Illumina sequencing technology.</p>
                             <p>This UHTS-LIMS is only for the internal use on INTERFACE DEVELOPMENT of DNA Array Facility at Lausanne University.</p>
 
                         </div>
-                        {/*</Alert>*/}
-                        <Alert bsStyle="info">
+
+                        <Alert bsStyle="info" className={css.msgDiv}>
                             <fieldset><legend>News</legend>
                                 <div dangerouslySetInnerHTML={{__html: file}} />
                             </fieldset>
