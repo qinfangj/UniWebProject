@@ -1,5 +1,30 @@
 @import '../../styles/colors.css';
 
+/* "Project definition:", "Libraries definition:", etc. */
+.title {
+    width: calc(100% - 20px); /* Leaving space for the triangle */
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: var(--qcBlue);
+}
+.projectDefinition {
+}
+.samplesDefinition {
+}
+/* Triangles in CSS! */
+.triangleRight {
+    float: right;
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid var(--qcBlue);
+}
+
+
+/** Tables **/
 
 .batchInsertTable {
     margin-right: 15px;
@@ -13,6 +38,10 @@
     padding: 0;
     max-width: 150px;
     font-size: 0.9em;
+}
+.headerCell {
+    white-space: nowrap;
+    padding-right: 10px;
 }
 
 .input {
@@ -31,11 +60,16 @@
 .checkbox {
     /*margin-left: 15px;*/ /* Had to override it in style prop */
 }
+/* The div that contains a select input */
+.selectWrapper {
+    overflow: hidden;
+    padding-right: 2px;
+    background: white;
+}
 
 
 /** The buttons that act on the whole table **/
 
-.headerButtons {}
 .addNewRowButton, .clearButton {
     padding-right: 10px;
     cursor: pointer;
@@ -61,51 +95,11 @@
 }
 
 
-/** The complicated custom dropdown **/
-
-/* The clickable icon */
-.copyNtimesButton {
-    padding-left: 5px;
-}
-/* The fancy little "9" on top of the icon */
-.copyNtimesNumber {
-    position: relative;
-    top: 0px;
-    left: -8px;
-    font-size: 0.7em;
-    /*z-index: -1;*/
-}
-/* The space holding together the button and the menu hidden behind */
-.dropdown {
-    padding: 0px;
-    margin-right: 2px;
-    font-size: inherit;
-}
-/* The toggleable part of the dropdown */
-.dropdownMenu {
-    min-width: 0;
-    width: 142px;
-}
-/* The numeric text field where we enter the number of copies */
-.multiCopyInput {
-    display: inline-block;
-    width: 75px;
-    margin-left: 5px;
-}
-/* The OK button to validate the number of copies */
-.multiCopyOkButton {
-    display: inline-block;
-    width: 50px;
-    margin: -3px 0 0 5px;
-}
-
-
 /** Buttons hover color **/
 
 .addNewRowButton:hover, .clearButton:hover {
     color: var(--blue);
 }
-
 .copyOnceButton:hover {
     color: var(--blue);
 }

@@ -41,7 +41,7 @@ export function makeInputs(rowModel, options, formModelName) {
                 input = <Control.checkbox className={css.checkbox} model={modelName} updateOn="change" ignore={['focus','blur']} style={{marginLeft: '14px'}} />; break;
             case inputTypes.DROPDOWN:
                 input = (
-                    <div style={{overflow: 'hidden', marginRight: '2px'}}>
+                    <div className={css.selectWrapper}>
                         <Control.select className={css.selectInput} model={modelName} updateOn="change" ignore={['focus','blur']} >
                             {makeOptions(options[model.optionsKey])}
                         </Control.select>

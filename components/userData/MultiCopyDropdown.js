@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from './styles.css';
+import css from './MultiCopyDropdown.css';
 import cx from 'classnames';
 import { Dropdown, Button, FormControl } from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';

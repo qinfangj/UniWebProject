@@ -4,11 +4,6 @@ import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 
 const libraryModel = {
-    "project": {
-        inputType: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.PROJECTS_ALL,
-        label: "Project",
-    },
     "sampleName": {
         inputType: inputTypes.TEXT,
         label: "Sample name",
@@ -17,34 +12,9 @@ const libraryModel = {
         inputType: inputTypes.TEXT,
         label: "Short name",
     },
-    "organism": {
-        inputType: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.TAXONOMIES,
-        label: "Organism",
-    },
     "startingMaterial": {
         inputType: inputTypes.TEXT,
         label: "Starting material",
-    },
-    "materialType": {
-        inputType: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.SAMPLE_TYPES,
-        label: "Material type",
-    },
-    "libraryProtocol": {
-        inputType: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.LIB_PROTOCOLS,
-        label: "Library protocol",
-    },
-    "adapters": {
-        inputType: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.LIB_ADAPTERS,
-        label: "Adapters",
-    },
-    "libraryDate": {
-        inputType: inputTypes.DATE,
-        type: "date",
-        label: "Library date",
     },
     "multiplexIndex7": {
         inputType: inputTypes.DROPDOWN,
@@ -76,23 +46,9 @@ const libraryModel = {
         inputType: inputTypes.NUMBER,
         label: "Vol.[μl]",
     },
-    "quantifMethod": {
-        inputType: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.QUANTIF_METHODS,
-        label: "Quantification",
-    },
-    "isrobotMade": {
-        inputType: inputTypes.CHECKBOX,
-        label: "Made on robot",
-    },
     "comment": {
         inputType: inputTypes.TEXT,
         label: "Comment",
-    },
-    "sequencingType": {
-        inputType: inputTypes.DROPDOWN,
-        optionsKey: optionsStoreKeys.RUN_TYPES_LENGTHS,
-        label: "Sequencing type",
     },
     "nbLanes": {
         inputType: inputTypes.NUMBER,

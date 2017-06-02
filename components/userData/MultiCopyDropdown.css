@@ -1,0 +1,39 @@
+
+
+/** The complicated custom dropdown **/
+
+/* The clickable icon */
+.copyNtimesButton {
+    padding-left: 5px;
+}
+/* The fancy little "9" on top of the icon */
+.copyNtimesNumber {
+    position: relative;
+    top: 0px;
+    left: -8px;
+    font-size: 0.7em;
+    /*z-index: -1;*/
+}
+/* The space holding together the button and the menu hidden behind */
+.dropdown {
+    padding: 0px;
+    margin-right: 2px;
+    font-size: inherit;
+}
+/* The toggleable part of the dropdown */
+.dropdownMenu {
+    min-width: 0;
+    width: 142px;
+}
+/* The numeric text field where we enter the number of copies */
+.multiCopyInput {
+    display: inline-block;
+    width: 75px;
+    margin-left: 5px;
+}
+/* The OK button to validate the number of copies */
+.multiCopyOkButton {
+    display: inline-block;
+    width: 50px;
+    margin: -3px 0 0 5px;
+}

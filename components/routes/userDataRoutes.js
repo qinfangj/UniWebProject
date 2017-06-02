@@ -2,7 +2,7 @@
 import React from 'react';
 import UserDataHome from '../pages/UserDataHome';
 import UserData from '../pages/UserData';
-import LibrariesBatchSubmission from '../userData/LibrariesBatchSubmission';
+import LibrariesBatchSubmission from '../userData/LibrariesBatchSubmission/LibrariesBatchSubmission';
 import CopyPasteArea from '../userData/CopyPasteArea';
 
 

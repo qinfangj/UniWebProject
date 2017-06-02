@@ -1,15 +1,15 @@
 "use strict";
 import React from 'react';
-import css from './styles.css';
+import css from '../styles.css';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
-import store from '../../core/store';
+import store from '../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import libraryModel from './formModels/libraryModel';
-import * as helpers from './helpers';
+import libraryModel from '../formModels/libraryModel';
+import * as helpers from '../helpers';
 import { Form, actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
 
@@ -58,7 +58,7 @@ class HeaderRow extends React.PureComponent {
                 <Icon className={css.clearButton} name="eraser" onClick={this.clear} />
             </th>
         );
-        return <tr className={css.headerButtons}>{cells}</tr>;
+        return <tr>{cells}</tr>;
     }
 
 }

@@ -1,8 +1,8 @@
 "use strict";
 import React from 'react';
-import css from './styles.css';
+import css from '../styles.css';
 import cx from 'classnames';
-import store from '../../core/store';
+import store from '../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -15,12 +15,14 @@ import {
     requestRecentMultiplexIndexes,
     requestLibProtocols,
     requestLibAdapters,
-} from '../actions/actionCreators/optionsActionCreators';
+} from '../../actions/actionCreators/optionsActionCreators';
 
-import libraryModel from './formModels/libraryModel';
+import libraryModel from '../formModels/libraryModel';
 import { Form } from 'react-redux-form';
 import LibraryRow from './LibraryRow';
-import HeaderRow from './HeaderRow';
+import LibrariesProjectRow from './LirbariesProjectRow';
+import LibrariesProjectHeaderRow from './LibrariesProjectHeaderRow';
+import LibraryHeaderRow from './LibraryHeaderRow';
 
 
 
@@ -73,14 +75,39 @@ class LibrariesBatchSubmission extends React.PureComponent {
     render() {
         return (
             <Form model="userData.libraries">
-                <table className={css.batchInsertTable}>
-                    <thead>
-                        <HeaderRow/>
-                    </thead>
-                    <tbody>
-                        {this.makeRows()}
-                    </tbody>
-                </table>
+
+                <div className={css.triangleRight} />
+                <div className={css.projectDefinition}>
+                    <div className={css.title}>
+                        Project definition:
+                    </div>
+                    <table className={css.batchInsertTable}>
+                        <thead>
+                            <LibrariesProjectHeaderRow/>
+                        </thead>
+                        <tbody>
+                            <LibrariesProjectRow options={this.props.options} />
+                        </tbody>
+                    </table>
+                </div>
+
+                <br/>
+
+                <div className={css.triangleRight} />
+                <div className={css.samplesDefinition}>
+                    <div className={css.title}>
+                        Libraries definition:
+                    </div>
+                    <table className={css.batchInsertTable}>
+                        <thead>
+                            <LibraryHeaderRow/>
+                        </thead>
+                        <tbody>
+                            {this.makeRows()}
+                        </tbody>
+                    </table>
+                </div>
+
             </Form>
         );
     }
