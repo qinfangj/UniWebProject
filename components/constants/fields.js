@@ -119,7 +119,7 @@ const fields = {
         VOLUME: "volume",
         RIN: "rin",
         RATIO_260_280: "ratio260280",
-        RATIO_260_230: "",
+        RATIO_260_230: "ratio260230",
         DESCRIPTION: "description",
         COMMENT_CUSTOMER: "commentCustomer",
         COMMENT: "comment",
