@@ -58,7 +58,7 @@ export function makeInputs(rowModel, options, formModelName) {
 }
 
 
-export function newEmptyRow() {
+export function newLibraryRow() {
     return {
         project: "",
         sampleName: "",

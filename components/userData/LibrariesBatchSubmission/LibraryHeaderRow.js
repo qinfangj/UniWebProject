@@ -32,14 +32,14 @@ class HeaderRow extends React.PureComponent {
      * Reset to initial single row.
      */
     clear() {
-        store.dispatch(actions.change(this.formModelName, [helpers.newEmptyRow()]));
+        store.dispatch(actions.change(this.formModelName, [helpers.newLibraryRow()]));
     }
 
     /**
      * Add a new empty row at the end.
      */
     addNewRow() {
-        let newRows = [...this.props.formData, helpers.newEmptyRow()];
+        let newRows = [...this.props.formData, helpers.newLibraryRow()];
         store.dispatch(actions.change(this.formModelName, newRows));
     }
 
