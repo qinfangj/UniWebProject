@@ -10,17 +10,15 @@ import {
     requestSampleTypes,
     requestQuantifMethods,
     requestRunsTypesLengths,
-    requestRecentMultiplexIndexes,
     requestLibProtocols,
-    requestLibAdapters,
 } from '../../actions/actionCreators/optionsActionCreators';
 
-import libraryModel from '../formModels/libraryModel';
+import sampleModel from '../formModels/sampleModel';
 import { Form } from 'react-redux-form';
-import LibraryRow from './LibraryRow';
-import LibraryHeaderRow from './LibraryHeaderRow';
-import LibrariesProjectRow from './LibrariesProjectRow';
-import LibrariesProjectHeaderRow from './LibrariesProjectHeaderRow';
+import SampleRow from './SampleRow';
+import SampleHeaderRow from './SampleHeaderRow';
+import SamplesProjectRow from './SamplesProjectRow';
+import SamplesProjectHeaderRow from './SamplesProjectHeaderRow';
 
 
 
@@ -30,11 +28,11 @@ import LibrariesProjectHeaderRow from './LibrariesProjectHeaderRow';
  * This component pre-loads all the necessary options lists
  * and generates as many rows as there are samples in the store state.
  */
-class LibrariesBatchSubmission extends React.PureComponent {
+class SamplesBatchSubmission extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.model = libraryModel;
+        this.model = sampleModel;
     }
 
     componentWillMount() {
@@ -43,9 +41,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
         this.props.requestSampleTypes();
         this.props.requestQuantifMethods();
         this.props.requestRunsTypesLengths();
-        this.props.requestRecentMultiplexIndexes();
         this.props.requestLibProtocols();
-        this.props.requestLibAdapters();
     }
 
     handleSubmit() {
@@ -58,9 +54,9 @@ class LibrariesBatchSubmission extends React.PureComponent {
      */
     makeRows() {
         let rows = [];
-        let nlibs = this.props.nlibs;
-        for (let k=0; k < nlibs; k++) {
-            let row = <LibraryRow
+        let nsamples = this.props.nsamples;
+        for (let k=0; k < nsamples; k++) {
+            let row = <SampleRow
                     key={k}
                     options={this.props.options}
                     rowIndex={k}
@@ -81,10 +77,10 @@ class LibrariesBatchSubmission extends React.PureComponent {
                     </div>
                     <table className={css.batchInsertTable}>
                         <thead>
-                            <LibrariesProjectHeaderRow/>
+                            <SamplesProjectHeaderRow/>
                         </thead>
                         <tbody>
-                            <LibrariesProjectRow options={this.props.options} />
+                            <SamplesProjectRow options={this.props.options} />
                         </tbody>
                     </table>
                 </div>
@@ -94,11 +90,11 @@ class LibrariesBatchSubmission extends React.PureComponent {
                 <div className={css.triangleRight} />
                 <div className={css.samplesDefinition}>
                     <div className={css.title}>
-                        Libraries definition:
+                        Samples definition:
                     </div>
                     <table className={css.batchInsertTable}>
                         <thead>
-                            <LibraryHeaderRow/>
+                            <SampleHeaderRow/>
                         </thead>
                         <tbody>
                             {this.makeRows()}
@@ -113,9 +109,9 @@ class LibrariesBatchSubmission extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let nlibs = state.userData.libraries.length;
+    let nsamples = state.userData.samples.length;
     return {
-        nlibs: nlibs,
+        nsamples: nsamples,
     };
 }
 
@@ -126,12 +122,10 @@ function mapDispatchToProps(dispatch) {
         requestSampleTypes,
         requestQuantifMethods,
         requestRunsTypesLengths,
-        requestRecentMultiplexIndexes,
         requestLibProtocols,
-        requestLibAdapters,
     }, dispatch);
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LibrariesBatchSubmission);
+export default connect(mapStateToProps, mapDispatchToProps)(SamplesBatchSubmission);
 

@@ -36,7 +36,7 @@ const samplesProjectModel = {
     [fields.user_requests.LIB_PROTOCOL_ID]: {
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.LIB_PROTOCOLS,
-        label: "Library type",   // "Sequencing type"
+        label: "Library type", 
     },
     [fields.user_requests.RUN_TYPES_LENGTH_ID]: {
         inputType: inputTypes.DROPDOWN,
