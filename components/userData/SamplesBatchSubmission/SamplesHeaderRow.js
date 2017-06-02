@@ -23,7 +23,7 @@ class SamplesHeaderRow extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.formModelName = "userData.libraries";
+        this.formModelName = "userData.samples";
         this.addNewRow = this.addNewRow.bind(this);
         this.clear = this.clear.bind(this);
     }
