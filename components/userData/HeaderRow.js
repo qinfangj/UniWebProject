@@ -8,7 +8,7 @@ import store from '../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import batchSubmissionModel from './model';
+import libraryModel from './formModels/libraryModel';
 import * as helpers from './helpers';
 import { Form, actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
@@ -22,7 +22,7 @@ class HeaderRow extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.formModelName = "userData.samples";
+        this.formModelName = "userData.libraries";
         this.addNewRow = this.addNewRow.bind(this);
         this.clear = this.clear.bind(this);
     }
@@ -44,8 +44,8 @@ class HeaderRow extends React.PureComponent {
 
     render() {
         let labels = [];
-        for (let field of Object.keys(batchSubmissionModel)) {
-            let label = batchSubmissionModel[field].label || "";
+        for (let field of Object.keys(libraryModel)) {
+            let label = libraryModel[field].label || "";
             labels.push(label);
         }
         let cells = labels.map((label,i) =>
@@ -65,7 +65,7 @@ class HeaderRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.samples;
+    let formData = state.userData.libraries;
     return {
         formData: formData,
     };

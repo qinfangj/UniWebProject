@@ -2,7 +2,7 @@
 import React from 'react';
 import UserDataHome from '../pages/UserDataHome';
 import UserData from '../pages/UserData';
-import SamplesBatchSubmission from '../userData/SamplesBatchSubmission';
+import LibrariesBatchSubmission from '../userData/LibrariesBatchSubmission';
 import CopyPasteArea from '../userData/CopyPasteArea';
 
 
@@ -25,7 +25,7 @@ export class UserDataPage extends React.PureComponent {
 
                     <div>
                         <CopyPasteArea/>
-                        <SamplesBatchSubmission/>
+                        <LibrariesBatchSubmission/>
                     </div>
 
                 }/>

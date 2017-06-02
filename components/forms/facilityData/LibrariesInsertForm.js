@@ -19,7 +19,7 @@ import { requestSamplesForProject } from '../../actions/actionCreators/secondary
 import * as forms from '../forms.js';
 import formNames from '../../constants/formNames';
 import librariesModel from './formModels/librariesModel';
-import fields from '../fields';
+import fields from '../../constants/fields';
 
 import Button from 'react-bootstrap/lib/Button';
 import Feedback from '../../utils/Feedback';

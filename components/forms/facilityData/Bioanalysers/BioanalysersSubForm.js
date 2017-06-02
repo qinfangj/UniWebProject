@@ -12,7 +12,7 @@ import TextField from '../../elements/TextField';
 import { ProjectsWithLibraries } from '../../subcomponents/OptionsWith';
 import LibrariesForProject from '../../subcomponents/secondarySelects/LibrariesForProject';
 import formNames from '../../../constants/formNames';
-import fields from '../../fields';
+import fields from '../../../constants/fields';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 

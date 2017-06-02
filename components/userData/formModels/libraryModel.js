@@ -1,9 +1,9 @@
 'use strict';
-import inputTypes from '../forms/inputTypes';
-import optionsStoreKeys from '../constants/optionsStoreKeys';
+import inputTypes from '../../forms/inputTypes';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 
-const batchSubmissionModel = {
+const libraryModel = {
     "project": {
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.PROJECTS_ALL,
@@ -108,5 +108,5 @@ const batchSubmissionModel = {
     },
 };
 
-export default batchSubmissionModel;
+export default libraryModel;
 

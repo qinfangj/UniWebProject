@@ -14,7 +14,7 @@ import BioanalysersSubForm from './BioanalysersSubForm';
 
 import formNames from '../../../constants/formNames';
 import tableNames from '../../../tables/tableNames';
-import fields from '../../fields';
+import fields from '../../../constants/fields';
 import { findForUpdateAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 import downloadPdf from '../../../../utils/downloadPdf';
 

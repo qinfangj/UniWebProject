@@ -12,7 +12,7 @@ import { requestPipelineAnalysisTypes,
          requestMappingTools } from '../../actions/actionCreators/optionsActionCreators';
 import { requestBasecallingsForRun } from '../../actions/actionCreators/secondaryOptionsActionCreators';
 import * as forms from '../forms.js';
-import fields from '../fields';
+import fields from '../../constants/fields';
 import formNames from '../../constants/formNames';
 import { Button } from 'react-bootstrap/lib';
 import alignmentsModel from './formModels/alignmentsModel';

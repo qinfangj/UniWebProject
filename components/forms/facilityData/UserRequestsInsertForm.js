@@ -13,7 +13,7 @@ import { ProjectsWithSamples } from '../../forms/subcomponents/OptionsWith';
 import * as forms from '../forms.js';
 import validators from '../validators';
 import formNames from '../../constants/formNames';
-import fields from '../fields';
+import fields from '../../constants/fields';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';

@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AsyncOptionsList from './AsyncOptionsList';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import fields from '../fields';
+import fields from '../../constants/fields';
 
 
 

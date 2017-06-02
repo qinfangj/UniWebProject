@@ -2,7 +2,7 @@
 import React from 'react';
 import Select from '../../elements/Select';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-import fields from '../../fields';
+import fields from '../../../constants/fields';
 import tableNames from '../../../tables/tableNames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

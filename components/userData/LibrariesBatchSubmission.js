@@ -17,9 +17,9 @@ import {
     requestLibAdapters,
 } from '../actions/actionCreators/optionsActionCreators';
 
-import batchSubmissionModel from './model';
+import libraryModel from './formModels/libraryModel';
 import { Form } from 'react-redux-form';
-import SampleRow from './SampleRow';
+import LibraryRow from './LibraryRow';
 import HeaderRow from './HeaderRow';
 
 
@@ -30,11 +30,11 @@ import HeaderRow from './HeaderRow';
  * This component pre-loads all the necessary options lists
  * and generates as many rows as there are samples in the store state.
  */
-class SamplesBatchSubmission extends React.PureComponent {
+class LibrariesBatchSubmission extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.model = batchSubmissionModel;
+        this.model = libraryModel;
     }
 
     componentWillMount() {
@@ -60,7 +60,7 @@ class SamplesBatchSubmission extends React.PureComponent {
         let rows = [];
         let nsamples = this.props.nsamples;
         for (let k=0; k < nsamples; k++) {
-            let row = <SampleRow
+            let row = <LibraryRow
                     key={k}
                     options={this.props.options}
                     rowIndex={k}
@@ -72,7 +72,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 
     render() {
         return (
-            <Form model="userData.samples">
+            <Form model="userData.libraries">
                 <table className={css.batchInsertTable}>
                     <thead>
                         <HeaderRow/>
@@ -88,7 +88,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let nsamples = state.userData.samples.length;
+    let nsamples = state.userData.libraries.length;
     return {
         nsamples: nsamples,
     };
@@ -108,5 +108,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SamplesBatchSubmission);
+export default connect(mapStateToProps, mapDispatchToProps)(LibrariesBatchSubmission);
 

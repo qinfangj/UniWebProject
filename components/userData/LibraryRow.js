@@ -8,7 +8,7 @@ import store from '../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import batchSubmissionModel from './model';
+import libraryModel from './formModels/libraryModel';
 import * as helpers from './helpers';
 import { Form, actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
@@ -20,14 +20,14 @@ import { optionsFromModel } from '../forms/forms.js';
 /**
  * A <tr> with 3 buttons in the first cell, and sample creation inputs in the others.
  */
-class SampleRow extends React.PureComponent {
+class LibraryRow extends React.PureComponent {
 
     constructor(props) {
         super(props);
         let k = props.rowIndex;
-        this.formModelName = "userData.samples";
+        this.formModelName = "userData.libraries";
         this.modelName = `${this.formModelName}.[${k}]`;
-        this.model = batchSubmissionModel;
+        this.model = libraryModel;
         // Callbacks
         this.copyRowOnce = this.copyRowOnce.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
@@ -108,8 +108,8 @@ class SampleRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.samples;
-    let options = optionsFromModel(state, batchSubmissionModel);
+    let formData = state.userData.libraries;
+    let options = optionsFromModel(state, libraryModel);
     return {
         formData: formData,
         options: options,
@@ -117,6 +117,6 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(SampleRow);
+export default connect(mapStateToProps)(LibraryRow);
 
 

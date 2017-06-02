@@ -1,5 +1,5 @@
 "use strict";
-import fields from '../fields';
+import fields from '../../constants/fields';
 import formNames from '../../constants/formNames';
 import { dateNow } from '../../../utils/time';
 import inputTypes from '../inputTypes';

@@ -1,5 +1,5 @@
 "use strict";
-import fields from '../../fields';
+import fields from '../../../constants/fields';
 // import formNames from '../../../constants/formNames';
 import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';

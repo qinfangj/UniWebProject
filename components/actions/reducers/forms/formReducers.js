@@ -2,7 +2,7 @@
 import types from '../../actionTypes';
 import { initFacilityData } from '../../../forms/facilityData/formModels';
 import formNames from '../../../constants/formNames';
-import fields from '../../../forms/fields';
+import fields from '../../../constants/fields';
 
 
 const defaultState = Object.freeze(Object.assign({},

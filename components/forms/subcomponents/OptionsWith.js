@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import fields from '../fields';
+import fields from '../../constants/fields';
 import { Projects } from './Options';
 
 

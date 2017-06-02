@@ -1,7 +1,7 @@
 "use strict";
 import { combineForms } from  'react-redux-form'
 import { dateNow } from '../../../../utils/time';
-import fields from '../../../forms/fields';
+import fields from '../../../constants/fields';
 
 
 /**

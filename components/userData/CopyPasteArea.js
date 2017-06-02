@@ -8,7 +8,7 @@ import store from '../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from 'react-redux-form';
-import fields from '../forms/fields';
+import fields from '../constants/fields';
 
 import { FormControl, Button } from 'react-bootstrap/lib'
 
@@ -45,12 +45,12 @@ class CopyPasteArea extends React.PureComponent {
         let data = [];
         for (let i = 0; i < nrows; i++) {
             let row = rows[i].trim();
-            let terms = row.split(/\t|\s\s+/);
+            let terms = row.split(/\t|\s\s+/);  // tab, or two or more white characters
             data.push({"sampleName": terms[0], "shortName": terms[1]});
         }
         data = this.validate(data);
         for (let i = 0; i < nrows; i++) {
-            store.dispatch(actions.merge(`userData.samples[${i}]`, data[i]));
+            store.dispatch(actions.merge(`userData.libraries[${i}]`, data[i]));
         }
     }
 
