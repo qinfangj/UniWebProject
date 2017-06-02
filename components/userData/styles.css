@@ -13,6 +13,9 @@
 }
 .samplesDefinition {
 }
+.submitButton {
+    margin: 15px 0 15px 5px;
+}
 /* Triangles in CSS! */
 .triangleRight {
     float: right;

@@ -21,6 +21,7 @@ import LibraryRow from './LibraryRow';
 import LibraryHeaderRow from './LibraryHeaderRow';
 import LibrariesProjectRow from './LibrariesProjectRow';
 import LibrariesProjectHeaderRow from './LibrariesProjectHeaderRow';
+import { Button } from 'react-bootstrap/lib';
 
 
 
@@ -48,8 +49,8 @@ class LibrariesBatchSubmission extends React.PureComponent {
         this.props.requestLibAdapters();
     }
 
-    handleSubmit() {
-
+    handleSubmit(values) {
+        console.log("Batch insert of samples: ", values);
     }
 
     /**
@@ -72,7 +73,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
 
     render() {
         return (
-            <Form model="userData.libraries">
+            <Form model="userData.libraries" onSubmit={this.handleSubmit.bind(this)}>
 
                 <div className={css.triangleRight} />
                 <div className={css.projectDefinition}>
@@ -105,6 +106,8 @@ class LibrariesBatchSubmission extends React.PureComponent {
                         </tbody>
                     </table>
                 </div>
+
+                <Button className={css.submitButton} bsStyle="primary" type="submit">Submit</Button>
 
             </Form>
         );

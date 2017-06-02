@@ -20,12 +20,14 @@ export const facilityDataSubmenu = [
 ];
 
 export const userDataSubmenu = [
-    { text: "Submit samples and libraries", to: "user/newform", },
-    { text: "Request more sequences", to: "user/newrequest", },
-    { text: "View lab submissions", to: "user/view/labsamples", },
-    { text: "View collaboration submissions", to: "user/view/colsamples", },
-    { text: "Get lab data", to: "user/data/dataruns", },
-    { text: "Get collaboration data", to: "user/data/datacollabs", },
+    { text: "Submit libraries", to: "user/batch/libraries", },
+    { text: "Submit samples", to: "user/batch/samples", },
+    // { text: "Submit samples and libraries", to: "user/newform", },
+    // { text: "Request more sequences", to: "user/newrequest", },
+    { text: "View lab submissions", to: "user/view/labsamples", disabled: true },
+    { text: "View collaboration submissions", to: "user/view/colsamples", disabled: true },
+    { text: "Get lab data", to: "user/data/dataruns", disabled: true },
+    { text: "Get collaboration data", to: "user/data/datacollabs", disabled: true },
 ];
 
 export const queryProjectsSubmenu = [

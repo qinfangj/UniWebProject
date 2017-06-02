@@ -16,9 +16,10 @@ import {
 import sampleModel from '../formModels/sampleModel';
 import { Form } from 'react-redux-form';
 import SampleRow from './SampleRow';
-import SampleHeaderRow from './SampleHeaderRow';
+import SamplesHeaderRow from './SamplesHeaderRow';
 import SamplesProjectRow from './SamplesProjectRow';
 import SamplesProjectHeaderRow from './SamplesProjectHeaderRow';
+import { Button } from 'react-bootstrap/lib';
 
 
 
@@ -44,8 +45,8 @@ class SamplesBatchSubmission extends React.PureComponent {
         this.props.requestLibProtocols();
     }
 
-    handleSubmit() {
-
+    handleSubmit(values) {
+        console.log("Batch insert of samples: ", values);
     }
 
     /**
@@ -68,7 +69,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 
     render() {
         return (
-            <Form model="userData.libraries">
+            <Form model="userData.libraries" onSubmit={this.handleSubmit.bind(this)}>
 
                 <div className={css.triangleRight} />
                 <div className={css.projectDefinition}>
@@ -94,13 +95,15 @@ class SamplesBatchSubmission extends React.PureComponent {
                     </div>
                     <table className={css.batchInsertTable}>
                         <thead>
-                            <SampleHeaderRow/>
+                            <SamplesHeaderRow/>
                         </thead>
                         <tbody>
                             {this.makeRows()}
                         </tbody>
                     </table>
                 </div>
+
+                <Button className={css.submitButton} bsStyle="primary" type="submit">Submit</Button>
 
             </Form>
         );

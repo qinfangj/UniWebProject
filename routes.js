@@ -110,12 +110,13 @@ const routes = (
             {/* USER DATA */}
 
             <Route path="user" component={userdata.UserDataHomePage} onEnter={requireAuth} />
-            <Route path="user/newform" component={userdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/newrequest" component={userdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/view/labsamples" component={userdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/view/colsamples" component={userdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/data/dataruns" component={userdata.UserDataPage} onEnter={requireAuth} />
-            <Route path="user/data/datacollabs" component={userdata.UserDataPage} onEnter={requireAuth} />
+            <Route path="user/batch/samples" component={userdata.BatchSamples} onEnter={requireAuth} />
+            <Route path="user/batch/libraries" component={userdata.BatchLibraries} onEnter={requireAuth} />
+
+            <Route path="user/view/labsamples" component={userdata.BatchLibraries} onEnter={requireAuth} />
+            <Route path="user/view/colsamples" component={userdata.BatchLibraries} onEnter={requireAuth} />
+            <Route path="user/data/dataruns" component={userdata.BatchLibraries} onEnter={requireAuth} />
+            <Route path="user/data/datacollabs" component={userdata.BatchLibraries} onEnter={requireAuth} />
 
             {/* QUERY PROJECTS */}
 

@@ -8,7 +8,7 @@ import store from '../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import libraryModel from '../formModels/libraryModel';
+import sampleModel from '../formModels/sampleModel';
 import * as helpers from '../helpers';
 import { Form, actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
@@ -19,7 +19,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap/lib';
 /**
  * A <tr> with 3 buttons in the first cell, and sample creation inputs in the others.
  */
-class LibraryHeaderRow extends React.PureComponent {
+class SamplesHeaderRow extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -32,21 +32,21 @@ class LibraryHeaderRow extends React.PureComponent {
      * Reset to initial single row.
      */
     clear() {
-        store.dispatch(actions.change(this.formModelName, [helpers.newLibraryRow()]));
+        store.dispatch(actions.change(this.formModelName, [helpers.newSampleRow()]));
     }
 
     /**
      * Add a new empty row at the end.
      */
     addNewRow() {
-        let newRows = [...this.props.formData, helpers.newLibraryRow()];
+        let newRows = [...this.props.formData, helpers.newSampleRow()];
         store.dispatch(actions.change(this.formModelName, newRows));
     }
 
     render() {
         let labels = [];
-        for (let field of Object.keys(libraryModel)) {
-            let label = libraryModel[field].label || "";
+        for (let field of Object.keys(sampleModel)) {
+            let label = sampleModel[field].label || "";
             labels.push(label);
         }
         let cells = labels.map((label,i) =>
@@ -73,13 +73,13 @@ class LibraryHeaderRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.libraries;
+    let formData = state.userData.samples;
     return {
         formData: formData,
     };
 }
 
 
-export default connect(mapStateToProps)(LibraryHeaderRow);
+export default connect(mapStateToProps)(SamplesHeaderRow);
 
 
