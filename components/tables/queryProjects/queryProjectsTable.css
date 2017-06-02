@@ -5,3 +5,8 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.displayImg {
+    background-image: url("./temp/1-1.png");
+    background-size: cover;
+}

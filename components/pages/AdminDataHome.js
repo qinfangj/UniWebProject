@@ -14,14 +14,13 @@ class AdminDataHome extends React.Component {
         return (
             <div>
                 <h2>Admin-restricted Database Browser</h2>
-                <Row className={css.fdHomeRow}>
-
+                <Row className={css.fdHomeMsg}>
                         <p>
                             This section allows you to browse and update the different table of the database that are restricted to the administrators.
                         </p>
 
 
-                    <Alert bsStyle="warning">
+                    <Alert bsStyle="warning" className={css.fdHomeAlert} style={{backgroundColor: 'lightgrey'}}>
                         <p>Select a laboratory to browse its sequencing data.</p>
                         <Row className={css.fdHomeRow} >
                         <Col sm={2}>

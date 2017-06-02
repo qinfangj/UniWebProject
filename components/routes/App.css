@@ -33,8 +33,19 @@
     text-align: left;
 }
 
+.msgDiv{
+    margin-top: 15px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+
 p {
+    padding-top: 5px;
     text-indent: 2em;
+}
+
+.row {
+    padding-top: 20px;
 }
 
 header img{
