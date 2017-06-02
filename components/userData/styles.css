@@ -113,3 +113,9 @@
     color: var(--errorRed);
 }
 
+
+/** The copy-and-paste textarea **/
+
+.parseButton {
+    margin: 15px 0 15px 5px
+}
