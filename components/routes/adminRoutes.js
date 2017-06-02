@@ -7,8 +7,8 @@ import tableNames from '../tables/tableNames';
 
 import AdminData from '../pages/AdminData';
 import AdminDataHome from '../pages/AdminDataHome';
-import ProjectSharingSubmitForm from '../forms/adminData/ProjectSharingSubmitForm';
-import LimsUsersSubmitForm from '../forms/adminData/LimsUserSubmitForm';
+//import ProjectSharingSubmitForm from '../forms/adminData/ProjectSharingSubmitForm';
+//import LimsUsersSubmitForm from '../forms/adminData/LimsUserSubmitForm';
 
 
 export class AdminDataPage extends React.Component {
@@ -19,7 +19,7 @@ export class AdminDataPage extends React.Component {
     }
 }
 
-export class LimsUserListRoute extends React.Component {
+export class LimsUsersListRoute extends React.Component {
     render() {
         return (
             <AdminData title="LIMS Users" name="users" content={
@@ -29,11 +29,23 @@ export class LimsUserListRoute extends React.Component {
     }
 }
 
+export class LimsUsersNewPage extends React.Component {
+    render() {
+        return (
+            <AdminData title="LIMS Users" name="users" content={
+                //<LimsUsersSubmitForm table={tableNames.USERS}  updateId={this.props.params.id}/>
+                <CommonAdminForms table={tableNames.USERS} />
+            } />
+        );
+    }
+}
+
 export class LimsUsersUpdatePage extends React.Component {
     render() {
         return (
             <AdminData title="LIMS Users" name="users" content={
-                <LimsUsersSubmitForm table={tableNames.USERS}  updateId={this.props.params.id}/>
+                //<LimsUsersSubmitForm table={tableNames.USERS}  updateId={this.props.params.id}/>
+                <CommonAdminForms table={tableNames.USERS}  updateId={this.props.params.id}/>
             } />
         );
     }

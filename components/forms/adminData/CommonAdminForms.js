@@ -6,13 +6,14 @@ import { withRouter } from 'react-router';
 import store from '../../../core/store';
 import tableNames from '../../tables/tableNames';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import { getOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
+import { getOptionsListAsync,getConditionalOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
 
 import * as submit from './submit';
 import adminData from './adminDataModels';
 import constants from '../../constants/constants';
 import { Control, Form, actions} from 'react-redux-form';
-import { findByIdAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+import { findByIdAsync,deleteAsync,validateUserAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import Feedback from '../../utils/Feedback';
 import inputTypes from '../../forms/inputTypes';
 
@@ -34,10 +35,13 @@ class CommonAdminForms extends React.Component {
             submissionError: false,
             submissionSuccess: false,
             submissionId: undefined,
-            runtypeList:[],
-            readlengthList:[],
-            projectList:[],
-            peopleList:[],
+            runtypeList: [],
+            readlengthList: [],
+            projectList: [],
+            peopleList: [],
+            laboratoryList: [],
+            isValidated: undefined,
+            username: "",
 
         };
         this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
@@ -56,6 +60,7 @@ class CommonAdminForms extends React.Component {
             future
                 .done((data) => {
                     console.log(data);
+                    this.setState({username: data.login});
                     store.dispatch(actions.merge(this.modelName,data));
                 });
 
@@ -132,6 +137,24 @@ class CommonAdminForms extends React.Component {
             }
         }
 
+        if (this.table === tableNames.USERS) {
+            let laboratoryList = store.getState().options[optionsStoreKeys.LABORATORIES];
+            if (!laboratoryList) {
+                let future = store.dispatch(getConditionalOptionsListAsync(tableNames.PEOPLE, "labs", optionsStoreKeys.PEOPLE));
+                future
+                    .done((data) => {
+                        this.setState({
+                            laboratoryList: data
+                        });
+                    })
+            } else {
+                this.setState({
+                    laboratoryList
+                });
+            }
+
+        }
+
         this.newOrUpdate(this.table,this.props.updateId);
     }
     componentWillReceiveProps() {
@@ -139,7 +162,75 @@ class CommonAdminForms extends React.Component {
     }
 
     handleSubmit(values){
-        submit.submit(this, this.modelName, values, this.table, this.props.updateId, this.state.isInsert);
+        if (this.table === tableNames.USERS){
+            let formData = Object.assign({}, values);
+            //change submit data' key: 'login' -> 'username'
+            Object.defineProperty(formData, 'username',
+                Object.getOwnPropertyDescriptor(formData, 'login'));
+            delete formData['login'];
+
+            let isValidated = formData['isvalidated'];
+            this.setState({isValidated :isValidated});
+            submit.submit(this, this.modelName, formData, this.table, this.props.updateId, this.state.isInsert);
+        } else {
+            console.log(values);
+            submit.submit(this, this.modelName, values, this.table, this.props.updateId, this.state.isInsert);
+        }
+    }
+
+    userDelete(form, table,userId){
+
+        //userDelete(this, this.table, this.props.updateId);
+        let state = {serverError: {}};
+
+        if (confirm("Are you sure to delete this user?")) { // Clic sur OK
+            if (userId) {
+
+                let future = store.dispatch(deleteAsync(table, userId));
+                state = Object.assign(state, {submissionError: false, submissionFuture: future});
+                future
+                    .done((deleteId) => {
+                        console.debug(200, "Delete <" + deleteId + "> recordes")
+                        store.dispatch(feedbackSuccess(form, "Delete <" + deleteId + "> recordes"));
+                        let currentPath = window.location.pathname + window.location.hash.substr(2);
+                        if (userId !== '' || userId !== undefined) {
+                            this.props.router.push(currentPath.replace('/update/' + userId, '/list'));
+                        }
+                        store.dispatch(actions.load())
+                        //hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
+                    })
+                    .fail((err) => {
+                        console.warn("Uncaught form validation error");
+                        store.dispatch(feedbackError(form, "Uncaught form validation error", err));
+                    });
+            }
+        }
+    }
+
+    userValidate(form){
+        let state = {serverError: {}};
+        if (confirm("Are you sure that you want to activate this user?")) { // Clic sur OK
+            if (this.state.username) {
+                let future = store.dispatch(validateUserAsync({username:this.state.username}));
+                state = Object.assign(state, {submissionError: false, submissionFuture: future});
+                future
+                    .done((validateId) => {
+                        console.debug(200, "Validated ID <" + validateId + ">");
+                        store.dispatch(feedbackSuccess(form, "Validated user <" + this.state.username + ">"));
+                        let currentPath = window.location.pathname + window.location.hash.substr(2);
+                        if (this.props.updateId !== '' || this.props.updateId !== undefined) {
+
+                            this.props.router.push(currentPath.replace('/update/' + this.props.updateId, '/list'));
+
+                        }
+                    })
+                    .fail((err) => {
+                        console.warn("Uncaught form validation error");
+                        store.dispatch(feedbackError(form, "Uncaught form validation error", err));
+                    });
+            }
+        }
+
     }
 
     makeOptions(list,formatter) {
@@ -160,6 +251,7 @@ class CommonAdminForms extends React.Component {
     formatterReadLengths(v) { return [v.id, v.length]; }
     formatterProject(v) { return [v.id, v.lastName +" - "+ v.name]; }
     formatterPeople(v) { return [v.id, v.lastName +" - "+ v.firstName]; }
+    formatterLabortory(v) { return [v.id, v.lastName + "  " + v.firstName]; }
 
     makeInput(s) {
         let input;
@@ -176,13 +268,14 @@ class CommonAdminForms extends React.Component {
             // First we map the react-redux forms props to the react-bootstrap props:
             const BSTextInput = (props) => <FormControl {...props} />;
             // Then we just pass this in the 'component' prop of react-redux-forms' Control.
+
             input =
                 <Control
                     className={admincss.input}
                     component={BSTextInput}
                     model={".".concat(s.name)}
                     disabled={!this.state.isInsert}
-                    required={s.required}
+                    required = {s.required}
                 />;
         } else if (s.type === inputTypes.DROPDOWN) {
             let options;
@@ -194,6 +287,19 @@ class CommonAdminForms extends React.Component {
                 options = this.makeOptions(this.state.projectList, this.formatterProject);
             } else if (s.name === "personId") {
                 options = this.makeOptions(this.state.peopleList, this.formatterPeople);
+            } else if (s.name === "laboratoryId"){
+                options = this.makeOptions(this.state.laboratoryList, this.formatterLabortory);
+            } else if (s.name === "role" ){
+                let roleList = [
+                                {value: "customer", name:"customer" },
+                                {value: "no_access", name: "no access" },
+                                {value:"facility", name:"facility" },
+                                {value: "admin", name: "admin"}
+                                ];
+
+                options = this.makeOptions(roleList, function(v){return [v.value, v.name]});
+                //console.log(options);
+
             }
 
             const BSSelect = (props) => <FormControl componentClass= "select" {...props} />;
@@ -211,14 +317,14 @@ class CommonAdminForms extends React.Component {
 
     render() {
         let formFields = adminData[this.props.table].fields;
-        let feedbackStatus = this.state.submissionError ? constants.SUBMISSION_ERROR :
-                            (this.state.submissionSuccess ? constants.SUBMISSION_SUCCESS :
-                            (Object.keys(this.state.serverError).length > 0 ? constants.SERVER_ERROR : ""));
-        let error = this.state.serverError;
+        // let feedbackStatus = this.state.submissionError ? constants.SUBMISSION_ERROR :
+        //                     (this.state.submissionSuccess ? constants.SUBMISSION_SUCCESS :
+        //                     (Object.keys(this.state.serverError).length > 0 ? constants.SERVER_ERROR : ""));
+        // let error = this.state.serverError;
         return (
-            <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
+            <Form model={this.modelName} className={css.form} onSubmit={this.handleSubmit.bind(this)}>
 
-                <Feedback reference={this.modelName} status={feedbackStatus} error={error} />
+                <Feedback reference={this.modelName} />
 
                 {
                     formFields.map((s) => {
@@ -234,11 +340,18 @@ class CommonAdminForms extends React.Component {
 
                 }
                 <div className="clearfix"/>
-                <Col sm={6} className={css.formCol}>
+                {/*<Col sm={6} className={css.formCol}>*/}
                     <Button bsStyle="primary" className={admincss.button} type="submit" >
                         {this.state.isInsert ? 'Submit' : 'ActivateForm'}
                     </Button>
-                </Col>
+
+                { this.table === tableNames.USERS && this.state.isInsert && this.props.updateId && !this.state.isValidated ?
+                    <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userValidate.bind(this,this.modelName)}>Validate</Button>
+                    : null}
+                { this.table === tableNames.USERS && this.state.isInsert && this.props.updateId && !this.state.isValidated ?
+                    <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userDelete.bind(this,this.modelName, this.table,this.props.updateId)}>Delete</Button>
+                    : null}
+                {/*</Col>*/}
             </Form>
         );
     }

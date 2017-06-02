@@ -56,9 +56,9 @@ export function fillUpdateForm(form, data) {
 }
 
 /* Validate User*/
-export function validateUserAsync(id) {
-    let args = {id};
-    return asyncAction(types.facilityData.VALIDATE_USER, RestService.validateUser.bind(null, id), args);
+export function validateUserAsync(user) {
+    let args = user;
+    return asyncAction(types.facilityData.VALIDATE_USER, RestService.validateUser.bind(null, user), args);
 }
 
 export function requestLibrariesFromPool(projectId, pool) {

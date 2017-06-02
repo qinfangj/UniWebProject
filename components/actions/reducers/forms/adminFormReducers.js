@@ -17,7 +17,7 @@ function initialAdminForms(table) {
             }else if (s.type === inputTypes.CHECKBOX){
                 initalData[s.name] = false;
             }else if (s.type === inputTypes.DROPDOWN){
-                initalData[s.name] = -1;
+                initalData[s.name] = "";
             }
         });
     return initalData;
