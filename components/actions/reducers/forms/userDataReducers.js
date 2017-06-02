@@ -1,6 +1,8 @@
 "use strict";
 import { combineForms } from  'react-redux-form'
 import { dateNow } from '../../../../utils/time';
+import fields from '../../../constants/fields';
+import { newLibraryRow } from '../../../userData/helpers';
 
 
 /**
@@ -9,31 +11,7 @@ import { dateNow } from '../../../../utils/time';
 let userDataReducers = combineForms(
     {
         libraries: [
-            {
-                project: "",
-                sampleName: "",
-                shortName: "",
-                organism: "",
-                startingMaterial: "",
-                materialType: "",
-                libraryProtocol: "",
-                adapters: "",
-                libraryDate: dateNow(),
-                multiplexIndex7: "",
-                secondIndex5: "",
-                minFragSize: "",
-                maxFragSize: "",
-                bioanalyserPeak: "",
-                concentration: "",
-                volume: "",
-                quantifMethod: "",
-                isrobotMade: "",
-                comment: "",
-                readTypesLengths: "",
-                nbLanes: "",
-                multiplexNb: "",
-                multiplexingGroup: "",
-            },
+            newLibraryRow(),
         ],
         samples: [
 

@@ -5,6 +5,7 @@ import inputTypes from '../forms/inputTypes';
 import { Control } from 'react-redux-form';
 import { dateNow } from '../../utils/time';
 import { actions } from 'react-redux-form';
+import fields from '../constants/fields';
 
 
 /**
@@ -60,28 +61,28 @@ export function makeInputs(rowModel, options, formModelName) {
 
 export function newLibraryRow() {
     return {
-        project: "",
-        sampleName: "",
-        shortName: "",
-        organism: "",
-        startingMaterial: "",
-        materialType: "",
-        libraryProtocol: "",
-        adapters: "",
-        libraryDate: dateNow(),
-        multiplexIndex7: "",
-        secondIndex5: "",
-        minFragSize: "",
-        maxFragSize: "",
-        bioanalyserPeak: "",
-        concentration: "",
-        volume: "",
-        quantifMethod: "",
-        isrobotMade: "",
-        comment: "",
-        readTypesLengths: "",
-        nbLanes: "",
-        multiplexNb: "",
-        multiplexingGroup: "",
+        [fields.libraries.PROJECT_ID]: "",
+        [fields.samples.NAME]: "",
+        [fields.samples.SHORT_NAME]: "",
+        [fields.samples.TAXO_ID]: "",
+        [fields.libraries.STARTING_MATERIAL]: "",
+        [fields.samples.SAMPLE_TYPE_ID]: "",
+        [fields.libraries.LIB_PROTOCOL_ID]: "",
+        [fields.libraries.ADAPTER_ID]: "",
+        [fields.libraries.LIBRARY_DATE]: dateNow(),
+        [fields.libraries.MULTIPLEX_INDEX_7_ID]: "",
+        [fields.libraries.MULTIPLEX_INDEX_5_ID]: "",
+        [fields.libraries.FRAG_SIZE_MIN]: "",
+        [fields.libraries.FRAG_SIZE_MAX]: "",
+        [fields.libraries.BIOANALYSER_PEAK]: "",
+        [fields.libraries.CONCENTRATION]: "",
+        [fields.libraries.VOLUME]: "",
+        [fields.libraries.QUANTIF_METHOD_ID]: "",
+        [fields.libraries.IS_ROBOT_MADE]: "",
+        [fields.libraries.COMMENT]: "",
+        [fields.user_requests.RUN_TYPES_LENGTH_ID]: "",
+        [fields.user_requests.NB_LANES]: "",
+        [fields.user_requests.MILLION_READS]: "",
+        [fields.user_requests.MULTIPLEXING_GROUP]: "",
     };
 }
