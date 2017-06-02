@@ -2,7 +2,7 @@
 import { combineForms } from  'react-redux-form'
 import { dateNow } from '../../../../utils/time';
 import fields from '../../../constants/fields';
-import { newLibraryRow } from '../../../userData/helpers';
+import { newLibraryRow, newSampleRow } from '../../../userData/helpers';
 
 
 /**
@@ -14,7 +14,7 @@ let userDataReducers = combineForms(
             newLibraryRow(),
         ],
         samples: [
-
+            newSampleRow(),
         ],
     },
 

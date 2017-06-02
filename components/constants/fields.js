@@ -142,6 +142,8 @@ const fields = {
         IS_FULFILLED: "isfulfilled",
     },
 
+    // All in bulk, for retro-compatibility, in alphabetical order
+
     ADAPTER_ID: "adapterId",
     ADDRESS: "address",
     ANALYSIS_TYPE_ID: "analysisTypeId",

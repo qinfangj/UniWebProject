@@ -44,16 +44,9 @@ class GenomesInsertForm extends React.PureComponent {
         return insertData;
     }
 
-    validate(insertData) {
-        return {
-            isValid: true,
-            message: "",
-        }
-    }
-
     onSubmit(values) {
         let insertData = this.formatInsertData(values);
-        let validation = this.validate(insertData);
+        let validation = forms.validateFormDefault(insertData);
         if (validation.isValid) {
             forms.submitForm(this.modelName, insertData, this.table, this.form);
         } else {

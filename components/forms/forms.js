@@ -174,6 +174,39 @@ export function submitForm(modelName, insertData, table, formName) {
 }
 
 /**
+ * Cast numeric values before we can submit. RRF apparently uses only strings and booleans.
+ */
+export function formatFormFieldsDefault(formModel, values) {
+    let insertData = _.cloneDeep(values);  // because `values` is immutable
+    for (let field of Object.keys(formModel)) {
+        let model = formModel[field];
+        let itype = model.inputType;
+        let val = insertData[field];
+        if (model.type === "number" || itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
+            insertData[field] = parseInt(val)
+        } else if (itype === inputTypes.CHECKBOX) {
+            insertData[field] = val === "true";
+        }
+    }
+    return insertData;
+}
+/**
+ * Default form validator.
+ * @param values: Form data submitted for insert/update.
+ * @returns {{isValid: boolean, message: string}}
+ */
+export function validateFormDefault(values) {
+    return {
+        isValid: true,
+        message: "",
+    };
+}
+
+
+/* CONSTRUCTION */
+
+
+/**
  * From a RRF form model, construct an array of input components.
  * @param formModelName: RRF form model name.
  * @param formModel: the RRF store state for the form values.
@@ -206,24 +239,6 @@ export function makeFormFields(formModelName, formModel, disabled = false, optio
 }
 
 /**
- * Cast numeric values before we can submit. RRF apparently uses only strings and booleans.
- */
-export function formatFormFieldsDefault(formModel, values) {
-    let insertData = _.cloneDeep(values);  // because `values` is immutable
-    for (let field of Object.keys(formModel)) {
-        let model = formModel[field];
-        let itype = model.inputType;
-        let val = insertData[field];
-        if (model.type === "number" || itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
-            insertData[field] = parseInt(val)
-        } else if (itype === inputTypes.CHECKBOX) {
-            insertData[field] = val === "true";
-        }
-    }
-    return insertData;
-}
-
-/**
  * In `mapStateToProps`, create an object *options* which keys are options store keys and values are
  * the options lists for select inputs.
  * @param formModel: the description of the form fields, as in /formModels.
@@ -238,4 +253,3 @@ export function optionsFromModel(state, formModel) {
     }
     return options;
 }
-
