@@ -4,6 +4,9 @@ import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 
+/**
+ * The sub-form in Runs to insert a pool of libraries.
+ */
 const poolSelectionModel = {
     "projectIdWithPool": {
         width: 4,

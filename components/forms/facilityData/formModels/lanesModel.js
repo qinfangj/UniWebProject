@@ -4,6 +4,9 @@ import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 
+/**
+ * The sub-form in Runs to insert libraries in lanes.
+ */
 const lanesModel = {
     lane: {
         "comment": {

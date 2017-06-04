@@ -39,13 +39,8 @@ class GenomesInsertForm extends React.PureComponent {
         this.props.requestTaxonomies();
     }
 
-    formatInsertData(values) {
-        let insertData = forms.formatFormFieldsDefault(this.model, values);
-        return insertData;
-    }
-
     onSubmit(values) {
-        let insertData = this.formatInsertData(values);
+        let insertData = forms.formatFormFieldsDefault(this.model, values);
         let validation = forms.validateFormDefault(insertData);
         if (validation.isValid) {
             forms.submitForm(this.modelName, insertData, this.table, this.form);
