@@ -28,6 +28,19 @@ let facilityDataFormsReducers = combineForms(
             [fields.basecallings.IS_DEMULTIPLEXING]: false,
             [fields.basecallings.COMMENT]: ""
         },
+        bioanalysers: {
+            [fields.bioanalysers.BIOANALYSER_FILE]: "",
+            [fields.bioanalysers.BIOANALYSER_FILENAME]: "",
+            [fields.bioanalysers.BIOANALYSER_DATE]: dateNow(),
+            [fields.bioanalysers.DESCRIPTION]: "",
+            lanes: {
+                1: {
+                    projectId: "",
+                    libraryId: "",
+                    comment: "",
+                },
+            },
+        },
         genomes: {
             [fields.genomes.TAXO_ID]: "",
             [fields.genomes.ASSEMBLY]: "",
@@ -82,6 +95,37 @@ let facilityDataFormsReducers = combineForms(
             [fields.projects.IS_CONTROL]: false,
             [fields.projects.COMMENT]: "",
         },
+        runs: {
+            [fields.runs.GA_RUN_NUMBER]: "",
+            [fields.runs.FLOWCELL]: "",
+            [fields.runs.FLOWCELL_TYPE_ID]: "",
+            [fields.runs.RELEASE_DATE]: dateNow(),
+            [fields.runs.INSTRUMENT_ID]: "",
+            [fields.runs.GA_RUN_DATE]: dateNow(),
+            [fields.runs.RUN_TYPES_LENGTH_ID]: "",
+            [fields.runs.FC_STAGE]: "",
+            [fields.runs.SEQUENCING_KIT_VERSION_ID]: "",
+            [fields.runs.IS_FAILED]: false,
+            [fields.runs.COMMENT]: "",
+            lanes: {
+                1: {
+                    comment: "",
+                    libs: [
+                        {
+                            projectId: "",
+                            libraryId: "",
+                            concentration: "",
+                            qualityId: 1,
+                            isQCLib: false,
+                        },
+                    ]
+                }
+            },
+            poolSelection: {
+                projectIdWithPool: "",
+                poolId: "",
+            }
+        },
         samples: {
             [fields.samples.NAME]: "",
             [fields.samples.SHORT_NAME]: "",
@@ -114,50 +158,6 @@ let facilityDataFormsReducers = combineForms(
             [fields.user_requests.COMMENT]: "",
             [fields.user_requests.IS_TRASHED]: false,
             [fields.user_requests.IS_FULFILLED]: false,
-        },
-        bioanalysers: {
-            [fields.bioanalysers.BIOANALYSER_FILE]: "",
-            [fields.bioanalysers.BIOANALYSER_FILENAME]: "",
-            [fields.bioanalysers.BIOANALYSER_DATE]: dateNow(),
-            [fields.bioanalysers.DESCRIPTION]: "",
-            lanes: {
-                1: {
-                    projectId: "",
-                    libraryId: "",
-                    comment: "",
-                },
-            },
-        },
-        runs: {
-            [fields.runs.GA_RUN_NUMBER]: "",
-            [fields.runs.FLOWCELL]: "",
-            [fields.runs.FLOWCELL_TYPE_ID]: "",
-            [fields.runs.RELEASE_DATE]: dateNow(),
-            [fields.runs.INSTRUMENT_ID]: "",
-            [fields.runs.GA_RUN_DATE]: dateNow(),
-            [fields.runs.RUN_TYPES_LENGTH_ID]: "",
-            [fields.runs.FC_STAGE]: "",
-            [fields.runs.SEQUENCING_KIT_VERSION_ID]: "",
-            [fields.runs.IS_FAILED]: false,
-            [fields.runs.COMMENT]: "",
-            lanes: {
-                1: {
-                    comment: "",
-                    libs: [
-                        {
-                            projectId: "",
-                            libraryId: "",
-                            concentration: "",
-                            qualityId: 1,
-                            isQCLib: false,
-                        },
-                    ]
-                }
-            },
-            poolSelection: {
-                projectIdWithPool: "",
-                poolId: "",
-            }
         },
     },
 
