@@ -2,20 +2,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import formsCss from '../forms.css';
-import cx from 'classnames';
+
 import store from '../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, actions } from 'react-redux-form';
+
 import { requestPipelineAnalysisTypes,
          requestRunsOutputFolders,
          requestMappingTools } from '../../actions/actionCreators/optionsActionCreators';
 import { requestBasecallingsForRun } from '../../actions/actionCreators/secondaryOptionsActionCreators';
+
 import * as forms from '../forms.js';
 import fields from '../../constants/fields';
 import formNames from '../../constants/formNames';
-import { Button } from 'react-bootstrap/lib';
 import alignmentsModel from './formModels/alignmentsModel';
+
+import { Button } from 'react-bootstrap/lib';
 import Feedback from '../../utils/Feedback';
 
 
@@ -63,6 +66,9 @@ class AlignmentsInsertForm extends React.PureComponent {
         this.setState({ disabled: true });
     }
 
+    /**
+     * Change the basecallings options list when the run changes.
+     **/
     onRunChange(model, value) {
         store.dispatch(actions.change(model, value));
         this.props.requestBasecallingsForRun(model, value);

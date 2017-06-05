@@ -136,7 +136,7 @@ const fields = {
         RUN_TYPES_LENGTH_ID: "runTypesLengthId",
         NB_LANES: "nbLanes",
         MILLION_READS: "millionReads",
-        WITH_LIB_QC: "withLibQc",
+        WITH_LIB_QC: "withlibqc",
         COMMENT: "comment",
         IS_TRASHED: "istrashed",
         IS_FULFILLED: "isfulfilled",

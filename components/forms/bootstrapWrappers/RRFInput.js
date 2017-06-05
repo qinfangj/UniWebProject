@@ -1,10 +1,11 @@
 "use strict";
 import React from 'react';
 import css from './bs.css';
+import store from '../../../core/store';
 import PropTypes from 'prop-types';
 import formsCss from '../forms.css';
 import inputTypes from '../inputTypes';
-import { Control, Errors } from 'react-redux-form';
+import { Control, Errors, actions } from 'react-redux-form';
 import BSTextInput from './BSTextInput';
 import BSCheckbox from './BSCheckbox';
 import BSSelect from './BSSelect';
@@ -26,11 +27,13 @@ export default class RRFInput extends React.PureComponent {
 
     render() {
         let component;
-        let {modelName, inputType, required, validators, errors, errorMessages, updateOn, validateOn, ...inputProps} = this.props;
+        let {modelName, inputType, required, validators, errors, errorMessages, updateOn, validateOn, changeAction, ...inputProps} = this.props;
 
         if (inputType === inputTypes.TEXT) {
             component = BSTextInput;
         } else if (inputType === inputTypes.CHECKBOX) {
+            /* RRF does not know that this is a checkbox */
+            changeAction = (model) => store.dispatch(actions.toggle(model));
             component = BSCheckbox;
         } else if (inputType === inputTypes.DROPDOWN) {
             component = BSSelect;
@@ -62,6 +65,7 @@ export default class RRFInput extends React.PureComponent {
                     errors={errors}
                     updateOn={updateOn || "change"}
                     validateOn={validateOn || "change"}
+                    changeAction={changeAction}
                     ignore={['focus', 'blur']}
                     {...inputProps}
                 />

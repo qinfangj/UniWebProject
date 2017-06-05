@@ -30,7 +30,6 @@ class GenomesInsertForm extends React.PureComponent {
         };
     }
 
-
     componentWillMount() {
         forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, null);
         if (this.props.updateId) {
@@ -55,7 +54,6 @@ class GenomesInsertForm extends React.PureComponent {
     deactivateForm() {
         this.setState({ disabled: true });
     }
-
 
     render() {
         let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options);

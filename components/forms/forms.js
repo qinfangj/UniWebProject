@@ -184,8 +184,9 @@ export function formatFormFieldsDefault(formModel, values) {
         let val = insertData[field];
         if (model.type === "number" || itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
             insertData[field] = parseInt(val)
-        } else if (itype === inputTypes.CHECKBOX) {
-            insertData[field] = val === "true";
+        }
+        else if (itype === inputTypes.CHECKBOX) {
+            insertData[field] = val === true || val === "true";
         }
     }
     return insertData;

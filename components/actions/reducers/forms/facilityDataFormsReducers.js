@@ -154,7 +154,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.user_requests.RUN_TYPES_LENGTH_ID]: "",
             [fields.user_requests.NB_LANES]: "",
             [fields.user_requests.MILLION_READS]: "",
-            [fields.user_requests.WITH_LIB_QC]: "",
+            [fields.user_requests.WITH_LIB_QC]: false,
             [fields.user_requests.COMMENT]: "",
             [fields.user_requests.IS_TRASHED]: false,
             [fields.user_requests.IS_FULFILLED]: false,

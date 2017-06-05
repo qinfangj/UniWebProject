@@ -77,6 +77,9 @@ class LibrariesInsertForm extends React.PureComponent {
         this.setState({ disabled: true });
     }
 
+    /**
+     * Change the samples options list when the project changes.
+     **/
     onProjectChange(model, value) {
         store.dispatch(actions.change(model, value));
         this.props.requestSamplesForProject(model, value);

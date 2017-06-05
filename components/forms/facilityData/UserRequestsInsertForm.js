@@ -1,23 +1,25 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from '../forms.css';
-import cx from 'classnames';
+import formsCss from '../forms.css';
 
-import TextField from '../elements/TextField';
-import Checkbox from '../elements/MyCheckBox';
-import TextArea from '../elements/Textarea';
-import * as Options from '../subcomponents/Options';
-import SamplesForProject from '../subcomponents/secondarySelects/SamplesForProject';
-import { ProjectsWithSamples } from '../../forms/subcomponents/OptionsWith';
+import store from '../../../core/store';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form, actions } from 'react-redux-form';
+
+import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
+import { requestProjectsHavingASample,
+         requestRunsTypesLengths,
+         requestLibProtocols } from '../../actions/actionCreators/optionsActionCreators';
+import { requestSamplesForProject } from '../../actions/actionCreators/secondaryOptionsActionCreators';
+
 import * as forms from '../forms.js';
-import validators from '../validators';
-import formNames from '../../constants/formNames';
 import fields from '../../constants/fields';
+import formNames from '../../constants/formNames';
+import userRequestsModel from './formModels/userRequestsModel';
 
-import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
 import Feedback from '../../utils/Feedback';
 
 
@@ -27,211 +29,113 @@ class UserRequestsInsertForm extends React.PureComponent {
         super();
         this.table = "user_requests";
         this.form = formNames.USER_REQUESTS_INSERT_FORM;
-        this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
+        this.modelName = "facilityDataForms.user_requests";
+        this.model = userRequestsModel;
         this.state = {
             disabled: false,
         };
     }
 
-    static propTypes = {
-        // If defined, the form will be pre-filled with the current data for the item with this ID,
-        //  after fetching it on the server.
-        updateId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    };
-
     componentWillMount() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdateLoadSamplesOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
-    }
-    componentWillReceiveProps() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
-    }
-
-    formatFormData(formData) {
-        formData.insertSizeMin = parseInt(formData.insertSizeMin);
-        formData.insertSizeMax = parseInt(formData.insertSizeMax);
-        formData.nbLanes = parseInt(formData.nbLanes);
-        formData.millionReads = parseInt(formData.millionReads);
-        return formData;
+        this.props.requestProjectsHavingASample();
+        this.props.requestRunsTypesLengths();
+        this.props.requestLibProtocols();
     }
 
-    onSubmit() {
-        forms.submit(this.form, this.table, this.formatFormData);
+    onUpdateLoadSamplesOptions(data) {
+        this.props.requestSamplesForProject(this.modelName+'.'+fields.PROJECT_ID, data.projectId);
+    }
+
+    onSubmit(values) {
+        let insertData = forms.formatFormFieldsDefault(this.model, values);
+        let validation = forms.validateFormDefault(insertData);
+        if (validation.isValid) {
+            forms.submitForm(this.modelName, insertData, this.table, this.form);
+        } else {
+            this.props.feedbackWarning(this.form, validation.message);
+        }
     }
 
     activateForm() {
         this.setState({ disabled: false });
     }
+    deactivateForm() {
+        this.setState({ disabled: true });
+    }
+
+    /**
+     * Change the samples options list when the project changes.
+     **/
+    onProjectChange(model, value) {
+        store.dispatch(actions.change(model, value));
+        this.props.requestSamplesForProject(model, value);
+    }
 
     render() {
+        let changeActions = {[fields.PROJECT_ID]: this.onProjectChange.bind(this)};
+        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options, changeActions);
+
         return (
-            <form className={css.form}>
+            <div>
 
                 <Feedback reference={this.form} />
 
-                <Form componentClass="fieldset" horizontal>
+                <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
-                    {/* Project */}
+                    {formFields}
 
-                    <Col sm={5} className={css.formCol}>
-                        <ProjectsWithSamples
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
+                    <div className="clearfix"/>
 
-                    {/* Sample */}
+                    {/* Submit */}
 
-                    <Col sm={3} className={css.formCol}>
-                        <SamplesForProject
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Insert size */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.INSERT_SIZE_MIN}
-                            label="Insert size min"
-                            validator = {validators.integerValidator}
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.INSERT_SIZE_MAX}
-                            label="Insert size max"
-                            validator = {validators.integerValidator}
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Library type */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.LibProtocols
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Multiplexing group */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.MULTIPLEXING_GROUP}
-                            label="Multiplexing group"
-                            disabled={this.state.disabled}
-                            validator = {validators.shortStringValidator}
-                        />
-                    </Col>
-
-                    {/* Run request */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <Options.RunTypesLengths
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                            suffix="all"
-                        />
-                    </Col>
-
-                    {/* Number of lanes */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.NB_LANES}
-                            label="Nb of lanes"
-                            disabled={this.state.disabled}
-                            required
-                            validator={validators.integerValidator}
-                        />
-                    </Col>
-
-                    {/* Multiplex# */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.MILLION_READS}
-                            label="Multiplex#"
-                            disabled={this.state.disabled}
-                            validator={validators.integerValidator}
-                        />
-                    </Col>
-
-                    {/* Is QC lib */}
-
-                    <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox
-                            form={this.form}
-                            field={fields.WITH_LIB_QC}
-                            label="is QC"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Comment */}
-
-                    <Col sm={10} className={css.formCol}>
-                        <TextArea
-                            form={this.form}
-                            field={fields.COMMENT}
-                            label="Comment"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                    {/* Is discarded / is done */}
-
-                    <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox
-                            form={this.form} field={fields.IS_TRASHED} label="Discarded"
-                            disabled={this.state.disabled}
-                        />
-                        <Checkbox
-                            form={this.form} field={fields.IS_FULFILLED} label="DONE"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
+                    {this.state.disabled ?
+                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
+                            Activate form
+                        </Button>
+                        :
+                        <div>
+                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
+                                Cancel
+                            </Button>
+                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
+                                Submit
+                            </Button>
+                        </div>
+                    }
 
                 </Form>
 
-                {/* Submit */}
-
-                {this.state.disabled ?
-                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
-                        Activate form
-                    </Button>
-                    :
-                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                        Submit
-                    </Button>
-                }
-
-            </form>
+            </div>
         );
     }
 }
 
 
-export default UserRequestsInsertForm;
+const mapStateToProps = (state) => {
+    let options = forms.optionsFromModel(state, userRequestsModel);
+    let formData = state.facilityDataForms.user_requests;
+    let formModel = state.facilityDataForms.forms.user_requests;
+    return {
+        options: options,
+        formData: formData,
+        formModel: formModel,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        feedbackWarning,
+        requestProjectsHavingASample,
+        requestRunsTypesLengths,
+        requestSamplesForProject,
+        requestLibProtocols,
+    }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserRequestsInsertForm);
 
