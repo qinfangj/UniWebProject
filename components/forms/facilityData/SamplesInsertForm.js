@@ -1,22 +1,22 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from '../forms.css';
-import cx from 'classnames';
+import formsCss from '../forms.css';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form } from 'react-redux-form';
 
-import TextField from '../elements/TextField';
-import Textarea from '../elements/TextField';
-import Checkbox from '../elements/MyCheckBox';
-import DatePicker from '../elements/DatePicker';
-import validators from '../validators';
+import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
+import { requestAllProjects,
+         requestTaxonomies,
+         requestSampleTypes,
+         requestQuantifMethods } from '../../actions/actionCreators/optionsActionCreators';
+
 import * as forms from '../forms.js';
-import * as Options from '../subcomponents/Options';
 import formNames from '../../constants/formNames';
-import fields from '../../constants/fields';
+import samplesModel from './formModels/samplesModel';
 
-import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
 import Feedback from '../../utils/Feedback';
 
 
@@ -26,261 +26,101 @@ class SamplesInsertForm extends React.PureComponent {
         super();
         this.table = "samples";
         this.form = formNames.SAMPLES_INSERT_FORM;
+        this.modelName = "facilityDataForms.samples";
+        this.model = samplesModel;
         this.state = {
             disabled: false,
         };
     }
 
-    static propTypes = {
-        // If defined, the form will be pre-filled with the current data for the item with this ID,
-        //  after fetching it on the server.
-        updateId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    };
-
     componentWillMount() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, null);
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
-    }
-    componentWillReceiveProps() {
-        forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        this.props.requestAllProjects();
+        this.props.requestTaxonomies();
+        this.props.requestSampleTypes();
+        this.props.requestQuantifMethods();
     }
 
-    onSubmit() {
-        forms.submit(this.form, this.table, null);
+    onSubmit(values) {
+        let insertData = forms.formatFormFieldsDefault(this.model, values);
+        let validation = forms.validateFormDefault(insertData);
+        if (validation.isValid) {
+            forms.submitForm(this.modelName, insertData, this.table, this.form);
+        } else {
+            this.props.feedbackWarning(this.form, validation.message);
+        }
     }
 
     activateForm() {
         this.setState({ disabled: false });
     }
+    deactivateForm() {
+        this.setState({ disabled: true });
+    }
 
     render() {
+        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options);
+
         return (
-            <form className={css.form}>
+            <div>
 
                 <Feedback reference={this.form} />
 
-                <Form componentClass="fieldset" horizontal>
+                <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
-                    {/* Name */}
+                    {formFields}
 
-                    <Col sm={4} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.NAME}
-                            label="Name"
-                            disabled={this.state.disabled}
-                            required
-                            validator = {validators.mediumStringValidator}
-                        />
-                    </Col>
+                    <div className="clearfix"/>
 
-                    {/* Short name */}
+                    {/* Submit */}
 
-                    <Col sm={3} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.SHORT_NAME}
-                            label="Short name"
-                            disabled={this.state.disabled}
-                            required
-                            validator = {validators.shortStringValidator}
-                        />
-                    </Col>
-
-                    {/* Project */}
-
-                    <Col sm={5} className={css.formCol}>
-                        <Options.Projects
-                            form={this.form}
-                            suffix="all"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Organism */}
-
-                    <Col sm={3} className={css.formCol}>
-                        <Options.Taxonomies
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Sample type */}
-
-                    <Col sm={3} className={css.formCol}>
-                        <Options.SampleTypes
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                    {/* Received date */}
-
-                    <Col sm={3} className={css.formCol}>
-                        <DatePicker
-                            form={this.form}
-                            field={fields.RECEIVED_DATE}
-                            label="Received date"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                    {/* Quantification */}
-
-                    <Col sm={3} className={css.formCol}>
-                        <Options.QuantifMethods
-                            form={this.form}
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Concentration */}
-
-                    <Col sm={3} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.CONCENTRATION}
-                            label="Concentration"
-                            disabled={this.state.disabled}
-                            required
-                            validator = {validators.numberValidator}
-                        />
-                    </Col>
-
-                    {/* Volume */}
-
-                    <Col sm={3} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.VOLUME}
-                            label="Volume"
-                            disabled={this.state.disabled}
-                            required
-                            validator = {validators.numberValidator}
-                        />
-                    </Col>
-
-                    {/* RIN */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.RIN}
-                            label="RIN"
-                            disabled={this.state.disabled}
-                            required
-                            validator = {validators.numberValidator}
-                        />
-                    </Col>
-
-                    {/* Ratio 260/280 */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.RATIO_260_280}
-                            label="Ratio 260/280"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                    {/* Ratio 260/230 */}
-
-                    <Col sm={2} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.RATIO_260_230}
-                            label="Ratio 260/230"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Description */}
-
-                    <Col sm={12} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.DESCRIPTION}
-                            label="Description"
-                            disabled={this.state.disabled}
-                            required
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Customer's comment */}
-
-                    <Col sm={12} className={css.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.COMMENT}
-                            label="Comment"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Internal comment */}
-
-                    <Col sm={10} className={css.formCol}>
-                        <Textarea
-                            form={this.form}
-                            field={fields.COMMENT_CUSTOMER}
-                            label="Internal comment"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                    {/* Is trashed */}
-
-                    <Col sm={2} className={cx(css.formCol, css.centerCheckbox)}>
-                        <Checkbox
-                            form={this.form}
-                            field={fields.IS_TRASHED}
-                            label="Discarded"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
+                    {this.state.disabled ?
+                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
+                            Activate form
+                        </Button>
+                        :
+                        <div>
+                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
+                                Cancel
+                            </Button>
+                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
+                                Submit
+                            </Button>
+                        </div>
+                    }
 
                 </Form>
 
-                {/* Submit */}
-
-                {this.state.disabled ?
-                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
-                        Activate form
-                    </Button>
-                    :
-                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                        Submit
-                    </Button>
-                }
-
-            </form>
+            </div>
         );
     }
 }
 
 
-export default SamplesInsertForm;
+const mapStateToProps = (state) => {
+    let options = forms.optionsFromModel(state, samplesModel);
+    let formData = state.facilityDataForms.samples;
+    let formModel = state.facilityDataForms.forms.samples;
+    return {
+        options: options,
+        formData: formData,
+        formModel: formModel,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        feedbackWarning,
+        requestAllProjects,
+        requestTaxonomies,
+        requestSampleTypes,
+        requestQuantifMethods
+    }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SamplesInsertForm);
 
