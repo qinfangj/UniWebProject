@@ -126,6 +126,12 @@ class RestService {
         return post(url, formData);
     }
 
+    batchInsert(tableName, formData) {
+        let url = `${BACKEND}/table/${tableName}/batchInsert`;
+        console.info(url);
+        return post(url, formData);
+    }
+
     /* Delete */
 
     delete(tableName, id) {

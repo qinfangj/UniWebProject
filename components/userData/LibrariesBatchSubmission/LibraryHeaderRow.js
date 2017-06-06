@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as helpers from '../helpers';
 import CommonHeaderRow from '../CommonHeaderRow';
+import libraryModel from '../formModels/libraryModel';
 
 
 
@@ -13,6 +14,7 @@ class LibrariesHeaderRow extends React.PureComponent {
     render() {
         return (
             <CommonHeaderRow
+                formModel={libraryModel}
                 formData={this.props.formData}
                 formModelName="userData.libraries"
                 emptyRowModel={helpers.newLibraryRow()}
