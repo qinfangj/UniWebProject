@@ -70,7 +70,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 
     render() {
         return (
-            <Form model="userData.libraries" onSubmit={this.handleSubmit.bind(this)}>
+            <Form model="userData.samples" onSubmit={this.handleSubmit.bind(this)}>
 
                 <div className={css.triangleRight} />
                 <div className={css.projectDefinition}>
