@@ -60,7 +60,7 @@
     background-color: #ebf2f9;
     border: solid 1px #3572B0;
     border-radius: 4px;
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 .cell {
@@ -71,7 +71,7 @@
     border: solid 1px #ccc;
     cursor: pointer;
     transition: background-color 140ms ease-in-out, border-color 75ms ease-in-out;
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 .cell:hover{
