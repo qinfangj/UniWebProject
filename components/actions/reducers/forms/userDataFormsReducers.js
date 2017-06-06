@@ -9,7 +9,7 @@ import { newLibraryRow, newLibrariesProjectRow, newSampleRow, newSamplesProjectR
 let userDataFormsReducers = combineForms(
     {
         libraries: {
-            project: newLibrariesProjectRow,
+            project: newLibrariesProjectRow(),
             requests: [
                 newLibraryRow(),
             ],

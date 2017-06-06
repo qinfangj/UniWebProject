@@ -171,7 +171,6 @@ export function formatFormFieldsDefault(formModel, values) {
         let model = formModel[field];
         let itype = model.inputType;
         let val = insertData[field];
-        console.log(field, val, itype)
         if (model.type === "number" || itype === inputTypes.NUMBER || itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
             // If not defined, don't submit.
             if (val === "") {
