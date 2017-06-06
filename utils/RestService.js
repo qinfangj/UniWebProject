@@ -208,6 +208,14 @@ class RestService {
         return fetch(window.ENV.BACKEND_URL + '/account/signup', config);
     }
 
+    refresh() {
+        let config = {
+            method: 'GET',
+            headers: { 'Authorization': 'Bearer '+ AuthService.getToken() },
+        };
+        return fetch(window.ENV.BACKEND_URL + '/account/refresh', config);
+    }
+
     requestResetPassword(email) {
         let config = {
             method: 'POST',
@@ -242,7 +250,6 @@ class RestService {
         //let url = `${BACKEND}/table/users/validate/${id}`;
         let url = window.ENV.BACKEND_URL + '/account/activateUser';
         console.info(url);
-
         return post(url, user);
     }
 
