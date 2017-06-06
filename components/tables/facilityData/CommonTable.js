@@ -48,14 +48,9 @@ class CommonTable extends React.PureComponent {
     };
 
     componentWillMount() {
-        /* If data is already in store, use that one. Otherwise, call backend API. */
-        let data = this.props.data;
-        if (data && data.length > 0) {
-            this.setState({ data });
-        } else {
-            this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerQuery, 0, null, null)
+        // Can try to cache that result, but do it properly so that for instance it still understands active or not
+        this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerQuery, 0, null, null)
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
-        }
     }
 
     componentWillUnmount() {
