@@ -16,7 +16,7 @@ class LibrariesHeaderRow extends React.PureComponent {
             <CommonHeaderRow
                 formModel={libraryModel}
                 formData={this.props.formData}
-                formModelName="userData.libraries"
+                formModelName="userDataForms.libraries.requests"
                 emptyRowModel={helpers.newLibraryRow()}
             />
         );
@@ -25,7 +25,7 @@ class LibrariesHeaderRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.libraries;
+    let formData = state.userDataForms.libraries.requests;
     return {
         formData: formData,
     };

@@ -40,7 +40,7 @@ class CommonHeaderRow extends React.PureComponent {
      */
     addNewRow() {
         let newRows = [...this.props.formData, this.props.emptyRowModel];
-        store.dispatch(actions.change(this.formModelName, newRows));
+        store.dispatch(actions.change(this.props.formModelName, newRows));
     }
 
     render() {

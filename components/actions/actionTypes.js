@@ -35,6 +35,7 @@ const actionTypes = {
         SELECT: "SELECT",
         INSERT: "INSERT",
         DELETE: "DELETE",
+        IGNORE_CACHED: "IGNORE_CACHED",
         FIND_BY_ID: "FIND_BY_ID",
         GET_TABLE_DATA: "GET_TABLE_DATA",
         VALIDATE_USER: "VALIDATE_USER",
@@ -118,7 +119,12 @@ const actionTypes = {
         OPTIONS_POOLS_FOR_PROJECT: "OPTIONS_POOLS_FOR_PROJECT",
         OPTIONS_SAMPLES_FOR_PROJECT: "OPTIONS_SAMPLES_FOR_PROJECT",
         OPTIONS_BASECALLINGS_FOR_RUN: "OPTIONS_BASECALLINGS_FOR_RUN",
+    },
+
+    userData: {
+        BATCH_INSERT: "BATCH_INSERT",
     }
+
 };
 
 export default actionTypes;

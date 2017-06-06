@@ -127,7 +127,7 @@ class RestService {
     }
 
     batchInsert(tableName, formData) {
-        let url = `${BACKEND}/table/${tableName}/batchInsert`;
+        let url = `${BACKEND}/user/batch/${tableName}`;
         console.info(url);
         return post(url, formData);
     }

@@ -17,18 +17,7 @@ import inputTypes from './inputTypes';
 import { Col } from 'react-bootstrap/lib';
 
 
-/**
- * All tables should either load update data if update ID is found in props,
- * or empty all form data if it is not.
- * This should be called both on mount and and receive props.
- */
-export function newOrUpdate(form, table, updateId) {
-    if (updateId) {
-        store.dispatch(findForUpdateAsync(table, updateId, form));
-    } else {
-        store.dispatch(resetForm(form));
-    }
-}
+
 /**
  * If there is an *updateId*, fetch data relative to this object in the given *table* from backend.
  * Otherwise, reset the form.
@@ -182,8 +171,14 @@ export function formatFormFieldsDefault(formModel, values) {
         let model = formModel[field];
         let itype = model.inputType;
         let val = insertData[field];
-        if (model.type === "number" || itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
-            insertData[field] = parseInt(val)
+        console.log(field, val, itype)
+        if (model.type === "number" || itype === inputTypes.NUMBER || itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
+            // If not defined, don't submit.
+            if (val === "") {
+                delete insertData[field];
+            } else {
+                insertData[field] = parseInt(val)
+            }
         }
         else if (itype === inputTypes.CHECKBOX) {
             insertData[field] = val === true || val === "true";

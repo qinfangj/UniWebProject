@@ -16,7 +16,7 @@ class SamplesHeaderRow extends React.PureComponent {
             <CommonHeaderRow
                 formModel={sampleModel}
                 formData={this.props.formData}
-                formModelName="userData.samples"
+                formModelName="userDataForms.samples.requests"
                 emptyRowModel={helpers.newSampleRow()}
             />
         );
@@ -25,7 +25,7 @@ class SamplesHeaderRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.samples;
+    let formData = state.userDataForms.samples.requests;
     return {
         formData: formData,
     };

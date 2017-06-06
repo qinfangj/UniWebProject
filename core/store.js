@@ -15,11 +15,12 @@ import optionsReducers from '../components/actions/reducers/forms/optionsReducer
 import secondaryOptionsReducers from '../components/actions/reducers/forms/secondaryOptionsReducers';
 import feedbackReducers from '../components/actions/reducers/feedbackReducers';
 import formReducers from '../components/actions/reducers/forms/formReducers';
+import userDataReducers from '../components/actions/reducers/userDataReducers';
 
 import facilityDataFormsReducers from '../components/actions/reducers/forms/facilityDataFormsReducers';
 import queryProjectsFormsReducers from '../components/actions/reducers/forms/queryProjectsFormsReducers';
 import adminFormReducers from '../components/actions/reducers/forms/adminFormReducers';
-import userDataReducers from '../components/actions/reducers/forms/userDataReducers';
+import userDataFormsReducers from '../components/actions/reducers/forms/userDataFormsReducers';
 
 
 /*
@@ -49,13 +50,14 @@ if (process.env.NODE_ENV !== 'TEST') {
 
 let reducer = combineReducers({
     facilityData: facilityDataReducers,
+    userData: userDataReducers,
     common: commonReducers,
     auth: authReducers,
     admin: adminReducers,
     queryProjects: queryProjectsReducers,
     queryRuns: queryRunsReducers,
     tracking: trackingReducers,
-    userData: userDataReducers,
+    userDataForms: userDataFormsReducers,
     adminForms: adminFormReducers,
     facilityDataForms: facilityDataFormsReducers,
     queryProjectsForms: queryProjectsFormsReducers,
