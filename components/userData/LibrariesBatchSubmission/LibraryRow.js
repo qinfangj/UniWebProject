@@ -18,7 +18,7 @@ class LibraryRow extends React.PureComponent {
                 options={this.props.options}
                 rowIndex={this.props.rowIndex}
                 model={libraryModel}
-                formModelName="userData.libraries"
+                formModelName="userDataForms.libraries.requests"
             />
         );
     }
@@ -26,7 +26,7 @@ class LibraryRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.libraries;
+    let formData = state.userDataForms.libraries.requests;
     let options = optionsFromModel(state, libraryModel);
     return {
         formData: formData,

@@ -23,7 +23,7 @@ class LibrariesProjectRow extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.formModelName = "userData.libraries";
+        this.formModelName = "userDataForms.libraries.project";
         this.model = librariesProjectModel;
     }
 
@@ -46,7 +46,7 @@ class LibrariesProjectRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.libraries;
+    let formData = state.userDataForms.libraries.project;
     let options = optionsFromModel(state, librariesProjectModel);
     return {
         formData: formData,

@@ -58,17 +58,24 @@ export function makeInputs(rowModel, options, formModelName) {
 }
 
 
-export function newLibraryRow() {
+export function newLibrariesProjectRow() {
     return {
         [fields.libraries.PROJECT_ID]: "",
-        [fields.samples.NAME]: "",
-        [fields.samples.SHORT_NAME]: "",
         [fields.samples.TAXO_ID]: "",
-        [fields.libraries.STARTING_MATERIAL]: "",
         [fields.samples.SAMPLE_TYPE_ID]: "",  // "Material type"
         [fields.libraries.LIB_PROTOCOL_ID]: "",
         [fields.libraries.ADAPTER_ID]: "",
         [fields.libraries.LIBRARY_DATE]: dateNow(),
+        [fields.libraries.QUANTIF_METHOD_ID]: "",
+        [fields.user_requests.RUN_TYPES_LENGTH_ID]: "",
+    }
+}
+
+export function newLibraryRow() {
+    return {
+        [fields.samples.NAME]: "",
+        [fields.samples.SHORT_NAME]: "",
+        [fields.libraries.STARTING_MATERIAL]: "",
         [fields.libraries.MULTIPLEX_INDEX_7_ID]: "",
         [fields.libraries.MULTIPLEX_INDEX_5_ID]: "",
         [fields.libraries.FRAG_SIZE_MIN]: "",
@@ -76,25 +83,30 @@ export function newLibraryRow() {
         [fields.libraries.BIOANALYSER_PEAK]: "",
         [fields.libraries.CONCENTRATION]: "",
         [fields.libraries.VOLUME]: "",
-        [fields.libraries.QUANTIF_METHOD_ID]: "",
         [fields.libraries.IS_ROBOT_MADE]: "",
         [fields.libraries.COMMENT_CUSTOMER]: "",
-        [fields.user_requests.RUN_TYPES_LENGTH_ID]: "",
         [fields.user_requests.NB_LANES]: "",
         [fields.user_requests.MILLION_READS]: "",
         [fields.user_requests.MULTIPLEXING_GROUP]: "",
     };
 }
 
-export function newSampleRow() {
+export function newSamplesProjectRow() {
     return {
-        [fields.samples.NAME]: "",
-        [fields.samples.SHORT_NAME]: "",
         [fields.samples.PROJECT_ID]: "",
         [fields.samples.TAXO_ID]: "",
         [fields.samples.SAMPLE_TYPE_ID]: "",
         [fields.samples.RECEIVED_DATE]: dateNow(),
         [fields.samples.QUANTIF_METHOD_ID]: "",
+        [fields.user_requests.LIB_PROTOCOL_ID]: "",  // "Library type"
+        [fields.user_requests.RUN_TYPES_LENGTH_ID]: "",
+    }
+}
+
+export function newSampleRow() {
+    return {
+        [fields.samples.NAME]: "",
+        [fields.samples.SHORT_NAME]: "",
         [fields.samples.CONCENTRATION]: "",
         [fields.samples.VOLUME]: "",
         [fields.samples.RIN]: "",
@@ -102,10 +114,8 @@ export function newSampleRow() {
         [fields.samples.RATIO_260_230]: "",
         [fields.samples.DESCRIPTION]: "",
         [fields.samples.COMMENT_CUSTOMER]: "",
-        [fields.user_requests.LIB_PROTOCOL_ID]: "",  // "Library type"
         [fields.user_requests.INSERT_SIZE_MIN]: "",
         [fields.user_requests.INSERT_SIZE_MAX]: "",
-        [fields.user_requests.RUN_TYPES_LENGTH_ID]: "",
         [fields.user_requests.NB_LANES]: "",
         [fields.user_requests.MILLION_READS]: "",
         [fields.user_requests.MULTIPLEXING_GROUP]: "",

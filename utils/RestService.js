@@ -13,7 +13,7 @@ import { feedbackSuccess, feedbackError, feedbackWarning } from '../components/a
  * @param error: (string)
  */
 function handleError(jqXHR, textStatus, error)  {
-    let msg = error.statusText + ": " +jqXHR.responseText;
+    let msg = jqXHR.responseText;
     if (jqXHR.status === 0) {
         msg = "Could not connect";
     } else if (jqXHR.status === 404) {
@@ -126,6 +126,12 @@ class RestService {
         return post(url, formData);
     }
 
+    batchInsert(tableName, formData) {
+        let url = `${BACKEND}/user/batch/${tableName}`;
+        console.info(url);
+        return post(url, formData);
+    }
+
     /* Delete */
 
     delete(tableName, id) {
@@ -208,6 +214,14 @@ class RestService {
         return fetch(window.ENV.BACKEND_URL + '/account/signup', config);
     }
 
+    refresh() {
+        let config = {
+            method: 'GET',
+            headers: { 'Authorization': 'Bearer '+ AuthService.getToken() },
+        };
+        return fetch(window.ENV.BACKEND_URL + '/account/refresh', config);
+    }
+
     requestResetPassword(email) {
         let config = {
             method: 'POST',
@@ -242,7 +256,6 @@ class RestService {
         //let url = `${BACKEND}/table/users/validate/${id}`;
         let url = window.ENV.BACKEND_URL + '/account/activateUser';
         console.info(url);
-
         return post(url, user);
     }
 

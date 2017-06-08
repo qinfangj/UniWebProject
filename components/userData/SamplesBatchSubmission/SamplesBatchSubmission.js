@@ -12,9 +12,13 @@ import {
     requestRunsTypesLengths,
     requestLibProtocols,
 } from '../../actions/actionCreators/optionsActionCreators';
+import { batchInsertAsync } from '../../actions/actionCreators/userDataActionCreators';
 
 import sampleModel from '../formModels/sampleModel';
 import samplesProjectModel from '../formModels/samplesProjectModel';
+import submit from '../submit';
+import { formatFormFieldsDefault } from '../../forms/forms';
+
 import { Form } from 'react-redux-form';
 import SampleRow from './SampleRow';
 import SamplesHeaderRow from './SamplesHeaderRow';
@@ -34,6 +38,8 @@ class SamplesBatchSubmission extends React.PureComponent {
 
     constructor(props) {
         super(props);
+        this.table = "samples";
+        this.formModelName = "userDataForms.samples";
         this.model = sampleModel;
     }
 
@@ -47,7 +53,12 @@ class SamplesBatchSubmission extends React.PureComponent {
     }
 
     handleSubmit(values) {
-        console.log("Batch insert of samples: ", values);
+        console.log("Batch insert of samples: ", values)
+        let insertData = [];
+        for (let i=0; i < values.length; i++) {
+            insertData.push(formatFormFieldsDefault(this.model, values[i]));
+        }
+        submit(this.formModelName, insertData, this.table, this.formModelName);
     }
 
     /**
@@ -70,7 +81,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 
     render() {
         return (
-            <Form model="userData.libraries" onSubmit={this.handleSubmit.bind(this)}>
+            <Form model={this.formModelName} onSubmit={this.handleSubmit.bind(this)}>
 
                 <div className={css.triangleRight} />
                 <div className={css.projectDefinition}>
@@ -113,7 +124,7 @@ class SamplesBatchSubmission extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let nsamples = state.userData.samples.length;
+    let nsamples = state.userDataForms.samples.requests.length;
     return {
         nsamples: nsamples,
     };
@@ -127,6 +138,7 @@ function mapDispatchToProps(dispatch) {
         requestQuantifMethods,
         requestRunsTypesLengths,
         requestLibProtocols,
+        batchInsertAsync,
     }, dispatch);
 }
 

@@ -3,7 +3,6 @@ import React from 'react';
 import css from './styles.css';
 import PropTypes from 'prop-types';
 import store from '../../core/store';
-import sampleModel from './formModels/sampleModel';
 import { actions } from 'react-redux-form';
 import Icon from 'react-fontawesome';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap/lib';
@@ -23,6 +22,7 @@ class CommonHeaderRow extends React.PureComponent {
     }
 
     static propTypes = {
+        formModel: PropTypes.object.isRequired,  // the object that defines the inputs in the form
         formModelName: PropTypes.string.isRequired,  // the RRF model name, e.g. "userData.samples"
         emptyRowModel: PropTypes.object.isRequired, // an object representing a new empty row, such as modeled in store or made by helpers.newXxxRow().
         formData: PropTypes.array.isRequired, // the store state of the form with the array of libs/samples, such as `store.userData.samples`
@@ -32,7 +32,7 @@ class CommonHeaderRow extends React.PureComponent {
      * Reset to initial single row.
      */
     clear() {
-        store.dispatch(actions.change(this.formModelName, [this.props.emptyRowModel]));
+        store.dispatch(actions.change(this.props.formModelName, [this.props.emptyRowModel]));
     }
 
     /**
@@ -40,13 +40,14 @@ class CommonHeaderRow extends React.PureComponent {
      */
     addNewRow() {
         let newRows = [...this.props.formData, this.props.emptyRowModel];
-        store.dispatch(actions.change(this.formModelName, newRows));
+        store.dispatch(actions.change(this.props.formModelName, newRows));
     }
 
     render() {
+        let model = this.props.formModel;
         let labels = [];
-        for (let field of Object.keys(sampleModel)) {
-            let label = sampleModel[field].label || "";
+        for (let field of Object.keys(model)) {
+            let label = model[field].label || "";
             labels.push(label);
         }
         let cells = labels.map((label,i) =>

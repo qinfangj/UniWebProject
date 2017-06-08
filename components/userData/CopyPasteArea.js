@@ -24,6 +24,7 @@ class CopyPasteArea extends React.PureComponent {
 
     constructor(props) {
         super(props);
+        this.formModelName = "userDataForms.samples";
         this.state = {
             text: fakeData,
         };
@@ -53,7 +54,7 @@ class CopyPasteArea extends React.PureComponent {
         }
         data = this.validate(data);
         for (let i = 0; i < nrows; i++) {
-            store.dispatch(actions.merge(`userData.libraries[${i}]`, data[i]));
+            store.dispatch(actions.merge(`${this.formModelName}.requests[${i}]`, data[i]));
         }
     }
 

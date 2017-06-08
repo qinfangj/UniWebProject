@@ -21,6 +21,7 @@ class Header extends React.Component {
 
     render() {
         let login = this.props.isAuthenticated ? <LogoutButton/> : <LoginButton/>;
+        let account = <LinkContainer to='/account'><NavItem disabled={!this.props.isAuthenticated}>Account</NavItem></LinkContainer>;
         return (
             <div className={cx(css.header)}>
                 <div className={cx(css.headerRow, commonCss.fullwidth)}>
@@ -48,10 +49,7 @@ class Header extends React.Component {
                     <div className={cx("pull-right", css.navBar)}>
                         <Nav bsStyle="pills">
                             {login}
-                            <LinkContainer to='/account'><NavItem>Account</NavItem></LinkContainer>
-                            {/*<NavItem disabled> </NavItem>*/}
-                            {/*<NavItem disabled> </NavItem>*/}
-                            {/*<NavItem disabled> </NavItem>*/}
+                            {account}
                         </Nav>
                     </div>
 

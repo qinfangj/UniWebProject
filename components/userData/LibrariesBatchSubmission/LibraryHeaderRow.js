@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as helpers from '../helpers';
 import CommonHeaderRow from '../CommonHeaderRow';
+import libraryModel from '../formModels/libraryModel';
 
 
 
@@ -13,8 +14,9 @@ class LibrariesHeaderRow extends React.PureComponent {
     render() {
         return (
             <CommonHeaderRow
+                formModel={libraryModel}
                 formData={this.props.formData}
-                formModelName="userData.libraries"
+                formModelName="userDataForms.libraries.requests"
                 emptyRowModel={helpers.newLibraryRow()}
             />
         );
@@ -23,7 +25,7 @@ class LibrariesHeaderRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.libraries;
+    let formData = state.userDataForms.libraries.requests;
     return {
         formData: formData,
     };

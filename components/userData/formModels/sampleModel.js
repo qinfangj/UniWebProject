@@ -48,7 +48,7 @@ const sampleModel = {
         inputType: inputTypes.NUMBER,
         label: "Insert size min.",
     },
-    [fields.user_requests.INSERT_SIZE_MIN]: {
+    [fields.user_requests.INSERT_SIZE_MAX]: {
         inputType: inputTypes.NUMBER,
         label: "Insert size max.",
     },

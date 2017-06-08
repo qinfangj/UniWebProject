@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as helpers from '../helpers';
 import CommonHeaderRow from '../CommonHeaderRow';
+import sampleModel from '../formModels/sampleModel';
 
 
 
@@ -13,8 +14,9 @@ class SamplesHeaderRow extends React.PureComponent {
     render() {
         return (
             <CommonHeaderRow
+                formModel={sampleModel}
                 formData={this.props.formData}
-                formModelName="userData.samples"
+                formModelName="userDataForms.samples.requests"
                 emptyRowModel={helpers.newSampleRow()}
             />
         );
@@ -23,7 +25,7 @@ class SamplesHeaderRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.samples;
+    let formData = state.userDataForms.samples.requests;
     return {
         formData: formData,
     };

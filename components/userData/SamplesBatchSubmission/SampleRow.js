@@ -18,7 +18,7 @@ class SampleRow extends React.PureComponent {
                 options={this.props.options}
                 rowIndex={this.props.rowIndex}
                 model={sampleModel}
-                formModelName="userData.samples"
+                formModelName="userDataForms.samples.requests"
             />
         );
     }
@@ -26,7 +26,7 @@ class SampleRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.samples;
+    let formData = state.userDataForms.samples.requests;
     let options = optionsFromModel(state, sampleModel);
     return {
         formData: formData,

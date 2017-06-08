@@ -14,9 +14,11 @@ import {
     requestLibProtocols,
     requestLibAdapters,
 } from '../../actions/actionCreators/optionsActionCreators';
+import { batchInsertAsync } from '../../actions/actionCreators/userDataActionCreators';
 
 import libraryModel from '../formModels/libraryModel';
 import librariesProjectModel from '../formModels/librariesProjectModel';
+
 import { Form } from 'react-redux-form';
 import LibraryRow from './LibraryRow';
 import LibraryHeaderRow from './LibraryHeaderRow';
@@ -36,6 +38,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
 
     constructor(props) {
         super(props);
+        this.formModelName = "userDataForms.libraries";
         this.model = libraryModel;
     }
 
@@ -74,7 +77,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
 
     render() {
         return (
-            <Form model="userData.libraries" onSubmit={this.handleSubmit.bind(this)}>
+            <Form model={this.formModelName} onSubmit={this.handleSubmit.bind(this)}>
 
                 <div className={css.triangleRight} />
                 <div className={css.projectDefinition}>
@@ -117,7 +120,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let nlibs = state.userData.libraries.length;
+    let nlibs = state.userDataForms.libraries.requests.length;
     return {
         nlibs: nlibs,
     };
@@ -133,6 +136,7 @@ function mapDispatchToProps(dispatch) {
         requestRecentMultiplexIndexes,
         requestLibProtocols,
         requestLibAdapters,
+        batchInsertAsync,
     }, dispatch);
 }
 

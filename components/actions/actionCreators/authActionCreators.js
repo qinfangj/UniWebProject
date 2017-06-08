@@ -79,10 +79,10 @@ export function loginUser(creds) {
                     //return Promise.reject(response);
                 /* Successful login (200) */
                 } else {
-                    response.json().then(user => {
-                        dispatch(_LoginSuccess(user));
-                        AuthService._doAuthentication(user);
-                    }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
+                    response.json().then(res => {
+                        dispatch(_LoginSuccess(res));
+                        AuthService._doAuthentication(res);
+                    }).catch(err => console.log("Error retreiving access_token: ", JSON.stringify(err, null, 2)));
                 }
             /* No HTTP response */
             }).catch(err => {
@@ -108,13 +108,13 @@ export function signupUser(creds) {
                     //return Promise.reject(response);  // redirects to `catch()`
                 /* Successful signup (200) */
                 } else {
-                    response.json().then(user => {
+                    response.json().then(res => {
                         dispatch(feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulations! You have signed up successfully!"));
-                        dispatch(_signupSuccess(user));
+                        dispatch(_signupSuccess(res));
                         // We do not want the user to be signed up right away!
                         //AuthService._doAuthentication(user);
                         hashHistory.replace('/home');
-                    }).catch(err => console.log("Error retreiving id_token: ", JSON.stringify(err, null, 2)));
+                    }).catch(err => console.log("Error retreiving access_token: ", JSON.stringify(err, null, 2)));
                 }
             /* No HTTP response */
             }).catch(err => {

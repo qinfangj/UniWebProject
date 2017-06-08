@@ -23,7 +23,7 @@ class SamplesProjectRow extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.formModelName = "userData.samples";
+        this.formModelName = "userDataForms.samples.project";
         this.model = samplesProjectModel;
     }
 
@@ -46,7 +46,7 @@ class SamplesProjectRow extends React.PureComponent {
 
 
 function mapStateToProps(state) {
-    let formData = state.userData.samples;
+    let formData = state.userDataForms.samples.project;
     let options = optionsFromModel(state, samplesProjectModel);
     return {
         formData: formData,
