@@ -15,6 +15,8 @@ export function deleteUnvalidatedUsers() {
                     dispatch(
                          {type: types.DELETE_UNVALIDATED_SUCCESS}
                     );
+                    return response;
+
                 } else {
                     dispatch( {type: types.DELETE_UNVALIDATED_FAILURE});
                     return Promise.reject(response);

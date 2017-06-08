@@ -32,8 +32,12 @@ class AdminData extends React.PureComponent {
             future
                 .done((delNum) => {
                     console.debug(200, "Deleted All Unvalidated Users successfully: " + JSON.stringify(delNum));
-
-                    store.dispatch(feedbackSuccess("limsUser", "Deleted All Unvalidated Users successfully"));
+                    if (delNum > 0) {
+                        let responseTxt = (delNum===1)?" unvalidated user has":" unvalidated users have";
+                        store.dispatch(feedbackSuccess("limsUser", delNum + responseTxt + " been successfully"));
+                    } else {
+                        store.dispatch(feedbackSuccess("limsUser", "There is no unvalidated user deleted."));
+                    }
 
                 })
                 .fail((err) => {
