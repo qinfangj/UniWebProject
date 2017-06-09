@@ -12,17 +12,18 @@ import { feedbackSuccess, feedbackError, feedbackWarning } from '../components/a
  * @param textStatus:
  * @param error: (string)
  */
-function handleError(jqXHR, textStatus, error)  {
+function handleError(jqXHR, statusText, error)  {
     let msg = jqXHR.responseText;
     if (jqXHR.status === 0) {
         msg = "Could not connect";
     } else if (jqXHR.status === 404) {
         msg = "Page not found";
+    } else if (jqXHR.status === 401) {
+        msg = "Unauthorized";
+        AuthService.logout();
     }
-    if (! (typeof(error) === "object")) {
-        error = {};
-    }
-    store.dispatch(feedbackError("REST", msg, error));
+    console.log(error, statusText, jqXHR)
+    store.dispatch(feedbackError("REST", msg, jqXHR));
 }
 
 
