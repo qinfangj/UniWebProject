@@ -33,7 +33,7 @@ class RunsInsertForm extends React.PureComponent {
     }
 
     componentWillMount() {
-        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdateLoadLibsOptions.bind(this));
+        forms.newOrUpdate(this.modelName, this.table, this.props.updateId, this.onUpdateLoadLibsOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
@@ -45,7 +45,7 @@ class RunsInsertForm extends React.PureComponent {
 
     /**
      * When the update *data* comes, trigger the action to get libraries options lists
-     * corresponding to the received projectIds (see newOrUpdate2 in componentWillMount).
+     * corresponding to the received projectIds (see newOrUpdate in componentWillMount).
      */
     onUpdateLoadLibsOptions(data) {
         for (let laneNb of Object.keys(data.lanes)) {

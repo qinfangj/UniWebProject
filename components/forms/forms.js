@@ -26,7 +26,7 @@ import { Col } from 'react-bootstrap/lib';
  * @param updateId: the id of the element to get data for.
  * @param onUpdated((data) => ...): callback function that will execute after the update data is received.
  */
-export function newOrUpdate2(modelName, table, updateId, onUpdated){
+export function newOrUpdate(modelName, table, updateId, onUpdated){
     let currentPath = window.location.pathname + window.location.hash.substr(2);
     if (currentPath.endsWith('/new')) {
         store.dispatch(actions.reset(modelName));

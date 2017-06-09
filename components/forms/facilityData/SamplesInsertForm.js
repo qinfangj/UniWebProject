@@ -34,7 +34,7 @@ class SamplesInsertForm extends React.PureComponent {
     }
 
     componentWillMount() {
-        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, null);
+        forms.newOrUpdate(this.modelName, this.table, this.props.updateId, null);
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
