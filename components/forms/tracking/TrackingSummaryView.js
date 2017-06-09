@@ -234,7 +234,7 @@ class TrackingSummaryView extends React.PureComponent {
                         if (this.state.insertRow === index && this.state.insertCol == s){
                             return (
                                 // value={this.state.laneNos[s][index].value}
-                                <td className={trackCss.td} width={widthRate} key={s}>
+                                <td height='100%' width={widthRate} key={s}>
                                     {
                                         this.props.isLibrary && this.state.laneNos[s][index] !== null ?
                                             <div className={trackCss.laneNo}>
@@ -249,15 +249,13 @@ class TrackingSummaryView extends React.PureComponent {
                                             :
                                             null
                                     }
-                                <div type="button" className={trackCss.selectedCell} width="100%" height="100%"
-
-                                     onClick={this.insertDetailedRow.bind(this, s, index)}>
+                                <div type="button" className={trackCss.selectedCell} onClick={this.insertDetailedRow.bind(this, s, index)}>
                                     {contentsTd}
                                     <div style={{textAlign: 'right'}} >
-                                    {(o[s][index]['comment'] !== "" && o[s][index]['comment'] !== undefined)?
+                                    {(o[s][index]['comment_customer'] !== "" && o[s][index]['comment_customer'] !== null)?
                                         <div className={trackCss.tooltip}>
-                                            <span className={trackCss.tooltiptext}>{o[s][index]['comment']}</span>
-                                            <Icon name="comments"  style={{color: '#337ab7', fontSize:25}} />
+                                            <span className={trackCss.tooltiptext}>{o[s][index]['comment_customer']}</span>
+                                            <Icon name="comment"  style={{color: '#337ab7', fontSize:25}} />
                                         </div>: null }
                                         <div className={trackCss.menuUpDown}>
                                             <Icon name="chevron-down" />
@@ -267,7 +265,7 @@ class TrackingSummaryView extends React.PureComponent {
                             </td>)
                         } else {
 
-                            return (<td className={trackCss.td} width={widthRate} key={s}>
+                            return (<td height='100%' width={widthRate} key={s}>
                                 {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
                                     <div className={trackCss.laneNo}>
                                         <input
@@ -277,14 +275,13 @@ class TrackingSummaryView extends React.PureComponent {
                                             style = {laneNoStyle}
                                         />
                                     </div>:null}
-                                <div type="button" className={trackCss.cell} width="100%" height="100%"
-                                     onClick={this.insertDetailedRow.bind(this, s, index)}>
+                                <div type="button" className={trackCss.cell} onClick={this.insertDetailedRow.bind(this, s, index)}>
                                         {contentsTd}
                                         <div style={{textAlign: 'right'}}>
-                                        {o[s][index]['comment'] !== undefined && (o[s][index]['comment'] !== "" )?
+                                        {(o[s][index]['comment_customer'] !== null && o[s][index]['comment_customer'] !== "" )?
                                                 <div className={trackCss.tooltip}>
-                                                    <span className={trackCss.tooltiptext}>{o[s][index]['comment']}</span>
-                                                    <Icon name="comments" style={{color: '#337ab7',fontSize:25}} />
+                                                    <span className={trackCss.tooltiptext}>{o[s][index]['comment_customer']}</span>
+                                                    <Icon name="comment" style={{color: '#337ab7',fontSize:25}} />
                                                 </div>
                                              : null}
                                         </div>
@@ -344,9 +341,6 @@ class TrackingSummaryView extends React.PureComponent {
 
         }
         console.log(obj);
-        // if (obj !==null){
-        //     createdLanes= obj
-        // }
 
         if (_.isEmpty(obj)) {
             store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
@@ -466,7 +460,7 @@ class TrackingSummaryView extends React.PureComponent {
                                     {
 
                                             return (<th className={trackCss.th} width={98 / (fieldsHead.length) + "%"}
-                                                        key={s}><p className={trackCss.header}>{s}</p></th>)
+                                                        key={s}><div className={trackCss.header}>{s}</div></th>)
 
                                     })
                         }
@@ -496,6 +490,7 @@ const mapStateToProps = (state, ownProps) => {
     //if the array object of the key are all nulls.
     //not even display the key column in the summaries view
     let data = Object.assign({}, state.tracking[ownProps.dataStoreKey]);
+
     let types = Object.keys(data);
     let trakingData = {};
     types.map(s=>{
