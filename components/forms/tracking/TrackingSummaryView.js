@@ -251,7 +251,7 @@ class TrackingSummaryView extends React.PureComponent {
                                     }
                                 <div type="button" className={trackCss.selectedCell} onClick={this.insertDetailedRow.bind(this, s, index)}>
                                     {contentsTd}
-                                    <div style={{textAlign: 'right'}} >
+                                    <div className={trackCss.iconRow} >
                                     {(o[s][index]['comment_customer'] !== "" && o[s][index]['comment_customer'] !== null)?
                                         <div className={trackCss.tooltip}>
                                             <span className={trackCss.tooltiptext}>{o[s][index]['comment_customer']}</span>
@@ -277,7 +277,7 @@ class TrackingSummaryView extends React.PureComponent {
                                     </div>:null}
                                 <div type="button" className={trackCss.cell} onClick={this.insertDetailedRow.bind(this, s, index)}>
                                         {contentsTd}
-                                        <div style={{textAlign: 'right'}}>
+                                        <div className={trackCss.iconRow}>
                                         {(o[s][index]['comment_customer'] !== null && o[s][index]['comment_customer'] !== "" )?
                                                 <div className={trackCss.tooltip}>
                                                     <span className={trackCss.tooltiptext}>{o[s][index]['comment_customer']}</span>
@@ -411,20 +411,20 @@ class TrackingSummaryView extends React.PureComponent {
         let rows = [];
         if (this.state.isShowDetails) {
             for (let i = 0; i < this.state.insertRow + 1; i++) {
-                rows.push(<tr className={trackCss.tr} width='2%' key={i} ><td className= {trackCss.td} style={{textAlign:'center'}}>{i+1}</td>{this.makeTr( dataSummary, i)}</tr>);
+                rows.push(<tr width='2%' key={i} ><td className= {trackCss.td} style={{textAlign:'center'}}>{i+1}</td>{this.makeTr( dataSummary, i)}</tr>);
             }
 
             rows.push(this.makeDetailedTr(this.state.insertRow, this.state.insertCol, dataDetail));
 
             for (let i = this.state.insertRow+1; i < maxlength; i++) {
-                rows.push(<tr className={trackCss.tr} width='2%' key={i+2}><td className= {trackCss.td} style={{textAlign:'center'}}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
+                rows.push(<tr width='2%' key={i+2}><td className= {trackCss.td} style={{textAlign:'center'}}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
             }
 
             let row = document.getElementById("myTable").rows;
             row[this.state.insertRow+1].scrollIntoView(true);
         } else {
             for (let i = 0; i < maxlength; i++) {
-                rows.push(<tr className={trackCss.tr} width='2%' key={i}><td className= {trackCss.td}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
+                rows.push(<tr width='2%' key={i}><td className= {trackCss.td}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
             }
         }
 

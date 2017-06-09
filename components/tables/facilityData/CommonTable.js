@@ -124,7 +124,9 @@ class CommonTable extends React.PureComponent {
         }
         tables.checkData(data);
 
-        //let cssHeight = (Math.max(GRID_HEIGTH, (data.length + 1) * ROW_HEIGTH)) + "px";
+        //let cssHeight = (Math.min(GRID_HEIGTH, (data.length + 1) * ROW_HEIGTH)) + "px";
+        let cssHeight;
+        cssHeight = (this.gridHeight > (data.length + 1) * ROW_HEIGTH) ? (data.length + 1) * ROW_HEIGTH  : this.gridHeight;
 
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -143,7 +145,7 @@ class CommonTable extends React.PureComponent {
                     <Feedback reference={this.props.form}/>
                 }
 
-                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>
+                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: cssHeight + 'px', width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}
                         rowData={data}
@@ -160,6 +162,7 @@ class CommonTable extends React.PureComponent {
                     >
                     </AgGridReact>
                 </div>
+                <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} ></div>
 
                 <DataLoadingIcon />
 

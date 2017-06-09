@@ -67,15 +67,16 @@ class SignupForm extends React.Component {
     }
     onChangeFirstName(e) {
         //this.setState({firstName: e.target.value});
+
         let firstName = e.target.value;
-        let fieldCheck = this.validateField(firstName);
+        let fieldCheck = this.validateName(firstName);
         this.setState({firstName: firstName, msgFirstNm: fieldCheck.msg,
             fbFirstNm: fieldCheck.feedback});
     }
     onChangeLastName(e) {
         this.setState({lastName: e.target.value});
         let lastName = e.target.value;
-        let fieldCheck2 = this.validateField(lastName);
+        let fieldCheck2 = this.validateName(lastName);
         //console.log(fieldCheck2.feedback);
         this.setState({LastName: lastName, msgLastNm: fieldCheck2.msg,
             fbLastNm: fieldCheck2.feedback});
@@ -118,6 +119,22 @@ class SignupForm extends React.Component {
             return {msg: "Field cannot be empty!", feedback: "warning" };
         } else {
             return {msg: "", feedback: "success" };
+        }
+    }
+
+    validateName(name) {
+        let fieldCheck = this.validateField(name);
+
+        if (fieldCheck.msg===""){
+            let checkName = Validators.userNameValidator(name);
+            if (checkName.valid) {
+                return {msg: "", feedback: "success" };
+            } else {
+                return {msg: checkName.msg, feedback: "warning" };
+            }
+
+        }else {
+            return fieldCheck;
         }
     }
 

@@ -25,12 +25,12 @@ class TrackingDetailView extends React.PureComponent {
         return (
             (k === "ID") ?
                 <tr key={k}>
-                    <th rowSpan={rowSpan}>{k + ':'}</th>
+                    <th rowSpan={rowSpan} width = '30%'>{k + ':'}</th>
                     <td rowSpan={rowSpan}><a href={link}>{v}</a></td>
                 </tr>
                 :
                 <tr key={k}>
-                    <th rowSpan={rowSpan}>{k + ':'}</th>
+                    <th rowSpan={rowSpan} width = '30%'>{k + ':'}</th>
                     <td rowSpan={rowSpan}>{v}</td>
                 </tr>
         )
@@ -113,7 +113,7 @@ class TrackingDetailView extends React.PureComponent {
            return (
 
                     <Row className={trackCss.div1}>
-                    <Col sm={4} className={trackCss.div2}>
+                    <Col sm={6} className={trackCss.div2}>
 
                         <h4>{title}</h4>
                         <table width='100%' >
@@ -127,7 +127,7 @@ class TrackingDetailView extends React.PureComponent {
                         </table>
 
                     </Col>
-                    <Col sm={8} className={trackCss.div3}>
+                    <Col sm={6} className={trackCss.div3}>
 
                         <h4>Open Request(s)</h4>
                         {/*<table width='100%' style = {{border:'1px solid grey'}}>
@@ -148,7 +148,7 @@ class TrackingDetailView extends React.PureComponent {
                                 requestModel.map(
                                     (s) => {
                                         return (
-                                            <tr key={s.label}><th width = '150px'>{s.label}</th>{this.RequestsDetailsTbs(s, dataRequests)}</tr>)
+                                            <tr key={s.label}><th  width = '30%'>{s.label}</th>{this.RequestsDetailsTbs(s, dataRequests)}</tr>)
                                     })
                             }
                             </tbody>
