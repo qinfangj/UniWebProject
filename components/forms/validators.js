@@ -17,6 +17,12 @@ function trimmed(v) {
 
 class Validators {
 
+    userNameValidator(v){
+        let valid = /^[a-zA-Z .,-]*$/.test(trimmed(v));
+        let msg = "This field must be filled with characters including space, ',', '-', '_'. ";
+        return {valid, msg};
+    }
+
     codeNameValidator(v) {
         let valid = /^\w+_[a-zA-Z]{2}$/.test(trimmed(v));
         let msg = "Code name must be one word followed by an underscore, followed by PI initials.";
