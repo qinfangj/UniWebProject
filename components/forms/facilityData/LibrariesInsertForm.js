@@ -39,7 +39,7 @@ class LibrariesInsertForm extends React.PureComponent {
     }
 
     componentWillMount() {
-        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdateLoadSamplesOptions.bind(this));
+        forms.newOrUpdate(this.modelName, this.table, this.props.updateId, this.onUpdateLoadSamplesOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }

@@ -6,14 +6,15 @@ import { FormGroup, FormControl } from 'react-bootstrap/lib';
 
 export default class BSTextArea extends React.PureComponent {
     render() {
-        let {label, submissionError, ...inputProps} = this.props;
+        let {label, submissionError, value, ...inputProps} = this.props;
         let title = makeLabel(label, this.props.required);
         let validationState = submissionError ? "error" : this.props.validationState;
+        value = value || "";
 
         return (
             <FormGroup validationState={validationState} bsSize="small" >
                 {title}
-                <FormControl componentClass="textarea" {...inputProps} />
+                <FormControl componentClass="textarea" value={value} {...inputProps} />
             </FormGroup>
         );
     }

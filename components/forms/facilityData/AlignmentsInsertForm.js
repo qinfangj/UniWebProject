@@ -36,7 +36,7 @@ class AlignmentsInsertForm extends React.PureComponent {
     }
 
     componentWillMount() {
-        forms.newOrUpdate2(this.modelName, this.table, this.props.updateId, this.onUpdateLoadBasecallingsOptions.bind(this));
+        forms.newOrUpdate(this.modelName, this.table, this.props.updateId, this.onUpdateLoadBasecallingsOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
         }
@@ -47,7 +47,7 @@ class AlignmentsInsertForm extends React.PureComponent {
 
     /**
      * When the update *data* comes, trigger the action to get libraries options lists
-     * corresponding to the received runId (see newOrUpdate2 in componentWillMount).
+     * corresponding to the received runId (see newOrUpdate in componentWillMount).
      */
     onUpdateLoadBasecallingsOptions(data) {
         let refModelName = this.modelName +'.'+ fields.RUN_ID;

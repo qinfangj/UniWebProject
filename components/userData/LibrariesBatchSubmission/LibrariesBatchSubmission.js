@@ -18,6 +18,8 @@ import { batchInsertAsync } from '../../actions/actionCreators/userDataActionCre
 
 import libraryModel from '../formModels/libraryModel';
 import librariesProjectModel from '../formModels/librariesProjectModel';
+import submit from '../submit';
+import { formatFormFieldsDefault } from '../../forms/forms';
 
 import { Form } from 'react-redux-form';
 import LibraryRow from './LibraryRow';
@@ -38,6 +40,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
 
     constructor(props) {
         super(props);
+        this.table = "libraries";
         this.formModelName = "userDataForms.libraries";
         this.model = libraryModel;
     }
@@ -54,7 +57,14 @@ class LibrariesBatchSubmission extends React.PureComponent {
     }
 
     handleSubmit(values) {
-        console.log("Batch insert of samples: ", values);
+        console.log("Batch insert of libraries, init: ", values)
+        let project = formatFormFieldsDefault(librariesProjectModel, values.project);
+        let requests = [];
+        for (let i=0; i < values.requests.length; i++) {
+            requests.push(formatFormFieldsDefault(libraryModel, values.requests[i]));
+        }
+        let insertData = {project, requests};
+        submit(this.formModelName, insertData, this.table, this.formModelName);
     }
 
     /**

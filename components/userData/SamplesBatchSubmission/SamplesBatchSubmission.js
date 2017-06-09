@@ -53,11 +53,13 @@ class SamplesBatchSubmission extends React.PureComponent {
     }
 
     handleSubmit(values) {
-        console.log("Batch insert of samples: ", values)
-        let insertData = [];
-        for (let i=0; i < values.length; i++) {
-            insertData.push(formatFormFieldsDefault(this.model, values[i]));
+        console.log("Batch insert of samples, init: ", values)
+        let project = formatFormFieldsDefault(samplesProjectModel, values.project);
+        let requests = [];
+        for (let i=0; i < values.requests.length; i++) {
+            requests.push(formatFormFieldsDefault(sampleModel, values.requests[i]));
         }
+        let insertData = {project, requests};
         submit(this.formModelName, insertData, this.table, this.formModelName);
     }
 
