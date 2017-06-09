@@ -50,7 +50,6 @@ const librariesProjectModel = {
     [fields.libraries.IS_ROBOT_MADE]: {
         inputType: inputTypes.CHECKBOX,
         label: "Made on robot",
-        required: true,
     },
 
     // Request

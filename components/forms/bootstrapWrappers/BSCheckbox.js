@@ -8,6 +8,7 @@ export default class BSCheckbox extends React.PureComponent {
     render() {
         let {label, value, submissionError, ...inputProps} = this.props;
         let validationState = submissionError ? "error" : this.props.validationState;
+        value = !!value;
 
         return (
             <FormGroup validationState={validationState} bsSize="small">

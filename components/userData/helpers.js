@@ -76,21 +76,21 @@ export function newLibrariesProjectRow() {
 
 export function newLibraryRow() {
     return {
-        [fields.samples.NAME]: "",
-        [fields.samples.SHORT_NAME]: "",
-        [fields.libraries.STARTING_MATERIAL]: "",
-        [fields.libraries.MULTIPLEX_INDEX_7_ID]: "",
-        [fields.libraries.MULTIPLEX_INDEX_5_ID]: "",
-        [fields.libraries.FRAG_SIZE_MIN]: "",
-        [fields.libraries.FRAG_SIZE_MAX]: "",
-        [fields.libraries.BIOANALYSER_PEAK]: "",
-        [fields.libraries.CONCENTRATION]: "",
-        [fields.libraries.VOLUME]: "",
-        [fields.libraries.IS_ROBOT_MADE]: "",
-        [fields.libraries.COMMENT_CUSTOMER]: "",
-        [fields.user_requests.NB_LANES]: "",
-        [fields.user_requests.MILLION_READS]: "",
-        [fields.user_requests.MULTIPLEXING_GROUP]: "",
+        [fields.samples.NAME]: "12",
+        [fields.samples.SHORT_NAME]: "12",
+        [fields.libraries.STARTING_MATERIAL]: "12",
+        [fields.libraries.MULTIPLEX_INDEX_7_ID]: "12",
+        [fields.libraries.MULTIPLEX_INDEX_5_ID]: "12",
+        [fields.libraries.FRAG_SIZE_MIN]: "12",
+        [fields.libraries.FRAG_SIZE_MAX]: "12",
+        [fields.libraries.BIOANALYSER_PEAK]: "12",
+        [fields.libraries.CONCENTRATION]: "12",
+        [fields.libraries.VOLUME]: "12",
+        [fields.libraries.IS_ROBOT_MADE]: "12",
+        [fields.libraries.COMMENT_CUSTOMER]: "12",
+        [fields.user_requests.NB_LANES]: "12",
+        [fields.user_requests.MILLION_READS]: "12",
+        [fields.user_requests.MULTIPLEXING_GROUP]: "12",
     };
 }
 
