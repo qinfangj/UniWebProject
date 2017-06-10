@@ -9,6 +9,7 @@ const inputTypes = {
     CHECKBOX: "checkbox",
     DATE: "date",
     NUMBER: "number",
+    BLANK: "blank",
 };
 
 export const DEFAULT_DATE = "1970-01-01";

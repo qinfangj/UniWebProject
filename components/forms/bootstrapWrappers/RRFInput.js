@@ -13,6 +13,7 @@ import BSTextArea from './BSTextArea';
 import BSDate from './BSDate';
 import BSSecondarySelect from './BSSecondarySelect';
 import BSMultipleSelect from './BSMultipleSelect';
+import BSStatic from './BSStatic';
 
 
 /**
@@ -45,6 +46,8 @@ export default class RRFInput extends React.PureComponent {
             component = BSTextArea;
         } else if (inputType === inputTypes.DATE) {
             component = BSDate;
+        } else if (inputType === inputTypes.BLANK) {
+            component = BSStatic;
         } else {
             throw "Unknown input type: '"+ inputType +"'";
         }

@@ -48,7 +48,6 @@ class LanesSubForm extends React.PureComponent {
         for (let fieldName of Object.keys(this.model)) {
             let fieldModel = this.model[fieldName];
             let fieldModelName = modelName +'.'+ fieldName;
-            console.log(fieldModelName)
             let {inputType, optionsKey, ...otherProps} = fieldModel;
             otherProps.key = fieldName + laneNb;
             otherProps.disabled = fieldModel.disabled || this.props.disabled;
@@ -108,6 +107,8 @@ class LanesSubForm extends React.PureComponent {
 
         return (
             <div>
+                <div className="clearfix"/>
+
                 <Button className={css.addLaneButton} bsStyle="info" disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
 
                 <div className="clearfix"/>
@@ -132,8 +133,6 @@ class LanesSubForm extends React.PureComponent {
     }
 
 }
-
-
 
 
 
