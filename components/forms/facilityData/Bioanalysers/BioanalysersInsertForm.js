@@ -19,6 +19,8 @@ import { findForUpdateAsync } from '../../../actions/actionCreators/facilityData
 import downloadPdf from '../../../../utils/downloadPdf';
 import bioanalysersModel from '../formModels/bioanalysersModel';
 
+import LanesSubForm from './LanesSubForm';
+
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
@@ -157,7 +159,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                 <Form componentClass="fieldset" horizontal>
 
                     {/* Lanes sub form */}
-                    <BioanalysersSubForm ref={(c) => this._lanes = c} disabled={this.state.disabled}/>
+                    <LanesSubForm disabled={this.state.disabled}/>
 
                 </Form>
 

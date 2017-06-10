@@ -22,7 +22,7 @@ import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap/lib';
 class LanesSubForm extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.modelName = "facilityDataForms.bioanalysers.lanes";
+        this.formModelName = "facilityDataForms.bioanalysers";
         this.model = bioanalysersLaneModel;
     }
 
@@ -42,12 +42,13 @@ class LanesSubForm extends React.PureComponent {
     }
 
     makeInputs(laneNb) {
-        let modelName = `${this.formModelName}.${laneNb}`;
+        let modelName = `${this.formModelName}.lanes.${laneNb}`;
         /* Construct the project-library-volume-quality inputs for one Library row */
         let inputs = [];
         for (let fieldName of Object.keys(this.model)) {
             let fieldModel = this.model[fieldName];
             let fieldModelName = modelName +'.'+ fieldName;
+            console.log(fieldModelName)
             let {inputType, optionsKey, ...otherProps} = fieldModel;
             otherProps.key = fieldName + laneNb;
             otherProps.disabled = fieldModel.disabled || this.props.disabled;
@@ -73,7 +74,7 @@ class LanesSubForm extends React.PureComponent {
         let commentInput = formFields[2];
 
         return(
-            <tr>
+            <tr key={laneNb}>
                 <td className={cx(css.cell, css.laneCell)}>
                     {laneNb}
                 </td>
@@ -113,14 +114,15 @@ class LanesSubForm extends React.PureComponent {
 
                 <table className={css.lanesTable}>
                     <thead><tr>
-                        <th className={css.headerCell}>{null}</th>
-                        <th className={cx(css.headerCell, css.laneCell)}>Lane</th>
+                        <th className={cx(css.headerCell)}>Lane</th>
                         <th className={cx(css.headerCell, css.projectCell)}>Project</th>
                         <th className={cx(css.headerCell, css.libraryCell)}>Library</th>
                         <th className={cx(css.headerCell, css.commentCell)}>Comment</th>
                         <th className={css.headerCell}>{null}</th>
                     </tr></thead>
-                    {laneRows}
+                    <tbody>
+                        {laneRows}
+                    </tbody>
                 </table>
 
                 <div className="clearfix"/>
