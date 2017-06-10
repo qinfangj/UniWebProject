@@ -7,7 +7,7 @@ import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 /**
  * The sub-form in Runs to insert libraries in lanes.
  */
-const lanesModel = {
+const runLanesModel = {
     lane: {
         "comment": {
             width: 4,
@@ -43,5 +43,5 @@ const lanesModel = {
     }
 };
 
-export default lanesModel;
+export default runLanesModel;
 

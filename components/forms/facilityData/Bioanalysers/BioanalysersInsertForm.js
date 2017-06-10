@@ -17,6 +17,7 @@ import tableNames from '../../../tables/tableNames';
 import fields from '../../../constants/fields';
 import { findForUpdateAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 import downloadPdf from '../../../../utils/downloadPdf';
+import bioanalysersModel from '../formModels/bioanalysersModel';
 
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
@@ -29,6 +30,8 @@ class BioanalysersInsertForm extends React.PureComponent {
         super(props);
         this.table = "bioanalysers";
         this.form = formNames.BIOANALYSERS_INSERT_FORM;
+        this.modelName = "facilityDataForms.bioanalysers";
+        this.model = bioanalysersModel;
         this.state = {
             disabled: false,
         }

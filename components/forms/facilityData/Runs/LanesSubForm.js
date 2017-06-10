@@ -9,7 +9,7 @@ import { actions} from 'react-redux-form';
 import { requestProjectsHavingALibrary,
          requestSequencingQualities } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
-import lanesModel from '../formModels/lanesModel';
+import runLanesModel from '../formModels/runLanesModel';
 import poolSelectionModel from '../formModels/poolSelectionModel';
 
 import RRFInput from '../../bootstrapWrappers/RRFInput.js';
@@ -153,8 +153,8 @@ class LanesSubForm extends React.PureComponent {
 
         /* Construct the project-library-volume-quality inputs for one Library row */
         let formFields = [];
-        for (let fieldName of Object.keys(lanesModel.lib)) {
-            let model = lanesModel.lib[fieldName];
+        for (let fieldName of Object.keys(runLanesModel.lib)) {
+            let model = runLanesModel.lib[fieldName];
             let modelName = prefix +'.'+ fieldName;
             let {inputType, optionsKey, ...otherProps} = model;
             otherProps.key = fieldName + k;
@@ -248,7 +248,7 @@ class LanesSubForm extends React.PureComponent {
      */
     makeLaneCommentRow(laneNb) {
         let commentModelName = `${this.modelName}.lanes[${laneNb}].comment`;
-        let commentModel = lanesModel.lane.comment;
+        let commentModel = runLanesModel.lane.comment;
         let {inputType, ...otherProps} = commentModel;
         let commentValue = this.props.lanes[laneNb].comment;
         otherProps.disabled = this.props.disabled;
@@ -328,8 +328,8 @@ class LanesSubForm extends React.PureComponent {
 
 const mapStateToProps = (state) => {
     let options = {};
-    for (let field of Object.keys(lanesModel.lib)) {
-        let model = lanesModel.lib[field];
+    for (let field of Object.keys(runLanesModel.lib)) {
+        let model = runLanesModel.lib[field];
         if (model.optionsKey) {
             options[model.optionsKey] = state.options[model.optionsKey] || [];
         }

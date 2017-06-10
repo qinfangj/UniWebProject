@@ -30,8 +30,8 @@ let facilityDataFormsReducers = combineForms(
         },
         bioanalysers: {
             [fields.bioanalysers.BIOANALYSER_FILE]: "",
-            [fields.bioanalysers.BIOANALYSER_FILENAME]: "",
-            [fields.bioanalysers.BIOANALYSER_DATE]: dateNow(),
+            // [fields.bioanalysers.BIOANALYSER_FILENAME]: "",
+            [fields.bioanalysers.BIOANALYSER_DATE]: "",  // not required
             [fields.bioanalysers.DESCRIPTION]: "",
             lanes: {
                 1: {
