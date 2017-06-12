@@ -77,7 +77,6 @@ class CommonAdminForms extends React.Component {
     }
 
     componentWillMount() {
-        console.log("aaa");
 
         this.newOrUpdate(this.table,this.props.updateId);
 
@@ -170,10 +169,6 @@ class CommonAdminForms extends React.Component {
     //     console.log("bbb")
     //     //this.newOrUpdate(this.table,this.props.updateId);
     // }
-
-    componentWillReceiveProps() {
-        this.newOrUpdate(this.table,this.props.updateId);
-    }
 
     handleSubmit(values){
         if (this.table === tableNames.USERS){
