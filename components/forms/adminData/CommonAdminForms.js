@@ -64,7 +64,7 @@ class CommonAdminForms extends React.Component {
                 future
                     .done((data) => {
                         console.log(data);
-                        //this.setState({username: data.login});
+                        this.setState({username: data.login});
                         store.dispatch(actions.merge(this.modelName, data));
                     });
 
@@ -283,7 +283,7 @@ class CommonAdminForms extends React.Component {
             // First we map the react-redux forms props to the react-bootstrap props:
             const BSTextInput = (props) => <FormControl  {...props} />;
             // Then we just pass this in the 'component' prop of react-redux-forms' Control.
-            //const isRequired = s.required? (return "required: (val) => val && val.length ):
+            //const isRequired = s.required? (val) => val && val.length : null;
 
             input = <div>
                         <Control
@@ -292,8 +292,8 @@ class CommonAdminForms extends React.Component {
                             model={".".concat(s.name)}
                             disabled={!this.state.isInsert}
                             //required = {s.required}
-                            validators= {{
-                                isRequired:(s.required)? (val)=> val && val.length : null}}
+                            validators = {s.required?
+                                {isRequired: (val) => val && val.length}: null}
 
                         />
                         <Errors
