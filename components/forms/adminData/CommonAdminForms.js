@@ -333,7 +333,7 @@ class CommonAdminForms extends React.Component {
                                         disabled={!this.state.isInsert}
                                         //required={s.required}
                                         validators= {{
-                                            isRequired:(s.required)? (val)=> val !== "" : null}}
+                                            isRequired:(s.required)? (val)=> val !== "" && val !=='-1' : null}}
                         >
 
                                 {options}
