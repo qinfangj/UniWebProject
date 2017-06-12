@@ -11,11 +11,12 @@ import { getOptionsListAsync,getConditionalOptionsListAsync} from '../../actions
 import * as submit from './submit';
 import adminData from './adminDataModels';
 import constants from '../../constants/constants';
-import { Control, Form, actions} from 'react-redux-form';
+import { Control, Form, actions, Errors} from 'react-redux-form';
 import { findByIdAsync,deleteAsync,validateUserAsync} from '../../actions/actionCreators/facilityDataActionCreators';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import Feedback from '../../utils/Feedback';
 import inputTypes from '../../forms/inputTypes';
+
 
 /* React-bootstrap */
 import { Button, Col, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap/lib';
@@ -47,30 +48,39 @@ class CommonAdminForms extends React.Component {
         this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
     }
 
+
     //if updatedId has value fetch the data from backend
     //otherwise show empty insert form
     newOrUpdate(table,updateId){
         //let state = {serverError: {}};
+        let currentPath = window.location.pathname + window.location.hash.substr(2);
+        // if (currentPath.endsWith('/new')) {
+        //     store.dispatch(actions.reset(this.modelName));
+
         if (this.props.updateId) {
 
-            let future = store.dispatch(findByIdAsync(table, updateId));
-            //state = Object.assign(state, {submissionError: false, submissionFuture: future});
-            //let model= adminData[table].model;
+                let future = store.dispatch(findByIdAsync(table, updateId));
 
-            future
-                .done((data) => {
-                    console.log(data);
-                    this.setState({username: data.login});
-                    store.dispatch(actions.merge(this.modelName,data));
-                });
+                future
+                    .done((data) => {
+                        console.log(data);
+                        //this.setState({username: data.login});
+                        store.dispatch(actions.merge(this.modelName, data));
+                    });
 
-        } else {
+        }
+        else {
             //empty the admin forms
             store.dispatch(actions.reset(this.modelName));
         }
+
     }
 
     componentWillMount() {
+        console.log("aaa");
+
+        this.newOrUpdate(this.table,this.props.updateId);
+
         if (this.table === tableNames.RUN_TYPES_LENGTHS) {
             let runtypeList = store.getState().options[optionsStoreKeys.RUN_TYPES];
             let readlengthList = store.getState().options[optionsStoreKeys.READ_LENGTHS];
@@ -155,8 +165,12 @@ class CommonAdminForms extends React.Component {
 
         }
 
-        this.newOrUpdate(this.table,this.props.updateId);
     }
+    // componentWillReceiveProps() {
+    //     console.log("bbb")
+    //     //this.newOrUpdate(this.table,this.props.updateId);
+    // }
+
     componentWillReceiveProps() {
         this.newOrUpdate(this.table,this.props.updateId);
     }
@@ -253,6 +267,7 @@ class CommonAdminForms extends React.Component {
     formatterPeople(v) { return [v.id, v.lastName +" - "+ v.firstName]; }
     formatterLabortory(v) { return [v.id, v.lastName + "  " + v.firstName]; }
 
+
     makeInput(s) {
         let input;
         if (s.type === inputTypes.CHECKBOX) {
@@ -266,17 +281,30 @@ class CommonAdminForms extends React.Component {
             // Use React-bootstrap FormControl as custom Control component:
             // https://davidkpiano.github.io/react-redux-form/docs/guides/custom-controls.html
             // First we map the react-redux forms props to the react-bootstrap props:
-            const BSTextInput = (props) => <FormControl {...props} />;
+            const BSTextInput = (props) => <FormControl  {...props} />;
             // Then we just pass this in the 'component' prop of react-redux-forms' Control.
+            //const isRequired = s.required? (return "required: (val) => val && val.length ):
 
-            input =
-                <Control
-                    className={admincss.input}
-                    component={BSTextInput}
-                    model={".".concat(s.name)}
-                    disabled={!this.state.isInsert}
-                    required = {s.required}
-                />;
+            input = <div>
+                        <Control
+                            className={admincss.input}
+                            component={BSTextInput}
+                            model={".".concat(s.name)}
+                            disabled={!this.state.isInsert}
+                            //required = {s.required}
+                            validators= {{
+                                isRequired:(s.required)? (val)=> val && val.length : null}}
+
+                        />
+                        <Errors
+                            className = {admincss.errors}
+                            model={".".concat(s.name)}
+                            show="touched"
+                            messages={{
+                                isRequired: 'This field is required',
+                            }}
+                        />
+                    </div>
         } else if (s.type === inputTypes.DROPDOWN) {
             let options;
             if (s.name ==="runTypeId") {
@@ -304,12 +332,26 @@ class CommonAdminForms extends React.Component {
 
             const BSSelect = (props) => <FormControl componentClass= "select" {...props} />;
 
-            input = <Control.select model={".".concat(s.name)}
-                                    component={BSSelect}
-                                    disabled={!this.state.isInsert}
-                                    required={s.required} >
-                            {options}
-                    </Control.select>
+            input = <div>
+                        <Control.select model={".".concat(s.name)}
+                                        component={BSSelect}
+                                        disabled={!this.state.isInsert}
+                                        //required={s.required}
+                                        validators= {{
+                                            isRequired:(s.required)? (val)=> val !== "" : null}}
+                        >
+
+                                {options}
+                        </Control.select>
+                        <Errors
+                            className = {admincss.errors}
+                            model={".".concat(s.name)}
+                            show="touched"
+                            messages={{
+                                isRequired: 'Please select an option for this field.',
+                            }}
+                        />
+                    </div>
         }
 
         return input;
@@ -322,7 +364,7 @@ class CommonAdminForms extends React.Component {
         //                     (Object.keys(this.state.serverError).length > 0 ? constants.SERVER_ERROR : ""));
         // let error = this.state.serverError;
         return (
-            <Form model={this.modelName} className={css.form} onSubmit={this.handleSubmit.bind(this)}>
+            <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
 
                 <Feedback reference={this.modelName} />
 
