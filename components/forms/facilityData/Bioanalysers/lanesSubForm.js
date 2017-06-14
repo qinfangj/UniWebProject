@@ -42,7 +42,7 @@ class LanesSubForm extends React.PureComponent {
     }
 
     makeInputs(laneNb) {
-        let modelName = `${this.formModelName}.lanes.${laneNb}`;
+        let modelName = `${this.formModelName}.lanes[${laneNb}]`;
         /* Construct the project-library-volume-quality inputs for one Library row */
         let inputs = [];
         for (let fieldName of Object.keys(this.model)) {

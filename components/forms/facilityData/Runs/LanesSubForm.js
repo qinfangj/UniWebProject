@@ -331,6 +331,12 @@ const mapStateToProps = (state) => {
     let options = forms.optionsFromModel(state, runLanesModel.lib);
     let poolOptions = forms.optionsFromModel(state, poolSelectionModel);
     options = {...options, ...poolOptions};
+    for (let field of Object.keys(poolSelectionModel)) {
+        let model = poolSelectionModel[field];
+        if (model.optionsKey) {
+            options[model.optionsKey] = state.options[model.optionsKey] || [];
+        }
+    }
     let formData = state.facilityDataForms.runs;
     return {
         lanes: formData.lanes,
