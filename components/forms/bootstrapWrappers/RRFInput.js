@@ -60,8 +60,8 @@ export default class RRFInput extends React.PureComponent {
                     className={formsCss.input}
                     component={component}
                     model={modelName}
-                    required={required}
-                    validators={validators}
+                    //required={required}
+                    validators={required ? {...validators, isRequired: (val) => val && val.length} : validators}
                     errors={errors}
                     updateOn={updateOn || "change"}
                     validateOn={validateOn || "change"}
@@ -72,8 +72,8 @@ export default class RRFInput extends React.PureComponent {
                 <Errors
                     className={css.errors}
                     model={modelName}
-                    show={true}
-                    messages={errorMessages || {required: "Required"}}
+                    show="touched"
+                    messages={errorMessages || {isRequired: "Required"}}
                 />
             </div>
         );
