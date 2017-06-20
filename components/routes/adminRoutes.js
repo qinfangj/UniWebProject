@@ -1,6 +1,7 @@
 "use strict";
 import React from 'react';
 import CommonTable from '../tables/facilityData/CommonTable';
+import CommonTable2 from '../tables/facilityData/CommonTable2';
 import CommonAdminForms from '../forms/adminData/CommonAdminForms';
 import adminDataColumns from '../tables/adminData/columns';
 import tableNames from '../tables/tableNames';
@@ -23,7 +24,8 @@ export class LimsUsersListRoute extends React.Component {
     render() {
         return (
             <AdminData title="LIMS Users" name="users" content={
-                <CommonTable dataStoreKey={tableNames.USERS} table={tableNames.USERS} columns={adminDataColumns[tableNames.USERS]} />
+                <CommonTable2 dataStoreKey={tableNames.USERS} table={tableNames.USERS}
+                              domain="admin" name="users" columns={adminDataColumns[tableNames.USERS]} />
             }/>
         );
     }
@@ -56,7 +58,8 @@ export class AnalysisTypeListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Analysis Types" name="analysis_types" content={
-                <CommonTable dataStoreKey={tableNames.ANALYSIS_TYPES} table={tableNames.ANALYSIS_TYPES} columns={adminDataColumns[tableNames.ANALYSIS_TYPES]} />
+                <CommonTable2 dataStoreKey={tableNames.ANALYSIS_TYPES} table={tableNames.ANALYSIS_TYPES}
+                              domain="admin" name="analysis_types" columns={adminDataColumns[tableNames.ANALYSIS_TYPES]} />
             } />
         );
     }
@@ -86,7 +89,8 @@ export class FlowcellTypesListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Flowcell Types" name="flowcell_types" content={
-                <CommonTable dataStoreKey={tableNames.FLOWCELL_TYPES} table={tableNames.FLOWCELL_TYPES} columns={adminDataColumns[tableNames.FLOWCELL_TYPES]} />
+                <CommonTable2 dataStoreKey={tableNames.FLOWCELL_TYPES} table={tableNames.FLOWCELL_TYPES}
+                              domain="admin" name="flowcell_types" columns={adminDataColumns[tableNames.FLOWCELL_TYPES]} />
             } />
         );
     }
@@ -116,7 +120,8 @@ export class InstrumentsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Instruments" name="instruments" content={
-                <CommonTable dataStoreKey={tableNames.INSTRUMENTS} table={tableNames.INSTRUMENTS} columns={adminDataColumns[tableNames.INSTRUMENTS]} />
+                <CommonTable2 dataStoreKey={tableNames.INSTRUMENTS} table={tableNames.INSTRUMENTS}
+                              domain="admin" name="instruments" columns={adminDataColumns[tableNames.INSTRUMENTS]} />
             } />
         );
     }
@@ -146,7 +151,8 @@ export class libAdaptersListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Library Adapters" name="library_adapters" content={
-                <CommonTable dataStoreKey={tableNames.LIBRARY_ADAPTERS} table={tableNames.LIBRARY_ADAPTERS} columns={adminDataColumns[tableNames.LIBRARY_ADAPTERS]} />
+                <CommonTable2 dataStoreKey={tableNames.LIBRARY_ADAPTERS} table={tableNames.LIBRARY_ADAPTERS}
+                              domain="admin" name="library_adapters" columns={adminDataColumns[tableNames.LIBRARY_ADAPTERS]} />
             } />
         );
     }
@@ -176,7 +182,8 @@ export class libProtocolsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Library Protocols" name="library_protocols" content={
-                <CommonTable dataStoreKey={tableNames.LIB_PROTOCOLS} table={tableNames.LIB_PROTOCOLS} columns={adminDataColumns[tableNames.LIB_PROTOCOLS]} />
+                <CommonTable2 dataStoreKey={tableNames.LIB_PROTOCOLS} table={tableNames.LIB_PROTOCOLS}
+                              domain="admin" name="library_protocols" columns={adminDataColumns[tableNames.LIB_PROTOCOLS]} />
             } />
         );
     }
@@ -206,7 +213,8 @@ export class libStatesListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Library States" name="library_states" content={
-                <CommonTable dataStoreKey={tableNames.LIBRARY_STATES} table={tableNames.LIBRARY_STATES} columns={adminDataColumns[tableNames.LIBRARY_STATES]} />
+                <CommonTable2 dataStoreKey={tableNames.LIBRARY_STATES} table={tableNames.LIBRARY_STATES}
+                              domain="admin" name="library_states" columns={adminDataColumns[tableNames.LIBRARY_STATES]} />
             } />
         );
     }
@@ -236,7 +244,8 @@ export class mappingToolsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Mapping Tools" name="mapping_tools" content={
-                <CommonTable dataStoreKey={tableNames.MAPPING_TOOLS} table={tableNames.MAPPING_TOOLS} columns={adminDataColumns[tableNames.MAPPING_TOOLS]} />
+                <CommonTable2 dataStoreKey={tableNames.MAPPING_TOOLS} table={tableNames.MAPPING_TOOLS}
+                              domain="admin" name="mapping_tools" columns={adminDataColumns[tableNames.MAPPING_TOOLS]} />
             } />
         );
     }
@@ -266,7 +275,8 @@ export class multiplexIndexesListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Multiplex Indexes" name="multiplex_indexes" content={
-                <CommonTable dataStoreKey={tableNames.MULTIPLEX_INDEXES} table={tableNames.MULTIPLEX_INDEXES} columns={adminDataColumns[tableNames.MULTIPLEX_INDEXES]} />
+                <CommonTable2 dataStoreKey={tableNames.MULTIPLEX_INDEXES} table={tableNames.MULTIPLEX_INDEXES}
+                              domain="admin" name="multiplex_indexes" columns={adminDataColumns[tableNames.MULTIPLEX_INDEXES]} />
             } />
         );
     }
@@ -296,7 +306,8 @@ export class pipelineVersionListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Pipeline Versions" name="pipeline_versions" content={
-                <CommonTable dataStoreKey={tableNames.PIPELINE_VERSIONS} table={tableNames.PIPELINE_VERSIONS} columns={adminDataColumns[tableNames.PIPELINE_VERSIONS]} />
+                <CommonTable2 dataStoreKey={tableNames.PIPELINE_VERSIONS} table={tableNames.PIPELINE_VERSIONS}
+                              domain="admin" name="pipeline_versions" columns={adminDataColumns[tableNames.PIPELINE_VERSIONS]} />
             } />
         );
     }
@@ -326,7 +337,8 @@ export class projectAnalysisListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Project Analysis" name="project_analysis" content={
-                <CommonTable dataStoreKey={tableNames.PROJECT_ANALYSIS} table={tableNames.PROJECT_ANALYSIS} columns={adminDataColumns[tableNames.PROJECT_ANALYSIS]} />
+                <CommonTable2 dataStoreKey={tableNames.PROJECT_ANALYSIS} table={tableNames.PROJECT_ANALYSIS}
+                              domain="admin" name="project_analysis" columns={adminDataColumns[tableNames.PROJECT_ANALYSIS]} />
             } />
         );
     }
@@ -356,7 +368,8 @@ export class projectStatesListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Project States" name="project_states" content={
-                <CommonTable dataStoreKey={tableNames.PROJECT_STATES} table={tableNames.PROJECT_STATES} columns={adminDataColumns[tableNames.PROJECT_STATES]} />
+                <CommonTable dataStoreKey={tableNames.PROJECT_STATES} table={tableNames.PROJECT_STATES}
+                             domain="admin" name="project_states" columns={adminDataColumns[tableNames.PROJECT_STATES]} />
             } />
         );
     }
@@ -386,7 +399,8 @@ export class quantifMethodsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Quantification Methods" name="quantif_methods" content={
-                <CommonTable dataStoreKey={tableNames.QUANTIF_METHODS} table={tableNames.QUANTIF_METHODS} columns={adminDataColumns[tableNames.QUANTIF_METHODS]} />
+                <CommonTable2 dataStoreKey={tableNames.QUANTIF_METHODS} table={tableNames.QUANTIF_METHODS}
+                              domain="admin" name="quantif_methods" columns={adminDataColumns[tableNames.QUANTIF_METHODS]} />
             } />
         );
     }
@@ -416,7 +430,8 @@ export class readLengthsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Read Lengths" name="read_lengths" content={
-                <CommonTable dataStoreKey={tableNames.READ_LENGTHS} table={tableNames.READ_LENGTHS} columns={adminDataColumns[tableNames.READ_LENGTHS]} />
+                <CommonTable2 dataStoreKey={tableNames.READ_LENGTHS} table={tableNames.READ_LENGTHS}
+                              domain="admin" name="read_lengths" columns={adminDataColumns[tableNames.READ_LENGTHS]} />
             } />
         );
     }
@@ -446,7 +461,8 @@ export class runTypesListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Run Types" name="run_types" content={
-                <CommonTable dataStoreKey={tableNames.RUN_TYPES} table={tableNames.RUN_TYPES} columns={adminDataColumns[tableNames.RUN_TYPES]} />
+                <CommonTable dataStoreKey={tableNames.RUN_TYPES} table={tableNames.RUN_TYPES}
+                             domain="admin" name="run_types" columns={adminDataColumns[tableNames.RUN_TYPES]} />
             } />
         );
     }
@@ -476,7 +492,8 @@ export class runTypesLengthsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Run Types Lengths" name="run_types_lengths" content={
-                <CommonTable dataStoreKey={tableNames.RUN_TYPES_LENGTHS} table={tableNames.RUN_TYPES_LENGTHS} columns={adminDataColumns[tableNames.RUN_TYPES_LENGTHS]} />
+                <CommonTable dataStoreKey={tableNames.RUN_TYPES_LENGTHS} table={tableNames.RUN_TYPES_LENGTHS}
+                             domain="admin" name="run_types_lengths" columns={adminDataColumns[tableNames.RUN_TYPES_LENGTHS]} />
             } />
         );
     }
@@ -506,7 +523,8 @@ export class sampleTypesListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Sample Types" name="sample_types" content={
-                <CommonTable dataStoreKey={tableNames.SAMPLE_TYPES} table={tableNames.SAMPLE_TYPES} columns={adminDataColumns[tableNames.SAMPLE_TYPES]} />
+                <CommonTable2 dataStoreKey={tableNames.SAMPLE_TYPES} table={tableNames.SAMPLE_TYPES}
+                             domain="admin" name="sample_types" columns={adminDataColumns[tableNames.SAMPLE_TYPES]} />
             } />
         );
     }
@@ -536,7 +554,8 @@ export class seqKitVersionListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Sequencing Kit Versions" name="sequencing_kit_versions" content={
-                <CommonTable dataStoreKey={tableNames.SEQUENCING_KIT_VERSIONS} table={tableNames.SEQUENCING_KIT_VERSIONS} columns={adminDataColumns[tableNames.SEQUENCING_KIT_VERSIONS]} />
+                <CommonTable2 dataStoreKey={tableNames.SEQUENCING_KIT_VERSIONS} table={tableNames.SEQUENCING_KIT_VERSIONS}
+                              domain="admin" name="sequencing_kit_versions" columns={adminDataColumns[tableNames.SEQUENCING_KIT_VERSIONS]} />
             } />
         );
     }
@@ -566,7 +585,8 @@ export class seqQualitiesListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Sequencing Qualities" name="sequencing_qualities" content={
-                <CommonTable dataStoreKey={tableNames.SEQUENCING_QUALITIES} table={tableNames.SEQUENCING_QUALITIES} columns={adminDataColumns[tableNames.SEQUENCING_QUALITIES]} />
+                <CommonTable2 dataStoreKey={tableNames.SEQUENCING_QUALITIES} table={tableNames.SEQUENCING_QUALITIES}
+                              domain="admin" name="sequencing_qualities" columns={adminDataColumns[tableNames.SEQUENCING_QUALITIES]} />
             } />
         );
     }
@@ -596,7 +616,8 @@ export class taxonomiesListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Taxonomies" name="taxonomies" content={
-                <CommonTable dataStoreKey={tableNames.TAXONOMIES} table={tableNames.TAXONOMIES} columns={adminDataColumns[tableNames.TAXONOMIES]} />
+                <CommonTable2 dataStoreKey={tableNames.TAXONOMIES} table={tableNames.TAXONOMIES}
+                              domain="admin" name="taxonomies" columns={adminDataColumns[tableNames.TAXONOMIES]} />
             } />
         );
     }
@@ -626,7 +647,10 @@ export class projectSharingsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Project Sharings" name="project_sharings" content={
-                <CommonTable dataStoreKey={tableNames.PROJECT_SHARINGS} table={tableNames.PROJECT_SHARINGS} columns={adminDataColumns[tableNames.PROJECT_SHARINGS]} />
+                <CommonTable2 dataStoreKey={tableNames.PROJECT_SHARINGS} table={tableNames.PROJECT_SHARINGS}
+                             domain="admin" name="project_sharings" columns={adminDataColumns[tableNames.PROJECT_SHARINGS]} />
+                //<CommonTable dataStoreKey={tableNames.PROJECT_SHARINGS} table={tableNames.PROJECT_SHARINGS}
+                                //columns={adminDataColumns[tableNames.PROJECT_SHARINGS]} />
             }/>
         );
     }
