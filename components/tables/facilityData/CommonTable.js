@@ -48,6 +48,7 @@ class CommonTable extends React.PureComponent {
     };
 
     componentWillMount() {
+
         // Can try to cache that result, but do it properly so that for instance it still understands active or not
         this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerQuery, 0, null, null)
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
