@@ -12,6 +12,7 @@ import { requestProjectsHavingALibrary } from '../../../actions/actionCreators/o
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import bioanalysersLaneModel from '../formModels/bioanalysersLaneModel';
 import * as forms from '../../forms';
+import fields from '../../../constants/fields';
 
 import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';
@@ -93,8 +94,47 @@ class LanesSubForm extends React.PureComponent {
         );
     }
 
-    addLane() {
+    /**
+     * Return a new empty lane model object.
+     */
+    makeLane(laneNb, comment) {
+        return {
+            [laneNb]: {
+                [fields.PROJECT_ID]: "",
+                [fields.LIBRARY_ID]: "",
+                [fields.COMMENT]: comment || "",
+            }
+        };
+    }
 
+    /**
+     * Add one lane row to the table.
+     */
+    addLane() {
+        let laneNb = 0;
+        if (Object.keys(this.props.lanes).length === 0) {
+            laneNb = 1;
+        } else {
+            /* Find the min positive integer that is not contained in laneNbs */
+            let laneNbs = new Set(Object.keys(this.props.lanes).map(x => parseInt(x)));
+            let max = Math.max(...laneNbs);
+            for (let k=1; k < max; k++) {
+                if (! laneNbs.has(k)) {
+                    laneNb = k;
+                }
+            }
+            if (laneNb === 0) {
+                laneNb = max + 1;
+            }
+        }
+        store.dispatch(actions.merge(this.formModelName+'.lanes', this.makeLane(laneNb)));
+    }
+
+    /**
+     * Remove a lane.
+     */
+    removeLane(laneNb) {
+        store.dispatch(actions.omit(this.formModelName+'.lanes', laneNb));
     }
 
     render() {
