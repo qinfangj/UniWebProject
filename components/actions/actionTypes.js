@@ -35,6 +35,7 @@ const actionTypes = {
         SELECT: "SELECT",
         INSERT: "INSERT",
         DELETE: "DELETE",
+        INSERT_BIOANALYSER_PDF: "INSERT_BIOANALYSER_PDF",
         IGNORE_CACHED: "IGNORE_CACHED",
         FIND_BY_ID: "FIND_BY_ID",
         GET_TABLE_DATA: "GET_TABLE_DATA",
