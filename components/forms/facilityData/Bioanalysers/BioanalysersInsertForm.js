@@ -8,13 +8,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import { feedbackWarning } from '../../../actions/actionCreators/feedbackActionCreators';
-import { insertBioanalyserPdf } from '../../../actions/actionCreators/facilityDataActionCreators';
 
 import formNames from '../../../constants/formNames';
-import downloadPdf from '../../../../utils/downloadPdf';
 import bioanalysersModel from '../formModels/bioanalysersModel';
 import * as forms from '../../forms.js';
-import fields from '../../../constants/fields';
 
 import LanesSubForm from './LanesSubForm';
 import { Form } from 'react-redux-form';
@@ -40,30 +37,6 @@ class BioanalysersInsertForm extends React.PureComponent {
         if (this.props.updateId) {
             this.setState({ disabled: true });
             RestService.bioanalyserPdf(this.props.updateId).then((b64) => {
-                // let blob = b64.replace(/^[^,]+,/, '');
-                // let blob = b64.replace("data:application/pdf;base64,", "");
-                // blob = blob.replace(/\s/g, '');
-
-                // let formData = atob(b64);
-                // console.log(formData.slice(0,200));
-                // let file = new Blob([formData], {type: 'application/pdf'});
-
-                // let URL = window.URL || window.webkitURL;
-                // let downloadUrl = URL.createObjectURL(file);
-                // let downloadLink      = document.createElement('a');
-                // downloadLink.target   = '_blank';
-                // downloadLink.download = "bioanlyser.pdf";
-                // // set object URL as the anchor's href
-                // downloadLink.href = downloadUrl;
-                // // append the anchor to document body
-                // document.body.append(downloadLink);
-                // // fire a click event on the anchor
-                // downloadLink.click();
-                // // cleanup: remove element and revoke object URL
-                // document.body.removeChild(downloadLink);
-                // URL.revokeObjectURL(downloadUrl);
-
-                // let fileURL = window.URL.createObjectURL(file);
                 this.setState({ bioanalyserUrl: b64 })
             });
         }
@@ -80,22 +53,6 @@ class BioanalysersInsertForm extends React.PureComponent {
             this.props.requestLibrariesForProject(projectModelName, lane.projectId);
         }
     }
-
-    // testFileInput() {
-    //     let file = this.fileInput.files[0];
-    //     let reader = new FileReader();
-    //     reader.readAsBinaryString(file);
-    //     reader.onload = () => {
-    //         let b64 = btoa(reader.result);
-    //         // console.log(base64.slice(200));
-    //         // downloadPdf(file);
-    //         let blob = atob(b64);
-    //         let file = new Blob([blob], {type: 'application/pdf'});
-    //         // window.open(file)
-    //         let fileURL = window.URL.createObjectURL(file);
-    //         this.setState({ bioanalyserUrl: fileURL })
-    //     };
-    // }
 
     /**
      * Cast numeric values before we can submit. RRF apparently uses only strings and booleans.
@@ -120,19 +77,6 @@ class BioanalysersInsertForm extends React.PureComponent {
     onSubmit(values) {
         if (this.fileInput.files.length > 0) {
             let file = this.fileInput.files[0];
-
-            // let fd = new FormData();
-            // fd.append('file', file);
-
-            // let insertData = this.formatInsertData(values);
-            // let validation = forms.validateFormDefault(insertData);
-            // if (validation.isValid) {
-            //     insertData.file = btoa(fd);
-            //     insertData.filename = this.fileInput.value;
-            //     // let onSuccess = (insertedId) => this.props.insertBioanalyserPdf(fd, insertedId);
-            //     forms.submitForm(this.modelName, insertData, this.table, this.form)
-            // }
-
             let reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
@@ -146,7 +90,6 @@ class BioanalysersInsertForm extends React.PureComponent {
                     this.props.feedbackWarning(this.form, validation.message);
                 }
             }
-
         } else {
             this.props.feedbackWarning(this.form, "Bioanalyser file is required");
         }
@@ -174,14 +117,14 @@ class BioanalysersInsertForm extends React.PureComponent {
             );
         }
 
-        // console.log(333, downloadLink, this.state.bioanalyserUrl)
-
         return (
             <div>
 
                 <Feedback reference={this.form} />
 
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
+
+                    {/* File input */}
 
                     <Col sm={4}>
                         <label style={{paddingTop: "7px"}}>
@@ -192,7 +135,6 @@ class BioanalysersInsertForm extends React.PureComponent {
                             type="file" required disabled={this.state.disabled}
                             ref = {c => {this.fileInput = c;}}
                         />
-                        {/*<Button onClick={this.testFileInput.bind(this)}>Test file input</Button>*/}
                         {embeddedPdf}
                     </Col>
 
@@ -241,7 +183,6 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         feedbackWarning,
         requestLibrariesForProject,
-        insertBioanalyserPdf,
     }, dispatch);
 };
 
