@@ -25,7 +25,8 @@ const projectsModel = {
         label: "Code name",
         inputType: inputTypes.TEXT,
         required: true,
-        // validator = {validators.codeNameValidator}
+        validators: {codeName: validators.codeNameValidator},
+        errorMessages: {codeName: "[name]_[initials] Ex: Tcells_EG."},
         placeholder: "[name]_[initials] Ex: Tcells_EG."
     },
     [fields.projects.DESCRIPTION]: {
