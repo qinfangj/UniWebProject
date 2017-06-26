@@ -48,7 +48,6 @@ const genomesModel = {
         width: 10,
         label: "Comment",
         inputType: inputTypes.TEXT,
-        required: true,
     },
     [fields.genomes.IS_MASKED]: {
         width: 2,
