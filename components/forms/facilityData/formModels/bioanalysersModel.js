@@ -7,17 +7,14 @@ import validators from '../../validators2';
 
 
 const bioanalysersModel = {
-    [fields.bioanalysers.BIOANALYSER_FILE]: {
-        width: 6,
-        label: "Bioanalyser file",   // "Replace ..." if insert
-        inputType: inputTypes.TEXT,
-        type: "file",
-        required: true,
-    },
     [fields.bioanalysers.BIOANALYSER_DATE]: {
-        width: 6,
-        label: "Pipeline version",
+        width: 3,
+        label: "Bioanalyser date",
         inputType: inputTypes.DATE,
+    },
+    "spacer": {
+        width: 4,
+        inputType: inputTypes.BLANK,
     },
     [fields.bioanalysers.DESCRIPTION]: {
         width: 12,

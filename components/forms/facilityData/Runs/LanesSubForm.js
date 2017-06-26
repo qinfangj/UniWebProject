@@ -11,6 +11,7 @@ import { requestProjectsHavingALibrary,
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import runLanesModel from '../formModels/runLanesModel';
 import poolSelectionModel from '../formModels/poolSelectionModel';
+import * as forms from '../../forms';
 
 import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';
@@ -327,13 +328,9 @@ class LanesSubForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = {};
-    for (let field of Object.keys(runLanesModel.lib)) {
-        let model = runLanesModel.lib[field];
-        if (model.optionsKey) {
-            options[model.optionsKey] = state.options[model.optionsKey] || [];
-        }
-    }
+    let options = forms.optionsFromModel(state, runLanesModel.lib);
+    let poolOptions = forms.optionsFromModel(state, poolSelectionModel);
+    options = {...options, ...poolOptions};
     for (let field of Object.keys(poolSelectionModel)) {
         let model = poolSelectionModel[field];
         if (model.optionsKey) {
