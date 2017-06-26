@@ -132,7 +132,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.samples.PROJECT_ID]: "",
             [fields.samples.TAXO_ID]: "",
             [fields.samples.SAMPLE_TYPE_ID]: "",
-            [fields.samples.RECEIVED_DATE]: dateNow(),
+            [fields.samples.RECEIVED_DATE]: "", //dateNow(),
             [fields.samples.QUANTIF_METHOD_ID]: "",
             [fields.samples.CONCENTRATION]: "",
             [fields.samples.VOLUME]: "",

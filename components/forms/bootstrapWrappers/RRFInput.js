@@ -79,7 +79,7 @@ export default class RRFInput extends React.PureComponent {
                     className={css.errors}
                     model={modelName}
                     show="touched"
-                    messages={errorMessages || {isRequired: "Required"}}
+                    messages={required ? {...errorMessages, isRequired: "Required"} : errorMessages}
                 />
             </div>
         );

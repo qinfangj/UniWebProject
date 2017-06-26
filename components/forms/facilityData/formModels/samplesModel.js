@@ -48,7 +48,6 @@ const samplesModel = {
         inputType: inputTypes.DATE,
         type: "date",
         label: "Received date",
-        required: true,
     },
     [fields.samples.QUANTIF_METHOD_ID]: {
         width: 3,
@@ -94,6 +93,10 @@ const samplesModel = {
         width: 12,
         inputType: inputTypes.TEXT,
         label: "General description",
+        placeholder: "e.g. 'Crosslinked ChIP DNA from NIH-3T3 cells'",
+        validators: {desc: validators.descriptionValidator},
+        errorMessages: {desc: "Description must be at least 3 words."},
+        required: true,
     },
     [fields.samples.COMMENT_CUSTOMER]: {
         width: 12,
