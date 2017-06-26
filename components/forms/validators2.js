@@ -24,7 +24,7 @@ class Validators {
 
     /** 2-10 characters. */
     shortStringValidator(v) {
-        let valid = /^[\w ]{2,10}$/.test(trimmed(v));
+        let valid = v === "" || /^[\w ]{2,10}$/.test(trimmed(v));
         return valid;
     }
 
@@ -34,9 +34,9 @@ class Validators {
         return valid;
     }
 
-    /** Description must be at least 3 words. */
+    /** Description must be empty or have at least 3 words. */
     descriptionValidator(v) {
-        let valid = trimmed(v).split(" ").length >= 3;
+        let valid = v === "" || trimmed(v).split(" ").length >= 3;
         return valid;
     }
 

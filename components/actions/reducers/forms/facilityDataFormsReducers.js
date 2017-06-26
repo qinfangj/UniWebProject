@@ -90,7 +90,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.projects.CODE_NAME]: "",
             [fields.projects.DESCRIPTION]: "",
             [fields.projects.PROJECT_STATE_ID]: "",
-            [fields.projects.USER_MEETING_DATE]: dateNow(),
+            [fields.projects.USER_MEETING_DATE]: "", // dateNow(),
             [fields.projects.PROJECT_ANALYSIS_ID]: "",
             [fields.projects.IS_CONTROL]: false,
             [fields.projects.COMMENT]: "",

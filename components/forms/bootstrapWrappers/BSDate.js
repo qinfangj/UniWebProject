@@ -7,8 +7,8 @@ import { DEFAULT_DATE } from '../inputTypes';
 
 export default class BSDate extends React.PureComponent {
     render() {
-        let {label, submissionError, value, ...inputProps} = this.props;
-        let title = makeLabel(label, this.props.required);
+        let {label, isRequired, submissionError, value, ...inputProps} = this.props;
+        let title = makeLabel(label, isRequired);
         let validationState = submissionError ? "error" : this.props.validationState;
         value = value || "";
 

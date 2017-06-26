@@ -7,8 +7,8 @@ import { FormGroup, FormControl } from 'react-bootstrap/lib';
 export default class BSSelect extends React.PureComponent {
 
     render() {
-        let {value, options, label, submissionError, hasNoneValue, ...inputProps} = this.props;
-        let title = makeLabel(label, this.props.required);
+        let {value, isRequired, options, label, submissionError, hasNoneValue, ...inputProps} = this.props;
+        let title = makeLabel(label, isRequired);
         let validationState = submissionError ? "error" : this.props.validationState;
 
         let opts = options ? options.map((v,i) => {

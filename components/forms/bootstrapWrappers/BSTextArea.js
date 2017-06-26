@@ -6,8 +6,8 @@ import { FormGroup, FormControl } from 'react-bootstrap/lib';
 
 export default class BSTextArea extends React.PureComponent {
     render() {
-        let {label, submissionError, value, ...inputProps} = this.props;
-        let title = makeLabel(label, this.props.required);
+        let {label, isRequired, submissionError, value, ...inputProps} = this.props;
+        let title = makeLabel(label, isRequired);
         let validationState = submissionError ? "error" : this.props.validationState;
         value = value || "";
 
