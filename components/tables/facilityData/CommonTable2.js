@@ -2,11 +2,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import Dimensions from 'react-dimensions';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import Immutable from 'immutable'
-import ReactDOM from 'react-dom';
-import { Column, Table, AutoSizer, SortIndicator, SortDirection} from 'react-virtualized';
+import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
 import '!!style!css!react-virtualized/styles.css'; // only needs to be imported once
 import { Link } from 'react-router';
 
@@ -14,7 +12,6 @@ import styles from './Table2.css'
 import adminColumns from '../../tables/adminData/columns';
 import facilityDataColumns from '../../tables/facilityData/columns';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
-import inputTypes from '../../forms/inputTypes';
 import * as tables from '../tables.js';
 import '../../../styles/colors.css';
 import cx from 'classnames';
@@ -22,7 +19,6 @@ import { idColumnWithUpdateLink,ROW_HEIGTH, GRID_HEIGTH } from '../columns';
 import css from '../tables.css';
 import Feedback from '../../utils/Feedback';
 import DataLoadingIcon from '../../utils/DataLoadingIcon';
-
 
 
 class CommonTable2 extends React.PureComponent {
@@ -43,14 +39,14 @@ class CommonTable2 extends React.PureComponent {
         };
 
         this.state = {
-            list: null,
+            list: [],
+            rowCount: 0,
             disableHeader: false,
             headerHeight: 30,
             height: 600,
             hideIndexRow: false,
             overscanRowCount: 10,
             rowHeight: 30,
-            rowCount: 500,
             scrollToIndex: undefined,
             sortBy: 'id',
             sortDirection: SortDirection.ASC,
@@ -58,11 +54,8 @@ class CommonTable2 extends React.PureComponent {
         };
 
         this._headerRenderer = this._headerRenderer.bind(this);
-        //this._noRowsRenderer = this._noRowsRenderer.bind(this);
-        //this._onRowCountChange = this._onRowCountChange.bind(this);
-        //this._rowClassName = this._rowClassName.bind(this);
         this._sort = this._sort.bind(this);
-        // this.handleScroll = this.handleScroll.bind(this);
+
     }
 
     static propTypes = {
@@ -79,41 +72,68 @@ class CommonTable2 extends React.PureComponent {
     };
 
     componentWillMount() {
-        console.log("willMount");
-        // Can try to cache that result, but do it properly so that for instance it still understands active or not
-        this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerQuery, 0, null, null)
-            .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
+         //display initial data table when the component is mounted
+         //Can try to cache that result, but do it properly so that for instance it still understands active or not
+         this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerQuery, 0, null, null)
+             .done((data) => {
+                let hasNextPage = data.length === this.nrowsPerQuery;
+                let newCount = hasNextPage ? data.length + 1 : data.length;
+                this.setState({list: data, rowCount: newCount})
+             })
+             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
     }
 
-    // componentDidMount() {
-    //     this.api && this.api.doLayout();  // recalculate layout to fill the container div
-    //     this.api && this.api.sizeColumnsToFit();  // recalculate columnsKey width to fill the space
-    // }
-    //
-    // componentWillUpdate() {
-    //     this.api && this.api.doLayout();  // recalculate layout to fill the container div
-    // }
 
-
+    //onSearch function need to be re-implemented
     onSearch(e) {
         let value = e.target.value;
-        this.api.setQuickFilter(value);
-        this.setState({searchValue: value});
+        // this.api.setQuickFilter(value);
+        // this.setState({searchValue: value});
     }
 
+    //reset function need to be re-implemented
     reset(){
-        this.api.setQuickFilter("");
+        //this.api.setQuickFilter("");
         this.setState({searchValue: ""});
     }
 
+    loadMoreRows({ startIndex, stopIndex }) {
+
+        let dataLength = this.state.list.length;
+
+        if (this.state.list.length % this.nrowsPerQuery === 0) {
+            console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
+            let limit = dataLength + this.nrowsPerQuery;
+            let offset = dataLength;
+
+                this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
+                    limit, offset, null, null)
+                    .done((data) => {
+                        let newList = this.state.list.concat(data);
+                        let hasNextPage = data.length % this.nrowsPerQuery === 0;
+                        let newCount = hasNextPage ? newList.length + 1 : newList.length;
+                        this.setState({list: newList, rowCount: newCount })
+                    });
+
+        }
+    }
+
+    isRowLoaded({ index }) {
+        //console.log(`isRowLoaded (${index < this.state.list.length})`);
+        return index < this.state.list.length;
+    }
+
+    // Empty the list and set row count to 1 to enable infinite scroll
+    // I think we should reset memoizer here.
+    resetList() {
+        this.setState({list: [], rowCount: 1});
+    }
 
     getColumns(width, list){
-        //let namesForColumns = facilityDataColumns[this.props.table];
-        //console.log(this.props.domain);
+
         let namesForColumns;
         if (this.props.domain === "data") {
             namesForColumns = facilityDataColumns[this.props.table];
-            console.log(namesForColumns);
         }
         else if (this.props.domain === "admin") {
             namesForColumns = adminColumns[this.props.table];
@@ -131,9 +151,6 @@ class CommonTable2 extends React.PureComponent {
                                    dataKey={s.field}
                                    width={40}
                                    cellRenderer={this._idColumnLink.bind(this)}
-                                   //cellDataGetter={
-                                   //   ({ columnData, dataKey, rowData }) => {console.log(rowData.id)}
-                                   //}
                                    disableSort= {false}
                     />;
                 } else {
@@ -141,8 +158,6 @@ class CommonTable2 extends React.PureComponent {
                                    label={s.headerName}
                                    dataKey={s.field}
                                    disableSort={false}
-                                   //sortBy={this.state.sortBy}
-                                   //sortDirection={this.state.sortDirection}
                                    headerRenderer={this._headerRenderer}
                                    width={columnWidth}
 
@@ -152,36 +167,8 @@ class CommonTable2 extends React.PureComponent {
 
             return node
         });
-        //let namesForColumns = Object.keys(data[0]);
-        //  return namesForColumns.map( name => {
-        //      return (
-        //          <Column key={name}
-        //              label={name}
-        //              dataKey={name}
-        //              width={columnWidth}
-        //          />
-        //      )
-        //  })
+
      }
-
-
-    // handleScroll(){
-    //     // not a very nice way to make use of <b> tags in data
-    //     let dom = ReactDOM.findDOMNode(this);
-    //     let all = dom.getElementsByClassName('ReactVirtualized__Table__rowColumn');
-    //     let texts = [].slice.call(all).filter( (text) => text.innerHTML.indexOf('&lt;') > -1);
-    //     texts.map( (el) => {
-    //         let text = el.innerHTML;
-    //         let newText = text.replace(/&lt;b&gt;/g, '').replace(/&lt;\/b&gt;/g, '');
-    //         el.innerHTML = newText;
-    //         el.style.fontWeight = 'bold';
-    //     })
-    // }
-    //
-    // componentDidMount(){
-    //     this.handleScroll();
-    // }
-
 
     _getDatum (list, index) {
         return list.get(index % list.size)
@@ -205,22 +192,6 @@ class CommonTable2 extends React.PureComponent {
         )
     }
 
-    // _noRowsRenderer () {
-    //     return (
-    //         <div className={styles.noRows}>
-    //             No rows
-    //         </div>
-    //     )
-    // }
-    //
-    // _rowClassName ({ index }) {
-    //     if (index < 0) {
-    //         return styles.headerRow
-    //     } else {
-    //         return index % 2 === 0 ? styles.evenRow : styles.oddRow
-    //     }
-    // }
-    // //
     _sort ({ sortBy, sortDirection }) {
         console.log(sortBy);
         console.log(sortDirection);
@@ -259,12 +230,21 @@ class CommonTable2 extends React.PureComponent {
 
     };
 
+    rowGetter({index}) {
+        if (!this.isRowLoaded({ index })) {
+            return {id: 'loading...'};
+        }
+        return this.state.list[index];
+    }
 
 // Render your table
 
     render() {
 
         let data = this.props.formatter(this.props.data);
+        //let data = this.props.formatter(this.state.list);
+        //console.log(data.length);
+        //console.log(this.state.rowCount);
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
@@ -298,7 +278,7 @@ class CommonTable2 extends React.PureComponent {
 
         let sortedList;
 
-        sortedList= list
+        sortedList = list
                 .sortBy(item => item.get(sortBy))
                 .update(list =>
                     sortDirection === SortDirection.DESC
@@ -306,38 +286,7 @@ class CommonTable2 extends React.PureComponent {
                         : list
                 );
 
-
-            //: list;
-
         const rowGetter = ({index}) => this._getDatum(sortedList, index);
-
-
-        const renderTable = ({height, width}) => {
-            return (
-
-                <Table
-                    width={width}
-                    height={height}
-                    disableHeader={disableHeader}
-                    headerClassName={styles.headerColumn}
-                    headerHeight={headerHeight}
-                    headerRowRenderer={this.headerRowRenderer}
-                    rowHeight={ROW_HEIGTH}
-                    noRowsRenderer={this._noRowsRenderer}
-                    rowGetter={rowGetter}
-                    //rowGetter={({index}) => data[index]}
-                    rowCount={data.length}
-                    sort={this._sort}
-                    sortBy={sortBy}
-                    sortDirection={sortDirection}
-                >
-
-                    {this.getColumns(width-40, list)}
-                </Table>
-
-
-            )
-        };
 
 
         return (
@@ -358,9 +307,40 @@ class CommonTable2 extends React.PureComponent {
                 }
 
                 <div className={styles.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
-                    <AutoSizer>
-                        {renderTable}
-                    </AutoSizer>
+                    <InfiniteLoader isRowLoaded={this.isRowLoaded.bind(this)}
+                                    loadMoreRows={this.loadMoreRows.bind(this)}
+                                    rowCount={this.state.rowCount}
+                                    threshold={10}>
+                        {({ onRowsRendered, registerChild }) => (
+                            <AutoSizer>
+                                {/*{renderTable}*/}
+                                {({ height, width }) => (
+                                        <Table
+                                            ref={registerChild}
+                                            width={width}
+                                            height={height}
+                                            disableHeader={disableHeader}
+                                            headerClassName={styles.headerColumn}
+                                            headerHeight={headerHeight}
+                                            headerRowRenderer={this.headerRowRenderer}
+                                            rowHeight={ROW_HEIGTH}
+                                            onRowsRendered={onRowsRendered}
+                                            noRowsRenderer={() => <div style={{textAlign: 'center'}}>No data</div>}
+                                            rowGetter={rowGetter}
+                                            //rowGetter={({index}) => data[index]}
+                                            //rowCount={data.length}
+                                            rowCount={this.state.rowCount}
+                                            sort={this._sort}
+                                            sortBy={sortBy}
+                                            sortDirection={sortDirection}
+                                        >
+
+                                            {this.getColumns(width-40, list)}
+                                        </Table>
+                                )}
+                            </AutoSizer>
+                        )}
+                    </InfiniteLoader>
                 </div>
                  <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} ></div>
 
@@ -396,5 +376,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(CommonTable2));
+export default connect(mapStateToProps, mapDispatchToProps)(CommonTable2);
+
 

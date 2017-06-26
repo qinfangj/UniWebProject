@@ -492,7 +492,7 @@ export class runTypesLengthsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Run Types Lengths" name="run_types_lengths" content={
-                <CommonTable dataStoreKey={tableNames.RUN_TYPES_LENGTHS} table={tableNames.RUN_TYPES_LENGTHS}
+                <CommonTable2 dataStoreKey={tableNames.RUN_TYPES_LENGTHS} table={tableNames.RUN_TYPES_LENGTHS}
                              domain="admin" name="run_types_lengths" columns={adminDataColumns[tableNames.RUN_TYPES_LENGTHS]} />
             } />
         );
