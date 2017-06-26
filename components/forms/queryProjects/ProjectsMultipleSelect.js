@@ -6,7 +6,7 @@ import { getConditionalOptionsListAsync } from '../../actions/actionCreators/for
 import { resetSelection, changeProjectsSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import constants from '../../constants/constants';
-import MultipleSelect from '../elements/MultipleSelect';
+import MultipleSelect from './MultipleSelect';
 
 
 
