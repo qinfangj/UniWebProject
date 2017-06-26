@@ -47,12 +47,14 @@ const librariesModel = {
         width: 2,
         label: "Library date",
         inputType: inputTypes.DATE,
+        required: true,
     },
     [fields.BIOANALYSER_PEAK]: {
         width: 2,
         label: "Bioanalyser peak",
         inputType: inputTypes.TEXT,
         type: "number",
+        rqeuired: true,
     },
     [fields.FRAG_SIZE_MIN]: {
         width: 2,
@@ -70,9 +72,10 @@ const librariesModel = {
     },
     [fields.CONCENTRATION]: {
         width: 2,
-        label: "Contentration",
+        label: "Concentration",
         inputType: inputTypes.TEXT,
         type: "number",
+        required: true,
     },
     [fields.QUANTIF_METHOD_ID]: {
         width: 2,
@@ -123,6 +126,7 @@ const librariesModel = {
         label: "Library state",
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.LIB_STATES,
+        required: true,
     },
     [fields.COMMENT_CUSTOMER]: {
         width: 10,
