@@ -42,38 +42,6 @@ export function newOrUpdate(modelName, table, updateId, onUpdated){
     }
 }
 
-
-/**
- * Get all field values for one form from the store, as an object {field: value}.
- * `value` is null if the field is not valid.
- */
-export function getFormData(form) {
-    let storedForm = store.getState().forms[form];
-    let storedValid = store.getState().forms[form]._isValid;
-    let formData = {};
-    for (let key of Object.keys(storedForm)) {
-        let valid = storedValid[key];
-        if (valid === false) {
-            formData[key] = null;
-            formData._isValid[key] = false;
-        } else {
-            let value = storedForm[key];
-            // Don't double escape multiline strings
-            if (typeof value === "string") {
-                value = value.replace("\\n", "\n");
-            }
-            formData[key] = value;
-        }
-        /* DON'T DO THIS:
-             formData[key] = valid ? storedForm[key] : null;
-           because if the value is null the key is added to the object (unlike undefined).
-           and we don't want to submit everything we get from a backend row, or things like '_valid'.
-        */
-    }
-    return formData;
-}
-
-
 /**
  *
  /**
@@ -156,7 +124,7 @@ export function validateFormDefault(values) {
 }
 
 
-/* CONSTRUCTION */
+/* FORMS CONSTRUCTION */
 
 
 /**
