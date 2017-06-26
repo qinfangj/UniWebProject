@@ -16,26 +16,31 @@ function trimmed(v) {
 
 class Validators {
 
+    /** Code name must be one word followed by an underscore, followed by PI initials. */
     codeNameValidator(v) {
         let valid = /^\w+_[a-zA-Z]{2}$/.test(trimmed(v));
         return valid;
     }
 
+    /** 2-10 characters. */
     shortStringValidator(v) {
         let valid = /^[\w ]{2,10}$/.test(trimmed(v));
         return valid;
     }
 
+    /** 0-30 characters. */
     mediumStringValidator(v) {
         let valid = /^[\w ]{0,30}$/.test(trimmed(v));
         return valid;
     }
 
+    /** Description must be at least 3 words. */
     descriptionValidator(v) {
         let valid = trimmed(v).split(" ").length >= 3;
         return valid;
     }
 
+    /** Lane number is one digit between 1 and 8. */
     laneNumberValidator(v) {
         let valid = true;
         if (! Number.isInteger(v)) {
@@ -44,6 +49,7 @@ class Validators {
         return valid;
     }
 
+    /** Must be an integer. */
     integerValidator(v) {
         let valid = true;
         if (! Number.isInteger(v)) {
@@ -52,6 +58,7 @@ class Validators {
         return valid;
     }
 
+    /** Must be a non-null integer. */
     positiveIntegerValidator(v) {
         let valid = true;
         if (! Number.isInteger(v)) {
@@ -63,17 +70,20 @@ class Validators {
     /**
      * Positive floats.
      */
+    // input type="number" should make this obsolete
     numberValidator(v) {
         let valid = isNumeric(trimmed(v));
         return valid;
     }
 
+    // input type="email" should make this obsolete
     emailValidator(v) {
         let regex = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/ ;
         let valid = regex.test(trimmed(v));
         return valid;
     }
 
+    // input type="phone" should make this obsolete (but it does not seem to work well)
     phoneValidator(v) {
         let regex = /^[0-9]{9,}$/ ;
         let stripped = trimmed(v).replace(/[+()\- ]*/g, "");

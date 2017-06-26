@@ -9,15 +9,17 @@ const samplesModel = {
         width: 4,
         inputType: inputTypes.TEXT,
         label: "Name",
-        //validator: {validators.mediumStringValidator}
+        validators: {mediumString: validators.mediumStringValidator},
+        errorMessages: {mediumString: "0-30 characters."},
         required: true,
     },
     [fields.samples.SHORT_NAME]: {
         width: 3,
         inputType: inputTypes.TEXT,
         label: "Short name",
+        validators: {mediumString: validators.shortStringValidator},
+        errorMessages: {mediumString: "2-10 characters."},
         required: true,
-        //validator: {validators.shortStringValidator}
     },
     [fields.samples.PROJECT_ID]: {
         width: 5,

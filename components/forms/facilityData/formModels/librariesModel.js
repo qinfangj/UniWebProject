@@ -27,7 +27,8 @@ const librariesModel = {
         label: "Name",
         inputType: inputTypes.TEXT,
         required: true,
-        // validator: validators.mediumStringValidator,
+        validators: {mediumString: validators.mediumStringValidator},
+        errorMessages: {mediumString: "0-30 characters."},
     },
     [fields.LIB_PROTOCOL_ID]: {
         width: 2,

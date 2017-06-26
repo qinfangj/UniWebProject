@@ -29,7 +29,8 @@ const userRequestsModel = {
         inputType: inputTypes.TEXT,
         type: "number",
         required: true,
-        //validator: {validators.integerValidator}
+        validators: {isInteger: validators.integerValidator},
+        errorMessages: {isInteger: "Must be an integer."},
     },
     [fields.user_requests.INSERT_SIZE_MAX]: {
         width: 2,
@@ -37,7 +38,8 @@ const userRequestsModel = {
         inputType: inputTypes.TEXT,
         type: "number",
         required: true,
-        //validator: {validators.integerValidator},
+        validators: {isInteger: validators.integerValidator},
+        errorMessages: {isInteger: "Must be an integer."},
     },
     [fields.user_requests.LIB_PROTOCOL_ID]: {
         width: 2,
@@ -50,7 +52,8 @@ const userRequestsModel = {
         label: "Multiplexing group",
         inputType: inputTypes.TEXT,
         required: true,
-        //validator: {validators.shortStringValidator},
+        validators: {mediumString: validators.shortStringValidator},
+        errorMessages: {mediumString: "2-10 characters."},
     },
     [fields.user_requests.RUN_TYPES_LENGTH_ID]: {
         width: 2,
@@ -64,15 +67,17 @@ const userRequestsModel = {
         label: "Number of lanes",
         inputType: inputTypes.TEXT,
         type: "number",
+        validators: {isInteger: validators.integerValidator},
+        errorMessages: {isInteger: "Must be an integer."},
         required: true,
-        //validator: {validators.integerValidator}
     },
     [fields.user_requests.MILLION_READS]: {
         width: 2,
         label: "Multiplex#",
         inputType: inputTypes.TEXT,
         type: "number",
-        // validator: {validators.integerValidator}
+        validators: {isInteger: validators.integerValidator},
+        errorMessages: {isInteger: "Must be an integer."},
     },
     [fields.user_requests.WITH_LIB_QC]: {
         width: 2,

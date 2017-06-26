@@ -6,8 +6,6 @@ import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import validators from '../../validators2';
 
 
-const intValidator = {isInteger: validators.integerValidator};
-
 const runsModel = {
     [fields.runs.GA_RUN_NUMBER]: {
         width: 2,
@@ -15,8 +13,8 @@ const runsModel = {
         type: "number",
         inputType: inputTypes.TEXT,
         required: true,
-        validators: intValidator,
-        errorMessages: {isInteger: "Must be an integer"}
+        validators: {isInteger: validators.integerValidator},
+        errorMessages: {isInteger: "Must be an integer."},
     },
     [fields.runs.FLOWCELL]: {
         width: 3,
