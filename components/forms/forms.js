@@ -73,65 +73,18 @@ export function getFormData(form) {
     return formData;
 }
 
-/**
- * Send the `formData` for insert or update of db `table`.
- * A custom formatter `formatFormData` can be given to transform the data before submission.
- * Return an object `{invalid: (bool), submissionError: (bool), submissionFuture: (Promise)}`.
- */
-export function submit(form, table, formatFormData=null) {
-    let formData = getFormData(form);
-    let fields = Object.keys(formData);
-    let submissionFuture = null;
-    // Check if some fields have an invalid value
-    let invalidFields = fields.filter(k => formData._isValid[k] === false);
-    // Print it with _isValid status, before formatting, and with invalid values set to null
-    console.info(JSON.stringify(formData, null, 2));
-    delete formData._isValid;
-    // Invalid form: don't submit, return an error
-    if (invalidFields.length !== 0) {
-        store.dispatch(feedbackWarning(form, "Some required fields are missing or ill-formatted. Please review the form and submit again."));
-// Valid form: format and send
-    } else {
-        //before submission show the dialoge for confirm
-        if (confirm("Are you sure that you want to submit the data?")) {
-            if (formatFormData) {
-                formData = formatFormData(formData);
-            }
-            // CreatedAt: reformat so that it can be parsed as java.sql.Timestamp.
-            // Updated at: if update, set to current timestamp.
-            if (formData.id && formData.id !== 0) {
-                formData.updatedAt = dateNow();
-                if (formData.createdAt) {
-                    formData.createdAt = parseDateString(formData.createdAt);
-                }
-            }
-            console.info(JSON.stringify(formData, null, 2));
-            submissionFuture = store.dispatch(insertAsync(table, formData));
-            submissionFuture
-                .done((insertId) => {
-                    // Signal that it was a success
-                    console.debug(200, "Inserted ID <" + insertId + ">");
-                    // Clear the form data in store
-                    store.dispatch(feedbackSuccess(form, "Inserted ID <" + insertId + ">"));
-                    store.dispatch(resetForm(form));
-                    // Redirect to table by replacing '/new' by '/list' in the router state
-                    let currentPath = window.location.pathname + window.location.hash.substr(2);
-                    hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
-                })
-                .fail((err) => {
-                    console.warn("Uncaught form validation error");
-                    store.dispatch(feedbackError(form, "Uncaught form validation error", err));
-                });
-        }
-    }
-}
 
 /**
+ *
+ /**
+ * Send the `formData` for insert or update of db `table`.
+ * Return a jQuery promise.
  *
  * @param modelName: RRF form model name.
  * @param insertData: data to insert.
  * @param table: db table name for insert.
  * @param formName: from constants.formNames, to identify the origin of feedbacks.
+ * @param onSuccess: callback to execute if the insert succeeded.
  */
 export function submitForm(modelName, insertData, table, formName, onSuccess) {
     if (confirm("Are you sure that you want to submit the data?")) {

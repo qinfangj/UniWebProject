@@ -205,7 +205,7 @@ class CommonAdminForms extends React.Component {
                         if (userId !== '' || userId !== undefined) {
                             this.props.router.push(currentPath.replace('/update/' + userId, '/list'));
                         }
-                        store.dispatch(actions.load())
+                        store.dispatch(actions.load())  // does nothing?
                         //hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
                     })
                     .fail((err) => {

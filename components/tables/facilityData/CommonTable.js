@@ -163,7 +163,7 @@ class CommonTable extends React.PureComponent {
                     >
                     </AgGridReact>
                 </div>
-                <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} ></div>
+                <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} />
 
                 <DataLoadingIcon />
 
