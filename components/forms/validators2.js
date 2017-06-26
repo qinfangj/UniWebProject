@@ -18,30 +18,35 @@ class Validators {
 
     /** Code name must be one word followed by an underscore, followed by PI initials. */
     codeNameValidator(v) {
+        if (v === "") { return true; }
         let valid = /^\w+_[a-zA-Z]{2}$/.test(trimmed(v));
         return valid;
     }
 
     /** 2-10 characters. */
     shortStringValidator(v) {
-        let valid = v === "" || /^[\w ]{2,10}$/.test(trimmed(v));
+        if (v === "") { return true; }
+        let valid = /^[\w ]{2,10}$/.test(trimmed(v));
         return valid;
     }
 
     /** 0-30 characters. */
     mediumStringValidator(v) {
+        if (v === "") { return true; }
         let valid = /^[\w ]{0,30}$/.test(trimmed(v));
         return valid;
     }
 
     /** Description must be empty or have at least 3 words. */
     descriptionValidator(v) {
-        let valid = v === "" || trimmed(v).split(" ").length >= 3;
+        if (v === "") { return true; }
+        let valid = trimmed(v).split(" ").length >= 3;
         return valid;
     }
 
     /** Lane number is one digit between 1 and 8. */
     laneNumberValidator(v) {
+        if (v === "") { return true; }
         let valid = true;
         if (! Number.isInteger(v)) {
             valid = /^[1-8]$/.test(trimmed(v));
@@ -51,6 +56,7 @@ class Validators {
 
     /** Must be an integer. */
     integerValidator(v) {
+        if (v === "") { return true; }
         let valid = true;
         if (! Number.isInteger(v)) {
             valid = /^[0-9]*$/.test(trimmed(v));
@@ -60,6 +66,7 @@ class Validators {
 
     /** Must be a non-null integer. */
     positiveIntegerValidator(v) {
+        if (v === "") { return true; }
         let valid = true;
         if (! Number.isInteger(v)) {
             valid = /^[1-9]+$/.test(trimmed(v));
@@ -72,12 +79,14 @@ class Validators {
      */
     // input type="number" should make this obsolete
     numberValidator(v) {
+        if (v === "") { return true; }
         let valid = isNumeric(trimmed(v));
         return valid;
     }
 
     // input type="email" should make this obsolete
     emailValidator(v) {
+        if (v === "") { return true; }
         let regex = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/ ;
         let valid = regex.test(trimmed(v));
         return valid;
@@ -85,6 +94,7 @@ class Validators {
 
     // input type="phone" should make this obsolete (but it does not seem to work well)
     phoneValidator(v) {
+        if (v === "") { return true; }
         let regex = /^[0-9]{9,}$/ ;
         let stripped = trimmed(v).replace(/[+()\- ]*/g, "");
         let valid = regex.test(stripped);
