@@ -2,7 +2,7 @@
 import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import fields from '../../../constants/fields';
-import validators from '../../validators2';
+import validators from '../../validators';
 
 
 const samplesModel = {

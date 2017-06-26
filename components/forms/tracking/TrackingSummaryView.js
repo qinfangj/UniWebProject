@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {Button, FormControl, Col} from 'react-bootstrap/lib';
 import Feedback from '../../utils/Feedback';
 import store from '../../../core/store';
-import validate from '../../forms/validators';
+import validators from '../../forms/validators';
 
 import trackingData from '../../forms/tracking/trackingData';
 import { actions} from 'react-redux-form';
@@ -134,8 +134,6 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     insertDetailedRow(key,index){
-        //console.log(key);
-
         if (this.state.isShowDetails) {
             if (index === this.state.insertRow && key === this.state.insertCol) {
                 this.setState({
@@ -165,13 +163,12 @@ class TrackingSummaryView extends React.PureComponent {
         let laneNos = Object.assign({},this.state.laneNos);
 
         laneNos[k][ind].value = e.target.value;
-        let validateResult = null;
         if (e.target.value !== "") {
-            validateResult = validate.laneNumberValidator(e.target.value);
-            if (validateResult.valid == false){
+            let isValid = validators.laneNumberValidator(e.target.value);
+            if (isValid){
                 store.dispatch(feedbackWarning("tracking.library", "Lane number should be one digit between 1 and 8."))
             }
-            laneNos[k][ind].valid = validateResult.valid;
+            laneNos[k][ind].valid = isValid;
         }else{
             laneNos[k][ind].valid = true;
         }

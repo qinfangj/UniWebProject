@@ -4,7 +4,7 @@ import cx from 'classnames';
 import css from '../login.css';
 import store from '../../../core/store';
 import { requestResetPassword } from '../../actions/actionCreators/authActionCreators';
-import Validators  from '../../forms/validators';
+import validators  from '../../forms/validators';
 
 import {Form, FormControl, InputGroup, FormGroup, Button, HelpBlock} from 'react-bootstrap/lib';
 
@@ -33,14 +33,11 @@ class ForgotPasswordForm extends React.Component {
     }
 
     validateEmail(field) {
-        let checkEmail = Validators.emailValidator(field);
-
-        if (checkEmail.valid === true) {
-            //return checkEmail object. if validator is true
-            //Set appropriate feedbacks and error messages.
+        let isValid = validators.emailValidator(field);
+        if (isValid) {
             return {msg: "", feedback: "success" };
         } else {
-            return {msg: checkEmail.msg, feedback: "warning" };
+            return {msg: "Email is not valid", feedback: "warning" };
         }
     }
 
