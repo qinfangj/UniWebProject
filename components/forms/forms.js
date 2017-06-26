@@ -4,8 +4,7 @@ import store from '../../core/store';
 import _ from 'lodash';
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../actions/actionCreators/feedbackActionCreators';
-import { findForUpdateAsync, findByIdAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import { resetForm } from '../actions/actionCreators/formsActionCreators';
+import { findByIdAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
 import { actions } from 'react-redux-form';
@@ -111,6 +110,7 @@ export function formatFormFieldsDefault(formModel, values) {
     }
     return insertData;
 }
+
 /**
  * Default form validator.
  * @param values: Form data submitted for insert/update.
