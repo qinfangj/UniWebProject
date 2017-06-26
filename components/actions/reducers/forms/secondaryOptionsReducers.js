@@ -18,6 +18,7 @@ function formatBasecallingsForRun(v) { return [v.id, v.outputDir]; }
 let secondaryOptionsReducers = (state = defaultState, action) => {
 
     let ref;
+    let newState;
 
     switch (action.type) {
 
@@ -36,6 +37,24 @@ let secondaryOptionsReducers = (state = defaultState, action) => {
         case types.options.OPTIONS_BASECALLINGS_FOR_RUN:
             ref = action.args.refModelName;
             return returnList(action, state, ref, [], formatBasecallingsForRun);
+
+        /**
+         * Expects action.laneNb, action.libIndex, action.nbLibs.
+         */
+        case types.options.REMOVE_LIB_FROM_RUNS:
+            newState = {...state};
+            let k = action.libIndex;
+            let laneNb = action.laneNb;
+            let nbLibs = action.nbLibs;
+            let p = `facilityDataForms.runs.lanes[${laneNb}].libs`;
+            /* Copy the value of lib at index J to index J-1, i.e. rename with J-1 instead of J,
+             * for all indexes above the one we delete. */
+            for (let j=k+1; j < nbLibs; j++) {
+                newState[p + `[${j-1}].projectId`] = state[p + `[${j}].projectId`];
+            }
+            /* Delete the last one, now that we have shifted everything down one step. */
+            delete newState[p + `[${nbLibs-1}]`];
+            return newState;
 
         default:
             return state;

@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select from '../../elements/Select';
+import BSSelect from '../../bootstrapWrappers/BSSelect';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import fields from '../../../constants/fields';
 import tableNames from '../../../tables/tableNames';
@@ -31,7 +31,7 @@ class PoolsForProject extends React.PureComponent {
         let {options, ...otherProps} = this.props;
         options = options.map((v) => this.formatter(v));
         return (
-            <Select
+            <BSSelect
                 options={options}
                 {...otherProps}
             />

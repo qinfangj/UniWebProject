@@ -9,6 +9,7 @@ import { actions} from 'react-redux-form';
 import { requestProjectsHavingALibrary,
          requestSequencingQualities } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
+import { removeLibFromRuns } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import runLanesModel from '../formModels/runLanesModel';
 import poolSelectionModel from '../formModels/poolSelectionModel';
 import * as forms from '../../forms';
@@ -112,14 +113,28 @@ class LanesSubForm extends React.PureComponent {
 
     /**
      * Remove a library row from the table.
+     * Careful! Since we remove an array element, it shifts every index, so the secondaryOptions don't
+     * correspond anymore! Rename the secondaryOptions keys accordingly.
      */
-    removeLibrary(laneNb, library, k) {
+    removeLibrary(laneNb, k) {
+        let nbLibs = this.props.lanes[laneNb].libs.length;
+        this.props.removeLibFromRuns(laneNb, k, nbLibs);
+        store.dispatch(actions.remove(this.modelName+`.lanes[${laneNb}].libs`, k));
+    }
+
+    /**
+     * Call the function `removeLibrary` above but asks for confirmation if the fields are not empty.
+     */
+    confirmRemoveLibrary(laneNb, library, k) {
         /* No need to confirm to delete an empty lib row */
         if (library.projectId === "" && library.libraryId === "") {
-            store.dispatch(actions.remove(this.modelName+`.lanes[${laneNb}].libs`, k));
-        } else if (confirm("Delete this library?")) {
-            store.dispatch(actions.remove(this.modelName+`.lanes[${laneNb}].libs`, k));
+            this.removeLibrary(laneNb, k);
+        } else {
+            if (confirm("Delete this library?")) {
+                this.removeLibrary(laneNb, k);
+            }
         }
+
     }
 
     /**
@@ -190,7 +205,7 @@ class LanesSubForm extends React.PureComponent {
             </td> : null;
 
         let deleteLibraryButton = (nlibs > 1 && !this.props.disabled) ?
-            <div onClick={this.removeLibrary.bind(this, laneNb, lib, k)}>
+            <div onClick={this.confirmRemoveLibrary.bind(this, laneNb, lib, k)}>
                 <OverlayTrigger placement="left" overlay={DelLibTooltip}>
                     <Icon name='trash' className={css.removeLibrary}/>
                 </OverlayTrigger>
@@ -349,6 +364,7 @@ const mapDispatchToProps = (dispatch) => {
         requestProjectsHavingALibrary,
         requestSequencingQualities,
         requestLibrariesForProject,
+        removeLibFromRuns,
     }, dispatch);
 };
 

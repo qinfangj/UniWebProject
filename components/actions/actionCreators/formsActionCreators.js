@@ -16,13 +16,6 @@ export function changeFormValue(form, field, value, valid) {
     };
 }
 
-export function resetForm(form) {
-    return {
-        type: types.forms.RESET_FORM,
-        form: form,
-    }
-}
-
 /* Select options. */
 
 export function getOptionsListAsync(tableName, storeKey) {
@@ -43,17 +36,3 @@ export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
     return asyncAction(types.forms.GET_SECONDARY_OPTIONS_LIST, RestService.getSecondaryOptionsList.bind(null, tableName, id), args)
 }
 
-/* Bioanalysers form */
-
-export function addEmptyLaneToBioanalysers() {
-    return {
-        type: types.forms.ADD_BIOLANE,
-    };
-}
-
-export function removeLaneFromBioanalysers(laneNb) {
-    return {
-        type: types.forms.REMOVE_BIOLANE,
-        laneNb,
-    };
-}
