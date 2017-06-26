@@ -40,7 +40,6 @@ const runsModel = {
         label: "Machine",
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.INSTRUMENTS,
-        required: true,
     },
     [fields.runs.GA_RUN_DATE]: {
         width: 3,
@@ -61,7 +60,6 @@ const runsModel = {
         inputType: inputTypes.DROPDOWN,
         hasNoneValue: false,
         options: [[1,'--'], [2,'A'], [3,'B']],
-        required: false,
     },
     [fields.runs.SEQUENCING_KIT_VERSION_ID]: {
         width: 3,
@@ -79,7 +77,6 @@ const runsModel = {
         width: 10,
         label: "Comment",
         inputType: inputTypes.TEXTAREA,
-        required: false,
     },
 };
 
