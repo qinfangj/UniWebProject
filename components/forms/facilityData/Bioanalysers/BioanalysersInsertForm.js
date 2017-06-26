@@ -1,6 +1,7 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
+import css from './bioanalysers.css';
 import formsCss from '../../forms.css';
 import RestService from '../../../../utils/RestService';
 
@@ -75,7 +76,6 @@ class BioanalysersInsertForm extends React.PureComponent {
     }
 
     onSubmit(values) {
-        console.log(values.lanes)
         if (!values.lanes || Object.keys(values.lanes).length === 0) {
             this.props.feedbackWarning(this.form, "At least one lane is required.");
         } else if (this.fileInput.files.length === 0) {
@@ -110,10 +110,10 @@ class BioanalysersInsertForm extends React.PureComponent {
         let downloadLink = null;
         let embeddedPdf = null;
         if (this.state.bioanalyserUrl) {
-            let filename = this.props.formData["filename"];
-            downloadLink = <a href={this.state.bioanalyserUrl}>{filename}</a>
+            let filename = this.props.formData["filename"].split("\\").slice(-1)[0];
+            downloadLink = <a href={this.state.bioanalyserUrl}>{filename}</a>;
             embeddedPdf = (
-                <object data={this.state.bioanalyserUrl} type="application/pdf" width="600px" height="300px">
+                <object className={css.pdfPreview} data={this.state.bioanalyserUrl} type="application/pdf" width="600px" height="300px">
                     <embed src={this.state.bioanalyserUrl}>
                     </embed>
                 </object>
@@ -129,7 +129,7 @@ class BioanalysersInsertForm extends React.PureComponent {
 
                     {/* File input */}
 
-                    <Col sm={4}>
+                    <Col sm={5}>
                         <label style={{paddingTop: "7px"}}>
                             {this.props.updateId ? "Replace bioanalyser file" : "Bioanalyser file"}
                         </label>
@@ -140,6 +140,10 @@ class BioanalysersInsertForm extends React.PureComponent {
                         />
                         {embeddedPdf}
                     </Col>
+
+                    {/* If update, make space for the file name and pdf viewer */
+                        this.props.updateId ? <div className="clearfix"/> : null
+                    }
 
                     {formFields}
 

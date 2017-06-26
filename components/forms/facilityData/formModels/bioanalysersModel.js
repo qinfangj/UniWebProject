@@ -13,7 +13,7 @@ const bioanalysersModel = {
         inputType: inputTypes.DATE,
     },
     "spacer": {
-        width: 5,
+        width: 4,
         inputType: inputTypes.BLANK,
     },
     [fields.bioanalysers.DESCRIPTION]: {
