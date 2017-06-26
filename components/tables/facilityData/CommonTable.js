@@ -48,6 +48,7 @@ class CommonTable extends React.PureComponent {
     };
 
     componentWillMount() {
+
         // Can try to cache that result, but do it properly so that for instance it still understands active or not
         this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerQuery, 0, null, null)
             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
@@ -124,7 +125,9 @@ class CommonTable extends React.PureComponent {
         }
         tables.checkData(data);
 
-        //let cssHeight = (Math.max(GRID_HEIGTH, (data.length + 1) * ROW_HEIGTH)) + "px";
+        //let cssHeight = (Math.min(GRID_HEIGTH, (data.length + 1) * ROW_HEIGTH)) + "px";
+        let cssHeight;
+        cssHeight = (this.gridHeight > (data.length + 1) * ROW_HEIGTH) ? (data.length + 1) * ROW_HEIGTH  : this.gridHeight;
 
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -143,7 +146,7 @@ class CommonTable extends React.PureComponent {
                     <Feedback reference={this.props.form}/>
                 }
 
-                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: this.gridHeight+'px', width: '100%'}}>
+                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: cssHeight + 'px', width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}
                         rowData={data}
@@ -160,6 +163,7 @@ class CommonTable extends React.PureComponent {
                     >
                     </AgGridReact>
                 </div>
+                <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} ></div>
 
                 <DataLoadingIcon />
 

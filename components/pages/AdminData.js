@@ -1,5 +1,7 @@
 "use strict";
 import React from 'react';
+import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
+import tableNames from '../tables/tableNames';
 import PropTypes from 'prop-types';
 import css from './styles.css';
 import commonCss from '../../styles/common.css';
@@ -15,6 +17,8 @@ class AdminData extends React.PureComponent {
 
     constructor(props) {
         super(props);
+        this.nrowsPerQuery = 40;
+        this.activeOnly = false;
     }
 
     static propTypes = {
@@ -38,6 +42,7 @@ class AdminData extends React.PureComponent {
                     } else {
                         store.dispatch(feedbackSuccess("limsUser", "There is no unvalidated user deleted."));
                     }
+                    store.dispatch(getTableDataAsync(tableNames.USERS, tableNames.USERS, this.activeOnly, this.nrowsPerQuery, 0, null, null))
 
                 })
                 .fail((err) => {
