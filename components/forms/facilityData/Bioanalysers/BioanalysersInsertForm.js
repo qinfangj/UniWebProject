@@ -75,7 +75,12 @@ class BioanalysersInsertForm extends React.PureComponent {
     }
 
     onSubmit(values) {
-        if (this.fileInput.files.length > 0) {
+        console.log(values.lanes)
+        if (!values.lanes || Object.keys(values.lanes).length === 0) {
+            this.props.feedbackWarning(this.form, "At least one lane is required.");
+        } else if (this.fileInput.files.length === 0) {
+            this.props.feedbackWarning(this.form, "Bioanalyser file is required");
+        } else {
             let file = this.fileInput.files[0];
             let reader = new FileReader();
             reader.readAsDataURL(file);
@@ -90,8 +95,6 @@ class BioanalysersInsertForm extends React.PureComponent {
                     this.props.feedbackWarning(this.form, validation.message);
                 }
             }
-        } else {
-            this.props.feedbackWarning(this.form, "Bioanalyser file is required");
         }
     }
 

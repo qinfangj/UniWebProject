@@ -73,10 +73,19 @@ class LanesSubForm extends React.PureComponent {
         let libraryInput = formFields[1];
         let commentInput = formFields[2];
 
+        let DelLaneTooltip = <Tooltip id="delLane">{"Delete lane"}</Tooltip>;
+
+        let deleteLaneButton = !this.props.disabled ?
+            <div onClick={this.removeLane.bind(this, laneNb)}>
+                <OverlayTrigger placement="left" overlay={DelLaneTooltip}>
+                    <Icon name='trash' className={css.removeLane}/>
+                </OverlayTrigger>
+            </div> : null;
+
         return(
             <tr key={laneNb}>
                 <td className={cx(css.cell, css.laneCell)}>
-                    {laneNb}
+                    {"L"+laneNb}
                 </td>
                 <td className={cx(css.cell, css.projectCell)}>
                     {projectInput}
@@ -88,7 +97,7 @@ class LanesSubForm extends React.PureComponent {
                     {commentInput}
                 </td>
                 <td className={css.cell}>
-
+                    {deleteLaneButton}
                 </td>
             </tr>
         );
@@ -155,7 +164,7 @@ class LanesSubForm extends React.PureComponent {
 
                 <table className={css.lanesTable}>
                     <thead><tr>
-                        <th className={cx(css.headerCell)}>Lane</th>
+                        <th className={cx(css.headerCell)}>{""}</th>
                         <th className={cx(css.headerCell, css.projectCell)}>Project</th>
                         <th className={cx(css.headerCell, css.libraryCell)}>Library</th>
                         <th className={cx(css.headerCell, css.commentCell)}>Comment</th>
