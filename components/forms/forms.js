@@ -34,6 +34,7 @@ export function newOrUpdate(modelName, table, updateId, onUpdated){
         .done((data) => {
             console.log("Update with values:", data);
             store.dispatch(actions.merge(modelName, data));
+            store.dispatch(actions.resetValidity(modelName));
             if (onUpdated) {
                 onUpdated(data);
             }

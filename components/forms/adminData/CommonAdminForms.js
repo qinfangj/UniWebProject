@@ -247,7 +247,7 @@ class CommonAdminForms extends React.Component {
 
 
         if (this.props.hasNoneValue) {
-            options.unshift([-1, '-']);
+            options.unshift(["", '-']);
         }
 
         let optionList = options.map((v,i) => {
@@ -287,9 +287,7 @@ class CommonAdminForms extends React.Component {
                             model={".".concat(s.name)}
                             disabled={!this.state.isInsert}
                             //required = {s.required}
-                            validators = {s.required?
-                                {isRequired: (val) => val && val.length}: null}
-
+                            validators = {s.required ? {isRequired: (val) => val && val.length} : null}
                         />
                         <Errors
                             className = {admincss.errors}
