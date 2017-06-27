@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import Immutable from 'immutable'
 import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
-import '!!style!css!react-virtualized/styles.css'; // only needs to be imported once
+//import '!!style!css!react-virtualized/styles.css'; // only needs to be imported once
 import { Link } from 'react-router';
 
 import styles from './Table2.css'
@@ -272,12 +272,6 @@ class CommonTable extends React.PureComponent {
         let sortedList;
 
         sortedList = list
-                .sortBy(item => item.get(sortBy))
-                .update(list =>
-                    sortDirection === SortDirection.DESC
-                        ? list.reverse()
-                        : list
-                );
 
         const rowGetter = ({index}) => this._getDatum(sortedList, index);
 
@@ -322,8 +316,8 @@ class CommonTable extends React.PureComponent {
                                             rowGetter={rowGetter}
                                             rowCount={this.state.rowCount}
                                             sort={this._sort}
-                                            sortBy={sortBy}
-                                            sortDirection={sortDirection}
+                                            //sortBy={sortBy}
+                                            //sortDirection={sortDirection}
                                         >
 
                                             {this.getColumns(width-40, list)}
