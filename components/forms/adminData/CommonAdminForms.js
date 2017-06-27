@@ -247,7 +247,7 @@ class CommonAdminForms extends React.Component {
 
 
         if (this.props.hasNoneValue) {
-            options.unshift([-1, '-']);
+            options.unshift(["", '-']);
         }
 
         let optionList = options.map((v,i) => {
@@ -333,7 +333,7 @@ class CommonAdminForms extends React.Component {
                                         disabled={!this.state.isInsert}
                                         //required={s.required}
                                         validators= {{
-                                            isRequired:(s.required)? (val)=> val !== "" && val !=='-1' : null}}
+                                            isRequired:(s.required)? (val)=> val !== "" : null}}
                         >
 
                                 {options}

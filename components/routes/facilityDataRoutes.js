@@ -33,6 +33,8 @@ export class ProjectsListRoute extends React.Component {
             <CommonTable
                 table={tableNames.PROJECTS}
                 dataStoreKey={tableNames.PROJECTS}
+                domain="data"
+                name="projects"
                 columns={facilityDataColumns[tableNames.PROJECTS]}
                 form={formNames.PROJECTS_INSERT_FORM}
             />
@@ -47,6 +49,8 @@ export class ProjectsActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.PROJECTS}
                 dataStoreKey={tableNames.PROJECTS_ACTIVE}
+                domain="data"
+                name="projects"
                 columns={facilityDataColumns[tableNames.PROJECTS]}
                 form={formNames.PROJECTS_INSERT_FORM}
             />
@@ -78,6 +82,8 @@ export class PeopleListRoute extends React.Component {
             <CommonTable
                 table={tableNames.PEOPLE}
                 dataStoreKey={tableNames.PEOPLE}
+                domain="data"
+                name="people"
                 columns={facilityDataColumns[tableNames.PEOPLE]}
                 form={formNames.PEOPLE_INSERT_FORM}
             />
@@ -92,6 +98,8 @@ export class PeopleActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.PEOPLE}
                 dataStoreKey={tableNames.PEOPLE_ACTIVE}
+                domain="data"
+                name="people"
                 columns={facilityDataColumns[tableNames.PEOPLE]}
                 form={formNames.PEOPLE_INSERT_FORM}
             />
@@ -123,6 +131,8 @@ export class GenomesListRoute extends React.Component {
             <CommonTable
                 table={tableNames.GENOMES}
                 dataStoreKey={tableNames.GENOMES}
+                domain="data"
+                name="genomes"
                 columns={facilityDataColumns[tableNames.GENOMES]}
                 form={formNames.GENOMES_INSERT_FORM}
             />
@@ -137,6 +147,8 @@ export class GenomesActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.GENOMES}
                 dataStoreKey={tableNames.GENOMES_ACTIVE}
+                domain="data"
+                name="genomes"
                 columns={facilityDataColumns[tableNames.GENOMES]}
                 form={formNames.GENOMES_INSERT_FORM}
             />
@@ -168,6 +180,8 @@ export class SamplesListRoute extends React.Component {
             <CommonTable
                 table={tableNames.SAMPLES}
                 dataStoreKey={tableNames.SAMPLES}
+                domain="data"
+                name="samples"
                 columns={facilityDataColumns[tableNames.SAMPLES]}
                 form={formNames.SAMPLES_INSERT_FORM}
             />
@@ -182,6 +196,8 @@ export class SamplesActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.SAMPLES}
                 dataStoreKey={tableNames.SAMPLES_ACTIVE}
+                domain="data"
+                name="samples"
                 columns={facilityDataColumns[tableNames.SAMPLES]}
                 form={formNames.SAMPLES_INSERT_FORM}
             />
@@ -213,6 +229,8 @@ export class LibrariesListRoute extends React.Component {
             <CommonTable
                 table={tableNames.LIBRARIES}
                 dataStoreKey={tableNames.LIBRARIES}
+                domain="data"
+                name="libraries"
                 columns={facilityDataColumns[tableNames.LIBRARIES]}
                 form={formNames.LIBRARIES_INSERT_FORM}
             />
@@ -227,6 +245,8 @@ export class LibrariesActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.LIBRARIES}
                 dataStoreKey={tableNames.LIBRARIES_ACTIVE}
+                domain="data"
+                name="libraries"
                 columns={facilityDataColumns[tableNames.LIBRARIES]}
                 form={formNames.LIBRARIES_INSERT_FORM}
             />
@@ -258,6 +278,8 @@ export class RunsListRoute extends React.Component {
             <CommonTable
                 table={tableNames.RUNS}
                 dataStoreKey={tableNames.RUNS}
+                domain="data"
+                name="runs"
                 columns={facilityDataColumns[tableNames.RUNS]}
                 form={formNames.RUNS_INSERT_FORM}
             />
@@ -272,6 +294,8 @@ export class RunsActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.RUNS}
                 dataStoreKey={tableNames.RUNS_ACTIVE}
+                domain="data"
+                name="runs"
                 columns={facilityDataColumns[tableNames.RUNS]}
                 form={formNames.RUNS_INSERT_FORM}
             />
@@ -311,6 +335,8 @@ export class UserRequestsListRoute extends React.Component {
             <CommonTable
                 table={tableNames.USER_REQUESTS}
                 dataStoreKey={tableNames.USER_REQUESTS}
+                domain="data"
+                name="user_requests"
                 columns={facilityDataColumns[tableNames.USER_REQUESTS]}
                 form={formNames.USER_REQUESTS_INSERT_FORM}
             />
@@ -325,6 +351,8 @@ export class UserRequestsActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.USER_REQUESTS}
                 dataStoreKey={tableNames.USER_REQUESTS_ACTIVE}
+                domain="data"
+                name="user_requests"
                 columns={facilityDataColumns[tableNames.USER_REQUESTS]}
                 form={formNames.USER_REQUESTS_INSERT_FORM}
             />
@@ -356,6 +384,8 @@ export class BioanalysersListRoute extends React.Component {
             <CommonTable
                 table={tableNames.BIOANALYSERS}
                 dataStoreKey={tableNames.BIOANALYSERS}
+                domain="data"
+                name="bioanalysers"
                 columns={facilityDataColumns[tableNames.BIOANALYSERS]}
                 form={formNames.BIOANALYSERS_INSERT_FORM}
             />
@@ -370,6 +400,8 @@ export class BioanalysersActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.BIOANALYSERS}
                 dataStoreKey={tableNames.BIOANALYSERS_ACTIVE}
+                domain="data"
+                name="bioanalysers"
                 columns={facilityDataColumns[tableNames.BIOANALYSERS]}
                 form={formNames.BIOANALYSERS_INSERT_FORM}
             />
@@ -401,6 +433,8 @@ export class BasecallingsListRoute extends React.Component {
             <CommonTable
                 table={tableNames.BASECALLINGS}
                 dataStoreKey={tableNames.BASECALLINGS}
+                domain="data"
+                name="basecallings"
                 columns={facilityDataColumns[tableNames.BASECALLINGS]}
                 form={formNames.BASECALLINGS_INSERT_FORM}
             />
@@ -415,6 +449,8 @@ export class BasecallingsActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.BASECALLINGS}
                 dataStoreKey={tableNames.BASECALLINGS_ACTIVE}
+                domain="data"
+                name="basecallings"
                 columns={facilityDataColumns[tableNames.BASECALLINGS]}
                 form={formNames.BASECALLINGS_INSERT_FORM}
             />
@@ -446,6 +482,8 @@ export class AlignmentsListRoute extends React.Component {
             <CommonTable
                 table={tableNames.ALIGNMENTS}
                 dataStoreKey={tableNames.ALIGNMENTS}
+                domain="data"
+                name="alignments"
                 columns={facilityDataColumns[tableNames.ALIGNMENTS]}
                 form={formNames.ALIGNMENTS_INSERT_FORM}
             />
@@ -460,6 +498,8 @@ export class AlignmentsActiveRoute extends React.Component {
                 activeOnly
                 table={tableNames.ALIGNMENTS}
                 dataStoreKey={tableNames.ALIGNMENTS_ACTIVE}
+                domain="data"
+                name="alignments"
                 columns={facilityDataColumns[tableNames.ALIGNMENTS]}
                 form={formNames.ALIGNMENTS_INSERT_FORM}
             />
