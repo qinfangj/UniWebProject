@@ -1,26 +1,22 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import formsCss from '../../forms.css';
 import css from './bioanalysers.css';
-import store from '../../../../core/store';
-import { connect } from 'react-redux';
+import formsCss from '../../forms.css';
 import RestService from '../../../../utils/RestService';
 
-import TextField from '../../elements/TextField';
-import DatePicker from '../../elements/DatePicker';
-import * as forms from '../../forms.js';
-import BioanalysersSubForm from './BioanalysersSubForm';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
+import { feedbackWarning } from '../../../actions/actionCreators/feedbackActionCreators';
 
 import formNames from '../../../constants/formNames';
-import tableNames from '../../../tables/tableNames';
-import fields from '../../../constants/fields';
-import { findForUpdateAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
-import downloadPdf from '../../../../utils/downloadPdf';
+import bioanalysersModel from '../formModels/bioanalysersModel';
+import * as forms from '../../forms.js';
 
-import Form from 'react-bootstrap/lib/Form';
-import Button from 'react-bootstrap/lib/Button';
-import Col from 'react-bootstrap/lib/Col';
+import LanesSubForm from './LanesSubForm';
+import { Form } from 'react-redux-form';
+import { Col, Button } from 'react-bootstrap/lib';
 import Feedback from '../../../utils/Feedback';
 
 
@@ -29,170 +25,174 @@ class BioanalysersInsertForm extends React.PureComponent {
         super(props);
         this.table = "bioanalysers";
         this.form = formNames.BIOANALYSERS_INSERT_FORM;
+        this.modelName = "facilityDataForms.bioanalysers";
+        this.model = bioanalysersModel;
         this.state = {
             disabled: false,
+            bioanalyserUrl: null,
         }
     }
-
-    static propTypes = {
-        // If defined, the form will be pre-filled with the current data for the item with this ID,
-        //  after fetching it on the server.
-        updateId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    };
 
     componentWillMount() {
-        //forms.newOrUpdate(this.form, this.table, this.props.updateId);
+        forms.newOrUpdate(this.modelName, this.table, this.props.updateId, this.onUpdateLoadLibsOptions.bind(this));
         if (this.props.updateId) {
-            store.dispatch(findForUpdateAsync(this.table, this.props.updateId, this.form));
             this.setState({ disabled: true });
+            RestService.bioanalyserPdf(this.props.updateId).then((b64) => {
+                this.setState({ bioanalyserUrl: b64 })
+            });
         }
-    }
-    componentWillReceiveProps() {
-        //forms.newOrUpdate(this.form, this.table, this.props.updateId);
-    }
-
-    formatLanesForSubmit() {
-        let values = this.props.lanesValues;
-        let lanesInfo = this.props.lanesInfo.map((lane) => {
-            let laneNb = lane.laneNb;
-            return {
-                id: lane.id,
-                laneNb: laneNb,
-                projectId: values[fields.PROJECT_ID +"_"+ laneNb],   // cannot use just lane.projectId in case of new insert
-                libraryId: values[fields.LIBRARY_ID +"_"+ laneNb],   // same
-                comment: lane.comment || "",
-            };
-        });
-        return lanesInfo;
     }
 
     /**
-     * Use this to add lanes info - nothing to validate there anyway.
+     * When the update *data* comes, trigger the action to get libraries options lists
+     * corresponding to the received projectIds (see newOrUpdate in componentWillMount).
      */
-    formatFormData(formData) {
-        let lanesInfo = this.formatLanesForSubmit();
-        formData["lanes"] = lanesInfo;
-        formData["file"] = btoa(formData[fields.BIOANALYSER_FILE].file);
-        formData["filename"] = formData[fields.BIOANALYSER_FILE].filename;
-        return formData;
-    }
-
-    onSubmit() {
-        // If it is an update, this enables the form
-        if (this.state.disabled){
-            this.setState({disabled: false});
-        // If it is an insert, just submit
-        } else {
-            forms.submit(this.form, this.table, this.formatFormData.bind(this));
+    onUpdateLoadLibsOptions(data) {
+        for (let laneNb of Object.keys(data.lanes)) {
+            let lane = data.lanes[laneNb];
+            let projectModelName = `${this.modelName}.lanes[${laneNb}].projectId`;
+            this.props.requestLibrariesForProject(projectModelName, lane.projectId);
         }
     }
 
-    getPdf() {
-        RestService.bioanalyserPdf(this.props.updateId).then((blob) => downloadPdf(blob));
+    /**
+     * Cast numeric values before we can submit. RRF apparently uses only strings and booleans.
+     * Transform lanes object into an array of lanes, and add `laneNb` property.
+     */
+    formatInsertData(values) {
+        let insertData = forms.formatFormFieldsDefault(bioanalysersModel, values);
+        // Transform lanes object into an array of lanes, add laneNb
+        let lanes = [];
+        for (let laneNb of Object.keys(insertData.lanes)) {
+            let lane = insertData.lanes[laneNb];
+            lane.id = lane.id || 0;
+            lane.laneNb = parseInt(laneNb);
+            lane.projectId = parseInt(lane.projectId);
+            lane.libraryId = parseInt(lane.libraryId);
+            lanes.push(lane);
+        }
+        insertData.lanes = lanes;
+        return insertData;
+    }
+
+    onSubmit(values) {
+        if (!values.lanes || Object.keys(values.lanes).length === 0) {
+            this.props.feedbackWarning(this.form, "At least one lane is required.");
+        } else if (this.fileInput.files.length === 0) {
+            this.props.feedbackWarning(this.form, "Bioanalyser file is required");
+        } else {
+            let file = this.fileInput.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                let insertData = this.formatInsertData(values);
+                let validation = forms.validateFormDefault(insertData);
+                if (validation.isValid) {
+                    insertData.file = reader.result;
+                    insertData.filename = this.fileInput.value;
+                    forms.submitForm(this.modelName, insertData, this.table, this.form);
+                } else {
+                    this.props.feedbackWarning(this.form, validation.message);
+                }
+            }
+        }
     }
 
     activateForm() {
         this.setState({ disabled: false });
     }
+    deactivateForm() {
+        this.setState({ disabled: true });
+    }
 
     render() {
-        let pdfName = this.props.pdf ? this.props.pdf.filename : "";
+        let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options);
+        let downloadLink = null;
+        let embeddedPdf = null;
+        if (this.state.bioanalyserUrl) {
+            let filename = this.props.formData["filename"].split("\\").slice(-1)[0];
+            downloadLink = <a href={this.state.bioanalyserUrl}>{filename}</a>;
+            embeddedPdf = (
+                <object className={css.pdfPreview} data={this.state.bioanalyserUrl} type="application/pdf" width="600px" height="300px">
+                    <embed src={this.state.bioanalyserUrl}>
+                    </embed>
+                </object>
+            );
+        }
 
         return (
-            <form className={css.form}>
+            <div>
 
                 <Feedback reference={this.form} />
 
-                <Form componentClass="fieldset" horizontal>
+                <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
-                    {/* Bioanalyser file */}
+                    {/* File input */}
 
-                    <Col sm={6} className={formsCss.formCol}>
-
-                        {this.props.updateId ? <span>{"Current file: "}<a
-                                href="javascript:void(0);"
-                                onClick={this.getPdf.bind(this)}>{pdfName}</a>
-                            </span> : null}
-
-                        <TextField
-                            form={this.form}
-                            field={fields.BIOANALYSER_FILE}
-                            label={this.props.updateId ? "Replace bioanalyser file" : "Bioanalyser file"}
-                            type="file"
-                            disabled={this.state.disabled}
-                            required
+                    <Col sm={5}>
+                        <label style={{paddingTop: "7px"}}>
+                            {this.props.updateId ? "Replace bioanalyser file" : "Bioanalyser file"}
+                        </label>
+                        {downloadLink}
+                        <input
+                            type="file" required disabled={this.state.disabled}
+                            ref = {c => {this.fileInput = c;}}
                         />
+                        {embeddedPdf}
                     </Col>
 
+                    {/* If update, make space for the file name and pdf viewer */
+                        this.props.updateId ? <div className="clearfix"/> : null
+                    }
 
-                    {/* Bioanalyser date */}
-
-                    <Col sm={6} className={formsCss.formCol}>
-                        <DatePicker
-                            form={this.form}
-                            field={fields.BIOANALYSER_DATE}
-                            label="Bioanalyser date"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
-
-                    {/* Description */}
-
-                    <Col sm={12} className={formsCss.formCol}>
-                        <TextField
-                            form={this.form}
-                            field={fields.DESCRIPTION}
-                            label="Description"
-                            disabled={this.state.disabled}
-                        />
-                    </Col>
-
-                </Form>
-                <Form componentClass="fieldset" horizontal>
+                    {formFields}
 
                     {/* Lanes sub form */}
-                    <BioanalysersSubForm ref={(c) => this._lanes = c} disabled={this.state.disabled}/>
+
+                    <LanesSubForm disabled={this.state.disabled}/>
+
+                    {/* Submit */}
+
+                    {this.state.disabled ?
+                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
+                            Activate form
+                        </Button>
+                        :
+                        <div>
+                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
+                                Cancel
+                            </Button>
+                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
+                                Submit
+                            </Button>
+                        </div>
+                    }
 
                 </Form>
 
-                {/* Submit */}
-
-                {this.state.disabled ?
-                    <Button action="submit" bsStyle="primary" onClick={this.activateForm.bind(this)} className={css.submitButton}>
-                        Activate form
-                    </Button>
-                    :
-                    <Button action="submit" bsStyle="primary" onClick={this.onSubmit.bind(this)} className={css.submitButton}>
-                        Submit
-                    </Button>
-                }
-
-            </form>
+            </div>
         );
     }
 }
 
 
-BioanalysersInsertForm.defaultProps = {
-    lanesInfo: [],
-};
 
-
-const mapStateToProps = (state, ownProps) => {
-    let thisFrom = formNames.BIOANALYSERS_INSERT_FORM;
-    let subForm = formNames.BIOANALYSERS_LANES_INSERT_FORM;
-    let pdf = state.forms[thisFrom][fields.BIOANALYSER_FILE];
-    let lanesInfo = state.forms[thisFrom]["lanes"] || [];
-    let lanesValues = state.forms[subForm] || {};
+const mapStateToProps = (state) => {
+    let formData = state.facilityDataForms.bioanalysers;
+    let formModel = state.facilityDataForms.forms.bioanalysers;
     return {
-        lanesInfo: lanesInfo,
-        lanesValues: lanesValues,
-        pdf: pdf,
+        formData: formData,
+        formModel: formModel,
     };
 };
 
-export default connect(mapStateToProps)(BioanalysersInsertForm);
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        feedbackWarning,
+        requestLibrariesForProject,
+    }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(BioanalysersInsertForm);
 

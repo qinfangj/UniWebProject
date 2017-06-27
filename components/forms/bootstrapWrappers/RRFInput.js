@@ -13,6 +13,7 @@ import BSTextArea from './BSTextArea';
 import BSDate from './BSDate';
 import BSSecondarySelect from './BSSecondarySelect';
 import BSMultipleSelect from './BSMultipleSelect';
+import BSStatic from './BSStatic';
 
 
 /**
@@ -45,6 +46,8 @@ export default class RRFInput extends React.PureComponent {
             component = BSTextArea;
         } else if (inputType === inputTypes.DATE) {
             component = BSDate;
+        } else if (inputType === inputTypes.BLANK) {
+            component = BSStatic;
         } else {
             throw "Unknown input type: '"+ inputType +"'";
         }
@@ -54,13 +57,16 @@ export default class RRFInput extends React.PureComponent {
         //     value = options[0][0];
         // }
 
+        // We don't use HTML5's "required" directly because of a bug in RRF:
+        // https://github.com/davidkpiano/react-redux-form/issues/836
+        inputProps.isRequired = required;
+
         return (
             <div>
                 <Control
                     className={formsCss.input}
                     component={component}
                     model={modelName}
-                    //required={required}
                     validators={required ? {...validators, isRequired: (val) => val && val.length} : validators}
                     errors={errors}
                     updateOn={updateOn || "change"}
@@ -73,7 +79,7 @@ export default class RRFInput extends React.PureComponent {
                     className={css.errors}
                     model={modelName}
                     show="touched"
-                    messages={errorMessages || {isRequired: "Required"}}
+                    messages={required ? {...errorMessages, isRequired: "Required"} : errorMessages}
                 />
             </div>
         );

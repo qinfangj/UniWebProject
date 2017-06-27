@@ -105,7 +105,7 @@ class CommonTable extends React.PureComponent {
         /* If past the threshold, query the next batch of rows. Lock until the current query is done. */
         if (!this.props.isLoading && !this.props.allLoaded && lastRowIndex > threshold) {
             console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
-            let limit = dataLength + this.nrowsPerQuery;
+            let limit = this.nrowsPerQuery;
             let offset = dataLength;
             this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
                 limit, offset, null, null);
@@ -163,7 +163,7 @@ class CommonTable extends React.PureComponent {
                     >
                     </AgGridReact>
                 </div>
-                <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} ></div>
+                <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} />
 
                 <DataLoadingIcon />
 

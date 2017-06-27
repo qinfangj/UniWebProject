@@ -3,7 +3,7 @@ import fields from '../../../constants/fields';
 // import formNames from '../../../constants/formNames';
 import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-import validators from '../../validators2';
+import validators from '../../validators';
 
 
 const projectsModel = {
@@ -24,15 +24,18 @@ const projectsModel = {
         width: 4,
         label: "Code name",
         inputType: inputTypes.TEXT,
+        validators: {codeName: validators.codeNameValidator},
+        errorMessages: {codeName: "[name]_[initials] Ex: Tcells_EG."},
+        placeholder: "[name]_[initials] Ex: Tcells_EG.",
         required: true,
-        // validator = {validators.codeNameValidator}
-        placeholder: "[name]_[initials] Ex: Tcells_EG."
     },
     [fields.projects.DESCRIPTION]: {
         width: 12,
         label: "Description",
         inputType: inputTypes.TEXT,
-        //validator = {validators.descriptionValidator}
+        validators: {desc: validators.descriptionValidator},
+        errorMessages: {desc: "Description must be at least 3 words."},
+        required: true,
     },
     [fields.projects.PROJECT_STATE_ID]: {
         width: 4,
@@ -45,7 +48,6 @@ const projectsModel = {
         width: 4,
         label: "User meeting date",
         inputType: inputTypes.DATE,
-        required: true,
     },
     [fields.projects.PROJECT_ANALYSIS_ID]: {
         width: 4,

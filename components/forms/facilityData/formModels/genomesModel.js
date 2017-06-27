@@ -3,7 +3,7 @@ import fields from '../../../constants/fields';
 // import formNames from '../../../constants/formNames';
 import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-import validators from '../../validators2';
+import validators from '../../validators';
 
 
 const genomesModel = {
@@ -48,7 +48,6 @@ const genomesModel = {
         width: 10,
         label: "Comment",
         inputType: inputTypes.TEXT,
-        required: true,
     },
     [fields.genomes.IS_MASKED]: {
         width: 2,

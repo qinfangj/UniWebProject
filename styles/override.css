@@ -25,6 +25,10 @@
 :global(.form-group) {
     margin-bottom: 0;
 }
+/* Remove these annoying -15 -15 margins */
+:global(.form-horizontal .form-group) {
+    margin: 0;
+}
 /* Stack checkboxes */
 :global(.form-group .checkbox) {
     margin-bottom: 0;

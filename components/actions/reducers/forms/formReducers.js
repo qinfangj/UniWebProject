@@ -81,17 +81,17 @@ let formReducers = (state = defaultState, action) => {
          */
         case types.forms.ADD_BIOLANE:
             newState = {...state};
-            form = formNames.BIOANALYSERS_INSERT_FORM;
-            let lanes = state[form]["lanes"] || [];
-            let lastLaneNb = lanes.length > 0 ? lanes[lanes.length - 1].laneNb : 0;
-            lanes.push({
-                id: 0,
-                laneNb: lastLaneNb + 1,
-                projectId: undefined,
-                libId: undefined,
-                comment: '',
-            });
-            newState[form]["lanes"] = [...lanes];
+            // form = formNames.BIOANALYSERS_INSERT_FORM;
+            // let lanes = state[form]["lanes"] || [];
+            // let lastLaneNb = lanes.length > 0 ? lanes[lanes.length - 1].laneNb : 0;
+            // lanes.push({
+            //     id: 0,
+            //     laneNb: lastLaneNb + 1,
+            //     projectId: undefined,
+            //     libId: undefined,
+            //     comment: '',
+            // });
+            // newState[form]["lanes"] = [...lanes];
             return newState;
 
         /**
@@ -100,8 +100,8 @@ let formReducers = (state = defaultState, action) => {
          */
         case types.forms.REMOVE_BIOLANE:
             newState = {...state};
-            form = formNames.BIOANALYSERS_INSERT_FORM;
-            newState[form]["lanes"] = state[form]["lanes"].filter((lane) => lane.laneNb !== action.laneNb) || [];
+            // form = formNames.BIOANALYSERS_INSERT_FORM;
+            // newState[form]["lanes"] = state[form]["lanes"].filter((lane) => lane.laneNb !== action.laneNb) || [];
             return newState;
 
         default:

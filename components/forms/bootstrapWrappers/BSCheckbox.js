@@ -6,7 +6,7 @@ import { FormGroup, Checkbox } from 'react-bootstrap/lib';
 
 export default class BSCheckbox extends React.PureComponent {
     render() {
-        let {label, value, submissionError, ...inputProps} = this.props;
+        let {label, isRequired, value, submissionError, ...inputProps} = this.props;
         let validationState = submissionError ? "error" : this.props.validationState;
         value = !!value;
 

@@ -3,10 +3,8 @@ import fields from '../../../constants/fields';
 // import formNames from '../../../constants/formNames';
 import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-import validators from '../../validators2';
+import validators from '../../validators';
 
-
-const intValidator = {isInteger: validators.integerValidator};
 
 const runsModel = {
     [fields.runs.GA_RUN_NUMBER]: {
@@ -15,8 +13,8 @@ const runsModel = {
         type: "number",
         inputType: inputTypes.TEXT,
         required: true,
-        validators: intValidator,
-        errorMessages: {isInteger: "Must be an integer"}
+        validators: {isInteger: validators.integerValidator},
+        errorMessages: {isInteger: "Must be an integer."},
     },
     [fields.runs.FLOWCELL]: {
         width: 3,
@@ -42,7 +40,6 @@ const runsModel = {
         label: "Machine",
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.INSTRUMENTS,
-        required: true,
     },
     [fields.runs.GA_RUN_DATE]: {
         width: 3,
@@ -63,7 +60,6 @@ const runsModel = {
         inputType: inputTypes.DROPDOWN,
         hasNoneValue: false,
         options: [[1,'--'], [2,'A'], [3,'B']],
-        required: false,
     },
     [fields.runs.SEQUENCING_KIT_VERSION_ID]: {
         width: 3,
@@ -81,7 +77,6 @@ const runsModel = {
         width: 10,
         label: "Comment",
         inputType: inputTypes.TEXTAREA,
-        required: false,
     },
 };
 

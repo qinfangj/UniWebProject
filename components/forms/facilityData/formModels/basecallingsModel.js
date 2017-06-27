@@ -3,7 +3,7 @@ import fields from '../../../constants/fields';
 // import formNames from '../../../constants/formNames';
 import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-import validators from '../../validators2';
+import validators from '../../validators';
 
 
 const basecallingsModel = {
@@ -34,6 +34,7 @@ const basecallingsModel = {
         inputType: inputTypes.DROPDOWN,
         type: "number",
         options: [[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']],
+        required: true,
 },
     [fields.IS_DEMULTIPLEXING]: {
         width: 2,

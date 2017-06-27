@@ -30,8 +30,8 @@ let facilityDataFormsReducers = combineForms(
         },
         bioanalysers: {
             [fields.bioanalysers.BIOANALYSER_FILE]: "",
-            [fields.bioanalysers.BIOANALYSER_FILENAME]: "",
-            [fields.bioanalysers.BIOANALYSER_DATE]: dateNow(),
+            // [fields.bioanalysers.BIOANALYSER_FILENAME]: "",
+            [fields.bioanalysers.BIOANALYSER_DATE]: "",  // not required
             [fields.bioanalysers.DESCRIPTION]: "",
             lanes: {
                 1: {
@@ -90,7 +90,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.projects.CODE_NAME]: "",
             [fields.projects.DESCRIPTION]: "",
             [fields.projects.PROJECT_STATE_ID]: "",
-            [fields.projects.USER_MEETING_DATE]: dateNow(),
+            [fields.projects.USER_MEETING_DATE]: "", // dateNow(),
             [fields.projects.PROJECT_ANALYSIS_ID]: "",
             [fields.projects.IS_CONTROL]: false,
             [fields.projects.COMMENT]: "",
@@ -132,7 +132,7 @@ let facilityDataFormsReducers = combineForms(
             [fields.samples.PROJECT_ID]: "",
             [fields.samples.TAXO_ID]: "",
             [fields.samples.SAMPLE_TYPE_ID]: "",
-            [fields.samples.RECEIVED_DATE]: dateNow(),
+            [fields.samples.RECEIVED_DATE]: "", //dateNow(),
             [fields.samples.QUANTIF_METHOD_ID]: "",
             [fields.samples.CONCENTRATION]: "",
             [fields.samples.VOLUME]: "",

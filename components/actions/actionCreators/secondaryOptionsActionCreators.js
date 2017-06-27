@@ -34,3 +34,15 @@ export function requestBasecallingsForRun(refModelName, id) {
     return requestSecondaryOptionsListAsync(types.options.OPTIONS_BASECALLINGS_FOR_RUN, "basecallings", refModelName, id);
 }
 
+/**
+ * Apart from updating the form, which is not handled here, we need to shift secondaryOptions
+ * so that they keep corresponding after remove one element in the libs array.
+ */
+export function removeLibFromRuns(laneNb, libIndex, nbLibs) {
+    return {
+        type: types.options.REMOVE_LIB_FROM_RUNS,
+        laneNb,
+        libIndex,
+        nbLibs,
+    };
+}

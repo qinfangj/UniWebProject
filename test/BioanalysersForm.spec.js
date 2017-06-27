@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import {expect} from 'chai';
 import BioanalysersInsertForm from '../components/forms/facilityData/Bioanalysers/BioanalysersInsertForm';
-import BioanalysersSubForm from '../components/forms/facilityData/Bioanalysers/BioanalysersSubForm';
+import LanesSubForm from '../components/forms/facilityData/Bioanalysers/LanesSubForm';
 
 
 const wrapper1 = shallow(
@@ -25,7 +25,7 @@ describe('(Component) BioanalysersInsertForm =>', () => {
 
 const wrapper2 = shallow(
     <Provider store={store}>
-        <BioanalysersSubForm/>
+        <LanesSubForm/>
     </Provider>
 );
 

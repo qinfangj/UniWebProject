@@ -2,6 +2,7 @@
 import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import fields from '../../../constants/fields';
+import validators from '../../validators';
 
 
 const samplesModel = {
@@ -9,15 +10,17 @@ const samplesModel = {
         width: 4,
         inputType: inputTypes.TEXT,
         label: "Name",
-        //validator: {validators.mediumStringValidator}
+        validators: {mediumString: validators.mediumStringValidator},
+        errorMessages: {mediumString: "0-30 characters."},
         required: true,
     },
     [fields.samples.SHORT_NAME]: {
         width: 3,
         inputType: inputTypes.TEXT,
         label: "Short name",
+        validators: {mediumString: validators.shortStringValidator},
+        errorMessages: {mediumString: "2-10 characters."},
         required: true,
-        //validator: {validators.shortStringValidator}
     },
     [fields.samples.PROJECT_ID]: {
         width: 5,
@@ -45,7 +48,6 @@ const samplesModel = {
         inputType: inputTypes.DATE,
         type: "date",
         label: "Received date",
-        required: true,
     },
     [fields.samples.QUANTIF_METHOD_ID]: {
         width: 3,
@@ -91,6 +93,10 @@ const samplesModel = {
         width: 12,
         inputType: inputTypes.TEXT,
         label: "General description",
+        placeholder: "e.g. 'Crosslinked ChIP DNA from NIH-3T3 cells'",
+        validators: {desc: validators.descriptionValidator},
+        errorMessages: {desc: "Description must be at least 3 words."},
+        required: true,
     },
     [fields.samples.COMMENT_CUSTOMER]: {
         width: 12,

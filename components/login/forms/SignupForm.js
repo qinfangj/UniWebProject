@@ -4,7 +4,7 @@ import cx from 'classnames';
 import css from '../login.css';
 import store from '../../../core/store';
 import { signupUser } from '../../actions/actionCreators/authActionCreators';
-import Validators  from '../../forms/validators';
+import validators  from '../../forms/validators';
 import Feedback from '../../utils/Feedback';
 import formNames from '../../constants/formNames';
 
@@ -50,7 +50,6 @@ class SignupForm extends React.Component {
     }
 
     onChangePassword(e) {
-        //this.setState({password: e.target.value});
         let password = e.target.value;
         let confirmPassword = this.state.confirmPassword;
         let pwdChecked = this.validatePwd(password, confirmPassword);
@@ -58,7 +57,6 @@ class SignupForm extends React.Component {
             fbPassword: pwdChecked.feedback, fbPassword2: pwdChecked.feedback2});
     }
     onChangeConfirmPassword(e) {
-        //this.setState({confirmPassword: e.target.value});
         let confirmPassword = e.target.value;
         let password = this.state.password;
         let pwdChecked2 = this.validatePwd(password, confirmPassword);
@@ -66,8 +64,6 @@ class SignupForm extends React.Component {
             fbPassword: pwdChecked2.feedback, fbPassword2: pwdChecked2.feedback2});
     }
     onChangeFirstName(e) {
-        //this.setState({firstName: e.target.value});
-
         let firstName = e.target.value;
         let fieldCheck = this.validateName(firstName);
         this.setState({firstName: firstName, msgFirstNm: fieldCheck.msg,
@@ -77,7 +73,6 @@ class SignupForm extends React.Component {
         this.setState({lastName: e.target.value});
         let lastName = e.target.value;
         let fieldCheck2 = this.validateName(lastName);
-        //console.log(fieldCheck2.feedback);
         this.setState({LastName: lastName, msgLastNm: fieldCheck2.msg,
             fbLastNm: fieldCheck2.feedback});
     }
@@ -95,58 +90,42 @@ class SignupForm extends React.Component {
         this.setState({phone: e.target.value});
     }
 
-    validatePwd (pwd,pwd2) {
-
+    validatePwd(pwd,pwd2) {
         if (pwd.length === 0) {
-            //Check if new password is empty. Set appropriate feedbacks and error messages
-            //Set appropriate feedbacks and error messages.
             return {msg: "Password cannot be empty!", msg2: "", feedback: "warning", feedback2: null};
-        } else if (pwd.length !== 0 && pwd !== pwd2) {
-            //Check if re-entered password is matched with the entered password.
-            //Set appropriate feedbacks and error messages.
-            return {msg: "", msg2: "Re-entered password does not match.", feedback: null, feedback2: "warning"};
-        } else if (pwd.length !== 0 && pwd2.length !== 0 && pwd === pwd2) {
-            //Check if re-entered password is matched.
-            //Set appropriate feedbacks and error messages
+        } else if (pwd !== pwd2) {
+            return {msg: "", msg2: "Must match the password above.", feedback: null, feedback2: "warning"};
+        } else if (pwd2.length !== 0) {
             return {msg: "", msg2: "", feedback: "success", feedback2: "success"};
         }
     }
 
-    validateField(field) {
-        if (field.length === 0) {
-            //Check if input is empty. Set appropriate feedbacks and error messages
-            //Set appropriate feedbacks and error messages.
-            return {msg: "Field cannot be empty!", feedback: "warning" };
-        } else {
-            return {msg: "", feedback: "success" };
-        }
-    }
-
+    /**
+     * Validate first and last name.
+     */
     validateName(name) {
-        let fieldCheck = this.validateField(name);
-
-        if (fieldCheck.msg===""){
-            let checkName = Validators.userNameValidator(name);
-            if (checkName.valid) {
+        if (name.length === 0) {
+            return {msg: "Required", feedback: "warning" };
+        } else {
+            let isValid = validators.userNameValidator(name);
+            if (isValid) {
                 return {msg: "", feedback: "success" };
             } else {
-                return {msg: checkName.msg, feedback: "warning" };
+                return {msg: "Alphanumeric characters, plus [,.-_]", feedback: "warning" };
             }
-
-        }else {
-            return fieldCheck;
         }
     }
 
     validateEmail(field) {
-        let checkEmail = Validators.emailValidator(field);
-
-        if (checkEmail.valid === true) {
-            //return checkEmail object. if validator is true
-            //Set appropriate feedbacks and error messages.
-            return {msg: "", feedback: "success" };
+        if (field.length === 0) {
+            return {msg: "Required", feedback: "warning" };
         } else {
-            return {msg: checkEmail.msg, feedback: "warning" };
+            let isValid = validators.emailValidator(field);
+            if (isValid) {
+                return {msg: "", feedback: "success" };
+            } else {
+                return {msg: "Email is not valid", feedback: "warning" };
+            }
         }
     }
 

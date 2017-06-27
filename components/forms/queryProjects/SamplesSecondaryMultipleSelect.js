@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
 import { changeSamplesSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import MultipleSelect from '../elements/MultipleSelect';
+import MultipleSelect from './MultipleSelect';
 import { assertIsArray } from '../../../utils/common';
 
 

@@ -3,7 +3,7 @@ import fields from '../../../constants/fields';
 // import formNames from '../../../constants/formNames';
 import inputTypes from '../../inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-import validators from '../../validators2';
+import validators from '../../validators';
 
 
 const librariesModel = {
@@ -27,7 +27,8 @@ const librariesModel = {
         label: "Name",
         inputType: inputTypes.TEXT,
         required: true,
-        // validator: validators.mediumStringValidator,
+        validators: {mediumString: validators.mediumStringValidator},
+        errorMessages: {mediumString: "0-30 characters."},
     },
     [fields.LIB_PROTOCOL_ID]: {
         width: 2,
@@ -46,12 +47,14 @@ const librariesModel = {
         width: 2,
         label: "Library date",
         inputType: inputTypes.DATE,
+        required: true,
     },
     [fields.BIOANALYSER_PEAK]: {
         width: 2,
         label: "Bioanalyser peak",
         inputType: inputTypes.TEXT,
         type: "number",
+        required: true,
     },
     [fields.FRAG_SIZE_MIN]: {
         width: 2,
@@ -69,9 +72,10 @@ const librariesModel = {
     },
     [fields.CONCENTRATION]: {
         width: 2,
-        label: "Contentration",
+        label: "Concentration",
         inputType: inputTypes.TEXT,
         type: "number",
+        required: true,
     },
     [fields.QUANTIF_METHOD_ID]: {
         width: 2,
@@ -122,6 +126,7 @@ const librariesModel = {
         label: "Library state",
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.LIB_STATES,
+        required: true,
     },
     [fields.COMMENT_CUSTOMER]: {
         width: 10,

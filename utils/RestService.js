@@ -265,7 +265,38 @@ class RestService {
     bioanalyserPdf(id) {
         let url = `${BACKEND}/pdf/bioanalyser/${id}`;
         console.info(url);
-        return get(url);
+        return $.ajax({
+            type: "GET",
+            url: url,
+            headers: {
+                'Authorization': 'Bearer '+ AuthService.getToken(),
+            },
+            error: handleError,
+            // dataType : 'text',
+            // contentType : 'application/pdf',
+        });
+
+        // let xhr = new XMLHttpRequest();
+        // xhr.open('GET', url, true);
+        // xhr.responseType = 'blob';
+        // xhr.setRequestHeader('Authorization', 'Bearer '+ AuthService.getToken());
+        // xhr.onload = function(e) {
+        //     // preloader.modal('hide');
+        //     if (this.status == 200) {
+        //         console.log(111, e, this.response)
+        //         // var blob = new Blob([this.response], {type: 'application/pdf'});
+        //         // var downloadUrl = window.URL.createObjectURL(blob);
+        //         return this.response;
+        //         // var a = document.createElement("a");
+        //         // a.href = downloadUrl;
+        //         // a.download = "data.xls";
+        //         // document.body.appendChild(a);
+        //         // a.click();
+        //     } else {
+        //         alert('Unable to download excel.')
+        //     }
+        // };
+        // xhr.send();
     }
 
 }
