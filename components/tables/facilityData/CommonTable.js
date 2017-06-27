@@ -42,7 +42,7 @@ class CommonTable extends React.PureComponent {
             list: [],
             rowCount: 0,
             disableHeader: false,
-            headerHeight: 30,
+            headerHeight: 35,
             height: 600,
             hideIndexRow: false,
             overscanRowCount: 10,
@@ -320,7 +320,7 @@ class CommonTable extends React.PureComponent {
                                             //sortDirection={sortDirection}
                                         >
 
-                                            {this.getColumns(width-40, list)}
+                                            {this.getColumns(width-50, list)}
                                         </Table>
                                 )}
                             </AutoSizer>
