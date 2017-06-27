@@ -54,7 +54,7 @@ const librariesModel = {
         label: "Bioanalyser peak",
         inputType: inputTypes.TEXT,
         type: "number",
-        rqeuired: true,
+        required: true,
     },
     [fields.FRAG_SIZE_MIN]: {
         width: 2,

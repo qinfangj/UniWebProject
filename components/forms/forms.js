@@ -58,7 +58,8 @@ export function submitForm(modelName, insertData, table, formName, onSuccess) {
         console.info("Values to submit: ", JSON.stringify(insertData, null, 2));
         // Created at: reformat so that it can be parsed as java.sql.Timestamp.
         // Updated at: if update, set to current timestamp.
-        if (insertData.id && insertData.id !== 0) {
+        let isUpdate = insertData.id && insertData.id !== 0;
+        if (isUpdate) {
             insertData.updatedAt = dateNow();
             if (insertData.createdAt) {
                 insertData.createdAt = parseDateString(insertData.createdAt);
