@@ -153,6 +153,14 @@ class CommonTable extends React.PureComponent {
                                    cellRenderer={this._idColumnLink.bind(this)}
                                    disableSort= {false}
                     />;
+                } else if (s.field === 'isvalidated') {
+                    node = <Column key={s}
+                                   label={s.headerName}
+                                   dataKey={s.field}
+                                   cellRenderer={this._cellRenderer.bind(this)}
+                                   width={columnWidth}
+                                   disableSort= {false}
+                    />;
                 } else {
                     node = <Column key={s}
                                    label={s.headerName}
@@ -190,6 +198,17 @@ class CommonTable extends React.PureComponent {
                 }
             </div>
         )
+    }
+
+    _cellRenderer ({
+        cellData,
+        columnData,
+        dataKey,
+        rowData,
+        rowIndex,
+    }) {
+        return cellData?<i className="fa fa-check" aria-hidden="true"></i>:
+            <i className="fa fa-times" style={{color:'red'}} aria-hidden="true"></i>
     }
 
     _sort ({ sortBy, sortDirection }) {
