@@ -45,6 +45,7 @@ const config = {
     /* Ag-grid */
     '!!style!css!ag-grid/dist/styles/ag-grid.css',
     '!!style!css!ag-grid/dist/styles/theme-bootstrap.css',
+    '!!style!css!react-virtualized/styles.css',
 
     /* The main entry point of your JavaScript application */
     './main.js',

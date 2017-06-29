@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import {expect} from 'chai';
 import BioanalysersInsertForm from '../components/forms/facilityData/Bioanalysers/BioanalysersInsertForm';
-import LanesSubForm from '../components/forms/facilityData/Bioanalysers/LanesSubForm';
+import LanesSubForm from '../components/forms/facilityData/Bioanalysers/lanesSubForm';
 
 
 const wrapper1 = shallow(
