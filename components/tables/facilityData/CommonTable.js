@@ -214,11 +214,19 @@ class CommonTable extends React.PureComponent {
     _sort ({ sortBy, sortDirection }) {
         console.log(sortBy);
         console.log(sortDirection);
+        let limit = this.nrowsPerQuery;
+        let offset = 0;
+        this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
+            limit, offset, sortBy, sortDirection)
+            .done((data) => {
+                let newList = data;
+                let hasNextPage = data.length % this.nrowsPerQuery === 0;
+                let newCount = hasNextPage ? newList.length + 1 : newList.length;
+                this.setState({list: newList, rowCount: newCount })
+            });
+
         this.setState({ sortBy:sortBy});
         this.setState({sortDirection: sortDirection});
-
-        console.log(this.state.sortBy);
-        console.log(this.state.sortDirection);
     }
 
     _idColumnLink (obj){
@@ -335,8 +343,8 @@ class CommonTable extends React.PureComponent {
                                             rowGetter={rowGetter}
                                             rowCount={this.state.rowCount}
                                             sort={this._sort}
-                                            //sortBy={sortBy}
-                                            //sortDirection={sortDirection}
+                                            sortBy={sortBy}
+                                            sortDirection={sortDirection}
                                         >
 
                                             {this.getColumns(width-50, list)}
