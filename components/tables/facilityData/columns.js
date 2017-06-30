@@ -127,7 +127,7 @@ const facilityDataColumns = {
             cellStyle: CENTER,
         },{
             headerName: "Run date",
-            field: "run_date",
+            field: "ga_run_date",
         },{
             headerName: "Release date",
             field: "release_date",
@@ -173,7 +173,7 @@ const facilityDataColumns = {
         idColumnWithUpdateLink("bioanalysers", "data"),
         {
             headerName: "Date",
-            field: "date",
+            field: "bioanalyser_date",
         },
         {
             headerName: "File name",
@@ -190,7 +190,7 @@ const facilityDataColumns = {
             field: "fastq_path",
         },{
             headerName: "Software",
-            field: "software",
+            field: "software_name",
         },{
             headerName: "Version",
             field: "version",
