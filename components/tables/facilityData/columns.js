@@ -148,7 +148,7 @@ const facilityDataColumns = {
             field: "laboratory",
         },{
             headerName: "Library",
-            field: "library",
+            field: "library_protocol",
         },{
             headerName: "Run type",
             field: "run_type",
@@ -163,7 +163,7 @@ const facilityDataColumns = {
             field: "lane_fraction",
         },{
             headerName: "Group",
-            field: "group",
+            field: "multiplexing_group",
         },{
             headerName: "Submitter",
             field: "submitter",
