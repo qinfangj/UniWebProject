@@ -175,7 +175,7 @@ class CommonAdminForms extends React.Component {
             delete formData['login'];
 
             let isValidated = formData['isvalidated'];
-            this.setState({isvalidated: isValidated});
+            this.setState({isvalidated: isValidated});  // does it even do anything??
             submit.submit(this, this.modelName, formData, this.table, this.props.updateId, this.state.isInsert);
         } else {
             console.log(values);
