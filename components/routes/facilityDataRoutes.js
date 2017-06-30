@@ -2,11 +2,12 @@
 import React from 'react';
 import FacilityDataHome from '../pages/FacilityDataHome';
 import FacilityData from '../pages/FacilityData';
-import CommonTable from '../tables/facilityData/CommonTable';
-import facilityDataColumns from '../tables/facilityData/columns';
-
 import formNames from '../constants/formNames';
+import facilityDataColumns from '../tables/facilityData/columns';
 import tableNames from '../tables/tableNames';
+import CommonTable from '../tables/facilityData/CommonTable';
+import columnFormatters from '../tables/columnFormatters';
+
 import ProjectsInsertForm from '../forms/facilityData/ProjectsInsertForm';
 import PeopleInsertForm from '../forms/facilityData/PeopleInsertForm';
 import GenomesInsertForm from '../forms/facilityData/GenomesInsertForm';
@@ -80,6 +81,7 @@ export class PeopleListRoute extends React.Component {
                 dataStoreKey={tableNames.PEOPLE}
                 columns={facilityDataColumns[tableNames.PEOPLE]}
                 form={formNames.PEOPLE_INSERT_FORM}
+                formatter={columnFormatters[tableNames.PEOPLE]}
             />
         } />
     );}
@@ -94,6 +96,7 @@ export class PeopleActiveRoute extends React.Component {
                 dataStoreKey={tableNames.PEOPLE_ACTIVE}
                 columns={facilityDataColumns[tableNames.PEOPLE]}
                 form={formNames.PEOPLE_INSERT_FORM}
+                formatter={columnFormatters[tableNames.PEOPLE]}
             />
         } />
     );}
