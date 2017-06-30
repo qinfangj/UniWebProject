@@ -90,26 +90,6 @@ class TrackingSummaryView extends React.PureComponent {
 
     }
 
-    // insertRow(obj, key, index){
-    //     let table= document.getElementById("myTable");
-    //
-    //     console.log(index);
-    //     let row = table.insertRow(index +2);
-    //
-    //     row.style = {border:'1px solid'};
-    //
-    //     let cell1 = row.insertCell(0);
-    //     cell1.colSpan = 3;
-    //
-    //     cell1.innerText = JSON.stringify(obj[key][index]);
-    //
-    //     this.setState({
-    //         isShowDetails: true,
-    //         insertRow: index,
-    //         insertCol: key
-    //     })
-    // }
-
     showDetail(key,index){
         let table = null;
         if (this.state.isShowDetails) {
@@ -203,9 +183,6 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     makeTr(o, index){
-        //console.log(o);
-        //console.log(index);
-        //console.log(this.state.laneNos);
 
         let td = Object.keys(o).map(
             (s) => {
@@ -251,8 +228,8 @@ class TrackingSummaryView extends React.PureComponent {
                                     <div className={trackCss.iconRow} >
                                     {(o[s][index]['comment_customer'] !== "" && o[s][index]['comment_customer'] !== null)?
                                         <div className={trackCss.tooltip}>
-                                            <span className={trackCss.tooltiptext}>{o[s][index]['comment_customer']}</span>
-                                            <Icon name="comment"  style={{color: '#337ab7', fontSize:25}} />
+                                            <span className={trackCss.tooltiptext} onClick={e => {e.stopPropagation()}}>{o[s][index]['comment_customer']}</span>
+                                            <Icon name="comment" style={{color: '#337ab7', fontSize:25}} onClick={e => {e.stopPropagation()}} />
                                         </div>: null }
                                         <div className={trackCss.menuUpDown}>
                                             <Icon name="chevron-down" />
@@ -277,8 +254,8 @@ class TrackingSummaryView extends React.PureComponent {
                                         <div className={trackCss.iconRow}>
                                         {(o[s][index]['comment_customer'] !== null && o[s][index]['comment_customer'] !== "" )?
                                                 <div className={trackCss.tooltip}>
-                                                    <span className={trackCss.tooltiptext}>{o[s][index]['comment_customer']}</span>
-                                                    <Icon name="comment" style={{color: '#337ab7',fontSize:25}} />
+                                                    <span className={trackCss.tooltiptext} onClick={e => {e.stopPropagation()}}>{o[s][index]['comment_customer']}</span>
+                                                    <Icon name="comment" style={{color: '#337ab7',fontSize:25}} onClick={e => {e.stopPropagation()}}/>
                                                 </div>
                                              : null}
                                         </div>
@@ -353,8 +330,6 @@ class TrackingSummaryView extends React.PureComponent {
 
         }
 
-        // }
-
     }
 
     //makeDiv(ele){
@@ -388,11 +363,6 @@ class TrackingSummaryView extends React.PureComponent {
         //console.log(this.props.trackingData);
         //console.log(this.props.laneInfo);
         //console.log(this.props.summaries);
-
-        // let dataSummary =  this.unifyDataLength(trackingData.summaryData);
-        // let dataDetail = this.unifyDataLength(trackingData.detailData);
-        // let fieldsHead = Object.keys(trackingData.summaryData);
-        // let lengthArray = fieldsHead.map((s) =>{ return (trackingData.summaryData[s].length)});
 
         //########Get Real data from backend#######
         let dataSummary = this.unifyDataLength(this.props.summaries);

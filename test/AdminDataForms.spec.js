@@ -14,6 +14,7 @@ import { Button } from 'react-bootstrap';
 import adminData from '../components/forms/adminData/adminDataModels';
 import inputTypes from '../components/forms/inputTypes';
 import CommonAdminForms from '../components/forms/adminData/CommonAdminForms';
+import optionsStoreKeys from '../components/constants/optionsStoreKeys';
 
 function makeUTforAdminForms(table, model, fieldsList){
     let form = mount(
@@ -21,6 +22,7 @@ function makeUTforAdminForms(table, model, fieldsList){
             <CommonAdminForms table={table}/>
         </Provider>
     );
+
     it('should initially be invalid', () => {
         assert.isFalse(store.getState().adminForms.forms[model].$form.validated);
     });
@@ -36,6 +38,15 @@ function makeUTforAdminForms(table, model, fieldsList){
 
                 assert.isTrue(store.getState().adminForms.forms[model][s.name].valid);
             }
+            // else if(s.type === inputTypes.DROPDOWN){
+            //     console.log(store.getState().options[optionsStoreKeys.RUN_TYPES]);
+            //     console.log('dropdown id: #'+ s.name);
+            //
+            //     form.find('#' + s.name).node.value = '1';
+            //     form.find('#' + s.name).simulate('change', form.find('#' + s.name));
+            //
+            //     assert.isTrue(store.getState().adminForms.forms[model][s.name].valid);
+            // }
         });
 
         assert.isTrue(store.getState().adminForms.forms[model].$form.valid);
@@ -165,11 +176,7 @@ describe('AdminDataForm - RUN_TYPES (Unit Test)', () => {
     makeUTforAdminForms(tableNames.RUN_TYPES, model, fieldsList);
 });
 
-// describe('AdminDataForm - RUN_TYPES_LENGTHS (Unit Test)', () => {
-//     let model = adminData[tableNames.RUN_TYPES_LENGTHS].model;
-//     let fieldsList = adminData[tableNames.RUN_TYPES_LENGTHS].fields;
-//     makeUTforAdminForms(tableNames.RUN_TYPES_LENGTHS, model, fieldsList);
-// });
+
 
 describe('AdminDataForm - SAMPLE_TYPES (Unit Test)', () => {
     let model = adminData[tableNames.SAMPLE_TYPES].model;
@@ -194,3 +201,9 @@ describe('AdminDataForm - TAXONOMIES (Unit Test)', () => {
     let fieldsList = adminData[tableNames.TAXONOMIES].fields;
     makeUTforAdminForms(tableNames.TAXONOMIES, model, fieldsList);
 });
+
+// describe('AdminDataForm - RUN_TYPES_LENGTHS (Unit Test)', () => {
+//     let model = adminData[tableNames.RUN_TYPES_LENGTHS].model;
+//     let fieldsList = adminData[tableNames.RUN_TYPES_LENGTHS].fields;
+//     makeUTforAdminForms(tableNames.RUN_TYPES_LENGTHS, model, fieldsList);
+// });

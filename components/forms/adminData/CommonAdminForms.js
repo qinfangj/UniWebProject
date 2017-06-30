@@ -264,6 +264,7 @@ class CommonAdminForms extends React.Component {
         if (s.type === inputTypes.CHECKBOX) {
             input =
                 <Control.checkbox
+                    id= {s.name}
                     model={".".concat(s.name)}
                     disabled={!this.state.isInsert}
                     className={admincss.input}
@@ -278,12 +279,13 @@ class CommonAdminForms extends React.Component {
 
             input = <div>
                         <Control
+                            id={s.name}
                             className={admincss.input}
                             component={BSTextInput}
                             model={".".concat(s.name)}
                             disabled={!this.state.isInsert}
                             //required = {s.required}
-                            validators = {s.required ? {isRequired: (val) => val && val.length} : null}
+                            validators = {s.required ? {isRequired: (val) => val && (val + "").length} : null}
                         />
                         <Errors
                             className = {admincss.errors}
@@ -322,7 +324,8 @@ class CommonAdminForms extends React.Component {
             const BSSelect = (props) => <FormControl componentClass= "select" {...props} />;
 
             input = <div>
-                        <Control.select model={".".concat(s.name)}
+                        <Control.select id={s.name}
+                                        model={".".concat(s.name)}
                                         component={BSSelect}
                                         disabled={!this.state.isInsert}
                                         //required={s.required}
