@@ -3,6 +3,8 @@
  */
 import jsdom from 'jsdom';
 import chai from 'chai';
+import chaiImmutable from 'chai-immutable';
+
 chai.config.includeStack = true;
 
 
@@ -17,3 +19,5 @@ if (typeof document === 'undefined') {
     global.HTMLSelectElement = global.window.HTMLSelectElement;
     global.HTMLButtonElement = global.window.HTMLButtonElement;
 }
+
+chai.use(chaiImmutable);

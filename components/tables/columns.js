@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 
-export const ROW_HEIGTH = 25;
+export const ROW_HEIGTH = 30;
 export const GRID_HEIGTH = 1200;
 
 export const CENTER = {textAlign: "center"};

@@ -1,7 +1,6 @@
 "use strict";
 import React from 'react';
 import { connect } from 'react-redux';
-import Dimensions from 'react-dimensions';
 
 
 class LoadingIcon extends React.PureComponent {
@@ -40,4 +39,4 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default Dimensions()(connect(mapStateToProps)(LoadingIcon));
+export default connect(mapStateToProps)(LoadingIcon);

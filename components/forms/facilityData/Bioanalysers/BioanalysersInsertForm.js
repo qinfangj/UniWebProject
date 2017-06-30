@@ -14,7 +14,7 @@ import formNames from '../../../constants/formNames';
 import bioanalysersModel from '../formModels/bioanalysersModel';
 import * as forms from '../../forms.js';
 
-import LanesSubForm from './LanesSubForm';
+import LanesSubForm from './lanesSubForm';
 import { Form } from 'react-redux-form';
 import { Col, Button } from 'react-bootstrap/lib';
 import Feedback from '../../../utils/Feedback';
