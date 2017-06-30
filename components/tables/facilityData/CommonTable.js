@@ -153,7 +153,7 @@ class CommonTable extends React.PureComponent {
                                    cellRenderer={this._idColumnLink.bind(this)}
                                    disableSort= {false}
                     />;
-                } else if (s.field === 'isvalidated') {
+                } else if (s.field === 'isValidated') {
                     node = <Column key={s}
                                    label={s.headerName}
                                    dataKey={s.field}

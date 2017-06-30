@@ -119,7 +119,7 @@ const facilityDataColumns = {
             field: "run_folder",
         },{
             headerName: "Cycle Nb",
-            field: "cycle_nb",
+            field: "read_length",
             cellStyle: CENTER,
         },{
             headerName: "Run type",

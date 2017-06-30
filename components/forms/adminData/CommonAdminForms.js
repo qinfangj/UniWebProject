@@ -165,10 +165,6 @@ class CommonAdminForms extends React.Component {
         }
 
     }
-    // componentWillReceiveProps() {
-    //     console.log("bbb")
-    //     //this.newOrUpdate(this.table,this.props.updateId);
-    // }
 
     handleSubmit(values){
         if (this.table === tableNames.USERS){
@@ -179,7 +175,7 @@ class CommonAdminForms extends React.Component {
             delete formData['login'];
 
             let isValidated = formData['isvalidated'];
-            this.setState({isValidated :isValidated});
+            this.setState({isvalidated: isValidated});
             submit.submit(this, this.modelName, formData, this.table, this.props.updateId, this.state.isInsert);
         } else {
             console.log(values);
