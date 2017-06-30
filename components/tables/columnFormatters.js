@@ -9,6 +9,10 @@ const columnFormatters = {
         return d;
     }),
 
+    [tableNames.PROJECTS]: (data) => data.map((d) => {
+        d.author = d.author_last_name +' '+d.author_first_name;
+        return d;
+    }),
 };
 
 

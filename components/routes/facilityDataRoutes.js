@@ -38,6 +38,7 @@ export class ProjectsListRoute extends React.Component {
                 name="projects"
                 columns={facilityDataColumns[tableNames.PROJECTS]}
                 form={formNames.PROJECTS_INSERT_FORM}
+                formatter={columnFormatters[tableNames.PROJECTS]}
             />
         } />
     );}
@@ -54,6 +55,7 @@ export class ProjectsActiveRoute extends React.Component {
                 name="projects"
                 columns={facilityDataColumns[tableNames.PROJECTS]}
                 form={formNames.PROJECTS_INSERT_FORM}
+                formatter={columnFormatters[tableNames.PROJECTS]}
             />
         } />
     );}
