@@ -1,11 +1,11 @@
 "use strict";
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import Immutable from 'immutable'
 import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
-//import '!!style!css!react-virtualized/styles.css'; // only needs to be imported once
 import { Link } from 'react-router';
 
 import styles from './Table2.css'
@@ -15,7 +15,7 @@ import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActi
 import * as tables from '../tables.js';
 import '../../../styles/colors.css';
 import cx from 'classnames';
-import { idColumnWithUpdateLink,ROW_HEIGTH, GRID_HEIGTH } from '../columns';
+import { ROW_HEIGTH, GRID_HEIGTH } from '../columns';
 import css from '../tables.css';
 import Feedback from '../../utils/Feedback';
 import DataLoadingIcon from '../../utils/DataLoadingIcon';
@@ -23,10 +23,8 @@ import DataLoadingIcon from '../../utils/DataLoadingIcon';
 
 class CommonTable extends React.PureComponent {
 
-    // Table data as a array of objects
     constructor(props) {
         super(props);
-
         this.gridHeight = 400;
         this.nVisibleRows = (this.gridHeight / ROW_HEIGTH) - 1;
         this.nrowsPerQuery = 40;
@@ -36,10 +34,6 @@ class CommonTable extends React.PureComponent {
         }
         this.state = {
             searchValue: "",
-        };
-
-        this.state = {
-            list: [],
             rowCount: 0,
             disableHeader: false,
             headerHeight: 35,
@@ -49,13 +43,11 @@ class CommonTable extends React.PureComponent {
             rowHeight: 30,
             scrollToIndex: undefined,
             sortBy: 'id',
-            sortDirection: SortDirection.ASC,
+            sortDirection: SortDirection.DESC,
 
         };
-
         this._headerRenderer = this._headerRenderer.bind(this);
         this._sort = this._sort.bind(this);
-
     }
 
     static propTypes = {
@@ -71,56 +63,48 @@ class CommonTable extends React.PureComponent {
         form: PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
     };
 
-    componentWillMount() {
-         //display initial data table when the component is mounted
-         //Can try to cache that result, but do it properly so that for instance it still understands active or not
-         this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly, this.nrowsPerQuery, 0, null, null)
-             .done((data) => {
-                let hasNextPage = data.length === this.nrowsPerQuery;
-                let newCount = hasNextPage ? data.length + 1 : data.length;
-                this.setState({list: data, rowCount: newCount})
-             })
-             .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
+    getDataAsync(limit, offset, sortBy, sortDir) {
+        let _this = this;
+        let dataLength = this.props.data.length;
+        this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
+            limit, offset,
+            sortBy || this.state.sortBy, sortDir || this.state.sortDirection)
+        .done((data) => {
+            // `data` is only the new block. The whole data is in `this.props.data`.
+            let hasNextPage = data.length % this.nrowsPerQuery === 0;
+            let newDataLength = dataLength + data.length;
+            let rowCount = hasNextPage ? newDataLength + 1 : newDataLength;
+            _this.setState({ rowCount });
+        })
+        .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
     }
 
+    componentWillMount() {
+        // Can try to cache that result, but do it properly so that for instance it still understands active or not
+        this.getDataAsync(this.nrowsPerQuery, 0);
+    }
 
-    //onSearch function need to be re-implemented
+    //onSearch function needs to be re-implemented
     onSearch(e) {
         let value = e.target.value;
-        // this.api.setQuickFilter(value);
         // this.setState({searchValue: value});
     }
 
-    //reset function need to be re-implemented
+    //reset function needs to be re-implemented
     reset(){
-        //this.api.setQuickFilter("");
         this.setState({searchValue: ""});
     }
 
     loadMoreRows({ startIndex, stopIndex }) {
-
         let dataLength = this.props.data.length;
-        console.log(dataLength);
-        if (this.state.list.length % this.nrowsPerQuery === 0) {
+        if (dataLength % this.nrowsPerQuery === 0) {
             console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
-            let limit =  this.nrowsPerQuery;
-            let offset = dataLength;
-
-                this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
-                    limit, offset, null, null)
-                    .done((data) => {
-                        let newList = this.state.list.concat(data);
-                        let hasNextPage = data.length % this.nrowsPerQuery === 0;
-                        let newCount = hasNextPage ? newList.length + 1 : newList.length;
-                        this.setState({list: newList, rowCount: newCount })
-                    });
-
+            this.getDataAsync(this.nrowsPerQuery, dataLength);
         }
     }
 
     isRowLoaded({ index }) {
-        //console.log(`isRowLoaded (${index < this.state.list.length})`);
-        return index < this.state.list.length;
+        return index < this.props.data.length;
     }
 
     // Empty the list and set row count to 1 to enable infinite scroll
@@ -130,7 +114,6 @@ class CommonTable extends React.PureComponent {
     }
 
     getColumns(width, list){
-
         let namesForColumns;
         if (this.props.domain === "data") {
             namesForColumns = facilityDataColumns[this.props.table];
@@ -138,10 +121,8 @@ class CommonTable extends React.PureComponent {
         else if (this.props.domain === "admin") {
             namesForColumns = adminColumns[this.props.table];
         }
-        //console.log(namesForColumns);
         const columnsNumber = namesForColumns.length;
         const columnWidth = (width-40) / (columnsNumber-1);
-
 
         return namesForColumns.map( s => {
             let node;
@@ -168,11 +149,8 @@ class CommonTable extends React.PureComponent {
                                    disableSort={false}
                                    headerRenderer={this._headerRenderer}
                                    width={columnWidth}
-
                     />;
                 }
-
-
             return node
         });
 
@@ -182,103 +160,64 @@ class CommonTable extends React.PureComponent {
         return list.get(index % list.size)
     }
 
-    _headerRenderer ({
-        columnData,
-        dataKey,
-        disableSort,
-        label,
-        sortBy,
-        sortDirection
-    }) {
+    _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
         return (
             <div>
                 {label}
                 {sortBy === dataKey &&
-                <SortIndicator sortDirection={sortDirection} />
+                    <SortIndicator sortDirection={sortDirection} />
                 }
             </div>
-        )
+        );
     }
 
-    _cellRenderer ({
-        cellData,
-        columnData,
-        dataKey,
-        rowData,
-        rowIndex,
-    }) {
-        return cellData?<i className="fa fa-check" aria-hidden="true"></i>:
-            <i className="fa fa-times" style={{color:'red'}} aria-hidden="true"></i>
+    _cellRenderer({ cellData, columnData, dataKey, rowData, rowIndex }) {
+        return cellData ?
+            <i className="fa fa-check" aria-hidden="true"/> :
+            <i className="fa fa-times" style={{color:'red'}} aria-hidden="true"/>;
     }
 
-    _sort ({ sortBy, sortDirection }) {
-        console.log(sortBy);
-        console.log(sortDirection);
-        let limit = this.nrowsPerQuery;
-        let offset = 0;
-        this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
-            limit, offset, sortBy, sortDirection)
-            .done((data) => {
-                let newList = data;
-                let hasNextPage = data.length % this.nrowsPerQuery === 0;
-                let newCount = hasNextPage ? newList.length + 1 : newList.length;
-                this.setState({list: newList, rowCount: newCount })
-            });
-
-        this.setState({ sortBy:sortBy});
-        this.setState({sortDirection: sortDirection});
+    _sort({ sortBy, sortDirection }) {
+        this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
+        this.setState({sortBy, sortDirection});
     }
 
-    _idColumnLink (obj){
-
+    _idColumnLink(obj) {
          return (
              <div>
-             <Link to = {`${this.props.domain}/${this.props.name}/update/${obj.cellData}`}>
-                 {obj.cellData}
-             </Link>
-                 </div>
-         )
-
+                <Link to = {`${this.props.domain}/${this.props.name}/update/${obj.cellData}`}>
+                    {obj.cellData}
+                </Link>
+             </div>
+         );
     }
 
-    headerRowRenderer = ({
-        className,
-        columns,
-        style
-    }) => {
-        return(
-        <div
-            className={cx(className, styles.RVheader)}
-            role='row'
-            style={style}
-        >
-            {columns}
-        </div>)
-
+    headerRowRenderer = ({ className, columns, style }) => {
+        return (
+            <div
+                className={cx(className, styles.RVheader)}
+                role='row'
+                style={style}
+            >
+                {columns}
+            </div>
+        );
     };
 
-// Render your table
 
     render() {
-
         let data = this.props.formatter(this.props.data);
-        //let data = this.props.formatter(this.state.list);
-        //console.log(data.length);
-        //console.log(this.state.rowCount);
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
-
         let columnDefs = this.props.columns;
         if (!columnDefs) {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
         tables.checkData(data);
 
-
         let cssHeight;
         cssHeight = (this.gridHeight > (data.length + 1) * ROW_HEIGTH) ? (data.length + 1) * ROW_HEIGTH  : this.gridHeight;
-
 
         const {
             disableHeader,
@@ -296,29 +235,34 @@ class CommonTable extends React.PureComponent {
 
         let list = Immutable.fromJS(data);
 
-        let sortedList;
-
-        sortedList = list
-
-        const rowGetter = ({index}) => this._getDatum(sortedList, index);
-
+        const rowGetter = ({index}) => this._getDatum(list, index);
 
         return (
             <div style={{width: '100%', height: '100%'}}>
+
+                {/* Search field */}
+
                 <div>
                     <div type="button" className={css.resetBtn} onClick={this.reset.bind(this)}>
                         <span className="glyphicon glyphicon-remove" aria-hidden="true" />
                     </div>
-                    <FormControl type="text" className={css.searchField} placeholder="Search"
-                                 value={this.state.searchValue}
-                                 onChange={this.onSearch.bind(this)}
+                    <FormControl
+                        type="text"
+                        className={css.searchField}
+                        placeholder="Search"
+                        value={this.state.searchValue}
+                        onChange={this.onSearch.bind(this)}
                     />
                 </div>
                 <div className="clearfix"/>
 
-                { !this.props.form ? null :
+                {/* Feedback */}
+
+                { this.props.form &&
                     <Feedback reference={this.props.form}/>
                 }
+
+                {/* The table */}
 
                 <div className={styles.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
                     <InfiniteLoader isRowLoaded={this.isRowLoaded.bind(this)}
@@ -327,7 +271,6 @@ class CommonTable extends React.PureComponent {
                                     threshold={10}>
                         {({ onRowsRendered, registerChild }) => (
                             <AutoSizer>
-                                {/*{renderTable}*/}
                                 {({ height, width }) => (
                                         <Table
                                             ref={registerChild}
@@ -346,7 +289,6 @@ class CommonTable extends React.PureComponent {
                                             sortBy={sortBy}
                                             sortDirection={sortDirection}
                                         >
-
                                             {this.getColumns(width-50, list)}
                                         </Table>
                                 )}
@@ -354,17 +296,17 @@ class CommonTable extends React.PureComponent {
                         )}
                     </InfiniteLoader>
                 </div>
-                 <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} ></div>
+                <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} />
 
-                 <DataLoadingIcon />
+                {/* Loading spinner */}
 
+                <DataLoadingIcon />
 
             </div>
         )
-
-
     }
 }
+
 
 CommonTable.defaultProps = {
     activeOnly: false,
@@ -382,10 +324,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        getTableDataAsync: (table, storeKey, active, limit, offset, orderBy, orderDir) =>
-            dispatch(getTableDataAsync(table, storeKey, active, limit, offset, orderBy, orderDir)),
-    };
+    return bindActionCreators({ getTableDataAsync }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommonTable);

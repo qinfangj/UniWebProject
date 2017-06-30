@@ -4,6 +4,7 @@ import tableNames from './tableNames';
 
 
 const columnFormatters = {
+
     [tableNames.PEOPLE]: (data) => data.map((d) => {
         d.name = d.last_name +' '+d.first_name;
         return d;
@@ -13,6 +14,7 @@ const columnFormatters = {
         d.author = d.author_last_name +' '+d.author_first_name;
         return d;
     }),
+
 };
 
 
