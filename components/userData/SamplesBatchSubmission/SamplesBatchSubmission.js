@@ -1,8 +1,11 @@
 "use strict";
 import React from 'react';
+import store from '../../../core/store';
 import css from '../styles.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import $ from 'jquery';
+import { actions } from 'react-redux-form';
 
 import {
     requestAllProjects,
@@ -18,6 +21,7 @@ import sampleModel from '../formModels/sampleModel';
 import samplesProjectModel from '../formModels/samplesProjectModel';
 import submit from '../submit';
 import { formatFormFieldsDefault } from '../../forms/forms';
+import formNames from '../../constants/formNames';
 
 import { Form } from 'react-redux-form';
 import SampleRow from './SampleRow';
@@ -39,17 +43,21 @@ class SamplesBatchSubmission extends React.PureComponent {
     constructor(props) {
         super(props);
         this.table = "samples";
+        this.form = "samples";
         this.formModelName = "userDataForms.samples";
         this.model = sampleModel;
     }
 
     componentWillMount() {
-        this.props.requestAllProjects();
-        this.props.requestTaxonomies();
-        this.props.requestSampleTypes();
-        this.props.requestQuantifMethods();
-        this.props.requestRunsTypesLengths();
-        this.props.requestLibProtocols();
+        // Fix the resetValidity bug in RRF by doing it manually when all options lists are loaded.
+        $.when(
+            this.props.requestAllProjects(),
+            this.props.requestTaxonomies(),
+            this.props.requestSampleTypes(),
+            this.props.requestQuantifMethods(),
+            this.props.requestRunsTypesLengths(),
+            this.props.requestLibProtocols()
+        ).done(() => store.dispatch(actions.resetValidity(this.formModelName)));
     }
 
     handleSubmit(values) {
@@ -60,7 +68,7 @@ class SamplesBatchSubmission extends React.PureComponent {
             requests.push(formatFormFieldsDefault(sampleModel, values.requests[i]));
         }
         let insertData = {project, requests};
-        submit(this.formModelName, insertData, this.table, this.formModelName);
+        submit(this.formModelName, insertData, this.table, formNames.SAMPLES_INSERT_FORM);
     }
 
     /**

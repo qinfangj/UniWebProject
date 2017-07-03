@@ -34,6 +34,8 @@ export function newOrUpdate(modelName, table, updateId, onUpdated){
         .done((data) => {
             console.log("Update with values:", data);
             store.dispatch(actions.merge(modelName, data));
+            // Need to reset validaity manually because of a bug in RRF:
+            // https://github.com/davidkpiano/react-redux-form/issues/836
             store.dispatch(actions.resetValidity(modelName));
             if (onUpdated) {
                 onUpdated(data);

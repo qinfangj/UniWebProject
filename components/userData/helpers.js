@@ -63,14 +63,14 @@ export function makeInputs(rowModel, options, formModelName) {
 
 export function newLibrariesProjectRow() {
     return {
-        [fields.libraries.PROJECT_ID]: "",
-        [fields.samples.TAXO_ID]: "",
-        [fields.samples.SAMPLE_TYPE_ID]: "",  // "Material type"
-        [fields.libraries.LIB_PROTOCOL_ID]: "",
-        [fields.libraries.ADAPTER_ID]: "",
+        [fields.libraries.PROJECT_ID]: "1",
+        [fields.samples.TAXO_ID]: "1",
+        [fields.samples.SAMPLE_TYPE_ID]: "1",  // "Material type"
+        [fields.libraries.LIB_PROTOCOL_ID]: "1",
+        [fields.libraries.ADAPTER_ID]: "1",
         [fields.libraries.LIBRARY_DATE]: dateNow(),
-        [fields.libraries.QUANTIF_METHOD_ID]: "",
-        [fields.user_requests.RUN_TYPES_LENGTH_ID]: "",
+        [fields.libraries.QUANTIF_METHOD_ID]: "1",
+        [fields.user_requests.RUN_TYPES_LENGTH_ID]: "1",
     }
 }
 
@@ -96,13 +96,13 @@ export function newLibraryRow() {
 
 export function newSamplesProjectRow() {
     return {
-        [fields.samples.PROJECT_ID]: "",
-        [fields.samples.TAXO_ID]: "",
-        [fields.samples.SAMPLE_TYPE_ID]: "",
+        [fields.samples.PROJECT_ID]: "1",
+        [fields.samples.TAXO_ID]: "1",
+        [fields.samples.SAMPLE_TYPE_ID]: "1",
         [fields.samples.RECEIVED_DATE]: dateNow(),
-        [fields.samples.QUANTIF_METHOD_ID]: "",
-        [fields.user_requests.LIB_PROTOCOL_ID]: "",  // "Library type"
-        [fields.user_requests.RUN_TYPES_LENGTH_ID]: "",
+        [fields.samples.QUANTIF_METHOD_ID]: "1",
+        [fields.user_requests.LIB_PROTOCOL_ID]: "1",  // "Library type"
+        [fields.user_requests.RUN_TYPES_LENGTH_ID]: "1",
     }
 }
 

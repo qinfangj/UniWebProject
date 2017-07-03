@@ -57,8 +57,6 @@ export default class RRFInput extends React.PureComponent {
         //     value = options[0][0];
         // }
 
-        // We don't use HTML5's "required" directly because of a bug in RRF:
-        // https://github.com/davidkpiano/react-redux-form/issues/836
         inputProps.isRequired = required;
 
         return (
@@ -67,7 +65,8 @@ export default class RRFInput extends React.PureComponent {
                     className={formsCss.input}
                     component={component}
                     model={modelName}
-                    validators={required ? {...validators, isRequired: (val) => val && val.length} : validators}
+                    required={required}
+                    validators={validators}
                     errors={errors}
                     updateOn={updateOn || "change"}
                     validateOn={validateOn || "change"}
@@ -79,7 +78,7 @@ export default class RRFInput extends React.PureComponent {
                     className={css.errors}
                     model={modelName}
                     show="touched"
-                    messages={required ? {...errorMessages, isRequired: "Required"} : errorMessages}
+                    messages={errorMessages}
                 />
             </div>
         );

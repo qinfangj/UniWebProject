@@ -4,6 +4,15 @@ import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import fields from '../../constants/fields';
 
 
+export const libraryFields = [
+    fields.samples.NAME, fields.samples.SHORT_NAME, fields.libraries.STARTING_MATERIAL,
+    fields.libraries.MULTIPLEX_INDEX_7_ID, fields.libraries.MULTIPLEX_INDEX_5_ID,
+    fields.libraries.FRAG_SIZE_MIN, fields.libraries.FRAG_SIZE_MAX,
+    fields.libraries.BIOANALYSER_PEAK, fields.libraries.CONCENTRATION, fields.libraries.VOLUME,
+    fields.libraries.COMMENT,
+    fields.user_requests.NB_LANES, fields.user_requests.MILLION_READS, fields.user_requests.MULTIPLEXING_GROUP,
+];
+
 const libraryModel = {
     [fields.samples.NAME]: {
         inputType: inputTypes.TEXT,

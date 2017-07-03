@@ -1,14 +1,15 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from './styles.css';
+import css from '../styles.css';
 import cx from 'classnames';
 
-import store from '../../core/store';
+import store from '../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from 'react-redux-form';
-import fields from '../constants/fields';
+import fields from '../../constants/fields';
+import { sampleFields } from '../formModels/sampleModel';
 
 import { FormControl, Button } from 'react-bootstrap/lib'
 
@@ -25,6 +26,7 @@ class CopyPasteArea extends React.PureComponent {
     constructor(props) {
         super(props);
         this.formModelName = "userDataForms.samples";
+        this.fields = sampleFields;
         this.state = {
             text: fakeData,
         };
@@ -47,10 +49,12 @@ class CopyPasteArea extends React.PureComponent {
         for (let i = 0; i < nrows; i++) {
             let row = rows[i].trim();
             let terms = row.split(/\t|\s\s+/);  // tab, or two or more white characters
-            data.push({
-                [fields.samples.NAME]: terms[0],
-                [fields.samples.SHORT_NAME]: terms[1]}
-            );
+            let formData = {};
+            for (let i=0; i < terms.length; i++) {
+                let field = this.fields[i];
+                formData[field] = terms[i];
+            }
+            data.push(formData);
         }
         data = this.validate(data);
         for (let i = 0; i < nrows; i++) {
