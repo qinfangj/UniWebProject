@@ -50,6 +50,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
     }
 
     componentWillMount() {
+        // Fix the resetValidity bug in RRF by doing it manually when all options lists are loaded.
         $.when(
             this.props.requestAllProjects(),
             this.props.requestTaxonomies(),
