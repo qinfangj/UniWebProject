@@ -18,16 +18,7 @@ import { actions } from 'react-redux-form';
 export function submit(modelName, insertData, table, formName) {
     if (confirm("Are you sure that you want to submit the data?")) {
         console.info("Values to submit: ", insertData);
-        /*
-        // Created at: reformat so that it can be parsed as java.sql.Timestamp.
-        // Updated at: if update, set to current timestamp.
-        if (insertData.id && insertData.id !== 0) {
-            insertData.updatedAt = dateNow();
-            if (insertData.createdAt) {
-                insertData.createdAt = parseDateString(insertData.createdAt);
-            }
-        }
-        */
+        insertData.createdAt = dateNow();
         store.dispatch(batchInsertAsync(table, insertData, null))
             .done((response) => {
                 console.debug(200, "Inserted IDs <"+ response.join(",") +">");

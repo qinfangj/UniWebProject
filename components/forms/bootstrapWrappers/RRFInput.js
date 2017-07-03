@@ -57,8 +57,6 @@ export default class RRFInput extends React.PureComponent {
         //     value = options[0][0];
         // }
 
-        // We don't use HTML5's "required" directly because of a bug in RRF:
-        // https://github.com/davidkpiano/react-redux-form/issues/836
         inputProps.isRequired = required;
 
         return (

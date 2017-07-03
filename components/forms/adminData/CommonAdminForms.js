@@ -66,6 +66,9 @@ class CommonAdminForms extends React.Component {
                         console.log(data);
                         this.setState({username: data.login});
                         store.dispatch(actions.merge(this.modelName, data));
+                        // Need to reset validaity manually because of a bug in RRF:
+                        // https://github.com/davidkpiano/react-redux-form/issues/836
+                        store.dispatch(actions.resetValidity(this.modelName));
                     });
 
         }
@@ -192,7 +195,6 @@ class CommonAdminForms extends React.Component {
             if (userId) {
 
                 let future = store.dispatch(deleteAsync(table, userId));
-                state = Object.assign(state, {submissionError: false, submissionFuture: future});
                 future
                     .done((deleteId) => {
                         console.debug(200, "Delete <" + deleteId + "> recordes")
@@ -217,7 +219,6 @@ class CommonAdminForms extends React.Component {
         if (confirm("Are you sure that you want to activate this user?")) { // Clic sur OK
             if (this.state.username) {
                 let future = store.dispatch(validateUserAsync({username:this.state.username}));
-                state = Object.assign(state, {submissionError: false, submissionFuture: future});
                 future
                     .done((validateId) => {
                         console.debug(200, "Validated ID <" + validateId + ">");
@@ -240,7 +241,6 @@ class CommonAdminForms extends React.Component {
 
     makeOptions(list,formatter) {
         let options = list.map(v => formatter(v));
-
 
         if (this.props.hasNoneValue) {
             options.unshift(["", '-']);
@@ -284,16 +284,12 @@ class CommonAdminForms extends React.Component {
                             component={BSTextInput}
                             model={".".concat(s.name)}
                             disabled={!this.state.isInsert}
-                            //required = {s.required}
-                            validators = {s.required ? {isRequired: (val) => val && (val + "").length} : null}
+                            required = {s.required}
                         />
                         <Errors
                             className = {admincss.errors}
                             model={".".concat(s.name)}
                             show="touched"
-                            messages={{
-                                isRequired: 'This field is required',
-                            }}
                         />
                     </div>
         } else if (s.type === inputTypes.DROPDOWN) {

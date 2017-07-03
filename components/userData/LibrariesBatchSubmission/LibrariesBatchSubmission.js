@@ -69,7 +69,8 @@ class LibrariesBatchSubmission extends React.PureComponent {
         let project = formatFormFieldsDefault(librariesProjectModel, values.project);
         let requests = [];
         for (let i=0; i < values.requests.length; i++) {
-            requests.push(formatFormFieldsDefault(libraryModel, values.requests[i]));
+            let request = formatFormFieldsDefault(libraryModel, values.requests[i]);
+            requests.push(request);
         }
         let insertData = {project, requests};
         submit(this.formModelName, insertData, this.table, formNames.LIBRARIES_INSERT_FORM);
