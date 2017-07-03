@@ -319,6 +319,9 @@ class CommonAdminForms extends React.Component {
                                         component={BSSelect}
                                         disabled={!this.state.isInsert}
                                         required={s.required}
+                                        validators= {{
+                                            isRequired:(s.required)? (val)=> val !== "" : null
+                                        }}
                         >
                                 {options}
                         </Control.select>
@@ -326,6 +329,9 @@ class CommonAdminForms extends React.Component {
                             className = {admincss.errors}
                             model={".".concat(s.name)}
                             show="touched"
+                            messages={{
+                                isRequired: 'Please select an option for this field.',
+                            }}
                         />
                     </div>
         }
