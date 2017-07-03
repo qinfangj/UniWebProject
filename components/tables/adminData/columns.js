@@ -19,19 +19,19 @@ const adminDataColumns = {
         },
         {
             headerName: "First Name",
-            field: "first_name",
+            field: "firstName",
         },
         {
             headerName: "Last Name",
-            field: "last_name",
+            field: "lastName",
         },
         {
             headerName: "Laboratory",
-            field: "pi_last_name",
+            field: "piLastName",
         },
         {
             headerName: "Validated",
-            field: "isValidated",
+            field: "isvalidated",
             cellRenderer: function(params) {
                 return params.value ?
                       '<i class="fa fa-check" aria-hidden="true"></i>'
