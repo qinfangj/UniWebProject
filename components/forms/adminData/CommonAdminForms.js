@@ -52,7 +52,6 @@ class CommonAdminForms extends React.Component {
     //if updatedId has value fetch the data from backend
     //otherwise show empty insert form
     newOrUpdate(table,updateId){
-        //let state = {serverError: {}};
         let currentPath = window.location.pathname + window.location.hash.substr(2);
         // if (currentPath.endsWith('/new')) {
         //     store.dispatch(actions.reset(this.modelName));
@@ -73,7 +72,6 @@ class CommonAdminForms extends React.Component {
 
         }
         else {
-            //empty the admin forms
             store.dispatch(actions.reset(this.modelName));
         }
 
@@ -189,16 +187,15 @@ class CommonAdminForms extends React.Component {
     userDelete(form, table,userId){
 
         //userDelete(this, this.table, this.props.updateId);
-        let state = {serverError: {}};
 
-        if (confirm("Are you sure to delete this user?")) { // Clic sur OK
+        if (confirm("Are you sure to delete this user?")) { // Click on OK
             if (userId) {
 
                 let future = store.dispatch(deleteAsync(table, userId));
                 future
                     .done((deleteId) => {
-                        console.debug(200, "Delete <" + deleteId + "> recordes")
-                        store.dispatch(feedbackSuccess(form, "Delete <" + deleteId + "> recordes"));
+                        console.debug(200, "Delete <" + deleteId + "> records")
+                        store.dispatch(feedbackSuccess(form, "Delete <" + deleteId + "> records"));
                         let currentPath = window.location.pathname + window.location.hash.substr(2);
                         if (userId !== '' || userId !== undefined) {
                             this.props.router.push(currentPath.replace('/update/' + userId, '/list'));
@@ -215,7 +212,6 @@ class CommonAdminForms extends React.Component {
     }
 
     userValidate(form){
-        let state = {serverError: {}};
         if (confirm("Are you sure that you want to activate this user?")) { // Clic sur OK
             if (this.state.username) {
                 let future = store.dispatch(validateUserAsync({username:this.state.username}));
@@ -275,7 +271,7 @@ class CommonAdminForms extends React.Component {
             // First we map the react-redux forms props to the react-bootstrap props:
             const BSTextInput = (props) => <FormControl  {...props} />;
             // Then we just pass this in the 'component' prop of react-redux-forms' Control.
-            //const isRequired = s.required? (val) => val && val.length : null;
+            //const isRequired = s.required ? (val) => val && val.length : null;
 
             input = <div>
                         <Control
@@ -313,8 +309,6 @@ class CommonAdminForms extends React.Component {
                                 ];
 
                 options = this.makeOptions(roleList, function(v){return [v.value, v.name]});
-                //console.log(options);
-
             }
 
             const BSSelect = (props) => <FormControl componentClass= "select" {...props} />;
@@ -324,20 +318,14 @@ class CommonAdminForms extends React.Component {
                                         model={".".concat(s.name)}
                                         component={BSSelect}
                                         disabled={!this.state.isInsert}
-                                        //required={s.required}
-                                        validators= {{
-                                            isRequired:(s.required)? (val)=> val !== "" : null}}
+                                        required={s.required}
                         >
-
                                 {options}
                         </Control.select>
                         <Errors
                             className = {admincss.errors}
                             model={".".concat(s.name)}
                             show="touched"
-                            messages={{
-                                isRequired: 'Please select an option for this field.',
-                            }}
                         />
                     </div>
         }
@@ -347,10 +335,6 @@ class CommonAdminForms extends React.Component {
 
     render() {
         let formFields = adminData[this.props.table].fields;
-        // let feedbackStatus = this.state.submissionError ? constants.SUBMISSION_ERROR :
-        //                     (this.state.submissionSuccess ? constants.SUBMISSION_SUCCESS :
-        //                     (Object.keys(this.state.serverError).length > 0 ? constants.SERVER_ERROR : ""));
-        // let error = this.state.serverError;
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
 
