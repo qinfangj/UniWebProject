@@ -4,6 +4,14 @@ import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import fields from '../../constants/fields';
 
 
+export const sampleFields = [
+    fields.samples.NAME, fields.samples.SHORT_NAME, fields.samples.CONCENTRATION,
+    fields.samples.VOLUME, fields.samples.RIN, fields.samples.RATIO_260_280, fields.samples.RATIO_260_230,
+    fields.samples.DESCRIPTION, fields.samples.COMMENT_CUSTOMER,
+    fields.user_requests.INSERT_SIZE_MIN, fields.user_requests.INSERT_SIZE_MAX,
+    fields.user_requests.NB_LANES, fields.user_requests.MILLION_READS, fields.user_requests.MULTIPLEXING_GROUP,
+];
+
 const sampleModel = {
     [fields.samples.NAME]: {
         inputType: inputTypes.TEXT,
