@@ -67,7 +67,7 @@ class CommonAdminForms extends React.Component {
                         store.dispatch(actions.merge(this.modelName, data));
                         // Need to reset validaity manually because of a bug in RRF:
                         // https://github.com/davidkpiano/react-redux-form/issues/836
-                        store.dispatch(actions.resetValidity(this.modelName));
+                        //store.dispatch(actions.resetValidity(this.modelName));
                     });
 
         }
@@ -280,18 +280,18 @@ class CommonAdminForms extends React.Component {
                             component={BSTextInput}
                             model={".".concat(s.name)}
                             disabled={!this.state.isInsert}
-                            //required = {s.required}
-                            validators= {{
-                                isRequired: (s.required) ? (val) => val !== "" : null
-                            }}
+                            required = {s.required}
+                            // validators= {{
+                            //     isRequired: (s.required) ? (val) => val !== "" : null
+                            // }}
                         />
                         <Errors
                             className = {admincss.errors}
                             model={".".concat(s.name)}
                             show="touched"
-                            messages={{
-                                isRequired: 'Required.',
-                            }}
+                            // messages={{
+                            //     isRequired: 'Required.',
+                            // }}
                         />
                     </div>
         } else if (s.type === inputTypes.DROPDOWN) {
