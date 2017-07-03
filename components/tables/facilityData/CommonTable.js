@@ -27,7 +27,11 @@ class CommonTable extends React.PureComponent {
         super(props);
         this.gridHeight = 400;
         this.nVisibleRows = (this.gridHeight / ROW_HEIGTH) - 1;
-        this.nrowsPerQuery = 40;
+        if (this.props.domain ==="data" ) {
+            this.nrowsPerQuery = 40;
+        } else {
+            this.nrowsPerQuery = 10000000;
+        }
         if (this.nrowsPerQuery < this.nVisibleRows) {
             console.warn("Must query at least as many rows as we can display to enable scrolling",
                 `(${this.nrowsPerQuery} < ${this.nVisibleRows})`);
@@ -134,7 +138,7 @@ class CommonTable extends React.PureComponent {
                                    cellRenderer={this._idColumnLink.bind(this)}
                                    disableSort= {false}
                     />;
-                } else if (s.field === 'isValidated') {
+                } else if (s.field === 'isvalidated') {
                     node = <Column key={s}
                                    label={s.headerName}
                                    dataKey={s.field}
@@ -178,8 +182,12 @@ class CommonTable extends React.PureComponent {
     }
 
     _sort({ sortBy, sortDirection }) {
-        this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
-        this.setState({sortBy, sortDirection});
+        if (this.props.domain === "data") {
+
+            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
+        }
+        this.setState({sortBy:sortBy, sortDirection:sortDirection});
+
     }
 
     _idColumnLink(obj) {
@@ -234,8 +242,15 @@ class CommonTable extends React.PureComponent {
         } = this.state;
 
         let list = Immutable.fromJS(data);
+        let sortedList;
+        sortedList = list
+            .sortBy(item => item.get(sortBy))
+            .update(list =>
+                sortDirection === SortDirection.DESC
+                    ? list.reverse() : list
+            );
 
-        const rowGetter = ({index}) => this._getDatum(list, index);
+        const rowGetter = ({index}) => this._getDatum(sortedList, index);
 
         return (
             <div style={{width: '100%', height: '100%'}}>
