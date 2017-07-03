@@ -18,7 +18,8 @@ import Feedback from '../../utils/Feedback';
 
 
 
-class ProjectsInsertForm extends React.PureComponent {
+
+export class ProjectsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "projects";
