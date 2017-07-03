@@ -125,8 +125,6 @@ class RunsInsertForm extends React.PureComponent {
 
                 <Feedback reference={this.form} />
 
-                <Alert bsStyle="info">Backend is not ready yet to handle updates correctly</Alert>
-
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                     {formFields}

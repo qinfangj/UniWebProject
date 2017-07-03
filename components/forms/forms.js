@@ -45,8 +45,6 @@ export function newOrUpdate(modelName, table, updateId, onUpdated){
 }
 
 /**
- *
- /**
  * Send the `formData` for insert or update of db `table`.
  * Return a jQuery promise.
  *
@@ -70,9 +68,10 @@ export function submitForm(modelName, insertData, table, formName, onSuccess) {
         }
         return store.dispatch(insertAsync(table, insertData, null))
             .done((response) => {
-                console.debug(200, "Inserted ID <"+ response +">");
                 // Signal that it worked
-                store.dispatch(feedbackSuccess(formName, "Successfully inserted <"+response+">"));
+                let itype = isUpdate ? "updated" : "inserted";
+                store.dispatch(feedbackSuccess(formName, "Successfully "+itype+" <"+response+">"));
+                console.debug(200, itype+" ID <"+response+">");
                 // Clear the form data in store
                 store.dispatch(actions.reset(modelName));
                 // Redirect to table by replacing '/new' by '/list' in the router state
@@ -128,7 +127,7 @@ export function validateFormDefault(values) {
 }
 
 
-/* FORMS CONSTRUCTION */
+/* FORMS CONSTRUCTION HELPERS */
 
 
 /**
