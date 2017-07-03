@@ -18,6 +18,7 @@ import sampleModel from '../formModels/sampleModel';
 import samplesProjectModel from '../formModels/samplesProjectModel';
 import submit from '../submit';
 import { formatFormFieldsDefault } from '../../forms/forms';
+import formNames from '../../constants/formNames';
 
 import { Form } from 'react-redux-form';
 import SampleRow from './SampleRow';
@@ -39,6 +40,7 @@ class SamplesBatchSubmission extends React.PureComponent {
     constructor(props) {
         super(props);
         this.table = "samples";
+        this.form = "samples";
         this.formModelName = "userDataForms.samples";
         this.model = sampleModel;
     }
@@ -60,7 +62,7 @@ class SamplesBatchSubmission extends React.PureComponent {
             requests.push(formatFormFieldsDefault(sampleModel, values.requests[i]));
         }
         let insertData = {project, requests};
-        submit(this.formModelName, insertData, this.table, this.formModelName);
+        submit(this.formModelName, insertData, this.table, formNames.SAMPLES_INSERT_FORM);
     }
 
     /**

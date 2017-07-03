@@ -20,6 +20,7 @@ import libraryModel from '../formModels/libraryModel';
 import librariesProjectModel from '../formModels/librariesProjectModel';
 import submit from '../submit';
 import { formatFormFieldsDefault } from '../../forms/forms';
+import formNames from '../../constants/formNames';
 
 import { Form } from 'react-redux-form';
 import LibraryRow from './LibraryRow';
@@ -64,7 +65,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
             requests.push(formatFormFieldsDefault(libraryModel, values.requests[i]));
         }
         let insertData = {project, requests};
-        submit(this.formModelName, insertData, this.table, this.formModelName);
+        submit(this.formModelName, insertData, this.table, formNames.LIBRARIES_INSERT_FORM);
     }
 
     /**
