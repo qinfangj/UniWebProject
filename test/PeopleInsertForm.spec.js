@@ -6,14 +6,16 @@ import ReactDOM from 'react-dom';
 import {shallow, mount, render} from 'enzyme';
 import store from '../core/store';
 import { Provider } from 'react-redux';
-import {expect} from 'chai';
+import { expect, assert } from 'chai';
 import PeopleInsertFrom from '../components/forms/facilityData/PeopleInsertForm';
+import peopleModel from '../components/forms/facilityData/formModels/peopleModel';
+import TestUtils from 'react-addons-test-utils'
 
 
 
 const wrapper = shallow(
     <Provider store={store}>
-        <PeopleInsertFrom/>
+        <PeopleInsertFrom />
     </Provider>
 );
 
@@ -24,8 +26,29 @@ describe('peopleInsertForm =>', () => {
     });
 });
 
-/*
-    it('should render 5 TextField components', () => {
+
+let form = mount(
+    <Provider store={store}>
+        <PeopleInsertFrom />
+    </Provider>
+);
+
+it('should initially be invalid', () => {
+    assert.isFalse(store.getState().facilityDataForms.forms["people"].$form.validated);
+});
+
+it('should still be invalid after only all fields made valid', () => {
+    for (let modelName of Object.keys(peopleModel)) {
+        console.log("####OK####:" + modelName);
+        form.find('#' + modelName).node.value = 'aaa';
+        form.find('#' + modelName).simulate('change', form.find('#' + modelName));
+        assert.isTrue(store.getState().facilityDataForms.forms["people"][modelName].valid);
+    }
+    assert.isTrue(store.getState().facilityDataForms.forms["people"].$form.valid);
+
+});
+
+    /*it('should render 5 TextField components', () => {
 
         const textFields = scryRenderedComponentsWithType(wrapper, TextField);
         expect(textFields.length).to.equal(5);
@@ -59,6 +82,6 @@ describe('peopleInsertForm =>', () => {
 
         Simulate.click(submitBtn[0]);
 
-    });
-*/
+    });*/
+
 

@@ -154,7 +154,7 @@ export function makeFormFields(formModelName, formModel, disabled = false, optio
         }
         formFields.push(
             <Col key={modelName} sm={model.width} className={cx(css.col)}>
-                <RRFInput inputType={inputType} modelName={formModelName +'.'+ modelName} {...otherProps} />
+                <RRFInput id={modelName} inputType={inputType} modelName={formModelName +'.'+ modelName} {...otherProps} />
             </Col>
         );
     }

@@ -1,8 +1,12 @@
 "use strict";
 import React from 'react';
+import store from '../../../core/store';
 import css from '../styles.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import $ from 'jquery';
+import { actions } from 'react-redux-form';
+
 
 import {
     requestAllProjects,
@@ -47,14 +51,17 @@ class LibrariesBatchSubmission extends React.PureComponent {
     }
 
     componentWillMount() {
-        this.props.requestAllProjects();
-        this.props.requestTaxonomies();
-        this.props.requestSampleTypes();
-        this.props.requestQuantifMethods();
-        this.props.requestRunsTypesLengths();
-        this.props.requestRecentMultiplexIndexes();
-        this.props.requestLibProtocols();
-        this.props.requestLibAdapters();
+        // Fix the resetValidity bug in RRF by doing it manually when all options lists are loaded.
+        $.when(
+            this.props.requestAllProjects(),
+            this.props.requestTaxonomies(),
+            this.props.requestSampleTypes(),
+            this.props.requestQuantifMethods(),
+            this.props.requestRunsTypesLengths(),
+            this.props.requestRecentMultiplexIndexes(),
+            this.props.requestLibProtocols(),
+            this.props.requestLibAdapters()
+        ).done(() => store.dispatch(actions.resetValidity(this.formModelName)));
     }
 
     handleSubmit(values) {
