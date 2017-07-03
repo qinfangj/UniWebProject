@@ -280,12 +280,18 @@ class CommonAdminForms extends React.Component {
                             component={BSTextInput}
                             model={".".concat(s.name)}
                             disabled={!this.state.isInsert}
-                            required = {s.required}
+                            //required = {s.required}
+                            validators= {{
+                                isRequired: (s.required) ? (val) => val !== "" : null
+                            }}
                         />
                         <Errors
                             className = {admincss.errors}
                             model={".".concat(s.name)}
                             show="touched"
+                            messages={{
+                                isRequired: 'Required.',
+                            }}
                         />
                     </div>
         } else if (s.type === inputTypes.DROPDOWN) {
@@ -311,26 +317,26 @@ class CommonAdminForms extends React.Component {
                 options = this.makeOptions(roleList, function(v){return [v.value, v.name]});
             }
 
-            const BSSelect = (props) => <FormControl componentClass= "select" {...props} />;
+            const BSSelect = (props) => <FormControl componentClass="select" {...props} />;
 
             input = <div>
                         <Control.select id={s.name}
                                         model={".".concat(s.name)}
                                         component={BSSelect}
                                         disabled={!this.state.isInsert}
-                                        required={s.required}
+                                        //required={s.required}
                                         validators= {{
-                                            isRequired:(s.required)? (val)=> val !== "" : null
+                                            isRequired: (s.required) ? (val) => val !== "" : null
                                         }}
                         >
                                 {options}
                         </Control.select>
                         <Errors
-                            className = {admincss.errors}
+                            className={admincss.errors}
                             model={".".concat(s.name)}
                             show="touched"
                             messages={{
-                                isRequired: 'Please select an option for this field.',
+                                isRequired: 'Please select an option.',
                             }}
                         />
                     </div>
