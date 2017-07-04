@@ -16,7 +16,7 @@ import SubmitButton from '../SubmitButton';
 
 
 
-class GenomesInsertForm extends React.PureComponent {
+export class GenomesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "genomes";

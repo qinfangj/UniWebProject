@@ -32,7 +32,7 @@ describe('(Component) SamplesInsertForm =>', () => {
         "concentration": 231,
         "volume": 123,
         "rin": 123,
-        "description": "sdfa",
+        "description": "this is a testing data",
     };
 
     let form = mount(
