@@ -83,7 +83,7 @@ class GenomesInsertForm extends React.PureComponent {
 }
 
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
     let options = forms.optionsFromModel(state, genomesModel);
     let formData = state.facilityDataForms.genomes;
     let formModel = state.facilityDataForms.forms.genomes;

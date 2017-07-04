@@ -19,7 +19,7 @@ import Feedback from '../../../utils/Feedback';
 import SubmitButton from '../../SubmitButton';
 
 
-class RunsInsertForm extends React.PureComponent {
+export class RunsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "runs";  // db table for insert
