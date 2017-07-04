@@ -27,7 +27,11 @@ class CommonTable extends React.PureComponent {
         super(props);
         this.gridHeight = 400;
         this.nVisibleRows = (this.gridHeight / ROW_HEIGTH) - 1;
-        this.nrowsPerQuery = 40;
+        if (this.props.domain === "facility" ) {
+            this.nrowsPerQuery = 40;
+        } else {
+            this.nrowsPerQuery = 10000000;
+        }
         if (this.nrowsPerQuery < this.nVisibleRows) {
             console.warn("Must query at least as many rows as we can display to enable scrolling",
                 `(${this.nrowsPerQuery} < ${this.nVisibleRows})`);
@@ -91,7 +95,7 @@ class CommonTable extends React.PureComponent {
     }
 
     //reset function needs to be re-implemented
-    reset(){
+    resetSearch() {
         this.setState({searchValue: ""});
     }
 
@@ -107,15 +111,9 @@ class CommonTable extends React.PureComponent {
         return index < this.props.data.length;
     }
 
-    // Empty the list and set row count to 1 to enable infinite scroll
-    // I think we should reset memoizer here.
-    resetList() {
-        this.setState({list: [], rowCount: 1});
-    }
-
     getColumns(width, list){
         let namesForColumns;
-        if (this.props.domain === "data") {
+        if (this.props.domain === "facility") {  
             namesForColumns = facilityDataColumns[this.props.table];
         }
         else if (this.props.domain === "admin") {
@@ -178,8 +176,10 @@ class CommonTable extends React.PureComponent {
     }
 
     _sort({ sortBy, sortDirection }) {
-        this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
-        this.setState({sortBy, sortDirection});
+        if (this.props.domain === "facility") {
+            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
+        }
+        this.setState({ sortBy, sortDirection });
     }
 
     _idColumnLink(obj) {
@@ -234,8 +234,14 @@ class CommonTable extends React.PureComponent {
         } = this.state;
 
         let list = Immutable.fromJS(data);
+        let sortedList = list;
+        if (this.props.domain === "admin") {
+            sortedList = list
+            .sortBy(item => item.get(sortBy))
+            .update(list => (sortDirection === SortDirection.DESC) ? list.reverse() : list);
+        }
 
-        const rowGetter = ({index}) => this._getDatum(list, index);
+        const rowGetter = ({index}) => this._getDatum(sortedList, index);
 
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -243,7 +249,7 @@ class CommonTable extends React.PureComponent {
                 {/* Search field */}
 
                 <div>
-                    <div type="button" className={css.resetBtn} onClick={this.reset.bind(this)}>
+                    <div type="button" className={css.resetBtn} onClick={this.resetSearch.bind(this)}>
                         <span className="glyphicon glyphicon-remove" aria-hidden="true" />
                     </div>
                     <FormControl
