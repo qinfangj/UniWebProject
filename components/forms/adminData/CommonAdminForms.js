@@ -122,9 +122,7 @@ class CommonAdminForms extends React.Component {
                         store.dispatch(feedbackSuccess(form, "Validated user <" + this.state.username + ">"));
                         let currentPath = window.location.pathname + window.location.hash.substr(2);
                         if (this.props.updateId !== '' || this.props.updateId !== undefined) {
-
                             this.props.router.push(currentPath.replace('/update/' + this.props.updateId, '/list'));
-
                         }
                     })
                     .fail((err) => {
@@ -133,7 +131,6 @@ class CommonAdminForms extends React.Component {
                     });
             }
         }
-
     }
 
     makeOptions(options, hasNoneValue = true) {
