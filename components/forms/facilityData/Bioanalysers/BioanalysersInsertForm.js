@@ -1,8 +1,6 @@
 "use strict";
 import React from 'react';
-import PropTypes from 'prop-types';
 import css from './bioanalysers.css';
-import formsCss from '../../forms.css';
 import RestService from '../../../../utils/RestService';
 
 import { connect } from 'react-redux';
@@ -16,8 +14,9 @@ import * as forms from '../../forms.js';
 
 import LanesSubForm from './lanesSubForm';
 import { Form } from 'react-redux-form';
-import { Col, Button } from 'react-bootstrap/lib';
+import { Col } from 'react-bootstrap/lib';
 import Feedback from '../../../utils/Feedback';
+import SubmitButton from '../SubmitButton';
 
 
 class BioanalysersInsertForm extends React.PureComponent {
@@ -30,7 +29,9 @@ class BioanalysersInsertForm extends React.PureComponent {
         this.state = {
             disabled: false,
             bioanalyserUrl: null,
-        }
+        };
+        this.activateForm = this.activateForm.bind(this);
+        this.deactivateForm = this.deactivateForm.bind(this);
     }
 
     componentWillMount() {
@@ -151,22 +152,11 @@ class BioanalysersInsertForm extends React.PureComponent {
 
                     <LanesSubForm disabled={this.state.disabled}/>
 
-                    {/* Submit */}
-
-                    {this.state.disabled ?
-                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
-                            Activate form
-                        </Button>
-                        :
-                        <div>
-                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
-                                Cancel
-                            </Button>
-                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
-                                Submit
-                            </Button>
-                        </div>
-                    }
+                    <SubmitButton
+                        disabled={this.state.disabled}
+                        activateForm={this.activateForm}
+                        deactivateForm={this.deactivateForm}
+                    />
 
                 </Form>
 

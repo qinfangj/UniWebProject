@@ -1,6 +1,5 @@
 "use strict";
 import React from 'react';
-import PropTypes from 'prop-types';
 import formsCss from '../forms.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,8 +12,8 @@ import * as forms from '../forms.js';
 import formNames from '../../constants/formNames';
 import projectsModel from './formModels/projectsModel';
 
-import Button from 'react-bootstrap/lib/Button';
 import Feedback from '../../utils/Feedback';
+import SubmitButton from './SubmitButton';
 
 
 
@@ -29,6 +28,8 @@ export class ProjectsInsertForm extends React.PureComponent {
         this.state = {
             disabled: false,
         };
+        this.activateForm = this.activateForm.bind(this);
+        this.deactivateForm = this.deactivateForm.bind(this);
     }
 
     componentWillMount() {
@@ -71,22 +72,11 @@ export class ProjectsInsertForm extends React.PureComponent {
 
                     <div className="clearfix"/>
 
-                    {/* Submit */}
-
-                    {this.state.disabled ?
-                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
-                            Activate form
-                        </Button>
-                        :
-                        <div>
-                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
-                                Cancel
-                            </Button>
-                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
-                                Submit
-                            </Button>
-                        </div>
-                    }
+                    <SubmitButton
+                        disabled={this.state.disabled}
+                        activateForm={this.activateForm}
+                        deactivateForm={this.deactivateForm}
+                    />
 
                 </Form>
 

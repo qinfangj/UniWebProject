@@ -1,6 +1,5 @@
 "use strict";
 import React from 'react';
-import formsCss from '../../forms.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form } from 'react-redux-form';
@@ -17,7 +16,7 @@ import LanesSubForm from './LanesSubForm';
 import formNames from '../../../constants/formNames';
 import runsModel from '../formModels/runsModel';
 import Feedback from '../../../utils/Feedback';
-import {Button, Alert} from 'react-bootstrap/lib';
+import SubmitButton from '../SubmitButton';
 
 
 class RunsInsertForm extends React.PureComponent {
@@ -30,6 +29,8 @@ class RunsInsertForm extends React.PureComponent {
         this.state = {
             disabled: false,
         };
+        this.activateForm = this.activateForm.bind(this);
+        this.deactivateForm = this.deactivateForm.bind(this);
     }
 
     componentWillMount() {
@@ -135,22 +136,11 @@ class RunsInsertForm extends React.PureComponent {
 
                     <LanesSubForm disabled={this.state.disabled} />
 
-                    {/* Submit */}
-
-                    {this.state.disabled ?
-                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
-                            Activate form
-                        </Button>
-                        :
-                        <div>
-                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
-                                Cancel
-                            </Button>
-                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
-                                Submit
-                            </Button>
-                        </div>
-                    }
+                    <SubmitButton
+                        disabled={this.state.disabled}
+                        activateForm={this.activateForm}
+                        deactivateForm={this.deactivateForm}
+                    />
 
                 </Form>
 

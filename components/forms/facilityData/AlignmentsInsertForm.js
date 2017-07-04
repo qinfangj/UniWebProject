@@ -1,8 +1,5 @@
 "use strict";
 import React from 'react';
-import PropTypes from 'prop-types';
-import formsCss from '../forms.css';
-
 import store from '../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,7 +15,6 @@ import fields from '../../constants/fields';
 import formNames from '../../constants/formNames';
 import alignmentsModel from './formModels/alignmentsModel';
 
-import { Button } from 'react-bootstrap/lib';
 import Feedback from '../../utils/Feedback';
 import SubmitButton from './SubmitButton';
 
