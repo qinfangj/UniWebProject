@@ -27,7 +27,7 @@ export function submit(modelName, insertData, table, formName) {
                 // Clear the form data in store
                 store.dispatch(actions.reset(modelName));
                 // let currentPath = window.location.pathname + window.location.hash.substr(2);
-                hashHistory.push("/data/"+ table);
+                hashHistory.push("/facility/"+ table);
             })
             .fail((error) => {
                 console.warn("Uncaught form validation error: ", error);

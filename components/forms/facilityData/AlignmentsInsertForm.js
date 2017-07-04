@@ -93,8 +93,6 @@ class AlignmentsInsertForm extends React.PureComponent {
 
                     <div className="clearfix"/>
 
-                    {/* Submit */}
-
                     <SubmitButton
                         disabled={this.state.disabled}
                         activateForm={this.activateForm}
