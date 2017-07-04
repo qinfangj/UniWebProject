@@ -23,18 +23,3 @@ export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
     let args = {storeKey, id};
     return asyncAction(types.forms.GET_SECONDARY_OPTIONS_LIST, RestService.getSecondaryOptionsList.bind(null, tableName, id), args)
 }
-
-/**
- * @deprecated Used only in MultipleSelect, relic for QueryProjects to refactor.
- */
-export function changeFormValue(form, field, value, valid) {
-    return (dispatch) => {
-        return dispatch({
-            type: types.forms.CHANGE_FORM_VALUE,
-            form: form,
-            field: field,
-            value: value,
-            valid: valid,
-        });
-    };
-}

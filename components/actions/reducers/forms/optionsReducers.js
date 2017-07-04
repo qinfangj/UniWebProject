@@ -4,7 +4,31 @@ import returnList from '../base';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 
-const defaultState = {};
+const defaultState = {
+    [optionsStoreKeys.INSTRUMENTS]: [],
+    [optionsStoreKeys.FLOWCELL_TYPES]: [],
+    [optionsStoreKeys.LABORATORIES]: [],
+    [optionsStoreKeys.LIB_ADAPTERS]: [],
+    [optionsStoreKeys.LIB_PROTOCOLS]: [],
+    [optionsStoreKeys.LIB_STATES]: [],
+    [optionsStoreKeys.MAPPING_TOOLS]: [],
+    [optionsStoreKeys.MULTIPLEX_INDEXES]: [],
+    [optionsStoreKeys.PEOPLE]: [],
+    [optionsStoreKeys.PIPELINE_ANALYSIS_TYPES]: [],
+    [optionsStoreKeys.PIPELINE_VERSIONS]: [],
+    [optionsStoreKeys.PROJECTS_ALL]: [],
+    [optionsStoreKeys.PROJECT_ANALYSES]: [],
+    [optionsStoreKeys.PROJECT_STATES]: [],
+    [optionsStoreKeys.QUANTIF_METHODS]: [],
+    [optionsStoreKeys.READ_LENGTHS]: [],
+    [optionsStoreKeys.RUNS_OUTPUT_FOLDERS]: [],
+    [optionsStoreKeys.RUN_TYPES]: [],
+    [optionsStoreKeys.RUN_TYPES_LENGTHS]: [],
+    [optionsStoreKeys.SAMPLE_TYPES]: [],
+    [optionsStoreKeys.SEQUENCING_KIT_VERSIONS]: [],
+    [optionsStoreKeys.SEQUENCING_QUALITIES]: [],
+    [optionsStoreKeys.TAXONOMIES]: [],
+};
 
 
 function formatInstruments(v) { return [v.id, v.name]; }
@@ -21,7 +45,9 @@ function formatProjects(v) { return [v.id, v.lastName +" - "+ v.name]; }
 function formatProjectAnalyses(v) { return [v.id, v.name]; }
 function formatProjectStates(v) { return [v.id, v.name]; }
 function formatQuantifMethods(v) { return [v.id, v.name]; }
+function formatReadLengths(v) { return [v.id, v.length]; }
 function formatRunsOutputFolders(v) { return [v.id, v.runFolder]; }
+function formatRunTypes(v) { return [v.id, v.name]; }
 function formatRunTypesLengths(v) { return [v.id, v.name +' '+ v.length]; }
 function formatSampleTypes(v) { return [v.id, v.name]; }
 function formatSequencingKitVersions(v) { return [v.id, v.version]; }
@@ -60,6 +86,9 @@ let optionsReducers = (state = defaultState, action) => {
         case types.options.OPTIONS_FLOWCELL_TYPES:
             return returnList(action, state, optionsStoreKeys.FLOWCELL_TYPES, [], formatFlowcellTypes);
 
+        case types.options.OPTIONS_LABORATORIES:
+            return returnList(action, state, optionsStoreKeys.LABORATORIES, [], formatPeople);
+
         case types.options.OPTIONS_LIB_ADAPTERS:
             return returnList(action, state, optionsStoreKeys.LIB_ADAPTERS, [], formatLibAdapters);
 
@@ -77,9 +106,6 @@ let optionsReducers = (state = defaultState, action) => {
 
         case types.options.OPTIONS_PEOPLE:
             return returnList(action, state, optionsStoreKeys.PEOPLE, [], formatPeople);
-
-        case types.options.OPTIONS_LABORATORIES:
-            return returnList(action, state, optionsStoreKeys.LABORATORIES, [], formatPeople);
 
         case types.options.OPTIONS_PIPELINE_ANALYSIS_TYPES:
             return returnList(action, state, optionsStoreKeys.PIPELINE_ANALYSIS_TYPES, [], formatPipelineAnalysisTypes);
@@ -108,8 +134,14 @@ let optionsReducers = (state = defaultState, action) => {
         case types.options.OPTIONS_QUANTIF_METHODS:
             return returnList(action, state, optionsStoreKeys.QUANTIF_METHODS, [], formatQuantifMethods);
 
+        case types.options.OPTIONS_READ_LENGHTS:
+            return returnList(action, state, optionsStoreKeys.READ_LENGTHS, [], formatReadLengths);
+
         case types.options.OPTIONS_RUNS_OUTPUT_FOLDERS:
             return returnList(action, state, optionsStoreKeys.RUNS_OUTPUT_FOLDERS, [], formatRunsOutputFolders);
+
+        case types.options.OPTIONS_RUN_TYPES:
+            return returnList(action, state, optionsStoreKeys.RUN_TYPES, [], formatRunTypes);
 
         case types.options.OPTIONS_RUN_TYPES_LENGTHS:
             return returnList(action, state, optionsStoreKeys.RUN_TYPES_LENGTHS, [], formatRunTypesLengths);

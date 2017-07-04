@@ -6,14 +6,22 @@ import { withRouter } from 'react-router';
 import store from '../../../core/store';
 import tableNames from '../../tables/tableNames';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import { getOptionsListAsync,getConditionalOptionsListAsync} from '../../actions/actionCreators/formsActionCreators';
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {
+    requestAllProjects,
+    requestAllPeople,
+    requestLaboratories,
+    requestReadLengths,
+    requestRunTypes } from '../../actions/actionCreators/optionsActionCreators';
+
+import { findByIdAsync, deleteAsync, validateUserAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 
 import * as submit from './submit';
 import adminData from './adminDataModels';
-import constants from '../../constants/constants';
 import { Control, Form, actions, Errors} from 'react-redux-form';
-import { findByIdAsync,deleteAsync,validateUserAsync} from '../../actions/actionCreators/facilityDataActionCreators';
-import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import Feedback from '../../utils/Feedback';
 import inputTypes from '../../forms/inputTypes';
 
@@ -43,7 +51,6 @@ class CommonAdminForms extends React.Component {
             laboratoryList: [],
             isValidated: undefined,
             username: "",
-
         };
         this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
     }
@@ -79,92 +86,17 @@ class CommonAdminForms extends React.Component {
 
     componentWillMount() {
 
-        this.newOrUpdate(this.table,this.props.updateId);
+        this.newOrUpdate(this.table, this.props.updateId);
 
         if (this.table === tableNames.RUN_TYPES_LENGTHS) {
-            let runtypeList = store.getState().options[optionsStoreKeys.RUN_TYPES];
-            let readlengthList = store.getState().options[optionsStoreKeys.READ_LENGTHS];
-
-            if (!runtypeList) {
-                let future = store.dispatch(getOptionsListAsync(tableNames.RUN_TYPES, optionsStoreKeys.RUN_TYPES));
-                future
-                    .done((data) => {
-                        this.setState({
-                            runtypeList: data
-                        });
-                    })
-            } else {
-                this.setState({
-                    runtypeList
-                });
-            }
-
-            if (!readlengthList) {
-                let future = store.dispatch(getOptionsListAsync(tableNames.READ_LENGTHS, optionsStoreKeys.READ_LENGTHS));
-                future
-                    .done((data) => {
-                        this.setState({
-                            readlengthList: data
-                        });
-                    })
-            } else {
-                this.setState({
-                    readlengthList
-                });
-            }
+            store.dispatch(requestRunTypes());
+            store.dispatch(requestReadLengths());
+        } else if (this.table === tableNames.PROJECT_SHARINGS) {
+            store.dispatch(requestAllProjects());
+            store.dispatch(requestAllPeople());
+        } else if (this.table === tableNames.USERS) {
+            store.dispatch(requestLaboratories());
         }
-
-        if (this.table === tableNames.PROJECT_SHARINGS) {
-            let projectList = store.getState().options[optionsStoreKeys.PROJECTS];
-            let peopleList = store.getState().options[optionsStoreKeys.PEOPLE];
-
-            if (!projectList) {
-                let future = store.dispatch(getOptionsListAsync(tableNames.PROJECTS, optionsStoreKeys.PROJECTS));
-                future
-                    .done((data) => {
-                        this.setState({
-                            projectList: data
-                        });
-                    })
-            } else {
-                this.setState({
-                    projectList
-                });
-            }
-
-            if (!peopleList) {
-                let future = store.dispatch(getOptionsListAsync(tableNames.PEOPLE, optionsStoreKeys.PEOPLE));
-                future
-                    .done((data) => {
-                        this.setState({
-                            peopleList: data
-                        });
-                    })
-            } else {
-                this.setState({
-                    peopleList
-                });
-            }
-        }
-
-        if (this.table === tableNames.USERS) {
-            let laboratoryList = store.getState().options[optionsStoreKeys.LABORATORIES];
-            if (!laboratoryList) {
-                let future = store.dispatch(getConditionalOptionsListAsync(tableNames.PEOPLE, "labs", optionsStoreKeys.PEOPLE));
-                future
-                    .done((data) => {
-                        this.setState({
-                            laboratoryList: data
-                        });
-                    })
-            } else {
-                this.setState({
-                    laboratoryList
-                });
-            }
-
-        }
-
     }
 
     handleSubmit(values){
@@ -184,7 +116,7 @@ class CommonAdminForms extends React.Component {
         }
     }
 
-    userDelete(form, table,userId){
+    userDelete(form, table, userId){
 
         //userDelete(this, this.table, this.props.updateId);
 
@@ -235,25 +167,16 @@ class CommonAdminForms extends React.Component {
 
     }
 
-    makeOptions(list,formatter) {
-        let options = list.map(v => formatter(v));
-
-        if (this.props.hasNoneValue) {
-            options.unshift(["", '-']);
+    makeOptions(options, hasNoneValue = true) {
+        let opts = [...options];
+        if (hasNoneValue) {
+            opts.unshift(["", '-']);
         }
-
-        let optionList = options.map((v,i) => {
+        let optionList = opts.map((v,i) => {
             return <option value={v[0]} key={i}>{v[1]}</option>;
         });
         return optionList;
     }
-
-    formatterRuntypes(v) { return [v.id, v.name]; }
-    formatterReadLengths(v) { return [v.id, v.length]; }
-    formatterProject(v) { return [v.id, v.lastName +" - "+ v.name]; }
-    formatterPeople(v) { return [v.id, v.lastName +" - "+ v.firstName]; }
-    formatterLabortory(v) { return [v.id, v.lastName + "  " + v.firstName]; }
-
 
     makeInput(s) {
         let input;
@@ -266,13 +189,7 @@ class CommonAdminForms extends React.Component {
                     className={admincss.input}
                 />
         } else if (s.type === inputTypes.TEXT) {
-            // Use React-bootstrap FormControl as custom Control component:
-            // https://davidkpiano.github.io/react-redux-form/docs/guides/custom-controls.html
-            // First we map the react-redux forms props to the react-bootstrap props:
             const BSTextInput = (props) => <FormControl  {...props} />;
-            // Then we just pass this in the 'component' prop of react-redux-forms' Control.
-            //const isRequired = s.required ? (val) => val && val.length : null;
-
             input = <div>
                         <Control
                             id={s.name}
@@ -281,40 +198,40 @@ class CommonAdminForms extends React.Component {
                             model={".".concat(s.name)}
                             disabled={!this.state.isInsert}
                             required = {s.required}
-                            // validators= {{
-                            //     isRequired: (s.required) ? (val) => val !== "" : null
-                            // }}
                         />
                         <Errors
                             className = {admincss.errors}
                             model={".".concat(s.name)}
                             show="touched"
-                            // messages={{
-                            //     isRequired: 'Required.',
-                            // }}
                         />
                     </div>
         } else if (s.type === inputTypes.DROPDOWN) {
             let options;
             if (s.name ==="runTypeId") {
-                options = this.makeOptions(this.state.runtypeList, this.formatterRuntypes);
+                let opts = this.props.options[optionsStoreKeys.RUN_TYPES];
+                opts.sort();
+                options = this.makeOptions(opts);
             } else if (s.name ==="readLengthId") {
-                options = this.makeOptions(this.state.readlengthList, this.formatterReadLengths);
+                let opts = this.props.options[optionsStoreKeys.READ_LENGTHS];
+                opts.sort((a,b) => parseInt(a[1]) < parseInt(b[1]) ? -1 : 1);
+                options = this.makeOptions(opts);
             } else if (s.name === "projectId") {
-                options = this.makeOptions(this.state.projectList, this.formatterProject);
+                let opts = this.props.options[optionsStoreKeys.PROJECTS_ALL];
+                options = this.makeOptions(opts);
             } else if (s.name === "personId") {
-                options = this.makeOptions(this.state.peopleList, this.formatterPeople);
+                let opts = this.props.options[optionsStoreKeys.PEOPLE];
+                options = this.makeOptions(opts);
             } else if (s.name === "laboratoryId"){
-                options = this.makeOptions(this.state.laboratoryList, this.formatterLabortory);
+                let opts = this.props.options[optionsStoreKeys.LABORATORIES];
+                options = this.makeOptions(opts);
             } else if (s.name === "role" ){
                 let roleList = [
-                                {value: "customer", name:"customer" },
                                 {value: "no_access", name: "no access" },
-                                {value:"facility", name:"facility" },
+                                {value: "customer", name: "customer" },
+                                {value: "facility", name: "facility" },
                                 {value: "admin", name: "admin"}
-                                ];
-
-                options = this.makeOptions(roleList, function(v){return [v.value, v.name]});
+                               ];
+                options = this.makeOptions(roleList.map(v => [v.value, v.name]), false);
             }
 
             const BSSelect = (props) => <FormControl componentClass="select" {...props} />;
@@ -383,8 +300,24 @@ class CommonAdminForms extends React.Component {
     }
 }
 
-CommonAdminForms.defaultProps = {
-    hasNoneValue: true,
+
+
+const mapStateToProps = (state) => {
+    return {
+        options: state.options,
+    };
 };
 
-export default withRouter(CommonAdminForms)
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        requestAllProjects,
+        requestAllPeople,
+        requestLaboratories,
+        requestReadLengths,
+        requestRunTypes
+    }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CommonAdminForms));
+
