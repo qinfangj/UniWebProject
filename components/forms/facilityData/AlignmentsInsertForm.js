@@ -20,6 +20,7 @@ import alignmentsModel from './formModels/alignmentsModel';
 
 import { Button } from 'react-bootstrap/lib';
 import Feedback from '../../utils/Feedback';
+import SubmitButton from './SubmitButton';
 
 
 
@@ -33,6 +34,8 @@ class AlignmentsInsertForm extends React.PureComponent {
         this.state = {
             disabled: false,
         };
+        this.activateForm = this.activateForm.bind(this);
+        this.deactivateForm = this.deactivateForm.bind(this);
     }
 
     componentWillMount() {
@@ -92,20 +95,11 @@ class AlignmentsInsertForm extends React.PureComponent {
 
                     {/* Submit */}
 
-                    {this.state.disabled ?
-                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
-                            Activate form
-                        </Button>
-                        :
-                        <div>
-                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
-                                Cancel
-                            </Button>
-                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
-                                Submit
-                            </Button>
-                        </div>
-                    }
+                    <SubmitButton
+                        disabled={this.state.disabled}
+                        activateForm={this.activateForm}
+                        deactivateForm={this.deactivateForm}
+                    />
 
                 </Form>
 
