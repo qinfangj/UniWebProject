@@ -37,8 +37,13 @@ class BioanalysersInsertForm extends React.PureComponent {
         forms.newOrUpdate(this.modelName, this.table, this.props.updateId, this.onUpdateLoadLibsOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
-            RestService.bioanalyserPdf(this.props.updateId).then((b64) => {
-                this.setState({ bioanalyserUrl: b64 })
+            RestService.bioanalyserPdf(this.props.updateId).then((b64orBlob) => {
+                console.log(b64orBlob.slice(0, 100))
+                if (b64orBlob.slice(0,100).startsWith("data:application/pdf;base64")) {
+                    this.setState({ bioanalyserUrl: b64orBlob })
+                } else {
+
+                }
             });
         }
     }
