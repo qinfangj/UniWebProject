@@ -40,9 +40,16 @@ class BioanalysersInsertForm extends React.PureComponent {
             RestService.bioanalyserPdf(this.props.updateId).then((b64orBlob) => {
                 console.log(b64orBlob.slice(0, 100))
                 if (b64orBlob.slice(0,100).startsWith("data:application/pdf;base64")) {
+                    console.log("New format, load directly")
                     this.setState({ bioanalyserUrl: b64orBlob })
                 } else {
-
+                    console.log("Old format, convert to BLOB")
+                    // convert downloaded data to a Blob
+                    let blob = new Blob([b64orBlob.data], { type: 'application/pdf' });
+                    // create an object URL from the Blob
+                    let URL = window.URL || window.webkitURL;
+                    let downloadUrl = URL.createObjectURL(blob);
+                    this.setState({ bioanalyserUrl: downloadUrl })
                 }
             });
         }
