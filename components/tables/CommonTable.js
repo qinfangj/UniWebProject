@@ -8,7 +8,7 @@ import Immutable from 'immutable'
 import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
 import { Link } from 'react-router';
 
-import styles from './facilityData/Table2.css'
+import styles from './styles.css'
 import adminColumns from './adminData/columns';
 import facilityDataColumns from './facilityData/columns';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
