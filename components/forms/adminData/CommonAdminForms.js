@@ -39,15 +39,6 @@ class CommonAdminForms extends React.Component {
         this.modelName = modelName.concat(adminData[this.props.table].model);
 
         this.state = {
-            serverError: {},
-            submissionError: false,
-            submissionSuccess: false,
-            submissionId: undefined,
-            runtypeList: [],
-            readlengthList: [],
-            projectList: [],
-            peopleList: [],
-            laboratoryList: [],
             isValidated: undefined,
             username: "",
         };

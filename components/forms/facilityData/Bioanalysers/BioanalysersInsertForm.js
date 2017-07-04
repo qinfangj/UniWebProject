@@ -110,9 +110,9 @@ class BioanalysersInsertForm extends React.PureComponent {
         let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options);
         let downloadLink = null;
         let embeddedPdf = null;
-        if (this.state.bioanalyserUrl) {
+        if (this.state.bioanalyserUrl && this.props.formData["filename"]) {
             let filename = this.props.formData["filename"].split("\\").slice(-1)[0];
-            downloadLink = <a href={this.state.bioanalyserUrl}>{filename}</a>;
+            downloadLink = <a className={css.bioanalyserUrl} href={this.state.bioanalyserUrl}>{filename}</a>;
             embeddedPdf = (
                 <object className={css.pdfPreview} data={this.state.bioanalyserUrl} type="application/pdf" width="600px" height="300px">
                     <embed src={this.state.bioanalyserUrl}>
@@ -132,7 +132,7 @@ class BioanalysersInsertForm extends React.PureComponent {
 
                     <Col sm={5}>
                         <label style={{paddingTop: "7px"}}>
-                            {this.props.updateId ? "Replace bioanalyser file" : "Bioanalyser file"}
+                            {this.props.updateId ? "Replace bioanalyser file " : "Bioanalyser file"}
                         </label>
                         {downloadLink}
                         <input
