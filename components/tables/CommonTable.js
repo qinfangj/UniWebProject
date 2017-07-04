@@ -1,24 +1,25 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types'
+import css from './tables.css';
+import cx from 'classnames';
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import Immutable from 'immutable'
-import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
-import { Link } from 'react-router';
 
-import styles from './styles.css'
 import adminColumns from './adminData/columns';
 import facilityDataColumns from './facilityData/columns';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import * as tables from './tables.js';
-import '../../styles/colors.css';
-import cx from 'classnames';
 import { ROW_HEIGTH, GRID_HEIGTH } from './columns';
-import css from './tables.css';
+
 import Feedback from '../utils/Feedback';
 import DataLoadingIcon from '../utils/DataLoadingIcon';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
+import { Link } from 'react-router';
+
 
 
 class CommonTable extends React.PureComponent {
@@ -195,7 +196,7 @@ class CommonTable extends React.PureComponent {
     headerRowRenderer = ({ className, columns, style }) => {
         return (
             <div
-                className={cx(className, styles.RVheader)}
+                className={cx(className, css.RVheader)}
                 role='row'
                 style={style}
             >
@@ -270,7 +271,7 @@ class CommonTable extends React.PureComponent {
 
                 {/* The table */}
 
-                <div className={styles.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
+                <div className={css.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
                     <InfiniteLoader isRowLoaded={this.isRowLoaded.bind(this)}
                                     loadMoreRows={this.loadMoreRows.bind(this)}
                                     rowCount={this.state.rowCount}
@@ -283,7 +284,7 @@ class CommonTable extends React.PureComponent {
                                             width={width}
                                             height={height}
                                             disableHeader={disableHeader}
-                                            headerClassName={styles.headerColumn}
+                                            headerClassName={css.headerColumn}
                                             headerHeight={headerHeight}
                                             headerRowRenderer={this.headerRowRenderer}
                                             rowHeight={ROW_HEIGTH}
