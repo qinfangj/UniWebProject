@@ -4,37 +4,26 @@ import RestService from '../../../utils/RestService';
 import { assertStoreKey, asyncAction } from './base';
 
 
-/* Select options. */
+/**
+ * Old actions to be removed after QP is refactored.
+ */
 
-export function getOptionsListAsync(tableName, storeKey) {
-    assertStoreKey(storeKey);
-    let args = {storeKey};
-    return asyncAction(types.forms.GET_OPTIONS_LIST, RestService.getOptionsList.bind(null, tableName), args)
-}
-
+/**
+ * @deprecated
+ * Only used in QP - ProjectsMultipleSelect. Remove asap.
+ */
 export function getConditionalOptionsListAsync(tableName, suffix, storeKey) {
     assertStoreKey(storeKey);
     let args = {storeKey, suffix};
     return asyncAction(types.forms.GET_OPTIONS_LIST, RestService.getConditionalOptionsList.bind(null, tableName, suffix), args)
 }
 
+/**
+ * @deprecated
+ * Only used in QP - SamplesSecondaryMultipleSelect. Remove asap.
+ */
 export function getSecondaryOptionsListAsync(tableName, id, storeKey) {
     assertStoreKey(storeKey);
     let args = {storeKey, id};
     return asyncAction(types.forms.GET_SECONDARY_OPTIONS_LIST, RestService.getSecondaryOptionsList.bind(null, tableName, id), args)
-}
-
-/**
- * @deprecated Used only in MultipleSelect, relic for QueryProjects to refactor.
- */
-export function changeFormValue(form, field, value, valid) {
-    return (dispatch) => {
-        return dispatch({
-            type: types.forms.CHANGE_FORM_VALUE,
-            form: form,
-            field: field,
-            value: value,
-            valid: valid,
-        });
-    };
 }

@@ -2,20 +2,22 @@
 @import '../../styles/override.css';
 
 
-/* Ag-grid */
-
-.agTableContainer {
-    padding: 0 15px;
-    font-size: 13px;
-}
 .clearfix {
     clear: both;
 }
 
-.nrows {
-    position: absolute;
-    top: 90px;
-    left: 70px;
+/* headerClassName= */
+.headerColumn {
+    text-transform: none;
+}
+/* in headerRowRenderer */
+.RVheader {
+    background-color: var(--yellow);
+}
+
+.AutoSizerContainer {
+    background-color: white;
+    height: calc(100vh - 50px);
 }
 
 .searchField {
@@ -39,17 +41,11 @@
     .searchField {
         margin-top: 0;
     }
-    .nrows {
-        top: 135px;
-    }
 
 }
 
 @media screen and (max-width: 800px) {
 
-    .agTableContainer {
-        padding: 0;
-    }
     .searchField {
         margin-right: 0;
     }

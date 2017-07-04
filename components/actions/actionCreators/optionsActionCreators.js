@@ -22,7 +22,8 @@ export function resetAllOptions() {
  * If the key is already found in the store, reuse that data instead of sending an Ajax request.
  */
 function requestOptionsListAsync(actionType, storeKey, tableName, suffix) {
-    let maybeCached = store.getState().options[storeKey];
+    let stored = store.getState().options[storeKey];
+    let maybeCached = stored && stored.length > 0;
     // If cached, return a dummy action that does nothing.
     if (maybeCached) {
         return { type: types.options.IGNORE_CACHED };
@@ -132,9 +133,19 @@ export function requestQuantifMethods() {
     return requestOptionsListAsync(types.options.OPTIONS_QUANTIF_METHODS, storeKey, "quantif_methods");
 }
 
+export function requestReadLengths() {
+    let storeKey = optionsStoreKeys.READ_LENGTHS;
+    return requestOptionsListAsync(types.options.OPTIONS_READ_LENGHTS, storeKey, "read_lengths");
+}
+
 export function requestRunsOutputFolders() {
     let storeKey = optionsStoreKeys.RUNS_OUTPUT_FOLDERS;
     return requestOptionsListAsync(types.options.OPTIONS_RUNS_OUTPUT_FOLDERS, storeKey, "runs");
+}
+
+export function requestRunTypes() {
+    let storeKey = optionsStoreKeys.RUN_TYPES;
+    return requestOptionsListAsync(types.options.OPTIONS_RUN_TYPES, storeKey, "run_types");
 }
 
 export function requestRunsTypesLengths() {
@@ -191,7 +202,7 @@ export default function requestOptions(storeKey) {
             return requestLaboratories();
 
         case optionsStoreKeys.MULTIPLEX_INDEXES:
-            return requestMultiplexIndexes();
+            return requestAllMultiplexIndexes();
 
         case optionsStoreKeys.PIPELINE_ANALYSIS_TYPES:
             return requestPipelineAnalysisTypes();
@@ -199,7 +210,7 @@ export default function requestOptions(storeKey) {
         case optionsStoreKeys.PIPELINE_VERSIONS:
             return requestPipelineVersions();
 
-        case optionsStoreKeys.PROJECTS:
+        case optionsStoreKeys.PROJECTS_ALL:
             return requestAllProjects();
 
         case optionsStoreKeys.PROJECTS_HAVING_A_LIBRARY:

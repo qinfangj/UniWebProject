@@ -1,8 +1,6 @@
 "use strict";
 import React from 'react';
-import PropTypes from 'prop-types';
 import css from './bioanalysers.css';
-import formsCss from '../../forms.css';
 import RestService from '../../../../utils/RestService';
 
 import { connect } from 'react-redux';
@@ -16,8 +14,9 @@ import * as forms from '../../forms.js';
 
 import LanesSubForm from './lanesSubForm';
 import { Form } from 'react-redux-form';
-import { Col, Button } from 'react-bootstrap/lib';
+import { Col } from 'react-bootstrap/lib';
 import Feedback from '../../../utils/Feedback';
+import SubmitButton from '../../SubmitButton';
 
 
 class BioanalysersInsertForm extends React.PureComponent {
@@ -30,13 +29,20 @@ class BioanalysersInsertForm extends React.PureComponent {
         this.state = {
             disabled: false,
             bioanalyserUrl: null,
-        }
+        };
+        this.activateForm = this.activateForm.bind(this);
+        this.deactivateForm = this.deactivateForm.bind(this);
     }
 
     componentWillMount() {
         forms.newOrUpdate(this.modelName, this.table, this.props.updateId, this.onUpdateLoadLibsOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
+
+            /*
+             * Load new PDF storage format (formDataUrl) directly for display,
+             * or receive a old Blob and make a formDataUrl from it.
+             */
             RestService.bioanalyserPdf(this.props.updateId).then((b64orBlob) => {
                 console.log(b64orBlob.slice(0, 100))
                 if (b64orBlob.slice(0,100).startsWith("data:application/pdf;base64")) {
@@ -45,6 +51,7 @@ class BioanalysersInsertForm extends React.PureComponent {
                 } else {
                     console.log("Old format, convert to BLOB")
                     // convert downloaded data to a Blob
+                    console.log(b64orBlob.data)
                     let blob = new Blob([b64orBlob.data], { type: 'application/pdf' });
                     // create an object URL from the Blob
                     let URL = window.URL || window.webkitURL;
@@ -121,9 +128,9 @@ class BioanalysersInsertForm extends React.PureComponent {
         let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options);
         let downloadLink = null;
         let embeddedPdf = null;
-        if (this.state.bioanalyserUrl) {
+        if (this.state.bioanalyserUrl && this.props.formData["filename"]) {
             let filename = this.props.formData["filename"].split("\\").slice(-1)[0];
-            downloadLink = <a href={this.state.bioanalyserUrl}>{filename}</a>;
+            downloadLink = <a className={css.bioanalyserUrl} href={this.state.bioanalyserUrl}>{filename}</a>;
             embeddedPdf = (
                 <object className={css.pdfPreview} data={this.state.bioanalyserUrl} type="application/pdf" width="600px" height="300px">
                     <embed src={this.state.bioanalyserUrl}>
@@ -143,7 +150,7 @@ class BioanalysersInsertForm extends React.PureComponent {
 
                     <Col sm={5}>
                         <label style={{paddingTop: "7px"}}>
-                            {this.props.updateId ? "Replace bioanalyser file" : "Bioanalyser file"}
+                            {this.props.updateId ? "Replace bioanalyser file " : "Bioanalyser file"}
                         </label>
                         {downloadLink}
                         <input
@@ -163,22 +170,11 @@ class BioanalysersInsertForm extends React.PureComponent {
 
                     <LanesSubForm disabled={this.state.disabled}/>
 
-                    {/* Submit */}
-
-                    {this.state.disabled ?
-                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
-                            Activate form
-                        </Button>
-                        :
-                        <div>
-                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
-                                Cancel
-                            </Button>
-                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
-                                Submit
-                            </Button>
-                        </div>
-                    }
+                    <SubmitButton
+                        disabled={this.state.disabled}
+                        activateForm={this.activateForm}
+                        deactivateForm={this.deactivateForm}
+                    />
 
                 </Form>
 

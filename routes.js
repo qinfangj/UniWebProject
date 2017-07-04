@@ -37,7 +37,7 @@ const routes = (
 
             {/* FACILITY DATA */}
 
-            <Route path="data" component={fdata.FacilityDataRoute} onEnter={requireAuth} />
+            <Route path="facility" component={fdata.FacilityDataRoute} onEnter={requireAuth} />
 
             <Route path="facility/projects" component={fdata.ProjectsListRoute} onEnter={requireAuth} />
             <Route path="facility/projects/list" component={fdata.ProjectsListRoute} onEnter={requireAuth} />

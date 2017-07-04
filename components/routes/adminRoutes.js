@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import CommonTable from '../tables/facilityData/CommonTable';
+import CommonTable from '../tables/CommonTable';
 import CommonAdminForms from '../forms/adminData/CommonAdminForms';
 import adminDataColumns from '../tables/adminData/columns';
 import tableNames from '../tables/tableNames';

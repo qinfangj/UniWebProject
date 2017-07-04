@@ -5,7 +5,7 @@ import FacilityData from '../pages/FacilityData';
 import formNames from '../constants/formNames';
 import facilityDataColumns from '../tables/facilityData/columns';
 import tableNames from '../tables/tableNames';
-import CommonTable from '../tables/facilityData/CommonTable';
+import CommonTable from '../tables/CommonTable';
 import columnFormatters from '../tables/columnFormatters';
 
 import ProjectsInsertForm from '../forms/facilityData/ProjectsInsertForm';

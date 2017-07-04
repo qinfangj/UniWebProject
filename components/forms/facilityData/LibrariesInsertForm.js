@@ -1,7 +1,5 @@
 "use strict";
 import React from 'react';
-import PropTypes from 'prop-types';
-import formsCss from '../forms.css';
 import store from '../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,8 +19,8 @@ import formNames from '../../constants/formNames';
 import librariesModel from './formModels/librariesModel';
 import fields from '../../constants/fields';
 
-import Button from 'react-bootstrap/lib/Button';
 import Feedback from '../../utils/Feedback';
+import SubmitButton from '../SubmitButton';
 
 
 
@@ -100,22 +98,11 @@ class LibrariesInsertForm extends React.PureComponent {
 
                     <div className="clearfix"/>
 
-                    {/* Submit */}
-
-                    {this.state.disabled ?
-                        <Button bsStyle="primary" onClick={this.activateForm.bind(this)} className={formsCss.submitButton}>
-                            Activate form
-                        </Button>
-                        :
-                        <div>
-                            <Button bsStyle="danger" onClick={this.deactivateForm.bind(this)} className={formsCss.submitButton}>
-                                Cancel
-                            </Button>
-                            <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
-                                Submit
-                            </Button>
-                        </div>
-                    }
+                    <SubmitButton
+                        disabled={this.state.disabled}
+                        activateForm={this.activateForm}
+                        deactivateForm={this.deactivateForm}
+                    />
 
                 </Form>
 

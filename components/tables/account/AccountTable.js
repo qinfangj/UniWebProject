@@ -11,7 +11,6 @@ import accountModel from './accountModel';
 class AccountTable extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     static propTypes = {
@@ -20,7 +19,6 @@ class AccountTable extends React.Component {
 
     componentWillMount() {
         let accountProfile = this.props.accountProfile;
-
         if (accountProfile !== undefined || accountProfile.length > 0) {
             this.props.getLoginDetails()
                 .fail(() => console.error("AccountTable.getLoginDetails() failed to load data."));
@@ -42,13 +40,7 @@ class AccountTable extends React.Component {
     }
 
     render() {
-        let displayProfile;
         let userInfo = accountModel['userInfo'];
-        if (this.props.accountProfile !== undefined ) {
-            if (Object.keys(this.props.accountProfile).length > 0) {
-                let displayProfile = this.displayProfile(this.props.accountProfile);
-            }
-        }
         return (
             <div>
                 <table className={adminCss.table}>

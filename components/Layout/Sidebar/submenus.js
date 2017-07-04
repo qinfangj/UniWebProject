@@ -7,16 +7,16 @@ import * as qr from '../../actions/actionCreators/queryRunsActionCreators';
 
 
 export const facilityDataSubmenu = [
-    { text: "Laboratories", to: "/data/people", },
-    { text: "Projects", to: "/data/projects", },
-    { text: "Samples", to: "/data/samples", },
-    { text: "User requests", to: "/data/user_requests", },
-    { text: "Libraries", to: "/data/libraries", },
-    { text: "Bioanalysers", to: "/data/bioanalysers", disabled: false },
-    { text: "Runs", to: "/data/runs", disabled: false },
-    { text: "Base callings / demultiplexings", to: "/data/basecallings", },
-    { text: "Alignments / QC", to: "/data/alignments", },
-    { text: "Genomes", to: "/data/genomes", },
+    { text: "Laboratories", to: "/facility/people", },
+    { text: "Projects", to: "/facility/projects", },
+    { text: "Samples", to: "/facility/samples", },
+    { text: "User requests", to: "/facility/user_requests", },
+    { text: "Libraries", to: "/facility/libraries", },
+    { text: "Bioanalysers", to: "/facility/bioanalysers", disabled: false },
+    { text: "Runs", to: "/facility/runs", disabled: false },
+    { text: "Base callings / demultiplexings", to: "/facility/basecallings", },
+    { text: "Alignments / QC", to: "/facility/alignments", },
+    { text: "Genomes", to: "/facility/genomes", },
 ];
 
 export const userDataSubmenu = [

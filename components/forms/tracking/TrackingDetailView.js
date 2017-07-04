@@ -20,7 +20,7 @@ class TrackingDetailView extends React.PureComponent {
 
         let link = '';
         if (k === "ID") {
-            link = `/#/data/${t}/update/${v}`;
+            link = `/#/facility/${t}/update/${v}`;
         }
         return (
             (k === "ID") ?
@@ -43,7 +43,7 @@ class TrackingDetailView extends React.PureComponent {
 
         for (let i = 0; i < obj.length; i++){
             (k.label === "ID")?
-                td.push(<td key={k.name + i}><a href={`/#/data/user_requests/update/${obj[i][k.name]}`}>{obj[i][k.name]}</a></td>)
+                td.push(<td key={k.name + i}><a href={`/#/facility/user_requests/update/${obj[i][k.name]}`}>{obj[i][k.name]}</a></td>)
             :
                 td.push(<td key={k.name + i}> {obj[i][k.name]} </td>);
         }
