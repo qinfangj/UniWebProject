@@ -99,7 +99,7 @@ class CommonTable extends React.PureComponent {
         let dataLength = this.props.data.length;
         if (dataLength % this.nrowsPerQuery === 0) {
             console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
-            this.getDataAsync(this.nrowsPerQuery, dataLength);
+            this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection);
         }
     }
 
