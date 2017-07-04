@@ -12,7 +12,7 @@ import formNames from '../../constants/formNames';
 import genomesModel from './formModels/genomesModel';
 
 import Feedback from '../../utils/Feedback';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../SubmitButton';
 
 
 

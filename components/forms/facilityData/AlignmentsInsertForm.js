@@ -16,7 +16,7 @@ import formNames from '../../constants/formNames';
 import alignmentsModel from './formModels/alignmentsModel';
 
 import Feedback from '../../utils/Feedback';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../SubmitButton';
 
 
 

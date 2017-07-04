@@ -8,17 +8,17 @@ import Immutable from 'immutable'
 import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
 import { Link } from 'react-router';
 
-import styles from './Table2.css'
-import adminColumns from '../../tables/adminData/columns';
-import facilityDataColumns from '../../tables/facilityData/columns';
-import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
-import * as tables from '../tables.js';
-import '../../../styles/colors.css';
+import styles from './facilityData/Table2.css'
+import adminColumns from './adminData/columns';
+import facilityDataColumns from './facilityData/columns';
+import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
+import * as tables from './tables.js';
+import '../../styles/colors.css';
 import cx from 'classnames';
-import { ROW_HEIGTH, GRID_HEIGTH } from '../columns';
-import css from '../tables.css';
-import Feedback from '../../utils/Feedback';
-import DataLoadingIcon from '../../utils/DataLoadingIcon';
+import { ROW_HEIGTH, GRID_HEIGTH } from './columns';
+import css from './tables.css';
+import Feedback from '../utils/Feedback';
+import DataLoadingIcon from '../utils/DataLoadingIcon';
 
 
 class CommonTable extends React.PureComponent {

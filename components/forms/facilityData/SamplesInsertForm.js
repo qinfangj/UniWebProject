@@ -15,7 +15,7 @@ import formNames from '../../constants/formNames';
 import samplesModel from './formModels/samplesModel';
 
 import Feedback from '../../utils/Feedback';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../SubmitButton';
 
 
 

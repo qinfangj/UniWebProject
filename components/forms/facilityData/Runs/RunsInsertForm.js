@@ -16,7 +16,7 @@ import LanesSubForm from './LanesSubForm';
 import formNames from '../../../constants/formNames';
 import runsModel from '../formModels/runsModel';
 import Feedback from '../../../utils/Feedback';
-import SubmitButton from '../SubmitButton';
+import SubmitButton from '../../SubmitButton';
 
 
 class RunsInsertForm extends React.PureComponent {

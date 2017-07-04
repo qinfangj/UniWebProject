@@ -9,7 +9,7 @@ import formNames from '../../constants/formNames';
 import peopleModel from './formModels/peopleModel';
 
 import Feedback from '../../utils/Feedback';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../SubmitButton';
 
 
 

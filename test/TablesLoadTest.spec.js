@@ -5,7 +5,7 @@ import store from '../core/store';
 import { Provider } from 'react-redux';
 
 import {expect} from 'chai';
-import CommonTable from '../components/tables/facilityData/CommonTable';
+import CommonTable from '../components/tables/CommonTable';
 import tableNames from '../components/tables/tableNames';
 
 const wrapper1 = shallow(

@@ -20,7 +20,7 @@ import librariesModel from './formModels/librariesModel';
 import fields from '../../constants/fields';
 
 import Feedback from '../../utils/Feedback';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../SubmitButton';
 
 
 

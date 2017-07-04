@@ -16,7 +16,7 @@ import LanesSubForm from './lanesSubForm';
 import { Form } from 'react-redux-form';
 import { Col } from 'react-bootstrap/lib';
 import Feedback from '../../../utils/Feedback';
-import SubmitButton from '../SubmitButton';
+import SubmitButton from '../../SubmitButton';
 
 
 class BioanalysersInsertForm extends React.PureComponent {
