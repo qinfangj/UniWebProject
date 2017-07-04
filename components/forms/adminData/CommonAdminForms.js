@@ -16,18 +16,17 @@ import {
     requestReadLengths,
     requestRunTypes } from '../../actions/actionCreators/optionsActionCreators';
 
-import { findByIdAsync, deleteAsync, validateUserAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+import { deleteAsync, validateUserAsync} from '../../actions/actionCreators/facilityDataActionCreators';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 
 import * as submit from './submit';
+import * as forms from '../forms';
 import adminData from './adminDataModels';
-import { Control, Form, actions, Errors} from 'react-redux-form';
-import Feedback from '../../utils/Feedback';
 import inputTypes from '../../forms/inputTypes';
 
-
-/* React-bootstrap */
-import { Button, Col, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap/lib';
+import Feedback from '../../utils/Feedback';
+import { Control, Form, actions, Errors} from 'react-redux-form';
+import { Button, Col, FormControl } from 'react-bootstrap/lib';
 
 
 
@@ -55,38 +54,8 @@ class CommonAdminForms extends React.Component {
         this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
     }
 
-
-    //if updatedId has value fetch the data from backend
-    //otherwise show empty insert form
-    newOrUpdate(table,updateId){
-        let currentPath = window.location.pathname + window.location.hash.substr(2);
-        // if (currentPath.endsWith('/new')) {
-        //     store.dispatch(actions.reset(this.modelName));
-
-        if (this.props.updateId) {
-
-                let future = store.dispatch(findByIdAsync(table, updateId));
-
-                future
-                    .done((data) => {
-                        console.log(data);
-                        this.setState({username: data.login});
-                        store.dispatch(actions.merge(this.modelName, data));
-                        // Need to reset validaity manually because of a bug in RRF:
-                        // https://github.com/davidkpiano/react-redux-form/issues/836
-                        //store.dispatch(actions.resetValidity(this.modelName));
-                    });
-
-        }
-        else {
-            store.dispatch(actions.reset(this.modelName));
-        }
-
-    }
-
     componentWillMount() {
-
-        this.newOrUpdate(this.table, this.props.updateId);
+        forms.newOrUpdate(this.modelName, this.table, this.props.updateId);
 
         if (this.table === tableNames.RUN_TYPES_LENGTHS) {
             store.dispatch(requestRunTypes());
