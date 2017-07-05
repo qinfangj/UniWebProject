@@ -64,7 +64,7 @@ class CommonAdminForms extends React.Component {
             let formData = Object.assign({}, values);
             //change submit data' key: 'login' -> 'username'
             Object.defineProperty(formData, 'username',
-                Object.getOwnPropertyDescriptor(formData, 'login'));
+            Object.getOwnPropertyDescriptor(formData, 'login'));
             delete formData['login'];
 
             let isValidated = formData['isvalidated'];
@@ -154,12 +154,14 @@ class CommonAdminForms extends React.Component {
                             component={BSTextInput}
                             model={".".concat(s.name)}
                             disabled={!this.state.isInsert}
-                            required = {s.required}
-                        />
+                            validators = {s.required ? {isRequired: (val) => val && (val + "").length} : null}                        />
                         <Errors
                             className = {admincss.errors}
                             model={".".concat(s.name)}
                             show="touched"
+                            messages={{
+                                isRequired: 'This field is required',
+                            }}
                         />
                     </div>
         } else if (s.type === inputTypes.DROPDOWN) {
