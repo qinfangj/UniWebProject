@@ -115,8 +115,8 @@ const routes = (
 
             <Route path="user/view/labsamples" component={userdata.BatchLibraries} onEnter={requireAuth} />
             <Route path="user/view/colsamples" component={userdata.BatchLibraries} onEnter={requireAuth} />
-            <Route path="user/data/dataruns" component={userdata.BatchLibraries} onEnter={requireAuth} />
-            <Route path="user/data/datacollabs" component={userdata.BatchLibraries} onEnter={requireAuth} />
+            <Route path="user/facility/dataruns" component={userdata.BatchLibraries} onEnter={requireAuth} />
+            <Route path="user/facility/datacollabs" component={userdata.BatchLibraries} onEnter={requireAuth} />
 
             {/* QUERY PROJECTS */}
 

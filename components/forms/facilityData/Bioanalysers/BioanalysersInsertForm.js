@@ -38,8 +38,26 @@ class BioanalysersInsertForm extends React.PureComponent {
         forms.newOrUpdate(this.modelName, this.table, this.props.updateId, this.onUpdateLoadLibsOptions.bind(this));
         if (this.props.updateId) {
             this.setState({ disabled: true });
-            RestService.bioanalyserPdf(this.props.updateId).then((b64) => {
-                this.setState({ bioanalyserUrl: b64 })
+
+            /*
+             * Load new PDF storage format (formDataUrl) directly for display,
+             * or receive a old Blob and make a formDataUrl from it.
+             */
+            RestService.bioanalyserPdf(this.props.updateId).then((b64orBlob) => {
+                console.log(b64orBlob.slice(0, 100))
+                if (b64orBlob.slice(0,100).startsWith("data:application/pdf;base64")) {
+                    console.log("New format, load directly")
+                    this.setState({ bioanalyserUrl: b64orBlob })
+                } else {
+                    console.log("Old format, convert to BLOB")
+                    // convert downloaded data to a Blob
+                    console.log(b64orBlob.data)
+                    let blob = new Blob([b64orBlob.data], { type: 'application/pdf' });
+                    // create an object URL from the Blob
+                    let URL = window.URL || window.webkitURL;
+                    let downloadUrl = URL.createObjectURL(blob);
+                    this.setState({ bioanalyserUrl: downloadUrl })
+                }
             });
         }
     }
@@ -110,9 +128,9 @@ class BioanalysersInsertForm extends React.PureComponent {
         let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options);
         let downloadLink = null;
         let embeddedPdf = null;
-        if (this.state.bioanalyserUrl) {
+        if (this.state.bioanalyserUrl && this.props.formData["filename"]) {
             let filename = this.props.formData["filename"].split("\\").slice(-1)[0];
-            downloadLink = <a href={this.state.bioanalyserUrl}>{filename}</a>;
+            downloadLink = <a className={css.bioanalyserUrl} href={this.state.bioanalyserUrl}>{filename}</a>;
             embeddedPdf = (
                 <object className={css.pdfPreview} data={this.state.bioanalyserUrl} type="application/pdf" width="600px" height="300px">
                     <embed src={this.state.bioanalyserUrl}>
@@ -132,7 +150,7 @@ class BioanalysersInsertForm extends React.PureComponent {
 
                     <Col sm={5}>
                         <label style={{paddingTop: "7px"}}>
-                            {this.props.updateId ? "Replace bioanalyser file" : "Bioanalyser file"}
+                            {this.props.updateId ? "Replace bioanalyser file " : "Bioanalyser file"}
                         </label>
                         {downloadLink}
                         <input

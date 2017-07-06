@@ -49,7 +49,6 @@ class CommonTable extends React.PureComponent {
             scrollToIndex: undefined,
             sortBy: 'id',
             sortDirection: SortDirection.DESC,
-
         };
         this._headerRenderer = this._headerRenderer.bind(this);
         this._sort = this._sort.bind(this);
