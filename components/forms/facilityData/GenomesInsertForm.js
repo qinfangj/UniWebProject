@@ -16,7 +16,7 @@ import SubmitButton from '../SubmitButton';
 
 
 
-class GenomesInsertForm extends React.PureComponent {
+export class GenomesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "genomes";
@@ -83,7 +83,7 @@ class GenomesInsertForm extends React.PureComponent {
 }
 
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
     let options = forms.optionsFromModel(state, genomesModel);
     let formData = state.facilityDataForms.genomes;
     let formModel = state.facilityDataForms.forms.genomes;

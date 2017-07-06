@@ -20,7 +20,7 @@ import SubmitButton from '../SubmitButton';
 
 
 
-class AlignmentsInsertForm extends React.PureComponent {
+export class AlignmentsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "alignments";

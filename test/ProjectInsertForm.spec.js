@@ -13,18 +13,18 @@ import inputTypes from '../components/forms/inputTypes';
 
 
 
-// const wrapper = shallow(
-//     <Provider store={store}>
-//         <ProjectsInsertForm storeKey="something" />
-//     </Provider>
-// );
+const wrapper = shallow(
+    <Provider store={store}>
+        <ProjectsInsertForm storeKey="something" />
+    </Provider>
+);
 
-// descrie('(Component) ProjectsInsertForm =>', () => {
-//
-//     it('renders without exploding', () => {
-//         expect(wrapper).to.have.length(1);
-//     });
-// });
+describe('(Component) ProjectsInsertForm =>', () => {
+
+    it('renders without exploding', () => {
+        expect(wrapper).to.have.length(1);
+    });
+});
 
 
 // const mapStateToProps = (state) => {
@@ -49,13 +49,17 @@ import inputTypes from '../components/forms/inputTypes';
 //
 //
 
-let projectsInsertFormTestData = {"name": "newName", "personId": 1, "codeName": "thiscode_AA",
-                        "description": "this is testing data", "projectStateId": 1, "projectAnalysisId":"dddd"};
+let projectsInsertFormTestData = {
+    "name": "newName", "personId": 1, "codeName": "thiscode_AA",
+    "description": "this is testing data", "projectStateId": 1, "projectAnalysisId": "dddd"
+};
 let form = mount(
     <Provider store={store}>
         <ProjectsInsertForm
-            options={{'LABORATORIES': [[1,"Stylianos"], [2,"Christian Beisel"]],
-                      'PROJECT_STATES_OPTIONS':[[1,"open"],[2,"closed"]]}}
+            options={{
+                'LABORATORIES': [[1, "Stylianos"], [2, "Christian Beisel"]],
+                'PROJECT_STATES_OPTIONS': [[1, "open"], [2, "closed"]]
+            }}
             requestLaboratories={() => null}
             requestProjectStates={() => null}
             feedbackWarning={() => store.dispatch(feedbackWarning())}
@@ -75,21 +79,15 @@ it('ProjectInsertForm should be valid after only all fields made valid', () => {
         let id = "#" + modelName;
 
         if (projectsModel[modelName].inputType === inputTypes.TEXT) {
-            console.log('text input id: ' + id);
             form.find(id).node.value = projectsInsertFormTestData[modelName];
             form.find(id).simulate('change', form.find(id));
-            console.log(store.getState().facilityDataForms.forms["projects"][modelName].value);
             let validity = store.getState().facilityDataForms.forms["projects"][modelName].validity;
-            console.log(validity);
-            for (let i=0; i < Object.keys(validity).length; i++)
-            {
-                     let key = Object.keys(validity)[i];
-                     assert.isTrue(validity[key]);
+            for (let i = 0; i < Object.keys(validity).length; i++) {
+                let key = Object.keys(validity)[i];
+                assert.isTrue(validity[key]);
             }
         }
-        else if(projectsModel[modelName].inputType === inputTypes.DROPDOWN){
-
-            console.log('dropdown id: '+ id);
+        else if (projectsModel[modelName].inputType === inputTypes.DROPDOWN) {
 
             form.find(id).node.value = projectsInsertFormTestData[modelName];
             form.find(id).simulate('change', form.find(id));
@@ -100,4 +98,5 @@ it('ProjectInsertForm should be valid after only all fields made valid', () => {
     assert.isTrue(store.getState().facilityDataForms.forms["projects"].$form.valid);
 
 });
+
 

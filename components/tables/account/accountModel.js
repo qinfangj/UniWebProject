@@ -8,15 +8,15 @@ const accountModel = {
             },
             {
                 "label": "First Name",
-                "name": "firstName",
+                "name": "first_name",
             },
             {
                 "label": "Last Name",
-                "name": "lastName",
+                "name": "last_name",
             },
             {
                 "label": "Laboratory",
-                "name": ["piFirstName", "piLastName"]
+                "name": ["pi_first_name", "pi_last_name"]
             },
             {
                 "label": "Phone",

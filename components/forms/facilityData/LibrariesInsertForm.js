@@ -24,7 +24,7 @@ import SubmitButton from '../SubmitButton';
 
 
 
-class LibrariesInsertForm extends React.PureComponent {
+export class LibrariesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "libraries";

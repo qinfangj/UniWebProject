@@ -28,7 +28,7 @@ function makeUTforAdminForms(table, model, fieldsList){
     });
 
 
-    it('should still be invalid after only all fields made valid', () => {
+    it('should be valid after only all fields made valid', () => {
         fieldsList.map( s => {
             if (s.type === inputTypes.TEXT) {
                 console.log('text input id: #'+ s.name);

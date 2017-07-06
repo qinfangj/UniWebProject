@@ -13,7 +13,7 @@ import SubmitButton from '../SubmitButton';
 
 
 
-class ProjectInsertForm extends React.PureComponent {
+export class ProjectInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "people";

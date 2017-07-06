@@ -18,7 +18,7 @@ import SubmitButton from '../SubmitButton';
 
 
 
-class BasecallingsInsertForm extends React.PureComponent {
+export class BasecallingsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "basecallings";
