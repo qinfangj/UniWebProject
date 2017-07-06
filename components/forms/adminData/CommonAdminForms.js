@@ -132,7 +132,6 @@ class CommonAdminForms extends React.Component {
         if (options !== null && options !== undefined ) {
             opts = [...options];
         }
-        console.log(opts);
         if (hasNoneValue) {
             opts.unshift(["", '-']);
         }
@@ -175,11 +174,15 @@ class CommonAdminForms extends React.Component {
             let options;
             if (s.name ==="runTypeId") {
                 let opts = this.props.options[optionsStoreKeys.RUN_TYPES];
-                opts.sort();
+                if (opts !== undefined && opts !== null) {
+                    opts.sort();
+                }
                 options = this.makeOptions(opts);
             } else if (s.name ==="readLengthId") {
                 let opts = this.props.options[optionsStoreKeys.READ_LENGTHS];
-                opts.sort((a,b) => parseInt(a[1]) < parseInt(b[1]) ? -1 : 1);
+                if (opts !== undefined && opts !== null) {
+                    opts.sort((a, b) => parseInt(a[1]) < parseInt(b[1]) ? -1 : 1);
+                }
                 options = this.makeOptions(opts);
             } else if (s.name === "projectId") {
                 let opts = this.props.options[optionsStoreKeys.PROJECTS_ALL];
