@@ -29,7 +29,6 @@ import { Control, Form, actions, Errors} from 'react-redux-form';
 import { Button, Col, FormControl } from 'react-bootstrap/lib';
 
 
-
 class CommonAdminForms extends React.Component {
     constructor(props) {
         super(props);
@@ -46,7 +45,6 @@ class CommonAdminForms extends React.Component {
     }
 
     componentWillMount() {
-        forms.newOrUpdate(this.modelName, this.table, this.props.updateId);
 
         if (this.table === tableNames.RUN_TYPES_LENGTHS) {
             store.dispatch(requestRunTypes());
@@ -57,6 +55,10 @@ class CommonAdminForms extends React.Component {
         } else if (this.table === tableNames.USERS) {
             store.dispatch(requestLaboratories());
         }
+
+        forms.newOrUpdate(this.modelName, this.table, this.props.updateId);
+
+
     }
 
     handleSubmit(values){
@@ -92,7 +94,7 @@ class CommonAdminForms extends React.Component {
                         if (userId !== '' || userId !== undefined) {
                             this.props.router.push(currentPath.replace('/update/' + userId, '/list'));
                         }
-                        store.dispatch(actions.load())  // does nothing?
+                        //store.dispatch(actions.load())  // does nothing?
                         //hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
                     })
                     .fail((err) => {
@@ -125,7 +127,12 @@ class CommonAdminForms extends React.Component {
     }
 
     makeOptions(options, hasNoneValue = true) {
-        let opts = [...options];
+
+        let opts = [];
+        if (options !== null && options !== undefined ) {
+            opts = [...options];
+        }
+        console.log(opts);
         if (hasNoneValue) {
             opts.unshift(["", '-']);
         }
