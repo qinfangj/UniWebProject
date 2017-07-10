@@ -25,6 +25,7 @@ export default {
     // Signup form
     SIGN_UP_FORM: "SIGN_UP_FORM",
     CHANGE_PASSWORD_FORM: "CHANGE_PASSWORD_FORM",
+    RESET_PASSWORD_FORM: "REST_PASSWORD_FORM",
 
     suffixes: {
         PROJECTS: "__PROJECTS",
