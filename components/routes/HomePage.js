@@ -23,6 +23,7 @@ class HomePage extends React.Component {
             </header>
                 <Feedback reference={formNames.SIGN_UP_FORM} />
                 <Feedback reference={formNames.CHANGE_PASSWORD_FORM} />
+                <Feedback reference={formNames.RESET_PASSWORD_FORM} />
                 {
 
                     (stateFeedback[formNames.SIGN_UP_FORM].message === "")?

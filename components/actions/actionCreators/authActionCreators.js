@@ -145,11 +145,17 @@ export function requestResetPassword(email) {
             .then(response => {
                 if (response.ok) {
                     dispatch(() => {return {type: types.RESET_PASSWORD_SUCCESS}});
+                    dispatch(feedbackSuccess(formNames.RESET_PASSWORD_FORM, "You have sent your reset password request, please check your registered emails!"));
+                    hashHistory.replace('/home');
                 } else {
                     dispatch(() => {return {type: types.RESET_PASSWORD_FAILURE}});
+                    dispatch(feedbackError(formNames.RESET_PASSWORD_FORM, "Change Password Error: " +  err, {}));
                     return Promise.reject(response);
                 }
-            }).catch(err => console.log('Error asking for password reset: ' + JSON.stringify(err, null, 2)));
+            }).catch(err => {
+                dispatch(feedbackError(formNames.RESET_PASSWORD_FORM, "Reset Password Error: " + err.message, {}));
+                console.log('Error asking for password reset: ' + JSON.stringify(err, null, 2))
+            });
         }
 }
 
@@ -161,14 +167,19 @@ export function changePassword(code, email, newPassword) {
             .then(response => {
                 if (response.ok) {
                     dispatch(feedbackSuccess(formNames.CHANGE_PASSWORD_FORM, "You have changed your password successfully!"));
-                    dispatch(() => {return {type: types.CHANGE_PASSWORD_SUCCESS}});
+                    dispatch(() => {
+                        return {type: types.CHANGE_PASSWORD_SUCCESS}
+                    });
                     hashHistory.replace('/home');
                 } else {
-                    dispatch(() => {return {type: types.CHANGE_PASSWORD_FAILURE}});
+                    dispatch(() => {
+                        return {type: types.CHANGE_PASSWORD_FAILURE}
+                    });
+                    dispatch(feedbackError(formNames.CHANGE_PASSWORD_FAILURE, "Change Password Error: " +  err, {}));
                     return Promise.reject(response);
                 }
             }).catch(err =>{
-                dispatch(feedbackWarning(formNames.CHANGE_PASSWORD_FORM, "Change Password Error", err));
+                dispatch(feedbackError(formNames.CHANGE_PASSWORD_FORM, "Change Password Error: "+ err.message, {}));
                 console.log('Error changing password: ' + JSON.stringify(err, null, 2))
             });
     }
