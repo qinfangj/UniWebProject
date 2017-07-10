@@ -7,6 +7,8 @@ import { requestResetPassword } from '../../actions/actionCreators/authActionCre
 import validators  from '../../forms/validators';
 
 import {Form, FormControl, InputGroup, FormGroup, Button, HelpBlock} from 'react-bootstrap/lib';
+import Feedback from '../../utils/Feedback';
+import formNames from '../../constants/formNames';
 
 
 
@@ -44,6 +46,8 @@ class ForgotPasswordForm extends React.Component {
     render() {
         return (
             <div className={css.formContainer}>
+
+                <Feedback reference={formNames.RESET_PASSWORD_FORM} />
 
                 <Form className={css.form}>
 

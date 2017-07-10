@@ -62,6 +62,12 @@ export function _signupError(message) {
     }
 }
 
+/* SMTP */
+
+export function isSMTPError(errMessage) {
+    return errMessage.includes("Sending the email to the following server failed");
+}
+
 
 // Calls the API to get a token and dispatches actions along the way
 export function loginUser(creds) {
@@ -102,7 +108,11 @@ export function signupUser(creds) {
                 if (!response.ok) {
                     response.text().then(err => {
                         dispatch(_signupError(err));
-                        dispatch(feedbackError(formNames.SIGN_UP_FORM, "Signup Error: "+err, {}));
+                        if (isSMTPError(err)) {
+                            dispatch(feedbackError(formNames.SIGN_UP_FORM, "Cannot sign up: email service is inactive (SMTP server is unavailable).", {}));
+                        } else {
+                            dispatch(feedbackError(formNames.SIGN_UP_FORM, "Signup Error: "+err, {}));
+                        }
                         console.log("Error signing up: ", err)
                     });
                     //return Promise.reject(response);  // redirects to `catch()`
@@ -149,8 +159,14 @@ export function requestResetPassword(email) {
                     hashHistory.replace('/home');
                 } else {
                     dispatch(() => {return {type: types.RESET_PASSWORD_FAILURE}});
-                    dispatch(feedbackError(formNames.RESET_PASSWORD_FORM, "Change Password Error: " +  err, {}));
-                    return Promise.reject(response);
+                    response.text().then(err => {
+                        if (isSMTPError(err)) {
+                            dispatch(feedbackError(formNames.RESET_PASSWORD_FORM, "Cannot reset password: email service is inactive (SMTP server is unavailable).", {}));
+                        } else {
+                            dispatch(feedbackError(formNames.RESET_PASSWORD_FORM, "Change Password Error: " + err, {}));
+                        }
+                    });
+                    // return Promise.reject(response);
                 }
             }).catch(err => {
                 dispatch(feedbackError(formNames.RESET_PASSWORD_FORM, "Reset Password Error: " + err.message, {}));
@@ -175,8 +191,14 @@ export function changePassword(code, email, newPassword) {
                     dispatch(() => {
                         return {type: types.CHANGE_PASSWORD_FAILURE}
                     });
-                    dispatch(feedbackError(formNames.CHANGE_PASSWORD_FAILURE, "Change Password Error: " +  err, {}));
-                    return Promise.reject(response);
+                    response.text().then(err => {
+                        if (isSMTPError(err)) {
+                            dispatch(feedbackError(formNames.CHANGE_PASSWORD_FORM, "Cannot change password: email service is inactive (SMTP server is unavailable).", {}));
+                        } else {
+                            dispatch(feedbackError(formNames.CHANGE_PASSWORD_FORM, "Change Password Error: " + err, {}));
+                        }
+                    });
+                    // return Promise.reject(response);
                 }
             }).catch(err =>{
                 dispatch(feedbackError(formNames.CHANGE_PASSWORD_FORM, "Change Password Error: "+ err.message, {}));
