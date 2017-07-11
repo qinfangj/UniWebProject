@@ -13,7 +13,6 @@
     "babel-polyfill": "^6.9.1",
     "bootstrap-sass": "^3.3.7",
     "classnames": "^2.2.5",
-    "create-react-class": "^15.6.0",
     "date-input-polyfill": "^2.13.0",
     "fastclick": "^1.0.6",
     "font-awesome": "^4.7.0",
