@@ -221,14 +221,14 @@ const adminData = {
             },
             {
                 "label": "HasInsertSizeSelection",
-                "name":  "hasInsertSizeSelection",
+                "name":  "hasinsertsizeselection",
                 "size":  3,
                 "required": true,
                 "type": inputTypes.CHECKBOX
             },
             {
                 "label": "IsDeprecated",
-                "name":  "isDeprecated",
+                "name":  "isdeprecated",
                 "size":  3,
                 "required": true,
                 "type": inputTypes.CHECKBOX
@@ -469,7 +469,7 @@ const adminData = {
             },
             {
                 "label": "Discarded",
-                "name":  "isDepreated",
+                "name":  "isdeprecated",
                 "size":  4,
                 "required": true,
                 "type": inputTypes.CHECKBOX
