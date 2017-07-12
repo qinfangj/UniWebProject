@@ -67,18 +67,23 @@ class CommonTable extends React.PureComponent {
         form: PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
     };
 
-    getDataAsync(limit, offset, sortBy, sortDir) {
+    getDataAsync(limit, offset, sortBy, sortDir, filterBy) {
         let _this = this;
         let dataLength = this.props.data.length;
         this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
             limit, offset,
-            sortBy || this.state.sortBy, sortDir || this.state.sortDirection)
+            sortBy || this.state.sortBy, sortDir || this.state.sortDirection, filterBy || this.state.searchValue)
         .done((data) => {
             // `data` is only the new block. The whole data is in `this.props.data`.
-            let hasNextPage = data.length % this.nrowsPerQuery === 0;
-            let newDataLength = dataLength + data.length;
-            let rowCount = hasNextPage ? newDataLength + 1 : newDataLength;
-            _this.setState({ rowCount });
+            if (data.length !==0) {
+                let hasNextPage = data.length % this.nrowsPerQuery === 0;
+                let newDataLength = dataLength + data.length;
+                let rowCount = hasNextPage ? newDataLength + 1 : newDataLength;
+                _this.setState({rowCount});
+            } else {
+                _this.setState({rowCount:0})
+
+            }
         })
         .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
     }
@@ -91,7 +96,9 @@ class CommonTable extends React.PureComponent {
     //onSearch function needs to be re-implemented
     onSearch(e) {
         let value = e.target.value;
-        // this.setState({searchValue: value});
+        this.setState({searchValue: value});
+        this.getDataAsync(this.nrowsPerQuery, 0, null, null, value);
+
     }
 
     //reset function needs to be re-implemented
@@ -103,7 +110,7 @@ class CommonTable extends React.PureComponent {
         let dataLength = this.props.data.length;
         if (dataLength % this.nrowsPerQuery === 0) {
             console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
-            this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection);
+            this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchValue);
         }
     }
 
@@ -155,7 +162,7 @@ class CommonTable extends React.PureComponent {
      }
 
     _getDatum (list, index) {
-        return list.get(index % list.size)
+        return list.size!==0? list.get(index % list.size):null
     }
 
     _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
@@ -242,6 +249,7 @@ class CommonTable extends React.PureComponent {
         }
 
         const rowGetter = ({index}) => this._getDatum(sortedList, index);
+        console.log(this.state.rowCount);
 
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -288,7 +296,7 @@ class CommonTable extends React.PureComponent {
                                             headerRowRenderer={this.headerRowRenderer}
                                             rowHeight={ROW_HEIGTH}
                                             onRowsRendered={onRowsRendered}
-                                            noRowsRenderer={() => this.props.isLoading ? null : <div style={{textAlign: 'center'}}>{"No data"}</div>}
+                                            noRowsRenderer={() => this.state.rowCount!==0? null : <div style={{textAlign: 'center'}}>{"No data"}</div>}
                                             rowGetter={rowGetter}
                                             rowCount={this.state.rowCount}
                                             sort={this._sort}

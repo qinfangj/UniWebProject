@@ -126,6 +126,7 @@ const actionTypes = {
 
     userData: {
         BATCH_INSERT: "BATCH_INSERT",
+        USERDATARUNS: "USERDATARUNS",
     }
 
 };

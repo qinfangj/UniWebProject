@@ -24,6 +24,14 @@ const tableNames = {
     ALIGNMENTS_ACTIVE: "alignmentsActive",
     GENOMES_ACTIVE: "genomesActive",
 
+    //User data
+    USERDATARUNS : "userdataruns",
+    PROJECTRUNSDETAILS : "projectRunsDetails",
+    LIBRARYRUN: "libraryRun",
+    BASECALLINGSTAT: "basecallingStat",
+    ALIGNMENT: "alignment",
+    ALIGNMENTSTAT: "alignmentStat",
+
     // Attributes
     USERS: "users",
     PROJECT_SHARINGS: "project_sharings",

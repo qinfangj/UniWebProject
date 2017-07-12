@@ -192,6 +192,15 @@ class RestService {
         return get(url);
     }
 
+    /* UserData for runs */
+
+    getUserRunsData(dataType) {
+        //dataType: "dataLabs" or "dataCollabs"
+        let url = `${BACKEND}/user/data/${dataType}`;
+        console.info(url);
+        return get(url);
+    }
+
     /* Login */
 
     login(creds) {

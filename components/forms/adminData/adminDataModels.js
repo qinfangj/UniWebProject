@@ -2,6 +2,7 @@
 //define the props such as model,label,name,size etc for CommonAdminForm
 
 import inputTypes from '../inputTypes';
+import validators from '../../forms/validators';
 
 const adminData = {
     "users": {
@@ -348,7 +349,8 @@ const adminData = {
                 "name":  "number",
                 "size":  2,
                 "required": true,
-                "type": inputTypes.TEXT
+                "type": inputTypes.TEXT,
+                "validators": {isNumber: validators.numberValidator}
             },
             {
                 "label": "Description",

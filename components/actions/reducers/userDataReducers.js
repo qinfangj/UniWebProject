@@ -16,6 +16,10 @@ let userDataReducers = (state = defaultState, action) => {
         case types.userData.BATCH_INSERT:
             return returnList(action, state, null, []);
 
+        /* Get UserDataRuns  */
+        case types.USERDATARUNS:
+            return returnList(action, state, action.args.storeKey, []);
+
         default:
             return state;
     }
