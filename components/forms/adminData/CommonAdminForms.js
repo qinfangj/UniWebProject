@@ -41,6 +41,7 @@ class CommonAdminForms extends React.Component {
             isValidated: undefined,
             username: "",
         };
+
         this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
     }
 
@@ -55,10 +56,15 @@ class CommonAdminForms extends React.Component {
         } else if (this.table === tableNames.USERS) {
             store.dispatch(requestLaboratories());
         }
+        if (this.table === tableNames.USERS) {
+            forms.newOrUpdate(this.modelName, this.table, this.props.updateId, this.setButtonStatus.bind(this));
+        }else{
+            forms.newOrUpdate(this.modelName, this.table, this.props.updateId);
+        }
+    }
 
-        forms.newOrUpdate(this.modelName, this.table, this.props.updateId);
-
-
+    setButtonStatus (data){
+        this.setState({isValidated: data.isvalidated})
     }
 
     handleSubmit(values){
@@ -233,6 +239,7 @@ class CommonAdminForms extends React.Component {
 
     render() {
         let formFields = adminData[this.props.table].fields;
+
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
 
