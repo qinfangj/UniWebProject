@@ -20,6 +20,7 @@ function initialAdminForms(table) {
                 initalData[s.name] = "";
             }
         });
+    //console.log(initalData);
     return initalData;
 }
 

@@ -117,8 +117,8 @@ td.buttonsCell {
     color: black;
 }
 .addQCLibrary {
-    color: var(--blue);
-}
+     color: var(--blue);
+ }
 .addPool {
     padding: 3px 5px;
     margin-left: 3px;

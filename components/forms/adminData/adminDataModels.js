@@ -2,6 +2,7 @@
 //define the props such as model,label,name,size etc for CommonAdminForm
 
 import inputTypes from '../inputTypes';
+import validators from '../../forms/validators';
 
 const adminData = {
     "users": {
@@ -220,14 +221,14 @@ const adminData = {
             },
             {
                 "label": "HasInsertSizeSelection",
-                "name":  "hasInsertSizeSelection",
+                "name":  "hasinsertsizeselection",
                 "size":  3,
                 "required": true,
                 "type": inputTypes.CHECKBOX
             },
             {
                 "label": "IsDeprecated",
-                "name":  "isDeprecated",
+                "name":  "isdeprecated",
                 "size":  3,
                 "required": true,
                 "type": inputTypes.CHECKBOX
@@ -348,7 +349,8 @@ const adminData = {
                 "name":  "number",
                 "size":  2,
                 "required": true,
-                "type": inputTypes.TEXT
+                "type": inputTypes.TEXT,
+                "validators": {isNumber: validators.numberValidator}
             },
             {
                 "label": "Description",
@@ -467,7 +469,7 @@ const adminData = {
             },
             {
                 "label": "Discarded",
-                "name":  "isDepreated",
+                "name":  "isdeprecated",
                 "size":  4,
                 "required": true,
                 "type": inputTypes.CHECKBOX

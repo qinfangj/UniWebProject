@@ -22,9 +22,11 @@ export function formatFormData(formData, table) {
                 if (table !== "users") {
                     formData[key] = parseInt(formData[key]);
                 }
-            } else if (adminData[table].fields[ind].type === inputTypes.CHECKBOX) {
-                formData[key] = !!parseInt(formData[key]);
             }
+            // } else if (adminData[table].fields[ind].type === inputTypes.CHECKBOX) {
+            //     console.log(formData[key]);
+            //     formData[key] = !!parseInt(formData[key]);
+            // }
         }
     });
 
