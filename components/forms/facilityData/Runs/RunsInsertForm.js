@@ -151,13 +151,12 @@ export class RunsInsertForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = forms.optionsFromModel(state, runsModel);
     let formData = state.facilityDataForms.runs;
     let formModel = state.facilityDataForms.forms.runs;
     return {
         formData: formData,
         formModel: formModel,
-        options: options,
+        options: state.options,
     };
 };
 
