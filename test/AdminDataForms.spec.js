@@ -8,7 +8,7 @@ import { shallow, mount, render} from 'enzyme';
 import { expect, assert } from 'chai';
 
 import store from '../core/store';
-import tableNames from '../components/tables/tableNames';
+import tableNames from '../components/constants/tableNames';
 import { Provider } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import adminData from '../components/forms/adminData/adminDataModels';

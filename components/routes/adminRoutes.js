@@ -3,10 +3,11 @@ import React from 'react';
 import CommonTable from '../tables/CommonTable';
 import CommonAdminForms from '../forms/adminData/CommonAdminForms';
 import adminDataColumns from '../tables/adminData/columns';
-import tableNames from '../tables/tableNames';
+import tableNames from '../constants/tableNames';
 
 import AdminData from '../pages/AdminData';
 import AdminDataHome from '../pages/AdminDataHome';
+import UsersAdminForm from '../forms/adminData/UsersAdminForm';
 //import ProjectSharingSubmitForm from '../forms/adminData/ProjectSharingSubmitForm';
 //import LimsUsersSubmitForm from '../forms/adminData/LimsUserSubmitForm';
 
@@ -34,8 +35,7 @@ export class LimsUsersNewPage extends React.Component {
     render() {
         return (
             <AdminData title="LIMS Users" name="users" content={
-                //<LimsUsersSubmitForm table={tableNames.USERS}  updateId={this.props.params.id}/>
-                <CommonAdminForms table={tableNames.USERS} />
+                <UsersAdminForm />
             } />
         );
     }
@@ -45,8 +45,7 @@ export class LimsUsersUpdatePage extends React.Component {
     render() {
         return (
             <AdminData title="LIMS Users" name="users" content={
-                //<LimsUsersSubmitForm table={tableNames.USERS}  updateId={this.props.params.id}/>
-                <CommonAdminForms table={tableNames.USERS}  updateId={this.props.params.id}/>
+                <UsersAdminForm updateId={this.props.params.id}/>
             } />
         );
     }

@@ -2,7 +2,7 @@
 import types from '../actionTypes';
 import returnList from './base';
 import constants from '../../constants/constants';
-import tableNames from '../../tables/tableNames';
+import tableNames from '../../constants/tableNames';
 
 
 

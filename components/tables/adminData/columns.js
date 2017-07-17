@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import * as formatters from '../formatters';
-import tableNames from '../tableNames';
+import tableNames from '../../constants/tableNames';
 import { idColumnWithUpdateLink, CENTER, LEFT, ID_COLUMN } from '../columns';
 
 

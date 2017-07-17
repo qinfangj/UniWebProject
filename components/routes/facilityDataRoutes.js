@@ -4,7 +4,7 @@ import FacilityDataHome from '../pages/FacilityDataHome';
 import FacilityData from '../pages/FacilityData';
 import formNames from '../constants/formNames';
 import facilityDataColumns from '../tables/facilityData/columns';
-import tableNames from '../tables/tableNames';
+import tableNames from '../constants/tableNames';
 import CommonTable from '../tables/CommonTable';
 import columnFormatters from '../tables/columnFormatters';
 

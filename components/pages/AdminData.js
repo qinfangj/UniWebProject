@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import tableNames from '../tables/tableNames';
+import tableNames from '../constants/tableNames';
 import PropTypes from 'prop-types';
 import css from './styles.css';
 import commonCss from '../../styles/common.css';
