@@ -18,7 +18,6 @@ import {
 import { deleteAsync, validateUserAsync} from '../../actions/actionCreators/facilityDataActionCreators';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 
-import * as submit from './submit';
 import * as forms from '../forms';
 import adminDataModels from './adminDataModels';
 
@@ -34,6 +33,7 @@ class CommonAdminForms extends React.Component {
         super(props);
 
         this.table = this.props.table;
+        this.model = adminDataModels;
         const modelName = "adminForms.";
         this.modelName = modelName.concat(adminDataModels[this.props.table].model);
 
@@ -64,17 +64,18 @@ class CommonAdminForms extends React.Component {
     }
 
     handleSubmit(values){
-        //let formData = Object.assign({}, values);
-        let formData = forms.formatFormFieldsDefault(adminDataModels[this.props.table].fields)
+        let formData = forms.formatFormFieldsDefault(adminDataModels[this.props.table], values);
+        /* Formatter: should be somewhere else */
         if (this.table === tableNames.USERS){
-            //change submit data' key: 'login' -> 'username'
+            //change key name: 'login' -> 'username'
             formData.username = formData.login;
             delete formData.login;
             let isValidated = formData.isvalidated;
             this.setState({ isValidated });  // does it even do anything??
         }
-        console.log(formData);
-        submit.submit(this.modelName, formData, this.table, this.props.updateId);
+        // submitForm(modelName, insertData, table, formName, onSuccess)
+        forms.submitForm(this.modelName, formData, this.table, this.modelName, null);
+        //submit.submit(this.modelName, formData, this.table, this.props.updateId);
     }
 
     userDelete(form, table, userId){

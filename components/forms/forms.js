@@ -77,6 +77,12 @@ export function submitForm(modelName, insertData, table, formName, onSuccess) {
                 // Clear the form data in store
                 store.dispatch(actions.reset(modelName));
                 store.dispatch(resetAllOptions());
+
+
+                // If admin, do that:
+//                store.dispatch(resetAllOptions());
+
+
                 // Redirect to table by replacing '/new' by '/list' in the router state
                 let currentPath = window.location.pathname + window.location.hash.substr(2);
                 hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
