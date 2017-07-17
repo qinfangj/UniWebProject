@@ -5,7 +5,6 @@ import admincss from './adminForm.css';
 import { withRouter } from 'react-router';
 import store from '../../../core/store';
 import tableNames from '../../tables/tableNames';
-import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -22,10 +21,9 @@ import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/a
 import * as submit from './submit';
 import * as forms from '../forms';
 import adminDataModels from './adminDataModels';
-import inputTypes from '../../forms/inputTypes';
 
 import Feedback from '../../utils/Feedback';
-import { Control, Form, actions, Errors} from 'react-redux-form';
+import { Form } from 'react-redux-form';
 import { Button } from 'react-bootstrap/lib';
 import SubmitButton from '../SubmitButton';
 
@@ -60,24 +58,22 @@ class CommonAdminForms extends React.Component {
             store.dispatch(requestLaboratories());
         }
         forms.newOrUpdate(this.modelName, this.table, this.props.updateId);
+        if (this.props.updateId) {
+            this.setState({ disabled: true });
+        }
     }
 
     handleSubmit(values){
+        let formData = Object.assign({}, values);
         if (this.table === tableNames.USERS){
-            let formData = Object.assign({}, values);
             //change submit data' key: 'login' -> 'username'
-            Object.defineProperty(formData, 'username',
-                Object.getOwnPropertyDescriptor(formData, 'login')
-            );
-            delete formData['login'];
-
-            let isValidated = formData['isvalidated'];
+            formData.username = formData.login;
+            delete formData.login;
+            let isValidated = formData.isvalidated;
             this.setState({ isValidated });  // does it even do anything??
-            submit.submit(this, this.modelName, formData, this.table, this.props.updateId, this.state.isInsert);
-        } else {
-            console.log(values);
-            submit.submit(this, this.modelName, values, this.table, this.props.updateId, this.state.isInsert);
         }
+        console.log(formData);
+        submit.submit(this.modelName, formData, this.table, this.props.updateId);
     }
 
     userDelete(form, table, userId){

@@ -7,26 +7,29 @@ import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/a
 import { resetAllOptions } from '../../actions/actionCreators/optionsActionCreators';
 import { timeNow, parseDateString } from '../../../utils/time';
 import inputTypes from '../inputTypes';
+import { hashHistory } from 'react-router';
+import * as forms from '../forms';
 
 
 //Format adminFormData as the adminFormConstants defined before submission
 export function formatFormData(formData, table) {
-    let fieldsNames = adminData[table].fields.map(s=> {return s.name});
+    let fieldsNames = adminData[table].fields.map(s => {return s.name});
 
     Object.keys(formData).forEach(function (key, index) {
 
         if (fieldsNames.indexOf(key) > -1) {
             let ind = fieldsNames.indexOf(key);
+            let itype = adminData[table].fields[ind].inputType;
 
-            if (adminData[table].fields[ind].type === inputTypes.DROPDOWN) {
-                if (table !== "users") {
+            if (itype === inputTypes.DROPDOWN) {
+                try {
                     formData[key] = parseInt(formData[key]);
+                } catch (e) {
+                    console.error("Could not parse "+ formData[key] +" as Int")
                 }
+            } else if (itype === inputTypes.CHECKBOX) {
+                formData[key] = !!formData[key];
             }
-            // } else if (adminData[table].fields[ind].type === inputTypes.CHECKBOX) {
-            //     console.log(formData[key]);
-            //     formData[key] = !!parseInt(formData[key]);
-            // }
         }
     });
 
@@ -36,44 +39,38 @@ export function formatFormData(formData, table) {
             formData.createdAt = parseDateString(formData.createdAt);
         }
     }
-
-    console.log(formData);
     return formData
 }
 
-export function submit(component, form, values, table, updateId, isInsert) {
+export function submit(formName, values, table, updateId) {
 
     let data = Object.assign({}, values);
 
     console.info(JSON.stringify(data, null, 2));
 
-    if (!isInsert) {
-        component.setState({isInsert: true});
-    } else {
-        if (confirm("Are you sure that you want to submit the data?")) {
-            let formData = formatFormData(data, table);
-            let submissionFuture = store.dispatch(insertAsync(table, formData));
-            //state = Object.assign(state, {submissionError: false, submissionFuture: future});
-            return submissionFuture
-                .done((insertId) => {
-                    console.debug(200, "Inserted ID <" + insertId + ">");
-                    // Clear the form data in store
-                    store.dispatch(feedbackSuccess(form, "Inserted ID <" + insertId + ">"));
-                    store.dispatch(actions.reset(form));
-                    // Reset all options. Specific to admin forms!!
-                    store.dispatch(resetAllOptions());
-                    let currentPath = window.location.pathname + window.location.hash.substr(2);
-                    if (updateId === '' || updateId === undefined) {
-                        component.props.router.push(currentPath.replace('/new', '/list'));
-                    } else {
-                        component.props.router.push(currentPath.replace('/update/' + updateId, '/list'));
-                    }
-                })
-                .fail((err) => {
-                    console.warn("Uncaught form validation error");
-                    store.dispatch(feedbackError(form, "Uncaught form validation error", err));
-                });
-        }
+    if (confirm("Are you sure that you want to submit the data?")) {
+        let formData = formatFormData(data, table);
+        let submissionFuture = store.dispatch(insertAsync(table, formData));
+        //state = Object.assign(state, {submissionError: false, submissionFuture: future});
+        return submissionFuture
+            .done((insertId) => {
+                console.debug(200, "Inserted ID <" + insertId + ">");
+                // Clear the form data in store
+                store.dispatch(feedbackSuccess(formName, "Inserted ID <" + insertId + ">"));
+                store.dispatch(actions.reset(formName));
+                // Reset all options. Specific to admin forms!!
+                store.dispatch(resetAllOptions());
+                let currentPath = window.location.pathname + window.location.hash.substr(2);
+                if (updateId === '' || updateId === undefined) {
+                    hashHistory.push(currentPath.replace('/new', '/list'));
+                } else {
+                    hashHistory.push(currentPath.replace('/update/' + updateId, '/list'));
+                }
+            })
+            .fail((err) => {
+                console.warn("Uncaught form validation error");
+                store.dispatch(feedbackError(formName, "Uncaught form validation error", err));
+            });
     }
 
 }
