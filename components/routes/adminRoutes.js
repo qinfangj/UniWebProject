@@ -8,8 +8,7 @@ import tableNames from '../constants/tableNames';
 import AdminData from '../pages/AdminData';
 import AdminDataHome from '../pages/AdminDataHome';
 import UsersAdminForm from '../forms/adminData/UsersAdminForm';
-//import ProjectSharingSubmitForm from '../forms/adminData/ProjectSharingSubmitForm';
-//import LimsUsersSubmitForm from '../forms/adminData/LimsUserSubmitForm';
+
 
 
 export class AdminDataPage extends React.Component {
@@ -19,6 +18,8 @@ export class AdminDataPage extends React.Component {
         );
     }
 }
+
+/******************   USERS   *****************/
 
 export class LimsUsersListRoute extends React.Component {
     render() {
@@ -51,6 +52,7 @@ export class LimsUsersUpdatePage extends React.Component {
     }
 }
 
+/******************   ANALYSIS TYPES   *****************/
 
 export class AnalysisTypeListRoute extends React.Component {
     render() {
@@ -83,6 +85,8 @@ export class AnalysisTypeUpdatePage extends React.Component {
     }
 }
 
+/******************   FLOWCELL TYPES   *****************/
+
 export class FlowcellTypesListRoute extends React.Component {
     render() {
         return (
@@ -113,6 +117,8 @@ export class FlowcellTypesUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   INSTRUMENTS   *****************/
 
 export class InstrumentsListRoute extends React.Component {
     render() {
@@ -145,6 +151,8 @@ export class InstrumentsUpdatePage extends React.Component {
     }
 }
 
+/******************   LIBRARY ADAPTERS   *****************/
+
 export class libAdaptersListRoute extends React.Component {
     render() {
         return (
@@ -175,6 +183,8 @@ export class libAdaptersUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   LIBRARY PROTOCOLS   *****************/
 
 export class libProtocolsListRoute extends React.Component {
     render() {
@@ -207,6 +217,8 @@ export class libProtocolsUpdatePage extends React.Component {
     }
 }
 
+/******************   LIRBARY STATES   *****************/
+
 export class libStatesListRoute extends React.Component {
     render() {
         return (
@@ -237,6 +249,8 @@ export class libStatesUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   MAPPING TOOLS - INTRUMENTS   *****************/
 
 export class mappingToolsListRoute extends React.Component {
     render() {
@@ -269,6 +283,8 @@ export class mappingToolsUpdatePage extends React.Component {
     }
 }
 
+/******************   MULTIPLEX INDEXES   *****************/
+
 export class multiplexIndexesListRoute extends React.Component {
     render() {
         return (
@@ -299,6 +315,8 @@ export class multiplexIndexesUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   PIPELINE VERSIONS   *****************/
 
 export class pipelineVersionListRoute extends React.Component {
     render() {
@@ -331,6 +349,8 @@ export class pipelineVersionUpdatePage extends React.Component {
     }
 }
 
+/******************   PROJECT ANALYSIS   *****************/
+
 export class projectAnalysisListRoute extends React.Component {
     render() {
         return (
@@ -361,6 +381,8 @@ export class projectAnalysisUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   PROJECT STATES   *****************/
 
 export class projectStatesListRoute extends React.Component {
     render() {
@@ -393,6 +415,8 @@ export class projectStatesUpdatePage extends React.Component {
     }
 }
 
+/******************   QUANTIF METHODS   *****************/
+
 export class quantifMethodsListRoute extends React.Component {
     render() {
         return (
@@ -423,6 +447,8 @@ export class quantifMethodsUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   READ LENGTHS   *****************/
 
 export class readLengthsListRoute extends React.Component {
     render() {
@@ -455,6 +481,8 @@ export class readLengthsUpdatePage extends React.Component {
     }
 }
 
+/******************   RUN TYPES   *****************/
+
 export class runTypesListRoute extends React.Component {
     render() {
         return (
@@ -485,6 +513,8 @@ export class runTypesUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   RUN TYPES + LENGTHS   *****************/
 
 export class runTypesLengthsListRoute extends React.Component {
     render() {
@@ -517,6 +547,8 @@ export class runTypesLengthsUpdatePage extends React.Component {
     }
 }
 
+/******************   SAMPLE TYPES   *****************/
+
 export class sampleTypesListRoute extends React.Component {
     render() {
         return (
@@ -547,6 +579,8 @@ export class samplesTypesUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   SEQUENCING KITS VERSIONS   *****************/
 
 export class seqKitVersionListRoute extends React.Component {
     render() {
@@ -579,6 +613,8 @@ export class seqKitVersionUpdatePage extends React.Component {
     }
 }
 
+/******************   SEQUENCING QUALITIES   *****************/
+
 export class seqQualitiesListRoute extends React.Component {
     render() {
         return (
@@ -609,6 +645,8 @@ export class seqQualitiesUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   TAXONOMIES - ORGANISMS   *****************/
 
 export class taxonomiesListRoute extends React.Component {
     render() {
@@ -641,14 +679,14 @@ export class taxonomiesUpdatePage extends React.Component {
     }
 }
 
+/******************   PROJECT SHARINGS   *****************/
+
 export class projectSharingsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Project Sharings" name="project_sharings" content={
                 <CommonTable dataStoreKey={tableNames.PROJECT_SHARINGS} table={tableNames.PROJECT_SHARINGS}
                              domain="admin" name="project_sharings" columns={adminDataColumns[tableNames.PROJECT_SHARINGS]} />
-                //<CommonTable dataStoreKey={tableNames.PROJECT_SHARINGS} table={tableNames.PROJECT_SHARINGS}
-                                //columns={adminDataColumns[tableNames.PROJECT_SHARINGS]} />
             }/>
         );
     }

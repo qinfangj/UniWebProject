@@ -103,19 +103,12 @@ class PoolSelection extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = {};
-    for (let field of Object.keys(poolSelectionModel)) {
-        let model = poolSelectionModel[field];
-        if (model.optionsKey) {
-            options[model.optionsKey] = state.options[model.optionsKey] || [];
-        }
-    }
     let librariesFromPool = state.facilityData["LIBRARIES_FROM_POOL"];
     let selectedProject = state.facilityDataForms.runs.poolSelection.projectIdWithPool;
     let selectedPool = state.facilityDataForms.runs.poolSelection.pool;
     let lanes = state.facilityDataForms.runs.lanes;
     return {
-        options: options,
+        options: state.options,
         librariesFromPool: librariesFromPool,
         selectedProject: selectedProject,
         selectedPool: selectedPool,

@@ -90,11 +90,10 @@ export class SamplesInsertForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = forms.optionsFromModel(state, samplesModel);
     let formData = state.facilityDataForms.samples;
     let formModel = state.facilityDataForms.forms.samples;
     return {
-        options: options,
+        options: state.options,
         formData: formData,
         formModel: formModel,
     };

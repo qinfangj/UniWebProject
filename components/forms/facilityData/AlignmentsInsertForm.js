@@ -104,11 +104,10 @@ export class AlignmentsInsertForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = forms.optionsFromModel(state, alignmentsModel);
     let formData = state.facilityDataForms.alignments;
     return {
         formData: formData,
-        options: options,
+        options: state.options,
     };
 };
 

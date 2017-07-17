@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import sampleModel from '../formModels/sampleModel';
-import { optionsFromModel } from '../../forms/forms.js';
 import CommonFeatRow from '../CommonFeatRow';
 
 
@@ -27,10 +26,9 @@ class SampleRow extends React.PureComponent {
 
 function mapStateToProps(state) {
     let formData = state.userDataForms.samples.requests;
-    let options = optionsFromModel(state, sampleModel);
     return {
         formData: formData,
-        options: options,
+        options: state.options,
     };
 }
 
