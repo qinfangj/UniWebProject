@@ -21,16 +21,13 @@ import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/a
 
 import * as submit from './submit';
 import * as forms from '../forms';
-import adminData from './adminDataModels';
+import adminDataModels from './adminDataModels';
 import inputTypes from '../../forms/inputTypes';
 
 import Feedback from '../../utils/Feedback';
 import { Control, Form, actions, Errors} from 'react-redux-form';
-import { Button, Col, FormControl } from 'react-bootstrap/lib';
-import BSTextInput from '../bootstrapWrappers/BSTextInput';
-import BSCheckbox from '../bootstrapWrappers/BSCheckbox';
-import BSSelect from '../bootstrapWrappers/BSSelect';
-import RRFInput from '../bootstrapWrappers/RRFInput';
+import { Button } from 'react-bootstrap/lib';
+import SubmitButton from '../SubmitButton';
 
 
 
@@ -40,17 +37,19 @@ class CommonAdminForms extends React.Component {
 
         this.table = this.props.table;
         const modelName = "adminForms.";
-        this.modelName = modelName.concat(adminData[this.props.table].model);
+        this.modelName = modelName.concat(adminDataModels[this.props.table].model);
 
         this.state = {
             isValidated: undefined,
             username: "",
+            disabled: false,
         };
         this.state.isInsert = this.props.updateId === '' || this.props.updateId === undefined;
+        this.activateForm = this.activateForm.bind(this);
+        this.deactivateForm = this.deactivateForm.bind(this);
     }
 
     componentWillMount() {
-
         if (this.table === tableNames.RUN_TYPES_LENGTHS) {
             store.dispatch(requestRunTypes());
             store.dispatch(requestReadLengths());
@@ -60,10 +59,7 @@ class CommonAdminForms extends React.Component {
         } else if (this.table === tableNames.USERS) {
             store.dispatch(requestLaboratories());
         }
-
         forms.newOrUpdate(this.modelName, this.table, this.props.updateId);
-
-
     }
 
     handleSubmit(values){
@@ -71,11 +67,12 @@ class CommonAdminForms extends React.Component {
             let formData = Object.assign({}, values);
             //change submit data' key: 'login' -> 'username'
             Object.defineProperty(formData, 'username',
-            Object.getOwnPropertyDescriptor(formData, 'login'));
+                Object.getOwnPropertyDescriptor(formData, 'login')
+            );
             delete formData['login'];
 
             let isValidated = formData['isvalidated'];
-            this.setState({isvalidated: isValidated});  // does it even do anything??
+            this.setState({ isValidated });  // does it even do anything??
             submit.submit(this, this.modelName, formData, this.table, this.props.updateId, this.state.isInsert);
         } else {
             console.log(values);
@@ -131,144 +128,46 @@ class CommonAdminForms extends React.Component {
         }
     }
 
-    makeOptions(options, hasNoneValue = true) {
-
-        let opts = [];
-        if (options !== null && options !== undefined ) {
-            opts = [...options];
-        }
-        if (hasNoneValue) {
-            opts.unshift(["", '-']);
-        }
-        let optionList = opts.map((v,i) => {
-            return <option value={v[0]} key={i}>{v[1]}</option>;
-        });
-        return optionList;
+    activateForm() {
+        this.setState({ disabled: false });
     }
-
-    makeInput(s) {
-        let input;
-        if (s.inputType === inputTypes.CHECKBOX) {
-            input =
-                <Control.checkbox
-                    id= {s.name}
-                    model={".".concat(s.name)}
-                    disabled={!this.state.isInsert}
-                    className={admincss.input}
-                />
-        } else if (s.inputType === inputTypes.TEXT) {
-            const BSTextInput = (props) => <FormControl {...props} />;
-            input = <div>
-                        <Control
-                            id={s.name}
-                            className={admincss.input}
-                            component={BSTextInput}
-                            model={".".concat(s.name)}
-                            disabled={!this.state.isInsert}
-                            validators = {s.required ? {isRequired: (val) => val && (val + "").length} : null}                        />
-                        <Errors
-                            className = {admincss.errors}
-                            model={".".concat(s.name)}
-                            show="touched"
-                            messages={{
-                                isRequired: 'This field is required',
-                            }}
-                        />
-                    </div>
-        } else if (s.inputType === inputTypes.DROPDOWN) {
-            let options;
-            if (s.name ==="runTypeId") {
-                let opts = this.props.options[optionsStoreKeys.RUN_TYPES];
-                if (opts !== undefined && opts !== null) {
-                    opts.sort();
-                }
-                options = this.makeOptions(opts);
-            } else if (s.name ==="readLengthId") {
-                let opts = this.props.options[optionsStoreKeys.READ_LENGTHS];
-                if (opts !== undefined && opts !== null) {
-                    opts.sort((a, b) => parseInt(a[1]) < parseInt(b[1]) ? -1 : 1);
-                }
-                options = this.makeOptions(opts);
-            } else if (s.name === "projectId") {
-                let opts = this.props.options[optionsStoreKeys.PROJECTS_ALL];
-                options = this.makeOptions(opts);
-            } else if (s.name === "personId") {
-                let opts = this.props.options[optionsStoreKeys.PEOPLE];
-                options = this.makeOptions(opts);
-            } else if (s.name === "laboratoryId"){
-                let opts = this.props.options[optionsStoreKeys.LABORATORIES];
-                options = this.makeOptions(opts);
-            } else if (s.name === "role" ){
-                let roleList = [
-                                {value: "no_access", name: "no access" },
-                                {value: "customer", name: "customer" },
-                                {value: "facility", name: "facility" },
-                                {value: "admin", name: "admin"}
-                               ];
-                options = this.makeOptions(roleList.map(v => [v.value, v.name]), false);
-            }
-
-            const BSSelect = (props) => <FormControl componentClass="select" {...props} />;
-
-            input = <div>
-                        <Control.select id={s.name}
-                                        model={".".concat(s.name)}
-                                        component={BSSelect}
-                                        disabled={!this.state.isInsert}
-                                        //required={s.required}
-                                        validators= {{
-                                            isRequired: (s.required) ? (val) => val !== "" : null
-                                        }}
-                        >
-                                {options}
-                        </Control.select>
-                        <Errors
-                            className={admincss.errors}
-                            model={".".concat(s.name)}
-                            show="touched"
-                            messages={{
-                                isRequired: 'Please select an option.',
-                            }}
-                        />
-                    </div>
-        }
-
-        return input;
+    deactivateForm() {
+        this.setState({ disabled: true });
     }
 
     render() {
-        let formFields = adminData[this.props.table].fields;
+        let formModel = adminDataModels[this.props.table];
+        let formFields = forms.makeAdminFormFields(formModel, this.state.disabled, this.props.options);
+        let showUsersButtons = this.table === tableNames.USERS && this.state.isInsert && this.props.updateId && !this.state.isValidated;
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
 
                 <Feedback reference={this.modelName} />
 
-                {
-                    formFields.map((s) => {
+                { formFields }
 
-                        return (
-                            <Col sm={s.width} className={css.formCol} key={s.name}>
-                                <label className={admincss.label}>{s.label}</label>
-                                {this.makeInput(s)}
-                            </Col>
-                        )
-
-                    })
-
-                }
                 <div className="clearfix"/>
-                {/*<Col sm={6} className={css.formCol}>*/}
-                    <Button bsStyle="primary" className={admincss.button} type="submit" >
-                        {this.state.isInsert ? 'Submit' : 'ActivateForm'}
-                    </Button>
 
-                { this.table === tableNames.USERS && this.state.isInsert && this.props.updateId && !this.state.isValidated ?
-                    <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userValidate.bind(this,this.modelName)}>Validate</Button>
+                <SubmitButton
+                    disabled={this.state.disabled}
+                    activateForm={this.activateForm}
+                    deactivateForm={this.deactivateForm}
+                />
+
+                { showUsersButtons ?
+                    <Button
+                            bsStyle="primary" className={admincss.button} type = "button"
+                            onClick={this.userValidate.bind(this,this.modelName)}>
+                        Validate
+                    </Button>
                     : null}
-                { this.table === tableNames.USERS && this.state.isInsert && this.props.updateId && !this.state.isValidated ?
-                    <Button bsStyle="primary" className={admincss.button} type = "button" onClick={this.userDelete.bind(this,this.modelName, this.table,this.props.updateId)}>Delete</Button>
+                { showUsersButtons ?
+                    <Button
+                            bsStyle="primary" className={admincss.button} type = "button"
+                            onClick={this.userDelete.bind(this,this.modelName, this.table, this.props.updateId)}>
+                        Delete
+                    </Button>
                     : null}
-                {/*</Col>*/}
             </Form>
         );
     }

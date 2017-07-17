@@ -10,18 +10,15 @@ import inputTypes from '../../../forms/inputTypes';
  */
 function initialAdminForms(table) {
     let initialData = {};
-    console.log(adminDataModels)
-    console.log(table)
-    adminDataModels[table].fields.map(
-        (s) => {
-            if (s.inputType === inputTypes.TEXT) {
-                initialData[s.name] = "";
-            } else if (s.inputType === inputTypes.CHECKBOX) {
-                initialData[s.name] = false;
-            } else if (s.inputType === inputTypes.DROPDOWN) {
-                initialData[s.name] = "";
-            }
-        });
+    adminDataModels[table].fields.forEach((s) => {
+        if (s.inputType === inputTypes.TEXT) {
+            initialData[s.name] = "";
+        } else if (s.inputType === inputTypes.CHECKBOX) {
+            initialData[s.name] = false;
+        } else if (s.inputType === inputTypes.DROPDOWN) {
+            initialData[s.name] = "";
+        }
+    });
     return initialData;
 }
 

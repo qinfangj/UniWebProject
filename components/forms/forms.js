@@ -166,6 +166,31 @@ export function makeFormFields(formModelName, formModel, disabled = false, optio
 }
 
 /**
+ * Same as above but for Admin forms, which for historical reasons have a different model format.
+ */
+export function makeAdminFormFields(formModel, disabled = false, options = {}, changeActions = {}) {
+    let formFields = formModel.fields.map ((model) => {
+        let {name, inputType, optionsKey, ...otherProps} = model;
+        otherProps.key = name;
+        otherProps.disabled = model.disabled || disabled;
+        // otherProps.submissionError = formState[modelName].submitFailed && formState[modelName].validated && (! formState[modelName].valid);
+        if (optionsKey) {
+            otherProps.options = options[optionsKey] || [];
+        }
+        if (changeActions[name]) {
+            otherProps.changeAction = changeActions[name];
+        }
+        // modelName is `"adminForms."+ formModel.model +"."+ name`, but we put only `"."+ name`
+        return (
+            <Col key={model.name} sm={model.width} className={cx(css.col)}>
+                <RRFInput id={name} inputType={inputType} modelName={"."+ name} {...otherProps} />
+            </Col>
+        );
+    });
+    return formFields;
+}
+
+/**
  * In `mapStateToProps`, create an object *options* which keys are options store keys and values are
  * the options lists for select inputs.
  * @param formModel: the description of the form fields, as in /formModels.

@@ -28,6 +28,12 @@ const defaultState = {
     [optionsStoreKeys.SEQUENCING_KIT_VERSIONS]: [],
     [optionsStoreKeys.SEQUENCING_QUALITIES]: [],
     [optionsStoreKeys.TAXONOMIES]: [],
+    [optionsStoreKeys.ROLES]: [
+        ["no_access", "no access"],
+        ["customer", "customer"],
+        ["facility", "facility"],
+        ["admin", "admin"]
+    ],
 };
 
 
