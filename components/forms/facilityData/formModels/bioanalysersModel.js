@@ -7,20 +7,24 @@ import validators from '../../validators';
 
 
 const bioanalysersModel = {
-    [fields.bioanalysers.BIOANALYSER_DATE]: {
-        width: 3,
-        label: "Bioanalyser date",
-        inputType: inputTypes.DATE,
-    },
-    "spacer": {
-        width: 4,
-        inputType: inputTypes.BLANK,
-    },
-    [fields.bioanalysers.DESCRIPTION]: {
-        width: 12,
-        label: "Description",
-        inputType: inputTypes.TEXT,
-    },
+    fields: [
+        {
+            name: fields.bioanalysers.BIOANALYSER_DATE,
+            width: 3,
+            label: "Bioanalyser date",
+            inputType: inputTypes.DATE,
+        },{
+            name: "spacer",
+            width: 4,
+            inputType: inputTypes.BLANK,
+        },{
+            name: fields.bioanalysers.DESCRIPTION,
+            width: 12,
+            label: "Description",
+            inputType: inputTypes.TEXT,
+        },
+    ],
+    model: "bioanalysers"
 };
 
 

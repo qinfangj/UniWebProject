@@ -98,9 +98,9 @@ export function submitForm(modelName, insertData, table, formName, onSuccess) {
  */
 export function formatFormFieldsDefault(formModel, values) {
     let insertData = _.cloneDeep(values);  // because `values` is immutable
-    for (let field of Object.keys(formModel)) {
-        let model = formModel[field];
+    formModel.fields.forEach((model) => {
         let itype = model.inputType;
+        let field = model.name;
         let val = insertData[field];
         if (model.type === "number" || itype === inputTypes.NUMBER || itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
             // If not defined, don't submit.
@@ -113,7 +113,7 @@ export function formatFormFieldsDefault(formModel, values) {
         else if (itype === inputTypes.CHECKBOX) {
             insertData[field] = val === true || val === "true";
         }
-    }
+    });
     return insertData;
 }
 
@@ -143,9 +143,8 @@ export function validateFormDefault(values) {
  * @returns {Array}
  */
 export function makeFormFields(formModelName, formModel, disabled = false, options = {}, changeActions = {}) {
-    let formFields = [];
-    for (let modelName of Object.keys(formModel)) {
-        let model = formModel[modelName];
+    let formFields = formModel.fields.map((model) => {
+        let modelName = model.name;
         let {inputType, optionsKey, ...otherProps} = model;
         otherProps.key = modelName;
         otherProps.disabled = model.disabled || disabled;
@@ -156,12 +155,12 @@ export function makeFormFields(formModelName, formModel, disabled = false, optio
         if (changeActions[modelName]) {
             otherProps.changeAction = changeActions[modelName];
         }
-        formFields.push(
+        return (
             <Col key={modelName} sm={model.width} className={cx(css.col)}>
                 <RRFInput id={modelName} inputType={inputType} modelName={formModelName +'.'+ modelName} {...otherProps} />
             </Col>
         );
-    }
+    });
     return formFields;
 }
 
@@ -169,7 +168,7 @@ export function makeFormFields(formModelName, formModel, disabled = false, optio
  * Same as above but for Admin forms, which for historical reasons have a different model format.
  */
 export function makeAdminFormFields(formModel, disabled = false, options = {}, changeActions = {}) {
-    let formFields = formModel.fields.map ((model) => {
+    let formFields = formModel.fields.map((model) => {
         let {name, inputType, optionsKey, ...otherProps} = model;
         otherProps.key = name;
         otherProps.disabled = model.disabled || disabled;
@@ -197,11 +196,10 @@ export function makeAdminFormFields(formModel, disabled = false, options = {}, c
  */
 export function optionsFromModel(state, formModel) {
     let options = {};
-    for (let field of Object.keys(formModel)) {
-        let model = formModel[field];
+    formModel.fields.forEach((model) => {
         if (model.optionsKey) {
             options[model.optionsKey] = state.options[model.optionsKey] || [];
         }
-    }
+    });
     return options;
 }
