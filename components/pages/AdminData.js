@@ -69,11 +69,10 @@ class AdminData extends React.PureComponent {
                         <ul>
                             <li><Link to={`/admin/${name}/list`} activeClassName={css.active}>{"All "+ name}</Link></li>
                             <li> · </li>
-                            <li><Link to={`/admin/${name}/new`} activeClassName={css.active}>{"New "+ name}</Link></li>
                             { name !== "users" ?
-                                null:
-                                <div><li> · </li>
-                                <li><a href="Javascript:void(0)" onClick={this.comfirmDelete.bind(this)}>{"delete all unvalidated "+ name} </a></li> </div>}
+                                <li><Link to={`/admin/${name}/new`} activeClassName={css.active}>{"New "+ name}</Link></li>:
+
+                                <li><a href="Javascript:void(0)" onClick={this.comfirmDelete.bind(this)}>{"delete all unvalidated "+ name} </a></li>}
                         </ul>
                     </div>
 
