@@ -19,12 +19,21 @@ import { deleteAsync, validateUserAsync} from '../../actions/actionCreators/faci
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 
 import * as forms from '../forms';
+import * as users from './users';
 import adminDataModels from './adminDataModels';
+import { hashHistory } from 'react-router';
 
 import Feedback from '../../utils/Feedback';
 import { Form } from 'react-redux-form';
 import { Button } from 'react-bootstrap/lib';
 import SubmitButton from '../SubmitButton';
+
+
+/*
+ * - state.username is never changed unless form is submitted.
+ * - username should be handled by state
+ * - get initial isValidated from update data
+ */
 
 
 
@@ -77,54 +86,6 @@ class CommonAdminForms extends React.Component {
         forms.submitForm(this.modelName, formData, this.table, this.modelName, null, true);
     }
 
-    userDelete(form, table, userId){
-
-        //userDelete(this, this.table, this.props.updateId);
-
-        if (confirm("Are you sure to delete this user?")) { // Click on OK
-            if (userId) {
-
-                let future = store.dispatch(deleteAsync(table, userId));
-                future
-                    .done((deleteId) => {
-                        console.debug(200, "Delete <" + deleteId + "> records")
-                        store.dispatch(feedbackSuccess(form, "Delete <" + deleteId + "> records"));
-                        let currentPath = window.location.pathname + window.location.hash.substr(2);
-                        if (userId !== '' || userId !== undefined) {
-                            this.props.router.push(currentPath.replace('/update/' + userId, '/list'));
-                        }
-                        //store.dispatch(actions.load())  // does nothing?
-                        //hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
-                    })
-                    .fail((err) => {
-                        console.warn("Uncaught form validation error");
-                        store.dispatch(feedbackError(form, "Uncaught form validation error", err));
-                    });
-            }
-        }
-    }
-
-    userValidate(form){
-        if (confirm("Are you sure that you want to activate this user?")) { // Clic sur OK
-            if (this.state.username) {
-                let future = store.dispatch(validateUserAsync({username:this.state.username}));
-                future
-                    .done((validateId) => {
-                        console.debug(200, "Validated ID <" + validateId + ">");
-                        store.dispatch(feedbackSuccess(form, "Validated user <" + this.state.username + ">"));
-                        let currentPath = window.location.pathname + window.location.hash.substr(2);
-                        if (this.props.updateId !== '' || this.props.updateId !== undefined) {
-                            this.props.router.push(currentPath.replace('/update/' + this.props.updateId, '/list'));
-                        }
-                    })
-                    .fail((err) => {
-                        console.warn("Uncaught form validation error");
-                        store.dispatch(feedbackError(form, "Uncaught form validation error", err));
-                    });
-            }
-        }
-    }
-
     activateForm() {
         this.setState({ disabled: false });
     }
@@ -133,9 +94,15 @@ class CommonAdminForms extends React.Component {
     }
 
     render() {
+        let updateId = this.props.updateId;
+        let isUpdate = updateId !== '' && updateId !== undefined;
+        let username = this.state.username;
+
         let formModel = adminDataModels[this.props.table];
         let formFields = forms.makeAdminFormFields(formModel, this.state.disabled, this.props.options);
-        let showUsersButtons = this.table === tableNames.USERS && this.state.isInsert && this.props.updateId && !this.state.isValidated;
+        let showUsersButtons = isUpdate && this.table === tableNames.USERS && !this.state.isValidated;
+        console.log(showUsersButtons, this.state.isInsert, updateId, this.state.isValidated)
+
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
 
@@ -154,14 +121,14 @@ class CommonAdminForms extends React.Component {
                 { showUsersButtons ?
                     <Button
                             bsStyle="primary" className={admincss.button} type = "button"
-                            onClick={this.userValidate.bind(this,this.modelName)}>
+                            onClick={users.userValidate.bind(updateId, username, isUpdate, this.modelName)}>
                         Validate
                     </Button>
                     : null}
                 { showUsersButtons ?
                     <Button
                             bsStyle="primary" className={admincss.button} type = "button"
-                            onClick={this.userDelete.bind(this,this.modelName, this.table, this.props.updateId)}>
+                            onClick={users.userDelete.bind(updateId, this.modelName)}>
                         Delete
                     </Button>
                     : null}

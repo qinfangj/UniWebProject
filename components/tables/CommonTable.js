@@ -250,7 +250,7 @@ class CommonTable extends React.PureComponent {
         }
 
         const rowGetter = ({index}) => this._getRow(sortedList, index);
-        console.log("nrows:", this.state.rowCount);
+        //console.log("nrows:", this.state.rowCount);
 
         return (
             <div style={{width: '100%', height: '100%'}}>
