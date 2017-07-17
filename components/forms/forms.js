@@ -56,7 +56,7 @@ export function newOrUpdate(modelName, table, updateId, onUpdated){
  * @param formName: from constants.formNames, to identify the origin of feedbacks.
  * @param onSuccess: callback to execute if the insert succeeded.
  */
-export function submitForm(modelName, insertData, table, formName, onSuccess) {
+export function submitForm(modelName, insertData, table, formName, onSuccess, isAttribute = false) {
     if (confirm("Are you sure that you want to submit the data?")) {
         console.info("Values to submit: ", JSON.stringify(insertData, null, 2));
         // Created at: reformat so that it can be parsed as java.sql.Timestamp.
@@ -70,20 +70,18 @@ export function submitForm(modelName, insertData, table, formName, onSuccess) {
         }
         return store.dispatch(insertAsync(table, insertData, null))
             .done((response) => {
-                // Signal that it worked
+                /* Signal that it worked */
                 let itype = isUpdate ? "updated" : "inserted";
                 store.dispatch(feedbackSuccess(formName, "Successfully "+itype+" <"+response+">"));
                 console.debug(200, itype+" ID <"+response+">");
-                // Clear the form data in store
+                /* Clear the form data in store */
                 store.dispatch(actions.reset(modelName));
                 store.dispatch(resetAllOptions());
-
-
-                // If admin, do that:
-//                store.dispatch(resetAllOptions());
-
-
-                // Redirect to table by replacing '/new' by '/list' in the router state
+                /* If admin form, clear cached options lists */
+                if (isAttribute) {
+                    store.dispatch(resetAllOptions());
+                }
+                /* Redirect to table by replacing '/new' by '/list' in the router state */
                 let currentPath = window.location.pathname + window.location.hash.substr(2);
                 hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
                 if (onSuccess) {

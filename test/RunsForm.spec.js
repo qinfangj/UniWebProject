@@ -15,6 +15,7 @@ const wrapper1 = shallow(
         <RunsInsertForm/>
     </Provider>
 );
+
 describe('(Component) RunsInsertForm =>', () => {
 
     it('renders without exploding', () => {
@@ -58,9 +59,8 @@ describe('(Component) RunsInsertForm =>', () => {
         assert.isFalse(store.getState().facilityDataForms.forms[formModel].$form.validated);
     });
 
-//let fieldsList = projectsModel[tableNames.FLOWCELL_TYPES].fields;
 
-    it('LibrariesInsertForm should be valid after only all fields made valid', () => {
+    it('RunsInsertForm should be valid after only all fields made valid', () => {
         for (let modelName of Object.keys(runsModel)) {
             let id = "#" + modelName;
             console.log(id);

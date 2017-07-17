@@ -355,7 +355,7 @@ const adminData = {
                 width:  2,
                 required: true,
                 inputType: inputTypes.TEXT,
-                validators: {isNumber: validators.numberValidator}
+                type: "number",
             },
             {
                 label: "Description",

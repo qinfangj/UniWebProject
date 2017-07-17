@@ -73,9 +73,8 @@ class CommonAdminForms extends React.Component {
             let isValidated = formData.isvalidated;
             this.setState({ isValidated });  // does it even do anything??
         }
-        // submitForm(modelName, insertData, table, formName, onSuccess)
-        forms.submitForm(this.modelName, formData, this.table, this.modelName, null);
-        //submit.submit(this.modelName, formData, this.table, this.props.updateId);
+        /* Signature: submitForm(modelName, insertData, table, formName, onSuccess) */
+        forms.submitForm(this.modelName, formData, this.table, this.modelName, null, true);
     }
 
     userDelete(form, table, userId){

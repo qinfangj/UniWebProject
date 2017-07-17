@@ -36,12 +36,12 @@ describe('(Component) peopleInsertForm =>', () => {
     });
 
     it('should still be invalid after only all fields made valid', () => {
-        for (let modelName of Object.keys(peopleModel)) {
-
+        peopleModel.fields.forEach((model) => {
+            let modelName = model.name;
             form.find('#' + modelName).node.value = 'aaa';
             form.find('#' + modelName).simulate('change', form.find('#' + modelName));
             assert.isTrue(store.getState().facilityDataForms.forms["people"][modelName].valid);
-        }
+        });
         assert.isTrue(store.getState().facilityDataForms.forms["people"].$form.valid);
 
     });
