@@ -129,6 +129,7 @@ class CommonTable extends React.PureComponent {
         const columnsNumber = namesForColumns.length;
         const columnWidth = (width-40) / (columnsNumber-1);
 
+        /* This ahs nothing to do in this file. */
         return namesForColumns.map( s => {
             let node;
                 if (s.field === 'id') {
@@ -162,8 +163,7 @@ class CommonTable extends React.PureComponent {
      }
 
     _getRow (list, index) {
-        console.log(list, list.size !== 0 ? list.get(index % list.size) : null)
-        return list.size !== 0 ? list.get(index % list.size) : null;
+        return list.size !== 0 ? list.get(index % list.size) : {};
     }
 
     _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
