@@ -161,8 +161,9 @@ class CommonTable extends React.PureComponent {
 
      }
 
-    _getDatum (list, index) {
-        return list.size!==0? list.get(index % list.size):null
+    _getRow (list, index) {
+        console.log(list, list.size !== 0 ? list.get(index % list.size) : null)
+        return list.size !== 0 ? list.get(index % list.size) : null;
     }
 
     _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
@@ -248,8 +249,8 @@ class CommonTable extends React.PureComponent {
             .update(list => (sortDirection === SortDirection.DESC) ? list.reverse() : list);
         }
 
-        const rowGetter = ({index}) => this._getDatum(sortedList, index);
-        console.log(this.state.rowCount);
+        const rowGetter = ({index}) => this._getRow(sortedList, index);
+        console.log("nrows:", this.state.rowCount);
 
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -296,7 +297,7 @@ class CommonTable extends React.PureComponent {
                                             headerRowRenderer={this.headerRowRenderer}
                                             rowHeight={ROW_HEIGTH}
                                             onRowsRendered={onRowsRendered}
-                                            noRowsRenderer={() => this.state.rowCount!==0? null : <div style={{textAlign: 'center'}}>{"No data"}</div>}
+                                            noRowsRenderer={() => this.state.rowCount !== 0 ? null : <div style={{textAlign: 'center'}}>{"No data"}</div>}
                                             rowGetter={rowGetter}
                                             rowCount={this.state.rowCount}
                                             sort={this._sort}
