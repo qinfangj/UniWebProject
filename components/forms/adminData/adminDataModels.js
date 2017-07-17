@@ -116,14 +116,12 @@ const adminData = {
                 label: "Customer Viewable",
                 name:  "customerViewable",
                 width:  3,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             },
             {
                 label: "UseAllReads",
                 name:  "useallreads",
                 width:  6,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             },
             {
@@ -176,7 +174,6 @@ const adminData = {
                 label: "Is sequencer",
                 name:  "issequencer",
                 width:  1,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             }
         ],
@@ -235,14 +232,12 @@ const adminData = {
                 label: "HasInsertSizeSelection",
                 name:  "hasinsertwidthselection",
                 width:  3,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             },
             {
                 label: "Is deprecated",
                 name:  "isdeprecated",
                 width:  3,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             }
         ],
@@ -334,14 +329,12 @@ const adminData = {
                 label: "Is multiplexing",
                 name:  "ismultiplexing",
                 width:  4,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             },
             {
                 label: "Is deprecated",
                 name:  "isdeprecated",
                 width:  4,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             },
         ],
@@ -394,7 +387,6 @@ const adminData = {
                 label: "Is reported",
                 name:  "isreported",
                 width:  3,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             }
         ],
@@ -485,7 +477,6 @@ const adminData = {
                 label: "Discarded",
                 name:  "isdeprecated",
                 width:  4,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             }
         ],
@@ -535,14 +526,12 @@ const adminData = {
                 label: "Pass QC",
                 name:  "passQc",
                 width:  3,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             },
             {
                 label: "Delivered",
                 name:  "delivered",
                 width:  3,
-                required: true,
                 inputType: inputTypes.CHECKBOX
             }
         ],
