@@ -30,7 +30,7 @@ function makeUTforAdminForms(table, model, fieldsList){
 
     it('should be valid after only all fields made valid', () => {
         fieldsList.map( s => {
-            if (s.type === inputTypes.TEXT) {
+            if (s.inputType === inputTypes.TEXT) {
                 console.log('text input id: #'+ s.name);
 
                 form.find('#' + s.name).node.value = 'aaa';

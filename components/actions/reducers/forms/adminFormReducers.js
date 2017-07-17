@@ -9,19 +9,20 @@ import inputTypes from '../../../forms/inputTypes';
  * when fields is Boolean (checkbox),will be initialized to false
  */
 function initialAdminForms(table) {
-    let initalData = {};
+    let initialData = {};
+    console.log(adminDataModels)
+    console.log(table)
     adminDataModels[table].fields.map(
         (s) => {
-            if (s.type === inputTypes.TEXT) {
-                initalData[s.name] = '';
-            }else if (s.type === inputTypes.CHECKBOX){
-                initalData[s.name] = false;
-            }else if (s.type === inputTypes.DROPDOWN){
-                initalData[s.name] = "";
+            if (s.inputType === inputTypes.TEXT) {
+                initialData[s.name] = "";
+            } else if (s.inputType === inputTypes.CHECKBOX) {
+                initialData[s.name] = false;
+            } else if (s.inputType === inputTypes.DROPDOWN) {
+                initialData[s.name] = "";
             }
         });
-    //console.log(initalData);
-    return initalData;
+    return initialData;
 }
 
 /**

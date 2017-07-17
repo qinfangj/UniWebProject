@@ -1,5 +1,5 @@
 //in order to define all the Admin data forms
-//define the props such as model,label,name,size etc for CommonAdminForm
+//define the props such as model,label,name,width etc for CommonAdminForm
 
 import inputTypes from '../inputTypes';
 import validators from '../../forms/validators';
@@ -10,57 +10,57 @@ const adminData = {
             {
                 "label": "First Name",
                 "name":  "firstName",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Last Name",
                 "name":  "lastName",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Login Name",
                 "name":  "login",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Phone",
                 "name": "phone",
-                "size": 3,
+                "width": 3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Email",
                 "name": "email",
-                "size": 3,
+                "width": 3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Address",
                 "name": "address",
-                "size": 6,
+                "width": 6,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Laboratory",
                 "name": "laboratoryId",
-                "size": 6,
+                "width": 6,
                 "required": true,
-                "type": inputTypes.DROPDOWN
+                "inputType": inputTypes.DROPDOWN
             },{
                 "label": "LIMS Access",
                 "name":  "role",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.DROPDOWN
+                "inputType": inputTypes.DROPDOWN
             }
         ],
         "model": "limsUsersForm"
@@ -70,23 +70,23 @@ const adminData = {
             {
                 "label": "Project",
                 "name":  "projectId",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.DROPDOWN
+                "inputType": inputTypes.DROPDOWN
             },
             {
                 "label": "Collaborator",
                 "name":  "personId",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.DROPDOWN
+                "inputType": inputTypes.DROPDOWN
             },
             {
                 "label": "Description",
                 "name":  "description",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
         ],
         "model": "projectSharingsForm"
@@ -96,30 +96,30 @@ const adminData = {
             {
                 "label": "Description",
                 "name":  "description",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Customer Viewable",
                 "name":  "customerViewable",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             },
             {
                 "label": "UseAllReads",
                 "name":  "useallreads",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             },
             {
                 "label": "Comment",
                 "name":  "comment",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "analysisTypeForm"
@@ -129,9 +129,9 @@ const adminData = {
             {
                 "label": "Version",
                 "name":  "version",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
 
         ],
@@ -142,30 +142,30 @@ const adminData = {
             {
                 "label": "Internal Name",
                 "name":  "internalName",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Model",
                 "name":  "model",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Serial Nb",
                 "name":  "serialNumber",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "IsSequencer",
                 "name":  "issequencer",
-                "size":  1,
+                "width":  1,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             }
         ],
         "model": "instrumentsForm"
@@ -175,16 +175,16 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  9,
+                "width":  9,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Length",
                 "name":  "length",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type" : inputTypes.TEXT
+                "inputType" : inputTypes.TEXT
             }
         ],
         "model": "libAdaptersForm"
@@ -194,44 +194,44 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  9,
+                "width":  9,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Short Name",
                 "name":  "shortName",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Ref Nb",
                 "name":  "refNb",
-                "size":  3,
+                "width":  3,
                 "required": false,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Release Month",
                 "name":  "releaseMonth",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "HasInsertSizeSelection",
-                "name":  "hasinsertsizeselection",
-                "size":  3,
+                "name":  "hasinsertwidthselection",
+                "width":  3,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             },
             {
                 "label": "IsDeprecated",
                 "name":  "isdeprecated",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             }
         ],
         "model": "libProtocolsForm"
@@ -241,23 +241,23 @@ const adminData = {
             {
                 "label": "State Order",
                 "name":  "stateOrder",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  9,
+                "width":  9,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Description",
                 "name":  "description",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "libStatesForm"
@@ -267,23 +267,23 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Version",
                 "name":  "version",
-                "size":  2,
+                "width":  2,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Reference",
                 "name":  "reference",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "mappingToolsForm"
@@ -293,44 +293,44 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Manufacturer",
                 "name":  "manufacturer",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Sequence",
                 "name":  "sequence",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Index Group",
                 "name":  "indexGroup",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "IsMultiplexing",
                 "name":  "ismultiplexing",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             },
             {
                 "label": "IsDeprecated",
                 "name":  "isdeprecated",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             },
         ],
         "model": "multiplexIndexesForm"
@@ -340,24 +340,24 @@ const adminData = {
             {
                 "label": "Software Name",
                 "name":  "softwareName",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Number",
                 "name":  "number",
-                "size":  2,
+                "width":  2,
                 "required": true,
-                "type": inputTypes.TEXT,
+                "inputType": inputTypes.TEXT,
                 "validators": {isNumber: validators.numberValidator}
             },
             {
                 "label": "Description",
                 "name":  "description",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "pipelineVersionForm"
@@ -367,23 +367,23 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Description",
                 "name":  "description",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "IsReported",
                 "name":  "isReported",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             }
         ],
         "model": "projectAnalysisForm"
@@ -393,23 +393,23 @@ const adminData = {
             {
                 "label": "State Order",
                 "name":  "stateOrder",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  9,
+                "width":  9,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Description",
                 "name":  "description",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
 
         ],
@@ -420,9 +420,9 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "quantifMethodsForm"
@@ -432,9 +432,9 @@ const adminData = {
             {
                 "label": "Length",
                 "name":  "length",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "readLengthsForm"
@@ -444,9 +444,9 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "runTypesForm"
@@ -456,23 +456,23 @@ const adminData = {
             {
                 "label": "Run Type",
                 "name":  "runTypeId",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.DROPDOWN
+                "inputType": inputTypes.DROPDOWN
             },
             {
                 "label": "Read Length",
                 "name":  "readLengthId",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.DROPDOWN
+                "inputType": inputTypes.DROPDOWN
             },
             {
                 "label": "Discarded",
                 "name":  "isdeprecated",
-                "size":  4,
+                "width":  4,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             }
         ],
         "model": "runTypesLengthsForm"
@@ -482,9 +482,9 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "samplesTypesForm"
@@ -494,16 +494,16 @@ const adminData = {
             {
                 "label": "Version",
                 "name":  "version",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Ref Number",
                 "name":  "refNumber",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "seqKitVersionForm"
@@ -513,23 +513,23 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  6,
+                "width":  6,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Pass QC",
                 "name":  "passQc",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             },
             {
                 "label": "Delivered",
                 "name":  "delivered",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.CHECKBOX
+                "inputType": inputTypes.CHECKBOX
             }
         ],
         "model": "seqQualitiesForm"
@@ -539,23 +539,23 @@ const adminData = {
             {
                 "label": "Name",
                 "name":  "name",
-                "size":  12,
+                "width":  12,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Ref Name",
                 "name":  "refName",
-                "size":  9,
+                "width":  9,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             },
             {
                 "label": "Ncbi Id",
                 "name":  "ncbiId",
-                "size":  3,
+                "width":  3,
                 "required": true,
-                "type": inputTypes.TEXT
+                "inputType": inputTypes.TEXT
             }
         ],
         "model": "taxonomiesForm"

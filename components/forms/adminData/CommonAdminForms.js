@@ -27,6 +27,11 @@ import inputTypes from '../../forms/inputTypes';
 import Feedback from '../../utils/Feedback';
 import { Control, Form, actions, Errors} from 'react-redux-form';
 import { Button, Col, FormControl } from 'react-bootstrap/lib';
+import BSTextInput from '../bootstrapWrappers/BSTextInput';
+import BSCheckbox from '../bootstrapWrappers/BSCheckbox';
+import BSSelect from '../bootstrapWrappers/BSSelect';
+import RRFInput from '../bootstrapWrappers/RRFInput';
+
 
 
 class CommonAdminForms extends React.Component {
@@ -143,7 +148,7 @@ class CommonAdminForms extends React.Component {
 
     makeInput(s) {
         let input;
-        if (s.type === inputTypes.CHECKBOX) {
+        if (s.inputType === inputTypes.CHECKBOX) {
             input =
                 <Control.checkbox
                     id= {s.name}
@@ -151,8 +156,8 @@ class CommonAdminForms extends React.Component {
                     disabled={!this.state.isInsert}
                     className={admincss.input}
                 />
-        } else if (s.type === inputTypes.TEXT) {
-            const BSTextInput = (props) => <FormControl  {...props} />;
+        } else if (s.inputType === inputTypes.TEXT) {
+            const BSTextInput = (props) => <FormControl {...props} />;
             input = <div>
                         <Control
                             id={s.name}
@@ -170,7 +175,7 @@ class CommonAdminForms extends React.Component {
                             }}
                         />
                     </div>
-        } else if (s.type === inputTypes.DROPDOWN) {
+        } else if (s.inputType === inputTypes.DROPDOWN) {
             let options;
             if (s.name ==="runTypeId") {
                 let opts = this.props.options[optionsStoreKeys.RUN_TYPES];
@@ -242,7 +247,7 @@ class CommonAdminForms extends React.Component {
                     formFields.map((s) => {
 
                         return (
-                            <Col sm={s.size} className={css.formCol} key={s.name}>
+                            <Col sm={s.width} className={css.formCol} key={s.name}>
                                 <label className={admincss.label}>{s.label}</label>
                                 {this.makeInput(s)}
                             </Col>
