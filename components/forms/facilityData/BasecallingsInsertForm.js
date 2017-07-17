@@ -94,11 +94,10 @@ export class BasecallingsInsertForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = forms.optionsFromModel(state, basecallingsModel);
     let formData = state.facilityDataForms.basecallings;
     let formModel = state.facilityDataForms.forms.basecallings;
     return {
-        options: options,
+        options: state.options,
         formData: formData,
         formModel: formModel,
     };

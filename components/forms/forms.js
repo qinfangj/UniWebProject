@@ -192,18 +192,3 @@ export function makeAdminFormFields(formModel, disabled = false, options = {}, c
     });
     return formFields;
 }
-
-/**
- * In `mapStateToProps`, create an object *options* which keys are options store keys and values are
- * the options lists for select inputs.
- * @param formModel: the description of the form fields, as in /formModels.
- */
-export function optionsFromModel(state, formModel) {
-    let options = {};
-    formModel.fields.forEach((model) => {
-        if (model.optionsKey) {
-            options[model.optionsKey] = state.options[model.optionsKey] || [];
-        }
-    });
-    return options;
-}

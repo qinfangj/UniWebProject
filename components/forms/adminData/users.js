@@ -8,6 +8,11 @@ import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/a
 import { hashHistory } from 'react-router';
 
 
+/*
+ * Methods specific to Users insert form; to delete, validate, insert or update a user.
+ */
+
+
 /**
  * Validate a user: change its "isValidated" property to 1, and gives him a "customer" role.
  * @param formName

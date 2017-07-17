@@ -104,11 +104,10 @@ export class UserRequestsInsertForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = forms.optionsFromModel(state, userRequestsModel);
     let formData = state.facilityDataForms.user_requests;
     let formModel = state.facilityDataForms.forms.user_requests;
     return {
-        options: options,
+        options: state.options,
         formData: formData,
         formModel: formModel,
     };

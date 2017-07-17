@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import libraryModel from '../formModels/libraryModel';
-import { optionsFromModel } from '../../forms/forms.js';
 import CommonFeatRow from '../CommonFeatRow';
 
 
@@ -27,10 +26,9 @@ class LibraryRow extends React.PureComponent {
 
 function mapStateToProps(state) {
     let formData = state.userDataForms.libraries.requests;
-    let options = optionsFromModel(state, libraryModel);
     return {
         formData: formData,
-        options: options,
+        options: state.options,
     };
 }
 
