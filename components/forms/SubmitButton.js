@@ -25,7 +25,7 @@ class SubmitButton extends React.Component {
             return (
                 <div>
                     <Button bsStyle="danger" onClick={this.props.deactivateForm} className={formsCss.submitButton}>
-                        Cancel
+                        Lock form
                     </Button>
                     <Button bsStyle="primary" type="submit" className={formsCss.submitButton}>
                         Submit
