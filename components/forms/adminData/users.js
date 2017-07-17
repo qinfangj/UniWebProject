@@ -2,7 +2,8 @@
 import React from 'react';
 import store from '../../../core/store';
 
-import { deleteAsync, validateUserAsync} from '../../actions/actionCreators/facilityDataActionCreators';
+import { deleteAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { validateUserAsync } from '../../actions/actionCreators/adminActionCreators';
 import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { hashHistory } from 'react-router';
 
@@ -13,21 +14,19 @@ import { hashHistory } from 'react-router';
  */
 export function userValidate(updateId, username, isUpdate, feedbackRef) {
     if (confirm("Are you sure that you want to activate this user?")) { // Clic sur OK
-        if (username) {
-            store.dispatch(validateUserAsync({ username }))
-                .done((validateId) => {
-                    console.debug(200, "Validated ID <" + validateId + ">");
-                    store.dispatch(feedbackSuccess(feedbackRef, "Validated user <" + username + ">"));
-                    if (isUpdate) {
-                        let currentPath = window.location.pathname + window.location.hash.substr(2);
-                        hashHistory.push(currentPath.replace('/update/' + updateId, '/list'));
-                    }
-                })
-                .fail((err) => {
-                    console.warn("Uncaught form validation error");
-                    store.dispatch(feedbackError(feedbackRef, "Uncaught form validation error", err));
-                });
-        }
+        store.dispatch(validateUserAsync({ username }))
+            .done((validateId) => {
+                console.debug(200, "Validated ID <" + validateId + ">");
+                store.dispatch(feedbackSuccess(feedbackRef, "Validated user <" + username + ">"));
+                if (isUpdate) {
+                    let currentPath = window.location.pathname + window.location.hash.substr(2);
+                    hashHistory.push(currentPath.replace('/update/' + updateId, '/list'));
+                }
+            })
+            .fail((err) => {
+                console.warn("Uncaught form validation error");
+                store.dispatch(feedbackError(feedbackRef, "Uncaught form validation error", err));
+            });
     }
 }
 
@@ -56,3 +55,10 @@ export function userDelete(userId, feedbackRef){
     }
 }
 
+
+export function formatUsersData(formData) {
+    //change key name: 'login' -> 'username'
+    formData.username = formData.login;
+    delete formData.login;
+    return formData;
+}

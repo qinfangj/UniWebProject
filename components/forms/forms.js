@@ -30,19 +30,19 @@ import { resetAllOptions } from '../actions/actionCreators/optionsActionCreators
 export function newOrUpdate(modelName, table, updateId, onUpdated){
     let currentPath = window.location.pathname + window.location.hash.substr(2);
     if (currentPath.endsWith('/new')) {
-        store.dispatch(actions.reset(modelName));
+        return store.dispatch(actions.reset(modelName));
     } else if (updateId) {
-        store.dispatch(findByIdAsync(table, updateId))
-        .done((data) => {
-            console.log("Update with values:", data);
-            store.dispatch(actions.merge(modelName, data));
-            // Need to reset validaity manually because of a bug in RRF:
-            // https://github.com/davidkpiano/react-redux-form/issues/836
-            store.dispatch(actions.resetValidity(modelName));
-            if (onUpdated) {
-                onUpdated(data);
-            }
-        });
+        return store.dispatch(findByIdAsync(table, updateId))
+            .done((data) => {
+                console.log("Update with values:", data);
+                store.dispatch(actions.merge(modelName, data));
+                // Need to reset validaity manually because of a bug in RRF:
+                // https://github.com/davidkpiano/react-redux-form/issues/836
+                store.dispatch(actions.resetValidity(modelName));
+                if (onUpdated) {
+                    onUpdated(data);
+                }
+            });
     }
 }
 
