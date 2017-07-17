@@ -82,14 +82,16 @@ const adminData = {
                 name:  "projectId",
                 width:  6,
                 required: true,
-                inputType: inputTypes.DROPDOWN
+                inputType: inputTypes.DROPDOWN,
+                optionsKey: optionsStoreKeys.PROJECTS_ALL,
             },
             {
                 label: "Collaborator",
                 name:  "personId",
                 width:  6,
                 required: true,
-                inputType: inputTypes.DROPDOWN
+                inputType: inputTypes.DROPDOWN,
+                optionsKey: optionsStoreKeys.PEOPLE,
             },
             {
                 label: "Description",
@@ -468,14 +470,16 @@ const adminData = {
                 name:  "runTypeId",
                 width:  4,
                 required: true,
-                inputType: inputTypes.DROPDOWN
+                inputType: inputTypes.DROPDOWN,
+                optionsKey: optionsStoreKeys.RUN_TYPES,
             },
             {
                 label: "Read Length",
                 name:  "readLengthId",
                 width:  4,
                 required: true,
-                inputType: inputTypes.DROPDOWN
+                inputType: inputTypes.DROPDOWN,
+                optionsKey: optionsStoreKeys.READ_LENGTHS,
             },
             {
                 label: "Discarded",

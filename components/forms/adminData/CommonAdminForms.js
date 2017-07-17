@@ -65,6 +65,7 @@ class CommonAdminForms extends React.Component {
 
     handleSubmit(values){
         let formData = Object.assign({}, values);
+        // let formData = forms.formatFormFieldsDefault(adminDataModels[this.props.table].fields)
         if (this.table === tableNames.USERS){
             //change submit data' key: 'login' -> 'username'
             formData.username = formData.login;
