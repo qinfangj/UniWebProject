@@ -19,41 +19,14 @@ export const ID_COLUMN = {
     headerName: "ID",
     field: "id",
     width: 70,
-    suppressSizeToFit: true,
-    suppressMenu: true,
-    cellStyle: CENTER,
 };
 
-
-// See React cell rendering with Ag-Grid: https://www.ag-grid.com/javascript-grid-cell-rendering/
-export function idColumnWithUpdateLink(tableName, domain) {
-    // Make different category links: facilityData, AdminData, etc
-    let linkName = domain +'/'+ tableName;
-    return Object.assign({}, ID_COLUMN, {
-        cellRendererFramework: IdColumnWithUpdateLink,
-        cellRendererParams: {tableName: linkName},
-        headerCellRenderer: null,
-    });
+export function idColumnLink(domain, table, id) {
+    return (
+        <div>
+            <Link to = {`${domain}/${table}/update/${id}`}>
+                {id}
+            </Link>
+        </div>
+    );
 }
-
-class IdColumnWithUpdateLink extends React.PureComponent {
-    render() {
-        return (
-            <Link to = {`/${this.props.tableName}/update/${this.props.value}`}>
-                {this.props.value}
-           </Link>
-        );
-    }
-}
-
-/**
- * Left-align header labels by default.
- * To deactivate, add this to the column definition:
- *         headerCellRenderer: null
- * (as in idColumnWithUpdateLink above).
- */
-export function defaultHeaderRenderer(params) {
-    return '<span style="float: left">' + params.colDef.headerName + '</span>';
-}
-
-

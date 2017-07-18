@@ -12,7 +12,7 @@ import adminColumns from './adminData/columns';
 import facilityDataColumns from './facilityData/columns';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import * as tables from './tables.js';
-import { ROW_HEIGTH, GRID_HEIGTH } from './columns';
+import { ROW_HEIGTH, GRID_HEIGTH, idColumnLink } from './columns';
 
 import Feedback from '../utils/Feedback';
 import DataLoadingIcon from '../utils/DataLoadingIcon';
@@ -52,6 +52,11 @@ class CommonTable extends React.PureComponent {
         };
         this._headerRenderer = this._headerRenderer.bind(this);
         this._sort = this._sort.bind(this);
+        this._idColumnLink = this._idColumnLink.bind(this);
+        this._resetSearch = this._resetSearch.bind(this);
+        this._search = this._search.bind(this);
+        this.isRowLoaded = this.isRowLoaded.bind(this);
+        this.loadMoreRows = this.loadMoreRows.bind(this);
     }
 
     static propTypes = {
@@ -67,6 +72,9 @@ class CommonTable extends React.PureComponent {
         form: PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
     };
 
+    /**
+     * Fetch a page of data from backend.
+     */
     getDataAsync(limit, offset, sortBy, sortDir, filterBy) {
         let _this = this;
         let dataLength = this.props.data.length;
@@ -93,19 +101,36 @@ class CommonTable extends React.PureComponent {
         this.getDataAsync(this.nrowsPerQuery, 0);
     }
 
-    onSearch(e) {
-        let value = e.target.value;
-        this.setState({ searchTerm: value });
+    /**
+     * Backend sort.
+     */
+    _sort({ sortBy, sortDirection }) {
         if (this.props.domain === "facility") {
-            this.getDataAsync(this.nrowsPerQuery, 0, null, null, value);
+            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
         } else if (this.props.domain === "admin") {
-        
+            this.setState({ sortBy, sortDirection });
         }
     }
 
-    //resetSearch function needs to be re-implemented
-    resetSearch() {
+    /**
+     * Backend search.
+     */
+    _search(e) {
+        let filterBy = e.target.value;
+        this.setState({ searchTerm: filterBy });
+        if (this.props.domain === "facility") {
+            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, filterBy);
+        }
+    }
+
+    /**
+     * Remove any filter (when click on the cross in the serach field).
+     */
+    _resetSearch() {
         this.setState({searchTerm: ""});
+        if (this.props.domain === "facility") {
+            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, "");
+        }
     }
 
     loadMoreRows({ startIndex, stopIndex }) {
@@ -116,58 +141,58 @@ class CommonTable extends React.PureComponent {
         }
     }
 
+    /**
+     * RV needs to know if a row is already in the current data, given an index.
+     */
     isRowLoaded({ index }) {
         return index < this.props.data.length;
     }
 
-    getColumns(width, list){
-        let namesForColumns;
-        if (this.props.domain === "facility") {  
-            namesForColumns = facilityDataColumns[this.props.table];
+    /**
+     * Construct an array of <Column>s from the columns definition.
+     */
+    getColumns(width){
+        let columnDefs;
+        if (this.props.domain === "facility") {
+            columnDefs = facilityDataColumns[this.props.table];
         }
         else if (this.props.domain === "admin") {
-            namesForColumns = adminColumns[this.props.table];
+            columnDefs = adminColumns[this.props.table];
         }
-        const columnsNumber = namesForColumns.length;
-        const columnWidth = (width-40) / (columnsNumber-1);
+        const ncols = columnDefs.length;
+        const columnWidth = (width-40) / (ncols-1);
 
-        /* This ahs nothing to do in this file. */
-        return namesForColumns.map( s => {
-            let node;
-                if (s.field === 'id') {
-                    node = <Column key={s}
-                                   label={s.headerName}
-                                   dataKey={s.field}
-                                   width={40}
-                                   cellRenderer={this._idColumnLink.bind(this)}
-                                   disableSort= {false}
-                    />;
-                } else if (s.field === 'isValidated') {
-                    node = <Column key={s}
-                                   label={s.headerName}
-                                   dataKey={s.field}
-                                   cellRenderer={this._cellRenderer.bind(this)}
-                                   width={columnWidth}
-                                   disableSort= {false}
-                    />;
-                } else {
-                    node = <Column key={s}
-                                   label={s.headerName}
-                                   dataKey={s.field}
-                                   disableSort={false}
-                                   headerRenderer={this._headerRenderer}
-                                   width={columnWidth}
-                    />;
-                }
-            return node
+        return columnDefs.map( s => {
+            let cellRenderer = (s.field === 'id') ? this._idColumnLink : s.cellRenderer;
+            let node = <Column key={s}
+                           label={s.headerName}
+                           dataKey={s.field}
+                           headerRenderer={this._headerRenderer}
+                           width={columnWidth}
+                           cellRenderer={cellRenderer}
+                       />;
+            return node;
         });
 
      }
 
+    /**
+     * RV: Return row[*index*] from *list*.
+     */
     _getRow (list, index) {
         return list.size !== 0 ? list.get(index % list.size) : {};
     }
 
+    /**
+     * Format the ID column so that it contains a link to the update form.
+     */
+    _idColumnLink(obj) {
+        return idColumnLink(this.props.domain, this.props.table, obj.cellData);
+    }
+
+    /**
+     * Format the header so that it has the arrow indicating the direction of search.
+     */
     _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
         return (
             <div>
@@ -179,30 +204,9 @@ class CommonTable extends React.PureComponent {
         );
     }
 
-    _cellRenderer({ cellData, columnData, dataKey, rowData, rowIndex }) {
-        return cellData ?
-            <i className="fa fa-check" aria-hidden="true"/> :
-            <i className="fa fa-times" style={{color:'red'}} aria-hidden="true"/>;
-    }
-
-    _sort({ sortBy, sortDirection }) {
-        if (this.props.domain === "facility") {
-            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
-        } else if (this.props.domain === "admin") {
-            this.setState({ sortBy, sortDirection });
-        }
-    }
-
-    _idColumnLink(obj) {
-         return (
-             <div>
-                <Link to = {`${this.props.domain}/${this.props.name}/update/${obj.cellData}`}>
-                    {obj.cellData}
-                </Link>
-             </div>
-         );
-    }
-
+    /**
+     * RV: Format the whole header row, given the array of Columns.
+     */
     headerRowRenderer = ({ className, columns, style }) => {
         return (
             <div
@@ -215,19 +219,26 @@ class CommonTable extends React.PureComponent {
         );
     };
 
+    /**
+     * In admin forms, sort the whole data in memory.
+     */
     localSort(list) {
         return list
             .sortBy(item => item.get(this.state.sortBy))
             .update(list => (this.state.sortDirection === SortDirection.DESC) ? list.reverse() : list);
     }
 
+    /**
+     * In admin forms, filter the whole data in memory.
+     */
     localSearch(list) {
         if (this.state.searchTerm === "") {
             return list;
         } else {
+            let term = this.state.searchTerm.toLowerCase();
             return list.filter(item => {
                 return this.props.columns.find((col) => {
-                    return (''+item.get(col.field)).includes(this.state.searchTerm);
+                    return (''+item.get(col.field)).toLowerCase().includes(term);
                 });
             });
         }
@@ -263,7 +274,6 @@ class CommonTable extends React.PureComponent {
 
         let rowCount = this.state.rowCount;
         let list = Immutable.fromJS(data);
-        console.log(columnDefs)
         if (this.props.domain === "admin") {
             list = this.localSort(this.localSearch(list));
             rowCount = list.size;
@@ -278,7 +288,7 @@ class CommonTable extends React.PureComponent {
                 {/* Search field */}
 
                 <div>
-                    <div type="button" className={css.resetBtn} onClick={this.resetSearch.bind(this)}>
+                    <div type="button" className={css.resetBtn} onClick={this._resetSearch}>
                         <span className="glyphicon glyphicon-remove" aria-hidden="true" />
                     </div>
                     <FormControl
@@ -286,7 +296,7 @@ class CommonTable extends React.PureComponent {
                         className={css.searchField}
                         placeholder="Search"
                         value={this.state.searchTerm}
-                        onChange={this.onSearch.bind(this)}
+                        onChange={this._search}
                     />
                 </div>
                 <div className="clearfix"/>
@@ -300,8 +310,8 @@ class CommonTable extends React.PureComponent {
                 {/* The table */}
 
                 <div className={css.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
-                    <InfiniteLoader isRowLoaded={this.isRowLoaded.bind(this)}
-                                    loadMoreRows={this.loadMoreRows.bind(this)}
+                    <InfiniteLoader isRowLoaded={this.isRowLoaded}
+                                    loadMoreRows={this.loadMoreRows}
                                     rowCount={rowCount}
                                     threshold={10}>
                         {({ onRowsRendered, registerChild }) => (
@@ -324,7 +334,7 @@ class CommonTable extends React.PureComponent {
                                             sortBy={sortBy}
                                             sortDirection={sortDirection}
                                         >
-                                            {this.getColumns(width-50, list)}
+                                            {this.getColumns(width-50)}
                                         </Table>
                                 )}
                             </AutoSizer>

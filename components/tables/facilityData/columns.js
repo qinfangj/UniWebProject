@@ -2,13 +2,13 @@
 import React from 'react';
 import * as formatters from '../formatters';
 import tableNames from '../../constants/tableNames';
-import { idColumnWithUpdateLink, CENTER } from '../columns';
+import { CENTER, ID_COLUMN } from '../columns';
 
 
 
 const facilityDataColumns = {
     [tableNames.PROJECTS]: [
-        idColumnWithUpdateLink("projects", "data"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
@@ -24,7 +24,7 @@ const facilityDataColumns = {
         },
     ],
     [tableNames.PEOPLE]: [
-        idColumnWithUpdateLink("people", "data"),
+        ID_COLUMN,
         {
             headerName: "PI name",
             field: "name",
@@ -37,7 +37,7 @@ const facilityDataColumns = {
         }
     ],
     [tableNames.GENOMES]: [
-        idColumnWithUpdateLink("genomes", "data"),
+        ID_COLUMN,
         {
             headerName: "Organism",
             field: "organism",
@@ -54,7 +54,7 @@ const facilityDataColumns = {
         },
     ],
     [tableNames.SAMPLES]: [
-        idColumnWithUpdateLink("samples", "data"),
+        ID_COLUMN,
         {
             headerName: "Short name",
             field: "short_name",
@@ -80,7 +80,7 @@ const facilityDataColumns = {
         },
     ],
     [tableNames.LIBRARIES]: [
-        idColumnWithUpdateLink("libraries", "data"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
@@ -113,7 +113,7 @@ const facilityDataColumns = {
         },
     ],
     [tableNames.RUNS]: [
-        idColumnWithUpdateLink("runs", "data"),
+        ID_COLUMN,
         {
             headerName: "Run folder",
             field: "run_folder",
@@ -139,7 +139,7 @@ const facilityDataColumns = {
         },
     ],
     [tableNames.USER_REQUESTS]: [
-        idColumnWithUpdateLink("user_requests", "data"),
+        ID_COLUMN,
         {
             headerName: "Sample",
             field: "sample",
@@ -170,7 +170,7 @@ const facilityDataColumns = {
         },
     ],
     [tableNames.BIOANALYSERS]: [
-        idColumnWithUpdateLink("bioanalysers", "data"),
+        ID_COLUMN,
         {
             headerName: "Date",
             field: "bioanalyser_date",
@@ -181,7 +181,7 @@ const facilityDataColumns = {
         },
     ],
     [tableNames.BASECALLINGS]: [
-        idColumnWithUpdateLink("basecallings", "data"),
+        ID_COLUMN,
         {
             headerName: "Run folder",
             field: "run_folder",
@@ -202,7 +202,7 @@ const facilityDataColumns = {
         },
     ],
     [tableNames.ALIGNMENTS]: [
-        idColumnWithUpdateLink("alignments", "data"),
+        ID_COLUMN,
         {
             headerName: "Run folder",
             field: "run_folder",
