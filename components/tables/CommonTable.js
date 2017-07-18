@@ -38,7 +38,7 @@ class CommonTable extends React.PureComponent {
                 `(${this.nrowsPerQuery} < ${this.nVisibleRows})`);
         }
         this.state = {
-            searchValue: "",
+            searchTerm: "",
             rowCount: 0,
             disableHeader: false,
             headerHeight: 35,
@@ -56,10 +56,10 @@ class CommonTable extends React.PureComponent {
 
     static propTypes = {
         dataStoreKey: PropTypes.string.isRequired,  // store key for the table data (in "async")
-        columns: PropTypes.array.isRequired, // Ag-grid columsn definition
+        columns: PropTypes.array.isRequired, // columns definition
         table: PropTypes.string.isRequired,  // database table name - to fetch the content
         name: PropTypes.string.isRequired,
-        domain: PropTypes.string.isRequired,
+        domain: PropTypes.string.isRequired,  // "facility" or "admin"
         activeOnly: PropTypes.bool,  // whether it should call ?active=true when fetching the content
         data: PropTypes.array,  // the table content (an array of row objects)
         isLoading: PropTypes.bool,  // loading spinner
@@ -72,7 +72,7 @@ class CommonTable extends React.PureComponent {
         let dataLength = this.props.data.length;
         this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
             limit, offset,
-            sortBy || this.state.sortBy, sortDir || this.state.sortDirection, filterBy || this.state.searchValue)
+            sortBy || this.state.sortBy, sortDir || this.state.sortDirection, filterBy || this.state.searchTerm)
         .done((data) => {
             // `data` is only the new block. The whole data is in `this.props.data`.
             if (data.length !==0) {
@@ -93,24 +93,26 @@ class CommonTable extends React.PureComponent {
         this.getDataAsync(this.nrowsPerQuery, 0);
     }
 
-    //onSearch function needs to be re-implemented
     onSearch(e) {
         let value = e.target.value;
-        this.setState({searchValue: value});
-        this.getDataAsync(this.nrowsPerQuery, 0, null, null, value);
-
+        this.setState({ searchTerm: value });
+        if (this.props.domain === "facility") {
+            this.getDataAsync(this.nrowsPerQuery, 0, null, null, value);
+        } else if (this.props.domain === "admin") {
+        
+        }
     }
 
-    //reset function needs to be re-implemented
+    //resetSearch function needs to be re-implemented
     resetSearch() {
-        this.setState({searchValue: ""});
+        this.setState({searchTerm: ""});
     }
 
     loadMoreRows({ startIndex, stopIndex }) {
         let dataLength = this.props.data.length;
         if (dataLength % this.nrowsPerQuery === 0) {
             console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
-            this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchValue);
+            this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchTerm);
         }
     }
 
@@ -186,8 +188,9 @@ class CommonTable extends React.PureComponent {
     _sort({ sortBy, sortDirection }) {
         if (this.props.domain === "facility") {
             this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
+        } else if (this.props.domain === "admin") {
+            this.setState({ sortBy, sortDirection });
         }
-        this.setState({ sortBy, sortDirection });
     }
 
     _idColumnLink(obj) {
@@ -212,6 +215,24 @@ class CommonTable extends React.PureComponent {
         );
     };
 
+    localSort(list) {
+        return list
+            .sortBy(item => item.get(this.state.sortBy))
+            .update(list => (this.state.sortDirection === SortDirection.DESC) ? list.reverse() : list);
+    }
+
+    localSearch(list) {
+        if (this.state.searchTerm === "") {
+            return list;
+        } else {
+            return list.filter(item => {
+                return this.props.columns.find((col) => {
+                    return (''+item.get(col.field)).includes(this.state.searchTerm);
+                });
+            });
+        }
+    }
+
 
     render() {
         let data = this.props.formatter(this.props.data);
@@ -234,22 +255,21 @@ class CommonTable extends React.PureComponent {
             hideIndexRow,
             overscanRowCount,
             rowHeight,
-            rowCount,
             //scrollToIndex,
             sortBy,
             sortDirection,
             //useDynamicRowHeight
         } = this.state;
 
+        let rowCount = this.state.rowCount;
         let list = Immutable.fromJS(data);
-        let sortedList = list;
+        console.log(columnDefs)
         if (this.props.domain === "admin") {
-            sortedList = list
-            .sortBy(item => item.get(sortBy))
-            .update(list => (sortDirection === SortDirection.DESC) ? list.reverse() : list);
+            list = this.localSort(this.localSearch(list));
+            rowCount = list.size;
         }
 
-        const rowGetter = ({index}) => this._getRow(sortedList, index);
+        const rowGetter = ({index}) => this._getRow(list, index);
         //console.log("nrows:", this.state.rowCount);
 
         return (
@@ -265,7 +285,7 @@ class CommonTable extends React.PureComponent {
                         type="text"
                         className={css.searchField}
                         placeholder="Search"
-                        value={this.state.searchValue}
+                        value={this.state.searchTerm}
                         onChange={this.onSearch.bind(this)}
                     />
                 </div>
@@ -282,7 +302,7 @@ class CommonTable extends React.PureComponent {
                 <div className={css.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
                     <InfiniteLoader isRowLoaded={this.isRowLoaded.bind(this)}
                                     loadMoreRows={this.loadMoreRows.bind(this)}
-                                    rowCount={this.state.rowCount}
+                                    rowCount={rowCount}
                                     threshold={10}>
                         {({ onRowsRendered, registerChild }) => (
                             <AutoSizer>
@@ -297,9 +317,9 @@ class CommonTable extends React.PureComponent {
                                             headerRowRenderer={this.headerRowRenderer}
                                             rowHeight={ROW_HEIGTH}
                                             onRowsRendered={onRowsRendered}
-                                            noRowsRenderer={() => this.state.rowCount !== 0 ? null : <div style={{textAlign: 'center'}}>{"No data"}</div>}
+                                            noRowsRenderer={() => rowCount !== 0 ? null : <div style={{textAlign: 'center'}}>{"No data"}</div>}
                                             rowGetter={rowGetter}
-                                            rowCount={this.state.rowCount}
+                                            rowCount={rowCount}
                                             sort={this._sort}
                                             sortBy={sortBy}
                                             sortDirection={sortDirection}
