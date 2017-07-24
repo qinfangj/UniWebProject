@@ -3,8 +3,9 @@ import React from 'react';
 
 import QueryProjectsForm from '../forms/queryProjects/QueryProjectsForm';
 import QueryRunsForm from '../forms/queryProjects/QueryRunsForm';
-import QueryProjectsTable from '../tables/queryProjects/QueryProjectsTable';
-import QueryRunsTable from '../tables/queryProjects/QueryRunsTable';
+import QueryProjectsTable from '../tables/query/projects/QueryProjectsTable';
+import QueryRunsTable from '../tables/query/runs/QueryRunsTable';
+import QueryRunsSelectionTable from '../tables/query/runs/QueryRunsSelectionTable';
 
 
 export class QueryProjectsRoute extends React.Component {
@@ -27,7 +28,9 @@ export class QueryRunsRoute extends React.Component {
         let queryType = subpaths[subpaths.length-1];  // last element of the path
         return (
             <div>
-                <QueryRunsForm queryType={queryType} />
+                <QueryRunsForm queryType={queryType}>
+                    <QueryRunsSelectionTable queryType={queryType} />
+                </QueryRunsForm>
                 <div className="clearfix"/>
                 <QueryRunsTable queryType={queryType} />
             </div>

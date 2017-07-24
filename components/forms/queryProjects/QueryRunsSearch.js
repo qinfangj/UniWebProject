@@ -26,17 +26,17 @@ class QueryRunsSearch extends React.PureComponent {
         }
     }
 
-    onChangeSearchTerm(e) {
+    onChangeSearchTerm = (e) => {
         let searchTerm = e.target.value.trim();
         this.setState({ searchTerm });
-    }
+    };
 
-    onSearch() {
+    onSearch = () => {
         if (this.props.nSelectedRuns > 0) {
             this.props.resetSelection();
         }
         this.props.search(this.state.searchTerm);
-    }
+    };
 
     render() {
         return (
@@ -45,8 +45,8 @@ class QueryRunsSearch extends React.PureComponent {
                 type="text"
                 placeholder="Search"
                 value={this.state.searchTerm}
-                onChange={this.onChangeSearchTerm.bind(this)}
-                onKeyUp={this.onSearch.bind(this)}
+                onChange={this.onChangeSearchTerm}
+                onKeyUp={this.onSearch}
             />
         );
     }

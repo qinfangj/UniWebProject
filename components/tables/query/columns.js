@@ -13,8 +13,6 @@ const columns = {
             headerName: "ID",
             field: "sample_id",
             width: 70,
-            suppressSizeToFit: true,
-            suppressMenu: true,
         },{
             headerName: "Sample",
             field: "sample_short_name",
@@ -133,9 +131,6 @@ const columns = {
             headerName: "ID",
             field: "library_id",
             width: 70,
-            suppressSizeToFit: true,
-            suppressMenu: true,
-            cellStyle: CENTER,
         },{
             headerName: "Library",
             field: "library_name",

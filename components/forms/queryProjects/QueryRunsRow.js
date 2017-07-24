@@ -14,7 +14,7 @@ import { Checkbox } from 'react-bootstrap/lib';
  * Holds together the projects and samples multiple selectors,
  * and allows to filter their options by term.
  */
-class QueryRunsForm extends React.PureComponent {
+class QueryRunsRow extends React.PureComponent {
     constructor() {
         super();
         this.state = {
@@ -82,4 +82,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(QueryRunsForm);
+export default connect(mapStateToProps, mapDispatchToProps)(QueryRunsRow);

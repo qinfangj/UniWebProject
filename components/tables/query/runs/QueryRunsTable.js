@@ -1,16 +1,16 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import tablesCss from '../tables.css';
-import css from './queryProjectsTable.css';
+import tablesCss from '../../tables.css';
+import css from '../queryProjectsTable.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as tables from '../tables.js';
-import { ROW_HEIGTH, GRID_HEIGTH } from '../columns';
-import { queryRunsAsync } from '../../actions/actionCreators/queryRunsActionCreators';
+import * as tables from '../../tables.js';
+import { ROW_HEIGTH } from '../../columns';
+import { queryRunsAsync } from '../../../actions/actionCreators/queryRunsActionCreators';
 
-import columnDefs from './columns';
+import columnDefs from '../columns';
 import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
 import Immutable from 'immutable'
 
@@ -39,7 +39,7 @@ class QueryRunsTable extends React.PureComponent {
         let queryType = newProps.queryType;
         if (queryType !== this.queryType) {
             this.queryType = queryType;
-            this.props.queryRunsAsync(this.props.selectedRuns, queryType)
+            this.props.queryRunsAsync(this.props.selectedSamples, queryType)
                 .fail(() => console.error("queryRunsAsync() failed to load data."));
         }
     }
@@ -174,7 +174,7 @@ const mapStateToProps = (state) => {
     return {
         tableData: state.queryRuns.tableData,
         queryType: state.queryRuns.queryType,
-        selectedRuns: state.queryRuns.selectedRuns,
+        selectedSamples: state.queryRuns.selectedRuns,
     };
 };
 
