@@ -110,7 +110,7 @@ class QueryRunsForm extends React.PureComponent {
 
                 </div>
 
-                {/* Runs selection */}
+                {/* Runs selection - a table with checkboxes to select runs */}
 
                 <div className="clearfix" />
 

@@ -27,7 +27,9 @@ class CommonTable extends React.PureComponent {
     constructor(props) {
         super(props);
         this.gridHeight = 400;
-        this.nVisibleRows = (this.gridHeight / ROW_HEIGTH) - 1;
+        this.rowHeight = ROW_HEIGTH;
+        this.nVisibleRows = (this.gridHeight / this.rowHeight) - 1;
+        this.headerHeight = 35;
         if (this.props.domain === "facility" ) {
             this.nrowsPerQuery = 40;
         } else {
@@ -40,13 +42,7 @@ class CommonTable extends React.PureComponent {
         this.state = {
             searchValue: "",
             rowCount: 0,
-            disableHeader: false,
-            headerHeight: 35,
-            height: 600,
-            hideIndexRow: false,
             overscanRowCount: 10,
-            rowHeight: 30,
-            scrollToIndex: undefined,
             sortBy: 'id',
             sortDirection: SortDirection.DESC,
         };
@@ -228,14 +224,7 @@ class CommonTable extends React.PureComponent {
         cssHeight = (this.gridHeight > (data.length + 1) * ROW_HEIGTH) ? (data.length + 1) * ROW_HEIGTH  : this.gridHeight;
 
         const {
-            disableHeader,
-            headerHeight,
-            height,
-            hideIndexRow,
-            overscanRowCount,
-            rowHeight,
-            rowCount,
-            //scrollToIndex,
+            //overscanRowCount,
             sortBy,
             sortDirection,
             //useDynamicRowHeight
@@ -291,11 +280,10 @@ class CommonTable extends React.PureComponent {
                                             ref={registerChild}
                                             width={width}
                                             height={height}
-                                            disableHeader={disableHeader}
                                             headerClassName={css.headerColumn}
-                                            headerHeight={headerHeight}
+                                            headerHeight={this.headerHeight}
                                             headerRowRenderer={this.headerRowRenderer}
-                                            rowHeight={ROW_HEIGTH}
+                                            rowHeight={this.rowHeight}
                                             onRowsRendered={onRowsRendered}
                                             noRowsRenderer={() => this.state.rowCount !== 0 ? null : <div style={{textAlign: 'center'}}>{"No data"}</div>}
                                             rowGetter={rowGetter}
