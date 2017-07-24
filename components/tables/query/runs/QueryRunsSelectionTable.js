@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tablesCss from '../../tables.css';
-import css from '../queryProjectsTable.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as tables from '../../tables.js';
@@ -89,7 +88,7 @@ class QueryRunsSelectionTable extends React.PureComponent {
                 cellRenderer = ({ cellData }) => {
                     return <Checkbox
                         id={cellData}
-                        className={css.checkbox}
+                        className={tablesCss.checkbox}
                         checked={!!this.props.selectedSamples[cellData]}
                         value={cellData}
                         readOnly

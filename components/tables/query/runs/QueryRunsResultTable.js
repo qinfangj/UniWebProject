@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tablesCss from '../../tables.css';
-import css from '../queryProjectsTable.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

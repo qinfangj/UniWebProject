@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tablesCss from '../../tables.css';
-import css from '../queryProjectsTable.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -139,7 +138,7 @@ class QueryProjectsTable extends React.Component {
             <div style={{width: '100%', height: '100%'}}>
                 {/* If no data, no table but fill the space */}
 
-                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: cssHeight, width: '100%'}}>
+                <div className={cx("ag-bootstrap", tablesCss.agTableContainer)} style={{height: cssHeight, width: '100%'}}>
                     <AgGridReact
                         onGridReady={this.onGridReady.bind(this)}
                         rowData={data}
