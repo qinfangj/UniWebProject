@@ -38,7 +38,7 @@ let facilityDataReducers = (state = defaultState, action) => {
                     - reset the data if no offset is queried;
                     - append to the previous data if we ask for more.
                  */
-                if (action.args.offset !== 0) {
+                if (action.args.offset && action.args.offset !== 0) {
                     newData = [...currentData, ...newData];
                 }
                 return {...state, ...{[storeKey]: {data: newData, allLoaded}, isLoading: false, error: null}};

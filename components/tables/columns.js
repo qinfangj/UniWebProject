@@ -8,12 +8,6 @@ export const GRID_HEIGTH = 1200;
 
 export const CENTER = {textAlign: "center"};
 export const LEFT = {textAlign: "left"};
-export const MULTIROW = {
-    'text-overflow': 'ellipsis',  // 'clip', 'ellipsis', '…' (string)
-    //'overflow': 'visible',
-    //'white-space': 'normal',
-    //'overflow-wrap': 'break-word',
-};
 
 export const ID_COLUMN = {
     headerName: "ID",
@@ -21,6 +15,12 @@ export const ID_COLUMN = {
     width: 70,
 };
 
+/**
+ * Create the ID cell as a link to the corresponding update form.
+ * @param domain: "facility" or "admin".
+ * @param table: db table name.
+ * @param id: ID of the item to update.
+ */
 export function idColumnLink(domain, table, id) {
     return (
         <div>

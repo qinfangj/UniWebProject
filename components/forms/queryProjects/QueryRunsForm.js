@@ -33,7 +33,7 @@ class QueryRunsForm extends React.PureComponent {
     };
 
     componentWillMount() {
-        this.props.getTableDataAsync("runs", "runs", false, null, null, null, null)
+        this.props.getTableDataAsync("runs", "runs", false, null, null, null, null, null)
             .fail((err) => console.error("QueryProjectsForm.getTableDataAsync() failed to load data."));
     }
 

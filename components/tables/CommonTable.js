@@ -119,7 +119,7 @@ class CommonTable extends React.PureComponent {
     }
 
     /**
-     * Remove any filter (when click on the cross in the serach field).
+     * Remove any filter (when click on the cross in the search field).
      */
     _resetSearch() {
         this.setState({searchTerm: ""});
@@ -128,6 +128,9 @@ class CommonTable extends React.PureComponent {
         }
     }
 
+    /**
+     * RV infinite loader needs to know how to query the next rows on scroll.
+     */
     loadMoreRows({ startIndex, stopIndex }) {
         let dataLength = this.props.data.length;
         if (dataLength % this.nrowsPerQuery === 0) {
@@ -137,7 +140,7 @@ class CommonTable extends React.PureComponent {
     }
 
     /**
-     * RV needs to know if a row is already in the current data, given an index.
+     * RV infinite loader needs to know if a row is already in the current data, given an index.
      */
     isRowLoaded({ index }) {
         return index < this.props.data.length;
@@ -168,7 +171,6 @@ class CommonTable extends React.PureComponent {
                        />;
             return node;
         });
-
      }
 
     /**
@@ -186,15 +188,13 @@ class CommonTable extends React.PureComponent {
     }
 
     /**
-     * Format the header so that it has the arrow indicating the direction of search.
+     * Format the header of a Column so that it has the arrow indicating the direction of search.
      */
     _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
         return (
             <div>
                 {label}
-                {sortBy === dataKey &&
-                    <SortIndicator sortDirection={sortDirection} />
-                }
+                {sortBy === dataKey && <SortIndicator sortDirection={sortDirection} />}
             </div>
         );
     }
@@ -204,24 +204,11 @@ class CommonTable extends React.PureComponent {
      */
     headerRowRenderer = ({ className, columns, style }) => {
         return (
-            <div
-                className={cx(className, css.RVheader)}
-                role='row'
-                style={style}
-            >
+            <div role="row" style={style} className={cx(className, css.RVheader)} >
                 {columns}
             </div>
         );
     };
-
-    /**
-     * In admin forms, sort the whole data in memory.
-     */
-    localSort(list) {
-        return list
-            .sortBy(item => item.get(this.state.sortBy))
-            .update(list => (this.state.sortDirection === SortDirection.DESC) ? list.reverse() : list);
-    }
 
     /**
      * In admin forms, filter the whole data in memory.
@@ -264,7 +251,8 @@ class CommonTable extends React.PureComponent {
         let rowCount = this.state.rowCount;
         let list = Immutable.fromJS(data);
         if (this.props.domain === "admin") {
-            list = this.localSort(this.localSearch(list));
+            list = this.localSearch(list);
+            list = tables.sortImmutable(list, this.state.sortBy, this.state.sortDirection);
             rowCount = list.size;
         }
 
@@ -315,7 +303,7 @@ class CommonTable extends React.PureComponent {
                                             headerRowRenderer={this.headerRowRenderer}
                                             rowHeight={this.rowHeight}
                                             onRowsRendered={onRowsRendered}
-                                            noRowsRenderer={() => rowCount !== 0 ? null : <div style={{textAlign: 'center'}}>{"No data"}</div>}
+                                            noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
                                             rowGetter={rowGetter}
                                             rowCount={rowCount}
                                             sort={this._sort}

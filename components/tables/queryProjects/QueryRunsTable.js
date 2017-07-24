@@ -10,30 +10,30 @@ import * as tables from '../tables.js';
 import { ROW_HEIGTH } from '../columns';
 import { queryRunsAsync } from '../../actions/actionCreators/queryRunsActionCreators';
 
-import { AgGridReact } from 'ag-grid-react';
-import Dimensions from 'react-dimensions';
 import columns from './columns';
+import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
+import Immutable from 'immutable'
 
 
 
+/**
+ * Table that displays the *result* of the Runs query.
+ */
 class QueryRunsTable extends React.PureComponent {
     constructor(props) {
         super(props);
         this.queryType = "";
+        this.state = {
+            sortBy: "id",
+            sortDirection: "DESC",
+        };
     }
 
     static propTypes = {
         queryType: PropTypes.string.isRequired,  // from router, see parent (route) component
     };
 
-    componentWillUpdate() {
-        this.api && this.api.doLayout();  // recalculate layout to fill the container div
-    }
-    componentDidUpdate() {
-        this.api && this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
-    }
-
-    /* If selected ids or query type have changed, query new data */
+    /* If query type has changed (route change), query new data */
     componentWillReceiveProps(newProps) {
         let queryType = newProps.queryType;
         if (queryType !== this.queryType) {
@@ -43,23 +43,80 @@ class QueryRunsTable extends React.PureComponent {
         }
     }
 
-    onGridReady(params) {
-        this.api = params.api;
-        this.columnApi = params.columnApi;
-    }
-
+    /**
+     * Format the raw data we get from backend, for example to merge first and last name.
+     */
     formatData(data) {
         let L = data.length;
         for (let i=0; i < L; i++) {
             let d = data[i];
-            d.submitter = (d.submitter_first_name + d.submitter_last_name) || "";
+            d.submitter = (d.submitter_first_name +" "+ d.submitter_last_name) || "";
         }
         return data;
     }
 
+    /**
+     * Construct an array of <Column>s from the columns definition.
+     */
+    makeColumns(){
+        let columnDefs = columns[this.props.queryType];
+        return columnDefs.map( s => {
+            return (
+                <Column key={s}
+                    label={s.headerName}
+                    dataKey={s.field}
+                    headerRenderer={this._headerRenderer}
+                    width={s.width}
+                />
+            );
+        });
+    }
+
+    /**
+     * RV: Return row[*index*] from *list*.
+     */
+    _getRow (data, index) {
+        return data.size !== 0 ? data.get(index % data.size) : {};
+    }
+
+    /**
+     * RV: Format the header of a Column so that it has the arrow indicating the direction of search.
+     */
+    _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
+        return (
+            <div>
+                {label}
+                {sortBy === dataKey && <SortIndicator sortDirection={sortDirection} />}
+            </div>
+        );
+    }
+
+    /**
+     * RV: Format the whole header row, given the array of Columns.
+     */
+    headerRowRenderer = ({ className, columns, style }) => {
+        return (
+            <div role="row" style={style} className={cx(className, tablesCss.RVheader)} >
+                {columns}
+            </div>
+        );
+    };
+
+    /**
+     * When a column header is clicked.
+     */
+    _sort = ({ sortBy, sortDirection }) => {
+        this.setState({ sortBy, sortDirection });
+    };
+
+
+    /////////////////////////////////////
+
+
     render() {
         let data = this.props.tableData;
-        console.log(data)
+        const width = 2000;
+        const height = 400;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
@@ -68,24 +125,32 @@ class QueryRunsTable extends React.PureComponent {
         }
         tables.checkData(data);
         data = this.formatData(data);
+        let rowCount = data.length;
         let cssHeight = ((data.length + 1) * ROW_HEIGTH) + "px";
-        return (
-            <div style={{width: '100%', height: '100%'}}>
-                {/* If no data, no table but fill the space */}
 
-                <div className={cx("ag-bootstrap", css.agTableContainer)} style={{height: cssHeight, width: '100%'}}>
-                    <AgGridReact
-                        onGridReady={this.onGridReady.bind(this)}
-                        rowData={data}
-                        enableFilter={true}
-                        enableSorting={true}
-                        columnDefs={columns[this.props.queryType]}
-                        rowHeight={ROW_HEIGTH}
-                        headerHeight={ROW_HEIGTH}
-                        overlayNoRowsTemplate='<span/>'
-                    >
-                    </AgGridReact>
-                </div>
+        data = Immutable.fromJS(data);
+        data = tables.sortImmutable(data, this.state.sortBy, this.state.sortDirection);
+        const rowGetter = ({index}) => this._getRow(data, index);
+
+        return (
+            <div className={tablesCss.AutoSizerContainer} style={{width: '100%', height: cssHeight + 'px', marginTop: '15px'}}>
+
+                <Table
+                    width={width}
+                    height={height}
+                    headerClassName={tablesCss.headerColumn}
+                    headerHeight={ROW_HEIGTH}
+                    headerRowRenderer={this.headerRowRenderer}
+                    noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
+                    rowCount={rowCount}
+                    rowGetter={rowGetter}
+                    rowHeight={ROW_HEIGTH}
+                    sort={this._sort}
+                    sortBy={this.state.sortBy}
+                    sortDirection={this.state.sortDirection}
+                >
+                    {this.makeColumns()}
+                </Table>
 
             </div>
         );
@@ -113,4 +178,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(QueryRunsTable));
+export default connect(mapStateToProps, mapDispatchToProps)(QueryRunsTable);
