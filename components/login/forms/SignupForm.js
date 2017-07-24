@@ -44,7 +44,8 @@ class SignupForm extends React.Component {
                 lastName: this.state.lastName,
                 email: this.state.email,
                 address: this.state.address,
-                phone: this.state.phone
+                phone: this.state.phone,
+                islaboratory: false,
             }
         ));
     }
