@@ -1,7 +1,5 @@
 "use strict";
 import React from 'react';
-import formsCss from '../forms.css';
-import _ from 'lodash';
 import css from './queryProjects.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -34,7 +32,7 @@ class QueryRunsSearch extends React.PureComponent {
     }
 
     onSearch() {
-        if (Object.keys(this.props.selectedRuns).length > 0) {
+        if (this.props.nSelectedRuns > 0) {
             this.props.resetSelection();
         }
         this.props.search(this.state.searchTerm);
@@ -57,10 +55,10 @@ class QueryRunsSearch extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-    let selectedRuns = state.queryRuns.selectedRuns;
+    let nSelectedRuns = Object.keys(state.queryRuns.selectedRuns).length;
     let searchTerm = state.queryRuns.searchTerm;
     return {
-        selectedRuns: selectedRuns,
+        nSelectedRuns: nSelectedRuns,
         searchTerm: searchTerm,
     };
 };

@@ -1,19 +1,17 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import formsCss from '../forms.css';
 import css from './queryProjects.css';
-import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getTableDataAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { queryRunsAsync, resetSelection, changeRunsSelection } from '../../actions/actionCreators/queryRunsActionCreators';
 import formNames from '../../constants/formNames';
-import { randomString } from '../../../utils/common';
 
 import Icon from 'react-fontawesome';
 import QueryRunsSearch from './QueryRunsSearch';
-import { Button, Collapse, Checkbox } from 'react-bootstrap/lib';
+import QueryRunsRow from './QueryRunsRow';
+import { Button, Collapse } from 'react-bootstrap/lib';
 
 
 /**
@@ -47,42 +45,13 @@ class QueryRunsForm extends React.PureComponent {
         this.setState({ visible: !this.state.visible });
     }
 
-    selectRun(runId, e) {
-        let selected = this.props.selectedRuns;
-        if (selected[runId]) {
-            delete selected[runId];
-        } else {
-            selected[runId] = true;
-        }
-        this.props.changeRunsSelection(selected);
-        this.props.queryRunsAsync(selected, this.props.queryType);
-    }
-
-    makeRunsRow(run) {
-        return (
-            <tr key={run.id+randomString(6)} onClick={this.selectRun.bind(this, run.id)}>
-                <td className={css.checkboxCell}>
-                    <Checkbox
-                        id={run.id} className={css.checkbox}
-                        checked={!!this.props.selectedRuns[run.id]}
-                        value={!!this.props.selectedRuns[run.id]}
-                        onChange={this.selectRun.bind(this, run.id)}
-                    />
-                </td>
-                <td className={css.instrumentCell}>{run.instrument}</td>
-                <td className={css.runNbCell}>{run.run_nb}</td>
-                <td className={css.runDateCell}>{run.run_date}</td>
-                <td className={css.readLengthCell}>{run.cycle_nb}</td>
-                <td className={css.runTypeCell}>{run.run_type}</td>
-                <td className={css.runFolderCell}>{run.run_folder}</td>
-                <td className={css.statusCell}>{run.status}</td>
-            </tr>
-        );
-    }
 
     render() {
 
-        let runs = this.props.runs.map(run => this.makeRunsRow(run));
+        console.log("nruns:", this.props.runs.length)
+        let runs = this.props.runs.map(run =>
+            <QueryRunsRow run={run} queryType={this.props.queryType} key={run.id}/>
+        );
 
         return (
             <div id="QueryProjectsForm">
@@ -145,7 +114,6 @@ function filterRuns(runs, term) {
 const mapStateToProps = (state, ownProps) => {
     let runs = state.facilityData["runs"].data;
     let queryType = state.queryRuns.queryType;
-    let selectedRuns = state.queryRuns.selectedRuns;
     let searchTerm = state.queryRuns.searchTerm;
     if (searchTerm !== "") {
         runs = filterRuns(runs, searchTerm);
@@ -153,7 +121,6 @@ const mapStateToProps = (state, ownProps) => {
     return {
         runs: runs,
         queryType: queryType,
-        selectedRuns: selectedRuns,
     };
 };
 
