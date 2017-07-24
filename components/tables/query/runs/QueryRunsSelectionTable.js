@@ -206,7 +206,7 @@ function filterRuns(runs, term) {
         ~run.read_length.toString().indexOf(term) ||
         ~run.run_folder.toLowerCase().indexOf(term) ||
         ~run.run_nb.toString().indexOf(term) ||
-        ~run.run_type.indexOf(term) ||
+        ~run.run_type.toLowerCase().indexOf(term) ||
         ~run.status.toLowerCase().indexOf(term)
     );
 }
