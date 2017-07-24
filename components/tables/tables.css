@@ -15,9 +15,15 @@
     background-color: var(--yellow);
 }
 
-.AutoSizerContainer {
+/* What shows when there is no data in the table */
+.noData {
+    text-align: center;
+    margin: 15px;
+}
+
+.tableContainer {
     background-color: white;
-    height: calc(100vh - 50px);
+    min-height: 300px;
 }
 
 .searchField {

@@ -1,20 +1,19 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import tablesCss from '../tables.css';
-import css from './queryProjectsTable.css';
+import tablesCss from '../../tables.css';
+import css from '../queryProjectsTable.css';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as tables from '../tables.js';
-import { ROW_HEIGTH } from '../columns';
-import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import { queryProjectsAsync } from '../../actions/actionCreators/queryProjectsActionCreators';
-import { assertIsArray } from '../../../utils/common';
+import * as tables from '../../tables.js';
+import { ROW_HEIGTH } from '../../columns';
+import optionsStoreKeys from '../../../constants/optionsStoreKeys';
+import { queryProjectsAsync } from '../../../actions/actionCreators/queryProjectsActionCreators';
+import { assertIsArray } from '../../../../utils/common';
 
 import { AgGridReact } from 'ag-grid-react';
-import Dimensions from 'react-dimensions';
-import columns from './columns';
+import columns from '../columns';
 
 
 
@@ -188,4 +187,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(QueryProjectsTable));
+export default connect(mapStateToProps, mapDispatchToProps)(QueryProjectsTable);

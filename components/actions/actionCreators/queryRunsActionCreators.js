@@ -16,7 +16,7 @@ export function queryRunsAsync(runIds, queryType, storeKey) {
 export function changeRunsSelection(runs) {
     return {
         type: actions.queryRuns.CHANGE_RUNS_SELECTION,
-        runs: runs,  // {runId: true}
+        runs: runs,  // a dict {runId: true}
     };
 }
 

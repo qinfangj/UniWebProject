@@ -76,7 +76,6 @@ export function submitForm(modelName, insertData, table, formName, onSuccess, is
                 console.debug(200, itype+" ID <"+response+">");
                 /* Clear the form data in store */
                 store.dispatch(actions.reset(modelName));
-                store.dispatch(resetAllOptions());
                 /* If admin form, clear cached options lists */
                 if (isAttribute) {
                     store.dispatch(resetAllOptions());

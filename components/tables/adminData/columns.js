@@ -2,13 +2,13 @@
 import React from 'react';
 import * as formatters from '../formatters';
 import tableNames from '../../constants/tableNames';
-import { idColumnWithUpdateLink, CENTER, LEFT, ID_COLUMN } from '../columns';
+import { ID_COLUMN } from '../columns';
 
 
 
 const adminDataColumns = {
     [tableNames.USERS]: [
-        idColumnWithUpdateLink("users","admin"),
+        ID_COLUMN,
         {
             headerName: "Login",
             field: "username",
@@ -32,16 +32,16 @@ const adminDataColumns = {
         {
             headerName: "Validated",
             field: "isValidated",
-            cellRenderer: function(params) {
-                return params.value ?
-                      '<i class="fa fa-check" aria-hidden="true"></i>'
-                    : '<i class="fa fa-times" style="color:red" aria-hidden="true"></i>'
+            cellRenderer: function(isTrue) {
+                return isTrue ?
+                      <i className="fa fa-check" aria-hidden="true"/>
+                    : <i className="fa fa-times" style="color:red" aria-hidden="true"/>
             }
         },
     ],
     //add admin tables columns
     [tableNames.PROJECT_SHARINGS]: [
-        idColumnWithUpdateLink("project_sharings","admin"),
+        ID_COLUMN,
         {
             headerName: "Collaborator",
             field: "collaborator",
@@ -56,7 +56,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.ANALYSIS_TYPES]: [
-        idColumnWithUpdateLink("analysis_types","admin"),
+        ID_COLUMN,
         {
             headerName: "Description",
             field: "description",
@@ -72,14 +72,14 @@ const adminDataColumns = {
         }
     ],
     [tableNames.FLOWCELL_TYPES]: [
-        idColumnWithUpdateLink("flowcell_types","admin"),
+        ID_COLUMN,
         {
             headerName: "Version",
             field: "version",
         }
     ],
     [tableNames.INSTRUMENTS]: [
-        idColumnWithUpdateLink("instruments","admin"),
+        ID_COLUMN,
         {
             headerName: "Internal Name",
             field: "internalName",
@@ -98,7 +98,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.LIBRARY_ADAPTERS]: [
-        idColumnWithUpdateLink("library_adapters","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
@@ -109,7 +109,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.LIB_PROTOCOLS]: [
-        idColumnWithUpdateLink("library_protocols","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
@@ -136,7 +136,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.LIBRARY_STATES]: [
-        idColumnWithUpdateLink("library_states","admin"),
+        ID_COLUMN,
         {
             headerName: "State Order",
             field: "stateOrder",
@@ -151,7 +151,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.MAPPING_TOOLS]: [
-        idColumnWithUpdateLink("mapping_tools","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
@@ -166,7 +166,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.MULTIPLEX_INDEXES]: [
-        idColumnWithUpdateLink("multiplex_indexes","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
@@ -193,7 +193,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.PIPELINE_VERSIONS]: [
-        idColumnWithUpdateLink("pipeline_versions","admin"),
+        ID_COLUMN,
         {
             headerName: "Software Name",
             field: "softwareName",
@@ -208,7 +208,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.PROJECT_ANALYSIS]: [
-        idColumnWithUpdateLink("project_analysis","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
@@ -223,7 +223,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.PROJECT_STATES]: [
-        idColumnWithUpdateLink("project_states","admin"),
+        ID_COLUMN,
         {
             headerName: "State Order",
             field: "stateOrder",
@@ -238,28 +238,28 @@ const adminDataColumns = {
         }
     ],
     [tableNames.QUANTIF_METHODS]: [
-        idColumnWithUpdateLink("quantif_methods","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
         }
     ],
     [tableNames.READ_LENGTHS]: [
-        idColumnWithUpdateLink("read_lengths","admin"),
+        ID_COLUMN,
         {
             headerName: "Length",
             field: "length",
         }
     ],
     [tableNames.RUN_TYPES]: [
-        idColumnWithUpdateLink("run_types","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
         }
     ],
     [tableNames.RUN_TYPES_LENGTHS]: [
-        idColumnWithUpdateLink("run_types_lengths","admin"),
+        ID_COLUMN,
         {
             headerName: "Run Type",
             field: "name",
@@ -274,14 +274,14 @@ const adminDataColumns = {
         }
     ],
     [tableNames.SAMPLE_TYPES]: [
-        idColumnWithUpdateLink("sample_types","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
         }
     ],
     [tableNames.SEQUENCING_KIT_VERSIONS]: [
-        idColumnWithUpdateLink("sequencing_kit_versions","admin"),
+        ID_COLUMN,
         {
             headerName: "Version",
             field: "version",
@@ -292,7 +292,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.SEQUENCING_QUALITIES]: [
-        idColumnWithUpdateLink("sequencing_qualities","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
@@ -307,7 +307,7 @@ const adminDataColumns = {
         }
     ],
     [tableNames.TAXONOMIES]: [
-        idColumnWithUpdateLink("taxonomies","admin"),
+        ID_COLUMN,
         {
             headerName: "Name",
             field: "name",
