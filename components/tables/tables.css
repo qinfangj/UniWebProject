@@ -15,6 +15,12 @@
     background-color: var(--yellow);
 }
 
+/* What shows when there is no data in the table */
+.noData {
+    text-align: center;
+    margin: 15px;
+}
+
 .AutoSizerContainer {
     background-color: white;
     height: calc(100vh - 50px);

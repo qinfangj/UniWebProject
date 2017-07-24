@@ -303,7 +303,7 @@ class CommonTable extends React.PureComponent {
                                             headerRowRenderer={this.headerRowRenderer}
                                             rowHeight={this.rowHeight}
                                             onRowsRendered={onRowsRendered}
-                                            noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
+                                            noRowsRenderer={() => rowCount === 0 && <div className={css.noData}>{"No data"}</div>}
                                             rowGetter={rowGetter}
                                             rowCount={rowCount}
                                             sort={this._sort}

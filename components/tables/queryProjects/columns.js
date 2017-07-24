@@ -1,8 +1,7 @@
 "use strict";
 import * as formatters from '../formatters';
-import { CENTER, MULTIROW } from '../columns';
+import { CENTER } from '../columns';
 import columnNames from '../../constants/columns';
-import css from '../queryProjects/queryProjectsTable.css';
 
 
 const col = columnNames.queryProjects;
@@ -45,12 +44,12 @@ const columns = {
         },{
             headerName: "Ratio 260/280",
             field: "ratio_260_280",
-            width: 100,
+            width: 120,
             cellRenderer: formatters.clipFloat,
         },{
             headerName: "Ratio 260/230",
             field: "ratio_260_230",
-            width: 100,
+            width: 120,
             cellRenderer: formatters.clipFloat,
         },{
             headerName: "RIN",

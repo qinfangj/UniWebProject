@@ -10,7 +10,7 @@ import * as tables from '../tables.js';
 import { ROW_HEIGTH } from '../columns';
 import { queryRunsAsync } from '../../actions/actionCreators/queryRunsActionCreators';
 
-import columns from './columns';
+import columnDefs from './columns';
 import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
 import Immutable from 'immutable'
 
@@ -50,7 +50,7 @@ class QueryRunsTable extends React.PureComponent {
         let L = data.length;
         for (let i=0; i < L; i++) {
             let d = data[i];
-            d.submitter = (d.submitter_first_name +" "+ d.submitter_last_name) || "";
+            d.submitter = (d.submitter_first_name || "") +" "+ (d.submitter_last_name || "");
         }
         return data;
     }
@@ -59,8 +59,8 @@ class QueryRunsTable extends React.PureComponent {
      * Construct an array of <Column>s from the columns definition.
      */
     makeColumns(){
-        let columnDefs = columns[this.props.queryType];
-        return columnDefs.map( s => {
+        let colDefs = columnDefs[this.props.queryType];
+        return colDefs.map( s => {
             return (
                 <Column key={s}
                     label={s.headerName}
@@ -114,34 +114,42 @@ class QueryRunsTable extends React.PureComponent {
 
 
     render() {
-        let data = this.props.tableData;
         const width = 2000;
         const height = 400;
+
+        // Format data from props
+        let data = this.props.tableData;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
-        }
-        if (!columns[this.props.queryType]) {
-            throw new ReferenceError("No columns definition found");
         }
         tables.checkData(data);
         data = this.formatData(data);
         let rowCount = data.length;
         let cssHeight = ((data.length + 1) * ROW_HEIGTH) + "px";
 
+        // Format for RV with Immutable.js
         data = Immutable.fromJS(data);
         data = tables.sortImmutable(data, this.state.sortBy, this.state.sortDirection);
         const rowGetter = ({index}) => this._getRow(data, index);
+
+        // Build the columns
+        if (!columnDefs[this.props.queryType]) {
+            throw new ReferenceError("No columns definition found");
+        }
+        let columns = this.makeColumns();
+        // Calculate the table width based on individual column widths
+        let tableWidth = columnDefs[this.props.queryType].reduce((sum, col) => sum + col.width, 0);
 
         return (
             <div className={tablesCss.AutoSizerContainer} style={{width: '100%', height: cssHeight + 'px', marginTop: '15px'}}>
 
                 <Table
-                    width={width}
+                    width={tableWidth}
                     height={height}
                     headerClassName={tablesCss.headerColumn}
                     headerHeight={ROW_HEIGTH}
                     headerRowRenderer={this.headerRowRenderer}
-                    noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
+                    noRowsRenderer={() => rowCount === 0 && <div className={tablesCss.noData}>{"No data"}</div>}
                     rowCount={rowCount}
                     rowGetter={rowGetter}
                     rowHeight={ROW_HEIGTH}
@@ -149,7 +157,7 @@ class QueryRunsTable extends React.PureComponent {
                     sortBy={this.state.sortBy}
                     sortDirection={this.state.sortDirection}
                 >
-                    {this.makeColumns()}
+                    {columns}
                 </Table>
 
             </div>
