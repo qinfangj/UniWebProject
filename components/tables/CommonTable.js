@@ -29,6 +29,8 @@ class CommonTable extends React.PureComponent {
         this.rowHeight = ROW_HEIGTH;
         this.nVisibleRows = (this.gridHeight / this.rowHeight) - 1;
         this.headerHeight = 35;
+        this.overscanRowCount = 10;
+        this.useDynamicRowHeight = false;
         if (this.props.domain === "facility" ) {
             this.nrowsPerQuery = 40;
         } else {
@@ -41,17 +43,9 @@ class CommonTable extends React.PureComponent {
         this.state = {
             searchTerm: "",
             rowCount: 0,
-            overscanRowCount: 10,
             sortBy: 'id',
             sortDirection: SortDirection.DESC,
         };
-        this._headerRenderer = this._headerRenderer.bind(this);
-        this._sort = this._sort.bind(this);
-        this._idColumnLink = this._idColumnLink.bind(this);
-        this._resetSearch = this._resetSearch.bind(this);
-        this._search = this._search.bind(this);
-        this.isRowLoaded = this.isRowLoaded.bind(this);
-        this.loadMoreRows = this.loadMoreRows.bind(this);
     }
 
     static propTypes = {
@@ -99,57 +93,56 @@ class CommonTable extends React.PureComponent {
     /**
      * Backend sort.
      */
-    _sort({ sortBy, sortDirection }) {
+    _sort = ({ sortBy, sortDirection }) => {
         if (this.props.domain === "facility") {
             this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
-        } else if (this.props.domain === "admin") {
-            this.setState({ sortBy, sortDirection });
         }
-    }
+        this.setState({ sortBy, sortDirection });
+    };
 
     /**
      * Backend search.
      */
-    _search(e) {
+    _search = (e) => {
         let filterBy = e.target.value;
         this.setState({ searchTerm: filterBy });
         if (this.props.domain === "facility") {
             this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, filterBy);
         }
-    }
+    };
 
     /**
      * Remove any filter (when click on the cross in the search field).
      */
-    _resetSearch() {
+    _resetSearch = () => {
         this.setState({searchTerm: ""});
         if (this.props.domain === "facility") {
             this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, "");
         }
-    }
+    };
 
     /**
      * RV infinite loader needs to know how to query the next rows on scroll.
      */
-    loadMoreRows({ startIndex, stopIndex }) {
+    loadMoreRows = ({ startIndex, stopIndex }) => {
         let dataLength = this.props.data.length;
         if (dataLength % this.nrowsPerQuery === 0) {
             console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
             this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchTerm);
         }
-    }
+    };
 
     /**
      * RV infinite loader needs to know if a row is already in the current data, given an index.
      */
-    isRowLoaded({ index }) {
+    isRowLoaded = ({ index }) => {
         return index < this.props.data.length;
-    }
+    };
 
     /**
      * Construct an array of <Column>s from the columns definition.
      */
-    getColumns(width){
+    getColumns = (width) => {
         let columnDefs;
         if (this.props.domain === "facility") {
             columnDefs = facilityDataColumns[this.props.table];
@@ -158,7 +151,7 @@ class CommonTable extends React.PureComponent {
             columnDefs = adminColumns[this.props.table];
         }
         const ncols = columnDefs.length;
-        const columnWidth = (width-40) / (ncols-1);
+        const columnWidth = (width-70) / (ncols-1);  // except the ID column which is fixed at 70px
 
         return columnDefs.map( s => {
             let cellRenderer = (s.field === 'id') ? this._idColumnLink : s.cellRenderer;
@@ -171,33 +164,33 @@ class CommonTable extends React.PureComponent {
                        />;
             return node;
         });
-     }
+    };
 
     /**
      * RV: Return row[*index*] from *list*.
      */
-    _getRow (list, index) {
+    _getRow = (list, index) => {
         return list.size !== 0 ? list.get(index % list.size) : {};
-    }
+    };
 
     /**
      * Format the ID column so that it contains a link to the update form.
      */
-    _idColumnLink(obj) {
+    _idColumnLink = (obj) => {
         return idColumnLink(this.props.domain, this.props.table, obj.cellData);
-    }
+    };
 
     /**
      * Format the header of a Column so that it has the arrow indicating the direction of search.
      */
-    _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
+    _headerRenderer = ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) => {
         return (
             <div>
                 {label}
                 {sortBy === dataKey && <SortIndicator sortDirection={sortDirection} />}
             </div>
         );
-    }
+    };
 
     /**
      * RV: Format the whole header row, given the array of Columns.
@@ -213,7 +206,7 @@ class CommonTable extends React.PureComponent {
     /**
      * In admin forms, filter the whole data in memory.
      */
-    localSearch(list) {
+    localSearch = (list) => {
         if (this.state.searchTerm === "") {
             return list;
         } else {
@@ -224,38 +217,37 @@ class CommonTable extends React.PureComponent {
                 });
             });
         }
-    }
+    };
 
 
     render() {
-        let data = this.props.formatter(this.props.data);
-        if (!data) {
-            throw new TypeError("Data cannot be null or undefined");
-        }
+        let sortBy = this.state.sortBy;
+        let sortDirection = this.state.sortDirection;
+        let rowCount = this.state.rowCount;
+
+        /* Define columns */
         let columnDefs = this.props.columns;
         if (!columnDefs) {
             throw new ReferenceError("No columns definition found for table "+ this.props.table);
         }
+
+        /* Format data */
+        let data = this.props.formatter(this.props.data);
+        if (!data) {
+            throw new TypeError("Data cannot be null or undefined");
+        }
         tables.checkData(data);
-
-        let cssHeight = (this.gridHeight > (data.length + 1) * ROW_HEIGTH) ? (data.length + 1) * ROW_HEIGTH : this.gridHeight;
-
-        const {
-            //overscanRowCount,
-            sortBy,
-            sortDirection,
-            //useDynamicRowHeight
-        } = this.state;
-
-        let rowCount = this.state.rowCount;
         let list = Immutable.fromJS(data);
         if (this.props.domain === "admin") {
             list = this.localSearch(list);
-            list = tables.sortImmutable(list, this.state.sortBy, this.state.sortDirection);
+            list = tables.sortImmutable(list, sortBy, sortDirection);
             rowCount = list.size;
         }
-
         const rowGetter = ({index}) => this._getRow(list, index);
+
+        // Height that would take the table if all rows would be displayed. Still in use??
+        let cssHeight = (this.gridHeight > (data.length + 1) * ROW_HEIGTH) ? (data.length + 1) * ROW_HEIGTH : this.gridHeight;
+
         //console.log("nrows:", this.state.rowCount);
 
         return (
@@ -285,7 +277,7 @@ class CommonTable extends React.PureComponent {
 
                 {/* The table */}
 
-                <div className={css.tableContainer} style={{height: cssHeight + 'px', width: '100%'}}>
+                <div className={css.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
                     <InfiniteLoader isRowLoaded={this.isRowLoaded}
                                     loadMoreRows={this.loadMoreRows}
                                     rowCount={rowCount}
@@ -302,7 +294,7 @@ class CommonTable extends React.PureComponent {
                                             headerRowRenderer={this.headerRowRenderer}
                                             rowHeight={this.rowHeight}
                                             onRowsRendered={onRowsRendered}
-                                            noRowsRenderer={() => rowCount === 0 && <div className={css.noData}>{"No data"}</div>}
+                                            noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
                                             rowGetter={rowGetter}
                                             rowCount={rowCount}
                                             sort={this._sort}

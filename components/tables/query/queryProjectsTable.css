@@ -1,11 +1,6 @@
 
 
-.agTableContainer {
-    padding: 0;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.checkbox {
+    margin-top: 16px;
 }
 
-.displayImg {
-    background-size: cover;
-}

@@ -12,7 +12,7 @@ import { getTableDataAsync } from '../../../actions/actionCreators/facilityDataA
 import { queryRunsAsync, resetSelection, changeRunsSelection } from '../../../actions/actionCreators/queryRunsActionCreators';
 
 import columnDefs from './selectionColumns';
-import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
+import { Column, Table, AutoSizer, SortIndicator, SortDirection} from 'react-virtualized';
 import Immutable from 'immutable'
 import { Checkbox } from 'react-bootstrap/lib';
 
@@ -26,7 +26,6 @@ class QueryRunsSelectionTable extends React.PureComponent {
     constructor(props) {
         super(props);
         this.tableHeight = 400;
-        this.queryType = "";
         this.state = {
             sortBy: "id",
             sortDirection: "DESC",
@@ -48,14 +47,14 @@ class QueryRunsSelectionTable extends React.PureComponent {
     /**
      * Format the raw data we get from backend, for example to merge first and last name.
      */
-    formatData(data) {
+    formatData = (data) => {
         let L = data.length;
         for (let i=0; i < L; i++) {
             let d = data[i];
             d.read_type = (d.run_type || "") +" "+ (d.read_length || "");
         }
         return data;
-    }
+    };
 
     /**
      * When a row is clicked, add the corresponding sample to the list of selected samples,
@@ -76,9 +75,14 @@ class QueryRunsSelectionTable extends React.PureComponent {
     /**
      * Construct an array of <Column>s from the columns definition.
      */
-    makeColumns(){
+    makeColumns = (width) => {
         return columnDefs.map( s => {
             let cellRenderer = s.cellRenderer;
+
+            /* Use columns without a "width" definition to share equally all the empty space. */
+            const nWithoutWidth = columnDefs.filter(col => !col.width).length;
+            const sumWithWidth = columnDefs.reduce((sum, col) => sum + (col.width || 0), 0);
+            const remainColumnWidth = (width - sumWithWidth) / nWithoutWidth;
 
             /* Special case of cell renderer for the checkbox cell */
             if (s.field === "id") {
@@ -97,32 +101,32 @@ class QueryRunsSelectionTable extends React.PureComponent {
                 <Column key={s}
                     label={s.headerName}
                     dataKey={s.field}
-                    width={s.width}
+                    width={s.width || remainColumnWidth}
                     cellRenderer={cellRenderer}
                     headerRenderer={s.field === "id" ? () => "" : this._headerRenderer}
                 />
             );
         });
-    }
+    };
 
     /**
      * RV: Return row[*index*] from *list*.
      */
-    _getRow (data, index) {
+    _getRow = (data, index) => {
         return data.size !== 0 ? data.get(index % data.size) : {};
-    }
+    };
 
     /**
      * RV: Format the header of a Column so that it has the arrow indicating the direction of search.
      */
-    _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
+    _headerRenderer = ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) => {
         return (
             <div>
                 {label}
                 {sortBy === dataKey && <SortIndicator sortDirection={sortDirection} />}
             </div>
         );
-    }
+    };
 
     /**
      * When a column header is clicked.
@@ -136,7 +140,7 @@ class QueryRunsSelectionTable extends React.PureComponent {
 
 
     render() {
-        // Format data from props
+        /* Format data from props */
         let data = this.props.runs;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
@@ -145,39 +149,39 @@ class QueryRunsSelectionTable extends React.PureComponent {
         data = this.formatData(data);
         let rowCount = data.length;
 
-        // Format for RV with Immutable.js
+        /* Format for RV with Immutable.js */
         data = Immutable.fromJS(data);
         data = tables.sortImmutable(data, this.state.sortBy, this.state.sortDirection);
         const rowGetter = ({index}) => this._getRow(data, index);
 
-        // Build the columns
+        /* Build the columns */
         if (!columnDefs) {
             throw new ReferenceError("No columns definition found");
         }
-        let columns = this.makeColumns();
-        // Calculate the table width based on individual column widths
-        let tableWidth = columnDefs.reduce((sum, col) => sum + col.width, 0);
 
         return (
             <div className={tablesCss.tableContainer} style={{width: '100%', marginTop: '15px'}}>
-
-                <Table
-                    width={tableWidth}
-                    height={this.tableHeight}
-                    headerClassName={tablesCss.headerColumn}
-                    headerHeight={ROW_HEIGTH}
-                    noRowsRenderer={() => (rowCount === 0) && <div className={tablesCss.noData}>{"No data"}</div>}
-                    onRowClick={this.selectRun}
-                    rowCount={rowCount}
-                    rowGetter={rowGetter}
-                    rowHeight={ROW_HEIGTH}
-                    rowStyle={{cursor: "pointer"}}
-                    sort={this._sort}
-                    sortBy={this.state.sortBy}
-                    sortDirection={this.state.sortDirection}
-                >
-                    {columns}
-                </Table>
+                <AutoSizer disableHeight>
+                    {({ height, width }) => (
+                        <Table
+                            width={width}
+                            height={this.tableHeight}
+                            headerClassName={tablesCss.headerColumn}
+                            headerHeight={ROW_HEIGTH}
+                            noRowsRenderer={() => (rowCount === 0) && <div className={tablesCss.noData}>{"No data"}</div>}
+                            onRowClick={this.selectRun}
+                            rowCount={rowCount}
+                            rowGetter={rowGetter}
+                            rowHeight={ROW_HEIGTH}
+                            rowStyle={{cursor: "pointer"}}
+                            sort={this._sort}
+                            sortBy={this.state.sortBy}
+                            sortDirection={this.state.sortDirection}
+                        >
+                            {this.makeColumns(width)}
+                        </Table>
+                    )}
+                </AutoSizer>
 
             </div>
         );
