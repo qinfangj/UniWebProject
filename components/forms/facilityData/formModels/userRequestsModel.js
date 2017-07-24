@@ -46,7 +46,6 @@ const userRequestsModel = {
             label: "Library type",
             optionsKey: optionsStoreKeys.LIB_PROTOCOLS,
             inputType: inputTypes.DROPDOWN,
-            required: true,
         },{
             name: fields.user_requests.MULTIPLEXING_GROUP,
             width: 2,
