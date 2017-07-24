@@ -238,8 +238,7 @@ class CommonTable extends React.PureComponent {
         }
         tables.checkData(data);
 
-        let cssHeight;
-        cssHeight = (this.gridHeight > (data.length + 1) * ROW_HEIGTH) ? (data.length + 1) * ROW_HEIGTH  : this.gridHeight;
+        let cssHeight = (this.gridHeight > (data.length + 1) * ROW_HEIGTH) ? (data.length + 1) * ROW_HEIGTH : this.gridHeight;
 
         const {
             //overscanRowCount,
@@ -286,7 +285,7 @@ class CommonTable extends React.PureComponent {
 
                 {/* The table */}
 
-                <div className={css.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
+                <div className={css.tableContainer} style={{height: cssHeight + 'px', width: '100%'}}>
                     <InfiniteLoader isRowLoaded={this.isRowLoaded}
                                     loadMoreRows={this.loadMoreRows}
                                     rowCount={rowCount}

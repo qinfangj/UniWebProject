@@ -7,7 +7,7 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as tables from '../tables.js';
-import { ROW_HEIGTH } from '../columns';
+import { ROW_HEIGTH, GRID_HEIGTH } from '../columns';
 import { queryRunsAsync } from '../../actions/actionCreators/queryRunsActionCreators';
 
 import columnDefs from './columns';
@@ -22,6 +22,7 @@ import Immutable from 'immutable'
 class QueryRunsTable extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.tableHeight = 400;
         this.queryType = "";
         this.state = {
             sortBy: "id",
@@ -114,9 +115,6 @@ class QueryRunsTable extends React.PureComponent {
 
 
     render() {
-        const width = 2000;
-        const height = 400;
-
         // Format data from props
         let data = this.props.tableData;
         if (!data) {
@@ -125,7 +123,6 @@ class QueryRunsTable extends React.PureComponent {
         tables.checkData(data);
         data = this.formatData(data);
         let rowCount = data.length;
-        let cssHeight = ((data.length + 1) * ROW_HEIGTH) + "px";
 
         // Format for RV with Immutable.js
         data = Immutable.fromJS(data);
@@ -141,15 +138,15 @@ class QueryRunsTable extends React.PureComponent {
         let tableWidth = columnDefs[this.props.queryType].reduce((sum, col) => sum + col.width, 0);
 
         return (
-            <div className={tablesCss.AutoSizerContainer} style={{width: '100%', height: cssHeight + 'px', marginTop: '15px'}}>
+            <div className={tablesCss.tableContainer} style={{width: '100%', marginTop: '15px'}}>
 
                 <Table
                     width={tableWidth}
-                    height={height}
+                    height={this.tableHeight}
                     headerClassName={tablesCss.headerColumn}
                     headerHeight={ROW_HEIGTH}
                     headerRowRenderer={this.headerRowRenderer}
-                    noRowsRenderer={() => rowCount === 0 && <div className={tablesCss.noData}>{"No data"}</div>}
+                    noRowsRenderer={() => (rowCount === 0) && <div className={tablesCss.noData}>{"No data"}</div>}
                     rowCount={rowCount}
                     rowGetter={rowGetter}
                     rowHeight={ROW_HEIGTH}
