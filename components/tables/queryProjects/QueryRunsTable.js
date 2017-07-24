@@ -59,6 +59,7 @@ class QueryRunsTable extends React.PureComponent {
 
     render() {
         let data = this.props.tableData;
+        console.log(data)
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
