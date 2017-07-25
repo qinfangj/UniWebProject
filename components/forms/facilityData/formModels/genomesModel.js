@@ -55,11 +55,13 @@ const genomesModel = {
             width: 2,
             label: "Masked",
             inputType: inputTypes.CHECKBOX,
+            style: {marginTop: "10px", marginLeft: "10px"},
         },{
             name: fields.genomes.IS_ARCHIVED,
             width: 2,
             label: "Archived",
             inputType: inputTypes.CHECKBOX,
+            style: {marginLeft: "10px"},
         }
     ],
     model: "genomes"
