@@ -9,7 +9,6 @@ import { resetSelection, search } from '../../../actions/actionCreators/queryPro
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
 import formNames from '../../../constants/formNames';
-import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -99,22 +98,10 @@ class QueryProjectsForm extends React.Component {
                 <Collapse in={this.state.visible}>
                     <Form>
                         <Col sm={6} className={css.col6}>
-                            <ProjectsMultipleSelect
-                                label="Projects"
-                                form={this.form}
-                                field={this.projectsFormKey}
-                                filterByProjectIds={this.props.projectIds}
-                            />
+                            <ProjectsMultipleSelect />
                         </Col>
                         <Col sm={6} className={css.col6}>
-                            <SamplesSecondaryMultipleSelect
-                                label="Samples"
-                                form={this.form}
-                                referenceField={this.projectsFormKey}
-                                field={this.samplesFormKey}
-                                filterBySampleIds={this.props.sampleIds}
-                                searchTerm={this.props.searchTerm}
-                            />
+                            <SamplesSecondaryMultipleSelect />
                         </Col>
                     </Form>
                 </Collapse>

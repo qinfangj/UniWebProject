@@ -1,132 +1,70 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
+import store from '../../../../core/store';
 import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
 
 import { bindActionCreators } from 'redux';
-import { requestSamplesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
-import { changeSamplesSelection } from '../../../actions/actionCreators/queryProjectsActionCreators';
+import { queryProjectsAsync } from '../../../actions/actionCreators/queryProjectsActionCreators';
 
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-import { assertIsArray } from '../../../../utils/common';
+import RRFInput from '../../bootstrapWrappers/RRFInput';
+import inputTypes from '../../../forms/inputTypes';
+
 
 
 class SamplesSecondaryMultipleSelect extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.projectIds = null; // not in state because not used for display. Only the callback updates the component.
     }
 
-    static propTypes = {
-        referenceField: PropTypes.string.isRequired,  // the store key for the other input's form value, which should have been specified via `storeKey`!
-        form: PropTypes.string.isRequired,  // form name
-        field: PropTypes.string.isRequired,  // the store key for the selected values
-        options: PropTypes.array.isRequired,  // the list of options
-        label: PropTypes.string,  // title on top of the input
-        formatter: PropTypes.func,  // ex: object => [id, name]
-        filterBySampleIds: PropTypes.any,  // set. keep only these ones
-        searchTerm: PropTypes.string,
+    filterByTerm = (options) => {
+        let term = this.props.searchTerm.toLowerCase();
+        if (term === "") {
+            return options;
+        } else {
+            return options.filter((v) => v[1].toLowerCase().indexOf(term) >= 0);
+        }
     };
 
-    /**
-     * Filter and format options.
-     */
-    getOptions() {
-        let options = this.filterOptions(this.props.options);
-        assertIsArray(options, "getOptions::this.props.options");
-        return options.map(v => {
-            return {id: v.id, name: v.shortName +" ("+ v.name +")", project_id: v.projectId};
-        });
-    }
-
-    /**
-     * Keep only options which id is in the set.
-     */
-    filterOptions(options) {
-        let selectedProjectIds = this.props.selectedProjectIds;
-        if (!selectedProjectIds) {
-            return [];
-        } else {
-            /* No projects selected: emtpy samples list */
-            if (Object.keys(selectedProjectIds).length === 0) {
-                return [];
-            /* 'Any' project selected: show all samples in list
-             -- none for now because it is too slow without pagination */
-            } else if (-1 in selectedProjectIds) {
-                return [];
-            /* Some projects are selected */
-            } else {
-                let referenceProjects = this.props.referenceProjects.filter(p => p.id in selectedProjectIds);  // the selected projects
-                let sampleIdsSet = this.props.filterBySampleIds;
-                /* No samples selected: don't filter, i.e. show all samples of the project(s) */
-                if (sampleIdsSet === null) {
-                    return options;
-                } else {
-                    return options.filter(v => {
-                        if (sampleIdsSet.has(v.id)) {
-                            return true;
-                        } else {
-                            let project = referenceProjects.filter(p => p.id === v.projectId)[0];
-                            let term = this.props.searchTerm;
-                            return project && (
-                                   project.name.toLowerCase().indexOf(term) >= 0
-                                || project.lastName.toLowerCase().indexOf(term) >= 0);
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    componentWillReceiveProps(newProps) {
-        let selectedProjectIds = newProps.selectedProjectIds;
-        if (selectedProjectIds) {
-            let projectIds = Object.keys(selectedProjectIds).join(",");
-            /* The value it depends on changed, ask for new data */
-            if (projectIds !== this.projectIds && projectIds.length > 0) {
-                this.projectIds = projectIds;  // avoids infinite callback loop
-                // this.props.getSecondaryOptionsListAsync(projectIds);
-                this.props.requestSamplesForProject(projectIds);
-            }
-        }
-    }
-
     render() {
-        return <div>asdf</div>
-        // return (
-        //     <MultipleSelect
-        //         {...this.props}
-        //         options={this.getOptions()}
-        //         onSelectActionCreator={changeSamplesSelection}
-        //     />
-        // );
+        let {options, ...otherProps} = this.props;
+        options = this.filterByTerm(this.props.options);
+        let modelName = "queryProjectsForms.queryProjects.samples";
+
+        return (
+            <RRFInput
+                inputType={inputTypes.MULTIPLE_SELECT}
+                modelName={modelName}
+                label="Samples"
+                options={[...options]}
+                hasNoneValue={true}
+                changeAction = {(model, value) => {
+                    store.dispatch(actions.change(model, value));
+                    this.props.queryProjectsAsync(value, this.props.queryType);  // the default storeKey is "tableData"
+                }}
+                style = {{height: "200px"}}
+            />
+        );
     }
 }
 
 
-SamplesSecondaryMultipleSelect.defaultProps = {
-    options: [],
-    selectedProjectIds: [], // list fo the ids of selected projects in the reference list
-    referenceProjects: [], // list of projects to select from
-};
-
 
 const mapStateToProps = (state) => {
     return {
-        options: state.queryProjects[optionsStoreKeys.SAMPLES_FOR_PROJECTS],
-        selectedProjectIds: state.queryProjects.projectIds,
-        referenceProjects: state.queryProjects[optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE],
+        options: state.secondaryOptions[optionsStoreKeys.SAMPLES_FOR_PROJECT],
+        searchTerm: state.queryProjects.searchTerm,
+        queryType: state.queryProjects.queryType,
+        selectedProjects: state.queryProjects.selectedProjects,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        requestSamplesForProject,
+        queryProjectsAsync,
     }, dispatch);
-    // return {
-    //     getSecondaryOptionsListAsync: (id) =>
-    //         dispatch(getSecondaryOptionsListAsync("samples", id, optionsStoreKeys.SAMPLES_FOR_PROJECTS)),
-    // };
 };
 
 

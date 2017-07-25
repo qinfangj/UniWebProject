@@ -7,8 +7,8 @@ import { asyncAction, assertStoreKey } from './base';
 /**
  * Query the table data for Query Runs, given a list of run IDs and a query type (sample material info, etc.)
  */
-export function queryRunsAsync(runIds, queryType, storeKey) {
-    let args = {runIds, storeKey};
+export function queryRunsAsync(runIds, queryType) {
+    let args = {runIds};
     runIds = Object.keys(runIds).join(",");
     return asyncAction(actions.queryRuns.QUERY_RUNS, RestService.queryRuns.bind(null, runIds, queryType), args);
 }

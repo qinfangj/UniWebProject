@@ -48,6 +48,4 @@ export default {
 
     // Query projects
     RUNS: "RUNS",
-    SAMPLES_FOR_PROJECTS: "SAMPLES_FOR_PROJECTS",  // samples for a multiple selection of projects (secondary list)
-    PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM: "PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM",  // projects+samples that contain a given string
 };

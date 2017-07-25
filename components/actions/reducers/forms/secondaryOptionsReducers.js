@@ -1,12 +1,18 @@
 "use strict";
 import types from '../../actionTypes';
 import returnList from '../base';
+import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 
-const defaultState = {};
+const defaultState = {
+    [optionsStoreKeys.SAMPLES_FOR_PROJECT]: [],
+    [optionsStoreKeys.LIBRAIRIES_FOR_PROJECT]: [],
+    [optionsStoreKeys.POOLS_FOR_PROJECT]: [],
+    [optionsStoreKeys.BASECALLINGS_OUTPUT_FOLDERS_FOR_RUN]: [],
+};
 
 function formatLibrariesForProject(v) { return [v.id, v.name]; }
-function formatSamplesForProject(v) { return [v.id, v.name + (v.shortName ? " ("+v.shortName+")" : "")]; }
+function formatSamplesForProject(v) { return [v.id, v.name + (v.shortName ? " ("+v.shortName+")" : ""), v.projectId]; }
 function formatPoolsForProject(v) { return [v.id, v.pool]; }
 function formatBasecallingsForRun(v) { return [v.id, v.outputDir]; }
 

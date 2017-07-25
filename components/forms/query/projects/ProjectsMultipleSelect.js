@@ -1,13 +1,15 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
+import css from '../query.css';
 import store from '../../../../core/store';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
 
 import { bindActionCreators } from 'redux';
-import { resetSelection, changeProjectsSelection } from '../../../actions/actionCreators/queryProjectsActionCreators';
+import { resetSelection } from '../../../actions/actionCreators/queryProjectsActionCreators';
 import { requestProjectsHavingASample } from '../../../actions/actionCreators/optionsActionCreators';
+import { requestSamplesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import RRFInput from '../../bootstrapWrappers/RRFInput';
@@ -21,28 +23,11 @@ class ProjectsMultipleSelect extends React.PureComponent {
     }
 
     static propTypes = {
-        form: PropTypes.string.isRequired,  // form name
-        field: PropTypes.string.isRequired,  // the store key for the selected values
-        options: PropTypes.array.isRequired,  // the list of options
-        label: PropTypes.string,  // title on top of the input
-        //filterByProjectIds: PropTypes.any,  // a Set. keep only these ones
     };
 
     componentWillMount() {
         this.props.requestProjectsHavingASample();
     }
-
-    // /**
-    //  * Keep only options which id is in the set of project IDs we filter by.
-    //  */
-    // filterOptions(options) {
-    //     let idsSet = this.props.filterByProjectIds;
-    //     if (this.props.searchTerm === "" || !idsSet) {
-    //         return options;
-    //     } else {
-    //         return options.filter(v => idsSet.has(v.id));
-    //     }
-    // }
 
     filterByTerm(options) {
         let term = this.props.searchTerm.toLowerCase();
@@ -54,7 +39,6 @@ class ProjectsMultipleSelect extends React.PureComponent {
     }
 
     render() {
-
         let {options, ...otherProps} = this.props;
         options = this.filterByTerm(this.props.options);
         let modelName = "queryProjectsForms.queryProjects.projects";
@@ -63,18 +47,14 @@ class ProjectsMultipleSelect extends React.PureComponent {
             <RRFInput
                 inputType={inputTypes.MULTIPLE_SELECT}
                 modelName={modelName}
+                label="Projects"
                 options={[...options]}
                 hasNoneValue={true}
-                //onSelectActionCreator={this.props.changeProjectsSelection}
-                //onResetActionCreator={this.props.resetSelection}
-                // changeAction = {(model, value) => {
-                //     console.log(value);
-                //     store.dispatch(actions.change(model, value))
-                // }}
-                // onChange = {() => {
-                //
-                // }}
-                //value={this.props.selectedProjects}  // useless, will not update
+                changeAction = {(model, value) => {
+                    store.dispatch(actions.change(model, value));
+                    this.props.requestSamplesForProject(optionsStoreKeys.SAMPLES_FOR_PROJECT, value);
+                }}
+                style = {{height: "200px"}}
             />
         );
     }
@@ -92,9 +72,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        changeProjectsSelection,
         resetSelection,
         requestProjectsHavingASample,
+        requestSamplesForProject,
     }, dispatch);
 };
 

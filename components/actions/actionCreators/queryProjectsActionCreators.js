@@ -7,30 +7,10 @@ import { asyncAction, assertStoreKey } from './base';
 /**
  * Query the table data for Query Projects, given a list of sample IDs and a query type (sample material info, etc.)
  */
-export function queryProjectsAsync(sampleIds, queryType, storeKey) {
-    let args = {sampleIds, storeKey};
-    //sampleIds = Object.keys(sampleIds).join(",");
+export function queryProjectsAsync(sampleIds, queryType) {
+    let args = {sampleIds};
+    sampleIds = sampleIds.join(",");
     return asyncAction(actions.queryProjects.QUERY_PROJECTS, RestService.queryProjects.bind(null, sampleIds, queryType), args);
-}
-
-/**
- * Add or remove a project from selection.
- */
-export function changeProjectsSelection(projectIds) {
-    return {
-        type: actions.queryProjects.CHANGE_PROJECTS_SELECTION,
-        projectIds: projectIds,
-    };
-}
-
-/**
- * Add or remove a sample from selection.
- */
-export function changeSamplesSelection(sampleIds) {
-    return {
-        type: actions.queryProjects.CHANGE_SAMPLES_SELECTION,
-        sampleIds: sampleIds,
-    };
 }
 
 /**
@@ -63,5 +43,28 @@ export function search(term) {
     };
     //let args = {term};
     //return asyncAction(actions.queryProjects.SEARCH_SAMPLES, RestService.searchSamplesByTerm.bind(null, term), args);
+}
+
+
+/**
+ * @deprecated (Now handled by RRF multiple inputs)
+ * Add or remove a project from selection.
+ */
+export function changeProjectsSelection(projectIds) {
+    return {
+        type: actions.queryProjects.CHANGE_PROJECTS_SELECTION,
+        projectIds: projectIds,
+    };
+}
+
+/**
+ * @deprecated (Now handled by RRF multiple inputs)
+ * Add or remove a sample from selection.
+ */
+export function changeSamplesSelection(sampleIds) {
+    return {
+        type: actions.queryProjects.CHANGE_SAMPLES_SELECTION,
+        sampleIds: sampleIds,
+    };
 }
 
