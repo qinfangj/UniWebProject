@@ -15,16 +15,21 @@ function checkStatus(status) {
     }
 }
 
-const neutralStatus = {
-    status: constants.NONE,
-    message: "",
-    error: {},
+
+const resetStatus = () => {
+    let state = {};
+    const neutralStatus = {
+        status: constants.NONE,
+        message: "",
+        error: {},
+    };
+    for (let form in formNames) {
+        state[form] = {...neutralStatus};
+    }
+    return state;
 };
 
-const defaultState = {};
-for (let form in formNames) {
-    defaultState[form] = {...neutralStatus};
-}
+const defaultState = resetStatus();
 
 
 let feedbackReducers = (state = defaultState, action) => {
@@ -63,10 +68,7 @@ let feedbackReducers = (state = defaultState, action) => {
             return newState;
 
         case types.feedback.FEEDBACK_RESET:
-            checkStatus(action.status);
-            newState = {...state};
-            newState[action.reference] = neutralStatus;
-            return newState;
+            return resetStatus();
 
         default:
             return state;

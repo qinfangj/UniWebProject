@@ -14,8 +14,13 @@ import * as account from './components/routes/accountRoutes';
 import AuthService from './utils/AuthService';
 
 
+// Fires on any route change.
+const onRouteChange = (nextRouterState, replace) => {
+};
+
 // Validate authentication for private routes
 const requireAuth = (nextRouterState, replace) => {
+    onRouteChange(nextRouterState, replace);
     if (!AuthService.isLoggedIn) {
         replace({ pathname: '/login' });
     }
@@ -25,13 +30,13 @@ const requireAuth = (nextRouterState, replace) => {
 const routes = (
     <Router history={hashHistory}>
         <Route path="/" component={App}>
-            <IndexRoute component={HomePage}/>
-            <Route path="home" component={HomePage}/>
+            <IndexRoute component={HomePage} onEnter={onRouteChange}/>
+            <Route path="home" component={HomePage} onEnter={onRouteChange}/>
 
-            <Route path="login" component={login.LoginPage}/>
-            <Route path="signup" component={login.SignupPage}/>
-            <Route path="forgotPassword" component={login.ForgotPasswordPage}/>
-            <Route path="changePassword" component={login.ChangePasswordPage}/>
+            <Route path="login" component={login.LoginPage} onEnter={onRouteChange}/>
+            <Route path="signup" component={login.SignupPage} onEnter={onRouteChange}/>
+            <Route path="forgotPassword" component={login.ForgotPasswordPage} onEnter={onRouteChange}/>
+            <Route path="changePassword" component={login.ChangePasswordPage} onEnter={onRouteChange}/>
 
             <Route path="account" component={account.AccountPage} onEnter={requireAuth} />
 
