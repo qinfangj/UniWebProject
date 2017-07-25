@@ -41,6 +41,10 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
                 options={[...options]}
                 hasNoneValue={true}
                 changeAction = {(model, value) => {
+                    // If the "-" option is in the selection
+                    if (value.indexOf("") >= 0) {
+                        value = [""];
+                    }
                     store.dispatch(actions.change(model, value));
                     this.props.queryProjectsAsync(value, this.props.queryType);  // the default storeKey is "tableData"
                 }}

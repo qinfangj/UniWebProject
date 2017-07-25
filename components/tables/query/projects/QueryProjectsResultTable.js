@@ -3,116 +3,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import tablesCss from '../../tables.css';
 import cx from 'classnames';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import * as tables from '../../tables.js';
 import { ROW_HEIGTH } from '../../columns';
-import optionsStoreKeys from '../../../constants/optionsStoreKeys';
-import { queryProjectsAsync } from '../../../actions/actionCreators/queryProjectsActionCreators';
-import { assertIsArray } from '../../../../utils/common';
 
-import { AgGridReact } from 'ag-grid-react';
-import columns from '../columns';
-
+import columnDefs from '../columns';
+import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
+import Immutable from 'immutable'
 
 
 class QueryProjectsTable extends React.Component {
     constructor(props) {
         super(props);
-        this.selectedSampleIds = "";
+        this.tableHeight = 400;
         this.queryType = "";
+        this.state = {
+            sortBy: "id",
+            sortDirection: "DESC",
+        };
     }
 
     static propTypes = {
         queryType: PropTypes.string.isRequired,  // from router, see parent (route) component
-        selectedSampleIds: PropTypes.object.isRequired,
-        selectedProjectIds: PropTypes.object.isRequired,
         searchTerm: PropTypes.string,
-        searched: PropTypes.object,
-        samplesList: PropTypes.array,
     };
-
-    /**
-     * Return an array of the sample ids that will be put into the table.
-     * If projects are selected, it fits what is displayed in the sample selection window.
-     * If not, it reflects the searched terms.
-     * If no filter is applied, returns an empty array.
-     */
-    getSelectedSampleIdsFromStore(props) {
-        let sampleIds = props.selectedSampleIds;
-        let projectIds = props.selectedProjectIds;
-        let isSamplesSelected = sampleIds && (Object.keys(sampleIds).length !== 0);
-        let isProjectsSelected = projectIds && (Object.keys(projectIds).length !== 0);
-        let selectedSampleIds = [];
-        /* If there is a samples selection, display these. */
-        if (isSamplesSelected) {
-            return Object.keys(sampleIds);
-        }
-        /* If there is no samples selection, there may be projects selected.
-         * Use the secondaryOptionsList for this projects selection to have the same list of ids
-         * as in the samples selection input. */
-        else {
-            if (isProjectsSelected) {
-                let samples = props.samplesList;  // options list, array of samples [{id, name}, ..]
-                if (samples) {
-                    assertIsArray(samples, "getSelectedSampleIdsFromStore::samples");
-                    selectedSampleIds = samples.map(v => v.id);
-                }
-            }
-        }
-        /* Check if there is a search by term */
-        let term = props.searchTerm;
-        let searched = props.searched;  // {projectIds(set), sampleIds(set)}
-        if (term && term.length > 0 && searched && searched.projectIds) {
-            let searchedSamples = searched.sampleIds;
-            /* If there was something in the projects/samples selection above, filter the result by term */
-            if (isSamplesSelected) {
-                selectedSampleIds = sampleIds.filter(v => searchedSamples.has(v));
-            }
-            /* Otherwise, use the result of the search by term directly */
-            else {
-                selectedSampleIds = [...searchedSamples];
-            }
-        }
-        /* If not yet available, wait for it (shortcut), because it this is the initial value */
-        else {
-            selectedSampleIds = [];
-        }
-        return selectedSampleIds;
-    }
-
-    isUpdated(selectedSampleIds, queryType) {
-        let samplesChanged = selectedSampleIds !== this.selectedSampleIds;
-        let queryTypeChanged = queryType !== this.queryType;
-        return samplesChanged || queryTypeChanged;
-    }
-
-    componentWillUpdate() {
-        this.api && this.api.doLayout();  // recalculate layout to fill the container div
-    }
-    componentDidUpdate() {
-        this.api && this.api.sizeColumnsToFit();  // recalculate columns width to fill the space
-    }
-
-    /* If selected ids or query type have changed, query new data */
-    componentWillReceiveProps(newProps) {
-        let queryType = newProps.queryType;
-        let selectedSampleIds = this.getSelectedSampleIdsFromStore(newProps);
-        selectedSampleIds = selectedSampleIds.join(",");
-        if (this.isUpdated(selectedSampleIds, queryType)) {
-            this.selectedSampleIds = selectedSampleIds;
-            this.queryType = queryType;
-            if (selectedSampleIds.length > 0) {
-                this.props.queryProjectsAsync(selectedSampleIds, queryType, queryType)
-                .fail(() => console.error("queryProjectsAsync() failed to load data."));
-            }
-        }
-    }
-
-    onGridReady(params) {
-        this.api = params.api;
-        this.columnApi = params.columnApi;
-    }
 
     formatData(data) {
         let L = data.length;
@@ -123,67 +40,143 @@ class QueryProjectsTable extends React.Component {
         return data;
     }
 
-    render() {
-        let data = this.props.tableData;
-        if (!data) {
-            throw new TypeError("Data cannot be null or undefined");
-        }
-        if (!columns[this.props.queryType]) {
-            throw new ReferenceError("No columns definition found");
-        }
-        tables.checkData(data);
-        data = this.formatData(data);
-        let cssHeight = ((data.length + 1) * ROW_HEIGTH) + "px";
+    /**
+     * Construct an array of <Column>s from the columns definition.
+     */
+    makeColumns(){
+        let colDefs = columnDefs[this.props.queryType];
+        return colDefs.map( s => {
+            return (
+                <Column key={s}
+                        label={s.headerName}
+                        dataKey={s.field}
+                        headerRenderer={this._headerRenderer}
+                        width={s.width}
+                />
+            );
+        });
+    }
+
+    /**
+     * RV: Return row[*index*] from *list*.
+     */
+    _getRow (data, index) {
+        return data.size !== 0 ? data.get(index % data.size) : {};
+    }
+
+    /**
+     * RV: Format the header of a Column so that it has the arrow indicating the direction of search.
+     */
+    _headerRenderer ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) {
         return (
-            <div style={{width: '100%', height: '100%'}}>
-                {/* If no data, no table but fill the space */}
-
-                <div className={cx("ag-bootstrap", tablesCss.agTableContainer)} style={{height: cssHeight, width: '100%'}}>
-                    <AgGridReact
-                        onGridReady={this.onGridReady.bind(this)}
-                        rowData={data}
-                        enableFilter={true}
-                        enableSorting={true}
-                        columnDefs={columns[this.props.queryType]}
-                        rowHeight={ROW_HEIGTH}
-                        headerHeight={ROW_HEIGTH}
-                        overlayNoRowsTemplate='<span/>'
-                    >
-                    </AgGridReact>
-                </div>
-
+            <div>
+                {label}
+                {sortBy === dataKey && <SortIndicator sortDirection={sortDirection} />}
             </div>
         );
     }
 
+    /**
+     * RV: Format the whole header row, given the array of Columns.
+     */
+    headerRowRenderer = ({ className, columns, style }) => {
+        return (
+            <div role="row" style={style} className={cx(className, tablesCss.RVheader)} >
+                {columns}
+            </div>
+        );
+    };
+
+    /**
+     * When a column header is clicked.
+     */
+    _sort = ({ sortBy, sortDirection }) => {
+        this.setState({ sortBy, sortDirection });
+    };
+
+
+    render() {
+        // Format data from props
+        let data = this.props.tableData;
+        if (!data) {
+            throw new TypeError("Data cannot be null or undefined");
+        }
+        tables.checkData(data);
+        data = this.formatData(data);
+        let rowCount = data.length;
+
+        // Format for RV with Immutable.js
+        data = Immutable.fromJS(data);
+        data = tables.sortImmutable(data, this.state.sortBy, this.state.sortDirection);
+        const rowGetter = ({index}) => this._getRow(data, index);
+
+        // Build the columns
+        if (!columnDefs[this.props.queryType]) {
+            throw new ReferenceError("No columns definition found");
+        }
+        let columns = this.makeColumns();
+        // Calculate the table width based on individual column widths
+        let tableWidth = columnDefs[this.props.queryType].reduce((sum, col) => sum + col.width, 0);
+
+        return (
+            <div className={tablesCss.tableContainer} style={{width: '100%', marginTop: '15px'}}>
+
+                <Table
+                    width={tableWidth}
+                    height={this.tableHeight}
+                    headerClassName={tablesCss.headerColumn}
+                    headerHeight={ROW_HEIGTH}
+                    headerRowRenderer={this.headerRowRenderer}
+                    noRowsRenderer={() => (rowCount === 0) && <div className={tablesCss.noData}>{"No data"}</div>}
+                    rowCount={rowCount}
+                    rowGetter={rowGetter}
+                    rowHeight={ROW_HEIGTH}
+                    sort={this._sort}
+                    sortBy={this.state.sortBy}
+                    sortDirection={this.state.sortDirection}
+                >
+                    {columns}
+                </Table>
+
+            </div>
+
+        );
+    }
 }
 
+
+// <div style={{width: '100%', height: '100%'}}>
+//     {/* If no data, no table but fill the space */}
+//
+//     <div className={cx("ag-bootstrap", tablesCss.agTableContainer)} style={{height: cssHeight, width: '100%'}}>
+//         <AgGridReact
+//             onGridReady={this.onGridReady.bind(this)}
+//             rowData={data}
+//             enableFilter={true}
+//             enableSorting={true}
+//             columnDefs={columns[this.props.queryType]}
+//             rowHeight={ROW_HEIGTH}
+//             headerHeight={ROW_HEIGTH}
+//             overlayNoRowsTemplate='<span/>'
+//         >
+//         </AgGridReact>
+//     </div>
+//
+// </div>
 
 
 QueryProjectsTable.defaultProps = {
     tableData: [],
-    selectedSampleIds: {},
-    selectedProjectIds: {},
     searchTerm: "",
-    searched: {},
-    samplesList: [],
 };
 
 
 const mapStateToProps = (state, ownProps) => {
     return {
         tableData: state.queryProjects.tableData,
-        selectedSampleIds: state.queryProjects.sampleIds,  // object {id: true, ...}
-        selectedProjectIds: state.queryProjects.projectIds,  // object {id: true, ...}
         searchTerm: state.queryProjects.searchTerm,
-        searched: state.queryProjects[optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM],  // {projectIds(set), sampleIds(set)}
-        samplesList: state.queryProjects[optionsStoreKeys.SAMPLES_FOR_PROJECTS],  // options list, array of samples [{id, name}, ..]
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ queryProjectsAsync }, dispatch);
-};
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(QueryProjectsTable);
+export default connect(mapStateToProps)(QueryProjectsTable);

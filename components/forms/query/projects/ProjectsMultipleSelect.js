@@ -51,8 +51,14 @@ class ProjectsMultipleSelect extends React.PureComponent {
                 options={[...options]}
                 hasNoneValue={true}
                 changeAction = {(model, value) => {
+                    // If the "-" option is in the selection
+                    if (value.indexOf("") >= 0) {
+                        value = [""];
+                        this.props.resetSelection();
+                    } else {
+                        this.props.requestSamplesForProject(optionsStoreKeys.SAMPLES_FOR_PROJECT, value);
+                    }
                     store.dispatch(actions.change(model, value));
-                    this.props.requestSamplesForProject(optionsStoreKeys.SAMPLES_FOR_PROJECT, value);
                 }}
                 style = {{height: "200px"}}
             />
