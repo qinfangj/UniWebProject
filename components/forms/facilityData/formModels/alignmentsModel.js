@@ -48,6 +48,7 @@ const alignmentsModel = {
             width: 2,
             label: "QC report",
             inputType: inputTypes.CHECKBOX,
+            style: {marginTop: "34px", marginLeft: "10px"},
         },{
             name: fields.CONFIG_FILE_CONTENT,
             width: 12,

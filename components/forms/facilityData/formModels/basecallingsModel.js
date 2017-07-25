@@ -38,16 +38,17 @@ const basecallingsModel = {
             options: [[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']],
             required: true,
         },{
-            name: fields.IS_DEMULTIPLEXING,
-            width: 2,
-            label: "Demultiplexing",
-            inputType: inputTypes.CHECKBOX,
-        },{
             name: fields.UNALIGNED_OUTPUT_DIR,
             width: 10,
             label: "Unaligned data output folder",
             inputType: inputTypes.TEXT,
             required: true,
+        },{
+            name: fields.IS_DEMULTIPLEXING,
+            width: 2,
+            label: "Demultiplexing",
+            inputType: inputTypes.CHECKBOX,
+            style: {marginTop: "34px"},
         },{
             name: fields.COMMENT,
             width: 12,
