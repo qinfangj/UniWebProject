@@ -15,7 +15,6 @@ import * as forms from '../forms';
 import * as users from './users';
 import adminDataModels from './adminDataModels';
 
-import Feedback from '../../utils/Feedback';
 import { Form } from 'react-redux-form';
 import { Button } from 'react-bootstrap/lib';
 import SubmitButton from '../SubmitButton';
@@ -122,8 +121,6 @@ class UsersAdminForm extends React.Component {
 
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
-
-                <Feedback reference={this.modelName} />
 
                 { formFields }
 

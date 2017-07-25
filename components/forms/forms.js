@@ -1,16 +1,17 @@
 "use strict";
 import React from 'react';
 import store from '../../core/store';
+import css from './forms.css';
+import cx from 'classnames';
 import _ from 'lodash';
+
 import { insertAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import { feedbackError, feedbackSuccess, feedbackWarning } from '../actions/actionCreators/feedbackActionCreators';
 import { findByIdAsync } from '../actions/actionCreators/facilityDataActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
 import { actions } from 'react-redux-form';
 
-import css from './forms.css';
-import cx from 'classnames';
+import * as feedback from '../../utils/feedback';
 import RRFInput from './bootstrapWrappers/RRFInput.js';
 import inputTypes from '../constants/inputTypes';
 import { Col } from 'react-bootstrap/lib';
@@ -56,7 +57,7 @@ export function newOrUpdate(modelName, table, updateId, onUpdated){
  * @param formName: from constants.formNames, to identify the origin of feedbacks.
  * @param onSuccess: callback to execute if the insert succeeded.
  */
-export function submitForm(modelName, insertData, table, formName, onSuccess, isAttribute = false) {
+export function submitForm(modelName, insertData, table, onSuccess, isAttribute = false) {
     if (confirm("Are you sure that you want to submit the data?")) {
         console.info("Values to submit: ", JSON.stringify(insertData, null, 2));
         // Created at: reformat so that it can be parsed as java.sql.Timestamp.
@@ -72,7 +73,7 @@ export function submitForm(modelName, insertData, table, formName, onSuccess, is
             .done((response) => {
                 /* Signal that it worked */
                 let itype = isUpdate ? "updated" : "inserted";
-                store.dispatch(feedbackSuccess(formName, "Successfully "+itype+" <"+response+">"));
+                feedback.success("Successfully "+itype+" <"+response+">", "submitForm");
                 console.debug(200, itype+" ID <"+response+">");
                 /* Clear the form data in store */
                 store.dispatch(actions.reset(modelName));
@@ -90,7 +91,7 @@ export function submitForm(modelName, insertData, table, formName, onSuccess, is
             })
             .fail((error) => {
                 console.warn("Uncaught form validation error: ", error);
-                store.dispatch(feedbackError(formName, "", error));
+                feedback.error("", error, "submitForm");
                 return error;
             });
     }

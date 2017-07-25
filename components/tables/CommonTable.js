@@ -14,7 +14,6 @@ import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionC
 import * as tables from './tables.js';
 import { ROW_HEIGTH, GRID_HEIGTH, idColumnLink } from './columns';
 
-import Feedback from '../utils/Feedback';
 import DataLoadingIcon from '../utils/DataLoadingIcon';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
@@ -268,12 +267,6 @@ class CommonTable extends React.PureComponent {
                     />
                 </div>
                 <div className="clearfix"/>
-
-                {/* Feedback */}
-
-                { this.props.form &&
-                    <Feedback reference={this.props.form}/>
-                }
 
                 {/* The table */}
 

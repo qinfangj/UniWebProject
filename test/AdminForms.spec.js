@@ -1,14 +1,13 @@
 "use strict";
 import React from 'react';
 import {shallow, mount, render} from 'enzyme';
-
 import {expect} from 'chai';
-import UserRequestsInsertForm from '../components/forms/facilityData/UserRequestsInsertForm';
 
-//import CommonTable from '../components/tables/facilityData/CommonTable';
 import AdminData from '../components/pages/AdminData';
-
 import CommonAdminForms from '../components/forms/adminData/CommonAdminForms';
+
+
+
 
 const wrapper1 = shallow(
     <AdminData title="Analysis Types" name="analysis_types"  content={

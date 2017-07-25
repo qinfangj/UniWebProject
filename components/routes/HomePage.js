@@ -1,6 +1,5 @@
 "use strict";
 import React from 'react';
-import Feedback from '../utils/Feedback';
 import formNames from '../constants/formNames';
 import store from '../../core/store';
 import css from './App.css'
@@ -21,24 +20,28 @@ class HomePage extends React.Component {
                 <h2>Welcome to
                    Lausanne Genomic Technologies Facility!</h2>
             </header>
-                <Feedback reference={formNames.SIGN_UP_FORM} />
-                <Feedback reference={formNames.CHANGE_PASSWORD_FORM} />
-                <Feedback reference={formNames.RESET_PASSWORD_FORM} />
                 {
+                    (stateFeedback[formNames.SIGN_UP_FORM].message === "") ? null :
 
-                    (stateFeedback[formNames.SIGN_UP_FORM].message === "")?
-                    null :
-                    <div width="80%" className={css.signUpMsg} >Your account is not active yet. <br />
-                    You will be noticed by an email soon when it has been validated by an administrator.</div>
+                    <div width="80%" className={css.signUpMsg} >
+                        Your account is not active yet.<br />
+                        You will be noticed by an email soon when it has been validated by an administrator.
+                    </div>
                 }
 
                 <Row className={css.row}>
                     <Col md={6}><div className={css.code1} /></Col>
                     <Col md={6}>
                         <div height='40%' className={css.msgDiv}>
-                            <p style={{textIntent:'50px'}}>This UHTS-Laboratory Information Managment System (LIMS) provides a relational database to store the information related to the Illumina sequencing technology.</p>
-                            <p>This UHTS-LIMS is only for the internal use on INTERFACE DEVELOPMENT of DNA Array Facility at Lausanne University.</p>
-
+                            <p style={{textIntent:'50px'}}>
+                                This UHTS-Laboratory Information Managment System (LIMS)
+                                provides a relational database to store the information related to the Illumina
+                                sequencing technology.
+                            </p>
+                            <p>
+                                This UHTS-LIMS is only for the internal use on INTERFACE DEVELOPMENT of
+                                DNA Array Facility at Lausanne University.
+                            </p>
                         </div>
 
                         <Alert bsStyle="info" className={css.msgDiv}>

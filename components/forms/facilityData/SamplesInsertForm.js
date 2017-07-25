@@ -4,17 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form } from 'react-redux-form';
 
-import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { requestAllProjects,
          requestTaxonomies,
          requestSampleTypes,
          requestQuantifMethods } from '../../actions/actionCreators/optionsActionCreators';
 
 import * as forms from '../forms.js';
-import formNames from '../../constants/formNames';
+import * as feedback from '../../../utils/feedback';
 import samplesModel from './formModels/samplesModel';
-
-import Feedback from '../../utils/Feedback';
 import SubmitButton from '../SubmitButton';
 
 
@@ -23,7 +20,6 @@ export class SamplesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "samples";
-        this.form = formNames.SAMPLES_INSERT_FORM;
         this.modelName = "facilityDataForms.samples";
         this.model = samplesModel;
         this.state = {
@@ -48,9 +44,9 @@ export class SamplesInsertForm extends React.PureComponent {
         let insertData = forms.formatFormFieldsDefault(this.model, values);
         let validation = forms.validateFormDefault(insertData);
         if (validation.isValid) {
-            forms.submitForm(this.modelName, insertData, this.table, this.form);
+            forms.submitForm(this.modelName, insertData, this.table);
         } else {
-            this.props.feedbackWarning(this.form, validation.message);
+            feedback.warning(validation.message, "SamplesInsertForm::onSubmit");
         }
     }
 
@@ -66,9 +62,6 @@ export class SamplesInsertForm extends React.PureComponent {
 
         return (
             <div>
-
-                <Feedback reference={this.form} />
-
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                     {formFields}
@@ -82,7 +75,6 @@ export class SamplesInsertForm extends React.PureComponent {
                     />
 
                 </Form>
-
             </div>
         );
     }
@@ -101,7 +93,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        feedbackWarning,
         requestAllProjects,
         requestTaxonomies,
         requestSampleTypes,

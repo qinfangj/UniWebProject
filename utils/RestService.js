@@ -1,9 +1,8 @@
 "use strict";
 import $ from 'jquery';
-import store from '../core/store';
 import AuthService from './AuthService';
 const BACKEND = window.ENV.BACKEND_URL;
-import { feedbackSuccess, feedbackError, feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
+import * as feedback from '../utils/feedback';
 
 
 /**
@@ -23,7 +22,7 @@ function handleError(jqXHR, statusText, error)  {
         AuthService.logout();
     }
     console.log(error, statusText, jqXHR)
-    store.dispatch(feedbackError("REST", msg, jqXHR));
+    feedback.error(msg, jqXHR, "RestService::handleError");
 }
 
 

@@ -9,13 +9,11 @@ import { requestInstruments,
          requestRunsTypesLengths,
          requestSequencingKitVersions } from '../../../actions/actionCreators/optionsActionCreators';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
-import { feedbackWarning } from '../../../actions/actionCreators/feedbackActionCreators';
 
 import * as forms from '../../forms.js';
+import * as feedback from '../../../../utils/feedback';
 import LanesSubForm from './LanesSubForm';
-import formNames from '../../../constants/formNames';
 import runsModel from '../formModels/runsModel';
-import Feedback from '../../../utils/Feedback';
 import SubmitButton from '../../SubmitButton';
 
 
@@ -23,7 +21,6 @@ export class RunsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "runs";  // db table for insert
-        this.form = formNames.RUNS_INSERT_FORM;  // for the feedback
         this.modelName = "facilityDataForms.runs";  // to track form data
         this.model = runsModel;
         this.state = {
@@ -105,9 +102,9 @@ export class RunsInsertForm extends React.PureComponent {
         let insertData = this.formatInsertData(values);
         let validation = this.validate(insertData);
         if (validation.isValid) {
-            forms.submitForm(this.modelName, insertData, this.table, this.form);
+            forms.submitForm(this.modelName, insertData, this.table);
         } else {
-            this.props.feedbackWarning(this.form, validation.message);
+            feedback.warning(validation.message, "RunsInsertForm::onSubmit");
         }
     }
 
@@ -123,8 +120,6 @@ export class RunsInsertForm extends React.PureComponent {
 
         return (
             <div>
-
-                <Feedback reference={this.form} />
 
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 

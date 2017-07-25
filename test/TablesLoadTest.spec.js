@@ -3,8 +3,8 @@ import React from 'react';
 import {shallow, mount, render} from 'enzyme';
 import store from '../core/store';
 import { Provider } from 'react-redux';
-
 import {expect} from 'chai';
+
 import CommonTable from '../components/tables/CommonTable';
 import tableNames from '../components/constants/tableNames';
 

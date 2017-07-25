@@ -4,8 +4,8 @@ import store from '../../../core/store';
 
 import { deleteAsync } from '../../actions/actionCreators/facilityDataActionCreators';
 import { validateUserAsync } from '../../actions/actionCreators/adminActionCreators';
-import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { hashHistory } from 'react-router';
+import * as feedback from '../../../utils/feedback';
 
 
 /*
@@ -22,7 +22,7 @@ export function userValidate(updateId, username, isUpdate, feedbackRef) {
         store.dispatch(validateUserAsync({ username }))
             .done((validateId) => {
                 console.debug(200, "Validated ID <" + validateId + ">");
-                store.dispatch(feedbackSuccess(feedbackRef, "Validated user <" + username + ">"));
+                feedback.success("Validated user <" + username + ">", "users.userValidate");
                 if (isUpdate) {
                     let currentPath = window.location.pathname + window.location.hash.substr(2);
                     hashHistory.push(currentPath.replace('/update/' + updateId, '/list'));
@@ -30,7 +30,7 @@ export function userValidate(updateId, username, isUpdate, feedbackRef) {
             })
             .fail((err) => {
                 console.warn("Uncaught form validation error");
-                store.dispatch(feedbackError(feedbackRef, "Uncaught form validation error", err));
+                feedback.error("Uncaught form validation error", err, "users.userValidate");
             });
     }
 }
@@ -46,8 +46,8 @@ export function userDelete(userId, feedbackRef){
     if (confirm("Are you sure to delete this user?")) {
         store.dispatch(deleteAsync("users", userId))
             .done((deleteId) => {
-                console.debug(200, "Delete <" + deleteId + "> records")
-                store.dispatch(feedbackSuccess(feedbackRef, "Delete <" + deleteId + "> records"));
+                console.debug(200, "Delete <" + deleteId + "> records");
+                feedback.success("Deleted <" + deleteId + "> records", "users.userDelete");
                 let currentPath = window.location.pathname + window.location.hash.substr(2);
                 hashHistory.push(currentPath.replace('/update/' + userId, '/list'));
                 //store.dispatch(actions.load())  // does nothing?
@@ -56,6 +56,7 @@ export function userDelete(userId, feedbackRef){
             .fail((err) => {
                 console.warn("Uncaught form validation error");
                 store.dispatch(feedbackError(feedbackRef, "Uncaught form validation error", err));
+                feedback.error("Uncaught form validation error", err, "users.userDelete");
             });
     }
 }

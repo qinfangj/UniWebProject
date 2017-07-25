@@ -4,10 +4,12 @@ import cx from 'classnames';
 import css from '../login.css';
 import commonCss from '../../../styles/common.css';
 import { connect } from 'react-redux';
-import { loginUser, resetFeedback } from '../../actions/actionCreators/authActionCreators';
-import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 
+import { loginUser } from '../../actions/actionCreators/authActionCreators';
+import * as feedback from '../../../utils/feedback';
+
+import { Link } from 'react-router';
 import {Form, FormControl, InputGroup, FormGroup, Button, Alert} from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
 
@@ -43,20 +45,20 @@ class LoginForm extends React.Component {
 
     getFeedback() {
         let feedback = "";
-        if (this.props.isError) {
-            let message = this.props.errorMessage;
-            if (message === "Unauthorized") {
-                feedback = "Wrong username or password";
-            } else {
-                feedback = "Unexpected error: " + message;
-            }
+        let message = this.props.errorMessage;
+        if (message === "Unauthorized") {
+            feedback = "Wrong username or password";
+        } else {
+            feedback = "Unexpected error: " + message;
         }
         return feedback;
     }
 
     render() {
-        let feedback = this.getFeedback();
-        let alert = this.props.isError ? <Alert bsStyle="info" onClick={() => this.props.resetFeedback()}>{feedback}</Alert> : null;
+        if (this.props.isError) {
+            let feedbackMessage = this.getFeedback();
+            feedback.info(feedbackMessage);
+        }
 
         return (
             <div className={css.formContainer}>
@@ -113,7 +115,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ loginUser, resetFeedback }, dispatch);
+    return bindActionCreators({ loginUser }, dispatch);
 };
 
 

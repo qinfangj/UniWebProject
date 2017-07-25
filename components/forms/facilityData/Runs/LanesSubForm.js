@@ -11,8 +11,6 @@ import { requestProjectsHavingALibrary,
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import { removeLibFromRuns } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import runLanesModel from '../formModels/runLanesModel';
-import poolSelectionModel from '../formModels/poolSelectionModel';
-import * as forms from '../../forms';
 
 import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';

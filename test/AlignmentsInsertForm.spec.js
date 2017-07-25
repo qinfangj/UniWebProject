@@ -5,8 +5,8 @@ import {shallow, mount, render} from 'enzyme';
 import store from '../core/store';
 import { Provider } from 'react-redux';
 import {expect, assert} from 'chai';
+
 import {AlignmentsInsertForm} from '../components/forms/facilityData/AlignmentsInsertForm';
-import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import alignmentsModel from '../components/forms/facilityData/formModels/alignmentsModel';
 import inputTypes from '../components/constants/inputTypes';
 
@@ -15,6 +15,7 @@ const wrapper = shallow(
         <AlignmentsInsertForm/>
     </Provider>
 );
+
 
 describe('(Component) AlignmentsInsertForm =>', () => {
 
@@ -42,7 +43,6 @@ describe('(Component) AlignmentsInsertForm =>', () => {
                 requestRunsOutputFolders={() => null}
                 requestMappingTools={() => null}
                 requestBasecallingsForRun={() => null}
-                feedbackWarning={() => store.dispatch(feedbackWarning())}
             />
         </Provider>
     );
