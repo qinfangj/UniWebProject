@@ -1,11 +1,11 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from './queryProjects.css';
+import css from '../query.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { resetSelection } from '../../actions/actionCreators/queryRunsActionCreators';
-import formNames from '../../constants/formNames';
+import { resetSelection } from '../../../actions/actionCreators/queryRunsActionCreators';
+import formNames from '../../../constants/formNames';
 
 import Icon from 'react-fontawesome';
 import QueryRunsSearch from './QueryRunsSearch';

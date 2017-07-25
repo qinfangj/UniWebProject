@@ -3,7 +3,7 @@ import React from 'react';
 import {shallow, mount, render} from 'enzyme';
 
 import {expect} from 'chai';
-import QueryProjectsForm from '../components/forms/queryProjects/QueryProjectsForm';
+import QueryProjectsForm from '../components/forms/query/projects/QueryProjectsForm';
 import store from '../core/store';
 import { Provider } from 'react-redux';
 

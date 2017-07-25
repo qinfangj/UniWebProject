@@ -1,11 +1,14 @@
 "use strict";
 
 /**
- * Format Ag-grid table fields, such as boolean (1 -> "Yes") and dates (112763817623 -> "Jan 1, 2016").
+ * Format table fields, such as boolean (1 -> "Yes") and dates (112763817623 -> "Jan 1, 2016").
  * The argument is an object `{value, valuedFormatted, data, node, colDef, ...}`.
  * */
 
 
+/**
+ * Convert "truthy" values to "Yes", and "falsey" values to "No".
+ */
 export function boolean(v) {
     if (!v) {
         return v;

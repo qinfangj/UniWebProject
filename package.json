@@ -7,8 +7,6 @@
     "npm": ">=3.8"
   },
   "dependencies": {
-    "ag-grid": "^9.1.0",
-    "ag-grid-react": "^9.1.0",
     "auth0-lock": "^10.6.1",
     "babel-polyfill": "^6.9.1",
     "bootstrap-sass": "^3.3.7",

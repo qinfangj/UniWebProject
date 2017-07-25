@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tablesCss from '../../tables.css';
-import css from '../queryProjectsTable.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as tables from '../../tables.js';
@@ -57,19 +56,19 @@ class QueryRunsSelectionTable extends React.PureComponent {
     };
 
     /**
-     * When a row is clicked, add the corresponding sample to the list of selected samples,
+     * When a row is clicked, add the corresponding run to the list of selected runs,
      * and query Runs accordingly.
      */
     selectRun = ({e, index, rowData}) => {
-        let sampleId = rowData.get("id");
-        let selectedSamples = this.props.selectedSamples;
-        if (selectedSamples[sampleId]) {
-            delete selectedSamples[sampleId];
+        let runId = rowData.get("id");
+        let selectedRuns = this.props.selectedRuns;
+        if (selectedRuns[runId]) {
+            delete selectedRuns[runId];
         } else {
-            selectedSamples[sampleId] = true;
+            selectedRuns[runId] = true;
         }
-        this.props.changeRunsSelection(selectedSamples);
-        this.props.queryRunsAsync(selectedSamples, this.props.queryType);
+        this.props.changeRunsSelection(selectedRuns);
+        this.props.queryRunsAsync(selectedRuns, this.props.queryType);
     };
 
     /**
@@ -89,8 +88,8 @@ class QueryRunsSelectionTable extends React.PureComponent {
                 cellRenderer = ({ cellData }) => {
                     return <Checkbox
                         id={cellData}
-                        className={css.checkbox}
-                        checked={!!this.props.selectedSamples[cellData]}
+                        className={tablesCss.checkbox}
+                        checked={!!this.props.selectedRuns[cellData]}
                         value={cellData}
                         readOnly
                     />
@@ -214,7 +213,7 @@ function filterRuns(runs, term) {
 const mapStateToProps = (state) => {
     let runs = state.facilityData["runs"].data;
     let queryType = state.queryRuns.queryType;
-    let selectedSamples = state.queryRuns.selectedRuns;
+    let selectedRuns = state.queryRuns.selectedRuns;
     let searchTerm = state.queryRuns.searchTerm;
     if (searchTerm !== "") {
         runs = filterRuns(runs, searchTerm);
@@ -222,7 +221,7 @@ const mapStateToProps = (state) => {
     return {
         runs,
         queryType,
-        selectedSamples,
+        selectedRuns,
     };
 };
 

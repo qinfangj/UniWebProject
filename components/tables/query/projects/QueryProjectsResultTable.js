@@ -2,24 +2,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tablesCss from '../../tables.css';
-import css from '../queryProjectsTable.css';
 import cx from 'classnames';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import * as tables from '../../tables.js';
 import { ROW_HEIGTH } from '../../columns';
-import { queryRunsAsync } from '../../../actions/actionCreators/queryRunsActionCreators';
 
 import columnDefs from '../columns';
 import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
 import Immutable from 'immutable'
 
 
-
-/**
- * Table that displays the *result* of the Runs query.
- */
-class QueryRunsTable extends React.PureComponent {
+class QueryProjectsTable extends React.Component {
     constructor(props) {
         super(props);
         this.tableHeight = 400;
@@ -32,26 +28,14 @@ class QueryRunsTable extends React.PureComponent {
 
     static propTypes = {
         queryType: PropTypes.string.isRequired,  // from router, see parent (route) component
+        searchTerm: PropTypes.string,
     };
 
-    /* If query type has changed (route change), query new data */
-    componentWillReceiveProps(newProps) {
-        let queryType = newProps.queryType;
-        if (queryType !== this.queryType) {
-            this.queryType = queryType;
-            this.props.queryRunsAsync(this.props.selectedSamples, queryType)
-                .fail(() => console.error("queryRunsAsync() failed to load data."));
-        }
-    }
-
-    /**
-     * Format the raw data we get from backend, for example to merge first and last name.
-     */
     formatData(data) {
         let L = data.length;
         for (let i=0; i < L; i++) {
             let d = data[i];
-            d.submitter = (d.submitter_first_name || "") +" "+ (d.submitter_last_name || "");
+            d.submitter = (d.submitter_first_name + d.submitter_last_name) || "";
         }
         return data;
     }
@@ -64,10 +48,10 @@ class QueryRunsTable extends React.PureComponent {
         return colDefs.map( s => {
             return (
                 <Column key={s}
-                    label={s.headerName}
-                    dataKey={s.field}
-                    headerRenderer={this._headerRenderer}
-                    width={s.width}
+                        label={s.headerName}
+                        dataKey={s.field}
+                        headerRenderer={this._headerRenderer}
+                        width={s.width}
                 />
             );
         });
@@ -109,9 +93,6 @@ class QueryRunsTable extends React.PureComponent {
     _sort = ({ sortBy, sortDirection }) => {
         this.setState({ sortBy, sortDirection });
     };
-
-
-    /////////////////////////////////////
 
 
     render() {
@@ -158,29 +139,44 @@ class QueryRunsTable extends React.PureComponent {
                 </Table>
 
             </div>
+
         );
     }
-
 }
 
 
+// <div style={{width: '100%', height: '100%'}}>
+//     {/* If no data, no table but fill the space */}
+//
+//     <div className={cx("ag-bootstrap", tablesCss.agTableContainer)} style={{height: cssHeight, width: '100%'}}>
+//         <AgGridReact
+//             onGridReady={this.onGridReady.bind(this)}
+//             rowData={data}
+//             enableFilter={true}
+//             enableSorting={true}
+//             columnDefs={columns[this.props.queryType]}
+//             rowHeight={ROW_HEIGTH}
+//             headerHeight={ROW_HEIGTH}
+//             overlayNoRowsTemplate='<span/>'
+//         >
+//         </AgGridReact>
+//     </div>
+//
+// </div>
 
-QueryRunsTable.defaultProps = {
+
+QueryProjectsTable.defaultProps = {
     tableData: [],
+    searchTerm: "",
 };
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        tableData: state.queryRuns.tableData,
-        queryType: state.queryRuns.queryType,
-        selectedSamples: state.queryRuns.selectedRuns,
+        tableData: state.queryProjects.tableData,
+        searchTerm: state.queryProjects.searchTerm,
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ queryRunsAsync }, dispatch);
-};
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(QueryRunsTable);
+export default connect(mapStateToProps)(QueryProjectsTable);

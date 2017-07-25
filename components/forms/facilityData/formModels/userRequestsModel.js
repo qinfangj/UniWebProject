@@ -1,7 +1,7 @@
 "use strict";
 import fields from '../../../constants/fields';
 // import formNames from '../../../constants/formNames';
-import inputTypes from '../../inputTypes';
+import inputTypes from '../../../constants/inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import validators from '../../validators';
 
@@ -46,7 +46,6 @@ const userRequestsModel = {
             label: "Library type",
             optionsKey: optionsStoreKeys.LIB_PROTOCOLS,
             inputType: inputTypes.DROPDOWN,
-            required: true,
         },{
             name: fields.user_requests.MULTIPLEXING_GROUP,
             width: 2,

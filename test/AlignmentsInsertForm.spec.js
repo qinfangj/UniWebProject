@@ -8,7 +8,7 @@ import {expect, assert} from 'chai';
 import {AlignmentsInsertForm} from '../components/forms/facilityData/AlignmentsInsertForm';
 import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import alignmentsModel from '../components/forms/facilityData/formModels/alignmentsModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 const wrapper = shallow(
     <Provider store={store}>

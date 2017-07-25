@@ -1,9 +1,9 @@
 "use strict";
 import React from 'react';
-import css from './queryProjects.css';
+import css from '../query.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { resetSelection, search } from '../../actions/actionCreators/queryRunsActionCreators';
+import { resetSelection, search } from '../../../actions/actionCreators/queryRunsActionCreators';
 import { FormControl } from 'react-bootstrap/lib';
 
 

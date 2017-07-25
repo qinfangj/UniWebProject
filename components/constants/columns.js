@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Column keys in Ag-Grig columns definition files,
+ * Column keys in columns definition files,
  * i.e. not the columns names, but the keys to the different column definition objects.
  */
 

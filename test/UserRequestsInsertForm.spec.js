@@ -7,7 +7,7 @@ import {expect,assert} from 'chai';
 import {UserRequestsInsertForm} from '../components/forms/facilityData/UserRequestsInsertForm';
 import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import userRequestsModel from '../components/forms/facilityData/formModels/userRequestsModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 
 const wrapper = shallow(

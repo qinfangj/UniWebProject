@@ -9,7 +9,7 @@ import { ProjectsInsertForm } from '../components/forms/facilityData/ProjectsIns
 
 import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import projectsModel from '../components/forms/facilityData/formModels/projectsModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 
 

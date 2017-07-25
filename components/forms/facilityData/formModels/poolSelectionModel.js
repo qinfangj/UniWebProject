@@ -1,6 +1,6 @@
 "use strict";
 import formNames from '../../../constants/formNames';
-import inputTypes from '../../inputTypes';
+import inputTypes from '../../../constants/inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 

@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import {GenomesInsertForm} from '../components/forms/facilityData/GenomesInsertForm';
 import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import genomesModel from '../components/forms/facilityData/formModels/genomesModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 
 const wrapper = shallow(

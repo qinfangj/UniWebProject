@@ -8,7 +8,7 @@ import {expect,assert} from 'chai';
 import {RunsInsertForm} from '../components/forms/facilityData/Runs/RunsInsertForm';
 import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import runsModel from '../components/forms/facilityData/formModels/runsModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 const wrapper1 = shallow(
     <Provider store={store}>
