@@ -1,6 +1,7 @@
 "use strict";
 import React from 'react';
 import css from '../query.css';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
@@ -28,6 +29,11 @@ class QueryProjectsForm extends React.Component {
             visible: true,
         };
     }
+
+    static propTypes = {
+        // The left menu section, type of info to display. Not from store! but read from URL.
+        queryType: PropTypes.string.isRequired,
+    };
 
     componentWillMount() {
         // Initialize with all samples - filtering with empty term
@@ -93,10 +99,10 @@ class QueryProjectsForm extends React.Component {
                 <Collapse in={this.state.visible}>
                     <Form>
                         <Col sm={6} className={css.col6}>
-                            <ProjectsMultipleSelect />
+                            <ProjectsMultipleSelect queryType={this.props.queryType} />
                         </Col>
                         <Col sm={6} className={css.col6}>
-                            <SamplesSecondaryMultipleSelect />
+                            <SamplesSecondaryMultipleSelect queryType={this.props.queryType} />
                         </Col>
                     </Form>
                 </Collapse>

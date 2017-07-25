@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import store from '../../../../core/store';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-
 import { bindActionCreators } from 'redux';
+
 import { queryProjectsAsync } from '../../../actions/actionCreators/queryProjectsActionCreators';
 
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
@@ -18,6 +18,11 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
     constructor(props) {
         super(props);
     }
+
+    static propTypes = {
+        // The left menu section, type of info to display. Not from store! but read from URL.
+        queryType: PropTypes.string.isRequired,
+    };
 
     filterByTerm = (options) => {
         let term = this.props.searchTerm.toLowerCase();
@@ -60,7 +65,6 @@ const mapStateToProps = (state) => {
     return {
         options: state.secondaryOptions[optionsStoreKeys.SAMPLES_FOR_PROJECT],
         searchTerm: state.queryProjects.searchTerm,
-        queryType: state.queryProjects.queryType,
         selectedProjects: state.queryProjects.selectedProjects,
     };
 };

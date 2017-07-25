@@ -50,21 +50,22 @@ export const queryProjectsSubmenu = [
       text: "Samples sheet",
       to: `/projects/${colnames.queryProjects.SAMPLE_SHEETS_INFO}`,
       action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.SAMPLE_SHEETS_INFO)),
-    },{
-     text: "IVC plots",
-      to: `/projects/${colnames.queryProjects.IVC_PLOTS_INFO}`,
-        action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.IVC_PLOTS)),
     },
+    // {
+    //  text: "IVC plots",
+    //   to: `/projects/${colnames.queryProjects.IVC_PLOTS_INFO}`,
+    //     action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.IVC_PLOTS)),
+    // },
     {
       text: "Demultiplexings",
       to: `/projects/${colnames.queryProjects.DEMULTIPLEXING_INFO}`,
       action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.DEMULTIPLEXING_INFO)),
     },
-    {
-      text: "Alignments (CASAVA)",
-      to: `/projects/${colnames.queryProjects.ALIGNMENTS_INFO}`,
-      action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.ALIGNMENTS_INFO)),
-    },
+    // {
+    //   text: "Alignments (CASAVA)",
+    //   to: `/projects/${colnames.queryProjects.ALIGNMENTS_INFO}`,
+    //   action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.ALIGNMENTS_INFO)),
+    // },
 ];
 
 export const queryRunsSubmenu = [
