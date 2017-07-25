@@ -212,7 +212,6 @@ function filterRuns(runs, term) {
 
 const mapStateToProps = (state) => {
     let runs = state.facilityData["runs"].data;
-    let queryType = state.queryRuns.queryType;
     let selectedRuns = state.queryRuns.selectedRuns;
     let searchTerm = state.queryRuns.searchTerm;
     if (searchTerm !== "") {
@@ -220,7 +219,6 @@ const mapStateToProps = (state) => {
     }
     return {
         runs,
-        queryType,
         selectedRuns,
     };
 };

@@ -26,10 +26,6 @@ class QueryRunsForm extends React.PureComponent {
         };
     }
 
-    static propTypes = {
-        queryType: PropTypes.string.isRequired,
-    };
-
     onReset = () => {
         this.props.resetSelection();
     };
