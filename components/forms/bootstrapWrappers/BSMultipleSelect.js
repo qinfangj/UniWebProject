@@ -23,6 +23,7 @@ class BSMultipleSelect extends React.PureComponent {
         let {value, isRequired, options, label, hasNoneValue, ...inputProps} = this.props;
         let title = makeLabel(label, isRequired);
 
+        // Need to cast to string because the 'value' prop of an <option> is alwasy a string and will compare.
         value = value.map(v => ''+v) || emptyArray;
 
         // Turn [1, "a"]s into <option>s.
