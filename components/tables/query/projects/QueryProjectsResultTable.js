@@ -16,7 +16,7 @@ import columns from '../columns';
 
 
 
-class QueryProjectsResultTable extends React.Component {
+class QueryProjectsTable extends React.Component {
     constructor(props) {
         super(props);
         this.selectedSampleIds = "";
@@ -160,7 +160,7 @@ class QueryProjectsResultTable extends React.Component {
 
 
 
-QueryProjectsResultTable.defaultProps = {
+QueryProjectsTable.defaultProps = {
     tableData: [],
     selectedSampleIds: {},
     selectedProjectIds: {},
@@ -176,8 +176,8 @@ const mapStateToProps = (state, ownProps) => {
         selectedSampleIds: state.queryProjects.sampleIds,  // object {id: true, ...}
         selectedProjectIds: state.queryProjects.projectIds,  // object {id: true, ...}
         searchTerm: state.queryProjects.searchTerm,
-        searched: state.queryProjects.projectsAndSamplesSearchedByTerm,  // {projectIds(set), sampleIds(set)}
-        samplesList: state.secondaryOptions[optionsStoreKeys.SAMPLES_FOR_PROJECTS],  // options list, array of samples [{id, name}, ..]
+        searched: state.queryProjects[optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM],  // {projectIds(set), sampleIds(set)}
+        samplesList: state.queryProjects[optionsStoreKeys.SAMPLES_FOR_PROJECTS],  // options list, array of samples [{id, name}, ..]
     };
 };
 
@@ -186,4 +186,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(QueryProjectsResultTable);
+export default connect(mapStateToProps, mapDispatchToProps)(QueryProjectsTable);

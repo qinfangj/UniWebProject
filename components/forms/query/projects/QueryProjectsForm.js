@@ -8,7 +8,6 @@ import { resetSelection, search } from '../../../actions/actionCreators/queryPro
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
-import formNames from '../../../constants/formNames';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -25,10 +24,6 @@ import Icon from 'react-fontawesome';
 class QueryProjectsForm extends React.Component {
     constructor() {
         super();
-        this.form = formNames.QUERY_PROJECTS_FORM;
-        // Build store keys for selected form values
-        this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
-        this.samplesFormKey = this.form + formNames.suffixes.SAMPLES;
         this.state = {
             visible: true,
         };
@@ -112,20 +107,13 @@ class QueryProjectsForm extends React.Component {
 
 
 QueryProjectsForm.defaultProps = {
-    projectIds: {},
-    sampleIds: {},
     searchTerm: "",
 };
 
 
 const mapStateToProps = (state, ownProps) => {
-    let searched = state.queryProjects.projectsAndSamplesSearchedByTerm;  // {projectIds(set), sampleIds(set)}
     let searchTerm = state.queryProjects.searchTerm;
-    let projectIds = searched.projectIds || new Set();
-    let sampleIds = searched.sampleIds || new Set();
     return {
-        projectIds,
-        sampleIds,
         searchTerm,
     };
 };

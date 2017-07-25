@@ -1,7 +1,6 @@
 "use strict";
 import types from '../actionTypes';
 import returnList from './base';
-import optionsStoreKeys from '../../constants/optionsStoreKeys';
 import columns from '../../constants/columns';
 
 
@@ -19,6 +18,9 @@ let queryProjectsReducers = (state = defaultState, action) => {
 
     switch (action.type) {
 
+        /**
+         * Expects `action.queryType` - a string.
+         */
         case types.queryProjects.CHANGE_QUERY_TYPE:
             return {...state, queryType: action.queryType};
 
@@ -44,32 +46,19 @@ let queryProjectsReducers = (state = defaultState, action) => {
         case types.queryProjects.RESET_SELECTION:
             return Object.assign({}, state,
                 {
-                    [optionsStoreKeys.SAMPLES_FOR_PROJECTS]: [],
-                    sampleIds: {}, projectsIds: {}, searchTerm: "",
-                    tableData: []
+                    tableData: [],
+                    projectsAndSamplesSearchedByTerm: [],
+                    selectedSamples: {},
+                    selectedProjects: {},
+                    searchTerm: "",
                 }
             );
-
-        /**
-         * Since these two options lists are stored in the forms reducer, cannot access
-         * to that part of the store tree from here. So we store it twice, instead of
-         * maybe better but super complicated solutions like this:
-         * http://redux.js.org/docs/recipes/ComputingDerivedData.html
-         * https://github.com/reactjs/redux/issues/749
-         */
-        case types.forms.GET_OPTIONS_LIST:
-        case types.forms.GET_SECONDARY_OPTIONS_LIST:
-            if (action.args.storeKey === optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE ||
-                action.args.storeKey === optionsStoreKeys.SAMPLES_FOR_PROJECTS) {
-                return returnList(action, state, action.args.storeKey, []);
-            } else {
-                return state;
-            }
 
         case types.queryProjects.SEARCH:
             return {...state, searchTerm: action.term};
 
         // /**
+        //  * @deprecated
         //  * Search for samples having a given term in their name.
         //  * The search returns all samples containing the term,
         //  * but what we want is options from both projects and samples lists,

@@ -55,7 +55,7 @@ class QueryRunsSearch extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-    let nSelectedRuns = Object.keys(state.queryRuns.nSelectedRuns).length;
+    let nSelectedRuns = Object.keys(state.queryRuns.selectedRuns).length;
     let searchTerm = state.queryRuns.searchTerm;
     return {
         nSelectedRuns: nSelectedRuns,

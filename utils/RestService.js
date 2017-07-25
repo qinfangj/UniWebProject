@@ -80,7 +80,7 @@ class RestService {
         return get(url);
     }
     getSecondaryOptionsList(tableName, id) {
-        if (!id || id === "") {
+        if (!id || id === "" || (Array.isArray(id) && id[0] === "")) {
             throw "Empty argument to getSecondaryOptionsList";
         }
         let url = `${BACKEND}/table/${tableName}/secondaryList/${id}`;
