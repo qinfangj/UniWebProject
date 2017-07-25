@@ -14,7 +14,6 @@ import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
 import Immutable from 'immutable'
 
 
-
 /**
  * Table that displays the *result* of the Runs query.
  */
@@ -31,6 +30,7 @@ class QueryRunsTable extends React.PureComponent {
 
     static propTypes = {
         queryType: PropTypes.string.isRequired,  // from router, see parent (route) component
+        searchTerm: PropTypes.string,
     };
 
     /* If query type has changed (route change), query new data */
@@ -38,7 +38,7 @@ class QueryRunsTable extends React.PureComponent {
         let queryType = newProps.queryType;
         if (queryType !== this.queryType) {
             this.queryType = queryType;
-            this.props.queryRunsAsync(this.props.selectedSamples, queryType)
+            this.props.queryRunsAsync(this.props.selectedRuns, queryType)
                 .fail(() => console.error("queryRunsAsync() failed to load data."));
         }
     }
@@ -172,8 +172,8 @@ QueryRunsTable.defaultProps = {
 const mapStateToProps = (state) => {
     return {
         tableData: state.queryRuns.tableData,
-        queryType: state.queryRuns.queryType,
-        selectedSamples: state.queryRuns.selectedRuns,
+        selectedRuns: state.queryRuns.selectedRuns,
+        searchTerm: state.queryRuns.searchTerm,
     };
 };
 

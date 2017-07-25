@@ -6,6 +6,7 @@ import cx from 'classnames';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { queryProjectsAsync } from '../../../actions/actionCreators/queryProjectsActionCreators';
 
 import * as tables from '../../tables.js';
 import { ROW_HEIGTH } from '../../columns';
@@ -15,6 +16,9 @@ import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
 import Immutable from 'immutable'
 
 
+/**
+ * Table that displays the *result* of the Projects/samples query.
+ */
 class QueryProjectsTable extends React.Component {
     constructor(props) {
         super(props);
@@ -31,6 +35,19 @@ class QueryProjectsTable extends React.Component {
         searchTerm: PropTypes.string,
     };
 
+    /* If query type has changed (route change), query new data */
+    componentWillReceiveProps(newProps) {
+        let queryType = newProps.queryType;
+        if (queryType !== this.queryType) {
+            this.queryType = queryType;
+            this.props.queryProjectsAsync(this.props.selectedSamples, queryType)
+                .fail(() => console.error("queryProjectsAsync() failed to load data."));
+        }
+    }
+
+    /**
+     * Format the raw data we get from backend, for example to merge first and last name.
+     */
     formatData(data) {
         let L = data.length;
         for (let i=0; i < L; i++) {
@@ -145,29 +162,11 @@ class QueryProjectsTable extends React.Component {
 }
 
 
-// <div style={{width: '100%', height: '100%'}}>
-//     {/* If no data, no table but fill the space */}
-//
-//     <div className={cx("ag-bootstrap", tablesCss.agTableContainer)} style={{height: cssHeight, width: '100%'}}>
-//         <AgGridReact
-//             onGridReady={this.onGridReady.bind(this)}
-//             rowData={data}
-//             enableFilter={true}
-//             enableSorting={true}
-//             columnDefs={columns[this.props.queryType]}
-//             rowHeight={ROW_HEIGTH}
-//             headerHeight={ROW_HEIGTH}
-//             overlayNoRowsTemplate='<span/>'
-//         >
-//         </AgGridReact>
-//     </div>
-//
-// </div>
-
 
 QueryProjectsTable.defaultProps = {
     tableData: [],
     searchTerm: "",
+    selectedSamples: [],
 };
 
 
@@ -175,8 +174,12 @@ const mapStateToProps = (state, ownProps) => {
     return {
         tableData: state.queryProjects.tableData,
         searchTerm: state.queryProjects.searchTerm,
+        selectedSamples: state.queryProjects.selectedSamples,
     };
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ queryProjectsAsync }, dispatch);
+};
 
-export default connect(mapStateToProps)(QueryProjectsTable);
+export default connect(mapStateToProps, mapDispatchToProps)(QueryProjectsTable);

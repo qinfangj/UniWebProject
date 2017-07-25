@@ -15,7 +15,7 @@ export class QueryProjectsRoute extends React.Component {
         let queryType = subpaths[subpaths.length-1];  // last element of the path
         return (
             <div>
-                <QueryProjectsForm />
+                <QueryProjectsForm queryType={queryType} />
                 <div className="clearfix"/>
                 <QueryProjectsResultTable queryType={queryType} />
             </div>
@@ -29,7 +29,7 @@ export class QueryRunsRoute extends React.Component {
         let queryType = subpaths[subpaths.length-1];  // last element of the path
         return (
             <div>
-                <QueryRunsForm queryType={queryType}>
+                <QueryRunsForm>
                     <QueryRunsSelectionTable queryType={queryType} />
                 </QueryRunsForm>
                 <div className="clearfix"/>

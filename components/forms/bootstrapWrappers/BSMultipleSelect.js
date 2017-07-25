@@ -20,23 +20,20 @@ class BSMultipleSelect extends React.PureComponent {
     };
 
     render() {
-        // Don't pass unwanted props to <input/>
-        // in particular `value` because for a multiple select, we need to pass `values`...
-        //console.log(this.props.options)
-
         let {value, isRequired, options, label, hasNoneValue, ...inputProps} = this.props;
         let title = makeLabel(label, isRequired);
 
-        value = value || emptyArray;
+        // Need to cast to string because the 'value' prop of an <option> is always a string and will compare.
+        value = value.map(v => ''+v) || emptyArray;
 
         // Turn [1, "a"]s into <option>s.
         let opts = options ? options.map((v,i) => {
-            return <option value={v[0]} key={i} selected={value.indexOf(v[0]) >= 0}>{v[1]}</option>;
+            return <option value={v[0]} key={i}>{v[1]}</option>;
         }) : [];
 
         // Add the "-" default option.
         if (options && hasNoneValue) {
-            opts.unshift(<option value="" key="-" selected={value.indexOf("") >= 0}>{'-'}</option>);
+            opts.unshift(<option value="" key="-">{'-'}</option>);
         }
 
         return (

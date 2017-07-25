@@ -7,7 +7,7 @@ import columns from '../../constants/columns';
 const defaultState = {
     tableData: [],
     selectedRuns: {},
-    queryType: columns.queryProjects.STARTING_MATERIAL_INFO,
+    queryType: "",
     searchTerm: "",
 };
 

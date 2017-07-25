@@ -6,15 +6,17 @@ import columns from '../../constants/columns';
 
 const defaultState = {
     tableData: [],
-    queryType: columns.queryProjects.STARTING_MATERIAL_INFO,
+    queryType: "",
     projectsAndSamplesSearchedByTerm: [],
-    selectedSamples: {},
-    selectedProjects: {},
+    selectedSamples: [],  // here an array because of multiple selects
+    selectedProjects: [], // same
     searchTerm: "",
 };
 
 
 let queryProjectsReducers = (state = defaultState, action) => {
+
+    let newState;
 
     switch (action.type) {
 
@@ -28,21 +30,12 @@ let queryProjectsReducers = (state = defaultState, action) => {
          * Return an array of sample objects with added info, for display in the table.
          */
         case types.queryProjects.QUERY_PROJECTS:
-            return returnList(action, state, "tableData", []);
+            newState = {...state, selectedSamples: action.args.sampleIds};
+            return returnList(action, newState, "tableData", []);
 
         /**
-         * Expects an object `action.projectIds` of the form {id: true} for each selected id.
+         * Reset selections, table data, search term.
          */
-        case types.queryProjects.CHANGE_PROJECTS_SELECTION:
-            // Also reset samples selection if projects selection changes
-            return Object.assign({}, state, {selectedProjects: action.projectIds, selectedSamples: {}});
-
-        /**
-         * Expects an object `action.sampleIds` of the form {id: true} for each selected id.
-         */
-        case types.queryProjects.CHANGE_SAMPLES_SELECTION:
-            return Object.assign({}, state, {selectedSamples: action.sampleIds});
-
         case types.queryProjects.RESET_SELECTION:
             return Object.assign({}, state,
                 {
@@ -54,11 +47,32 @@ let queryProjectsReducers = (state = defaultState, action) => {
                 }
             );
 
+        /**
+         * Filter projects and samples by the given term.
+         */
         case types.queryProjects.SEARCH:
             return {...state, searchTerm: action.term};
 
+        /**
+         * @deprecated (handled by RRF multiple select)
+         * Change the selection of projects.
+         * Also reset samples selection if projects selection changes.
+         * Expects an object `action.projectIds` of the form {id: true} for each selected id.
+         */
+        case types.queryProjects.CHANGE_PROJECTS_SELECTION:
+            return Object.assign({}, state, {selectedProjects: action.projectIds, selectedSamples: {}});
+
+        /**
+         * @deprecated (handled by RRF multiple select)
+         * Change the selection of samples.
+         * Expects an object `action.sampleIds` of the form {id: true} for each selected id.
+         */
+        case types.queryProjects.CHANGE_SAMPLES_SELECTION:
+            return Object.assign({}, state, {selectedSamples: action.sampleIds});
+
+
         // /**
-        //  * @deprecated
+        //  * @deprecated (old tedious version of the search. Lazy = better, but hard to maintain)
         //  * Search for samples having a given term in their name.
         //  * The search returns all samples containing the term,
         //  * but what we want is options from both projects and samples lists,

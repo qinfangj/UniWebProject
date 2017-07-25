@@ -82,6 +82,7 @@ const userRequestsModel = {
             width: 2,
             label: "Is QC",
             inputType: inputTypes.CHECKBOX,
+            style: {marginTop: "34px", marginLeft: "10px"},
         },{
             name: fields.user_requests.COMMENT,
             width: 10,
@@ -92,11 +93,13 @@ const userRequestsModel = {
             width: 2,
             label: "Discarded",
             inputType: inputTypes.CHECKBOX,
+            style: {marginTop: "30px", marginLeft: "10px"},
         },{
             name: fields.user_requests.IS_FULFILLED,
             width: 2,
             label: "DONE",
             inputType: inputTypes.CHECKBOX,
+            style: {marginLeft: "10px"},
         }
     ],
     model: "user_requests"

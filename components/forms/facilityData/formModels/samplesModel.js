@@ -113,6 +113,7 @@ const samplesModel = {
             width: 2,
             inputType: inputTypes.CHECKBOX,
             label: "Discarded",
+            style: {marginTop: "34px", marginLeft: "10px"},
         }
     ],
     model: "samples"
