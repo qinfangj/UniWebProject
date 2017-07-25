@@ -9,27 +9,12 @@ import { asyncAction, assertStoreKey } from './base';
  */
 export function queryProjectsAsync(sampleIds, queryType, storeKey) {
     let args = {sampleIds, storeKey};
+    //sampleIds = Object.keys(sampleIds).join(",");
     return asyncAction(actions.queryProjects.QUERY_PROJECTS, RestService.queryProjects.bind(null, sampleIds, queryType), args);
 }
 
 /**
- * Query samples which name contains the given term, or which project/PI name contains the given term.
- */
-export function searchSamplesByTerm(term, storeKey) {
-    assertStoreKey(storeKey);
-    let args = {storeKey, term};
-    return asyncAction(actions.queryProjects.SEARCH_SAMPLES, RestService.searchSamplesByTerm.bind(null, term), args);
-}
-
-export function changeQueryType(queryType) {
-    return {
-        type: actions.queryProjects.CHANGE_QUERY_TYPE,
-        queryType: queryType,
-    };
-}
-
-/**
- * Like formsActionCreators.changeFormValue but only for QP projects selection.
+ * Add or remove a project from selection.
  */
 export function changeProjectsSelection(projectIds) {
     return {
@@ -39,7 +24,7 @@ export function changeProjectsSelection(projectIds) {
 }
 
 /**
- * Like formsActionCreators.changeFormValue but only for QP projects selection.
+ * Add or remove a sample from selection.
  */
 export function changeSamplesSelection(sampleIds) {
     return {
@@ -56,3 +41,27 @@ export function resetSelection() {
         type: actions.queryProjects.RESET_SELECTION,
     };
 }
+
+/**
+ * Change the type of information that is displayed in the result table,
+ * e.g. "samples_material", "user_request_info", etc. through the left menu.
+ */
+export function changeQueryType(queryType) {
+    return {
+        type: actions.queryProjects.CHANGE_QUERY_TYPE,
+        queryType: queryType,
+    };
+}
+
+/**
+ * Query samples which name contains the given term, or which project/PI name contains the given term.
+ */
+export function search(term) {
+    return {
+        type: actions.queryProjects.SEARCH,
+        term: term,
+    };
+    //let args = {term};
+    //return asyncAction(actions.queryProjects.SEARCH_SAMPLES, RestService.searchSamplesByTerm.bind(null, term), args);
+}
+

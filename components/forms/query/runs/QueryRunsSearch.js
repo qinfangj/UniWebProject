@@ -1,9 +1,9 @@
 "use strict";
 import React from 'react';
-import css from './queryProjects.css';
+import css from '../query.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { resetSelection, search } from '../../actions/actionCreators/queryRunsActionCreators';
+import { resetSelection, search } from '../../../actions/actionCreators/queryRunsActionCreators';
 import { FormControl } from 'react-bootstrap/lib';
 
 
@@ -55,7 +55,7 @@ class QueryRunsSearch extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-    let nSelectedRuns = Object.keys(state.queryRuns.selectedRuns).length;
+    let nSelectedRuns = Object.keys(state.queryRuns.nSelectedRuns).length;
     let searchTerm = state.queryRuns.searchTerm;
     return {
         nSelectedRuns: nSelectedRuns,

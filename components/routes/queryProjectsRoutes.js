@@ -1,10 +1,10 @@
 "use strict";
 import React from 'react';
 
-import QueryProjectsForm from '../forms/queryProjects/QueryProjectsForm';
+import QueryProjectsForm from '../forms/query/projects/QueryProjectsForm';
 import QueryProjectsResultTable from '../tables/query/projects/QueryProjectsResultTable';
 
-import QueryRunsForm from '../forms/queryProjects/QueryRunsForm';
+import QueryRunsForm from '../forms/query/runs/QueryRunsForm';
 import QueryRunsSelectionTable from '../tables/query/runs/QueryRunsSelectionTable';
 import QueryRunsResultTable from '../tables/query/runs/QueryRunsResultTable';
 

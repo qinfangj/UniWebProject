@@ -4,8 +4,8 @@ import constants from '../../constants/constants';
 /**
  * We don't have many tests, so better perform arg checks...
  */
-export function assertStoreKey(storeKey) {
-    if (!storeKey) { throw "No store key was defined!"; }
+export function assertStoreKey(storeKey, source) {
+    if (!storeKey) { throw "No store key was defined! (calling '"+ source +"')"; }
 }
 
 /**

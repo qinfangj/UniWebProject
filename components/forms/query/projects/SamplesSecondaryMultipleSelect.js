@@ -2,11 +2,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSecondaryOptionsListAsync } from '../../actions/actionCreators/formsActionCreators';
-import { changeSamplesSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
-import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import MultipleSelect from './MultipleSelect';
-import { assertIsArray } from '../../../utils/common';
+
+import { bindActionCreators } from 'redux';
+import { requestSamplesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
+import { changeSamplesSelection } from '../../../actions/actionCreators/queryProjectsActionCreators';
+
+import optionsStoreKeys from '../../../constants/optionsStoreKeys';
+import { assertIsArray } from '../../../../utils/common';
 
 
 class SamplesSecondaryMultipleSelect extends React.PureComponent {
@@ -83,19 +85,21 @@ class SamplesSecondaryMultipleSelect extends React.PureComponent {
             /* The value it depends on changed, ask for new data */
             if (projectIds !== this.projectIds && projectIds.length > 0) {
                 this.projectIds = projectIds;  // avoids infinite callback loop
-                this.props.getSecondaryOptionsListAsync(projectIds);
+                // this.props.getSecondaryOptionsListAsync(projectIds);
+                this.props.requestSamplesForProject(projectIds);
             }
         }
     }
 
     render() {
-        return (
-            <MultipleSelect
-                {...this.props}
-                options={this.getOptions()}
-                onSelectActionCreator={changeSamplesSelection}
-            />
-        );
+        return <div>asdf</div>
+        // return (
+        //     <MultipleSelect
+        //         {...this.props}
+        //         options={this.getOptions()}
+        //         onSelectActionCreator={changeSamplesSelection}
+        //     />
+        // );
     }
 }
 
@@ -116,10 +120,13 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        getSecondaryOptionsListAsync: (id) =>
-            dispatch(getSecondaryOptionsListAsync("samples", id, optionsStoreKeys.SAMPLES_FOR_PROJECTS)),
-    };
+    return bindActionCreators({
+        requestSamplesForProject,
+    }, dispatch);
+    // return {
+    //     getSecondaryOptionsListAsync: (id) =>
+    //         dispatch(getSecondaryOptionsListAsync("samples", id, optionsStoreKeys.SAMPLES_FOR_PROJECTS)),
+    // };
 };
 
 
