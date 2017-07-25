@@ -12,7 +12,7 @@ import tableNames from '../components/constants/tableNames';
 import { Provider } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import adminData from '../components/forms/adminData/adminDataModels';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 import CommonAdminForms from '../components/forms/adminData/CommonAdminForms';
 import optionsStoreKeys from '../components/constants/optionsStoreKeys';
 

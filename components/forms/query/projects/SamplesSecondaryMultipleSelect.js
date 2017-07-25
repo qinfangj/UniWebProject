@@ -10,7 +10,7 @@ import { queryProjectsAsync } from '../../../actions/actionCreators/queryProject
 
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import RRFInput from '../../bootstrapWrappers/RRFInput';
-import inputTypes from '../../../forms/inputTypes';
+import inputTypes from '../../../constants/inputTypes';
 
 
 

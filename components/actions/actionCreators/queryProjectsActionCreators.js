@@ -1,7 +1,7 @@
 "use strict";
 import actions from '../actionTypes';
 import RestService from '../../../utils/RestService';
-import { asyncAction, assertStoreKey } from './base';
+import { asyncAction } from './base';
 
 
 /**
@@ -41,8 +41,6 @@ export function search(term) {
         type: actions.queryProjects.SEARCH,
         term: term,
     };
-    //let args = {term};
-    //return asyncAction(actions.queryProjects.SEARCH_SAMPLES, RestService.searchSamplesByTerm.bind(null, term), args);
 }
 
 

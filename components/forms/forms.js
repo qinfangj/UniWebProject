@@ -12,7 +12,7 @@ import { actions } from 'react-redux-form';
 import css from './forms.css';
 import cx from 'classnames';
 import RRFInput from './bootstrapWrappers/RRFInput.js';
-import inputTypes from './inputTypes';
+import inputTypes from '../constants/inputTypes';
 import { Col } from 'react-bootstrap/lib';
 
 import { resetAllOptions } from '../actions/actionCreators/optionsActionCreators';

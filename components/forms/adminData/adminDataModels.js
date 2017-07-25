@@ -1,7 +1,7 @@
 //in order to define all the Admin data forms
 //define the props such as model,label,name,width etc for CommonAdminForm
 
-import inputTypes from '../inputTypes';
+import inputTypes from '../../constants/inputTypes';
 import validators from '../../forms/validators';
 import optionsStoreKeys from '../../constants/optionsStoreKeys';
 

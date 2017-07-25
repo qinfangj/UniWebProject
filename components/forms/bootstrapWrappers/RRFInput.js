@@ -4,7 +4,7 @@ import css from './bs.css';
 import store from '../../../core/store';
 import PropTypes from 'prop-types';
 import formsCss from '../forms.css';
-import inputTypes from '../inputTypes';
+import inputTypes from '../../constants/inputTypes';
 import { Control, Errors, actions } from 'react-redux-form';
 import BSTextInput from './BSTextInput';
 import BSCheckbox from './BSCheckbox';

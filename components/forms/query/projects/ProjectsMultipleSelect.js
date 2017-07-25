@@ -13,7 +13,7 @@ import { requestSamplesForProject } from '../../../actions/actionCreators/second
 
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 import RRFInput from '../../bootstrapWrappers/RRFInput';
-import inputTypes from '../../../forms/inputTypes';
+import inputTypes from '../../../constants/inputTypes';
 
 
 

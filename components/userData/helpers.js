@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import css from './styles.css';
-import inputTypes from '../forms/inputTypes';
+import inputTypes from '../constants/inputTypes';
 import { Control } from 'react-redux-form';
 import { dateNow } from '../../utils/time';
 import fields from '../constants/fields';
