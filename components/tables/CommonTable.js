@@ -150,17 +150,18 @@ class CommonTable extends React.PureComponent {
             columnDefs = adminColumns[this.props.table];
         }
         const ncols = columnDefs.length;
-        const columnWidth = (width-70) / (ncols-1);  // except the ID column which is fixed at 70px
+        const sharedColumnWidth = (width-70) / (ncols-1);  // except the ID column which is fixed at 70px
 
         return columnDefs.map( s => {
             let cellRenderer = (s.field === 'id') ? this._idColumnLink : s.cellRenderer;
+            let columnWidth = (s.field === 'id') ? 70 : sharedColumnWidth;
             let node = <Column key={s}
-                           label={s.headerName}
-                           dataKey={s.field}
-                           headerRenderer={this._headerRenderer}
-                           width={columnWidth}
-                           cellRenderer={cellRenderer}
-                       />;
+                       label={s.headerName}
+                       dataKey={s.field}
+                       headerRenderer={this._headerRenderer}
+                       width={columnWidth}
+                       cellRenderer={cellRenderer}
+                   />;
             return node;
         });
     };
