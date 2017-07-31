@@ -14,7 +14,6 @@ import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionC
 import * as tables from './tables.js';
 import { ROW_HEIGTH, GRID_HEIGTH, idColumnLink } from './columns';
 
-import Feedback from '../utils/Feedback';
 import DataLoadingIcon from '../utils/DataLoadingIcon';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
@@ -29,7 +28,7 @@ class CommonTable extends React.PureComponent {
         this.rowHeight = ROW_HEIGTH;
         this.nVisibleRows = (this.gridHeight / this.rowHeight) - 1;
         this.headerHeight = 35;
-        this.overscanRowCount = 10;
+        this.overscanRowCount = 10;  // "Number of rows to render above/below the visible bounds of the list"
         this.useDynamicRowHeight = false;
         if (this.props.domain === "facility" ) {
             this.nrowsPerQuery = 40;
@@ -58,7 +57,6 @@ class CommonTable extends React.PureComponent {
         data: PropTypes.array,  // the table content (an array of row objects)
         isLoading: PropTypes.bool,  // loading spinner
         formatter: PropTypes.func,  // to reformat the data so that it fits the columns definition
-        form: PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
     };
 
     /**
@@ -151,17 +149,18 @@ class CommonTable extends React.PureComponent {
             columnDefs = adminColumns[this.props.table];
         }
         const ncols = columnDefs.length;
-        const columnWidth = (width-70) / (ncols-1);  // except the ID column which is fixed at 70px
+        const sharedColumnWidth = (width-70) / (ncols-1);  // except the ID column which is fixed at 70px
 
         return columnDefs.map( s => {
             let cellRenderer = (s.field === 'id') ? this._idColumnLink : s.cellRenderer;
+            let columnWidth = (s.field === 'id') ? 70 : sharedColumnWidth;
             let node = <Column key={s}
-                           label={s.headerName}
-                           dataKey={s.field}
-                           headerRenderer={this._headerRenderer}
-                           width={columnWidth}
-                           cellRenderer={cellRenderer}
-                       />;
+                       label={s.headerName}
+                       dataKey={s.field}
+                       headerRenderer={this._headerRenderer}
+                       width={columnWidth}
+                       cellRenderer={cellRenderer}
+                   />;
             return node;
         });
     };
@@ -224,6 +223,7 @@ class CommonTable extends React.PureComponent {
         let sortBy = this.state.sortBy;
         let sortDirection = this.state.sortDirection;
         let rowCount = this.state.rowCount;
+        let overscanRowCount = this.state.overscanRowCount;
 
         /* Define columns */
         let columnDefs = this.props.columns;
@@ -232,7 +232,7 @@ class CommonTable extends React.PureComponent {
         }
 
         /* Format data */
-        let data = this.props.formatter(this.props.data);
+        let data = this.props.formatter ? this.props.formatter(this.props.data) : this.props.data;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
@@ -269,19 +269,15 @@ class CommonTable extends React.PureComponent {
                 </div>
                 <div className="clearfix"/>
 
-                {/* Feedback */}
-
-                { this.props.form &&
-                    <Feedback reference={this.props.form}/>
-                }
-
                 {/* The table */}
 
                 <div className={css.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
-                    <InfiniteLoader isRowLoaded={this.isRowLoaded}
-                                    loadMoreRows={this.loadMoreRows}
-                                    rowCount={rowCount}
-                                    threshold={10}>
+                    <InfiniteLoader
+                        isRowLoaded={this.isRowLoaded}
+                        loadMoreRows={this.loadMoreRows}
+                        rowCount={rowCount}
+                        threshold={20}
+                    >
                         {({ onRowsRendered, registerChild }) => (
                             <AutoSizer>
                                 {({ height, width }) => (
@@ -292,11 +288,12 @@ class CommonTable extends React.PureComponent {
                                             headerClassName={css.headerColumn}
                                             headerHeight={this.headerHeight}
                                             headerRowRenderer={this.headerRowRenderer}
-                                            rowHeight={this.rowHeight}
-                                            onRowsRendered={onRowsRendered}
                                             noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
-                                            rowGetter={rowGetter}
+                                            onRowsRendered={onRowsRendered}
+                                            overscanRowCount={overscanRowCount}
                                             rowCount={rowCount}
+                                            rowHeight={this.rowHeight}
+                                            rowGetter={rowGetter}
                                             sort={this._sort}
                                             sortBy={sortBy}
                                             sortDirection={sortDirection}

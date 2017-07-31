@@ -57,9 +57,9 @@ export class LimsUsersUpdatePage extends React.Component {
 export class AnalysisTypeListRoute extends React.Component {
     render() {
         return (
-            <AdminData title="Analysis Types" name="analysis_types" content={
+            <AdminData title="Analysis Types" name="pipeline_analysis_types" content={
                 <CommonTable dataStoreKey={tableNames.ANALYSIS_TYPES} table={tableNames.ANALYSIS_TYPES}
-                              domain="admin" name="analysis_types" columns={adminDataColumns[tableNames.ANALYSIS_TYPES]} />
+                              domain="admin" name="pipeline_analysis_types" columns={adminDataColumns[tableNames.ANALYSIS_TYPES]} />
             } />
         );
     }
@@ -68,7 +68,7 @@ export class AnalysisTypeListRoute extends React.Component {
 export class AnalysisTypeNewPage extends React.Component {
     render() {
         return (
-            <AdminData title="Analysis Types" name="analysis_types"  content={
+            <AdminData title="Analysis Types" name="pipeline_analysis_types"  content={
                 <CommonAdminForms table={tableNames.ANALYSIS_TYPES}/>
             } />
         );
@@ -78,7 +78,7 @@ export class AnalysisTypeNewPage extends React.Component {
 export class AnalysisTypeUpdatePage extends React.Component {
     render() {
         return (
-             <AdminData title="Analysis Types" name="analysis_types"  content={
+             <AdminData title="Analysis Types" name="pipeline_analysis_types"  content={
                 <CommonAdminForms table={tableNames.ANALYSIS_TYPES} updateId={this.props.params.id}/>
              } />
         );
@@ -189,9 +189,9 @@ export class libAdaptersUpdatePage extends React.Component {
 export class libProtocolsListRoute extends React.Component {
     render() {
         return (
-            <AdminData title="Library Protocols" name="library_protocols" content={
+            <AdminData title="Library Protocols" name="lib_protocols" content={
                 <CommonTable dataStoreKey={tableNames.LIB_PROTOCOLS} table={tableNames.LIB_PROTOCOLS}
-                              domain="admin" name="library_protocols" columns={adminDataColumns[tableNames.LIB_PROTOCOLS]} />
+                              domain="admin" name="lib_protocols" columns={adminDataColumns[tableNames.LIB_PROTOCOLS]} />
             } />
         );
     }
@@ -200,7 +200,7 @@ export class libProtocolsListRoute extends React.Component {
 export class libProtocolsNewPage extends React.Component {
     render() {
         return (
-            <AdminData title="Library Protocols" name="library_protocols" content={
+            <AdminData title="Library Protocols" name="lib_protocols" content={
                 <CommonAdminForms table={tableNames.LIB_PROTOCOLS} />
             } />
         );
@@ -210,7 +210,7 @@ export class libProtocolsNewPage extends React.Component {
 export class libProtocolsUpdatePage extends React.Component {
     render() {
         return (
-            <AdminData title="Library Protocols" name="library_protocols" content={
+            <AdminData title="Library Protocols" name="lib_protocols" content={
                 <CommonAdminForms table={tableNames.LIB_PROTOCOLS} updateId={this.props.params.id}/>
             } />
         );

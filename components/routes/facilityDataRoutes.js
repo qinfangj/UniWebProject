@@ -2,7 +2,6 @@
 import React from 'react';
 import FacilityDataHome from '../pages/FacilityDataHome';
 import FacilityData from '../pages/FacilityData';
-import formNames from '../constants/formNames';
 import facilityDataColumns from '../tables/facilityData/columns';
 import tableNames from '../constants/tableNames';
 import CommonTable from '../tables/CommonTable';
@@ -37,7 +36,6 @@ export class ProjectsListRoute extends React.Component {
                 domain="facility"
                 name="projects"
                 columns={facilityDataColumns[tableNames.PROJECTS]}
-                form={formNames.PROJECTS_INSERT_FORM}
                 formatter={columnFormatters[tableNames.PROJECTS]}
             />
         } />
@@ -54,7 +52,6 @@ export class ProjectsActiveRoute extends React.Component {
                 domain="facility"
                 name="projects"
                 columns={facilityDataColumns[tableNames.PROJECTS]}
-                form={formNames.PROJECTS_INSERT_FORM}
                 formatter={columnFormatters[tableNames.PROJECTS]}
             />
         } />
@@ -88,7 +85,6 @@ export class PeopleListRoute extends React.Component {
                 domain="facility"
                 name="people"
                 columns={facilityDataColumns[tableNames.PEOPLE]}
-                form={formNames.PEOPLE_INSERT_FORM}
                 formatter={columnFormatters[tableNames.PEOPLE]}
             />
         } />
@@ -105,7 +101,6 @@ export class PeopleActiveRoute extends React.Component {
                 domain="facility"
                 name="people"
                 columns={facilityDataColumns[tableNames.PEOPLE]}
-                form={formNames.PEOPLE_INSERT_FORM}
                 formatter={columnFormatters[tableNames.PEOPLE]}
             />
         } />
@@ -139,7 +134,6 @@ export class GenomesListRoute extends React.Component {
                 domain="facility"
                 name="genomes"
                 columns={facilityDataColumns[tableNames.GENOMES]}
-                form={formNames.GENOMES_INSERT_FORM}
             />
         } />
     );}
@@ -155,7 +149,6 @@ export class GenomesActiveRoute extends React.Component {
                 domain="facility"
                 name="genomes"
                 columns={facilityDataColumns[tableNames.GENOMES]}
-                form={formNames.GENOMES_INSERT_FORM}
             />
         } />
     );}
@@ -188,7 +181,6 @@ export class SamplesListRoute extends React.Component {
                 domain="facility"
                 name="samples"
                 columns={facilityDataColumns[tableNames.SAMPLES]}
-                form={formNames.SAMPLES_INSERT_FORM}
             />
         } />
     );}
@@ -204,7 +196,6 @@ export class SamplesActiveRoute extends React.Component {
                 domain="facility"
                 name="samples"
                 columns={facilityDataColumns[tableNames.SAMPLES]}
-                form={formNames.SAMPLES_INSERT_FORM}
             />
         } />
     );}
@@ -237,7 +228,6 @@ export class LibrariesListRoute extends React.Component {
                 domain="facility"
                 name="libraries"
                 columns={facilityDataColumns[tableNames.LIBRARIES]}
-                form={formNames.LIBRARIES_INSERT_FORM}
             />
         } />
     );}
@@ -253,7 +243,6 @@ export class LibrariesActiveRoute extends React.Component {
                 domain="facility"
                 name="libraries"
                 columns={facilityDataColumns[tableNames.LIBRARIES]}
-                form={formNames.LIBRARIES_INSERT_FORM}
             />
         } />
     );}
@@ -286,7 +275,6 @@ export class RunsListRoute extends React.Component {
                 domain="facility"
                 name="runs"
                 columns={facilityDataColumns[tableNames.RUNS]}
-                form={formNames.RUNS_INSERT_FORM}
             />
         } />
     );}
@@ -302,7 +290,6 @@ export class RunsActiveRoute extends React.Component {
                 domain="facility"
                 name="runs"
                 columns={facilityDataColumns[tableNames.RUNS]}
-                form={formNames.RUNS_INSERT_FORM}
             />
         } />
     );}
@@ -343,7 +330,6 @@ export class UserRequestsListRoute extends React.Component {
                 domain="facility"
                 name="user_requests"
                 columns={facilityDataColumns[tableNames.USER_REQUESTS]}
-                form={formNames.USER_REQUESTS_INSERT_FORM}
             />
         } />
     );}
@@ -359,7 +345,6 @@ export class UserRequestsActiveRoute extends React.Component {
                 domain="facility"
                 name="user_requests"
                 columns={facilityDataColumns[tableNames.USER_REQUESTS]}
-                form={formNames.USER_REQUESTS_INSERT_FORM}
             />
         } />
     );}
@@ -392,7 +377,6 @@ export class BioanalysersListRoute extends React.Component {
                 domain="facility"
                 name="bioanalysers"
                 columns={facilityDataColumns[tableNames.BIOANALYSERS]}
-                form={formNames.BIOANALYSERS_INSERT_FORM}
             />
         } />
     );}
@@ -408,7 +392,6 @@ export class BioanalysersActiveRoute extends React.Component {
                 domain="facility"
                 name="bioanalysers"
                 columns={facilityDataColumns[tableNames.BIOANALYSERS]}
-                form={formNames.BIOANALYSERS_INSERT_FORM}
             />
         } />
     );}
@@ -441,7 +424,6 @@ export class BasecallingsListRoute extends React.Component {
                 domain="facility"
                 name="basecallings"
                 columns={facilityDataColumns[tableNames.BASECALLINGS]}
-                form={formNames.BASECALLINGS_INSERT_FORM}
             />
         } />
     );}
@@ -457,7 +439,6 @@ export class BasecallingsActiveRoute extends React.Component {
                 domain="facility"
                 name="basecallings"
                 columns={facilityDataColumns[tableNames.BASECALLINGS]}
-                form={formNames.BASECALLINGS_INSERT_FORM}
             />
         } />
     );}
@@ -490,7 +471,6 @@ export class AlignmentsListRoute extends React.Component {
                 domain="facility"
                 name="alignments"
                 columns={facilityDataColumns[tableNames.ALIGNMENTS]}
-                form={formNames.ALIGNMENTS_INSERT_FORM}
             />
         } />
     );}
@@ -506,7 +486,6 @@ export class AlignmentsActiveRoute extends React.Component {
                 domain="facility"
                 name="alignments"
                 columns={facilityDataColumns[tableNames.ALIGNMENTS]}
-                form={formNames.ALIGNMENTS_INSERT_FORM}
             />
         } />
     );}

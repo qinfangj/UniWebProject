@@ -15,7 +15,6 @@ import {
 import * as forms from '../forms';
 import adminDataModels from './adminDataModels';
 
-import Feedback from '../../utils/Feedback';
 import { Form } from 'react-redux-form';
 import SubmitButton from '../SubmitButton';
 
@@ -55,7 +54,7 @@ class CommonAdminForms extends React.Component {
     handleSubmit(values){
         let formData = forms.formatFormFieldsDefault(adminDataModels[this.props.table], values);
         /* Signature: submitForm(modelName, insertData, table, formName, onSuccess) */
-        forms.submitForm(this.modelName, formData, this.table, this.modelName, null, true);
+        forms.submitForm(this.modelName, formData, this.table, null, true);
     }
 
     activateForm() {
@@ -76,8 +75,6 @@ class CommonAdminForms extends React.Component {
 
         return (
             <Form model={this.modelName} className={css.form} onSubmit={(v) => {this.handleSubmit(v)}}>
-
-                <Feedback reference={this.modelName} />
 
                 { formFields }
 

@@ -112,7 +112,7 @@ export const adminSubmenu = [
       to: "/admin/project_sharings/list",
     },{
       text: "Analysis types",
-      to: "/admin/analysis_types/list",
+      to: "/admin/pipeline_analysis_types/list",
     },{
       text: "Flowcell types",
       to: "/admin/flowcell_types/list",
@@ -124,7 +124,7 @@ export const adminSubmenu = [
       to: "/admin/library_adapters/list",
     },{
       text: "Library protocols",
-      to: "/admin/library_protocols/list",
+      to: "/admin/lib_protocols/list",
     },{
       text: "Library states",
       to: "/admin/library_states/list",

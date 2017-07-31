@@ -5,18 +5,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, actions } from 'react-redux-form';
 
-import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { requestProjectsHavingASample,
          requestRunsTypesLengths,
          requestLibProtocols } from '../../actions/actionCreators/optionsActionCreators';
 import { requestSamplesForProject } from '../../actions/actionCreators/secondaryOptionsActionCreators';
 
 import * as forms from '../forms.js';
+import * as feedback from '../../../utils/feedback';
 import fields from '../../constants/fields';
-import formNames from '../../constants/formNames';
 import userRequestsModel from './formModels/userRequestsModel';
 
-import Feedback from '../../utils/Feedback';
 import SubmitButton from '../SubmitButton';
 
 
@@ -25,7 +23,6 @@ export class UserRequestsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "user_requests";
-        this.form = formNames.USER_REQUESTS_INSERT_FORM;
         this.modelName = "facilityDataForms.user_requests";
         this.model = userRequestsModel;
         this.state = {
@@ -53,9 +50,9 @@ export class UserRequestsInsertForm extends React.PureComponent {
         let insertData = forms.formatFormFieldsDefault(this.model, values);
         let validation = forms.validateFormDefault(insertData);
         if (validation.isValid) {
-            forms.submitForm(this.modelName, insertData, this.table, this.form);
+            forms.submitForm(this.modelName, insertData, this.table);
         } else {
-            this.props.feedbackWarning(this.form, validation.message);
+            feedback.warning(validation.message, "UserRequestsInsertForm::onSubmit");
         }
     }
 
@@ -80,9 +77,6 @@ export class UserRequestsInsertForm extends React.PureComponent {
 
         return (
             <div>
-
-                <Feedback reference={this.form} />
-
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                     {formFields}
@@ -96,7 +90,6 @@ export class UserRequestsInsertForm extends React.PureComponent {
                     />
 
                 </Form>
-
             </div>
         );
     }
@@ -115,7 +108,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        feedbackWarning,
         requestProjectsHavingASample,
         requestRunsTypesLengths,
         requestSamplesForProject,

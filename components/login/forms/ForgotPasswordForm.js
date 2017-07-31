@@ -7,7 +7,6 @@ import { requestResetPassword } from '../../actions/actionCreators/authActionCre
 import validators  from '../../forms/validators';
 
 import {Form, FormControl, InputGroup, FormGroup, Button, HelpBlock} from 'react-bootstrap/lib';
-import Feedback from '../../utils/Feedback';
 import formNames from '../../constants/formNames';
 
 
@@ -47,8 +46,6 @@ class ForgotPasswordForm extends React.Component {
         return (
             <div className={css.formContainer}>
 
-                <Feedback reference={formNames.RESET_PASSWORD_FORM} />
-
                 <Form className={css.form}>
 
                     To reset your password, submit your email address.
@@ -65,7 +62,6 @@ class ForgotPasswordForm extends React.Component {
                         <FormControl.Feedback />
                         <HelpBlock>{this.state.msgEmail}</HelpBlock>
                     </FormGroup>
-
                 </Form>
 
                 <Button onClick={this.submit.bind(this)} className={css.loginButton}>

@@ -13,3 +13,6 @@ export function randomString(nchars) {
     return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, nchars);
 }
 
+export function isdev() {
+    return window.location.hostname === "localhost";
+}

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, actions } from 'react-redux-form';
 
-import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { requestProjectsHavingASample,
          requestLibProtocols,
          requestQuantifMethods,
@@ -15,11 +14,10 @@ import { requestProjectsHavingASample,
 import { requestSamplesForProject } from '../../actions/actionCreators/secondaryOptionsActionCreators';
 
 import * as forms from '../forms.js';
-import formNames from '../../constants/formNames';
+import * as feedback from '../../../utils/feedback';
 import librariesModel from './formModels/librariesModel';
 import fields from '../../constants/fields';
 
-import Feedback from '../../utils/Feedback';
 import SubmitButton from '../SubmitButton';
 
 
@@ -28,7 +26,6 @@ export class LibrariesInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "libraries";
-        this.form = formNames.LIBRARIES_INSERT_FORM;
         this.modelName = "facilityDataForms.libraries";
         this.model = librariesModel;
         this.state = {
@@ -62,18 +59,18 @@ export class LibrariesInsertForm extends React.PureComponent {
         let insertData = this.formatInsertData(values);
         let validation = forms.validateFormDefault(insertData);
         if (validation.isValid) {
-            forms.submitForm(this.modelName, insertData, this.table, this.form);
+            forms.submitForm(this.modelName, insertData, this.table);
         } else {
-            this.props.feedbackWarning(this.form, validation.message);
+            feedback.warning(validation.message, "LibrariesInsertForm::onSubmit");
         }
     }
 
-    activateForm() {
+    activateForm = () => {
         this.setState({ disabled: false });
-    }
-    deactivateForm() {
+    };
+    deactivateForm = () => {
         this.setState({ disabled: true });
-    }
+    };
 
     /**
      * Change the samples options list when the project changes.
@@ -89,9 +86,6 @@ export class LibrariesInsertForm extends React.PureComponent {
 
         return (
             <div>
-
-                <Feedback reference={this.form} />
-
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                     {formFields}
@@ -105,7 +99,6 @@ export class LibrariesInsertForm extends React.PureComponent {
                     />
 
                 </Form>
-
             </div>
         );
     }
@@ -125,7 +118,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        feedbackWarning,
         requestProjectsHavingASample,
         requestLibProtocols,
         requestQuantifMethods,

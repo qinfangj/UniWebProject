@@ -3,12 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form } from 'react-redux-form';
-import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
+
 import * as forms from '../forms.js';
-import formNames from '../../constants/formNames';
+import * as feedback from '../../../utils/feedback';
 import peopleModel from './formModels/peopleModel';
 
-import Feedback from '../../utils/Feedback';
 import SubmitButton from '../SubmitButton';
 
 
@@ -17,7 +16,6 @@ export class ProjectInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "people";
-        this.form = formNames.PEOPLE_INSERT_FORM;
         this.modelName = "facilityDataForms.people";
         this.model = peopleModel;
         this.state = {
@@ -44,9 +42,10 @@ export class ProjectInsertForm extends React.PureComponent {
         let insertData = this.formatInsertData(values);
         let validation = forms.validateFormDefault(insertData);
         if (validation.isValid) {
-            forms.submitForm(this.modelName, insertData, this.table, this.form);
+            forms.submitForm(this.modelName, insertData, this.table);
         } else {
             this.props.feedbackWarning(this.form, validation.message);
+            feedback.warning(validation.message, "PeopleInsertForm::onSubmit");
         }
     }
 
@@ -62,9 +61,6 @@ export class ProjectInsertForm extends React.PureComponent {
 
         return (
             <div>
-
-                <Feedback reference={this.form} />
-
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                     {formFields}
@@ -78,7 +74,6 @@ export class ProjectInsertForm extends React.PureComponent {
                     />
 
                 </Form>
-
             </div>
         );
     }
@@ -97,7 +92,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        feedbackWarning,
     }, dispatch);
 };
 

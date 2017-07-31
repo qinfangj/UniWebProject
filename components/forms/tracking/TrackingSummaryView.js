@@ -1,17 +1,16 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import {Button, FormControl, Col} from 'react-bootstrap/lib';
-import Feedback from '../../utils/Feedback';
 import store from '../../../core/store';
-import validators from '../../forms/validators';
+import trackCss from './tracking.css';
+import { connect } from 'react-redux';
 
-import trackingData from '../../forms/tracking/trackingData';
+import validators from '../../forms/validators';
 import { actions} from 'react-redux-form';
 import { hashHistory } from 'react-router';
-import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
-import trackCss from './tracking.css';
+import * as feedback from '../../../utils/feedback';
+
+import {Button, FormControl, Col} from 'react-bootstrap/lib';
 import Icon from "react-fontawesome";
 import TrackingDetailView from './TrackingDetailView';
 
@@ -146,10 +145,10 @@ class TrackingSummaryView extends React.PureComponent {
         if (e.target.value !== "") {
             let isValid = validators.laneNumberValidator(e.target.value);
             if (isValid){
-                store.dispatch(feedbackWarning("tracking.library", "Lane number should be one digit between 1 and 8."))
+                feedback.warning("Lane number should be one digit between 1 and 8.", "TrackingSummaryView.setLaneNo");
             }
             laneNos[k][ind].valid = isValid;
-        }else{
+        } else {
             laneNos[k][ind].valid = true;
         }
 
@@ -198,14 +197,14 @@ class TrackingSummaryView extends React.PureComponent {
                         let cellMargin = this.props.isLibrary? {marginLeft:'20px'} : null;
                         let laneNoStyle = null;
                         if (this.props.isLibrary) {
-                            laneNoStyle = this.state.laneNos[s][index].valid == false ? {
+                            laneNoStyle = this.state.laneNos[s][index].valid === false ? {
                                     width: '20px',
                                     height: '20px',
                                     borderColor: 'red'
                                 } : {width: '20px', height: '20px'};
                             //laneNoStyle = {width: '20px', height: '20px'};
                         }
-                        if (this.state.insertRow === index && this.state.insertCol == s){
+                        if (this.state.insertRow === index && this.state.insertCol === s){
                             return (
                                 // value={this.state.laneNos[s][index].value}
                                 <td height='100%' width={widthRate} key={s}>
@@ -279,19 +278,15 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     makeDetailedTr(row,key,data){
-        let details = data[key][row];
-
         return (data[key][row] !== undefined)?
                 (<tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}><div className={trackCss.showmore}>
-                    <span className={trackCss.close} onClick={this.closeDetailsView.bind(this)} ><Icon name='times-circle' style={{fontSize:20}}></Icon></span>
+                    <span className={trackCss.close} onClick={this.closeDetailsView.bind(this)} ><Icon name='times-circle' style={{fontSize:20}}/></span>
                     <TrackingDetailView detailData={data[key][row]} dataKey={this.props.dataStoreKey}/>
                      </div></td></tr>)
                   :(<tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}><p className={trackCss.showmore}>No details</p></td></tr>)
     }
 
     createRuns(){
-        let createdLanes = this.state.createdlanesInfo;
-
         let obj = {};
         for (let k in this.state.laneNos){
             let sub = this.state.laneNos[k];
@@ -308,26 +303,20 @@ class TrackingSummaryView extends React.PureComponent {
                             qualityId: "",
                             isQC: false,
                         }]
-
                     };
                 }
             }
-
         }
         console.log(obj);
 
         if (_.isEmpty(obj)) {
-            store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
+            feedback.warning("Pease enter the lane numbers!", "TrackingSummaryView.createRuns");
         } else {
-            //console.log(createdLanes);
             let newPath = window.location.pathname + "data/runs/from-tracking";
             console.log(newPath);
             store.dispatch(actions.reset("facilityDataForms.runs"));
-
             store.dispatch(actions.change("facilityDataForms.runs.lanes", obj));
-
             hashHistory.push(newPath);
-
         }
 
     }

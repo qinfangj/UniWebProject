@@ -42,6 +42,7 @@ class ProjectsMultipleSelect extends React.PureComponent {
         let {options, ...otherProps} = this.props;
         options = this.filterByTerm(this.props.options);
         let modelName = "queryProjectsForms.queryProjects.projects";
+        let refModelName = "queryProjectsForms.queryProjects.samples";
 
         return (
             <RRFInput
@@ -55,6 +56,8 @@ class ProjectsMultipleSelect extends React.PureComponent {
                     if (value.indexOf("") >= 0) {
                         value = [""];
                         this.props.resetSelection();
+                        store.dispatch(actions.change(modelName, [])); // reset projects selection
+                        store.dispatch(actions.change(refModelName, [])); // reset samples selection
                     } else {
                         this.props.requestSamplesForProject(optionsStoreKeys.SAMPLES_FOR_PROJECT, value);
                     }
