@@ -262,7 +262,7 @@ describe('(Table) Lims Users =>', () => {
 
 const wrapper22 = shallow(
     <Provider store={store}>
-        <CommonTable dataStoreKey="analysis_types" table="pipeline_analysis_types" columnsKey="analysis_types" />
+        <CommonTable dataStoreKey="pipeline_analysis_types" table="pipeline_analysis_types" columnsKey="pipeline_analysis_types" />
     </Provider>
 );
 

@@ -10,7 +10,7 @@ import CommonAdminForms from '../components/forms/adminData/CommonAdminForms';
 
 
 const wrapper1 = shallow(
-    <AdminData title="Analysis Types" name="analysis_types"  content={
+    <AdminData title="Analysis Types" name="pipeline_analysis_types"  content={
         <CommonAdminForms table="pipeline_analysis_types"/>
     } />
 );

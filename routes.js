@@ -161,9 +161,9 @@ const routes = (
             <Route path="admin/project_sharings/list" component={admin.projectSharingsListRoute} onEnter={requireAuth} />
             <Route path="admin/project_sharings/new" component={admin.projectSharingsNewPage} onEnter={requireAuth} />
             <Route path="admin/project_sharings/update/:id" component={admin.projectSharingsUpdatePage} onEnter={requireAuth} />
-            <Route path="admin/analysis_types/list" component={admin.AnalysisTypeListRoute} onEnter={requireAuth} />
-            <Route path="admin/analysis_types/new" component={admin.AnalysisTypeNewPage} onEnter={requireAuth} />
-            <Route path="admin/analysis_types/update/:id" component={admin.AnalysisTypeUpdatePage} onEnter={requireAuth} />
+            <Route path="admin/pipeline_analysis_types/list" component={admin.AnalysisTypeListRoute} onEnter={requireAuth} />
+            <Route path="admin/pipeline_analysis_types/new" component={admin.AnalysisTypeNewPage} onEnter={requireAuth} />
+            <Route path="admin/pipeline_analysis_types/update/:id" component={admin.AnalysisTypeUpdatePage} onEnter={requireAuth} />
             <Route path="admin/flowcell_types/list" component={admin.FlowcellTypesListRoute} onEnter={requireAuth} />
             <Route path="admin/flowcell_types/new" component={admin.FlowcellTypesNewPage} onEnter={requireAuth} />
             <Route path="admin/flowcell_types/update/:id" component={admin.FlowcellTypesUpdatePage} onEnter={requireAuth} />
