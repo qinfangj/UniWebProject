@@ -11,8 +11,7 @@ import Immutable from 'immutable'
 import adminColumns from './adminData/columns';
 import facilityDataColumns from './facilityData/columns';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import * as tables from './tables.js';
-import { ROW_HEIGTH, GRID_HEIGTH, idColumnLink } from './columns';
+import { ROW_HEIGTH, GRID_HEIGTH, idColumnLink, checkData, sortImmutable } from './tables';
 
 import DataLoadingIcon from '../utils/DataLoadingIcon';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -238,11 +237,11 @@ class CommonTable extends React.PureComponent {
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
-        tables.checkData(data);
+        checkData(data);
         let list = Immutable.fromJS(data);
         if (this.props.domain === "admin") {
             list = this.localSearch(list);
-            list = tables.sortImmutable(list, sortBy, sortDirection);
+            list = sortImmutable(list, sortBy, sortDirection);
             rowCount = list.size;
         }
         const rowGetter = ({index}) => this._getRow(list, index);
@@ -273,7 +272,7 @@ class CommonTable extends React.PureComponent {
 
                 {/* The table */}
 
-                <div className={css.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
+                <div className={css.tableContainer} style={{height: cssHeight + 'px', width: '100%'}}>
                     <InfiniteLoader
                         isRowLoaded={this.isRowLoaded}
                         loadMoreRows={this.loadMoreRows}

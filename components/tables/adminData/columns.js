@@ -2,7 +2,7 @@
 import React from 'react';
 import * as formatters from '../formatters';
 import tableNames from '../../constants/tableNames';
-import { ID_COLUMN } from '../columns';
+import { ID_COLUMN } from '../tables';
 
 
 

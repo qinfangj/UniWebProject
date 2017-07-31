@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { queryProjectsAsync } from '../../../actions/actionCreators/queryProjectsActionCreators';
 
 import * as tables from '../../tables.js';
-import { ROW_HEIGTH } from '../../columns';
+import { ROW_HEIGTH } from '../../tables';
 
 import columnDefs from '../columns';
 import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';

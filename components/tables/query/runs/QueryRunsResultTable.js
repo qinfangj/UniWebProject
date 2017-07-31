@@ -6,7 +6,7 @@ import cx from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as tables from '../../tables.js';
-import { ROW_HEIGTH } from '../../columns';
+import { ROW_HEIGTH } from '../../tables';
 import { queryRunsAsync } from '../../../actions/actionCreators/queryRunsActionCreators';
 
 import columnDefs from '../columns';

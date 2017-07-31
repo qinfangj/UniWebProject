@@ -5,7 +5,7 @@ import tablesCss from '../../tables.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as tables from '../../tables.js';
-import { ROW_HEIGTH } from '../../columns';
+import { ROW_HEIGTH } from '../../tables';
 
 import { getTableDataAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 import { queryRunsAsync, resetSelection, changeRunsSelection } from '../../../actions/actionCreators/queryRunsActionCreators';

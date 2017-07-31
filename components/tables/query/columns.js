@@ -1,6 +1,5 @@
 "use strict";
 import * as formatters from '../formatters';
-import { CENTER } from '../columns';
 import columnNames from '../../constants/columns';
 
 
