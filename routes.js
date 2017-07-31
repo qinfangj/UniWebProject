@@ -21,7 +21,7 @@ const onRouteChange = (nextRouterState, replace) => {
 // Validate authentication for private routes
 const requireAuth = (nextRouterState, replace) => {
     onRouteChange(nextRouterState, replace);
-    if (!AuthService.isLoggedIn) {
+    if (!(AuthService.isLoggedIn && AuthService.isValidated)) {
         replace({ pathname: '/login' });
     }
 };

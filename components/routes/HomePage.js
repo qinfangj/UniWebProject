@@ -18,7 +18,7 @@ class HomePage extends React.Component {
         } else if (! AuthService.isValidated) {
             feedback = <Alert bsStyle="info">
                 Your account is not active yet.<br />
-                You will be noticed by an email soon when it has been validated by an administrator.</Alert>;
+                You will be noticed by email as soon as it has been validated by an administrator.</Alert>;
         } else {
             feedback = <div style={{marginTop: '25px'}} />
         }
