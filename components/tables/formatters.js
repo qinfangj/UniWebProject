@@ -27,7 +27,7 @@ export function boolean(v) {
         case false:
             return "No";
         default:
-            return "-";
+            return "No";
     }
 }
 

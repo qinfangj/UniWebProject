@@ -57,7 +57,6 @@ class CommonTable extends React.PureComponent {
         data: PropTypes.array,  // the table content (an array of row objects)
         isLoading: PropTypes.bool,  // loading spinner
         formatter: PropTypes.func,  // to reformat the data so that it fits the columns definition
-        form: PropTypes.string,  // the name of the form it corresponds to, to show the feedback messages
     };
 
     /**
@@ -232,7 +231,7 @@ class CommonTable extends React.PureComponent {
         }
 
         /* Format data */
-        let data = this.props.formatter(this.props.data);
+        let data = this.props.formatter ? this.props.formatter(this.props.data) : this.props.data;
         if (!data) {
             throw new TypeError("Data cannot be null or undefined");
         }
