@@ -1,4 +1,3 @@
-
 "use strict";
 import React from 'react';
 import { Link } from 'react-router';
@@ -6,15 +5,13 @@ import { Link } from 'react-router';
 
 export const ROW_HEIGTH = 30;
 export const GRID_HEIGTH = 520;
-
 export const CENTER = {textAlign: "center"};
-export const LEFT = {textAlign: "left"};
-
 export const ID_COLUMN = {
     headerName: "ID",
     field: "id",
     width: 70,
 };
+
 
 /**
  * Create the ID cell as a link to the corresponding update form.
@@ -32,9 +29,6 @@ export function idColumnLink(domain, table, id) {
     );
 }
 
-"use strict";
-
-
 /**
  * Just verify that the data is an array.
  */
@@ -43,7 +37,6 @@ export function checkData(data) {
         throw("Received invalid data to display:" + JSON.stringify(data, null, 2));
     }
 }
-
 
 /**
  * Sort an Immutable collection (from immutable.js).
