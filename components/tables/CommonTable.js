@@ -70,13 +70,13 @@ class CommonTable extends React.PureComponent {
             sortBy || this.state.sortBy, sortDir || this.state.sortDirection, filterBy || this.state.searchTerm)
         .done((data) => {
             // `data` is only the new block. The whole data is in `this.props.data`.
-            if (data.length !==0) {
+            if (data.length !== 0) {
                 let hasNextPage = data.length % this.nrowsPerQuery === 0;
                 let newDataLength = dataLength + data.length;
                 let rowCount = hasNextPage ? newDataLength + 1 : newDataLength;
-                _this.setState({rowCount});
+                _this.setState({ rowCount });
             } else {
-                _this.setState({rowCount:0})
+                _this.setState({ rowCount: 0 })
 
             }
         })
@@ -93,7 +93,7 @@ class CommonTable extends React.PureComponent {
      */
     _sort = ({ sortBy, sortDirection }) => {
         if (this.props.domain === "facility") {
-            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection);
+            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection, this.state.searchTerm);
         }
         this.setState({ sortBy, sortDirection });
     };
@@ -127,6 +127,8 @@ class CommonTable extends React.PureComponent {
         if (dataLength % this.nrowsPerQuery === 0) {
             console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
             this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchTerm);
+        } else {
+            console.info(`End of data (at ${dataLength}).`)
         }
     };
 
