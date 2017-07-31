@@ -18,6 +18,8 @@ class HomePage extends React.Component {
             feedback = <Alert bsStyle="info">
                 Your account is not active yet.<br />
                 You will be noticed by an email soon when it has been validated by an administrator.</Alert>;
+        } else {
+            feedback = <div style={{marginTop: '25px'}} />
         }
 
         return (
