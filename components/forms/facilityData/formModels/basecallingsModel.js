@@ -35,8 +35,8 @@ const basecallingsModel = {
             label: "Control lane",
             inputType: inputTypes.DROPDOWN,
             type: "number",
-            options: [[0,'No'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']],
-            required: true,
+            options: [[0,'None'], [1,'1'], [2,'2'], [3,'3'], [4,'4'], [5,'5'], [6,'6'], [7,'7'], [8,'8']],
+            hasNoneValue: false,
         },{
             name: fields.UNALIGNED_OUTPUT_DIR,
             width: 10,
