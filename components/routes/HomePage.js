@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Alert from 'react-bootstrap/lib/Alert';
 import news from './msgHome/homePageNews.md';
 import AuthService from '../../utils/AuthService';
-import * as fb from '../../utils/feedback';
+//import * as fb from '../../utils/feedback';
 
 
 class HomePage extends React.Component {
