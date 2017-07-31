@@ -26,10 +26,12 @@ class HomePage extends React.Component {
         return (
             <div>
 
+                {/*
             <button onClick={() => fb.success("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
-                <button onClick={() => fb.info("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
-                <button onClick={() => fb.error("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
-                <button onClick={() => fb.warning("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
+            <button onClick={() => fb.info("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
+            <button onClick={() => fb.error("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
+            <button onClick={() => fb.warning("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
+                */}
 
             <header>
                 <h2>Welcome to Lausanne Genomic Technologies Facility!</h2>
