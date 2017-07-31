@@ -1,5 +1,8 @@
-import  * as Toastr from 'toastr';
-import '../node_modules/toastr/build/toastr.min.css';
+import * as Toastr from 'toastr';
+
+Toastr.options.positionClass = "toast-top-center";
+Toastr.options.timeOut = "100000000";
+Toastr.options.extendedTimeOut = "100000000000";
 
 
 

@@ -44,6 +44,7 @@ const config = {
 
     /* React-virtualized */
     '!!style!css!react-virtualized/styles.css',
+    '!!style!css!toastr/build/toastr.min.css',
 
     /* The main entry point of your JavaScript application */
     './main.js',

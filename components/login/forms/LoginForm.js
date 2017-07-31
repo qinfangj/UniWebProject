@@ -8,9 +8,10 @@ import { bindActionCreators } from 'redux';
 
 import { loginUser } from '../../actions/actionCreators/authActionCreators';
 import * as feedback from '../../../utils/feedback';
+import { isdev } from '../../../utils/common';
 
 import { Link } from 'react-router';
-import {Form, FormControl, InputGroup, FormGroup, Button, Alert} from 'react-bootstrap/lib';
+import { Form, FormControl, InputGroup, FormGroup, Button } from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
 
 
@@ -18,10 +19,9 @@ import Icon from 'react-fontawesome';
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
-        let isdev = window.location.hostname === "localhost";
         this.state = {
-            username: isdev ? "test" : "",
-            password: isdev ? "test" : "",
+            username: isdev() ? "test" : "",
+            password: isdev() ? "test" : "",
         };
     }
 

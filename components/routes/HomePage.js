@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Alert from 'react-bootstrap/lib/Alert';
 import news from './msgHome/homePageNews.md';
 import AuthService from '../../utils/AuthService';
+import * as fb from '../../utils/feedback';
 
 
 class HomePage extends React.Component {
@@ -24,6 +25,12 @@ class HomePage extends React.Component {
 
         return (
             <div>
+
+            <button onClick={() => fb.success("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
+                <button onClick={() => fb.info("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
+                <button onClick={() => fb.error("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
+                <button onClick={() => fb.warning("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
+
             <header>
                 <h2>Welcome to Lausanne Genomic Technologies Facility!</h2>
             </header>
@@ -52,7 +59,6 @@ class HomePage extends React.Component {
                             </fieldset>
                         </Alert>
                     </Col>
-
                 </Row>
 
             </div>
