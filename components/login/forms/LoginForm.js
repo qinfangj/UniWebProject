@@ -21,7 +21,7 @@ class LoginForm extends React.Component {
         let isdev = window.location.hostname === "localhost";
         this.state = {
             username: isdev ? "test" : "",
-            password: isdev ? "pwd" : "",
+            password: isdev ? "test" : "",
         };
     }
 
