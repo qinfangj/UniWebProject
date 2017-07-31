@@ -281,25 +281,25 @@ class CommonTable extends React.PureComponent {
                         {({ onRowsRendered, registerChild }) => (
                             <AutoSizer>
                                 {({ height, width }) => (
-                                        <Table
-                                            ref={registerChild}
-                                            width={width}
-                                            height={height}
-                                            headerClassName={css.headerColumn}
-                                            headerHeight={this.headerHeight}
-                                            headerRowRenderer={this.headerRowRenderer}
-                                            noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
-                                            onRowsRendered={onRowsRendered}
-                                            overscanRowCount={overscanRowCount}
-                                            rowCount={rowCount}
-                                            rowHeight={this.rowHeight}
-                                            rowGetter={rowGetter}
-                                            sort={this._sort}
-                                            sortBy={sortBy}
-                                            sortDirection={sortDirection}
-                                        >
-                                            {this.getColumns(width-50)}
-                                        </Table>
+                                    <Table
+                                        ref={registerChild}
+                                        width={width}
+                                        height={height}
+                                        headerClassName={css.headerColumn}
+                                        headerHeight={this.headerHeight}
+                                        headerRowRenderer={this.headerRowRenderer}
+                                        noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
+                                        onRowsRendered={onRowsRendered}
+                                        overscanRowCount={overscanRowCount}
+                                        rowCount={rowCount}
+                                        rowHeight={this.rowHeight}
+                                        rowGetter={rowGetter}
+                                        sort={this._sort}
+                                        sortBy={sortBy}
+                                        sortDirection={sortDirection}
+                                    >
+                                        {this.getColumns(width-50)}
+                                    </Table>
                                 )}
                             </AutoSizer>
                         )}
