@@ -28,7 +28,7 @@ class CommonTable extends React.PureComponent {
         this.rowHeight = ROW_HEIGTH;
         this.nVisibleRows = (this.gridHeight / this.rowHeight) - 1;
         this.headerHeight = 35;
-        this.overscanRowCount = 10;
+        this.overscanRowCount = 10;  // "Number of rows to render above/below the visible bounds of the list"
         this.useDynamicRowHeight = false;
         if (this.props.domain === "facility" ) {
             this.nrowsPerQuery = 40;
@@ -223,6 +223,7 @@ class CommonTable extends React.PureComponent {
         let sortBy = this.state.sortBy;
         let sortDirection = this.state.sortDirection;
         let rowCount = this.state.rowCount;
+        let overscanRowCount = this.state.overscanRowCount;
 
         /* Define columns */
         let columnDefs = this.props.columns;
@@ -271,10 +272,12 @@ class CommonTable extends React.PureComponent {
                 {/* The table */}
 
                 <div className={css.AutoSizerContainer} style={{height: cssHeight + 'px', width: '100%'}}>
-                    <InfiniteLoader isRowLoaded={this.isRowLoaded}
-                                    loadMoreRows={this.loadMoreRows}
-                                    rowCount={rowCount}
-                                    threshold={10}>
+                    <InfiniteLoader
+                        isRowLoaded={this.isRowLoaded}
+                        loadMoreRows={this.loadMoreRows}
+                        rowCount={rowCount}
+                        threshold={20}
+                    >
                         {({ onRowsRendered, registerChild }) => (
                             <AutoSizer>
                                 {({ height, width }) => (
@@ -285,11 +288,12 @@ class CommonTable extends React.PureComponent {
                                             headerClassName={css.headerColumn}
                                             headerHeight={this.headerHeight}
                                             headerRowRenderer={this.headerRowRenderer}
-                                            rowHeight={this.rowHeight}
-                                            onRowsRendered={onRowsRendered}
                                             noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
-                                            rowGetter={rowGetter}
+                                            onRowsRendered={onRowsRendered}
+                                            overscanRowCount={overscanRowCount}
                                             rowCount={rowCount}
+                                            rowHeight={this.rowHeight}
+                                            rowGetter={rowGetter}
                                             sort={this._sort}
                                             sortBy={sortBy}
                                             sortDirection={sortDirection}
