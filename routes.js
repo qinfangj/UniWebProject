@@ -152,8 +152,6 @@ const routes = (
             {/* ADMIN */}
 
             <Route path="admin" component={admin.AdminDataPage} onEnter={requireAuth} />
-            {/*<Route path="admin" component={admin.UsersPage} onEnter={requireAuth} />*/}
-            {/*<Route path="admin/users" component={admin.LimsUserPage} onEnter={requireAuth} />*/}
             <Route path="admin/users/list" component={admin.LimsUsersListRoute} onEnter={requireAuth} />
             <Route path="admin/users/new" component={admin.LimsUsersNewPage} onEnter={requireAuth} />
             {/*<Route path="admin/users/unvalidated" component={admin.LimsUserDeletePage} onEnter={requireAuth} />*/}
@@ -173,9 +171,9 @@ const routes = (
             <Route path="admin/library_adapters/list" component={admin.libAdaptersListRoute} onEnter={requireAuth} />
             <Route path="admin/library_adapters/new" component={admin.libAdaptersNewPage} onEnter={requireAuth} />
             <Route path="admin/library_adapters/update/:id" component={admin.libAdaptersUpdatePage} onEnter={requireAuth} />
-            <Route path="admin/library_protocols/list" component={admin.libProtocolsListRoute} onEnter={requireAuth} />
-            <Route path="admin/library_protocols/new" component={admin.libProtocolsNewPage} onEnter={requireAuth} />
-            <Route path="admin/library_protocols/update/:id" component={admin.libProtocolsUpdatePage} onEnter={requireAuth} />
+            <Route path="admin/lib_protocols/list" component={admin.libProtocolsListRoute} onEnter={requireAuth} />
+            <Route path="admin/lib_protocols/new" component={admin.libProtocolsNewPage} onEnter={requireAuth} />
+            <Route path="admin/lib_protocols/update/:id" component={admin.libProtocolsUpdatePage} onEnter={requireAuth} />
             <Route path="admin/library_states/list" component={admin.libStatesListRoute} onEnter={requireAuth} />
             <Route path="admin/library_states/new" component={admin.libStatesNewPage} onEnter={requireAuth} />
             <Route path="admin/library_states/update/:id" component={admin.libStatesUpdatePage} onEnter={requireAuth} />

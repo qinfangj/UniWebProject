@@ -6,6 +6,10 @@
     padding: 20px 0 20px 20px;
     width: 100%;
 }
+/* A group of 12 Col widths */
+.formRow {
+
+}
 
 /* Add a horizontal space between inputs in "horizontal" form layouts */
 .formCol {

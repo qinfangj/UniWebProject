@@ -65,12 +65,12 @@ export class LibrariesInsertForm extends React.PureComponent {
         }
     }
 
-    activateForm() {
+    activateForm = () => {
         this.setState({ disabled: false });
-    }
-    deactivateForm() {
+    };
+    deactivateForm = () => {
         this.setState({ disabled: true });
-    }
+    };
 
     /**
      * Change the samples options list when the project changes.

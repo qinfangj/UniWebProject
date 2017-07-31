@@ -138,7 +138,8 @@ export function validateFormDefault(values) {
 
 
 /**
- * From a RRF form model, construct an array of input components.
+ * From a RRF form model, construct an array of input components,
+ * grouped in Forms by groups of 12 Col widths.
  * @param formModelName: RRF form model name.
  * @param formModel: the RRF store state for the form values.
  * @param disabled: boolean, to force the form to be disabled.
@@ -165,7 +166,21 @@ export function makeFormFields(formModelName, formModel, disabled = false, optio
             </Col>
         );
     });
-    return formFields;
+    let formGroups = [];
+    let sum = 0;  // sum of the Col widths
+    let first = 0;  // index of the first Col to put in a group
+    formModel.fields.forEach((model, i) => {
+        let w = model.width;
+        sum += w;
+        if (sum % 12 === 0) {
+            formGroups.push(<div className={css.formRow} key={'formrow'+i}>
+                {formFields.slice(first, i+1)}
+            </div>);
+            formGroups.push(<div key={'cf'+i} className="clearfix"/>);
+            first = i+1;
+        }
+    });
+    return formGroups;
 }
 
 /**

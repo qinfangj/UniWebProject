@@ -63,7 +63,7 @@ describe('(AdminForms) libAdaptersNewPage =>', () => {
 });
 
 const wrapper5 = shallow(
-    <AdminData title="Library Protocols" name="library_protocols" content={
+    <AdminData title="Library Protocols" name="lib_protocols" content={
         <CommonAdminForms table="lib_protocols" />
     } />
 );

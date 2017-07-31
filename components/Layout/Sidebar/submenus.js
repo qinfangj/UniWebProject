@@ -124,7 +124,7 @@ export const adminSubmenu = [
       to: "/admin/library_adapters/list",
     },{
       text: "Library protocols",
-      to: "/admin/library_protocols/list",
+      to: "/admin/lib_protocols/list",
     },{
       text: "Library states",
       to: "/admin/library_states/list",
