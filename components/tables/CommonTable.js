@@ -62,9 +62,9 @@ class CommonTable extends React.PureComponent {
     /**
      * Fetch a page of data from backend.
      */
-    getDataAsync(limit, offset, sortBy, sortDir, filterBy) {
+    getDataAsync(limit, offset, sortBy, sortDir, filterBy, reset=false) {
         let _this = this;
-        let dataLength = this.props.data.length;
+        let dataLength = reset ? 0 : this.props.data.length;
         this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
             limit, offset,
             sortBy || this.state.sortBy, sortDir || this.state.sortDirection, filterBy || this.state.searchTerm)
@@ -92,10 +92,10 @@ class CommonTable extends React.PureComponent {
      * Backend sort.
      */
     _sort = ({ sortBy, sortDirection }) => {
+        this.setState({ sortBy, sortDirection, rowCount: 0 });
         if (this.props.domain === "facility") {
-            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection, this.state.searchTerm);
+            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection, this.state.searchTerm, true);
         }
-        this.setState({ sortBy, sortDirection });
     };
 
     /**
@@ -103,9 +103,9 @@ class CommonTable extends React.PureComponent {
      */
     _search = (e) => {
         let filterBy = e.target.value;
-        this.setState({ searchTerm: filterBy });
+        this.setState({ searchTerm: filterBy, rowCount: 0 });
         if (this.props.domain === "facility") {
-            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, filterBy);
+            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, filterBy, true);
         }
     };
 
@@ -113,9 +113,9 @@ class CommonTable extends React.PureComponent {
      * Remove any filter (when click on the cross in the search field).
      */
     _resetSearch = () => {
-        this.setState({searchTerm: ""});
+        this.setState({ searchTerm: "" });
         if (this.props.domain === "facility") {
-            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, "");
+            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, "", true);
         }
     };
 
@@ -126,7 +126,7 @@ class CommonTable extends React.PureComponent {
         let dataLength = this.props.data.length;
         if (dataLength % this.nrowsPerQuery === 0) {
             console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
-            this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchTerm);
+            this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchTerm, false);
         } else {
             console.info(`End of data (at ${dataLength}).`)
         }
