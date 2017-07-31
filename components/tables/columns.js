@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 
 export const ROW_HEIGTH = 30;
-export const GRID_HEIGTH = 1200;
+export const GRID_HEIGTH = 520;
 
 export const CENTER = {textAlign: "center"};
 export const LEFT = {textAlign: "left"};

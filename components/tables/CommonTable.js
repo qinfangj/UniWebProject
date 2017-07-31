@@ -24,14 +24,14 @@ class CommonTable extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.gridHeight = 400;
+        this.gridHeight = GRID_HEIGTH;
         this.rowHeight = ROW_HEIGTH;
         this.nVisibleRows = (this.gridHeight / this.rowHeight) - 1;
         this.headerHeight = 35;
         this.overscanRowCount = 10;  // "Number of rows to render above/below the visible bounds of the list"
         this.useDynamicRowHeight = false;
         if (this.props.domain === "facility" ) {
-            this.nrowsPerQuery = 40;
+            this.nrowsPerQuery = 100;
         } else {
             this.nrowsPerQuery = 10000000;
         }
