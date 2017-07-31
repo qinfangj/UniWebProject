@@ -1,8 +1,8 @@
 import * as Toastr from 'toastr';
 
 Toastr.options.positionClass = "toast-top-center";
-Toastr.options.timeOut = "100000000";
-Toastr.options.extendedTimeOut = "100000000000";
+//Toastr.options.timeOut = "100000000";  // for testing
+//Toastr.options.extendedTimeOut = "100000000000";  // for testing
 
 
 
