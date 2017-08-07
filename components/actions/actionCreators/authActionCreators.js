@@ -119,8 +119,7 @@ export function signupUser(creds) {
                     response.json().then(res => {
                         feedback.success("Congratulations! You have signed up successfully!", "signupUser");
                         dispatch(_signupSuccess(res));
-                        // We do not want the user to be signed up right away!
-                        //AuthService._doAuthentication(user);
+                        AuthService._doAuthentication(res);
                         hashHistory.replace('/home');
                     }).catch(err => console.log("Error retreiving access_token: ", JSON.stringify(err, null, 2)));
                 }

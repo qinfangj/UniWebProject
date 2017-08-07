@@ -4,9 +4,8 @@ import css from '../routes/App.css'
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Alert from 'react-bootstrap/lib/Alert';
-import news from '../routes/msgHome/homePageNews.md';
+import news from './homePageNews.md';
 import AuthService from '../../utils/AuthService';
-//import * as fb from '../../utils/feedback';
 
 
 class HomePage extends React.Component {
@@ -26,13 +25,6 @@ class HomePage extends React.Component {
         return (
             <div>
 
-                {/*
-            <button onClick={() => fb.success("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
-            <button onClick={() => fb.info("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
-            <button onClick={() => fb.error("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
-            <button onClick={() => fb.warning("Test this long feed back mes -sage such as an inser -tion or a deletion of some thing int he data base")} />
-                */}
-
             <header>
                 <h2>Welcome to Lausanne Genomic Technologies Facility!</h2>
             </header>
@@ -44,12 +36,12 @@ class HomePage extends React.Component {
                     <Col md={6}>
                         <div height='40%' className={css.msgDiv}>
                             <p style={{textIntent:'50px'}}>
-                                This UHTS-Laboratory Information Managment System (LIMS)
+                                This Laboratory Information Managment System (LIMS)
                                 provides a relational database to store the information related to the Illumina
                                 sequencing technology.
                             </p>
                             <p>
-                                This UHTS-LIMS is only for the internal use on INTERFACE DEVELOPMENT of
+                                This LIMS is only for the internal use on INTERFACE DEVELOPMENT of
                                 DNA Array Facility at Lausanne University.
                             </p>
                         </div>

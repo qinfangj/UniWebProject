@@ -25,13 +25,6 @@ class LoginForm extends React.Component {
         };
     }
 
-    // componentWillReceiveProps(newProps) {
-    //     if (newProps.serverError) {
-    //         let feedbackMessage = this.getFeedback();
-    //         feedback.info(feedbackMessage);
-    //     }
-    // }
-
     submit = (e) => {
         e.preventDefault();
         this.props.loginUser(
@@ -48,17 +41,6 @@ class LoginForm extends React.Component {
 
     onChangePassword = (e) => {
         this.setState({ password: e.target.value });
-    };
-
-    getFeedback = () => {
-        let feedback = "";
-        let message = this.props.errorMessage;
-        if (message === "Unauthorized") {
-            feedback = "Wrong username or password";
-        } else {
-            feedback = "Unexpected error: " + message;
-        }
-        return feedback;
     };
 
     render() {
