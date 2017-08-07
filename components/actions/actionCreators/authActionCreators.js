@@ -70,14 +70,19 @@ export function loginUser(creds) {
             .then(response => {
                 //console.log(response)
                 /* HTTP response with error code */
+                console.log(response)
                 if (!response.ok) {
                     response.text().then(err => {
                         dispatch(_loginError(response.statusText));
-                        console.log("Error logging in: ", err)
+                        console.log("Error logging in: ", response)
+                        if (response.statusText === "Unauthorized") {
+                            feedback.info("Wrong username or password", "RestService::loginUser")
+                        }
                     });
                     //return Promise.reject(response);
                 /* Successful login (200) */
                 } else {
+                    feedback.reset()
                     response.json().then(res => {
                         dispatch(_LoginSuccess(res));
                         AuthService._doAuthentication(res);

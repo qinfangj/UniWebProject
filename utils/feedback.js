@@ -7,7 +7,7 @@ Toastr.options.positionClass = "toast-top-center";
 
 
 export function reset() {
-    Toastr.clear();
+    Toastr.remove();
 }
 
 export function info(message, origin) {
