@@ -3,7 +3,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
 import App from './components/routes/App';
-import HomePage from './components/routes/HomePage';
+import HomePage from './components/pages/HomePage';
 import * as tracking from './components/routes/trackingRoutes';
 import * as userdata from './components/routes/userDataRoutes';
 import * as fdata from './components/routes/facilityDataRoutes';

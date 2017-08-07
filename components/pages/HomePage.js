@@ -1,10 +1,10 @@
 "use strict";
 import React from 'react';
-import css from './App.css'
+import css from '../routes/App.css'
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Alert from 'react-bootstrap/lib/Alert';
-import news from './msgHome/homePageNews.md';
+import news from '../routes/msgHome/homePageNews.md';
 import AuthService from '../../utils/AuthService';
 //import * as fb from '../../utils/feedback';
 
@@ -14,7 +14,7 @@ class HomePage extends React.Component {
 
         let feedback = null;
         if (! AuthService.isLoggedIn) {
-            feedback = <Alert bsStyle="info">"Please log in"</Alert>;
+            feedback = <Alert bsStyle="info">{"Please log in"}</Alert>;
         } else if (! AuthService.isValidated) {
             feedback = <Alert bsStyle="info">
                 Your account is not active yet.<br />
