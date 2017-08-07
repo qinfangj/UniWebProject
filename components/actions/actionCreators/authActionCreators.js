@@ -153,7 +153,7 @@ export function requestResetPassword(email) {
                 if (response.ok) {
                     feedback.reset();
                     dispatch(() => {return {type: actions.login.RESET_PASSWORD_SUCCESS}});
-                    feedback.success("You have sent your reset password request, please check your email box", "restService::requestResetPassword");
+                    feedback.success("New password request sent, please check your email box", "restService::requestResetPassword");
                     hashHistory.replace('/home');
                 } else {
                     dispatch(() => {return {type: actions.login.RESET_PASSWORD_FAILURE}});
@@ -161,7 +161,7 @@ export function requestResetPassword(email) {
                         if (isSMTPError(err)) {
                             feedback.error("Cannot reset password: email service is inactive (SMTP server is unavailable).", {}, "restService::requestResetPassword");
                         } else {
-                            feedback.error("Change Password Error: " + err, {}, "restService::requestResetPassword");
+                            feedback.error(err, {}, "restService::requestResetPassword");
                         }
                     });
                     // return Promise.reject(response);
