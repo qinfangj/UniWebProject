@@ -145,7 +145,7 @@ class TrackingSummaryView extends React.PureComponent {
         laneNos[k][ind].value = e.target.value;
         if (e.target.value !== "") {
             let isValid = validators.laneNumberValidator(e.target.value);
-            if (isValid){
+            if (!isValid){
                 store.dispatch(feedbackWarning("tracking.library", "Lane number should be one digit between 1 and 8."))
             }
             laneNos[k][ind].valid = isValid;
@@ -209,9 +209,10 @@ class TrackingSummaryView extends React.PureComponent {
                             return (
                                 // value={this.state.laneNos[s][index].value}
                                 <td height='100%' width={widthRate} key={s}>
+                                <div type="button" className={trackCss.selectedCell} onClick={this.insertDetailedRow.bind(this, s, index)}>
                                     {
                                         this.props.isLibrary && this.state.laneNos[s][index] !== null ?
-                                            <div className={trackCss.laneNo}>
+                                            <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
                                                 <input
                                                     type="text"
                                                     value={this.state.laneNos[s][index].value}
@@ -223,7 +224,6 @@ class TrackingSummaryView extends React.PureComponent {
                                             :
                                             null
                                     }
-                                <div type="button" className={trackCss.selectedCell} onClick={this.insertDetailedRow.bind(this, s, index)}>
                                     {contentsTd}
                                     <div className={trackCss.iconRow} >
                                     {(o[s][index]['comment_customer'] !== "" && o[s][index]['comment_customer'] !== null)?
@@ -238,18 +238,19 @@ class TrackingSummaryView extends React.PureComponent {
                                 </div>
                             </td>)
                         } else {
-
                             return (<td height='100%' width={widthRate} key={s}>
-                                {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
-                                    <div className={trackCss.laneNo}>
-                                        <input
-                                            type="text"
-                                            value={this.state.laneNos[s][index].value}
-                                            onChange={this.setLaneNo.bind(this, s, index)}
-                                            style = {laneNoStyle}
-                                        />
-                                    </div>:null}
                                 <div type="button" className={trackCss.cell} onClick={this.insertDetailedRow.bind(this, s, index)}>
+                                    {
+                                        this.props.isLibrary && this.state.laneNos[s][index]!== null ?
+                                        <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
+                                            <input
+                                                type="text"
+                                                value={this.state.laneNos[s][index].value}
+                                                onChange={this.setLaneNo.bind(this, s, index)}
+                                                style = {laneNoStyle}
+                                            />
+                                        </div>:null
+                                    }
                                         {contentsTd}
                                         <div className={trackCss.iconRow}>
                                         {(o[s][index]['comment_customer'] !== null && o[s][index]['comment_customer'] !== "" )?
@@ -320,7 +321,7 @@ class TrackingSummaryView extends React.PureComponent {
             store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
         } else {
             //console.log(createdLanes);
-            let newPath = window.location.pathname + "data/runs/from-tracking";
+            let newPath = window.location.pathname + "facility/runs/from-tracking";
             console.log(newPath);
             store.dispatch(actions.reset("facilityDataForms.runs"));
 
