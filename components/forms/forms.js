@@ -106,12 +106,19 @@ export function formatFormFieldsDefault(formModel, values) {
         let itype = model.inputType;
         let field = model.name;
         let val = insertData[field];
-        if (model.type === "number" || itype === inputTypes.NUMBER || itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
+        if (model.type === "number" || itype === inputTypes.NUMBER) {
             // If not defined, don't submit.
             if (val === "") {
                 delete insertData[field];
             } else {
-                insertData[field] = parseInt(val)
+                insertData[field] = parseFloat(val);
+            }
+        } else if (itype === inputTypes.DROPDOWN || itype === inputTypes.SEC_DROPDOWN || itype === inputTypes.MULTIPLE_SELECT) {
+            // If not defined, don't submit.
+            if (val === "") {
+                delete insertData[field];
+            } else {
+                insertData[field] = parseInt(val);
             }
         }
         else if (itype === inputTypes.CHECKBOX) {
