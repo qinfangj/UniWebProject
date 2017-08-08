@@ -1,17 +1,17 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import {Button, FormControl, Col} from 'react-bootstrap/lib';
-import Feedback from '../../utils/Feedback';
 import store from '../../../core/store';
-import validators from '../../forms/validators';
+import trackCss from './tracking.css';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 
-import trackingData from '../../forms/tracking/trackingData';
+import validators from '../../forms/validators';
 import { actions} from 'react-redux-form';
 import { hashHistory } from 'react-router';
-import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
-import trackCss from './tracking.css';
+import * as feedback from '../../../utils/feedback';
+
+import { Button } from 'react-bootstrap/lib';
 import Icon from "react-fontawesome";
 import TrackingDetailView from './TrackingDetailView';
 
@@ -21,16 +21,14 @@ import { trackingSummariesAsync } from '../../actions/actionCreators/trackingAct
 class TrackingSummaryView extends React.PureComponent {
     constructor(props) {
         super(props);
-
         this.state = {
-                        isShowDetails :false,
-                        insertRow : -1,
-                        insertCol: "",
-                        laneNos: {},
-                        //isSubmit: false,
-                        createdlanesInfo: {},
-                      };
-
+            isShowDetails :false,
+            insertRow : -1,
+            insertCol: "",
+            laneNos: {},
+            //isSubmit: false,
+            createdlanesInfo: {},
+        };
     }
 
     static propTypes = {
@@ -42,6 +40,7 @@ class TrackingSummaryView extends React.PureComponent {
         //initialLaneNo : PropTypes.func,
     };
 
+    // anti-pattern here
     componentWillMount() {
         console.log("componentWillMount");
         let trackingData = this.props.trackingData;
@@ -57,9 +56,9 @@ class TrackingSummaryView extends React.PureComponent {
             this.props.getTrackingSummaries(this.props.dataStoreKey)
                 .fail(() => console.error("TrackingSummaryView.getTrackingSummaries() failed to load data."));
          }
-
     }
 
+    // anti-pattern here
     componentWillReceiveProps(nextProps){
         // console.log("componentWillReceiveProps");
         // console.log(this.props.trackingData);
@@ -69,15 +68,16 @@ class TrackingSummaryView extends React.PureComponent {
                 laneNos: nextProps.laneInfo
             });
         }
-
     }
 
+    /**
+     * Document please
+     * @param o
+     * @returns {*}
+     */
     unifyDataLength(o){
-
         let fieldsHead = Object.keys(o);
-
         let lengthArray = fieldsHead.map((s) =>{ return (o[s].length)});
-
         let maxlength = Math.max(...lengthArray);
         //console.log(maxlength);
         for (let i = 0; i< fieldsHead.length; i++) {
@@ -87,9 +87,12 @@ class TrackingSummaryView extends React.PureComponent {
         }
         //console.log(o);
         return o
-
     }
 
+    /**
+     * @deprecated
+     * Remove??
+     */
     showDetail(key,index){
         let table = null;
         if (this.state.isShowDetails) {
@@ -101,18 +104,20 @@ class TrackingSummaryView extends React.PureComponent {
                     isShowDetails: false,
                     insertRow: index
                 })
-
             } else {
-
                 table.deleteRow(this.state.insertRow + 2);
                 this.insertRow(this.detailData, key, index);
-
             }
         } else {
             this.insertRow(this.detailData, key,index);
         }
     }
 
+    /**
+     * Document please
+     * @param key
+     * @param index
+     */
     insertDetailedRow(key,index){
         if (this.state.isShowDetails) {
             if (index === this.state.insertRow && key === this.state.insertCol) {
@@ -135,13 +140,17 @@ class TrackingSummaryView extends React.PureComponent {
                 insertCol: key,
             })
         }
-
     }
 
+    /**
+     * Document please
+     * @param k
+     * @param ind
+     * @param e
+     */
     setLaneNo(k,ind,e){
         //console.log(e.target.value);
         let laneNos = Object.assign({},this.state.laneNos);
-
         laneNos[k][ind].value = e.target.value;
         if (e.target.value !== "") {
             let isValid = validators.laneNumberValidator(e.target.value);
@@ -149,19 +158,20 @@ class TrackingSummaryView extends React.PureComponent {
                 store.dispatch(feedbackWarning("tracking.library", "Lane number should be one digit between 1 and 8."))
             }
             laneNos[k][ind].valid = isValid;
-        }else{
+        } else {
             laneNos[k][ind].valid = true;
         }
-
         this.setState({laneNos: laneNos});
-
     }
 
+    /**
+     * Document please
+     * @param v
+     */
     makeTdContents(v){
         let date = "";
         let name = "";
         let type = "";
-
 
         if (this.props.dataStoreKey === "samples") {
             date = "received_date";
@@ -175,55 +185,60 @@ class TrackingSummaryView extends React.PureComponent {
         }
 
         return (
-                <div>{(v['laboratory'] === undefined) ? "" : v['laboratory']}  -  {(v['project'] === undefined) ? "" : v['project']} &nbsp;
-                    <small><i>{(v[date] === undefined) ? "" : v[date]}</i></small><br />
-                    {(v[name] === undefined) ? "" : v[name] }  {(v[type] === undefined) ? "" : v[type]}
-                </div>)
-
+            <div>{(v['laboratory'] === undefined) ? "" : v['laboratory']}  -  {(v['project'] === undefined) ? "" : v['project']} &nbsp;
+                <small><i>{(v[date] === undefined) ? "" : v[date]}</i></small><br />
+                {(v[name] === undefined) ? "" : v[name] }  {(v[type] === undefined) ? "" : v[type]}
+            </div>
+        );
     }
 
+    /**
+     * Document please
+     * @param o
+     * @param index
+     * @returns {Array}
+     */
     makeTr(o, index){
 
-        let td = Object.keys(o).map(
-            (s) => {
+        let td = Object.keys(o).map((s) => {
 
-                let widthRate = 98/(Object.keys(o).length) + "%";
+            let widthRate = 98/(Object.keys(o).length) + "%";
 
-                    if (!_.isEmpty(o[s][index])) {
+                if (!_.isEmpty(o[s][index])) {
 
-                        //make Td contents
-                        let contentsTd = this.makeTdContents(o[s][index]);
+                    //make Td contents
+                    let contentsTd = this.makeTdContents(o[s][index]);
 
-                        //Libraries to sequence page, make margin for Lane number input
-                        let cellMargin = this.props.isLibrary? {marginLeft:'20px'} : null;
-                        let laneNoStyle = null;
-                        if (this.props.isLibrary) {
-                            laneNoStyle = this.state.laneNos[s][index].valid == false ? {
-                                    width: '20px',
-                                    height: '20px',
-                                    borderColor: 'red'
-                                } : {width: '20px', height: '20px'};
-                            //laneNoStyle = {width: '20px', height: '20px'};
-                        }
-                        if (this.state.insertRow === index && this.state.insertCol == s){
-                            return (
-                                // value={this.state.laneNos[s][index].value}
-                                <td height='100%' width={widthRate} key={s}>
+                    //Libraries to sequence page, make margin for Lane number input
+                    let cellMargin = this.props.isLibrary? {marginLeft:'20px'} : null;
+                    let laneNoStyle = null;
+                    if (this.props.isLibrary) {
+                        laneNoStyle = this.state.laneNos[s][index].valid === false ? {
+                                width: '20px',
+                                height: '20px',
+                                borderColor: 'red'
+                            } : {width: '20px', height: '20px'};
+                        //laneNoStyle = {width: '20px', height: '20px'};
+                    }
+
+                    if (this.state.insertRow === index && this.state.insertCol === s){
+                        return (
+                            // value={this.state.laneNos[s][index].value}
+                            <td height='100%' width={widthRate} key={s}>
+                                {
+                                    this.props.isLibrary && this.state.laneNos[s][index] !== null ?
+                                        <div className={trackCss.laneNo}>
+                                            <input
+                                                type="text"
+                                                value={this.state.laneNos[s][index].value}
+                                                onChange={this.setLaneNo.bind(this, s, index)}
+                                                style={laneNoStyle}
+                                            />
+                                        </div>
+                                        :
+                                        null
+                                }
                                 <div type="button" className={trackCss.selectedCell} onClick={this.insertDetailedRow.bind(this, s, index)}>
-                                    {
-                                        this.props.isLibrary && this.state.laneNos[s][index] !== null ?
-                                            <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
-                                                <input
-                                                    type="text"
-                                                    value={this.state.laneNos[s][index].value}
-                                                    onChange={this.setLaneNo.bind(this, s, index)}
-                                                    style={laneNoStyle}
-                                                />
-                                            </div>
-
-                                            :
-                                            null
-                                    }
                                     {contentsTd}
                                     <div className={trackCss.iconRow} >
                                     {(o[s][index]['comment_customer'] !== "" && o[s][index]['comment_customer'] !== null)?
@@ -236,6 +251,23 @@ class TrackingSummaryView extends React.PureComponent {
                                         </div>
                                     </div>
                                 </div>
+                            </td>
+                        );
+
+                    } else {
+
+                        return (
+                            <td height='100%' width={widthRate} key={s}>
+                                {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
+                                    <div className={trackCss.laneNo}>
+                                        <input
+                                            type="text"
+                                            value={this.state.laneNos[s][index].value}
+                                            onChange={this.setLaneNo.bind(this, s, index)}
+                                            style = {laneNoStyle}
+                                        />
+                                    </div>:null}
+                                <div type="button" className={trackCss.cell} onClick={this.insertDetailedRow.bind(this, s, index)}>
                             </td>)
                         } else {
                             return (<td height='100%' width={widthRate} key={s}>
@@ -261,10 +293,10 @@ class TrackingSummaryView extends React.PureComponent {
                                              : null}
                                         </div>
                                 </div>
-                            </td>)
-
-                        }
+                            </td>
+                        );
                     }
+                }
             }
         );
         //console.log(index);
@@ -279,20 +311,39 @@ class TrackingSummaryView extends React.PureComponent {
         })
     }
 
+    /**
+     * Document please
+     * @param row
+     * @param key
+     * @param data
+     */
     makeDetailedTr(row,key,data){
-        let details = data[key][row];
-
-        return (data[key][row] !== undefined)?
-                (<tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}><div className={trackCss.showmore}>
-                    <span className={trackCss.close} onClick={this.closeDetailsView.bind(this)} ><Icon name='times-circle' style={{fontSize:20}}></Icon></span>
-                    <TrackingDetailView detailData={data[key][row]} dataKey={this.props.dataStoreKey}/>
-                     </div></td></tr>)
-                  :(<tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}><p className={trackCss.showmore}>No details</p></td></tr>)
+        if (data[key][row] !== undefined) {
+            return (
+                <tr key={row +1}>
+                    <td colSpan={Object.keys(data).length+1} className= {trackCss.td}>
+                        <div className={trackCss.showmore}>
+                        <span className={trackCss.close} onClick={this.closeDetailsView.bind(this)} >
+                            <Icon name='times-circle' style={{fontSize:20}}/></span>
+                            <TrackingDetailView detailData={data[key][row]} dataKey={this.props.dataStoreKey}/>
+                        </div>
+                    </td>
+                </tr>
+            );
+        } else {
+            return (
+                <tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}>
+                    <p className={trackCss.showmore}>No details</p>
+                </td>
+                </tr>
+            );
+        }
     }
 
+    /**
+     * Document please
+     */
     createRuns(){
-        let createdLanes = this.state.createdlanesInfo;
-
         let obj = {};
         for (let k in this.state.laneNos){
             let sub = this.state.laneNos[k];
@@ -309,30 +360,26 @@ class TrackingSummaryView extends React.PureComponent {
                             qualityId: "",
                             isQC: false,
                         }]
-
                     };
                 }
             }
-
         }
         console.log(obj);
 
         if (_.isEmpty(obj)) {
-            store.dispatch(feedbackWarning("tracking.library","Pease enter the lane numbers!"));
+            feedback.warning("Pease enter the lane numbers!", "TrackingSummaryView.createRuns");
         } else {
-            //console.log(createdLanes);
+            console.log(createdLanes);
             let newPath = window.location.pathname + "facility/runs/from-tracking";
             console.log(newPath);
             store.dispatch(actions.reset("facilityDataForms.runs"));
-
             store.dispatch(actions.change("facilityDataForms.runs.lanes", obj));
-
             hashHistory.push(newPath);
-
         }
 
     }
 
+    // Remove??
     //makeDiv(ele){
         //let div = [];
         //console.log(ele);
@@ -346,8 +393,12 @@ class TrackingSummaryView extends React.PureComponent {
         // }
 
        // return div
-   //}
+    //}
 
+    /**
+     * @deprecated
+     * Remove??
+     */
     resetLanes(){
         this.setState({
             //isSubmit: false,
@@ -360,39 +411,48 @@ class TrackingSummaryView extends React.PureComponent {
 
     render() {
 
-         //let data = Object.assign({},this.props.trackingData);
+        //let data = Object.assign({}, this.props.trackingData);
         //console.log(this.props.trackingData);
         //console.log(this.props.laneInfo);
         //console.log(this.props.summaries);
 
-        //########Get Real data from backend#######
+        //######## Get Real data from backend #######
         let dataSummary = this.unifyDataLength(this.props.summaries);
         let dataDetail = this.unifyDataLength(this.props.trackingData);
         console.log(dataSummary);
         console.log(dataDetail);
         let fieldsHead = Object.keys(this.props.summaries);
         let lengthArray = fieldsHead.map((s) =>{ return (this.props.summaries[s].length)});
-        //########Transform Real data to be designed data#######
+        //######## Transform Real data to be designed data #######
         let maxlength = Math.max(...lengthArray);
-
 
         let rows = [];
         if (this.state.isShowDetails) {
             for (let i = 0; i < this.state.insertRow + 1; i++) {
-                rows.push(<tr width='2%' key={i} ><td className= {trackCss.td} style={{textAlign:'center'}}>{i+1}</td>{this.makeTr( dataSummary, i)}</tr>);
+                rows.push(
+                    <tr width='2%' key={i}>
+                        <td className= {trackCss.td} style={{textAlign:'center'}}>{i+1}</td>
+                        {this.makeTr( dataSummary, i)}
+                    </tr>
+                );
             }
 
             rows.push(this.makeDetailedTr(this.state.insertRow, this.state.insertCol, dataDetail));
 
-            for (let i = this.state.insertRow+1; i < maxlength; i++) {
+            for (let i = this.state.insertRow + 1; i < maxlength; i++) {
                 rows.push(<tr width='2%' key={i+2}><td className= {trackCss.td} style={{textAlign:'center'}}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
             }
 
             let row = document.getElementById("myTable").rows;
             row[this.state.insertRow+1].scrollIntoView(true);
         } else {
-            for (let i = 0; i < maxlength; i++) {
-                rows.push(<tr width='2%' key={i}><td className= {trackCss.td}>{i+1}</td>{this.makeTr(dataSummary, i)}</tr>);
+            for (let i=0; i < maxlength; i++) {
+                rows.push(
+                    <tr width='2%' key={i}>
+                        <td className= {trackCss.td}>{i+1}</td>
+                        {this.makeTr(dataSummary, i)}
+                    </tr>
+                );
             }
         }
 
@@ -406,31 +466,29 @@ class TrackingSummaryView extends React.PureComponent {
                     <Button bsStyle="primary"  type="button" onClick={this.createRuns.bind(this)} className={trackCss.button} >
                         Create Runs
                     </Button>
+
                     {/*<Button bsStyle="primary"  type="button" className={trackCss.button} onClick={this.resetLanes.bind(this)}>*/}
                         {/*Reset*/}
                     {/*</Button>*/}
+
                     </div>
                     : null}
-
 
                     {/*{(Object.keys(this.state.createdlanesInfo).length > 0)?*/}
                         {/*Object.keys(this.state.createdlanesInfo).map ((s) => {*/}
                             {/*return <div key={s}> {this.makeDiv(s)} </div>}) : null*/}
                     {/*}*/}
 
-                <Feedback reference="tracking.library" />
                 <div className={trackCss.divWrapper}>
                 <table id="myTable" className={trackCss.table} >
                     <thead >
                         <tr className={trackCss.tr}><th className={trackCss.th} width='2%' />
                         {
                             fieldsHead.map((s) =>
-                                    {
-
-                                            return (<th className={trackCss.th} width={98 / (fieldsHead.length) + "%"}
-                                                        key={s}><div className={trackCss.header}>{s}</div></th>)
-
-                                    })
+                                {
+                                        return (<th className={trackCss.th} width={98 / (fieldsHead.length) + "%"}
+                                                    key={s}><div className={trackCss.header}>{s}</div></th>)
+                                })
                         }
                     </tr>
                     </thead>
@@ -460,28 +518,29 @@ const mapStateToProps = (state, ownProps) => {
     let data = Object.assign({}, state.tracking[ownProps.dataStoreKey]);
 
     let types = Object.keys(data);
-    let trakingData = {};
-    types.map(s=>{
+    let trackingData = {};
+    types.map((s) => {
+        // monstruosity is this loop
         let isNullArr = true;
         for (let i=0; i < data[s].length; i++){
             if (isNullArr && _.isNull(data[s][i])){
                 isNullArr = true
-            }else{
+            } else {
                 isNullArr = false
             }
         }
         if (!isNullArr){
-            trakingData[s] = data[s];
+            trackingData[s] = data[s];
         }
 
     });
 
-    //console.log(trakingData);
+    //console.log(trackingData);
 
     let summaries={};
-    for (let key in trakingData) {
+    for (let key in trackingData) {
 
-        let sub = trakingData[key];
+        let sub = trackingData[key];
         let arr = sub.map((s) => {
             if (s === null){
                 return {};
@@ -494,9 +553,9 @@ const mapStateToProps = (state, ownProps) => {
     //console.log(summaries);
 
     return {
-        trackingData: trakingData,
+        trackingData: trackingData,
         summaries: summaries,
-        laneInfo: (ownProps.isLibrary)? ownProps.initalLaneNo(trakingData):{}
+        laneInfo: (ownProps.isLibrary)? ownProps.initalLaneNo(trackingData):{}
     };
 };
 

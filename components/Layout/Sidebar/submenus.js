@@ -50,21 +50,22 @@ export const queryProjectsSubmenu = [
       text: "Samples sheet",
       to: `/projects/${colnames.queryProjects.SAMPLE_SHEETS_INFO}`,
       action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.SAMPLE_SHEETS_INFO)),
-    },{
-     text: "IVC plots",
-      to: `/projects/${colnames.queryProjects.IVC_PLOTS_INFO}`,
-        action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.IVC_PLOTS)),
     },
+    // {
+    //  text: "IVC plots",
+    //   to: `/projects/${colnames.queryProjects.IVC_PLOTS_INFO}`,
+    //     action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.IVC_PLOTS)),
+    // },
     {
       text: "Demultiplexings",
       to: `/projects/${colnames.queryProjects.DEMULTIPLEXING_INFO}`,
       action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.DEMULTIPLEXING_INFO)),
     },
-    {
-      text: "Alignments (CASAVA)",
-      to: `/projects/${colnames.queryProjects.ALIGNMENTS_INFO}`,
-      action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.ALIGNMENTS_INFO)),
-    },
+    // {
+    //   text: "Alignments (CASAVA)",
+    //   to: `/projects/${colnames.queryProjects.ALIGNMENTS_INFO}`,
+    //   action: () => store.dispatch(qp.changeQueryType(colnames.queryProjects.ALIGNMENTS_INFO)),
+    // },
 ];
 
 export const queryRunsSubmenu = [
@@ -111,7 +112,7 @@ export const adminSubmenu = [
       to: "/admin/project_sharings/list",
     },{
       text: "Analysis types",
-      to: "/admin/analysis_types/list",
+      to: "/admin/pipeline_analysis_types/list",
     },{
       text: "Flowcell types",
       to: "/admin/flowcell_types/list",
@@ -123,7 +124,7 @@ export const adminSubmenu = [
       to: "/admin/library_adapters/list",
     },{
       text: "Library protocols",
-      to: "/admin/library_protocols/list",
+      to: "/admin/lib_protocols/list",
     },{
       text: "Library states",
       to: "/admin/library_states/list",

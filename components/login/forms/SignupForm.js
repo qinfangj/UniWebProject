@@ -1,12 +1,9 @@
 "use strict";
 import React from 'react';
-import cx from 'classnames';
 import css from '../login.css';
 import store from '../../../core/store';
 import { signupUser } from '../../actions/actionCreators/authActionCreators';
 import validators  from '../../forms/validators';
-import Feedback from '../../utils/Feedback';
-import formNames from '../../constants/formNames';
 
 import {Form, FormControl, InputGroup, FormGroup, ControlLabel, Button, HelpBlock} from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
@@ -44,7 +41,8 @@ class SignupForm extends React.Component {
                 lastName: this.state.lastName,
                 email: this.state.email,
                 address: this.state.address,
-                phone: this.state.phone
+                phone: this.state.phone,
+                islaboratory: false,
             }
         ));
     }
@@ -139,7 +137,6 @@ class SignupForm extends React.Component {
     render() {
         return (
             <div className={css.formContainer}>
-                <Feedback reference={formNames.SIGN_UP_FORM} />
                 <Form className={css.form}>
 
                     {/* Password */}

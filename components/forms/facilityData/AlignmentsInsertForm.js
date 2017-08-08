@@ -12,10 +12,8 @@ import { requestBasecallingsForRun } from '../../actions/actionCreators/secondar
 
 import * as forms from '../forms.js';
 import fields from '../../constants/fields';
-import formNames from '../../constants/formNames';
 import alignmentsModel from './formModels/alignmentsModel';
 
-import Feedback from '../../utils/Feedback';
 import SubmitButton from '../SubmitButton';
 
 
@@ -24,7 +22,6 @@ export class AlignmentsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "alignments";
-        this.form = formNames.ALIGNMENTS_INSERT_FORM;
         this.model = alignmentsModel;
         this.modelName = "facilityDataForms.alignments";
         this.state = {
@@ -55,7 +52,7 @@ export class AlignmentsInsertForm extends React.PureComponent {
 
     onSubmit(values) {
         let insertData = forms.formatFormFieldsDefault(this.model, values);
-        forms.submitForm(this.modelName, insertData, this.table, this.form);
+        forms.submitForm(this.modelName, insertData, this.table);
     }
 
     activateForm() {
@@ -78,11 +75,7 @@ export class AlignmentsInsertForm extends React.PureComponent {
         let formFields = forms.makeFormFields(this.modelName, this.model, this.state.disabled, this.props.options, changeActions);
 
         return (
-
             <div>
-
-                <Feedback reference={this.form} />
-
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                     {formFields}
@@ -96,7 +89,6 @@ export class AlignmentsInsertForm extends React.PureComponent {
                     />
 
                 </Form>
-
             </div>
         );
     }
@@ -104,11 +96,10 @@ export class AlignmentsInsertForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = forms.optionsFromModel(state, alignmentsModel);
     let formData = state.facilityDataForms.alignments;
     return {
         formData: formData,
-        options: options,
+        options: state.options,
     };
 };
 

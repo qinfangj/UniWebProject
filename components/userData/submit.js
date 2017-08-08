@@ -2,13 +2,14 @@
 import React from 'react';
 import store from '../../core/store';
 import { batchInsertAsync } from '../actions/actionCreators/userDataActionCreators';
-import { feedbackError, feedbackSuccess, feedbackWarning } from '../actions/actionCreators/feedbackActionCreators';
 import { dateNow, parseDateString } from '../../utils/time';
 import { hashHistory } from 'react-router';
 import { actions } from 'react-redux-form';
+import * as feedback from '../../utils/feedback';
 
 
 /**
+ * Batch submission from User Data section.
  *
  * @param modelName: RRF form model name.
  * @param insertData: data to insert.
@@ -23,15 +24,15 @@ export function submit(modelName, insertData, table, formName) {
             .done((response) => {
                 console.debug(200, "Inserted IDs <"+ response.join(",") +">");
                 // Signal that it worked
-                store.dispatch(feedbackSuccess(formName, "Successfully inserted <"+response.join(",")+">"));
+                feedback.success("Successfully inserted <"+response.join(",")+">", "???::submit");
                 // Clear the form data in store
                 store.dispatch(actions.reset(modelName));
                 // let currentPath = window.location.pathname + window.location.hash.substr(2);
                 hashHistory.push("/facility/"+ table);
             })
             .fail((error) => {
-                console.warn("Uncaught form validation error: ", error);
-                store.dispatch(feedbackError(formName, "", error));
+                console.warn("Form validation error: ", error);
+                //feedback.error("", error, "???::submit");
             });
     }
 }

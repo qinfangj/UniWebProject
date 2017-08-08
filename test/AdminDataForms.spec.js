@@ -8,11 +8,11 @@ import { shallow, mount, render} from 'enzyme';
 import { expect, assert } from 'chai';
 
 import store from '../core/store';
-import tableNames from '../components/tables/tableNames';
+import tableNames from '../components/constants/tableNames';
 import { Provider } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import adminData from '../components/forms/adminData/adminDataModels';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 import CommonAdminForms from '../components/forms/adminData/CommonAdminForms';
 import optionsStoreKeys from '../components/constants/optionsStoreKeys';
 
@@ -30,7 +30,7 @@ function makeUTforAdminForms(table, model, fieldsList){
 
     it('should be valid after only all fields made valid', () => {
         fieldsList.map( s => {
-            if (s.type === inputTypes.TEXT) {
+            if (s.inputType === inputTypes.TEXT) {
                 console.log('text input id: #'+ s.name);
 
                 form.find('#' + s.name).node.value = 'aaa';

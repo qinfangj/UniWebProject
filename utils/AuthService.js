@@ -1,5 +1,5 @@
 "use strict";
-import { isTokenExpired } from './jwtHelper';
+import { isTokenExpired, getUserInfo } from './jwtHelper';
 import { hashHistory } from 'react-router';
 
 /**
@@ -23,6 +23,10 @@ class AuthService {
     get isLoggedIn() {
         const token = this.getToken();
         return !!token && !isTokenExpired(token);
+    }
+
+    get isValidated() {
+        return this.isLoggedIn && !!getUserInfo(this.getToken()).isvalidated;
     }
 
     /**

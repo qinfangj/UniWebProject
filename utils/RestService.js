@@ -1,9 +1,8 @@
 "use strict";
 import $ from 'jquery';
-import store from '../core/store';
 import AuthService from './AuthService';
 const BACKEND = window.ENV.BACKEND_URL;
-import { feedbackSuccess, feedbackError, feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
+import * as feedback from '../utils/feedback';
 
 
 /**
@@ -16,14 +15,17 @@ function handleError(jqXHR, statusText, error)  {
     let msg = jqXHR.responseText;
     if (jqXHR.status === 0) {
         msg = "Server error";
+        feedback.error(msg, {}, "RestService::handleError");
     } else if (jqXHR.status === 404) {
         msg = "Page not found";
+        feedback.error(msg, {}, "RestService::handleError");
     } else if (jqXHR.status === 401) {
         msg = "Unauthorized";
+        feedback.error(msg, {}, "RestService::handleError");
         AuthService.logout();
     }
-    console.log(error, statusText, jqXHR)
-    store.dispatch(feedbackError("REST", msg, jqXHR));
+    console.log(error, statusText, jqXHR);
+    feedback.error(msg, {}, "RestService::handleError");
 }
 
 

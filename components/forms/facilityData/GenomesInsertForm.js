@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form } from 'react-redux-form';
 
-import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { requestTaxonomies } from '../../actions/actionCreators/optionsActionCreators';
 
 import * as forms from '../forms.js';
+import * as feedback from '../../../utils/feedback';
 import formNames from '../../constants/formNames';
 import genomesModel from './formModels/genomesModel';
 
-import Feedback from '../../utils/Feedback';
 import SubmitButton from '../SubmitButton';
 
 
@@ -44,7 +43,7 @@ export class GenomesInsertForm extends React.PureComponent {
         if (validation.isValid) {
             forms.submitForm(this.modelName, insertData, this.table, this.form);
         } else {
-            this.props.feedbackWarning(this.form, validation.message);
+            feedback.warning(validation.message, "GenomesInsertForm::onSubmit");
         }
     }
 
@@ -60,9 +59,6 @@ export class GenomesInsertForm extends React.PureComponent {
 
         return (
             <div>
-
-                <Feedback reference={this.form} />
-
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                     {formFields}
@@ -76,7 +72,6 @@ export class GenomesInsertForm extends React.PureComponent {
                     />
 
                 </Form>
-
             </div>
         );
     }
@@ -84,11 +79,10 @@ export class GenomesInsertForm extends React.PureComponent {
 
 
 export const mapStateToProps = (state) => {
-    let options = forms.optionsFromModel(state, genomesModel);
     let formData = state.facilityDataForms.genomes;
     let formModel = state.facilityDataForms.forms.genomes;
     return {
-        options: options,
+        options: state.options,
         formData: formData,
         formModel: formModel,
     };
@@ -96,7 +90,6 @@ export const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        feedbackWarning,
         requestTaxonomies,
     }, dispatch);
 };

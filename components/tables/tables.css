@@ -15,9 +15,15 @@
     background-color: var(--yellow);
 }
 
-.AutoSizerContainer {
+/* What shows when there is no data in the table */
+.noData {
+    text-align: center;
+    margin: 15px;
+}
+
+.tableContainer {
     background-color: white;
-    height: calc(100vh - 50px);
+    min-height: 300px;
 }
 
 .searchField {
@@ -35,6 +41,13 @@
     z-index: 1;
     cursor: pointer;
 }
+
+/* Checkboxes in data tables must be shifted to appear vertically centered */
+.checkbox {
+    margin-top: 16px;
+}
+
+
 
 @media screen and (max-width: 1024px) {
 

@@ -4,10 +4,10 @@ import {shallow, mount, render} from 'enzyme';
 import store from '../core/store';
 import { Provider } from 'react-redux';
 import {expect,assert} from 'chai';
+
 import {UserRequestsInsertForm} from '../components/forms/facilityData/UserRequestsInsertForm';
-import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import userRequestsModel from '../components/forms/facilityData/formModels/userRequestsModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 
 const wrapper = shallow(
@@ -46,7 +46,6 @@ describe('(Component) UserRequestsInsertForm =>', () => {
                 requestRunsTypesLengths={() => null}
                 requestLibProtocols={() => null}
                 requestSamplesForProject={() => null}
-                feedbackWarning={() => store.dispatch(feedbackWarning())}
             />
         </Provider>
     );

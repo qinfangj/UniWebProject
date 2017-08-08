@@ -4,16 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form } from 'react-redux-form';
 
-import { feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
 import { requestRunsOutputFolders,
          requestPipelineVersions,
          requestPipelineAnalysisTypes } from '../../actions/actionCreators/optionsActionCreators';
 
 import * as forms from '../forms.js';
-import formNames from '../../constants/formNames';
+import * as feedback from '../../../utils/feedback';
 import basecallingsModel from './formModels/basecallingsModel';
 
-import Feedback from '../../utils/Feedback';
 import SubmitButton from '../SubmitButton';
 
 
@@ -22,7 +20,6 @@ export class BasecallingsInsertForm extends React.PureComponent {
     constructor() {
         super();
         this.table = "basecallings";
-        this.form = formNames.BASECALLINGS_INSERT_FORM;
         this.modelName = "facilityDataForms.basecallings";
         this.model = basecallingsModel;
         this.state = {
@@ -51,9 +48,9 @@ export class BasecallingsInsertForm extends React.PureComponent {
         let insertData = this.formatInsertData(values);
         let validation = forms.validateFormDefault(insertData);
         if (validation.isValid) {
-            forms.submitForm(this.modelName, insertData, this.table, this.form);
+            forms.submitForm(this.modelName, insertData, this.table);
         } else {
-            this.props.feedbackWarning(this.form, validation.message);
+            feedback.warning(validation.message, "BasecallingsInsertForm::onSubmit");
         }
     }
 
@@ -69,9 +66,6 @@ export class BasecallingsInsertForm extends React.PureComponent {
 
         return (
             <div>
-
-                <Feedback reference={this.form} />
-
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
                     {formFields}
@@ -85,7 +79,6 @@ export class BasecallingsInsertForm extends React.PureComponent {
                     />
 
                 </Form>
-
             </div>
         );
     }
@@ -94,11 +87,10 @@ export class BasecallingsInsertForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = forms.optionsFromModel(state, basecallingsModel);
     let formData = state.facilityDataForms.basecallings;
     let formModel = state.facilityDataForms.forms.basecallings;
     return {
-        options: options,
+        options: state.options,
         formData: formData,
         formModel: formModel,
     };
@@ -106,7 +98,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        feedbackWarning,
         requestRunsOutputFolders,
         requestPipelineVersions,
         requestPipelineAnalysisTypes,

@@ -186,11 +186,10 @@ class LanesSubForm extends React.PureComponent {
 
 
 const mapStateToProps = (state) => {
-    let options = forms.optionsFromModel(state, bioanalysersLaneModel);
     let formData = state.facilityDataForms.bioanalysers;
     return {
         lanes: formData.lanes,
-        options: options,
+        options: state.options,
     };
 };
 

@@ -3,12 +3,12 @@ import React from 'react';
 import CommonTable from '../tables/CommonTable';
 import CommonAdminForms from '../forms/adminData/CommonAdminForms';
 import adminDataColumns from '../tables/adminData/columns';
-import tableNames from '../tables/tableNames';
+import tableNames from '../constants/tableNames';
 
 import AdminData from '../pages/AdminData';
 import AdminDataHome from '../pages/AdminDataHome';
-//import ProjectSharingSubmitForm from '../forms/adminData/ProjectSharingSubmitForm';
-//import LimsUsersSubmitForm from '../forms/adminData/LimsUserSubmitForm';
+import UsersAdminForm from '../forms/adminData/UsersAdminForm';
+
 
 
 export class AdminDataPage extends React.Component {
@@ -18,6 +18,8 @@ export class AdminDataPage extends React.Component {
         );
     }
 }
+
+/******************   USERS   *****************/
 
 export class LimsUsersListRoute extends React.Component {
     render() {
@@ -34,8 +36,7 @@ export class LimsUsersNewPage extends React.Component {
     render() {
         return (
             <AdminData title="LIMS Users" name="users" content={
-                //<LimsUsersSubmitForm table={tableNames.USERS}  updateId={this.props.params.id}/>
-                <CommonAdminForms table={tableNames.USERS} />
+                <UsersAdminForm />
             } />
         );
     }
@@ -45,20 +46,20 @@ export class LimsUsersUpdatePage extends React.Component {
     render() {
         return (
             <AdminData title="LIMS Users" name="users" content={
-                //<LimsUsersSubmitForm table={tableNames.USERS}  updateId={this.props.params.id}/>
-                <CommonAdminForms table={tableNames.USERS}  updateId={this.props.params.id}/>
+                <UsersAdminForm updateId={this.props.params.id}/>
             } />
         );
     }
 }
 
+/******************   ANALYSIS TYPES   *****************/
 
 export class AnalysisTypeListRoute extends React.Component {
     render() {
         return (
-            <AdminData title="Analysis Types" name="analysis_types" content={
+            <AdminData title="Analysis Types" name="pipeline_analysis_types" content={
                 <CommonTable dataStoreKey={tableNames.ANALYSIS_TYPES} table={tableNames.ANALYSIS_TYPES}
-                              domain="admin" name="analysis_types" columns={adminDataColumns[tableNames.ANALYSIS_TYPES]} />
+                              domain="admin" name="pipeline_analysis_types" columns={adminDataColumns[tableNames.ANALYSIS_TYPES]} />
             } />
         );
     }
@@ -67,7 +68,7 @@ export class AnalysisTypeListRoute extends React.Component {
 export class AnalysisTypeNewPage extends React.Component {
     render() {
         return (
-            <AdminData title="Analysis Types" name="analysis_types"  content={
+            <AdminData title="Analysis Types" name="pipeline_analysis_types"  content={
                 <CommonAdminForms table={tableNames.ANALYSIS_TYPES}/>
             } />
         );
@@ -77,12 +78,14 @@ export class AnalysisTypeNewPage extends React.Component {
 export class AnalysisTypeUpdatePage extends React.Component {
     render() {
         return (
-             <AdminData title="Analysis Types" name="analysis_types"  content={
+             <AdminData title="Analysis Types" name="pipeline_analysis_types"  content={
                 <CommonAdminForms table={tableNames.ANALYSIS_TYPES} updateId={this.props.params.id}/>
              } />
         );
     }
 }
+
+/******************   FLOWCELL TYPES   *****************/
 
 export class FlowcellTypesListRoute extends React.Component {
     render() {
@@ -115,6 +118,8 @@ export class FlowcellTypesUpdatePage extends React.Component {
     }
 }
 
+/******************   INSTRUMENTS   *****************/
+
 export class InstrumentsListRoute extends React.Component {
     render() {
         return (
@@ -145,6 +150,8 @@ export class InstrumentsUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   LIBRARY ADAPTERS   *****************/
 
 export class libAdaptersListRoute extends React.Component {
     render() {
@@ -177,12 +184,14 @@ export class libAdaptersUpdatePage extends React.Component {
     }
 }
 
+/******************   LIBRARY PROTOCOLS   *****************/
+
 export class libProtocolsListRoute extends React.Component {
     render() {
         return (
-            <AdminData title="Library Protocols" name="library_protocols" content={
+            <AdminData title="Library Protocols" name="lib_protocols" content={
                 <CommonTable dataStoreKey={tableNames.LIB_PROTOCOLS} table={tableNames.LIB_PROTOCOLS}
-                              domain="admin" name="library_protocols" columns={adminDataColumns[tableNames.LIB_PROTOCOLS]} />
+                              domain="admin" name="lib_protocols" columns={adminDataColumns[tableNames.LIB_PROTOCOLS]} />
             } />
         );
     }
@@ -191,7 +200,7 @@ export class libProtocolsListRoute extends React.Component {
 export class libProtocolsNewPage extends React.Component {
     render() {
         return (
-            <AdminData title="Library Protocols" name="library_protocols" content={
+            <AdminData title="Library Protocols" name="lib_protocols" content={
                 <CommonAdminForms table={tableNames.LIB_PROTOCOLS} />
             } />
         );
@@ -201,12 +210,14 @@ export class libProtocolsNewPage extends React.Component {
 export class libProtocolsUpdatePage extends React.Component {
     render() {
         return (
-            <AdminData title="Library Protocols" name="library_protocols" content={
+            <AdminData title="Library Protocols" name="lib_protocols" content={
                 <CommonAdminForms table={tableNames.LIB_PROTOCOLS} updateId={this.props.params.id}/>
             } />
         );
     }
 }
+
+/******************   LIRBARY STATES   *****************/
 
 export class libStatesListRoute extends React.Component {
     render() {
@@ -239,6 +250,8 @@ export class libStatesUpdatePage extends React.Component {
     }
 }
 
+/******************   MAPPING TOOLS - INTRUMENTS   *****************/
+
 export class mappingToolsListRoute extends React.Component {
     render() {
         return (
@@ -269,6 +282,8 @@ export class mappingToolsUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   MULTIPLEX INDEXES   *****************/
 
 export class multiplexIndexesListRoute extends React.Component {
     render() {
@@ -301,6 +316,8 @@ export class multiplexIndexesUpdatePage extends React.Component {
     }
 }
 
+/******************   PIPELINE VERSIONS   *****************/
+
 export class pipelineVersionListRoute extends React.Component {
     render() {
         return (
@@ -331,6 +348,8 @@ export class pipelineVersionUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   PROJECT ANALYSIS   *****************/
 
 export class projectAnalysisListRoute extends React.Component {
     render() {
@@ -363,6 +382,8 @@ export class projectAnalysisUpdatePage extends React.Component {
     }
 }
 
+/******************   PROJECT STATES   *****************/
+
 export class projectStatesListRoute extends React.Component {
     render() {
         return (
@@ -393,6 +414,8 @@ export class projectStatesUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   QUANTIF METHODS   *****************/
 
 export class quantifMethodsListRoute extends React.Component {
     render() {
@@ -425,6 +448,8 @@ export class quantifMethodsUpdatePage extends React.Component {
     }
 }
 
+/******************   READ LENGTHS   *****************/
+
 export class readLengthsListRoute extends React.Component {
     render() {
         return (
@@ -455,6 +480,8 @@ export class readLengthsUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   RUN TYPES   *****************/
 
 export class runTypesListRoute extends React.Component {
     render() {
@@ -487,6 +514,8 @@ export class runTypesUpdatePage extends React.Component {
     }
 }
 
+/******************   RUN TYPES + LENGTHS   *****************/
+
 export class runTypesLengthsListRoute extends React.Component {
     render() {
         return (
@@ -517,6 +546,8 @@ export class runTypesLengthsUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   SAMPLE TYPES   *****************/
 
 export class sampleTypesListRoute extends React.Component {
     render() {
@@ -549,6 +580,8 @@ export class samplesTypesUpdatePage extends React.Component {
     }
 }
 
+/******************   SEQUENCING KITS VERSIONS   *****************/
+
 export class seqKitVersionListRoute extends React.Component {
     render() {
         return (
@@ -579,6 +612,8 @@ export class seqKitVersionUpdatePage extends React.Component {
         );
     }
 }
+
+/******************   SEQUENCING QUALITIES   *****************/
 
 export class seqQualitiesListRoute extends React.Component {
     render() {
@@ -611,6 +646,8 @@ export class seqQualitiesUpdatePage extends React.Component {
     }
 }
 
+/******************   TAXONOMIES - ORGANISMS   *****************/
+
 export class taxonomiesListRoute extends React.Component {
     render() {
         return (
@@ -642,14 +679,14 @@ export class taxonomiesUpdatePage extends React.Component {
     }
 }
 
+/******************   PROJECT SHARINGS   *****************/
+
 export class projectSharingsListRoute extends React.Component {
     render() {
         return (
             <AdminData title="Project Sharings" name="project_sharings" content={
                 <CommonTable dataStoreKey={tableNames.PROJECT_SHARINGS} table={tableNames.PROJECT_SHARINGS}
                              domain="admin" name="project_sharings" columns={adminDataColumns[tableNames.PROJECT_SHARINGS]} />
-                //<CommonTable dataStoreKey={tableNames.PROJECT_SHARINGS} table={tableNames.PROJECT_SHARINGS}
-                                //columns={adminDataColumns[tableNames.PROJECT_SHARINGS]} />
             }/>
         );
     }

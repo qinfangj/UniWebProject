@@ -1,15 +1,14 @@
 "use strict";
 import React from 'react';
-import formsCss from '../forms.css';
-import css from './queryProjects.css';
-import cx from 'classnames';
+import css from '../query.css';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { searchSamplesByTerm, resetSelection } from '../../actions/actionCreators/queryProjectsActionCreators';
+
+import { bindActionCreators } from 'redux';
+import { resetSelection, search } from '../../../actions/actionCreators/queryProjectsActionCreators';
 
 import ProjectsMultipleSelect from './ProjectsMultipleSelect';
 import SamplesSecondaryMultipleSelect from './SamplesSecondaryMultipleSelect';
-import formNames from '../../constants/formNames';
-import optionsStoreKeys from '../../constants/optionsStoreKeys';
 
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -26,18 +25,19 @@ import Icon from 'react-fontawesome';
 class QueryProjectsForm extends React.Component {
     constructor() {
         super();
-        this.form = formNames.QUERY_PROJECTS_FORM;
-        // Build store keys for selected form values
-        this.projectsFormKey = this.form + formNames.suffixes.PROJECTS;
-        this.samplesFormKey = this.form + formNames.suffixes.SAMPLES;
         this.state = {
             visible: true,
         };
     }
 
+    static propTypes = {
+        // The left menu section, type of info to display. Not from store! but read from URL.
+        queryType: PropTypes.string.isRequired,
+    };
+
     componentWillMount() {
         // Initialize with all samples - filtering with empty term
-        this.props.searchSamplesByTerm("");
+        this.props.search("");
     }
 
     /**
@@ -49,12 +49,12 @@ class QueryProjectsForm extends React.Component {
         let term = e.target.value;
         // Clear the current projects/samples selection
         this.props.resetSelection();
-        this.props.searchSamplesByTerm(term);
+        this.props.search(term);
     }
 
     onReset() {
         this.props.resetSelection();
-        this.props.searchSamplesByTerm("");
+        this.props.search("");
     }
 
     toggleVisible() {
@@ -99,22 +99,10 @@ class QueryProjectsForm extends React.Component {
                 <Collapse in={this.state.visible}>
                     <Form>
                         <Col sm={6} className={css.col6}>
-                            <ProjectsMultipleSelect
-                                label="Projects"
-                                form={this.form}
-                                field={this.projectsFormKey}
-                                filterByProjectIds={this.props.projectIds}
-                            />
+                            <ProjectsMultipleSelect queryType={this.props.queryType} />
                         </Col>
                         <Col sm={6} className={css.col6}>
-                            <SamplesSecondaryMultipleSelect
-                                label="Samples"
-                                form={this.form}
-                                referenceField={this.projectsFormKey}
-                                field={this.samplesFormKey}
-                                filterBySampleIds={this.props.sampleIds}
-                                searchTerm={this.props.searchTerm}
-                            />
+                            <SamplesSecondaryMultipleSelect queryType={this.props.queryType} />
                         </Col>
                     </Form>
                 </Collapse>
@@ -125,29 +113,22 @@ class QueryProjectsForm extends React.Component {
 
 
 QueryProjectsForm.defaultProps = {
-    projectIds: {},
-    sampleIds: {},
     searchTerm: "",
 };
 
 
 const mapStateToProps = (state, ownProps) => {
-    let searched = state.queryProjects[optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM];  // {projectIds(set), sampleIds(set)}
     let searchTerm = state.queryProjects.searchTerm;
-    let projectIds = searched.projectIds || new Set();
-    let sampleIds = searched.sampleIds || new Set();
     return {
-        projectIds,
-        sampleIds,
         searchTerm,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        searchSamplesByTerm: (term) => dispatch(searchSamplesByTerm(term, optionsStoreKeys.PROJECTS_AND_SAMPLES_SEARCHED_BY_TERM)),
-        resetSelection: () => dispatch(resetSelection()),
-    };
+    return bindActionCreators({
+        resetSelection,
+        search,
+    }, dispatch);
 };
 
 

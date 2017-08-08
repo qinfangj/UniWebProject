@@ -1,10 +1,12 @@
 "use strict";
 import React from 'react';
 
-import QueryProjectsForm from '../forms/queryProjects/QueryProjectsForm';
-import QueryRunsForm from '../forms/queryProjects/QueryRunsForm';
-import QueryProjectsTable from '../tables/queryProjects/QueryProjectsTable';
-import QueryRunsTable from '../tables/queryProjects/QueryRunsTable';
+import QueryProjectsForm from '../forms/query/projects/QueryProjectsForm';
+import QueryProjectsResultTable from '../tables/query/projects/QueryProjectsResultTable';
+
+import QueryRunsForm from '../forms/query/runs/QueryRunsForm';
+import QueryRunsSelectionTable from '../tables/query/runs/QueryRunsSelectionTable';
+import QueryRunsResultTable from '../tables/query/runs/QueryRunsResultTable';
 
 
 export class QueryProjectsRoute extends React.Component {
@@ -13,9 +15,9 @@ export class QueryProjectsRoute extends React.Component {
         let queryType = subpaths[subpaths.length-1];  // last element of the path
         return (
             <div>
-                <QueryProjectsForm />
+                <QueryProjectsForm queryType={queryType} />
                 <div className="clearfix"/>
-                <QueryProjectsTable queryType={queryType} />
+                <QueryProjectsResultTable queryType={queryType} />
             </div>
         );
     }
@@ -27,9 +29,11 @@ export class QueryRunsRoute extends React.Component {
         let queryType = subpaths[subpaths.length-1];  // last element of the path
         return (
             <div>
-                <QueryRunsForm queryType={queryType} />
+                <QueryRunsForm>
+                    <QueryRunsSelectionTable queryType={queryType} />
+                </QueryRunsForm>
                 <div className="clearfix"/>
-                <QueryRunsTable queryType={queryType} />
+                <QueryRunsResultTable queryType={queryType} />
             </div>
         );
     }

@@ -1,40 +1,33 @@
 "use strict";
 import actions from '../actionTypes';
-import store from '../../../core/store';
-let types = actions.login;
 import RestService from '../../../utils/RestService';
 import AuthService from '../../../utils/AuthService';
-import { feedbackError, feedbackSuccess, feedbackWarning } from '../../actions/actionCreators/feedbackActionCreators';
+
 import { hashHistory } from 'react-router';
-import formNames from '../../constants/formNames';
 import { asyncAction } from './base';
+import * as feedback from '../../../utils/feedback';
 
 
-export function resetFeedback() {
-    return {
-        type: types.RESET_FEEDBACK
-    }
-}
 
 /* Login */
 
 export function _loginRequest(creds) {
     return {
-        type: types.LOGIN_REQUEST,
+        type: actions.login.LOGIN_REQUEST,
         creds: creds,
     }
 }
 
 export function _LoginSuccess(user) {
     return {
-        type: types.LOGIN_SUCCESS,
+        type: actions.login.LOGIN_SUCCESS,
         id_token: user.access_token,
     }
 }
 
 export function _loginError(message) {
     return {
-        type: types.LOGIN_FAILURE,
+        type: actions.login.LOGIN_FAILURE,
         message: message,
     }
 }
@@ -43,21 +36,21 @@ export function _loginError(message) {
 
 export function _signupRequest(creds) {
     return {
-        type: types.SIGNUP_REQUEST,
+        type: actions.login.SIGNUP_REQUEST,
         creds: creds,
     }
 }
 
 export function _signupSuccess(user) {
     return {
-        type: types.SIGNUP_SUCCESS,
+        type: actions.login.SIGNUP_SUCCESS,
         id_token: user.access_token,
     }
 }
 
 export function _signupError(message) {
     return {
-        type: types.SIGNUP_FAILURE,
+        type: actions.login.SIGNUP_FAILURE,
         message: message,
     }
 }
@@ -80,11 +73,15 @@ export function loginUser(creds) {
                 if (!response.ok) {
                     response.text().then(err => {
                         dispatch(_loginError(response.statusText));
-                        console.log("Error logging in: ", err)
+                        console.log("Error logging in: ", response);
+                        if (response.statusText === "Unauthorized") {
+                            feedback.info("Wrong username or password", "RestService::loginUser");
+                        }
                     });
                     //return Promise.reject(response);
                 /* Successful login (200) */
                 } else {
+                    feedback.reset();
                     response.json().then(res => {
                         dispatch(_LoginSuccess(res));
                         AuthService._doAuthentication(res);
@@ -92,8 +89,8 @@ export function loginUser(creds) {
                 }
             /* No HTTP response */
             }).catch(err => {
-                store.dispatch(feedbackError("REST", "Error logging in: " + err.message, {}));
-                console.log("Error logging in - cannot fetch: ", err)
+                feedback.error("Error logging in: " + err.message, {}, "RestService::loginUser");
+                console.log("Error logging in - cannot fetch: ", err);
             });
     }
 }
@@ -109,27 +106,27 @@ export function signupUser(creds) {
                     response.text().then(err => {
                         dispatch(_signupError(err));
                         if (isSMTPError(err)) {
-                            dispatch(feedbackError(formNames.SIGN_UP_FORM, "Cannot sign up: email service is inactive (SMTP server is unavailable).", {}));
+                            feedback.error("Cannot sign up: email service is inactive (SMTP server is unavailable).", {}, "signupUser");
                         } else {
-                            dispatch(feedbackError(formNames.SIGN_UP_FORM, "Signup Error: "+err, {}));
+                            feedback.error("Signup Error: "+err, {}, "signupUser");
                         }
-                        console.log("Error signing up: ", err)
+                        console.log("Error signing up: ", err);
                     });
                     //return Promise.reject(response);  // redirects to `catch()`
                 /* Successful signup (200) */
                 } else {
+                    feedback.reset();
                     response.json().then(res => {
-                        dispatch(feedbackSuccess(formNames.SIGN_UP_FORM, "Congratulations! You have signed up successfully!"));
+                        feedback.success("Congratulations! You have signed up successfully!", "signupUser");
                         dispatch(_signupSuccess(res));
-                        // We do not want the user to be signed up right away!
-                        //AuthService._doAuthentication(user);
+                        AuthService._doAuthentication(res);
                         hashHistory.replace('/home');
                     }).catch(err => console.log("Error retreiving access_token: ", JSON.stringify(err, null, 2)));
                 }
             /* No HTTP response */
             }).catch(err => {
-                dispatch(feedbackError("REST", "Cannot connect to server. Please report to an administrator.", err));
-                console.log("Error signing up - cannot fetch: ", err)
+                feedback.error("Cannot connect to server. Please report to an administrator.", err, "signupUser");
+                console.log("Error signing up - cannot fetch: ", err);
             });
     }
 }
@@ -139,7 +136,7 @@ export function signupUser(creds) {
 
 export function logout() {
     return {
-        type: types.LOGOUT_SUCCESS,
+        type: actions.login.LOGOUT_SUCCESS,
         isFetching: false,
         isAuthenticated: false
     }
@@ -150,27 +147,28 @@ export function logout() {
 
 export function requestResetPassword(email) {
     return dispatch => {
-        dispatch(() => {return {type: types.RESET_PASSWORD_REQUEST}});
+        dispatch(() => {return {type: actions.login.RESET_PASSWORD_REQUEST}});
         return RestService.requestResetPassword(email)
             .then(response => {
                 if (response.ok) {
-                    dispatch(() => {return {type: types.RESET_PASSWORD_SUCCESS}});
-                    dispatch(feedbackSuccess(formNames.RESET_PASSWORD_FORM, "You have sent your reset password request, please check your registered emails!"));
+                    feedback.reset();
+                    dispatch(() => {return {type: actions.login.RESET_PASSWORD_SUCCESS}});
+                    feedback.success("New password request sent, please check your email box", "restService::requestResetPassword");
                     hashHistory.replace('/home');
                 } else {
-                    dispatch(() => {return {type: types.RESET_PASSWORD_FAILURE}});
+                    dispatch(() => {return {type: actions.login.RESET_PASSWORD_FAILURE}});
                     response.text().then(err => {
                         if (isSMTPError(err)) {
-                            dispatch(feedbackError(formNames.RESET_PASSWORD_FORM, "Cannot reset password: email service is inactive (SMTP server is unavailable).", {}));
+                            feedback.error("Cannot reset password: email service is inactive (SMTP server is unavailable).", {}, "restService::requestResetPassword");
                         } else {
-                            dispatch(feedbackError(formNames.RESET_PASSWORD_FORM, "Change Password Error: " + err, {}));
+                            feedback.error(err, {}, "restService::requestResetPassword");
                         }
                     });
                     // return Promise.reject(response);
                 }
             }).catch(err => {
-                dispatch(feedbackError(formNames.RESET_PASSWORD_FORM, "Reset Password Error: " + err.message, {}));
-                console.log('Error asking for password reset: ' + JSON.stringify(err, null, 2))
+                feedback.error("Reset Password Error: " + err.message, err, "signupUser");
+                console.log('Error asking for password reset: ' + JSON.stringify(err, null, 2));
             });
         }
 }
@@ -178,38 +176,38 @@ export function requestResetPassword(email) {
 
 export function changePassword(code, email, newPassword) {
     return dispatch => {
-        dispatch(() => {return {type: types.CHANGE_PASSWORD_REQUEST}});
+        dispatch(() => {return {type: actions.login.CHANGE_PASSWORD_REQUEST}});
         return RestService.changePassword(code, email, newPassword)
             .then(response => {
                 if (response.ok) {
-                    dispatch(feedbackSuccess(formNames.CHANGE_PASSWORD_FORM, "You have changed your password successfully!"));
+                    feedback.success("You have changed your password successfully!", "restService::changePassword");
                     dispatch(() => {
-                        return {type: types.CHANGE_PASSWORD_SUCCESS}
+                        return {type: actions.login.CHANGE_PASSWORD_SUCCESS}
                     });
                     hashHistory.replace('/home');
                 } else {
                     dispatch(() => {
-                        return {type: types.CHANGE_PASSWORD_FAILURE}
+                        return {type: actions.login.CHANGE_PASSWORD_FAILURE}
                     });
                     response.text().then(err => {
                         if (isSMTPError(err)) {
-                            dispatch(feedbackError(formNames.CHANGE_PASSWORD_FORM, "Cannot change password: email service is inactive (SMTP server is unavailable).", {}));
+                            feedback.error("Cannot change password: email service is inactive (SMTP server is unavailable).", {}, "restService::changePassword");
                         } else {
-                            dispatch(feedbackError(formNames.CHANGE_PASSWORD_FORM, "Change Password Error: " + err, {}));
+                            feedback.error("Change Password Error: " + err, {}, "restService::changePassword");
                         }
                     });
                     // return Promise.reject(response);
                 }
             }).catch(err =>{
-                dispatch(feedbackError(formNames.CHANGE_PASSWORD_FORM, "Change Password Error: "+ err.message, {}));
-                console.log('Error changing password: ' + JSON.stringify(err, null, 2))
+                feedback.error("Change Password Error: "+ err.message, {}, "restService::changePassword");
+                console.log('Error changing password: ' + JSON.stringify(err, null, 2));
             });
     }
 }
 
 export function getLoginDetails() {
     let args = {storeKey:'accountProfile'};
-    return asyncAction(types.GET_ACCOUNT_PROFILE, RestService.getLoginDetails.bind(null), args);
+    return asyncAction(actions.login.GET_ACCOUNT_PROFILE, RestService.getLoginDetails.bind(null), args);
 }
 
 

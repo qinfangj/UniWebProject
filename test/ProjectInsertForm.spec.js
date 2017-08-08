@@ -1,15 +1,15 @@
 "use strict";
 import React from 'react';
 import {shallow, mount, render} from 'enzyme';
+import {expect, assert} from 'chai';
+
 import store from '../core/store';
 import { Provider, connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {expect, assert} from 'chai';
-import { ProjectsInsertForm } from '../components/forms/facilityData/ProjectsInsertForm';
 
-import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
+import { ProjectsInsertForm } from '../components/forms/facilityData/ProjectsInsertForm';
 import projectsModel from '../components/forms/facilityData/formModels/projectsModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 
 
@@ -62,7 +62,6 @@ let form = mount(
             }}
             requestLaboratories={() => null}
             requestProjectStates={() => null}
-            feedbackWarning={() => store.dispatch(feedbackWarning())}
         />
     </Provider>
 );

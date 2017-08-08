@@ -1,14 +1,14 @@
 "use strict";
 import React from 'react';
 import {shallow, mount, render} from 'enzyme';
-
 import {expect,assert} from 'chai';
+
 import store from '../core/store';
 import { Provider } from 'react-redux';
+
 import {GenomesInsertForm} from '../components/forms/facilityData/GenomesInsertForm';
-import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import genomesModel from '../components/forms/facilityData/formModels/genomesModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 
 const wrapper = shallow(
@@ -41,7 +41,6 @@ describe('(Component) GenomesInsertForm =>', () => {
                     'PIPELINE_ANALYSIS_TYPES_OPTIONS': [[1, "Primary"], [2, "Secondary"]],
                 }}
                 requestTaxonomies={() => null}
-                feedbackWarning={() => store.dispatch(feedbackWarning())}
             />
         </Provider>
     );

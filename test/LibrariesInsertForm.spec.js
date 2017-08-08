@@ -4,10 +4,10 @@ import {shallow, mount, render} from 'enzyme';
 import store from '../core/store';
 import { Provider } from 'react-redux';
 import {expect,assert} from 'chai';
+
 import {LibrariesInsertForm} from '../components/forms/facilityData/LibrariesInsertForm';
-import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import librariesModel from '../components/forms/facilityData/formModels/librariesModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 
 const wrapper = shallow(
@@ -59,7 +59,6 @@ describe('(Component) LibrariesInsertForm =>', () => {
                 requestLibAdapters={() => null}
                 requestLibraryStates={() => null}
                 requestSamplesForProject={() => null}
-                feedbackWarning={() => store.dispatch(feedbackWarning())}
             />
         </Provider>
     );

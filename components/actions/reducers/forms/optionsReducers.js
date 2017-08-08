@@ -17,6 +17,9 @@ const defaultState = {
     [optionsStoreKeys.PIPELINE_ANALYSIS_TYPES]: [],
     [optionsStoreKeys.PIPELINE_VERSIONS]: [],
     [optionsStoreKeys.PROJECTS_ALL]: [],
+    [optionsStoreKeys.PROJECTS_HAVING_A_SAMPLE]: [],
+    [optionsStoreKeys.PROJECTS_HAVING_A_LIBRARY]: [],
+    [optionsStoreKeys.PROJECTS_HAVING_A_POOL]: [],
     [optionsStoreKeys.PROJECT_ANALYSES]: [],
     [optionsStoreKeys.PROJECT_STATES]: [],
     [optionsStoreKeys.QUANTIF_METHODS]: [],
@@ -28,6 +31,12 @@ const defaultState = {
     [optionsStoreKeys.SEQUENCING_KIT_VERSIONS]: [],
     [optionsStoreKeys.SEQUENCING_QUALITIES]: [],
     [optionsStoreKeys.TAXONOMIES]: [],
+    [optionsStoreKeys.ROLES]: [
+        ["no_access", "no access"],
+        ["customer", "customer"],
+        ["facility", "facility"],
+        ["admin", "admin"]
+    ],
 };
 
 

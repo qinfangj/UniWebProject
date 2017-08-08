@@ -1,5 +1,5 @@
 "use strict";
-import tableNames from './tableNames';
+import tableNames from '../constants/tableNames';
 
 
 

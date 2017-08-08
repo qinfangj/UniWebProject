@@ -1,7 +1,7 @@
 "use strict";
 import fields from '../../../constants/fields';
 // import formNames from '../../../constants/formNames';
-import inputTypes from '../../inputTypes';
+import inputTypes from '../../../constants/inputTypes';
 import optionsStoreKeys from '../../../constants/optionsStoreKeys';
 
 
@@ -10,18 +10,21 @@ import optionsStoreKeys from '../../../constants/optionsStoreKeys';
  */
 const bioanalysersLaneModel = {
     [fields.PROJECT_ID]: {
+        name: fields.PROJECT_ID,
         width: 4,
         inputType: inputTypes.DROPDOWN,
         optionsKey: optionsStoreKeys.PROJECTS_HAVING_A_LIBRARY,
         required: true,
     },
     [fields.LIBRARY_ID]: {
+        name: fields.LIBRARY_ID,
         width: 4,
         inputType: inputTypes.SEC_DROPDOWN,
         optionsKey: optionsStoreKeys.LIBRAIRIES_FOR_PROJECT,
         required: true,
     },
     [fields.COMMENT]: {
+        name: fields.COMMENT,
         width: 4,
         inputType: inputTypes.TEXT,
     },

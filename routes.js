@@ -3,7 +3,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
 import App from './components/routes/App';
-import HomePage from './components/routes/HomePage';
+import HomePage from './components/pages/HomePage';
 import * as tracking from './components/routes/trackingRoutes';
 import * as userdata from './components/routes/userDataRoutes';
 import * as fdata from './components/routes/facilityDataRoutes';
@@ -14,9 +14,14 @@ import * as account from './components/routes/accountRoutes';
 import AuthService from './utils/AuthService';
 
 
+// Fires on any route change.
+const onRouteChange = (nextRouterState, replace) => {
+};
+
 // Validate authentication for private routes
 const requireAuth = (nextRouterState, replace) => {
-    if (!AuthService.isLoggedIn) {
+    onRouteChange(nextRouterState, replace);
+    if (!(AuthService.isLoggedIn && AuthService.isValidated)) {
         replace({ pathname: '/login' });
     }
 };
@@ -25,13 +30,13 @@ const requireAuth = (nextRouterState, replace) => {
 const routes = (
     <Router history={hashHistory}>
         <Route path="/" component={App}>
-            <IndexRoute component={HomePage}/>
-            <Route path="home" component={HomePage}/>
+            <IndexRoute component={HomePage} onEnter={onRouteChange}/>
+            <Route path="home" component={HomePage} onEnter={onRouteChange}/>
 
-            <Route path="login" component={login.LoginPage}/>
-            <Route path="signup" component={login.SignupPage}/>
-            <Route path="forgotPassword" component={login.ForgotPasswordPage}/>
-            <Route path="changePassword" component={login.ChangePasswordPage}/>
+            <Route path="login" component={login.LoginPage} onEnter={onRouteChange}/>
+            <Route path="signup" component={login.SignupPage} onEnter={onRouteChange}/>
+            <Route path="forgotPassword" component={login.ForgotPasswordPage} onEnter={onRouteChange}/>
+            <Route path="changePassword" component={login.ChangePasswordPage} onEnter={onRouteChange}/>
 
             <Route path="account" component={account.AccountPage} onEnter={requireAuth} />
 
@@ -147,8 +152,6 @@ const routes = (
             {/* ADMIN */}
 
             <Route path="admin" component={admin.AdminDataPage} onEnter={requireAuth} />
-            {/*<Route path="admin" component={admin.UsersPage} onEnter={requireAuth} />*/}
-            {/*<Route path="admin/users" component={admin.LimsUserPage} onEnter={requireAuth} />*/}
             <Route path="admin/users/list" component={admin.LimsUsersListRoute} onEnter={requireAuth} />
             <Route path="admin/users/new" component={admin.LimsUsersNewPage} onEnter={requireAuth} />
             {/*<Route path="admin/users/unvalidated" component={admin.LimsUserDeletePage} onEnter={requireAuth} />*/}
@@ -156,9 +159,9 @@ const routes = (
             <Route path="admin/project_sharings/list" component={admin.projectSharingsListRoute} onEnter={requireAuth} />
             <Route path="admin/project_sharings/new" component={admin.projectSharingsNewPage} onEnter={requireAuth} />
             <Route path="admin/project_sharings/update/:id" component={admin.projectSharingsUpdatePage} onEnter={requireAuth} />
-            <Route path="admin/analysis_types/list" component={admin.AnalysisTypeListRoute} onEnter={requireAuth} />
-            <Route path="admin/analysis_types/new" component={admin.AnalysisTypeNewPage} onEnter={requireAuth} />
-            <Route path="admin/analysis_types/update/:id" component={admin.AnalysisTypeUpdatePage} onEnter={requireAuth} />
+            <Route path="admin/pipeline_analysis_types/list" component={admin.AnalysisTypeListRoute} onEnter={requireAuth} />
+            <Route path="admin/pipeline_analysis_types/new" component={admin.AnalysisTypeNewPage} onEnter={requireAuth} />
+            <Route path="admin/pipeline_analysis_types/update/:id" component={admin.AnalysisTypeUpdatePage} onEnter={requireAuth} />
             <Route path="admin/flowcell_types/list" component={admin.FlowcellTypesListRoute} onEnter={requireAuth} />
             <Route path="admin/flowcell_types/new" component={admin.FlowcellTypesNewPage} onEnter={requireAuth} />
             <Route path="admin/flowcell_types/update/:id" component={admin.FlowcellTypesUpdatePage} onEnter={requireAuth} />
@@ -168,9 +171,9 @@ const routes = (
             <Route path="admin/library_adapters/list" component={admin.libAdaptersListRoute} onEnter={requireAuth} />
             <Route path="admin/library_adapters/new" component={admin.libAdaptersNewPage} onEnter={requireAuth} />
             <Route path="admin/library_adapters/update/:id" component={admin.libAdaptersUpdatePage} onEnter={requireAuth} />
-            <Route path="admin/library_protocols/list" component={admin.libProtocolsListRoute} onEnter={requireAuth} />
-            <Route path="admin/library_protocols/new" component={admin.libProtocolsNewPage} onEnter={requireAuth} />
-            <Route path="admin/library_protocols/update/:id" component={admin.libProtocolsUpdatePage} onEnter={requireAuth} />
+            <Route path="admin/lib_protocols/list" component={admin.libProtocolsListRoute} onEnter={requireAuth} />
+            <Route path="admin/lib_protocols/new" component={admin.libProtocolsNewPage} onEnter={requireAuth} />
+            <Route path="admin/lib_protocols/update/:id" component={admin.libProtocolsUpdatePage} onEnter={requireAuth} />
             <Route path="admin/library_states/list" component={admin.libStatesListRoute} onEnter={requireAuth} />
             <Route path="admin/library_states/new" component={admin.libStatesNewPage} onEnter={requireAuth} />
             <Route path="admin/library_states/update/:id" component={admin.libStatesUpdatePage} onEnter={requireAuth} />

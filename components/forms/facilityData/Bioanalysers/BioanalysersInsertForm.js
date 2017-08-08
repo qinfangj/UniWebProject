@@ -6,7 +6,6 @@ import RestService from '../../../../utils/RestService';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
-import { feedbackWarning } from '../../../actions/actionCreators/feedbackActionCreators';
 
 import formNames from '../../../constants/formNames';
 import bioanalysersModel from '../formModels/bioanalysersModel';
@@ -15,15 +14,14 @@ import * as forms from '../../forms.js';
 import LanesSubForm from './lanesSubForm';
 import { Form } from 'react-redux-form';
 import { Col } from 'react-bootstrap/lib';
-import Feedback from '../../../utils/Feedback';
 import SubmitButton from '../../SubmitButton';
+import * as feedback from '../../../../utils/feedback';
 
 
 class BioanalysersInsertForm extends React.PureComponent {
     constructor(props) {
         super(props);
         this.table = "bioanalysers";
-        this.form = formNames.BIOANALYSERS_INSERT_FORM;
         this.modelName = "facilityDataForms.bioanalysers";
         this.model = bioanalysersModel;
         this.state = {
@@ -96,9 +94,9 @@ class BioanalysersInsertForm extends React.PureComponent {
 
     onSubmit(values) {
         if (!values.lanes || Object.keys(values.lanes).length === 0) {
-            this.props.feedbackWarning(this.form, "At least one lane is required.");
+            feedback.warning("At least one lane is required.", "BioanalysersInsertForm::onSubmit");
         } else if (this.fileInput.files.length === 0) {
-            this.props.feedbackWarning(this.form, "Bioanalyser file is required");
+            feedback.warning("Bioanalyser file is required", "BioanalysersInsertForm::onSubmit");
         } else {
             let file = this.fileInput.files[0];
             let reader = new FileReader();
@@ -109,9 +107,9 @@ class BioanalysersInsertForm extends React.PureComponent {
                 if (validation.isValid) {
                     insertData.file = reader.result;
                     insertData.filename = this.fileInput.value;
-                    forms.submitForm(this.modelName, insertData, this.table, this.form);
+                    forms.submitForm(this.modelName, insertData, this.table);
                 } else {
-                    this.props.feedbackWarning(this.form, validation.message);
+                    feedback.warning(validation.message, "RunsInsertForm::onSubmit");
                 }
             }
         }
@@ -141,8 +139,6 @@ class BioanalysersInsertForm extends React.PureComponent {
 
         return (
             <div>
-
-                <Feedback reference={this.form} />
 
                 <Form model={this.modelName} onSubmit={this.onSubmit.bind(this)} >
 
@@ -196,7 +192,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        feedbackWarning,
         requestLibrariesForProject,
     }, dispatch);
 };

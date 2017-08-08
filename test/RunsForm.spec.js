@@ -3,18 +3,20 @@ import React from 'react';
 import {shallow, mount, render} from 'enzyme';
 import store from '../core/store';
 import { Provider } from 'react-redux';
-
 import {expect,assert} from 'chai';
+
 import {RunsInsertForm} from '../components/forms/facilityData/Runs/RunsInsertForm';
-import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import runsModel from '../components/forms/facilityData/formModels/runsModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
+
+
 
 const wrapper1 = shallow(
     <Provider store={store}>
         <RunsInsertForm/>
     </Provider>
 );
+
 describe('(Component) RunsInsertForm =>', () => {
 
     it('renders without exploding', () => {
@@ -49,7 +51,6 @@ describe('(Component) RunsInsertForm =>', () => {
                 requestRunsTypesLengths={() => null}
                 requestSequencingKitVersions={() => null}
                 requestLibrariesForProject={() => null}
-                feedbackWarning={() => store.dispatch(feedbackWarning())}
             />
         </Provider>
     );
@@ -58,9 +59,8 @@ describe('(Component) RunsInsertForm =>', () => {
         assert.isFalse(store.getState().facilityDataForms.forms[formModel].$form.validated);
     });
 
-//let fieldsList = projectsModel[tableNames.FLOWCELL_TYPES].fields;
 
-    it('LibrariesInsertForm should be valid after only all fields made valid', () => {
+    it('RunsInsertForm should be valid after only all fields made valid', () => {
         for (let modelName of Object.keys(runsModel)) {
             let id = "#" + modelName;
             console.log(id);

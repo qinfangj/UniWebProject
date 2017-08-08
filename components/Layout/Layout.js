@@ -7,7 +7,6 @@ import commonCss from '../../styles/common.css';
 import Header from './Header';
 import Footer from './Footer';
 import ResponsiveSidebar from './Sidebar';
-import Feedback from '../utils/Feedback.js';
 
 
 /**
@@ -27,13 +26,10 @@ class Layout extends React.PureComponent {
                 <ResponsiveSidebar>
 
                 <div className={commonCss.fullwidth}>
+
                     <Header />
 
-                    {/* Log server errors */}
-                    <Feedback reference="REST" />
-
                     <div className={cx("container", css.pageContent)}>
-
                         <div className={cx("row", commonCss.fullwidth)}>
                             <div className={cx(css.column2)}>
 
@@ -43,13 +39,14 @@ class Layout extends React.PureComponent {
 
                             </div>
                         </div>
-
                     </div>
 
                     <Footer />
+
                 </div>
 
                 </ResponsiveSidebar>
+
             </div>
         );
     }

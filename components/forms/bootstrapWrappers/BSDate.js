@@ -2,7 +2,7 @@
 import React from 'react';
 import { makeLabel } from './bs';
 import { FormGroup, FormControl } from 'react-bootstrap/lib';
-import { DEFAULT_DATE } from '../inputTypes';
+import { DEFAULT_DATE } from '../../constants/inputTypes';
 
 
 export default class BSDate extends React.PureComponent {

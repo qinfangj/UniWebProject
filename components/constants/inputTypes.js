@@ -4,6 +4,7 @@ const inputTypes = {
     DROPDOWN: "dropdown",
     SEC_DROPDOWN: "secondary_dropdown",
     MULTIPLE_SELECT: "multiple_select",
+    SEC_MULTIPLE_SELECT: "secondary_multiple_select",
     TEXT: "text",
     TEXTAREA: "textarea",
     CHECKBOX: "checkbox",

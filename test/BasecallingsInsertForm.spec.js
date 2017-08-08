@@ -4,10 +4,10 @@ import {shallow, mount, render} from 'enzyme';
 import store from '../core/store';
 import { Provider } from 'react-redux';
 import {expect,assert} from 'chai';
+
 import {BasecallingsInsertForm} from '../components/forms/facilityData/BasecallingsInsertForm';
-import { feedbackWarning } from '../components/actions/actionCreators/feedbackActionCreators';
 import basecallingsModel from '../components/forms/facilityData/formModels/basecallingsModel';
-import inputTypes from '../components/forms/inputTypes';
+import inputTypes from '../components/constants/inputTypes';
 
 
 const wrapper = shallow(
@@ -42,7 +42,6 @@ describe('(Component) BasecallingInsertForm =>', () => {
                 requestRunsOutputFolders={() => null}
                 requestPipelineVersions={() => null}
                 requestPipelineAnalysisTypes={() => null}
-                feedbackWarning={() => store.dispatch(feedbackWarning())}
             />
         </Provider>
     );
