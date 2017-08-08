@@ -90,8 +90,8 @@ export function submitForm(modelName, insertData, table, onSuccess, isAttribute 
                 return response;
             })
             .fail((error) => {
-                console.warn("Uncaught form validation error: ", error);
-                feedback.error("", error, "submitForm");
+                console.warn("Form validation error: ", error);
+                //feedback.error("", error, "submitForm");
                 return error;
             });
     }

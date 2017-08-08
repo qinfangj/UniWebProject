@@ -15,14 +15,17 @@ function handleError(jqXHR, statusText, error)  {
     let msg = jqXHR.responseText;
     if (jqXHR.status === 0) {
         msg = "Server error";
+        feedback.error(msg, jqXHR, "RestService::handleError");
     } else if (jqXHR.status === 404) {
         msg = "Page not found";
+        feedback.error(msg, jqXHR, "RestService::handleError");
     } else if (jqXHR.status === 401) {
         msg = "Unauthorized";
+        feedback.error(msg, jqXHR, "RestService::handleError");
         AuthService.logout();
     }
-    console.log(error, statusText, jqXHR)
-    feedback.error(msg, jqXHR, "RestService::handleError");
+    console.log(error, statusText, jqXHR);
+    feedback.error(msg, {}, "RestService::handleError");
 }
 
 

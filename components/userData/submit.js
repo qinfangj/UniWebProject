@@ -31,8 +31,8 @@ export function submit(modelName, insertData, table, formName) {
                 hashHistory.push("/facility/"+ table);
             })
             .fail((error) => {
-                console.warn("Uncaught form validation error: ", error);
-                feedback.error("", error, "???::submit");
+                console.warn("Form validation error: ", error);
+                //feedback.error("", error, "???::submit");
             });
     }
 }
