@@ -54,6 +54,7 @@ const alignmentsModel = {
             width: 12,
             label: "Config file content",
             inputType: inputTypes.TEXTAREA,
+            rows: 5,
         },{
             name: fields.COMMENT,
             width: 12,
