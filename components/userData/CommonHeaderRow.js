@@ -44,10 +44,10 @@ class CommonHeaderRow extends React.PureComponent {
     }
 
     render() {
-        let model = this.props.formModel;
+        let formModel = this.props.formModel;
         let labels = [];
-        for (let field of Object.keys(model)) {
-            let label = model[field].label || "";
+        for (let model of formModel.fields) {
+            let label = model.label || "";
             labels.push(label);
         }
         let cells = labels.map((label,i) =>

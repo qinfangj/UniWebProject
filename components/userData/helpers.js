@@ -28,8 +28,8 @@ function makeOptions(options) {
  */
 export function makeInputs(rowModel, options, formModelName) {
     let inputs = [];
-    for (let field of Object.keys(rowModel)) {
-        let model = rowModel[field];
+    for (let model of rowModel.fields) {
+        let field = model.name;
         let {inputType, label, optionsKey, ...props} = model;
         let modelName = `${formModelName}.${field}`;
         let input;

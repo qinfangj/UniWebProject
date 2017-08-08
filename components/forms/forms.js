@@ -101,6 +101,7 @@ export function submitForm(modelName, insertData, table, onSuccess, isAttribute 
  * Cast numeric values before we can submit. RRF apparently uses only strings and booleans.
  */
 export function formatFormFieldsDefault(formModel, values) {
+console.log(formModel, values)
     let insertData = _.cloneDeep(values);  // because `values` is immutable
     formModel.fields.forEach((model) => {
         let itype = model.inputType;

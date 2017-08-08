@@ -24,7 +24,6 @@ import libraryModel from '../formModels/libraryModel';
 import librariesProjectModel from '../formModels/librariesProjectModel';
 import submit from '../submit';
 import { formatFormFieldsDefault } from '../../forms/forms';
-import formNames from '../../constants/formNames';
 
 import { Form } from 'react-redux-form';
 import LibraryRow from './LibraryRow';
@@ -47,7 +46,6 @@ class LibrariesBatchSubmission extends React.PureComponent {
         super(props);
         this.table = "libraries";
         this.formModelName = "userDataForms.libraries";
-        this.model = libraryModel;
     }
 
     componentWillMount() {
@@ -73,7 +71,7 @@ class LibrariesBatchSubmission extends React.PureComponent {
             requests.push(request);
         }
         let insertData = {project, requests};
-        submit(this.formModelName, insertData, this.table, formNames.LIBRARIES_INSERT_FORM);
+        submit(this.formModelName, insertData, this.table);
     }
 
     /**
