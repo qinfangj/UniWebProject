@@ -162,7 +162,6 @@ const mapDispatchToProps = (dispatch) => {
         requestRunsTypesLengths,
         requestSequencingKitVersions,
         requestLibrariesForProject,
-        feedbackWarning,
         }, dispatch);
 };
 
