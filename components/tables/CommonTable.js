@@ -1,21 +1,17 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types'
-import css from './tables.css';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Immutable from 'immutable'
 
 import * as tables from './tables.js';
 import adminColumns from './adminData/columns';
 import facilityDataColumns from './facilityData/columns';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
 
-import DataLoadingIcon from '../utils/DataLoadingIcon';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import { Column, Table, AutoSizer, SortDirection, InfiniteLoader} from 'react-virtualized';
-
+import AsyncTable from './AsyncTable';
 
 
 class CommonTable extends React.PureComponent {
@@ -58,182 +54,29 @@ class CommonTable extends React.PureComponent {
     };
 
     /** Fetch a page of data from backend. */
-    getDataAsync(limit, offset, sortBy, sortDir, filterBy, reset=false) {
-        let _this = this;
-        let dataLength = reset ? 0 : this.props.data.length;
-        this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
+    getDataAsync = (limit, offset, sortBy, sortDir, filterBy) => {
+        return this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
             limit, offset,
-            sortBy || this.state.sortBy, sortDir || this.state.sortDirection, filterBy || this.state.searchTerm)
-        .done((data) => {
-            // `data` is only the new block. The whole data is in `this.props.data`.
-            if (data.length !== 0) {
-                let hasNextPage = data.length % this.nrowsPerQuery === 0;
-                let newDataLength = dataLength + data.length;
-                let rowCount = hasNextPage ? newDataLength + 1 : newDataLength;
-                _this.setState({ rowCount });
-            } else {
-                _this.setState({ rowCount: 0 })
-
-            }
-        })
-        .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
-    }
-
-    componentWillMount() {
-        // Can try to cache that result, but do it properly so that for instance it still understands active or not
-        this.getDataAsync(this.nrowsPerQuery, 0);
-    }
-
-    /** Backend sort. */
-    _sort = ({ sortBy, sortDirection }) => {
-        this.setState({ sortBy, sortDirection, rowCount: 0 });
-        if (this.props.domain === "facility") {
-            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection, this.state.searchTerm, true);
-        }
-    };
-
-    /** Backend search. */
-    _search = (e) => {
-        let filterBy = e.target.value;
-        this.setState({ searchTerm: filterBy, rowCount: 0 });
-        if (this.props.domain === "facility") {
-            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, filterBy, true);
-        }
-    };
-
-    /** Remove any filter (when click on the cross in the search field). */
-    _resetSearch = () => {
-        this.setState({ searchTerm: "" });
-        if (this.props.domain === "facility") {
-            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, "", true);
-        }
-    };
-
-    /** RV infinite loader needs to know if a row is already in the current data, given an index. */
-    isRowLoaded = ({ index }) => {
-        return index < this.props.data.length;
-    };
-
-    /** RV infinite loader needs to know how to query the next rows on scroll. */
-    loadMoreRows = ({ startIndex, stopIndex }) => {
-        let dataLength = this.props.data.length;
-        if (dataLength % this.nrowsPerQuery === 0) {
-            console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
-            this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchTerm, false);
-        } else {
-            console.info(`End of data (at ${dataLength}).`)
-        }
-    };
-
-    /**
-     * Construct an array of <Column>s from the columns definition.
-     */
-    getColumns = (width) => {
-        let columnDefs;
-        if (this.props.domain === "facility") {
-            columnDefs = facilityDataColumns[this.props.table];
-        }
-        else if (this.props.domain === "admin") {
-            columnDefs = adminColumns[this.props.table];
-        }
-        const ncols = columnDefs.length;
-        const sharedColumnWidth = (width-70) / (ncols-1);  // except the ID column which is fixed at 70px
-        let _idColumnLink = (obj) => tables.idColumnLink(this.props.domain, this.props.table, obj.cellData);
-
-        return columnDefs.map( s => {
-            let cellRenderer = (s.field === 'id') ? _idColumnLink : s.cellRenderer;
-            let columnWidth = (s.field === 'id') ? 70 : sharedColumnWidth;
-            let node = <Column key={s}
-                       label={s.headerName}
-                       dataKey={s.field}
-                       headerRenderer={tables._headerRenderer}
-                       width={columnWidth}
-                       cellRenderer={cellRenderer}
-                   />;
-            return node;
-        });
+            sortBy || this.state.sortBy, sortDir || this.state.sortDirection, filterBy || this.state.searchTerm);
     };
 
     render() {
-        let sortBy = this.state.sortBy;
-        let sortDirection = this.state.sortDirection;
-        let rowCount = this.state.rowCount;
-        let overscanRowCount = this.state.overscanRowCount;
-
-        /* Format data */
-        let data = this.props.formatter ? this.props.formatter(this.props.data) : this.props.data;
-        tables.checkData(data);
-        let list = Immutable.fromJS(data);
-        if (this.props.domain === "admin") {
-            list = tables.localSearch(list, this.state.searchTerm, this.props.columns);
-            list = tables.sortImmutable(list, sortBy, sortDirection);
-            rowCount = list.size;
-        }
-        const rowGetter = ({index}) => tables._getRow(list, index);
-
-        // Height that would take the table if all rows would be displayed. Still in use??
-        let cssHeight = (this.gridHeight > (data.length + 1) * tables.ROW_HEIGTH) ? (data.length + 1) * tables.ROW_HEIGTH : this.gridHeight;
-
+        let columnDefs = (this.props.domain === "facility") ?
+            facilityDataColumns[this.props.table] :
+            adminColumns[this.props.table];
         return (
             <div style={{width: '100%', height: '100%'}}>
 
-                {/* Search field */}
-
-                <div>
-                    <div type="button" className={css.resetBtn} onClick={this._resetSearch}>
-                        <span className="glyphicon glyphicon-remove" aria-hidden="true" />
-                    </div>
-                    <FormControl
-                        type="text"
-                        className={css.searchField}
-                        placeholder="Search"
-                        value={this.state.searchTerm}
-                        onChange={this._search}
-                    />
-                </div>
-                <div className="clearfix"/>
-
-                {/* The table */}
-
-                <div className={css.tableContainer} style={{height: cssHeight + 'px', width: '100%'}}>
-                    <InfiniteLoader
-                        isRowLoaded={this.isRowLoaded}
-                        loadMoreRows={this.loadMoreRows}
-                        rowCount={rowCount}
-                        threshold={20}
-                    >
-                        {({ onRowsRendered, registerChild }) => (
-                            <AutoSizer>
-                                {({ height, width }) => (
-                                    <Table
-                                        ref={registerChild}
-                                        width={width}
-                                        height={height}
-                                        headerClassName={css.headerColumn}
-                                        headerHeight={this.headerHeight}
-                                        headerRowRenderer={tables.headerRowRenderer}
-                                        noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
-                                        onRowsRendered={onRowsRendered}
-                                        overscanRowCount={overscanRowCount}
-                                        rowCount={rowCount}
-                                        rowHeight={this.rowHeight}
-                                        rowGetter={rowGetter}
-                                        sort={this._sort}
-                                        sortBy={sortBy}
-                                        sortDirection={sortDirection}
-                                    >
-                                        {this.getColumns(width-50)}
-                                    </Table>
-                                )}
-                            </AutoSizer>
-                        )}
-                    </InfiniteLoader>
-                </div>
-                <div style={{height: (this.gridHeight-cssHeight) + 'px', width: '100%'}} />
-
-                {/* Loading spinner */}
-
-                <DataLoadingIcon />
+                <AsyncTable
+                    getDataAsync={this.getDataAsync}
+                    getColumns={this.getColumns}
+                    data={this.props.data}
+                    columns={columnDefs}
+                    //isLoading={this.props.isLoading}
+                    formatter={this.props.formatter}
+                    sortAsync={this.props.domain === "facility"}
+                    filterAsync={this.props.domain === "facility"}
+                />
 
             </div>
         )
