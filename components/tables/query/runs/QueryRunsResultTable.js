@@ -63,6 +63,11 @@ class QueryRunsTable extends React.PureComponent {
 }
 
 
+QueryRunsTable.defaultProps = {
+    selectedRuns: {},
+};
+
+
 const mapStateToProps = (state) => {
     return {
         tableData: state.queryRuns.tableData,

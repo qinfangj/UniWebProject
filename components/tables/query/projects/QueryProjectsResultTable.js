@@ -62,6 +62,10 @@ class QueryProjectsTable extends React.Component {
 }
 
 
+QueryProjectsTable.defaultProps = {
+    selectedSamples: [],
+};
+
 
 const mapStateToProps = (state, ownProps) => {
     return {
