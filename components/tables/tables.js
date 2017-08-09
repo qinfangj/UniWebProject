@@ -168,7 +168,7 @@ export function makeAutosizerColumns(tableWidth, columnDefs) {
                     dataKey={s.field}
                     headerRenderer={_headerRenderer}
                     width={sharedColumnWidth}
-                    cellRenderer={cellRenderer}
+                    cellRenderer={s.cellRenderer}
             />
         );
     });

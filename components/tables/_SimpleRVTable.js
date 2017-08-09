@@ -89,6 +89,7 @@ class SimpleRVTable extends React.Component {
 SimpleRVTable.defaultProps = {
     tableData: [],
     searchTerm: "",
+    autosize: false,
 };
 
 
