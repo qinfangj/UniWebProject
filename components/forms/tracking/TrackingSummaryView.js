@@ -155,7 +155,7 @@ class TrackingSummaryView extends React.PureComponent {
         if (e.target.value !== "") {
             let isValid = validators.laneNumberValidator(e.target.value);
             if (!isValid){
-                store.dispatch(feedbackWarning("tracking.library", "Lane number should be one digit between 1 and 8."))
+                feedback.warning("Lane number should be one digit between 1 and 8.","TrackingSummaryView.createRuns")
             }
             laneNos[k][ind].valid = isValid;
         } else {
@@ -225,20 +225,21 @@ class TrackingSummaryView extends React.PureComponent {
                         return (
                             // value={this.state.laneNos[s][index].value}
                             <td height='100%' width={widthRate} key={s}>
-                                {
-                                    this.props.isLibrary && this.state.laneNos[s][index] !== null ?
-                                        <div className={trackCss.laneNo}>
-                                            <input
-                                                type="text"
-                                                value={this.state.laneNos[s][index].value}
-                                                onChange={this.setLaneNo.bind(this, s, index)}
-                                                style={laneNoStyle}
-                                            />
-                                        </div>
-                                        :
-                                        null
-                                }
+
                                 <div type="button" className={trackCss.selectedCell} onClick={this.insertDetailedRow.bind(this, s, index)}>
+                                    {
+                                        this.props.isLibrary && this.state.laneNos[s][index] !== null ?
+                                            <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
+                                                <input
+                                                    type="text"
+                                                    value={this.state.laneNos[s][index].value}
+                                                    onChange={this.setLaneNo.bind(this, s, index)}
+                                                    style={laneNoStyle}
+                                                />
+                                            </div>
+                                            :
+                                            null
+                                    }
                                     {contentsTd}
                                     <div className={trackCss.iconRow} >
                                     {(o[s][index]['comment_customer'] !== "" && o[s][index]['comment_customer'] !== null)?
@@ -258,22 +259,9 @@ class TrackingSummaryView extends React.PureComponent {
 
                         return (
                             <td height='100%' width={widthRate} key={s}>
-                                {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
-                                    <div className={trackCss.laneNo}>
-                                        <input
-                                            type="text"
-                                            value={this.state.laneNos[s][index].value}
-                                            onChange={this.setLaneNo.bind(this, s, index)}
-                                            style = {laneNoStyle}
-                                        />
-                                    </div>:null}
+
                                 <div type="button" className={trackCss.cell} onClick={this.insertDetailedRow.bind(this, s, index)}>
-                            </td>)
-                        } else {
-                            return (<td height='100%' width={widthRate} key={s}>
-                                <div type="button" className={trackCss.cell} onClick={this.insertDetailedRow.bind(this, s, index)}>
-                                    {
-                                        this.props.isLibrary && this.state.laneNos[s][index]!== null ?
+                                        {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
                                         <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
                                             <input
                                                 type="text"
@@ -281,8 +269,7 @@ class TrackingSummaryView extends React.PureComponent {
                                                 onChange={this.setLaneNo.bind(this, s, index)}
                                                 style = {laneNoStyle}
                                             />
-                                        </div>:null
-                                    }
+                                        </div>:null}
                                         {contentsTd}
                                         <div className={trackCss.iconRow}>
                                         {(o[s][index]['comment_customer'] !== null && o[s][index]['comment_customer'] !== "" )?
@@ -369,7 +356,7 @@ class TrackingSummaryView extends React.PureComponent {
         if (_.isEmpty(obj)) {
             feedback.warning("Pease enter the lane numbers!", "TrackingSummaryView.createRuns");
         } else {
-            console.log(createdLanes);
+            //console.log(createdLanes);
             let newPath = window.location.pathname + "facility/runs/from-tracking";
             console.log(newPath);
             store.dispatch(actions.reset("facilityDataForms.runs"));
