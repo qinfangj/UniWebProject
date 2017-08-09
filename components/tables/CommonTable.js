@@ -5,40 +5,20 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as tables from './tables.js';
 import adminColumns from './adminData/columns';
 import facilityDataColumns from './facilityData/columns';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
 
-import { Column, Table, AutoSizer, SortDirection, InfiniteLoader} from 'react-virtualized';
 import AsyncTable from './AsyncTable';
 
 
+/**
+ * Infinite loading table common to "Facility data" and "Admin" sections.
+ */
 class CommonTable extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.gridHeight = tables.GRID_HEIGTH;
-        this.rowHeight = tables.ROW_HEIGTH;
-        this.nVisibleRows = (this.gridHeight / this.rowHeight) - 1;
-        this.headerHeight = 35;
-        this.overscanRowCount = 10;  // "Number of rows to render above/below the visible bounds of the list"
-        this.useDynamicRowHeight = false;
-        if (this.props.domain === "facility" ) {
-            this.nrowsPerQuery = 100;
-        } else {
-            this.nrowsPerQuery = 10000000;
-        }
-        if (this.nrowsPerQuery < this.nVisibleRows) {
-            console.warn("Must query at least as many rows as we can display to enable scrolling",
-                `(${this.nrowsPerQuery} < ${this.nVisibleRows})`);
-        }
-        this.state = {
-            searchTerm: "",
-            rowCount: 0,
-            sortBy: 'id',
-            sortDirection: SortDirection.DESC,
-        };
     }
 
     static propTypes = {
@@ -56,17 +36,17 @@ class CommonTable extends React.PureComponent {
     /** Fetch a page of data from backend. */
     getDataAsync = (limit, offset, sortBy, sortDir, filterBy) => {
         return this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
-            limit, offset,
-            sortBy || this.state.sortBy, sortDir || this.state.sortDirection, filterBy || this.state.searchTerm);
+            limit, offset, sortBy, sortDir, filterBy);
     };
 
     render() {
         let columnDefs = (this.props.domain === "facility") ?
             facilityDataColumns[this.props.table] :
             adminColumns[this.props.table];
+        let nrowsPerQuery = (this.props.domain === "facility") ? 100 : 10000000;
+
         return (
             <div style={{width: '100%', height: '100%'}}>
-
                 <AsyncTable
                     getDataAsync={this.getDataAsync}
                     getColumns={this.getColumns}
@@ -76,8 +56,8 @@ class CommonTable extends React.PureComponent {
                     formatter={this.props.formatter}
                     sortAsync={this.props.domain === "facility"}
                     filterAsync={this.props.domain === "facility"}
+                    nrowsPerQuery={nrowsPerQuery}
                 />
-
             </div>
         )
     }

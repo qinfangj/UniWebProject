@@ -15,16 +15,15 @@ class AsyncTable extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.nrowsPerQuery = 100;
         this.gridHeight = tables.GRID_HEIGTH;
         this.rowHeight = tables.ROW_HEIGTH;
         this.nVisibleRows = (this.gridHeight / this.rowHeight) - 1;
         this.headerHeight = 35;
         this.overscanRowCount = 10;  // "Number of rows to render above/below the visible bounds of the list"
         this.useDynamicRowHeight = false;
-        if (this.nrowsPerQuery < this.nVisibleRows) {
+        if (this.props.nrowsPerQuery < this.nVisibleRows) {
             console.warn("Must query at least as many rows as we can display to enable scrolling",
-                `(${this.nrowsPerQuery} < ${this.nVisibleRows})`);
+                `(${this.props.nrowsPerQuery} < ${this.nVisibleRows})`);
         }
         this.state = {
             searchTerm: "",
@@ -44,17 +43,21 @@ class AsyncTable extends React.PureComponent {
         sortDirection: PropTypes.string,
         sortAsync: PropTypes.bool,
         filterAsync: PropTypes.bool,
+        nrowsPerQuery: PropTypes.number,
     };
 
     /** Fetch a page of data from backend. */
     getDataAsync = (limit, offset, sortBy, sortDir, filterBy, reset) => {
         let _this = this;
         let dataLength = reset ? 0 : this.props.data.length;
+        sortBy = sortBy || this.state.sortBy;
+        sortDir = sortDir || this.state.sortDirection;
+        filterBy = filterBy || this.state.searchTerm;
         this.props.getDataAsync(limit, offset, sortBy, sortDir, filterBy)
         .done((data) => {
             // `data` is only the new block. The whole data is in `this.props.data`.
             if (data.length !== 0) {
-                let hasNextPage = data.length % this.nrowsPerQuery === 0;
+                let hasNextPage = data.length % this.props.nrowsPerQuery === 0;
                 let newDataLength = dataLength + data.length;
                 let rowCount = hasNextPage ? newDataLength + 1 : newDataLength;
                 _this.setState({ rowCount });
@@ -68,14 +71,14 @@ class AsyncTable extends React.PureComponent {
     
     componentWillMount() {
         // Can try to cache that result, but do it properly so that for instance it still understands active or not
-        this.getDataAsync(this.nrowsPerQuery, 0);
+        this.getDataAsync(this.props.nrowsPerQuery, 0);
     }
 
     /** Backend sort. */
     _sort = ({ sortBy, sortDirection }) => {
         this.setState({ sortBy, sortDirection, rowCount: 0 });
         if (this.props.sortAsync) {
-            this.getDataAsync(this.nrowsPerQuery, 0, sortBy, sortDirection, this.state.searchTerm, true);
+            this.getDataAsync(this.props.nrowsPerQuery, 0, sortBy, sortDirection, this.state.searchTerm, true);
         }
     };
 
@@ -84,7 +87,7 @@ class AsyncTable extends React.PureComponent {
         let filterBy = e.target.value;
         this.setState({ searchTerm: filterBy, rowCount: 0 });
         if (this.props.filterAsync) {
-            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, filterBy, true);
+            this.getDataAsync(this.props.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, filterBy, true);
         }
     };
 
@@ -92,7 +95,7 @@ class AsyncTable extends React.PureComponent {
     _resetSearch = () => {
         this.setState({ searchTerm: "" });
         if (this.props.filterAsync) {
-            this.getDataAsync(this.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, "", true);
+            this.getDataAsync(this.props.nrowsPerQuery, 0, this.state.sortBy, this.state.sortDirection, "", true);
         }
     };
 
@@ -104,9 +107,9 @@ class AsyncTable extends React.PureComponent {
     /** RV infinite loader needs to know how to query the next rows on scroll. */
     loadMoreRows = ({ startIndex, stopIndex }) => {
         let dataLength = this.props.data.length;
-        if (dataLength % this.nrowsPerQuery === 0) {
-            console.info("Load more rows!", `${dataLength}-${dataLength + this.nrowsPerQuery}`);
-            this.getDataAsync(this.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchTerm, false);
+        if (dataLength % this.props.nrowsPerQuery === 0) {
+            console.info("Load more rows!", `${dataLength}-${dataLength + this.props.nrowsPerQuery}`);
+            this.getDataAsync(this.props.nrowsPerQuery, dataLength, this.state.sortBy, this.state.sortDirection, this.state.searchTerm, false);
         } else {
             console.info(`End of data (at ${dataLength}).`)
         }
@@ -227,6 +230,7 @@ AsyncTable.defaultProps = {
     sortAsync: true,
     filterAsync: true,
     data: [],
+    nrowsPerQuery: 10000000,
     //isLoading: false,
     formatter: (data) => data,
 };
