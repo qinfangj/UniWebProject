@@ -32,10 +32,10 @@ const adminDataColumns = {
         {
             headerName: "Validated",
             field: "isValidated",
-            cellRenderer: function(isTrue) {
-                return isTrue ?
+            cellRenderer: ({ cellData, columnData, columnIndex, dataKey, isScrolling, rowData, rowIndex }) =>  {
+                return cellData ?
                       <i className="fa fa-check" aria-hidden="true"/>
-                    : <i className="fa fa-times" style="color:red" aria-hidden="true"/>
+                    : <i className="fa fa-times" style={{color: "red"}} aria-hidden="true"/>
             }
         },
     ],
