@@ -17,7 +17,7 @@ import SimpleRVTable from '../../tables/_SimpleRVTable';
 class LabDataView extends React.PureComponent {
 
     componentWillMount() {
-        
+
     }
 
     render() {

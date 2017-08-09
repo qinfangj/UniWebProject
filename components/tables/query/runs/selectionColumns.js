@@ -1,5 +1,8 @@
 
 
+/**
+ * The columns definition for the panel where we select the Runs with checkboxes.
+ */
 const selectionColumns =  [
     {
         headerName: "",

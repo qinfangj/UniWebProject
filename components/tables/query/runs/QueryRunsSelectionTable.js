@@ -2,19 +2,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tablesCss from '../../tables.css';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as tables from '../../tables.js';
-import { ROW_HEIGTH } from '../../tables';
 
 import { getTableDataAsync } from '../../../actions/actionCreators/facilityDataActionCreators';
 import { queryRunsAsync, resetSelection, changeRunsSelection } from '../../../actions/actionCreators/queryRunsActionCreators';
 
-import columnDefs from './selectionColumns';
-import { Column, Table, AutoSizer, SortIndicator, SortDirection} from 'react-virtualized';
-import Immutable from 'immutable'
+import selectionColumns from './selectionColumns';
+import { Column } from 'react-virtualized';
 import { Checkbox } from 'react-bootstrap/lib';
-
+import SimpleRVTable from '../../_SimpleRVTable';
 
 
 /**
@@ -37,6 +36,8 @@ class QueryRunsSelectionTable extends React.PureComponent {
 
     /**
      * Select all runs from backend.
+     * There are very many and they will be stored in the browser,
+     * but thanks to react-virtualized, they will not all get rendered so performance is safe.
      */
     componentWillMount() {
         this.props.getTableDataAsync("runs", "runs", false, null, null, null, null, null)
@@ -74,7 +75,7 @@ class QueryRunsSelectionTable extends React.PureComponent {
     /**
      * Construct an array of <Column>s from the columns definition.
      */
-    makeColumns = (width) => {
+    makeColumns = (width, columnDefs) => {
         return columnDefs.map( s => {
             let cellRenderer = s.cellRenderer;
 
@@ -102,87 +103,35 @@ class QueryRunsSelectionTable extends React.PureComponent {
                     dataKey={s.field}
                     width={s.width || remainColumnWidth}
                     cellRenderer={cellRenderer}
-                    headerRenderer={s.field === "id" ? () => "" : this._headerRenderer}
+                    headerRenderer={s.field === "id" ? () => "" : tables._headerRenderer}
                 />
             );
         });
     };
 
     /**
-     * RV: Return row[*index*] from *list*.
+     * Override the default `tables.headerRowRenderer` to remove the ugly yellow stuff.
      */
-    _getRow = (data, index) => {
-        return data.size !== 0 ? data.get(index % data.size) : {};
-    };
-
-    /**
-     * RV: Format the header of a Column so that it has the arrow indicating the direction of search.
-     */
-    _headerRenderer = ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) => {
+    headerRowRenderer({ className, columns, style }) {
         return (
-            <div>
-                {label}
-                {sortBy === dataKey && <SortIndicator sortDirection={sortDirection} />}
+            <div role="row" style={style} className={className} >
+                {columns}
             </div>
         );
-    };
-
-    /**
-     * When a column header is clicked.
-     */
-    _sort = ({ sortBy, sortDirection }) => {
-        this.setState({ sortBy, sortDirection });
-    };
-
-
-    /////////////////////////////////////
-
+    }
 
     render() {
-        /* Format data from props */
-        let data = this.props.runs;
-        if (!data) {
-            throw new TypeError("Data cannot be null or undefined");
-        }
-        tables.checkData(data);
-        data = this.formatData(data);
-        let rowCount = data.length;
-
-        /* Format for RV with Immutable.js */
-        data = Immutable.fromJS(data);
-        data = tables.sortImmutable(data, this.state.sortBy, this.state.sortDirection);
-        const rowGetter = ({index}) => this._getRow(data, index);
-
-        /* Build the columns */
-        if (!columnDefs) {
-            throw new ReferenceError("No columns definition found");
-        }
-
+        let data = this.formatData(this.props.runs);
         return (
-            <div className={tablesCss.tableContainer} style={{width: '100%', marginTop: '15px'}}>
-                <AutoSizer disableHeight>
-                    {({ height, width }) => (
-                        <Table
-                            width={width}
-                            height={this.tableHeight}
-                            headerClassName={tablesCss.headerColumn}
-                            headerHeight={ROW_HEIGTH}
-                            noRowsRenderer={() => (rowCount === 0) && <div className={tablesCss.noData}>{"No data"}</div>}
-                            onRowClick={this.selectRun}
-                            rowCount={rowCount}
-                            rowGetter={rowGetter}
-                            rowHeight={ROW_HEIGTH}
-                            rowStyle={{cursor: "pointer"}}
-                            sort={this._sort}
-                            sortBy={this.state.sortBy}
-                            sortDirection={this.state.sortDirection}
-                        >
-                            {this.makeColumns(width)}
-                        </Table>
-                    )}
-                </AutoSizer>
-
-            </div>
+            <SimpleRVTable
+                columnDefs={selectionColumns}
+                tableData={data}
+                autosize={true}
+                getColumns={this.makeColumns}
+                onRowClick={this.selectRun}
+                headerRowRenderer={this.headerRowRenderer}
+                searchTerm={this.props.searchTerm}
+            />
         );
     }
 
@@ -194,32 +143,15 @@ QueryRunsSelectionTable.defaultProps = {
     runs: [],
 };
 
-/**
- * Filter runs by search term before the data enters the component.
- */
-function filterRuns(runs, term) {
-    term = term.toLowerCase();
-    return runs.filter(run =>
-        ~run.instrument.toLowerCase().indexOf(term) ||
-        ~run.ga_run_date.indexOf(term) ||
-        ~run.read_length.toString().indexOf(term) ||
-        ~run.run_folder.toLowerCase().indexOf(term) ||
-        ~run.run_nb.toString().indexOf(term) ||
-        ~run.run_type.toLowerCase().indexOf(term) ||
-        ~run.status.toLowerCase().indexOf(term)
-    );
-}
 
 const mapStateToProps = (state) => {
     let runs = state.facilityData["runs"].data;
     let selectedRuns = state.queryRuns.selectedRuns;
     let searchTerm = state.queryRuns.searchTerm;
-    if (searchTerm !== "") {
-        runs = filterRuns(runs, searchTerm);
-    }
     return {
         runs,
         selectedRuns,
+        searchTerm,
     };
 };
 

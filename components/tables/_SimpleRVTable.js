@@ -26,6 +26,8 @@ class SimpleRVTable extends React.Component {
         tableData: PropTypes.array.isRequired,  // the data to display
         searchTerm: PropTypes.string,  // to filter results by that term in all columns
         autosize: PropTypes.bool,  // whether it should respond to screen width
+        getColumns: PropTypes.func,   // custom way to generate the <Columns> from the columnDefs
+        headerRowRenderer: PropTypes.func,
     };
 
     _sort = ({ sortBy, sortDirection }) => {
@@ -48,7 +50,9 @@ class SimpleRVTable extends React.Component {
         let columnDefs = this.props.columnDefs;
         let columns;
         let tableWidth = 1;
-        if (this.props.autosize) {
+        if (this.props.getColumns) {
+            columns = this.props.getColumns;
+        } else if (this.props.autosize) {
             columns = (width) => tables.makeAutosizerColumns(width, columnDefs);
         } else {
             // Calculate the table width based on individual column widths
@@ -67,7 +71,7 @@ class SimpleRVTable extends React.Component {
                             height={this.tableHeight}
                             headerClassName={tablesCss.headerColumn}
                             headerHeight={tables.ROW_HEIGTH}
-                            headerRowRenderer={tables.headerRowRenderer}
+                            headerRowRenderer={this.props.headerRowRenderer}
                             noRowsRenderer={() => (rowCount === 0) && <div className={tablesCss.noData}>{"No data"}</div>}
                             rowCount={rowCount}
                             rowGetter={rowGetter}
@@ -75,8 +79,9 @@ class SimpleRVTable extends React.Component {
                             sort={this._sort}
                             sortBy={this.state.sortBy}
                             sortDirection={this.state.sortDirection}
+                            onRowClick={this.props.onRowClick}
                         >
-                            { columns(this.props.autosize ? width : tableWidth) }
+                            { columns(this.props.autosize ? width : tableWidth, columnDefs) }
                         </Table>
                     )}
                 </AutoSizer>
@@ -90,6 +95,7 @@ SimpleRVTable.defaultProps = {
     tableData: [],
     searchTerm: "",
     autosize: false,
+    headerRowRenderer: tables.headerRowRenderer,
 };
 
 
