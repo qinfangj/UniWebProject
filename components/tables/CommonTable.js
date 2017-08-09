@@ -9,7 +9,7 @@ import adminColumns from './adminData/columns';
 import facilityDataColumns from './facilityData/columns';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
 
-import AsyncTable from './AsyncTable';
+import AsyncTable from './_AsyncTable';
 
 
 /**

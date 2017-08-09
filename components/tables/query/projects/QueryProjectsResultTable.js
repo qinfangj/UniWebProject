@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { queryProjectsAsync } from '../../../actions/actionCreators/queryProjectsActionCreators';
 import columnDefs from '../columns';
 
-import SimpleRVTable from '../../SimpleRVTable';
+import SimpleRVTable from '../../_SimpleRVTable';
 
 
 /**

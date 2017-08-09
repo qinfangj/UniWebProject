@@ -67,7 +67,7 @@ class AsyncTable extends React.PureComponent {
         })
         .fail(() => console.error("CommonTable.getTableDataAsync() failed to load data."));
     };
-    
+
     componentWillMount() {
         // Can try to cache that result, but do it properly so that for instance it still understands active or not
         this.getDataAsync(this.props.nrowsPerQuery, 0);
