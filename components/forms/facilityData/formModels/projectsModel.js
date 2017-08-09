@@ -54,7 +54,8 @@ const projectsModel = {
             name: fields.projects.PROJECT_ANALYSIS_ID,
             width: 4,
             label: "Project analysis",
-            inputType: inputTypes.TEXT,
+            inputType: inputTypes.DROPDOWN,
+            optionsKey: optionsStoreKeys.PROJECT_ANALYSES,
             required: true,
         },{
             name: fields.projects.IS_CONTROL,

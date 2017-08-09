@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form } from 'react-redux-form';
 
-import { requestLaboratories, requestProjectStates } from '../../actions/actionCreators/optionsActionCreators';
+import { requestLaboratories,
+         requestProjectStates,
+         requestProjectAnalyses } from '../../actions/actionCreators/optionsActionCreators';
 
 import * as forms from '../forms.js';
 import * as feedback from '../../../utils/feedback';
 import projectsModel from './formModels/projectsModel';
 import SubmitButton from '../SubmitButton';
-
 
 
 
@@ -34,6 +35,7 @@ export class ProjectsInsertForm extends React.PureComponent {
         }
         this.props.requestLaboratories();
         this.props.requestProjectStates();
+        this.props.requestProjectAnalyses();
     }
 
     onSubmit(values) {
@@ -91,6 +93,7 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         requestLaboratories,
         requestProjectStates,
+        requestProjectAnalyses,
     }, dispatch);
 };
 

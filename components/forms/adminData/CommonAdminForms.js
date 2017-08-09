@@ -103,7 +103,7 @@ const mapDispatchToProps = (dispatch) => {
         requestAllProjects,
         requestAllPeople,
         requestReadLengths,
-        requestRunTypes
+        requestRunTypes,
     }, dispatch);
 };
 
