@@ -9,7 +9,10 @@ import { Table, AutoSizer } from 'react-virtualized';
 
 
 /**
- * Table that displays the *result* of the Projects/samples query.
+ * React-virtualized table *without* infinite loading,
+ * just displaying the data we give it without rendering it all.
+ * Typically used in Query Projects/Runs or UserData.
+ * I can be auto-sized and has sort and filter functionalities.
  */
 class SimpleRVTable extends React.Component {
     constructor(props) {
