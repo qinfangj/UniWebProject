@@ -52,28 +52,6 @@ class TrackingDetailView extends React.PureComponent {
 
     }
 
-    // RequestsDetailsTbs(k,v,model){
-    //     let headers = Object.keys(v);
-    //     let makeBody = model.map(
-    //         s => {
-    //             if (s.name !== 'comment'){
-    //                 return (
-    //                     <td key={s.name}>{v[s.name]==null?"":v[s.name]}</td>
-    //                 )
-    //             }
-    //         }
-    //     );
-    //
-    //     return (
-    //              <tbody key={k}>
-    //              <tr >{makeBody}</tr>
-    //              {/*<tr ><td colSpan='10'>*/}
-    //                  {/*<Icon name="comment" style={{color:'#fff',padding:'5px'}}/> {(v['comment'] !== undefined && v['comment'] != null)? v['comment'] : '--'}</td></tr>*/}
-    //              </tbody>
-    //
-    //          )
-    // }
-
     render() {
            let dataSample = this.props.detailData['desc'];
            let dataRequests = this.props.detailData['requests'];
