@@ -11,7 +11,6 @@ import { toggleSidebar } from '../../actions/actionCreators/commonActionCreators
 
 import { Nav, NavItem } from 'react-bootstrap/lib';
 import { LinkContainer } from 'react-router-bootstrap';
-import AuthService from '../../../utils/AuthService';
 
 
 
@@ -21,7 +20,7 @@ class Header extends React.Component {
     }
 
     render() {
-        let isLoggedIn = AuthService.isLoggedIn;
+        let isLoggedIn = this.props.isAuthenticated;
         let login = isLoggedIn ? <LogoutButton/> : <LoginButton/>;
         let account = <LinkContainer to='/account'><NavItem disabled={!isLoggedIn}>Account</NavItem></LinkContainer>;
         return (
