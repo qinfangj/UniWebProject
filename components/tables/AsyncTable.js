@@ -39,10 +39,8 @@ class AsyncTable extends React.PureComponent {
         columns: PropTypes.array.isRequired, // columns definition
         getColumns: PropTypes.func,  // how to create the <Columns> based on the columns definition object
         formatter: PropTypes.func,  // to reformat the data so that it fits the columns definition
-        sortBy: PropTypes.string,
-        sortDirection: PropTypes.string,
-        sortAsync: PropTypes.bool,
-        filterAsync: PropTypes.bool,
+        sortAsync: PropTypes.bool,  // always sort async unless you load everything (nrowsPerQuery >>)
+        filterAsync: PropTypes.bool,  // always filter async unless you load everything (nrowsPerQuery >>)
         nrowsPerQuery: PropTypes.number,
     };
 

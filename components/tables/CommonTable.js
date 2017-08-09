@@ -28,9 +28,10 @@ class CommonTable extends React.PureComponent {
         name: PropTypes.string.isRequired,
         domain: PropTypes.string.isRequired,  // "facility" or "admin"
         activeOnly: PropTypes.bool,  // whether it should call ?active=true when fetching the content
+        formatter: PropTypes.func,  // to reformat the data so that it fits the columns definition
+        // From store
         data: PropTypes.array,  // the table content (an array of row objects)
         isLoading: PropTypes.bool,  // loading spinner
-        formatter: PropTypes.func,  // to reformat the data so that it fits the columns definition
     };
 
     /** Fetch a page of data from backend. */
