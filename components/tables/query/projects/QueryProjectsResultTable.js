@@ -55,7 +55,6 @@ class QueryProjectsTable extends React.Component {
         return (
             <SimpleRVTable
                 columnDefs={columnDefs[this.props.queryType]}
-                getDataAsync={this.getDataAsync}
                 tableData={data}
             />
         );

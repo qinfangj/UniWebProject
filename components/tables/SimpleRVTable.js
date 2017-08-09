@@ -22,10 +22,9 @@ class SimpleRVTable extends React.Component {
     }
 
     static propTypes = {
-        getDataAsync: PropTypes.func.isRequired,
         columnDefs: PropTypes.array.isRequired,  // columns definition object
-        tableData: PropTypes.array.isRequired,
-        //searchTerm: PropTypes.string,
+        tableData: PropTypes.array.isRequired,  // the data to display
+        searchTerm: PropTypes.string,  // to filter results by that term in all columns
     };
 
     _sort = ({ sortBy, sortDirection }) => {
@@ -41,6 +40,7 @@ class SimpleRVTable extends React.Component {
         // Format for RV with Immutable.js
         data = Immutable.fromJS(data);
         data = tables.sortImmutable(data, this.state.sortBy, this.state.sortDirection);
+        data = tables.localSearch(data, this.props.searchTerm, this.props.columnDefs);
         const rowGetter = ({index}) => tables._getRow(data, index);
 
         // Build the columns
@@ -75,7 +75,7 @@ class SimpleRVTable extends React.Component {
 
 SimpleRVTable.defaultProps = {
     tableData: [],
-    //searchTerm: "",
+    searchTerm: "",
 };
 
 

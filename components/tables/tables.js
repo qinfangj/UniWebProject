@@ -110,15 +110,15 @@ export function makeColumns(colDefs){
  * In admin forms, filter the whole data in memory.
  * @param list: an Immutable list.
  * @param searchTerm: the string to serach for.
- * @param columns: the table columns definition object.
+ * @param columnDefs: the table columns definition object.
  */
-export function localSearch(list, searchTerm, columns) {
-    if (searchTerm === "") {
+export function localSearch(list, searchTerm, columnDefs) {
+    if ((!searchTerm) || searchTerm === "") {
         return list;
     } else {
         let term = searchTerm.toLowerCase();
         return list.filter(item => {
-            return columns.find((col) => {
+            return columnDefs.find((col) => {
                 return (''+item.get(col.field)).toLowerCase().includes(term);
             });
         });
