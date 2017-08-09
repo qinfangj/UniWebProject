@@ -45,12 +45,13 @@ class CommonTable extends React.PureComponent {
             facilityDataColumns[this.props.table] :
             adminColumns[this.props.table];
         let nrowsPerQuery = (this.props.domain === "facility") ? 100 : 10000000;
+        let data = this.props.formatter(this.props.data);
 
         return (
             <AsyncTable
+                data={data}
                 getDataAsync={this.getDataAsync}
                 getColumns={this.getColumns}
-                data={this.props.data}
                 columnDefs={columnDefs}
                 //isLoading={this.props.isLoading}
                 formatter={this.props.formatter}

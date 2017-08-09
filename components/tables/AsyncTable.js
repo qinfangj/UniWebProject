@@ -40,7 +40,6 @@ class AsyncTable extends React.PureComponent {
         data: PropTypes.array.isRequired,  // the table content (an array of row objects)
         columnDefs: PropTypes.array.isRequired, // columnDefs definition
         getColumns: PropTypes.func,  // how to create the <Columns> based on the columnDefs definition object
-        formatter: PropTypes.func,  // to reformat the data so that it fits the columnDefs definition
         sortAsync: PropTypes.bool,  // always sort async unless you load everything (nrowsPerQuery >>)
         filterAsync: PropTypes.bool,  // always filter async unless you load everything (nrowsPerQuery >>)
         nrowsPerQuery: PropTypes.number,
@@ -140,9 +139,9 @@ class AsyncTable extends React.PureComponent {
         let sortDirection = this.state.sortDirection;
         let rowCount = this.state.rowCount;
         let overscanRowCount = this.overscanRowCount;
+        let data = this.props.data;
 
         /* Format data */
-        let data = this.props.formatter ? this.props.formatter(this.props.data) : this.props.data;
         tables.checkData(data);
         let list = Immutable.fromJS(data);
         if (! this.props.filterAsync) {
@@ -232,7 +231,6 @@ AsyncTable.defaultProps = {
     data: [],
     nrowsPerQuery: 10000000,
     //isLoading: false,
-    formatter: (data) => data,
 };
 
 
