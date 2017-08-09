@@ -5,7 +5,7 @@ import tablesCss from './tables.css';
 
 import Immutable from 'immutable'
 import * as tables from './tables.js';
-import { Column, Table, AutoSizer, SortIndicator, SortDirection} from 'react-virtualized';
+import { Table, AutoSizer } from 'react-virtualized';
 
 
 /**

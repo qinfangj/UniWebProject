@@ -4,7 +4,7 @@ import tablesCss from './tables.css';
 import cx from 'classnames';
 
 import { Link } from 'react-router';
-import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
+import { Column, SortIndicator, SortDirection} from 'react-virtualized';
 
 
 export const ROW_HEIGTH = 30;
