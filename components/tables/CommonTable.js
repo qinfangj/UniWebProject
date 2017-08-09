@@ -9,6 +9,8 @@ import adminColumns from './adminData/columns';
 import facilityDataColumns from './facilityData/columns';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
 
+import * as tables from './tables.js';
+import { Column } from 'react-virtualized';
 import AsyncTable from './_AsyncTable';
 
 
@@ -38,6 +40,25 @@ class CommonTable extends React.PureComponent {
     getDataAsync = (limit, offset, sortBy, sortDir, filterBy) => {
         return this.props.getTableDataAsync(this.props.table, this.props.dataStoreKey, this.props.activeOnly,
             limit, offset, sortBy, sortDir, filterBy);
+    };
+
+    /** Construct an array of <Column>s from the columns definition. */
+    getColumns = (width, columnDefs) => {
+        const ncols = columnDefs.length;
+        const sharedColumnWidth = (width-70) / (ncols-1);  // except the ID column which is fixed at 70px
+        let _idColumnLink = (obj) => tables.idColumnLink(this.props.domain, this.props.table, obj.cellData);
+        return columnDefs.map( s => {
+            let cellRenderer = (s.field === 'id') ? _idColumnLink : s.cellRenderer;
+            let columnWidth = (s.field === 'id') ? 70 : sharedColumnWidth;
+            let node = <Column key={s}
+                               label={s.headerName}
+                               dataKey={s.field}
+                               headerRenderer={tables._headerRenderer}
+                               width={columnWidth}
+                               cellRenderer={cellRenderer}
+            />;
+            return node;
+        });
     };
 
     render() {
