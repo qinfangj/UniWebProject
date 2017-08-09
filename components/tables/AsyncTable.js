@@ -10,7 +10,9 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import { Column, Table, AutoSizer, SortDirection, InfiniteLoader} from 'react-virtualized';
 
 
-
+/**
+ * Generic infinite loading table, with autosizer.
+ */
 class AsyncTable extends React.PureComponent {
 
     constructor(props) {
@@ -36,9 +38,9 @@ class AsyncTable extends React.PureComponent {
     static propTypes = {
         getDataAsync: PropTypes.func.isRequired,  // how to get more data
         data: PropTypes.array.isRequired,  // the table content (an array of row objects)
-        columns: PropTypes.array.isRequired, // columns definition
-        getColumns: PropTypes.func,  // how to create the <Columns> based on the columns definition object
-        formatter: PropTypes.func,  // to reformat the data so that it fits the columns definition
+        columnDefs: PropTypes.array.isRequired, // columnDefs definition
+        getColumns: PropTypes.func,  // how to create the <Columns> based on the columnDefs definition object
+        formatter: PropTypes.func,  // to reformat the data so that it fits the columnDefs definition
         sortAsync: PropTypes.bool,  // always sort async unless you load everything (nrowsPerQuery >>)
         filterAsync: PropTypes.bool,  // always filter async unless you load everything (nrowsPerQuery >>)
         nrowsPerQuery: PropTypes.number,
@@ -115,7 +117,7 @@ class AsyncTable extends React.PureComponent {
 
     /** Construct an array of <Column>s from the columns definition. */
     getColumns = (width) => {
-        let columnDefs = this.props.columns;
+        let columnDefs = this.props.columnDefs;
         const ncols = columnDefs.length;
         const sharedColumnWidth = (width-70) / (ncols-1);  // except the ID column which is fixed at 70px
         let _idColumnLink = (obj) => tables.idColumnLink(this.props.domain, this.props.table, obj.cellData);
@@ -144,7 +146,7 @@ class AsyncTable extends React.PureComponent {
         tables.checkData(data);
         let list = Immutable.fromJS(data);
         if (! this.props.filterAsync) {
-            list = tables.localSearch(list, this.state.searchTerm, this.props.columns);
+            list = tables.localSearch(list, this.state.searchTerm, this.props.columnDefs);
             rowCount = list.size;
         }
         if (! this.props.sortAsync) {
@@ -205,7 +207,7 @@ class AsyncTable extends React.PureComponent {
                                         sortBy={sortBy}
                                         sortDirection={sortDirection}
                                     >
-                                        {getColumns(width-50, this.props.columns)}
+                                        {getColumns(width-50, this.props.columnDefs)}
                                     </Table>
                                 )}
                             </AutoSizer>

@@ -47,19 +47,17 @@ class CommonTable extends React.PureComponent {
         let nrowsPerQuery = (this.props.domain === "facility") ? 100 : 10000000;
 
         return (
-            <div style={{width: '100%', height: '100%'}}>
-                <AsyncTable
-                    getDataAsync={this.getDataAsync}
-                    getColumns={this.getColumns}
-                    data={this.props.data}
-                    columns={columnDefs}
-                    //isLoading={this.props.isLoading}
-                    formatter={this.props.formatter}
-                    sortAsync={this.props.domain === "facility"}
-                    filterAsync={this.props.domain === "facility"}
-                    nrowsPerQuery={nrowsPerQuery}
-                />
-            </div>
+            <AsyncTable
+                getDataAsync={this.getDataAsync}
+                getColumns={this.getColumns}
+                data={this.props.data}
+                columnDefs={columnDefs}
+                //isLoading={this.props.isLoading}
+                formatter={this.props.formatter}
+                sortAsync={this.props.domain === "facility"}
+                filterAsync={this.props.domain === "facility"}
+                nrowsPerQuery={nrowsPerQuery}
+            />
         )
     }
 }

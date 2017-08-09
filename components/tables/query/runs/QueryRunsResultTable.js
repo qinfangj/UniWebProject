@@ -43,9 +43,6 @@ class QueryRunsTable extends React.PureComponent {
         }
     }
 
-    /**
-     * Format the raw data we get from backend, for example to merge first and last name.
-     */
     formatData(data) {
         let L = data.length;
         for (let i=0; i < L; i++) {
@@ -58,10 +55,6 @@ class QueryRunsTable extends React.PureComponent {
     _sort = ({ sortBy, sortDirection }) => {
         this.setState({ sortBy, sortDirection });
     };
-
-
-    /////////////////////////////////////
-
 
     render() {
         // Format data from props
@@ -83,7 +76,6 @@ class QueryRunsTable extends React.PureComponent {
 
         return (
             <div className={tablesCss.tableContainer} style={{width: '100%', marginTop: '15px'}}>
-
                 <Table
                     width={tableWidth}
                     height={this.tableHeight}
@@ -100,7 +92,6 @@ class QueryRunsTable extends React.PureComponent {
                 >
                     {columns}
                 </Table>
-
             </div>
         );
     }
