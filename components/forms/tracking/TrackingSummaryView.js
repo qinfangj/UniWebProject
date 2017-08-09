@@ -71,7 +71,7 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     /**
-     * Document please
+     * Fill the tracking data in the same run type with 'null' value until the maximum data length in the same run type
      * @param o
      * @returns {*}
      */
@@ -90,31 +90,8 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     /**
-     * @deprecated
-     * Remove??
-     */
-    showDetail(key,index){
-        let table = null;
-        if (this.state.isShowDetails) {
-            table = document.getElementById("myTable");
-            if (index === this.state.insertRow && key === this.state.insertCol) {
-                console.log(this.state.insertRow);
-                table.deleteRow(this.state.insertRow + 2);
-                this.setState({
-                    isShowDetails: false,
-                    insertRow: index
-                })
-            } else {
-                table.deleteRow(this.state.insertRow + 2);
-                this.insertRow(this.detailData, key, index);
-            }
-        } else {
-            this.insertRow(this.detailData, key,index);
-        }
-    }
-
-    /**
-     * Document please
+     * When click the Tracking table cell, show the cell detail infomations
+     * record this clicked cell status: isShowDetails, insert Row position, insert Col positon
      * @param key
      * @param index
      */
@@ -143,7 +120,8 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     /**
-     * Document please
+     * check if entered lane number value is between 1 and 8
+     * restore valid lane numbers into state
      * @param k
      * @param ind
      * @param e
@@ -193,7 +171,7 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     /**
-     * Document please
+     * Display tracking data in a table, if data is null display empty cell
      * @param o
      * @param index
      * @returns {Array}
@@ -299,7 +277,7 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     /**
-     * Document please
+     * display tracking details view in the inserted tr element
      * @param row
      * @param key
      * @param data
@@ -328,7 +306,9 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     /**
-     * Document please
+     * Libraries to sequence in Tracking section
+     * creat runs after entering lane numbers in the cell input boxes
+     * the page will be redirected to new facility run page
      */
     createRuns(){
         let obj = {};
@@ -363,36 +343,6 @@ class TrackingSummaryView extends React.PureComponent {
             store.dispatch(actions.change("facilityDataForms.runs.lanes", obj));
             hashHistory.push(newPath);
         }
-
-    }
-
-    // Remove??
-    //makeDiv(ele){
-        //let div = [];
-        //console.log(ele);
-        // for (let i = 0; i < this.state.createdlanesInfo[ele].length; i++){
-        //     div.push(
-        //         // <Col sm={3} key={i} style={{border:"1px solid grey", paddingRight: '30px',borderRadius: '4px',marginBottom:'10px'}}>
-        //         //     Lane number: {this.state.createdlanesInfo[ele][i].laneNum}<br/>
-        //         //     Library ID: {this.state.createdlanesInfo[ele][i].desc.ID}<br/>
-        //         //     Requests Num:  {this.state.createdlanesInfo[ele][i].requests.length}
-        //         // </Col>);
-        // }
-
-       // return div
-    //}
-
-    /**
-     * @deprecated
-     * Remove??
-     */
-    resetLanes(){
-        this.setState({
-            //isSubmit: false,
-            laneNos: this.props.initalLaneNo(this.props.trackingData),
-            isEmptyLane : true,
-            createdlanesInfo : {},
-            });
 
     }
 
@@ -453,18 +403,8 @@ class TrackingSummaryView extends React.PureComponent {
                     <Button bsStyle="primary"  type="button" onClick={this.createRuns.bind(this)} className={trackCss.button} >
                         Create Runs
                     </Button>
-
-                    {/*<Button bsStyle="primary"  type="button" className={trackCss.button} onClick={this.resetLanes.bind(this)}>*/}
-                        {/*Reset*/}
-                    {/*</Button>*/}
-
                     </div>
                     : null}
-
-                    {/*{(Object.keys(this.state.createdlanesInfo).length > 0)?*/}
-                        {/*Object.keys(this.state.createdlanesInfo).map ((s) => {*/}
-                            {/*return <div key={s}> {this.makeDiv(s)} </div>}) : null*/}
-                    {/*}*/}
 
                 <div className={trackCss.divWrapper}>
                 <table id="myTable" className={trackCss.table} >
