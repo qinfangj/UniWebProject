@@ -2,20 +2,19 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import css from './tables.css';
-import cx from 'classnames';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable'
 
+import * as tables from './tables.js';
 import adminColumns from './adminData/columns';
 import facilityDataColumns from './facilityData/columns';
 import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionCreators';
-import { ROW_HEIGTH, GRID_HEIGTH, idColumnLink, checkData, sortImmutable } from './tables';
 
 import DataLoadingIcon from '../utils/DataLoadingIcon';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import { Column, Table, AutoSizer, SortIndicator, SortDirection, InfiniteLoader} from 'react-virtualized';
+import { Column, Table, AutoSizer, SortDirection, InfiniteLoader} from 'react-virtualized';
 
 
 
@@ -23,8 +22,8 @@ class CommonTable extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.gridHeight = GRID_HEIGTH;
-        this.rowHeight = ROW_HEIGTH;
+        this.gridHeight = tables.GRID_HEIGTH;
+        this.rowHeight = tables.ROW_HEIGTH;
         this.nVisibleRows = (this.gridHeight / this.rowHeight) - 1;
         this.headerHeight = 35;
         this.overscanRowCount = 10;  // "Number of rows to render above/below the visible bounds of the list"
@@ -58,9 +57,7 @@ class CommonTable extends React.PureComponent {
         formatter: PropTypes.func,  // to reformat the data so that it fits the columns definition
     };
 
-    /**
-     * Fetch a page of data from backend.
-     */
+    /** Fetch a page of data from backend. */
     getDataAsync(limit, offset, sortBy, sortDir, filterBy, reset=false) {
         let _this = this;
         let dataLength = reset ? 0 : this.props.data.length;
@@ -87,9 +84,7 @@ class CommonTable extends React.PureComponent {
         this.getDataAsync(this.nrowsPerQuery, 0);
     }
 
-    /**
-     * Backend sort.
-     */
+    /** Backend sort. */
     _sort = ({ sortBy, sortDirection }) => {
         this.setState({ sortBy, sortDirection, rowCount: 0 });
         if (this.props.domain === "facility") {
@@ -97,9 +92,7 @@ class CommonTable extends React.PureComponent {
         }
     };
 
-    /**
-     * Backend search.
-     */
+    /** Backend search. */
     _search = (e) => {
         let filterBy = e.target.value;
         this.setState({ searchTerm: filterBy, rowCount: 0 });
@@ -108,9 +101,7 @@ class CommonTable extends React.PureComponent {
         }
     };
 
-    /**
-     * Remove any filter (when click on the cross in the search field).
-     */
+    /** Remove any filter (when click on the cross in the search field). */
     _resetSearch = () => {
         this.setState({ searchTerm: "" });
         if (this.props.domain === "facility") {
@@ -118,9 +109,12 @@ class CommonTable extends React.PureComponent {
         }
     };
 
-    /**
-     * RV infinite loader needs to know how to query the next rows on scroll.
-     */
+    /** RV infinite loader needs to know if a row is already in the current data, given an index. */
+    isRowLoaded = ({ index }) => {
+        return index < this.props.data.length;
+    };
+
+    /** RV infinite loader needs to know how to query the next rows on scroll. */
     loadMoreRows = ({ startIndex, stopIndex }) => {
         let dataLength = this.props.data.length;
         if (dataLength % this.nrowsPerQuery === 0) {
@@ -129,13 +123,6 @@ class CommonTable extends React.PureComponent {
         } else {
             console.info(`End of data (at ${dataLength}).`)
         }
-    };
-
-    /**
-     * RV infinite loader needs to know if a row is already in the current data, given an index.
-     */
-    isRowLoaded = ({ index }) => {
-        return index < this.props.data.length;
     };
 
     /**
@@ -151,14 +138,15 @@ class CommonTable extends React.PureComponent {
         }
         const ncols = columnDefs.length;
         const sharedColumnWidth = (width-70) / (ncols-1);  // except the ID column which is fixed at 70px
+        let _idColumnLink = (obj) => tables.idColumnLink(this.props.domain, this.props.table, obj.cellData);
 
         return columnDefs.map( s => {
-            let cellRenderer = (s.field === 'id') ? this._idColumnLink : s.cellRenderer;
+            let cellRenderer = (s.field === 'id') ? _idColumnLink : s.cellRenderer;
             let columnWidth = (s.field === 'id') ? 70 : sharedColumnWidth;
             let node = <Column key={s}
                        label={s.headerName}
                        dataKey={s.field}
-                       headerRenderer={this._headerRenderer}
+                       headerRenderer={tables._headerRenderer}
                        width={columnWidth}
                        cellRenderer={cellRenderer}
                    />;
@@ -166,90 +154,25 @@ class CommonTable extends React.PureComponent {
         });
     };
 
-    /**
-     * RV: Return row[*index*] from *list*.
-     */
-    _getRow = (list, index) => {
-        return list.size !== 0 ? list.get(index % list.size) : {};
-    };
-
-    /**
-     * Format the ID column so that it contains a link to the update form.
-     */
-    _idColumnLink = (obj) => {
-        return idColumnLink(this.props.domain, this.props.table, obj.cellData);
-    };
-
-    /**
-     * Format the header of a Column so that it has the arrow indicating the direction of search.
-     */
-    _headerRenderer = ({ columnData, dataKey, disableSort, label, sortBy, sortDirection }) => {
-        return (
-            <div>
-                {label}
-                {sortBy === dataKey && <SortIndicator sortDirection={sortDirection} />}
-            </div>
-        );
-    };
-
-    /**
-     * RV: Format the whole header row, given the array of Columns.
-     */
-    headerRowRenderer = ({ className, columns, style }) => {
-        return (
-            <div role="row" style={style} className={cx(className, css.RVheader)} >
-                {columns}
-            </div>
-        );
-    };
-
-    /**
-     * In admin forms, filter the whole data in memory.
-     */
-    localSearch = (list) => {
-        if (this.state.searchTerm === "") {
-            return list;
-        } else {
-            let term = this.state.searchTerm.toLowerCase();
-            return list.filter(item => {
-                return this.props.columns.find((col) => {
-                    return (''+item.get(col.field)).toLowerCase().includes(term);
-                });
-            });
-        }
-    };
-
-
     render() {
         let sortBy = this.state.sortBy;
         let sortDirection = this.state.sortDirection;
         let rowCount = this.state.rowCount;
         let overscanRowCount = this.state.overscanRowCount;
 
-        /* Define columns */
-        let columnDefs = this.props.columns;
-        if (!columnDefs) {
-            throw new ReferenceError("No columns definition found for table "+ this.props.table);
-        }
-
         /* Format data */
         let data = this.props.formatter ? this.props.formatter(this.props.data) : this.props.data;
-        if (!data) {
-            throw new TypeError("Data cannot be null or undefined");
-        }
-        checkData(data);
+        tables.checkData(data);
         let list = Immutable.fromJS(data);
         if (this.props.domain === "admin") {
-            list = this.localSearch(list);
-            list = sortImmutable(list, sortBy, sortDirection);
+            list = tables.localSearch(list, this.state.searchTerm, this.props.columns);
+            list = tables.sortImmutable(list, sortBy, sortDirection);
             rowCount = list.size;
         }
-        const rowGetter = ({index}) => this._getRow(list, index);
+        const rowGetter = ({index}) => tables._getRow(list, index);
 
         // Height that would take the table if all rows would be displayed. Still in use??
-        let cssHeight = (this.gridHeight > (data.length + 1) * ROW_HEIGTH) ? (data.length + 1) * ROW_HEIGTH : this.gridHeight;
-
-        //console.log("nrows:", this.state.rowCount);
+        let cssHeight = (this.gridHeight > (data.length + 1) * tables.ROW_HEIGTH) ? (data.length + 1) * tables.ROW_HEIGTH : this.gridHeight;
 
         return (
             <div style={{width: '100%', height: '100%'}}>
@@ -288,7 +211,7 @@ class CommonTable extends React.PureComponent {
                                         height={height}
                                         headerClassName={css.headerColumn}
                                         headerHeight={this.headerHeight}
-                                        headerRowRenderer={this.headerRowRenderer}
+                                        headerRowRenderer={tables.headerRowRenderer}
                                         noRowsRenderer={() => rowCount === 0 && <div style={{textAlign: 'center'}}>{"No data"}</div>}
                                         onRowsRendered={onRowsRendered}
                                         overscanRowCount={overscanRowCount}

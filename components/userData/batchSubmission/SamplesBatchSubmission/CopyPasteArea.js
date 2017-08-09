@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import css from '../styles.css';
 import cx from 'classnames';
 
-import store from '../../../core/store';
+import store from '../../../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from 'react-redux-form';
-import fields from '../../constants/fields';
+import fields from '../../../constants/fields';
 import { sampleFields } from '../formModels/sampleModel';
 
 import { FormControl, Button } from 'react-bootstrap/lib'

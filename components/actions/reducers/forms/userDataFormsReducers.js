@@ -1,6 +1,6 @@
 "use strict";
 import { combineForms } from  'react-redux-form'
-import { newLibraryRow, newLibrariesProjectRow, newSampleRow, newSamplesProjectRow } from '../../../userData/helpers';
+import { newLibraryRow, newLibrariesProjectRow, newSampleRow, newSamplesProjectRow } from '../../../userData/batchSubmission/helpers';
 
 
 /**

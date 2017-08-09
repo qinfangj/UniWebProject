@@ -2,7 +2,7 @@
 import React from 'react';
 import css from './styles.css';
 import PropTypes from 'prop-types';
-import store from '../../core/store';
+import store from '../../../core/store';
 
 import * as helpers from './helpers';
 import { actions } from 'react-redux-form';

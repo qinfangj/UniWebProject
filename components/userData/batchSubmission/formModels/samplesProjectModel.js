@@ -1,7 +1,7 @@
 'use strict';
-import inputTypes from '../../constants/inputTypes';
-import optionsStoreKeys from '../../constants/optionsStoreKeys';
-import fields from '../../constants/fields';
+import inputTypes from '../../../constants/inputTypes';
+import optionsStoreKeys from '../../../constants/optionsStoreKeys';
+import fields from '../../../constants/fields';
 
 
 const samplesProjectModel = {

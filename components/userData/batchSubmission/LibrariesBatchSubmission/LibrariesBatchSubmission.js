@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import store from '../../../core/store';
+import store from '../../../../core/store';
 import css from '../styles.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,13 +17,13 @@ import {
     requestRecentMultiplexIndexes,
     requestLibProtocols,
     requestLibAdapters,
-} from '../../actions/actionCreators/optionsActionCreators';
-import { batchInsertAsync } from '../../actions/actionCreators/userDataActionCreators';
+} from '../../../actions/actionCreators/optionsActionCreators';
+import { batchInsertAsync } from '../../../actions/actionCreators/userDataActionCreators';
 
 import libraryModel from '../formModels/libraryModel';
 import librariesProjectModel from '../formModels/librariesProjectModel';
 import submit from '../submit';
-import { formatFormFieldsDefault } from '../../forms/forms';
+import { formatFormFieldsDefault } from '../../../forms/forms';
 
 import { Form } from 'react-redux-form';
 import LibraryRow from './LibraryRow';

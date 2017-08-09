@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import store from '../../../core/store';
+import store from '../../../../core/store';
 import css from '../styles.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,14 +14,14 @@ import {
     requestQuantifMethods,
     requestRunsTypesLengths,
     requestLibProtocols,
-} from '../../actions/actionCreators/optionsActionCreators';
-import { batchInsertAsync } from '../../actions/actionCreators/userDataActionCreators';
+} from '../../../actions/actionCreators/optionsActionCreators';
+import { batchInsertAsync } from '../../../actions/actionCreators/userDataActionCreators';
 
 import sampleModel from '../formModels/sampleModel';
 import samplesProjectModel from '../formModels/samplesProjectModel';
 import submit from '../submit';
-import { formatFormFieldsDefault } from '../../forms/forms';
-import formNames from '../../constants/formNames';
+import { formatFormFieldsDefault } from '../../../forms/forms';
+import formNames from '../../../constants/formNames';
 
 import { Form } from 'react-redux-form';
 import SampleRow from './SampleRow';

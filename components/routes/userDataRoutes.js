@@ -2,10 +2,10 @@
 import React from 'react';
 import UserDataHome from '../pages/UserDataHome';
 import UserData from '../pages/UserData';
-import LibrariesBatchSubmission from '../userData/LibrariesBatchSubmission/LibrariesBatchSubmission';
-import SamplesBatchSubmission from '../userData/SamplesBatchSubmission/SamplesBatchSubmission';
-import SamplesCopyPasteArea from '../userData/SamplesBatchSubmission/CopyPasteArea';
-import LibrariesCopyPasteArea from '../userData/LibrariesBatchSubmission/CopyPasteArea';
+import LibrariesBatchSubmission from '../userData/batchSubmission/LibrariesBatchSubmission/LibrariesBatchSubmission';
+import SamplesBatchSubmission from '../userData/batchSubmission/SamplesBatchSubmission/SamplesBatchSubmission';
+import SamplesCopyPasteArea from '../userData/batchSubmission/SamplesBatchSubmission/CopyPasteArea';
+import LibrariesCopyPasteArea from '../userData/batchSubmission/LibrariesBatchSubmission/CopyPasteArea';
 // import GetLabRunsData from '../tables/userData/GetUserDataRuns'
 // import ProjectRunTable from '../tables/userData/ProjectRunTable'
 
