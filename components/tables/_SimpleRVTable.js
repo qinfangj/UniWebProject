@@ -27,7 +27,8 @@ class SimpleRVTable extends React.Component {
         searchTerm: PropTypes.string,  // to filter results by that term in all columns
         autosize: PropTypes.bool,  // whether it should respond to screen width
         getColumns: PropTypes.func,   // custom way to generate the <Columns> from the columnDefs
-        headerRowRenderer: PropTypes.func,
+        headerRowRenderer: PropTypes.func,  // to override the default `tables.headerRowRenderer` with the ugly yellow stuff
+        onRowClick: PropTypes.func, // callback to fire when a row is clicked
     };
 
     _sort = ({ sortBy, sortDirection }) => {
