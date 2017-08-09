@@ -5,7 +5,7 @@ import tablesCss from './tables.css';
 
 import Immutable from 'immutable'
 import * as tables from './tables.js';
-import { Column, Table, SortIndicator, SortDirection} from 'react-virtualized';
+import { Column, Table, AutoSizer, SortIndicator, SortDirection} from 'react-virtualized';
 
 
 /**
@@ -25,6 +25,7 @@ class SimpleRVTable extends React.Component {
         columnDefs: PropTypes.array.isRequired,  // columns definition object
         tableData: PropTypes.array.isRequired,  // the data to display
         searchTerm: PropTypes.string,  // to filter results by that term in all columns
+        autosize: PropTypes.bool,  // whether it should respond to screen width
     };
 
     _sort = ({ sortBy, sortDirection }) => {
@@ -45,28 +46,40 @@ class SimpleRVTable extends React.Component {
 
         // Build the columns
         let columnDefs = this.props.columnDefs;
-        let columns = tables.makeColumns(columnDefs);
-        // Calculate the table width based on individual column widths
-        let tableWidth = columnDefs.reduce((sum, col) => sum + col.width, 0);
+        let columns;
+        let tableWidth = 1;
+        if (this.props.autosize) {
+            columns = (width) => tables.makeAutosizerColumns(width, columnDefs);
+        } else {
+            // Calculate the table width based on individual column widths
+            let allHaveWidth = columnDefs.reduce((haveWidth, col) => haveWidth && !!col.width, true);
+            if (!allHaveWidth) throw("If not autosized, all columns must have a specified width");
+            tableWidth = columnDefs.reduce((sum, col) => sum + col.width, 0);
+            columns = (_) => tables.makeFixedTableColumns(tableWidth, columnDefs);
+        }
 
         return (
             <div className={tablesCss.tableContainer} style={{width: '100%', marginTop: '15px'}}>
-                <Table
-                    width={tableWidth}
-                    height={this.tableHeight}
-                    headerClassName={tablesCss.headerColumn}
-                    headerHeight={tables.ROW_HEIGTH}
-                    headerRowRenderer={tables.headerRowRenderer}
-                    noRowsRenderer={() => (rowCount === 0) && <div className={tablesCss.noData}>{"No data"}</div>}
-                    rowCount={rowCount}
-                    rowGetter={rowGetter}
-                    rowHeight={tables.ROW_HEIGTH}
-                    sort={this._sort}
-                    sortBy={this.state.sortBy}
-                    sortDirection={this.state.sortDirection}
-                >
-                    {columns}
-                </Table>
+                <AutoSizer>
+                    {({ height, width }) => (
+                        <Table
+                            width={this.props.autosize ? width : tableWidth}
+                            height={this.tableHeight}
+                            headerClassName={tablesCss.headerColumn}
+                            headerHeight={tables.ROW_HEIGTH}
+                            headerRowRenderer={tables.headerRowRenderer}
+                            noRowsRenderer={() => (rowCount === 0) && <div className={tablesCss.noData}>{"No data"}</div>}
+                            rowCount={rowCount}
+                            rowGetter={rowGetter}
+                            rowHeight={tables.ROW_HEIGTH}
+                            sort={this._sort}
+                            sortBy={this.state.sortBy}
+                            sortDirection={this.state.sortDirection}
+                        >
+                            { columns(this.props.autosize ? width : tableWidth) }
+                        </Table>
+                    )}
+                </AutoSizer>
             </div>
 
         );

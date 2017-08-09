@@ -115,12 +115,11 @@ const routes = (
             {/* USER DATA */}
 
             <Route path="user" component={userdata.UserDataHomePage} onEnter={requireAuth} />
-            <Route path="user/batch/samples" component={userdata.BatchSamples} onEnter={requireAuth} />
-            <Route path="user/batch/libraries" component={userdata.BatchLibraries} onEnter={requireAuth} />
-
-            <Route path="user/view/labsamples" component={userdata.BatchLibraries} onEnter={requireAuth} />
-            <Route path="user/view/colsamples" component={userdata.BatchLibraries} onEnter={requireAuth} />
-            <Route path="user/data/labsdata" component={userdata.UserDataHomePage} onEnter={requireAuth} />
+            <Route path="user/batch/samples" component={userdata.BatchSamplesRoute} onEnter={requireAuth} />
+            <Route path="user/batch/libraries" component={userdata.BatchLibrariesRoute} onEnter={requireAuth} />
+            {/*<Route path="user/view/labsamples" component={userdata.BatchLibraries} onEnter={requireAuth} />*/}
+            {/*<Route path="user/view/colsamples" component={userdata.BatchLibraries} onEnter={requireAuth} />*/}
+            <Route path="user/data/labsdata" component={userdata.LabDataViewRoute} onEnter={requireAuth} />
             {/*<Route path="user/data/labsdata" component={userdata.LabsData} onEnter={requireAuth} />*/}
             {/*<Route path="user/data/labsdata/:data" component={userdata.ProjectRunDetails} onEnter={requireAuth} />*/}
             {/*<Route path="user/data/collabsdata" component={userdata.CollabsData} onEnter={requireAuth} />*/}

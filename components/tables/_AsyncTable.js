@@ -206,7 +206,7 @@ class AsyncTable extends React.PureComponent {
                                         sortBy={sortBy}
                                         sortDirection={sortDirection}
                                     >
-                                        {getColumns(width-50, this.props.columnDefs)}
+                                        { getColumns(width-50, this.props.columnDefs) }
                                     </Table>
                                 )}
                             </AutoSizer>

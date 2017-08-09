@@ -1,6 +1,31 @@
 "use strict";
+import React from 'react';
+import PropTypes from 'prop-types';
 import runsViewColumns from './runsViewColumns';
+import SimpleRVTable from '../../tables/_SimpleRVTable';
 
 
 
+/**
+ * The table to browse the Runs of the current user.
+ * If this user is admin, it should display all the Runs in the database.
+ */
+class LabDataView extends React.PureComponent {
 
+
+
+    render() {
+        let data = [];
+        return (
+            <SimpleRVTable
+                columnDefs={runsViewColumns}
+                tableData={data}
+                autosize={true}
+            />
+        );
+    }
+
+}
+
+
+export default LabDataView;

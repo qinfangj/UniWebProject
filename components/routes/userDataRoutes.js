@@ -6,46 +6,48 @@ import LibrariesBatchSubmission from '../userData/batchSubmission/LibrariesBatch
 import SamplesBatchSubmission from '../userData/batchSubmission/SamplesBatchSubmission/SamplesBatchSubmission';
 import SamplesCopyPasteArea from '../userData/batchSubmission/SamplesBatchSubmission/CopyPasteArea';
 import LibrariesCopyPasteArea from '../userData/batchSubmission/LibrariesBatchSubmission/CopyPasteArea';
+import LabDataView from '../userData/browse/LabDataView';
+
 // import GetLabRunsData from '../tables/userData/GetUserDataRuns'
 // import ProjectRunTable from '../tables/userData/ProjectRunTable'
 
 
 export class UserDataHomePage extends React.PureComponent {
     render() {
+        return <UserDataHome />;
+    }
+}
+
+export class BatchSamplesRoute extends React.PureComponent {
+    render() {
         return (
-            <div>
-                <UserDataHome />
-            </div>
+            <UserData title="Batch submission of samples" content={
+                <div>
+                    <SamplesCopyPasteArea />
+                    <SamplesBatchSubmission/>
+                </div>
+            }/>
         );
     }
 }
 
-export class BatchSamples extends React.PureComponent {
+export class BatchLibrariesRoute extends React.PureComponent {
     render() {
         return (
-            <div>
-                <UserData title="Batch submission of samples" content={
-                    <div>
-                        <SamplesCopyPasteArea />
-                        <SamplesBatchSubmission/>
-                    </div>
-                }/>
-            </div>
+            <UserData title="Batch submission of libraries" content={
+                <div>
+                    <LibrariesCopyPasteArea />
+                    <LibrariesBatchSubmission/>
+                </div>
+            }/>
         );
     }
 }
 
-export class BatchLibraries extends React.PureComponent {
+export class LabDataViewRoute extends React.PureComponent {
     render() {
         return (
-            <div>
-                <UserData title="Batch submission of libraries" content={
-                    <div>
-                        <LibrariesCopyPasteArea />
-                        <LibrariesBatchSubmission/>
-                    </div>
-                }/>
-            </div>
+            <LabDataView />
         );
     }
 }

@@ -88,25 +88,6 @@ export function headerRowRenderer({ className, columns, style }) {
 }
 
 /**
- * Construct an array of <Column>s from the columns definition.
- */
-export function makeColumns(colDefs){
-    if (!colDefs) {
-        throw new ReferenceError("No columns definition found");
-    }
-    return colDefs.map( s => {
-        return (
-            <Column key={s}
-                    label={s.headerName}
-                    dataKey={s.field}
-                    headerRenderer={_headerRenderer}
-                    width={s.width}
-            />
-        );
-    });
-}
-
-/**
  * In admin forms, filter the whole data in memory.
  * @param list: an Immutable list.
  * @param searchTerm: the string to serach for.
@@ -123,5 +104,73 @@ export function localSearch(list, searchTerm, columnDefs) {
             });
         });
     }
+}
+
+/**
+ * Construct an array of <Column>s from the columns definition.
+ * All columns must have an attribute "width".
+ */
+export function makeSimpleColumns(columnDefs) {
+    if (!columnDefs) throw new ReferenceError("No columns definition found");
+    return columnDefs.map( s => {
+        return (
+            <Column key={s}
+                    label={s.headerName}
+                    dataKey={s.field}
+                    headerRenderer={_headerRenderer}
+                    width={s.width}
+                    cellRenderer={s.cellRenderer}
+            />
+        );
+    });
+}
+
+/**
+ * Construct an array of <Column>s from the columns definition
+ * in the case of a fixed width table, i.e. table width is a predetermined constant.
+ * All columns without a "width" will share the empty space equally.
+ */
+export function makeFixedTableColumns(tableWidth, columnDefs) {
+    if (!columnDefs) {
+        throw new ReferenceError("No columns definition found");
+    }
+    /* Use columns without a "width" definition to share equally all the empty space. */
+    const nWithoutWidth = columnDefs.filter(col => !col.width).length;
+    const sumWithWidth = columnDefs.reduce((sum, col) => sum + (col.width || 0), 0);
+    const remainColumnWidth = (tableWidth - sumWithWidth) / nWithoutWidth;
+
+    return columnDefs.map( s => {
+        return (
+            <Column key={s}
+                    label={s.headerName}
+                    dataKey={s.field}
+                    headerRenderer={_headerRenderer}
+                    width={s.width || remainColumnWidth}
+                    cellRenderer={s.cellRenderer}
+            />
+        );
+    });
+}
+
+/**
+ * Construct an array of <Column>s from the columns definition
+ * in the case of an Autosizer table, i.e. table width is passed at run time.
+ * Columns will not use their "width" attribute but will share the space equally.
+ * Typically used in `_AsyncTable`.
+ */
+export function makeAutosizerColumns(tableWidth, columnDefs) {
+    const ncols = columnDefs.length;
+    const sharedColumnWidth = tableWidth / ncols;
+    return columnDefs.map( s => {
+        return (
+            <Column key={s}
+                    label={s.headerName}
+                    dataKey={s.field}
+                    headerRenderer={_headerRenderer}
+                    width={sharedColumnWidth}
+                    cellRenderer={cellRenderer}
+            />
+        );
+    });
 }
 
