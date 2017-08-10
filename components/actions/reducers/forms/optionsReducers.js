@@ -31,6 +31,7 @@ const defaultState = {
     [optionsStoreKeys.SEQUENCING_KIT_VERSIONS]: [],
     [optionsStoreKeys.SEQUENCING_QUALITIES]: [],
     [optionsStoreKeys.TAXONOMIES]: [],
+    [optionsStoreKeys.UHTS_APPLICATIONS]: [],
     [optionsStoreKeys.ROLES]: [
         ["no_access", "no access"],
         ["customer", "customer"],
@@ -62,6 +63,7 @@ function formatSampleTypes(v) { return [v.id, v.name]; }
 function formatSequencingKitVersions(v) { return [v.id, v.version]; }
 function formatSequencingQualities(v) { return [v.id, v.name]; }
 function formatTaxonomies(v) { return [v.id, v.name]; }
+function formatUHTSApplications(v) { return [v.id, v.name]; }
 
 
 
@@ -166,6 +168,8 @@ let optionsReducers = (state = defaultState, action) => {
 
         case types.options.OPTIONS_TAXONOMIES:
             return returnList(action, state, optionsStoreKeys.TAXONOMIES, [], formatTaxonomies);
+        case types.options.OPTIONS_UHTSAPPLICATIONS:
+            return returnList(action, state, optionsStoreKeys.UHTS_APPLICATIONS, [], formatUHTSApplications);
 
         default:
             return state;

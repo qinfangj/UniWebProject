@@ -10,7 +10,9 @@ import {
     requestAllProjects,
     requestAllPeople,
     requestReadLengths,
-    requestRunTypes } from '../../actions/actionCreators/optionsActionCreators';
+    requestRunTypes,
+    requestUHTSApplications
+} from '../../actions/actionCreators/optionsActionCreators';
 
 import * as forms from '../forms';
 import adminDataModels from './adminDataModels';
@@ -44,6 +46,8 @@ class CommonAdminForms extends React.Component {
         } else if (this.table === tableNames.PROJECT_SHARINGS) {
             store.dispatch(requestAllProjects());
             store.dispatch(requestAllPeople());
+        } else if (this.table === tableNames.LIB_PROTOCOLS) {
+            store.dispatch(requestUHTSApplications())
         }
         forms.newOrUpdate(this.modelName, this.table, this.props.updateId, onUpdate);
         if (this.isUpdate()) {
@@ -104,6 +108,7 @@ const mapDispatchToProps = (dispatch) => {
         requestAllPeople,
         requestReadLengths,
         requestRunTypes,
+        requestUHTSApplications,
     }, dispatch);
 };
 
