@@ -321,6 +321,13 @@ const adminDataColumns = {
             field: "ncbiId",
         }
     ],
+    [tableNames.UHTS_APPLICATIONS]: [
+        ID_COLUMN,
+        {
+            headerName: "Name",
+            field: "name",
+        },
+    ],
 };
 
 

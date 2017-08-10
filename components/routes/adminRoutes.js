@@ -679,6 +679,39 @@ export class taxonomiesUpdatePage extends React.Component {
     }
 }
 
+/******************   UHTS - APPLICATIONS   *****************/
+
+export class uhtsApplicationsListRoute extends React.Component {
+    render() {
+        return (
+            <AdminData title="UHTS Applications" name="uhts_applications" content={
+                <CommonTable dataStoreKey={tableNames.UHTS_APPLICATIONS} table={tableNames.UHTS_APPLICATIONS}
+                             domain="admin" name="uhts_applications" columns={adminDataColumns[tableNames.UHTS_APPLICATIONS]} />
+            } />
+        );
+    }
+}
+
+export class uhtsApplicationsNewPage extends React.Component {
+    render() {
+        return (
+            <AdminData title="UHTS Applications" name="uhts_applications" content={
+                <CommonAdminForms table={tableNames.UHTS_APPLICATIONS} />
+            } />
+        );
+    }
+}
+
+export class uhtsApplicationsUpdatePage extends React.Component {
+    render() {
+        return (
+            <AdminData title="UHTS Applications" name="uhts_applications" content={
+                <CommonAdminForms table={tableNames.UHTS_APPLICATIONS} updateId={this.props.params.id}/>
+            } />
+        );
+    }
+}
+
 /******************   PROJECT SHARINGS   *****************/
 
 export class projectSharingsListRoute extends React.Component {

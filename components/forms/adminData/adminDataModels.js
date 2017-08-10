@@ -562,6 +562,18 @@ const adminData = {
             }
         ],
         model: "taxonomiesForm"
+    },
+    "uhts_applications": {
+        fields: [
+            {
+                label: "Name",
+                name:  "name",
+                width:  12,
+                required: true,
+                inputType: inputTypes.TEXT
+            },
+        ],
+        model: "uhtsApplicationsForm"
     }
 };
 

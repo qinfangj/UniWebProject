@@ -215,6 +215,9 @@ const routes = (
             <Route path="admin/taxonomies/list" component={admin.taxonomiesListRoute} onEnter={requireAuth} />
             <Route path="admin/taxonomies/new" component={admin.taxonomiesNewPage} onEnter={requireAuth} />
             <Route path="admin/taxonomies/update/:id" component={admin.taxonomiesUpdatePage} onEnter={requireAuth} />
+            <Route path="admin/uhts_applications/list" component={admin.uhtsApplicationsListRoute} onEnter={requireAuth} />
+            <Route path="admin/uhts_applications/new" component={admin.uhtsApplicationsNewPage} onEnter={requireAuth} />
+            <Route path="admin/uhts_applications/update/:id" component={admin.uhtsApplicationsUpdatePage} onEnter={requireAuth} />
 
         </Route>
     </Router>
