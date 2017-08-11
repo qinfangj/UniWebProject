@@ -1,6 +1,6 @@
 
 
-@import '../../../styles/colors.css';
+@import '../../styles/colors.css';
 
 .divWrapper {
     width: 100%;
@@ -85,15 +85,20 @@
 
 .iconRow {
     position: absolute;
-    bottom: 10px;
-    right: 5px;
+    display: inline-block;
+    /*bottom: 10px;*/
+    /*right: 5px;*/
+    text-align: right;
+    width: 90%;
+    bottom: 5px;
+
 }
 
 .tooltip {
     position: relative;
     display: inline-block;
     text-align: right;
-    right: 20px;
+    right: 10px;
     bottom: 0px;
 }
 
