@@ -29,8 +29,8 @@ class UserDataHome extends React.Component {
                             <fieldset >
                                 <legend >Submission</legend>
                                     <ul>
-                                        <li><a href="/#/user/newform">Submit samples and libraries</a></li>
-                                        <li><a href="/#/user/newrequest">Request more sequences</a></li>
+                                        <li><a href="/#/user/batch/libraries">Submit samples and libraries</a></li>
+                                        <li><a href="/#/user/batch/samples">Request more sequences</a></li>
                                     </ul>
                             </fieldset>
                         </div>
@@ -51,7 +51,7 @@ class UserDataHome extends React.Component {
                         <fieldset className={css.field}>
                             <legend>Data</legend>
                             <ul>
-                                <li><a href="/#/user/data/dataruns">Get lab data</a></li>
+                                <li><a href="/#/user/data/labsdata">Get lab data</a></li>
                                 <li><a href="/#/user/data/datacollabs">Get collaboration data</a></li>
                             </ul>
                         </fieldset>
