@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import trackingData from '../../forms/tracking/trackingData';
+import trackingData from './/trackingData';
 import trackingDataModel from './trackingDataModel';
 import trackCss from './tracking.css';
 import Icon from "react-fontawesome";
