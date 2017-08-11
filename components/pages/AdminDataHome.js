@@ -13,7 +13,7 @@ class AdminDataHome extends React.Component {
     render() {
         return (
             <div>
-                <h2>Admin-restricted Database Browser</h2>
+                <h2 className={css.fdHomeRow}>Admin-restricted Database Browser</h2>
                 <Row>
                         <p>
                             This section allows you to browse and update the different table of the database that are restricted to the administrators.
