@@ -238,7 +238,7 @@ const adminData = {
             },
             {
                 label: "HasInsertSizeSelection",
-                name:  "hasinsertwidthselection",
+                name:  "hasinsertsizeselection",
                 width:  3,
                 inputType: inputTypes.CHECKBOX
             },
