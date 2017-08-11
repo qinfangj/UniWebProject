@@ -203,7 +203,7 @@ const adminData = {
             {
                 label: "Name",
                 name:  "name",
-                width:  9,
+                width:  6,
                 required: true,
                 inputType: inputTypes.TEXT
             },
@@ -213,6 +213,14 @@ const adminData = {
                 width:  3,
                 required: true,
                 inputType: inputTypes.TEXT
+            },
+            {
+                label: "Application ID",
+                name:  "application_id",
+                width:  3,
+                required: true,
+                inputType: inputTypes.DROPDOWN,
+                optionsKey: optionsStoreKeys.UHTS_APPLICATIONS,
             },
             {
                 label: "Ref Nb",
@@ -230,7 +238,7 @@ const adminData = {
             },
             {
                 label: "HasInsertSizeSelection",
-                name:  "hasinsertwidthselection",
+                name:  "hasinsertsizeselection",
                 width:  3,
                 inputType: inputTypes.CHECKBOX
             },
@@ -562,6 +570,18 @@ const adminData = {
             }
         ],
         model: "taxonomiesForm"
+    },
+    "uhts_applications": {
+        fields: [
+            {
+                label: "Name",
+                name:  "name",
+                width:  12,
+                required: true,
+                inputType: inputTypes.TEXT
+            },
+        ],
+        model: "uhtsApplicationsForm"
     }
 };
 

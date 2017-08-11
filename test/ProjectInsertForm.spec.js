@@ -58,10 +58,12 @@ let form = mount(
         <ProjectsInsertForm
             options={{
                 'LABORATORIES': [[1, "Stylianos"], [2, "Christian Beisel"]],
-                'PROJECT_STATES_OPTIONS': [[1, "open"], [2, "closed"]]
+                'PROJECT_STATES_OPTIONS': [[1, "open"], [2, "closed"]],
+                'PROJECT_ANALYSES_OPTIONS': [[1, "option1"], [2, "option2"]]
             }}
             requestLaboratories={() => null}
             requestProjectStates={() => null}
+            requestProjectAnalyses={() => null}
         />
     </Provider>
 );

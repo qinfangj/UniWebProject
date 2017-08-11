@@ -54,6 +54,7 @@ const tableNames = {
     SEQUENCING_KIT_VERSIONS: "sequencing_kit_versions",
     SEQUENCING_QUALITIES: "sequencing_qualities",
     TAXONOMIES: "taxonomies",
+    UHTS_APPLICATIONS: "uhts_applications",
 
 };
 

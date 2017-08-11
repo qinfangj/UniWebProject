@@ -13,15 +13,15 @@ class AdminDataHome extends React.Component {
     render() {
         return (
             <div>
-                <h2>Admin-restricted Database Browser</h2>
-                <Row className={css.fdHomeMsg}>
+                <h2 className={css.fdHomeRow}>Admin-restricted Database Browser</h2>
+                <Row>
                         <p>
                             This section allows you to browse and update the different table of the database that are restricted to the administrators.
                         </p>
 
 
                     <Alert bsStyle="warning" className={css.fdHomeAlert} style={{backgroundColor: 'lightgrey'}}>
-                        <p>Select a laboratory to browse its sequencing data.</p>
+                        <Row className={css.fdHomeRow}><Col sm={12}>Select a laboratory to browse its sequencing data.</Col></Row>
                         <Row className={css.fdHomeRow} >
                         <Col sm={2}>
                             <label>Laboratory:</label>
@@ -41,9 +41,11 @@ class AdminDataHome extends React.Component {
 
                     </Alert>
                 </Row>
+                <Row>
                 <div className={css.section}>
-                    <fieldset>
-                        <legend>Submission Statistic</legend>
+                    <fieldset >
+                        <legend style={{marginLeft: '25px'}}>Submission Statistic</legend>
+                        <Row className={css.fdHomeRow} >
                         <Col md={6}>
                             <table width="100%" style={{border: '1px solid lightgrey'}}>
                                 <tbody>
@@ -72,8 +74,10 @@ class AdminDataHome extends React.Component {
                                 </tbody>
                             </table>
                         </Col>
+                            </Row>
                     </fieldset>
                 </div>
+                </Row>
             </div>
         );
     }

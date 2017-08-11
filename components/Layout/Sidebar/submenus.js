@@ -167,5 +167,8 @@ export const adminSubmenu = [
     },{
       text: "Taxonomies",
       to: "/admin/taxonomies/list",
+    },{
+        text: "UHTS applications",
+        to: "/admin/uhts_applications/list",
     }
 ];

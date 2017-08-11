@@ -173,6 +173,11 @@ export function requestTaxonomies() {
     return requestOptionsListAsync(types.options.OPTIONS_TAXONOMIES, storeKey, "taxonomies");
 }
 
+export function requestUHTSApplications() {
+    let storeKey = optionsStoreKeys.UHTS_APPLICATIONS;
+    return requestOptionsListAsync(types.options.OPTIONS_UHTSAPPLICATIONS, storeKey, "uhts_applications");
+}
+
 
 
 export default function requestOptions(storeKey) {
@@ -248,6 +253,8 @@ export default function requestOptions(storeKey) {
 
         case optionsStoreKeys.TAXONOMIES:
             return requestTaxonomies();
+        case optionsStoreKeys.UHTS_APPLICATIONS:
+            return requestUHTSApplications();
 
         default:
             break;

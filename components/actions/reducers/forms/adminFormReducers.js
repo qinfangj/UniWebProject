@@ -47,7 +47,8 @@ let adminFormReducers = combineForms(
         seqQualitiesForm: initialAdminForms("sequencing_qualities"),
         taxonomiesForm: initialAdminForms("taxonomies"),
         projectSharingsForm: initialAdminForms("project_sharings"),
-        limsUsersForm: initialAdminForms("users")
+        limsUsersForm: initialAdminForms("users"),
+        uhtsApplicationsForm: initialAdminForms("uhts_applications")
     }
     ,'adminForms');
 
