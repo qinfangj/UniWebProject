@@ -1,13 +1,10 @@
 "use strict";
 
 import React from 'react';
-import trackingData from './/trackingData';
 import trackingDataModel from './trackingDataModel';
 import trackCss from './tracking.css';
-import Icon from "react-fontawesome";
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
-import Form from 'react-bootstrap/lib/Form';
 
 
 class TrackingDetailView extends React.PureComponent {

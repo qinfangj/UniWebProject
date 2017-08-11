@@ -1,21 +1,21 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import store from '../../../core/store';
+import store from '../../core/store';
 import trackCss from './tracking.css';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import validators from '../../forms/validators';
+import validators from '../forms/validators';
 import { actions} from 'react-redux-form';
 import { hashHistory } from 'react-router';
-import * as feedback from '../../../utils/feedback';
+import * as feedback from '../../utils/feedback';
 
 import { Button } from 'react-bootstrap/lib';
 import Icon from "react-fontawesome";
 import TrackingDetailView from './TrackingDetailView';
 
-import { trackingSummariesAsync } from '../../actions/actionCreators/trackingActionCreators';
+import { trackingSummariesAsync } from '../actions/actionCreators/trackingActionCreators';
 
 
 class TrackingSummaryView extends React.PureComponent {
