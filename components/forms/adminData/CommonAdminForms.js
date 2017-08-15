@@ -1,6 +1,7 @@
 "use strict";
 import React from 'react';
 import css from '../forms.css';
+import admincss from './adminForm.css';
 import store from '../../../core/store';
 import tableNames from '../../constants/tableNames';
 
@@ -20,6 +21,11 @@ import adminDataModels from './adminDataModels';
 import { Form } from 'react-redux-form';
 import SubmitButton from '../SubmitButton';
 
+import { deleteAsync } from '../../actions/actionCreators/facilityDataActionCreators';
+import { hashHistory } from 'react-router';
+import * as feedback from '../../../utils/feedback';
+import { Button } from 'react-bootstrap/lib';
+
 
 
 class CommonAdminForms extends React.Component {
@@ -36,6 +42,7 @@ class CommonAdminForms extends React.Component {
         };
         this.activateForm = this.activateForm.bind(this);
         this.deactivateForm = this.deactivateForm.bind(this);
+        this.deleteProjectSharing = this.deleteProjectSharing.bind(this);
     }
 
     componentWillMount() {
@@ -73,6 +80,40 @@ class CommonAdminForms extends React.Component {
         return updateId !== '' && updateId !== undefined;
     }
 
+    deleteProjectSharing() {
+        if (confirm("Are you sure to delete this project sharing data?")) {
+            store.dispatch(deleteAsync(this.table, this.props.updateId))
+                .done((deleteId) => {
+                    console.debug(200, "Delete <" + deleteId + "> records");
+                    feedback.success("Deleted <" + deleteId + "> records", "projectSharing.projectSharingDelete");
+                    let currentPath = window.location.pathname + window.location.hash.substr(2);
+                    hashHistory.push(currentPath.replace('/update/' + this.props.updateId, '/list'));
+                    //store.dispatch(actions.load())  // does nothing?
+                    //hashHistory.push(currentPath.replace('/new', '/list').replace(/\/update.*$/g, '/list'));
+                })
+                .fail((err) => {
+                    console.warn("Uncaught form delete error");
+                    //store.dispatch(feedbackError(this.modelName, "Uncaught form delete error", err));
+                    feedback.error("Uncaught form delete error", err, "projectSharing.projectSharingDelete");
+                });
+        }
+    }
+
+    makeDeleteButton() {
+       console.log(this.state.disabled);
+       if (this.isUpdate() && !this.state.disabled) {
+            return (
+                <Button
+                    bsStyle="primary" className={admincss.button}
+                    onClick={this.deleteProjectSharing}>
+                    Delete
+                </Button>
+            );
+        } else {
+            return null;
+        }
+    }
+
     render() {
         let formModel = adminDataModels[this.props.table];
         let formFields = forms.makeAdminFormFields(formModel, this.state.disabled, this.props.options);
@@ -89,6 +130,8 @@ class CommonAdminForms extends React.Component {
                     activateForm={this.activateForm}
                     deactivateForm={this.deactivateForm}
                 />
+
+                { this.props.table === "project_sharings"? this.makeDeleteButton():null }
             </Form>
         );
     }
