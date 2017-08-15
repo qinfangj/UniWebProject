@@ -55,7 +55,8 @@ export function userDelete(userId, feedbackRef){
             })
             .fail((err) => {
                 console.warn("Uncaught form validation error");
-                store.dispatch(feedbackError(feedbackRef, "Uncaught form validation error", err));
+                //should delete the old way to perform feedback,no feedbackError defined
+                //store.dispatch(feedbackError(feedbackRef, "Uncaught form validation error", err));
                 feedback.error("Uncaught form validation error", err, "users.userDelete");
             });
     }

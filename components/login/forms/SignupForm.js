@@ -4,6 +4,12 @@ import css from '../login.css';
 import store from '../../../core/store';
 import { signupUser } from '../../actions/actionCreators/authActionCreators';
 import validators  from '../../forms/validators';
+import optionsStoreKeys from '../../constants/optionsStoreKeys';
+import BSSelect from '../../forms/bootstrapWrappers/BSSelect';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {
+    requestLaboratories } from '../../actions/actionCreators/optionsActionCreators';
 
 import {Form, FormControl, InputGroup, FormGroup, ControlLabel, Button, HelpBlock} from 'react-bootstrap/lib';
 import Icon from 'react-fontawesome';
@@ -31,6 +37,10 @@ class SignupForm extends React.Component {
             msgLastNm:"",
             msgEmail: "",
         };
+    }
+
+    componentWillMount() {
+        store.dispatch(requestLaboratories());
     }
 
     submit() {
@@ -207,6 +217,11 @@ class SignupForm extends React.Component {
                         <HelpBlock>{this.state.msgEmail}</HelpBlock>
                     </FormGroup>
 
+                    {/* Laboratory */}
+
+                    <BSSelect className={css.formGroup} label="Laboratory" options={this.props.options[optionsStoreKeys.LABORATORIES]} hasNoneValue />
+
+
                     {/* Address */}
 
                     <FormGroup className={css.formGroup}>
@@ -239,6 +254,19 @@ class SignupForm extends React.Component {
 
 }
 
+const mapStateToProps = (state) => {
+    return {
+        options: state.options,
+    };
+};
 
-export default SignupForm;
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        requestLaboratories,
+    }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
+
 
