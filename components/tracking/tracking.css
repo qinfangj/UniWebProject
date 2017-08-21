@@ -84,14 +84,14 @@
 }
 
 .iconRow {
-    position: absolute;
-    display: inline-block;
-    /*bottom: 10px;*/
-    /*right: 5px;*/
+    position: relative;
+    /*display: inline-block;*/
+    vertical-align: bottom;
+    /*bottom: 5px;*/
+    /*right: 0px;*/
     text-align: right;
     width: 90%;
     bottom: 5px;
-
 }
 
 .tooltip {

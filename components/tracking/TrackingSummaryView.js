@@ -166,6 +166,7 @@ class TrackingSummaryView extends React.PureComponent {
             <div>{(v['laboratory'] === undefined) ? "" : v['laboratory']}  -  {(v['project'] === undefined) ? "" : v['project']} &nbsp;
                 <small><i>{(v[date] === undefined) ? "" : v[date]}</i></small><br />
                 {(v[name] === undefined) ? "" : v[name] }  {(v[type] === undefined) ? "" : v[type]}
+                <br />
             </div>
         );
     }
@@ -239,7 +240,7 @@ class TrackingSummaryView extends React.PureComponent {
                             <td height='100%' width={widthRate} key={s}>
 
                                 <div type="button" className={trackCss.cell} onClick={this.insertDetailedRow.bind(this, s, index)}>
-                                        {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
+                                    {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
                                         <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
                                             <input
                                                 type="text"
@@ -248,15 +249,15 @@ class TrackingSummaryView extends React.PureComponent {
                                                 style = {laneNoStyle}
                                             />
                                         </div>:null}
-                                        {contentsTd}
-                                        <div className={trackCss.iconRow}>
+                                    {contentsTd}
+                                    <div className={trackCss.iconRow}>
                                         {(o[s][index]['comment_customer'] !== null && o[s][index]['comment_customer'] !== "" )?
-                                                <div className={trackCss.tooltip}>
-                                                    <span className={trackCss.tooltiptext} onClick={e => {e.stopPropagation()}}>{o[s][index]['comment_customer']}</span>
-                                                    <Icon name="comment" style={{color: '#337ab7',fontSize:25}} onClick={e => {e.stopPropagation()}}/>
-                                                </div>
-                                             : null}
-                                        </div>
+                                            <div className={trackCss.tooltip}>
+                                                <span className={trackCss.tooltiptext} onClick={e => {e.stopPropagation()}}>{o[s][index]['comment_customer']}</span>
+                                                <Icon name="comment" style={{color: '#337ab7',fontSize:25}} onClick={e => {e.stopPropagation()}}/>
+                                            </div>
+                                            : null}
+                                    </div>
                                 </div>
                             </td>
                         );
