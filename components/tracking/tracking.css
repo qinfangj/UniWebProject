@@ -98,6 +98,7 @@
     position: relative;
     display: inline-block;
     text-align: right;
+    top: 5px;
     right: 10px;
     bottom: 0px;
 }
@@ -138,10 +139,10 @@
 .menuUpDown {
     position: relative;
     display: inline-block;
-    float: right;
+    /*float: right;*/
     right: 5px;
     top : 5px;
-    vertical-align: bottom;
+    /*vertical-align: bottom;*/
 }
 
 .div1 {
