@@ -1,5 +1,5 @@
 import * as Toastr from 'toastr';
-import '!!style!css!../styles/toastr.css';
+import '../styles/toastr.css';
 
 
 Toastr.options.positionClass = "toast-top-center";
