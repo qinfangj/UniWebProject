@@ -2,7 +2,8 @@
 @import '../../styles/colors.css';
 
 
-.divWrapper {
+/* The grey background around the table */
+.tableWrapper {
     width: 100%;
     padding: 10px;
     background-color: #E0E0E0;

@@ -413,7 +413,7 @@ class TrackingSummaryView extends React.PureComponent {
                     </div>
                     : null}
 
-                <div className={trackCss.divWrapper}>
+                <div className={trackCss.tableWrapper}>
                 <table id="myTable" className={trackCss.table} >
                     <thead>
                         <tr className={trackCss.tr}>
