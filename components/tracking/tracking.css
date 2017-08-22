@@ -14,10 +14,25 @@
     border-spacing: 3px;
 }
 
+/* All that battle to center the potentially multiline text */
 .th {
     height: 46px;  /* to span 2 lines */
     text-align: center;
     word-wrap: break-word;
+}
+div.header {
+    line-height: 46px;
+    margin: 0;
+    padding: 2px;
+    height: 100%;
+    background-color: var(--yellow);
+    border: solid 1px #ccc;
+}
+span.headerText {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    margin-bottom: 4px;  /* better vertical centering */
 }
 
 .tr {
@@ -31,14 +46,6 @@
     /*padding-bottom: 2px;*/
     vertical-align: middle;
     word-wrap: break-word;
-}
-
-.header {
-    margin: 0;
-    padding: 2px;
-    height: 100%;
-    background-color: var(--yellow);
-    border: solid 1px #ccc;
 }
 
 .showmore {

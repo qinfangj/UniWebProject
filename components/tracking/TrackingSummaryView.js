@@ -18,14 +18,18 @@ import TrackingDetailView from './TrackingDetailView';
 import { trackingSummariesAsync } from '../actions/actionCreators/trackingActionCreators';
 
 
+/**
+ * The table for the tracking of samples/libraries/runs.
+ * Each cell can be expanded on click to display detailed info.
+ */
 class TrackingSummaryView extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            isShowDetails :false,
-            insertRow : -1,
-            insertCol: "",
-            laneNos: {},
+            isShowDetails: false,  // wether detailed view is expanded.
+            insertRow : -1,  // row index where to expand the detailed view.
+            insertCol: "",   // ?
+            laneNos: {},     // the lane numbers inserted in the libs case, in the small text inputs for run creation.
             //isSubmit: false,
             createdlanesInfo: {},
         };
@@ -411,16 +415,21 @@ class TrackingSummaryView extends React.PureComponent {
 
                 <div className={trackCss.divWrapper}>
                 <table id="myTable" className={trackCss.table} >
-                    <thead >
-                        <tr className={trackCss.tr}><th className={trackCss.th} width='2%' />
-                        {
-                            fieldsHead.map((s) =>
-                                {
-                                        return (<th className={trackCss.th} width={98 / (fieldsHead.length) + "%"}
-                                                    key={s}><div className={trackCss.header}>{s}</div></th>)
+                    <thead>
+                        <tr className={trackCss.tr}>
+                            <th className={trackCss.th} width='2%' />
+                            {
+                                fieldsHead.map((s) => {
+                                    return (
+                                        <th className={trackCss.th} width={98 / (fieldsHead.length) + "%"} key={s}>
+                                            <div className={trackCss.header}>
+                                                <span className={trackCss.headerText}>{s}</span>
+                                            </div>
+                                        </th>
+                                    );
                                 })
-                        }
-                    </tr>
+                            }
+                        </tr>
                     </thead>
                     <tbody>
                             {rows}
