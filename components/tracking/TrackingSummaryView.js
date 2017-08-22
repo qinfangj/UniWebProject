@@ -163,9 +163,10 @@ class TrackingSummaryView extends React.PureComponent {
         }
 
         return (
-            <div>{(v['laboratory'] === undefined) ? "" : v['laboratory']}  -  {(v['project'] === undefined) ? "" : v['project']} &nbsp;
-                <small><i>{(v[date] === undefined) ? "" : v[date]}</i></small><br />
-                {(v[name] === undefined) ? "" : v[name] }  {(v[type] === undefined) ? "" : v[type]}
+            <div>
+                {v['laboratory'] || ""}  -  {v['project'] || ""} &nbsp;
+                <small><i>{v[date] ? v[date] : ""}</i></small><br />
+                {v[name] || ""}  {v[type] || ""}
             </div>
         );
     }
@@ -184,21 +185,17 @@ class TrackingSummaryView extends React.PureComponent {
 
                 if (!_.isEmpty(o[s][index])) {
 
-                    //make Td contents
+                    /* Make <td> contents */
                     let contentsTd = this.makeTdContents(o[s][index]);
 
-                    //Libraries to sequence page, make margin for Lane number input
-                    let cellMargin = this.props.isLibrary? {marginLeft:'20px'} : null;
-                    let laneNoStyle = null;
+                    let laneNoStyle = {width: '20px', height: '20px'};
                     if (this.props.isLibrary) {
-                        laneNoStyle = this.state.laneNos[s][index].valid === false ? {
-                                width: '20px',
-                                height: '20px',
-                                borderColor: 'red'
-                            } : {width: '20px', height: '20px'};
-                        //laneNoStyle = {width: '20px', height: '20px'};
+                        if (this.state.laneNos[s][index].valid === false) {
+                            laneNoStyle.borderColor = 'red';
+                        }
                     }
 
+                    /* ??? */
                     if (this.state.insertRow === index && this.state.insertCol === s){
                         return (
                             // value={this.state.laneNos[s][index].value}
@@ -218,7 +215,9 @@ class TrackingSummaryView extends React.PureComponent {
                                             :
                                             null
                                     }
+
                                     {contentsTd}
+
                                     <div className={trackCss.iconRow} >
                                     {(o[s][index]['comment_customer'] !== "" && o[s][index]['comment_customer'] !== null)?
                                         <div className={trackCss.tooltip}>
@@ -233,6 +232,7 @@ class TrackingSummaryView extends React.PureComponent {
                             </td>
                         );
 
+                    /* ??? */
                     } else {
 
                         return (
@@ -343,7 +343,6 @@ class TrackingSummaryView extends React.PureComponent {
             store.dispatch(actions.change("facilityDataForms.runs.lanes", obj));
             hashHistory.push(newPath);
         }
-
     }
 
     render() {
@@ -396,8 +395,7 @@ class TrackingSummaryView extends React.PureComponent {
         // console.log(Object.keys(this.state.createdlanesInfo).length );
 
         return (
-
-                <div>
+            <div>
                 {this.props.isLibrary?
                     <div>
                     <Button bsStyle="primary"  type="button" onClick={this.createRuns.bind(this)} className={trackCss.button} >
@@ -422,11 +420,9 @@ class TrackingSummaryView extends React.PureComponent {
                     <tbody>
                             {rows}
                     </tbody>
-
                 </table>
                 </div>
-                </div>
-
+            </div>
         );
     }
 }
