@@ -120,15 +120,17 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     /**
-     * check if entered lane number value is between 1 and 8
-     * restore valid lane numbers into state
-     * @param k
-     * @param ind
-     * @param e
+     * When we input the lane number inside the text field for a library,
+     * check if entered lane number value is between 1 and 8.
+     * If the check fails, show a warning feedback.
+     * Otherwise, update this.state.laneNos with the new lane numbers.
+     * @param k: column index.
+     * @param ind: row index.
+     * @param e: text input event.
      */
     setLaneNo(k,ind,e){
         //console.log(e.target.value);
-        let laneNos = Object.assign({},this.state.laneNos);
+        let laneNos = Object.assign({}, this.state.laneNos);
         laneNos[k][ind].value = e.target.value;
         if (e.target.value !== "") {
             let isValid = validators.laneNumberValidator(e.target.value);
@@ -278,7 +280,7 @@ class TrackingSummaryView extends React.PureComponent {
     }
 
     /**
-     * display tracking details view in the inserted tr element
+     * Display tracking details view in the inserted tr element
      * @param row
      * @param key
      * @param data
