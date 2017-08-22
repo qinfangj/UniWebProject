@@ -321,7 +321,7 @@ class TrackingSummaryView extends React.PureComponent {
      */
     createRuns = () => {
         let obj = {};
-        for (let k in this.state.laneNos){
+        for (let k of Object.keys(this.state.laneNos)){
             let sub = this.state.laneNos[k];
             for (let i = 0; i < sub.length; i++){
                 //console.log(sub[i]);
