@@ -1,87 +1,84 @@
 
-
 @import '../../styles/colors.css';
 
-.divWrapper {
+
+/* The grey background around the table */
+.tableWrapper {
     width: 100%;
     padding: 10px;
     background-color: #E0E0E0;
 }
 
 .table {
-    width: 100%
-
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 3px;
 }
 
+/* All that battle to center the potentially multiline text */
 .th {
-    padding-top: 3px;
-    padding-right: 2px;
-    padding-left: 2px;
-    padding-bottom: 3px;
-    height: 30px;
+    height: 46px;  /* to span 2 lines */
     text-align: center;
     word-wrap: break-word;
 }
-
-.tr {
-
-}
-
-.td {
-    padding-top: 2px;
-    padding-right: 2px;
-    padding-left: 2px;
-    padding-bottom: 2px;
-    vertical-align: middle;
-    word-wrap: break-word;
-}
-
-.header {
-    margin: 0px;
+div.header {
+    line-height: 46px;
+    margin: 0;
     padding: 2px;
     height: 100%;
     background-color: var(--yellow);
     border: solid 1px #ccc;
 }
+span.headerText {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    margin-bottom: 4px;  /* better vertical centering */
+}
+
+.tr {}
+.td {
+    vertical-align: middle;
+    word-wrap: break-word;
+}
 
 .showmore {
     width:auto;
-    margin: 0px;
+    margin: 0;
     padding: 10px;
     background-color: #f9f9f9;
     border: solid 1px #ccc;
     border-radius: 4px;
 }
 
+
+/* The <td> */
+.cell {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    vertical-align: top;
+}
+.cell:hover{
+    border-color: #999;
+}
 .selectedCell {
-    position: relative;
-    padding: 10px;
-    /*display:inline-block;*/
-    width: 100%;
-    height: 100%;
+    composes: cell;
     background-color: #ebf2f9;
     border: solid 1px #3572B0;
-    border-radius: 4px;
-    white-space: pre-wrap;
 }
-
-.cell {
+/* The <div> inside of the <td> */
+.cellContent {
     position: relative;
     padding: 10px;
-    /*display:inline-block;*/
     width: 100%;
     height: 100%;
-    background-color: #fff;
     border-radius: 4px;
-    border: solid 1px #ccc;
     cursor: pointer;
     transition: background-color 140ms ease-in-out, border-color 75ms ease-in-out;
     white-space: pre-wrap;
 }
 
-.cell:hover{
-    border-color: #999;
-}
 
 .iconRow {
     position: relative;
@@ -126,14 +123,17 @@
     top: 100%;
     left: 50%;
     margin-left: -5px;
+    padding: 5px;
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
 }
 
 .tooltip:hover .tooltiptext {
+    padding: 5px;
     visibility: visible;
     opacity: 1;
+    font-size: 0.9em;
 }
 
 .menuUpDown {

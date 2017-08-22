@@ -144,8 +144,10 @@ class AsyncTable extends React.PureComponent {
         /* Format data */
         tables.checkData(data);
         let list = Immutable.fromJS(data);
-        if (! this.props.filterAsync) {
-            list = tables.localSearch(list, this.state.searchTerm, this.props.columnDefs);
+        console.log(this.props.filterAsync);
+        console.log(this.props.unvalidatedUsers);
+        if (! this.props.filterAsync || this.props.unvalidatedUsers ) {
+            list = tables.localSearch(list, this.state.searchTerm || this.props.unvalidatedUsers, this.props.columnDefs);
             rowCount = list.size;
         }
         if (! this.props.sortAsync) {
@@ -228,6 +230,7 @@ class AsyncTable extends React.PureComponent {
 AsyncTable.defaultProps = {
     sortAsync: true,
     filterAsync: true,
+    unvalidatedUsers: "",
     data: [],
     nrowsPerQuery: 10000000,
     //isLoading: false,

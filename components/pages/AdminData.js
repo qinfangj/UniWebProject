@@ -4,7 +4,7 @@ import { getTableDataAsync } from '../actions/actionCreators/facilityDataActionC
 import store from '../../core/store';
 import tableNames from '../constants/tableNames';
 import PropTypes from 'prop-types';
-import css from './styles.css';
+import css from './pages.css';
 import commonCss from '../../styles/common.css';
 import { Link } from 'react-router';
 import {deleteUnvalidatedUsers} from '../actions/actionCreators/adminActionCreators';

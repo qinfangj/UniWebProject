@@ -11,11 +11,13 @@ import { requestProjectsHavingALibrary,
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import { removeLibFromRuns } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import runLanesModel from '../formModels/runLanesModel';
+import inputTypes from '../../../constants/inputTypes';
 
 import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';
 import PoolSelection from './PoolSelection';
-import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap/lib';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap/lib';
+
 
 
 /**
@@ -41,7 +43,7 @@ class LanesSubForm extends React.PureComponent {
     /**
      * Return a new empty library model object.
      */
-    makeLib(projectId = "", libraryId = "", volume = "", qualityId = 1, isQC = false) {
+    makeLib = (projectId = "", libraryId = "", volume = "", qualityId = 1, isQC = false) => {
         return {
             projectId: projectId,
             libraryId: libraryId,
@@ -49,24 +51,24 @@ class LanesSubForm extends React.PureComponent {
             qualityId: qualityId,
             isQCLib: isQC,
         };
-    }
+    };
 
     /**
      * Return a new empty lane model object.
      */
-    makeLane(laneNb, comment) {
+    makeLane = (laneNb, comment) => {
         return {
             [laneNb]: {
                 libs: [this.makeLib(),],
                 comment: comment || "",
             }
         };
-    }
+    };
 
     /**
      * Add one lane row to the table.
      */
-    addLane() {
+    addLane = () => {
         let laneNb = 0;
         if (Object.keys(this.props.lanes).length === 0) {
             laneNb = 1;
@@ -84,46 +86,46 @@ class LanesSubForm extends React.PureComponent {
             }
         }
         store.dispatch(actions.merge(this.modelName+'.lanes', this.makeLane(laneNb)));
-    }
+    };
 
     /**
      * Remove one entire lane.
      */
-    removeLane(laneNb) {
+    removeLane = (laneNb) => (e) => {
         if (confirm("Do you really want to delete the entire lane "+ laneNb +"?")) {
             store.dispatch(actions.omit(this.modelName+'.lanes', laneNb));
         }
-    }
+    };
 
     /**
      * Add one library row to the table.
      */
-    addLibrary(laneNb) {
+    addLibrary = (laneNb) => (e) => {
         store.dispatch(actions.push(this.modelName+`.lanes[${laneNb}].libs`, this.makeLib()));
-    }
+    };
 
     /**
      * Add one QC library row to the table.
      */
-    addQCLibrary(laneNb) {
+    addQCLibrary = (laneNb) => (e) => {
         store.dispatch(actions.push(this.modelName+`.lanes[${laneNb}].libs`, this.makeLib("","","", 1, true)));
-    }
+    };
 
     /**
      * Remove a library row from the table.
      * Careful! Since we remove an array element, it shifts every index, so the secondaryOptions don't
      * correspond anymore! Rename the secondaryOptions keys accordingly.
      */
-    removeLibrary(laneNb, k) {
+    removeLibrary = (laneNb, k) => {
         let nbLibs = this.props.lanes[laneNb].libs.length;
         this.props.removeLibFromRuns(laneNb, k, nbLibs);
         store.dispatch(actions.remove(this.modelName+`.lanes[${laneNb}].libs`, k));
-    }
+    };
 
     /**
      * Call the function `removeLibrary` above but asks for confirmation if the fields are not empty.
      */
-    confirmRemoveLibrary(laneNb, library, k) {
+    confirmRemoveLibrary = (laneNb, library, k) => (e) => {
         /* No need to confirm to delete an empty lib row */
         if (library.projectId === "" && library.libraryId === "") {
             this.removeLibrary(laneNb, k);
@@ -132,15 +134,14 @@ class LanesSubForm extends React.PureComponent {
                 this.removeLibrary(laneNb, k);
             }
         }
-
-    }
+    };
 
     /**
      * Display a small form to select a pool of libraries to add to the lane.
      */
-    showPoolSelection(laneNb) {
+    showPoolSelection = (laneNb) => (e) => {
         this.setState({ showPoolSelection: laneNb });
-    }
+    };
 
     /**
      * On top of triggering the default 'change' action,
@@ -148,10 +149,10 @@ class LanesSubForm extends React.PureComponent {
      * @param model: RRF model name for the project input field.
      * @param value: projectId.
      */
-    onProjectChange(model, value) {
+    onProjectChange = (model, value) => {
         store.dispatch(actions.change(model, value));
         this.props.requestLibrariesForProject(model, value);
-    }
+    };
 
     /**
      * Construct one row of 4 fields (project, lib, pM, QC).
@@ -173,15 +174,19 @@ class LanesSubForm extends React.PureComponent {
             let {inputType, optionsKey, ...otherProps} = model;
             otherProps.key = fieldName + k;
             otherProps.disabled = model.disabled || this.props.disabled;
-            if (optionsKey) {
+
+            /* Load the options list */
+            if (inputType === inputTypes.DROPDOWN && optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }
-            // Make onChange load the secondary libraries options list
+
+            /* Make onChange load the secondary libraries options list */
             if (fieldName === "projectId") {
-                otherProps.changeAction = this.onProjectChange.bind(this);
+                otherProps.changeAction = this.onProjectChange;
             } else if (fieldName === "libraryId") {
                 otherProps.refModelName = prefix +".projectId";
             }
+
             let input = <RRFInput className={qcClass} inputType={inputType} modelName={modelName} {...otherProps} />;
             formFields.push(input);
         }
@@ -203,7 +208,7 @@ class LanesSubForm extends React.PureComponent {
             </td> : null;
 
         let deleteLibraryButton = (nlibs > 1 && !this.props.disabled) ?
-            <div onClick={this.confirmRemoveLibrary.bind(this, laneNb, lib, k)}>
+            <div onClick={this.confirmRemoveLibrary(laneNb, lib, k)}>
                 <OverlayTrigger placement="left" overlay={DelLibTooltip}>
                     <Icon name='trash' className={css.removeLibrary}/>
                 </OverlayTrigger>
@@ -211,22 +216,22 @@ class LanesSubForm extends React.PureComponent {
 
         let laneButtonsCell = (k === 0 && !this.props.disabled) ?
             <td className={css.laneCell} rowSpan={lane.nlibs + 1}>
-                <div onClick={this.removeLane.bind(this, laneNb)}>
+                <div onClick={this.removeLane(laneNb)}>
                     <OverlayTrigger placement="left" overlay={DelLaneTooltip}>
                         <Icon name="trash" className={css.removeLane}/>
                     </OverlayTrigger>
                 </div>
-                <div onClick={this.addLibrary.bind(this, laneNb)}>
+                <div onClick={this.addLibrary(laneNb)}>
                     <OverlayTrigger placement="left" overlay={AddLibTooltip}>
                         <Icon name='plus-circle' className={css.addLibrary}/>
                     </OverlayTrigger>
                 </div>
-                <div onClick={this.addQCLibrary.bind(this, laneNb)}>
+                <div onClick={this.addQCLibrary(laneNb)}>
                     <OverlayTrigger placement="left" overlay={AddQCLibTooltip}>
                         <Icon name='plus-circle' className={css.addQCLibrary}/>
                     </OverlayTrigger>
                 </div>
-                <div onClick={this.showPoolSelection.bind(this, laneNb)}>
+                <div onClick={this.showPoolSelection(laneNb)}>
                     <OverlayTrigger placement="left" overlay={AddPoolTooltip}>
                         <Button className={css.addPool}>{"P"}</Button>
                     </OverlayTrigger>
@@ -314,7 +319,7 @@ class LanesSubForm extends React.PureComponent {
         }
         return (
             <div>
-                <Button className={css.addLaneButton} bsStyle="info" disabled={this.props.disabled} onClick={this.addLane.bind(this)}>Add lane</Button>
+                <Button className={css.addLaneButton} bsStyle="info" disabled={this.props.disabled} onClick={this.addLane}>Add lane</Button>
 
                 <div className="clearfix"/>
 
@@ -345,6 +350,7 @@ const mapStateToProps = (state) => {
     return {
         lanes: formData.lanes,
         options: state.options,
+        secondaryOptions: state.secondaryOptions,
     };
 };
 

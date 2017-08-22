@@ -32,6 +32,17 @@ export class LimsUsersListRoute extends React.Component {
     }
 }
 
+export class LimsUsersUnvalidatedUsersRoute extends React.Component {
+    render() {
+        return (
+            <AdminData title="LIMS Users" name="users" content={
+                <CommonTable dataStoreKey={tableNames.USERS} table={tableNames.USERS} unvalidatedUsers="false"
+                             domain="admin" name="users" columns={adminDataColumns[tableNames.USERS]} />
+            }/>
+        );
+    }
+}
+
 export class LimsUsersNewPage extends React.Component {
     render() {
         return (

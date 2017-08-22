@@ -78,6 +78,7 @@ class CommonTable extends React.PureComponent {
                 formatter={this.props.formatter}
                 sortAsync={this.props.domain === "facility"}
                 filterAsync={this.props.domain === "facility"}
+                unvalidatedUsers= {this.props.unvalidatedUsers}
                 nrowsPerQuery={nrowsPerQuery}
             />
         )

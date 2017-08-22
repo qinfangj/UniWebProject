@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from './styles.css';
+import css from './pages.css';
 import commonCss from '../../styles/common.css';
 import { Link } from 'react-router';
 
