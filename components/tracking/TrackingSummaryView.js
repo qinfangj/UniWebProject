@@ -99,7 +99,7 @@ class TrackingSummaryView extends React.PureComponent {
      * @param key
      * @param index
      */
-    insertDetailedRow(key,index){
+    insertDetailedRow = (key, index) => (e) => {
         if (this.state.isShowDetails) {
             if (index === this.state.insertRow && key === this.state.insertCol) {
                 this.setState({
@@ -121,7 +121,7 @@ class TrackingSummaryView extends React.PureComponent {
                 insertCol: key,
             })
         }
-    }
+    };
 
     /**
      * check if entered lane number value is between 1 and 8
@@ -130,7 +130,7 @@ class TrackingSummaryView extends React.PureComponent {
      * @param ind
      * @param e
      */
-    setLaneNo(k,ind,e){
+    setLaneNo = (k, ind) => (e) => {
         //console.log(e.target.value);
         let laneNos = Object.assign({},this.state.laneNos);
         laneNos[k][ind].value = e.target.value;
@@ -144,7 +144,7 @@ class TrackingSummaryView extends React.PureComponent {
             laneNos[k][ind].valid = true;
         }
         this.setState({laneNos: laneNos});
-    }
+    };
 
     /**
      * Document please
@@ -204,7 +204,7 @@ class TrackingSummaryView extends React.PureComponent {
                         return (
                             // value={this.state.laneNos[s][index].value}
                             <td className={trackCss.selectedCell} height='100%' width={widthRate} key={s}
-                                onClick={this.insertDetailedRow.bind(this, s, index)}
+                                onClick={this.insertDetailedRow(s, index)}
                             >
                                 <div type="button" className={trackCss.cellContent}>
                                     {
@@ -213,7 +213,7 @@ class TrackingSummaryView extends React.PureComponent {
                                                 <input
                                                     type="text"
                                                     value={this.state.laneNos[s][index].value}
-                                                    onChange={this.setLaneNo.bind(this, s, index)}
+                                                    onChange={this.setLaneNo(s, index)}
                                                     style={laneNoStyle}
                                                 />
                                             </div>
@@ -242,15 +242,15 @@ class TrackingSummaryView extends React.PureComponent {
 
                         return (
                             <td className={trackCss.cell} height='100%' width={widthRate} key={s}
-                                onClick={this.insertDetailedRow.bind(this, s, index)}
+                                onClick={this.insertDetailedRow(s, index)}
                             >
-                                <div type="button" className={trackCss.cellContent} onClick={this.insertDetailedRow.bind(this, s, index)}>
+                                <div type="button" className={trackCss.cellContent} onClick={this.insertDetailedRow(s, index)}>
                                         {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
                                         <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
                                             <input
                                                 type="text"
                                                 value={this.state.laneNos[s][index].value}
-                                                onChange={this.setLaneNo.bind(this, s, index)}
+                                                onChange={this.setLaneNo(s, index)}
                                                 style = {laneNoStyle}
                                             />
                                         </div>:null}
@@ -276,13 +276,13 @@ class TrackingSummaryView extends React.PureComponent {
         return td
     }
 
-    closeDetailsView(){
+    closeDetailsView = () => {
         this.setState({
             isShowDetails: false,
             insertRow: -1,
             insertCol: "",
         })
-    }
+    };
 
     /**
      * display tracking details view in the inserted tr element
@@ -296,7 +296,7 @@ class TrackingSummaryView extends React.PureComponent {
                 <tr key={row +1}>
                     <td colSpan={Object.keys(data).length+1} className= {trackCss.td}>
                         <div className={trackCss.showmore}>
-                        <span className={trackCss.close} onClick={this.closeDetailsView.bind(this)} >
+                        <span className={trackCss.close} onClick={this.closeDetailsView} >
                             <Icon name='times-circle' style={{fontSize:20}}/></span>
                             <TrackingDetailView detailData={data[key][row]} dataKey={this.props.dataStoreKey}/>
                         </div>
@@ -319,14 +319,14 @@ class TrackingSummaryView extends React.PureComponent {
      * creat runs after entering lane numbers in the cell input boxes
      * the page will be redirected to new facility run page
      */
-    createRuns(){
+    createRuns = () => {
         let obj = {};
         for (let k in this.state.laneNos){
             let sub = this.state.laneNos[k];
             for (let i = 0; i < sub.length; i++){
                 //console.log(sub[i]);
                 //console.log(sub[i].value);
-                if (sub[i] !== null && sub[i].value !== ""){
+                if (sub[i] !== null && sub[i].value !== "") {
                     obj[sub[i].value] = {
                         comment:"",
                         libs:[{
@@ -352,7 +352,7 @@ class TrackingSummaryView extends React.PureComponent {
             store.dispatch(actions.change("facilityDataForms.runs.lanes", obj));
             hashHistory.push(newPath);
         }
-    }
+    };
 
     render() {
 
@@ -407,7 +407,7 @@ class TrackingSummaryView extends React.PureComponent {
             <div>
                 {this.props.isLibrary?
                     <div>
-                    <Button bsStyle="primary"  type="button" onClick={this.createRuns.bind(this)} className={trackCss.button} >
+                    <Button bsStyle="primary"  type="button" onClick={this.createRuns} className={trackCss.button} >
                         Create Runs
                     </Button>
                     </div>
