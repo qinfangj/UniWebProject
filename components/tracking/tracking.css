@@ -35,15 +35,8 @@ span.headerText {
     margin-bottom: 4px;  /* better vertical centering */
 }
 
-.tr {
-
-}
-
+.tr {}
 .td {
-    /*padding-top: 2px;*/
-    /*padding-right: 2px;*/
-    /*padding-left: 2px;*/
-    /*padding-bottom: 2px;*/
     vertical-align: middle;
     word-wrap: break-word;
 }
