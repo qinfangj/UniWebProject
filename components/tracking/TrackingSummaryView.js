@@ -199,9 +199,10 @@ class TrackingSummaryView extends React.PureComponent {
                     if (this.state.insertRow === index && this.state.insertCol === s){
                         return (
                             // value={this.state.laneNos[s][index].value}
-                            <td height='100%' width={widthRate} key={s}>
-
-                                <div type="button" className={trackCss.selectedCell} onClick={this.insertDetailedRow.bind(this, s, index)}>
+                            <td className={trackCss.selectedCell} height='100%' width={widthRate} key={s}
+                                onClick={this.insertDetailedRow.bind(this, s, index)}
+                            >
+                                <div type="button" className={trackCss.cellContent}>
                                     {
                                         this.props.isLibrary && this.state.laneNos[s][index] !== null ?
                                             <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
@@ -236,9 +237,10 @@ class TrackingSummaryView extends React.PureComponent {
                     } else {
 
                         return (
-                            <td height='100%' width={widthRate} key={s}>
-
-                                <div type="button" className={trackCss.cell} onClick={this.insertDetailedRow.bind(this, s, index)}>
+                            <td className={trackCss.cell} height='100%' width={widthRate} key={s}
+                                onClick={this.insertDetailedRow.bind(this, s, index)}
+                            >
+                                <div type="button" className={trackCss.cellContent} onClick={this.insertDetailedRow.bind(this, s, index)}>
                                         {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
                                         <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
                                             <input
@@ -248,7 +250,9 @@ class TrackingSummaryView extends React.PureComponent {
                                                 style = {laneNoStyle}
                                             />
                                         </div>:null}
+
                                         {contentsTd}
+
                                         <div className={trackCss.iconRow}>
                                         {(o[s][index]['comment_customer'] !== null && o[s][index]['comment_customer'] !== "" )?
                                                 <div className={trackCss.tooltip}>
@@ -297,9 +301,10 @@ class TrackingSummaryView extends React.PureComponent {
             );
         } else {
             return (
-                <tr key={row +1}><td colSpan={Object.keys(data).length+1} className= {trackCss.td}>
-                    <p className={trackCss.showmore}>No details</p>
-                </td>
+                <tr key={row +1}>
+                    <td colSpan={Object.keys(data).length+1} className= {trackCss.td}>
+                        <p className={trackCss.showmore}>No details</p>
+                    </td>
                 </tr>
             );
         }

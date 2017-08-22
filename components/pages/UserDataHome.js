@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react';
-import css from './styles.css';
+import css from './pages.css';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Alert from 'react-bootstrap/lib/Alert';

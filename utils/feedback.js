@@ -1,4 +1,6 @@
 import * as Toastr from 'toastr';
+import '!!style!css!../styles/toastr.css';
+
 
 Toastr.options.positionClass = "toast-top-center";
 //Toastr.options.timeOut = "100000000";  // for testing
