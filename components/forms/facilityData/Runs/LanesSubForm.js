@@ -11,11 +11,13 @@ import { requestProjectsHavingALibrary,
 import { requestLibrariesForProject } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import { removeLibFromRuns } from '../../../actions/actionCreators/secondaryOptionsActionCreators';
 import runLanesModel from '../formModels/runLanesModel';
+import inputTypes from '../../../constants/inputTypes';
 
 import RRFInput from '../../bootstrapWrappers/RRFInput.js';
 import Icon from 'react-fontawesome';
 import PoolSelection from './PoolSelection';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap/lib';
+
 
 
 /**
@@ -172,15 +174,19 @@ class LanesSubForm extends React.PureComponent {
             let {inputType, optionsKey, ...otherProps} = model;
             otherProps.key = fieldName + k;
             otherProps.disabled = model.disabled || this.props.disabled;
-            if (optionsKey) {
+
+            /* Load the options list */
+            if (inputType === inputTypes.DROPDOWN && optionsKey) {
                 otherProps.options = this.props.options[optionsKey];
             }
-            // Make onChange load the secondary libraries options list
+
+            /* Make onChange load the secondary libraries options list */
             if (fieldName === "projectId") {
                 otherProps.changeAction = this.onProjectChange;
             } else if (fieldName === "libraryId") {
                 otherProps.refModelName = prefix +".projectId";
             }
+
             let input = <RRFInput className={qcClass} inputType={inputType} modelName={modelName} {...otherProps} />;
             formFields.push(input);
         }
@@ -344,6 +350,7 @@ const mapStateToProps = (state) => {
     return {
         lanes: formData.lanes,
         options: state.options,
+        secondaryOptions: state.secondaryOptions,
     };
 };
 

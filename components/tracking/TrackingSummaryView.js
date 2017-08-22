@@ -3,12 +3,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import trackCss from './tracking.css';
 import _ from 'lodash';
+import $ from 'jquery';
 
 import store from '../../core/store';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions} from 'react-redux-form';
 import { trackingSummariesAsync } from '../actions/actionCreators/trackingActionCreators';
+import { requestLibrariesForProject } from '../actions/actionCreators/secondaryOptionsActionCreators';
+
 
 import validators from '../forms/validators';
 import { hashHistory } from 'react-router';
@@ -46,18 +49,18 @@ class TrackingSummaryView extends React.PureComponent {
 
     // anti-pattern here
     componentWillMount() {
-        console.log("componentWillMount");
+        // console.log("componentWillMount");
         let trackingData = this.props.trackingData;
-        console.log(this.props.trackingData);
+        // console.log(this.props.trackingData);
 
          if (trackingData && Object.keys(trackingData).length > 0) {
-             console.log("componentWillMount2");
+             // console.log("componentWillMount2");
              if (this.props.isLibrary) {
                  this.setState({laneNos: this.props.initalLaneNo(trackingData)})
              }
          } else {
-            console.log("componentWillMount3");
-            this.props.trackingSummariesAsync(this.props.dataStoreKey)
+             // console.log("componentWillMount3");
+             this.props.trackingSummariesAsync(this.props.dataStoreKey)
                 .fail(() => console.error("TrackingSummaryView.getTrackingSummaries() failed to load data."));
          }
     }
@@ -321,14 +324,14 @@ class TrackingSummaryView extends React.PureComponent {
      * the page will be redirected to new facility run page
      */
     createRuns = () => {
-        let obj = {};
+        let submitData = {};
         for (let k of Object.keys(this.state.laneNos)){
             let sub = this.state.laneNos[k];
             for (let i = 0; i < sub.length; i++){
                 //console.log(sub[i]);
                 //console.log(sub[i].value);
                 if (sub[i] !== null && sub[i].value !== "") {
-                    obj[sub[i].value] = {
+                    submitData[sub[i].value] = {
                         comment:"",
                         libs:[{
                             projectId: this.props.trackingData[k][i].desc.projectId,
@@ -341,18 +344,32 @@ class TrackingSummaryView extends React.PureComponent {
                 }
             }
         }
-        console.log(obj);
+        console.log(submitData);
 
-        if (_.isEmpty(obj)) {
+        if (_.isEmpty(submitData)) {
             feedback.warning("Pease enter the lane numbers!", "TrackingSummaryView.createRuns");
         } else {
             //console.log(createdLanes);
             let newPath = window.location.pathname + "facility/runs/from-tracking";
             console.log(newPath);
             store.dispatch(actions.reset("facilityDataForms.runs"));
-            store.dispatch(actions.change("facilityDataForms.runs.lanes", obj));
-            this.props.requestLibrariesForProject();
-            hashHistory.push(newPath);
+            store.dispatch(actions.change("facilityDataForms.runs.lanes", submitData));
+
+            /* Load the corresponding secondary dropdowns */
+            let promises = [];
+            for (let laneNb of Object.keys(submitData)) {
+                let libs = submitData[laneNb].libs;
+                for (let k in libs) {
+                    let lib = libs[k];
+                    let promise = this.props.requestLibrariesForProject(`facilityDataForms.runs.lanes[${laneNb}].libs[${k}].projectId`, lib.projectId);
+                    promises.push(promise);
+                }
+            }
+            /* Only when they are loaded, we can go to the Runs form and create the inputs.
+               Avoiding that needs another refactoring of the secondary inputs... */
+            $.when.apply($, promises).done(() => {
+                hashHistory.push(newPath);
+            });
         }
     };
 
@@ -366,8 +383,8 @@ class TrackingSummaryView extends React.PureComponent {
         //######## Get Real data from backend #######
         let dataSummary = this.unifyDataLength(this.props.summaries);
         let dataDetail = this.unifyDataLength(this.props.trackingData);
-        console.log(dataSummary);
-        console.log(dataDetail);
+        //console.log(dataSummary);
+        //console.log(dataDetail);
         let fieldsHead = Object.keys(this.props.summaries);
         let lengthArray = fieldsHead.map((s) =>{ return (this.props.summaries[s].length)});
         //######## Transform Real data to be designed data #######
@@ -465,14 +482,12 @@ const mapStateToProps = (state, ownProps) => {
         if (!isNullArr){
             trackingData[s] = data[s];
         }
-
     });
 
     //console.log(trackingData);
 
     let summaries={};
     for (let key in trackingData) {
-
         let sub = trackingData[key];
         let arr = sub.map((s) => {
             if (s === null){
@@ -488,7 +503,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         trackingData: trackingData,
         summaries: summaries,
-        laneInfo: (ownProps.isLibrary)? ownProps.initalLaneNo(trackingData):{}
+        laneInfo: (ownProps.isLibrary) ? ownProps.initalLaneNo(trackingData) : {},
     };
 };
 

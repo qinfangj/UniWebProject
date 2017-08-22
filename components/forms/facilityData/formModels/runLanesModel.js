@@ -25,7 +25,7 @@ const runLanesModel = {
         "libraryId": {
             width: 4,
             inputType: inputTypes.SEC_DROPDOWN,
-            optionsKey: optionsStoreKeys.LIBRAIRIES_FOR_PROJECT,
+            //optionsKey: optionsStoreKeys.LIBRAIRIES_FOR_PROJECT,
             required: true,
         },
         "quantityLoaded": {
