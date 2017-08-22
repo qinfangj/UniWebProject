@@ -55,6 +55,7 @@ class LoginForm extends React.Component {
                         <InputGroup>
                         <InputGroup.Addon><Icon name="user"/></InputGroup.Addon>
                         <FormControl
+                            id="username"
                             value={this.state.username}
                             onChange={this.onChangeUsername}
                         />
@@ -65,6 +66,7 @@ class LoginForm extends React.Component {
                         <InputGroup>
                         <InputGroup.Addon><Icon name="lock"/></InputGroup.Addon>
                         <FormControl
+                            id="password"
                             type="password"
                             value={this.state.password}
                             onChange={this.onChangePassword}
