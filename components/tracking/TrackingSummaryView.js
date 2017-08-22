@@ -1,13 +1,16 @@
 "use strict";
 import React from 'react';
 import PropTypes from 'prop-types';
-import store from '../../core/store';
 import trackCss from './tracking.css';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import validators from '../forms/validators';
+import store from '../../core/store';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { actions} from 'react-redux-form';
+import { trackingSummariesAsync } from '../actions/actionCreators/trackingActionCreators';
+
+import validators from '../forms/validators';
 import { hashHistory } from 'react-router';
 import * as feedback from '../../utils/feedback';
 
@@ -15,7 +18,6 @@ import { Button } from 'react-bootstrap/lib';
 import Icon from "react-fontawesome";
 import TrackingDetailView from './TrackingDetailView';
 
-import { trackingSummariesAsync } from '../actions/actionCreators/trackingActionCreators';
 
 
 /**
@@ -30,7 +32,6 @@ class TrackingSummaryView extends React.PureComponent {
             insertRow : -1,  // row index where to expand the detailed view.
             insertCol: "",   // ?
             laneNos: {},     // the lane numbers inserted in the libs case, in the small text inputs for run creation.
-            //isSubmit: false,
             createdlanesInfo: {},
         };
     }
@@ -41,7 +42,6 @@ class TrackingSummaryView extends React.PureComponent {
         dataStoreKey: PropTypes.string,
         isLibrary : PropTypes.bool,
         laneInfo: PropTypes.object,
-        //initialLaneNo : PropTypes.func,
     };
 
     // anti-pattern here
@@ -57,7 +57,7 @@ class TrackingSummaryView extends React.PureComponent {
              }
          } else {
             console.log("componentWillMount3");
-            this.props.getTrackingSummaries(this.props.dataStoreKey)
+            this.props.trackingSummariesAsync(this.props.dataStoreKey)
                 .fail(() => console.error("TrackingSummaryView.getTrackingSummaries() failed to load data."));
          }
     }
@@ -187,93 +187,94 @@ class TrackingSummaryView extends React.PureComponent {
 
             let widthRate = 98/(Object.keys(o).length) + "%";
 
-                if (!_.isEmpty(o[s][index])) {
+            /* ??? */
+            if (!_.isEmpty(o[s][index])) {
 
-                    /* Make <td> contents */
-                    let contentsTd = this.makeTdContents(o[s][index]);
+                /* Make <td> contents */
+                let contentsTd = this.makeTdContents(o[s][index]);
 
-                    let laneNoStyle = {width: '20px', height: '20px'};
-                    if (this.props.isLibrary) {
-                        if (this.state.laneNos[s][index].valid === false) {
-                            laneNoStyle.borderColor = 'red';
-                        }
+                /* Set text input border style based on validation status */
+                let laneNoStyle = {width: '20px', height: '20px'};
+                if (this.props.isLibrary) {
+                    if (this.state.laneNos[s][index].valid === false) {
+                        laneNoStyle.borderColor = 'red';
                     }
+                }
 
-                    /* ??? */
-                    if (this.state.insertRow === index && this.state.insertCol === s){
-                        return (
-                            // value={this.state.laneNos[s][index].value}
-                            <td className={trackCss.selectedCell} height='100%' width={widthRate} key={s}
-                                onClick={this.insertDetailedRow(s, index)}
-                            >
-                                <div type="button" className={trackCss.cellContent}>
-                                    {
-                                        this.props.isLibrary && this.state.laneNos[s][index] !== null ?
-                                            <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
-                                                <input
-                                                    type="text"
-                                                    value={this.state.laneNos[s][index].value}
-                                                    onChange={this.setLaneNo(s, index)}
-                                                    style={laneNoStyle}
-                                                />
-                                            </div>
-                                            :
-                                            null
-                                    }
-
-                                    {contentsTd}
-
-                                    <div className={trackCss.iconRow} >
-                                    {(o[s][index]['comment_customer'] !== "" && o[s][index]['comment_customer'] !== null)?
-                                        <div className={trackCss.tooltip}>
-                                            <span className={trackCss.tooltiptext} onClick={e => {e.stopPropagation()}}>{o[s][index]['comment_customer']}</span>
-                                            <Icon name="comment" style={{color: '#337ab7', fontSize:25}} onClick={e => {e.stopPropagation()}} />
-                                        </div>: null }
-                                        <div className={trackCss.menuUpDown}>
-                                            <Icon name="chevron-down" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        );
-
-                    /* ??? */
-                    } else {
-
-                        return (
-                            <td className={trackCss.cell} height='100%' width={widthRate} key={s}
-                                onClick={this.insertDetailedRow(s, index)}
-                            >
-                                <div type="button" className={trackCss.cellContent} onClick={this.insertDetailedRow(s, index)}>
-                                        {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
+                /* ??? */
+                if (this.state.insertRow === index && this.state.insertCol === s) {
+                    return (
+                        // value={this.state.laneNos[s][index].value}
+                        <td className={trackCss.selectedCell} height='100%' width={widthRate} key={s}
+                            onClick={this.insertDetailedRow(s, index)}
+                        >
+                            <div type="button" className={trackCss.cellContent}>
+                                {
+                                    this.props.isLibrary && this.state.laneNos[s][index] !== null ?
                                         <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
                                             <input
                                                 type="text"
                                                 value={this.state.laneNos[s][index].value}
                                                 onChange={this.setLaneNo(s, index)}
-                                                style = {laneNoStyle}
+                                                style={laneNoStyle}
                                             />
-                                        </div>:null}
-
-                                        {contentsTd}
-
-                                        <div className={trackCss.iconRow}>
-                                        {(o[s][index]['comment_customer'] !== null && o[s][index]['comment_customer'] !== "" )?
-                                                <div className={trackCss.tooltip}>
-                                                    <span className={trackCss.tooltiptext} onClick={e => {e.stopPropagation()}}>{o[s][index]['comment_customer']}</span>
-                                                    <Icon name="comment" style={{color: '#337ab7',fontSize:25}} onClick={e => {e.stopPropagation()}}/>
-                                                </div>
-                                             : null}
                                         </div>
+                                        :
+                                        null
+                                }
+
+                                {contentsTd}
+
+                                <div className={trackCss.iconRow} >
+                                {(o[s][index]['comment_customer'] !== "" && o[s][index]['comment_customer'] !== null)?
+                                    <div className={trackCss.tooltip}>
+                                        <span className={trackCss.tooltiptext} onClick={e => {e.stopPropagation()}}>{o[s][index]['comment_customer']}</span>
+                                        <Icon name="comment" style={{color: '#337ab7', fontSize:25}} onClick={e => {e.stopPropagation()}} />
+                                    </div>: null }
+                                    <div className={trackCss.menuUpDown}>
+                                        <Icon name="chevron-down" />
+                                    </div>
                                 </div>
-                            </td>
-                        );
-                    }
+                            </div>
+                        </td>
+                    );
+
+                /* ??? */
+                } else {
+
+                    return (
+                        <td className={trackCss.cell} height='100%' width={widthRate} key={s}
+                            onClick={this.insertDetailedRow(s, index)}
+                        >
+                            <div type="button" className={trackCss.cellContent} onClick={this.insertDetailedRow(s, index)}>
+                                    {this.props.isLibrary && this.state.laneNos[s][index]!== null ?
+                                    <div className={trackCss.laneNo} onClick={e => {e.stopPropagation()}}>
+                                        <input
+                                            type="text"
+                                            value={this.state.laneNos[s][index].value}
+                                            onChange={this.setLaneNo(s, index)}
+                                            style = {laneNoStyle}
+                                        />
+                                    </div>:null}
+
+                                    {contentsTd}
+
+                                    <div className={trackCss.iconRow}>
+                                    {(o[s][index]['comment_customer'] !== null && o[s][index]['comment_customer'] !== "" )?
+                                            <div className={trackCss.tooltip}>
+                                                <span className={trackCss.tooltiptext} onClick={e => {e.stopPropagation()}}>{o[s][index]['comment_customer']}</span>
+                                                <Icon name="comment" style={{color: '#337ab7',fontSize:25}} onClick={e => {e.stopPropagation()}}/>
+                                            </div>
+                                         : null}
+                                    </div>
+                            </div>
+                        </td>
+                    );
                 }
             }
-        );
+        });
         //console.log(index);
-        return td
+        return td;
     }
 
     closeDetailsView = () => {
@@ -350,6 +351,7 @@ class TrackingSummaryView extends React.PureComponent {
             console.log(newPath);
             store.dispatch(actions.reset("facilityDataForms.runs"));
             store.dispatch(actions.change("facilityDataForms.runs.lanes", obj));
+            this.props.requestLibrariesForProject();
             hashHistory.push(newPath);
         }
     };
@@ -453,18 +455,12 @@ const mapStateToProps = (state, ownProps) => {
     //if the array object of the key are all nulls.
     //not even display the key column in the summaries view
     let data = Object.assign({}, state.tracking[ownProps.dataStoreKey]);
-
     let types = Object.keys(data);
     let trackingData = {};
     types.map((s) => {
-        // monstruosity is this loop
         let isNullArr = true;
-        for (let i=0; i < data[s].length; i++){
-            if (isNullArr && _.isNull(data[s][i])){
-                isNullArr = true
-            } else {
-                isNullArr = false
-            }
+        for (let i=0; i < data[s].length; i++) {
+            isNullArr = isNullArr && _.isNull(data[s][i])
         }
         if (!isNullArr){
             trackingData[s] = data[s];
@@ -497,9 +493,10 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        getTrackingSummaries: (storeKey) => dispatch(trackingSummariesAsync(storeKey)),
-    };
+    return bindActionCreators({
+        requestLibrariesForProject,
+        trackingSummariesAsync,
+    }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrackingSummaryView);
